@@ -15,16 +15,20 @@ QMAKE_CXXFLAGS += -Wno-deprecated-copy
 include(./lib/QFontIcon/QFontIcon.pri)
 include(./lib/qtermwidget/qtermwidget.pro)
 include(./lib/qtxyzmodem/qtxyzmodem.pro)
+include(./lib/QTelnet/QTelnet.pri)
 
 
 SOURCES += \
+    src/quickconnectwindow.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
+    src/quickconnectwindow.h \
     src/mainwindow.h
 
 FORMS += \
+    src/quickconnectwindow.ui \
     src/mainwindow.ui
 
 RESOURCES += \
@@ -52,45 +56,29 @@ RCC_DIR     = $$build_type/rcc
 UI_DIR      = $$build_type/ui
 
 
-win32:!wasm {
+# 平台配置
+win32:{
     VERSION = $${BUILD_VERSION}.000
-    RC_LANG = 0x0004
-    RC_ICONS = "icons\icon.ico"
+    RC_ICONS = "icons\ico.ico"
+    QMAKE_TARGET_PRODUCT = "quardCRT"
+    QMAKE_TARGET_DESCRIPTION = "quardCRT based on Qt $$[QT_VERSION]"
+    QMAKE_TARGET_COPYRIGHT = "GNU General Public License v3.0"
 
-    contains(TARGET_ARCH, x86_64) {
-        CONFIG(release, debug|release) {
-            AFTER_LINK_CMD_LINE = $$PWD/tools/upx-3.96-win64/upx.exe --best -f $$DESTDIR/$${TARGET}.exe
-            QMAKE_POST_LINK += $$quote($$AFTER_LINK_CMD_LINE)
-        }
-    } else {
-        QMAKE_LFLAGS += -Wl,--large-address-aware
-        CONFIG(release, debug|release) {
-            AFTER_LINK_CMD_LINE = $$PWD/tools/upx-3.96-win32/upx.exe --best -f $$DESTDIR/$${TARGET}.exe
-            QMAKE_POST_LINK += $$quote($$AFTER_LINK_CMD_LINE)
-        }
-    }
+    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | $$PWD/tools/awk/awk.exe \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
 }
 
-unix:!macx:!android:!ios:!wasm {
+unix:!macx:{
     QMAKE_RPATHDIR=$ORIGIN
     QMAKE_LFLAGS += -no-pie
-
-    CONFIG(release, debug|release) {
-        AFTER_LINK_CMD_LINE = upx-ucl --best -f $$DESTDIR/$$TARGET
-        QMAKE_POST_LINK += $$quote($$AFTER_LINK_CMD_LINE)
-    }
-
-    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --exclude '*' | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.tmp && mv git_tag.tmp git_tag.inc")
+    
+    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
 }
 
-macx:!ios:!wasm {
-    DEFINES += DESKTOP_INTERACTION_MODE
-    DEFINES += BUILT_IN_QEMU_MODE
-
+macx:{
     QMAKE_RPATHDIR=$ORIGIN
-    ICON = "icons/icon.icns"
+    ICON = "icons\ico.icns"
 
-    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --exclude '*' | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.tmp && mv git_tag.tmp git_tag.inc")
+    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
 }
 
 git_tag.target = $$PWD/git_tag.inc

@@ -1,0 +1,12 @@
+Package: quardCRT
+Version: #VERSION#
+Architecture: amd64
+Section: utils
+Depends: 
+Recommends: 
+Source: quardCRT
+Installed-Size: #SIZE#
+Priority: extra
+Maintainer: QQxiaoming <2014500726@smail.xtu.edu.cn>
+Description: quardCRT tools
+Homepage: https://github.com/QQxiaoming/quardCRT

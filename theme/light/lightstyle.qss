@@ -361,18 +361,18 @@ QMenuBar:focus {
 
 QMenuBar::item {
   background: transparent;
-  padding: 4px;
+  padding: 1px;
 }
 
 QMenuBar::item:selected {
-  padding: 4px;
+  padding: 1px;
   background: transparent;
   border: 0px solid #C9CDD0;
   background-color: #73C7FF;
 }
 
 QMenuBar::item:pressed {
-  padding: 4px;
+  padding: 1px;
   border: 0px solid #C9CDD0;
   background-color: #73C7FF;
   color: #19232D;

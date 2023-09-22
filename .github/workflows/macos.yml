@@ -1,0 +1,58 @@
+name: macos
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'doc/**'
+      - 'README.md'
+      - 'README_zh_CN.md'
+      - 'DEVELOPNOTE.md'
+      - '.readthedocs.yaml'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'doc/**'
+      - 'README.md'
+      - 'README_zh_CN.md'
+      - 'DEVELOPNOTE.md'
+      - '.readthedocs.yaml'
+  workflow_dispatch:
+
+jobs:
+  macos:
+    runs-on: macos-12
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3.3.0
+        with:
+          version: '6.2.0'
+
+      - name: Install prerequisites
+        run: |
+          ruby - e  "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null  2 > /dev/null
+          brew install --build-from-source cmake
+          brew install create-dmg
+
+      - name: Build all
+        run: |
+          git fetch --tags --force
+          git describe --always --long --dirty --abbrev=10 --tags | awk '{print "\""$0"\""}' > git_tag.inc
+          sed -i'.original' -e 's/git_tag.inc/git_tag.ci.inc/g' quardCRT.pro
+          sed -i'.original' -e 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.2.0\/macos/g' build_dmg.sh
+          ./build_dmg.sh
+
+      - name: Upload build asserts
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: quardCRT_macos
+          path: |
+            ./build_release/out/quardCRT.dmg
+
+      - name: Run tests
+        run: |
+          sudo hdiutil attach ./build_release/out/quardCRT.dmg
+          /Volumes/quardCRT/quardCRT.app/Contents/MacOS/quardCRT --version
