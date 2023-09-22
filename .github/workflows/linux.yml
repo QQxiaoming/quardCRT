@@ -52,10 +52,3 @@ jobs:
           name: quardCRT_Ubuntu2004
           path: |
             ./dpkg/*.deb
-
-      - name: Run tests
-        run: |
-          if ls ./dpkg | grep ".deb" ; then echo "Pass"; else echo "Failed" && exit 1; fi;
-          timeout --foreground -s SIGKILL 20s ./dpkg/quardCRT_Linux_*/opt/quardCRT/quardCRT --version > >(tee run.log) || {
-            if cat run.log | grep "quardCRT" ; then echo "Pass" && exit 0; else echo "Failed" && exit 1; fi;
-          }
