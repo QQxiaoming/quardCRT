@@ -15,10 +15,41 @@ public:
     explicit QuickConnectWindow(QWidget *parent = nullptr);
     ~QuickConnectWindow();
 
+    enum QuickConnectType {
+        Telnet,
+        Serial,
+        LocalShell,
+        Raw,
+    };
+    struct QuickConnectData {
+        QuickConnectType type;
+        struct {
+            QString hostname;
+            int port;
+            QString webSocket;
+        }TelnetData;
+        struct {
+            QString portName;
+            int baudRate;
+            int dataBits;
+            int parity;
+            int stopBits;
+            int flowControl;
+        }SerialData;
+        struct {
+            QString command;
+        }LocalShellData;
+        struct {
+            QString hostname;
+            int port;
+        }RawData;
+    };
+    
 signals:
-    void sendQuickConnectData(QString, int, QString, QString);
+    void sendQuickConnectData(QuickConnectData);
 
 private slots:
+    void comboBoxProtocolChanged(int index);
     void buttonBoxAccepted(void);
     void buttonBoxRejected(void);
 

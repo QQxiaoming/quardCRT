@@ -7,7 +7,7 @@ set "QT_TOOLS_DIR=C:/Qt/Qt6.2.0/Tools/mingw810_32/bin"
 :: 定义Inno Setup目录
 set "INNO_SETUP_DIR=C:/Program Files (x86)/Inno Setup 6"
 :: 定义版本号
-set "QUARDCRT_VERSION=0.1.1"
+set "QUARDCRT_VERSION=0.0.1"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -36,7 +36,6 @@ copy /y .\InnoSetup\build_setup.iss .\InnoSetup\build_temp_setup.iss
 del /f /q /a .\sed*
 :: 构建打包目录
 xcopy /y .\build_release\out\quardCRT.exe .\InnoSetup\build\
-xcopy /y .\test\* .\InnoSetup\build\test\
 :: 使用windeployqt拷贝依赖dll库到打包目录
 windeployqt --dir .\InnoSetup\build .\InnoSetup\build\quardCRT.exe
 xcopy /y "%QT_TOOLS_DIR%\..\bin\lib*.dll" ".\InnoSetup\build\"

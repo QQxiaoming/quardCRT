@@ -2,7 +2,7 @@
     message("Cannot use Qt $$QT_VERSION")
     error("Use Qt 6.2.0 or newer")
 }
-QT += core gui network widgets xml svg websockets
+QT += core gui network widgets xml svg websockets serialport
 QT += core5compat
 
 BUILD_VERSION=0.0.1
@@ -44,9 +44,9 @@ TRANSLATIONS += \
 
 build_type =
 CONFIG(debug, debug|release) {
-    build_type = debug
+    build_type = build_debug
 } else {
-    build_type = release
+    build_type = build_release
 }
 
 DESTDIR     = $$build_type/out

@@ -6,7 +6,7 @@ QT_DIR=/opt/Qt6.2.0/6.2.0/gcc_64
 
 # 定义版本号
 QUARDCRT_MAJARVERSION="0"
-QUARDCRT_SUBVERSION="1"
+QUARDCRT_SUBVERSION="0"
 QUARDCRT_REVISION="1"
 ###############################################################################
 
@@ -42,7 +42,6 @@ chrpath -r "\$ORIGIN/./lib" ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt
 rm -rf ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/share
 cp ./icons/ico.png ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/quardCRT.png
 mkdir -p ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT
-cp -r ./test ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/test
 # 配置打包信息
 sed -i "s/#VERSION#/$QUARDCRT_MAJARVERSION.$QUARDCRT_SUBVERSION$QUARDCRT_REVISION/g" ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/DEBIAN/control
 SIZE=$(du -sh -B 1024 ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64 | sed "s/.\///g")

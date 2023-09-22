@@ -27,7 +27,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Protocol:</string>
+          <string>Protocol</string>
          </property>
         </widget>
        </item>
@@ -47,12 +47,15 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Hostname:</string>
+          <string>Hostname</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="lineEditHostname"/>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBoxHostname"/>
        </item>
       </layout>
      </item>
@@ -83,7 +86,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>WebSocket:</string>
+          <string>WebSocket</string>
          </property>
         </widget>
        </item>
