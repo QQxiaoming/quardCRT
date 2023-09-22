@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>../icons/fontawesome-webfont.ttf</file>
+    </qresource>
+    <qresource prefix="/lang">
+        <file>../lang/quardCRT_zh_CN.qm</file>
+        <file>../lang/quardCRT_ja_JP.qm</file>
+        <file>../lang/quardCRT_en_US.qm</file>
+    </qresource>
+</RCC>
