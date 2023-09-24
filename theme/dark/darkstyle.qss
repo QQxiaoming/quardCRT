@@ -1224,6 +1224,7 @@ QComboBox {
   selection-background-color: #346792;
   padding-left: 4px;
   padding-right: 4px;
+  combobox-popup: 0;
   /* padding-right = 36; 4 + 16*2 See scrollbar size */
   /* changed to 4px to fix #239 */
   /* Fixes #103, #111 */

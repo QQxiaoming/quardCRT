@@ -114,6 +114,34 @@
     </message>
 </context>
 <context>
+    <name>QuickConnectWindow</name>
+    <message>
+        <location filename="../../../src/quickconnectwindow.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/quickconnectwindow.ui" line="30"/>
+        <source>Protocol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/quickconnectwindow.ui" line="50"/>
+        <source>Hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/quickconnectwindow.ui" line="73"/>
+        <source>port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/quickconnectwindow.ui" line="89"/>
+        <source>WebSocket</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SearchBar</name>
     <message>
         <location filename="../SearchBar.cpp" line="40"/>
