@@ -1475,6 +1475,10 @@ QTabWidget::pane:selected {
   border: 1px solid #9FCBFF;
 }
 
+QTabWidget::tab-bar {
+    alignment: left;
+}
+
 /* QTabBar ----------------------------------------------------------------
 
 https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtabwidget-and-qtabbar
