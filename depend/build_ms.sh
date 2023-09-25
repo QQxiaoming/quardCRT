@@ -10,6 +10,9 @@ make -j4
 make install
 mkdir /d/winpty
 mkdir /d/winpty/include
-cp /usr/local/lib/libwinpty.a /d/winpty/
+mkdir /d/winpty/lib
+mkdir /d/winpty/bin
+cp -r /usr/local/bin/* /d/winpty/bin/
+cp -r /usr/local/lib/* /d/winpty/lib/
 cp -r /usr/local/include/winpty/* /d/winpty/include/
 rm -rf $SHELL_FOLDER/winpty-0.4.3

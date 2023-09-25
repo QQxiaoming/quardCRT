@@ -3,6 +3,7 @@
 #include <QFileInfo>
 #include <sstream>
 #include <QCoreApplication>
+#include <QDir>
 
 #define DEBUG_VAR_LEGACY "WINPTYDBG"
 #define DEBUG_VAR_ACTUAL "WINPTY_DEBUG"
@@ -100,9 +101,10 @@ bool WinPtyProcess::startProcess(const QString &shellPath, QStringList environme
     winpty_error_free(errorPtr);
 
     //create spawn config
+    QString cwd = QDir::homePath();
     winpty_spawn_config_t* spawnConfig = winpty_spawn_config_new(WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN, m_shellPath.toStdWString().c_str(),
                                                                  //commandLine.toStdWString().c_str(), cwd.toStdWString().c_str(),
-                                                                 NULL, NULL,
+                                                                 NULL, cwd.toStdWString().c_str(),
                                                                  env.c_str(),
                                                                  &errorPtr);
 
@@ -233,13 +235,13 @@ qint64 WinPtyProcess::write(const QByteArray &byteArray)
 
 bool WinPtyProcess::isAvailable()
 {
-#ifdef PTYQT_BUILD_STATIC
+#if defined(PTYQT_BUILD_STATIC)
     return QFile::exists(QCoreApplication::applicationDirPath() + "/" + WINPTY_AGENT_NAME);
-#elif PTYQT_BUILD_DYNAMIC
+#elif defined(PTYQT_BUILD_DYNAMIC)
     return QFile::exists(QCoreApplication::applicationDirPath() + "/" + WINPTY_AGENT_NAME)
             && QFile::exists(QCoreApplication::applicationDirPath() + "/" + WINPTY_DLL_NAME);
 #endif
-
+    return true;
 }
 
 void WinPtyProcess::moveToThread(QThread *targetThread)

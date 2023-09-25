@@ -21,12 +21,14 @@ include(./lib/ptyqt/ptyqt.pri)
 
 SOURCES += \
     src/quickconnectwindow.cpp \
+    src/sessiontab.cpp \
     src/sessionswindow.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
     src/quickconnectwindow.h \
+    src/sessiontab.h \
     src/sessionswindow.h \
     src/mainwindow.h
 

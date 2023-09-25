@@ -9,10 +9,12 @@
 #include <QProcess>
 #include <QMessageBox>
 #include <QSocketNotifier>
+#include <QTabBar>
 
 #include "qfonticon.h"
-#include "sessionswindow.h"
 
+#include "sessiontab.h"
+#include "sessionswindow.h"
 #include "quickconnectwindow.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -35,7 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
     fileMenu->addAction(quickConnectAction);
     ui->toolBar->addAction(quickConnectAction);
 
-
     QSplitter *splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
     splitter->setChildrenCollapsible(false);
@@ -45,9 +46,9 @@ MainWindow::MainWindow(QWidget *parent)
     label->setFixedWidth(20);
     splitter->addWidget(label);
 
-    QTabWidget *tabWidget = new QTabWidget(this);
-    tabWidget->setTabsClosable(true);
-    splitter->addWidget(tabWidget);
+    SessionTab *sessionTab = new SessionTab(this);
+    sessionTab->setTabsClosable(true);
+    splitter->addWidget(sessionTab);
 
     QuickConnectWindow *quickConnectWindow = new QuickConnectWindow(this);
 
@@ -58,8 +59,8 @@ MainWindow::MainWindow(QWidget *parent)
             [=](QuickConnectWindow::QuickConnectData data){
         if(data.type == QuickConnectWindow::Telnet) {
             SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Telnet,this);
-            tabWidget->addTab(sessionsWindow->getTermWidget(), "Telnet - "+data.TelnetData.hostname+":"+QString::number(data.TelnetData.port));
-            QTelnet::SocketType type;
+            sessionTab->addTab(sessionsWindow->getTermWidget(), "Telnet - "+data.TelnetData.hostname+":"+QString::number(data.TelnetData.port));
+            QTelnet::SocketType type = QTelnet::TCP;
             if(data.TelnetData.webSocket == "None") {
                 type = QTelnet::TCP;
             } else if(data.TelnetData.webSocket == "Insecure") {
@@ -70,21 +71,26 @@ MainWindow::MainWindow(QWidget *parent)
             sessionsWindow->startTelnetSession(data.TelnetData.hostname,data.TelnetData.port,type);
         } else if(data.type == QuickConnectWindow::Serial) {
             SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Serial,this);
-            tabWidget->addTab(sessionsWindow->getTermWidget(), "Serial - "+data.SerialData.portName);
+            sessionTab->addTab(sessionsWindow->getTermWidget(), "Serial - "+data.SerialData.portName);
             sessionsWindow->startSerialSession(data.SerialData.portName,data.SerialData.baudRate);
         } else if(data.type == QuickConnectWindow::LocalShell) {
             SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
-            tabWidget->addTab(sessionsWindow->getTermWidget(), "Local Shell - "+data.LocalShellData.command);
+            if(data.LocalShellData.command.isEmpty()) {
+                sessionTab->addTab(sessionsWindow->getTermWidget(), "Local Shell");
+            } else {
+                sessionTab->addTab(sessionsWindow->getTermWidget(), "Local Shell - "+data.LocalShellData.command);
+            }
             sessionsWindow->startLocalShellSession(data.LocalShellData.command);
         } else if(data.type == QuickConnectWindow::Raw) {
             SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::RawSocket,this);
-            tabWidget->addTab(sessionsWindow->getTermWidget(), "Raw - "+data.RawData.hostname+":"+QString::number(data.RawData.port));
+            sessionTab->addTab(sessionsWindow->getTermWidget(), "Raw - "+data.RawData.hostname+":"+QString::number(data.RawData.port));
             sessionsWindow->startRawSocketSession(data.RawData.hostname,data.RawData.port);
         }
-        connect(tabWidget,&QTabWidget::tabCloseRequested,this,[=](int index){
-            SessionsWindow *sessionsWindow = (SessionsWindow *)tabWidget->widget(index);
-            delete sessionsWindow;
-        });
+        sessionTab->setCurrentIndex(sessionTab->count()-1);
+    });
+    connect(sessionTab,&QTabWidget::tabCloseRequested,this,[=](int index){
+        SessionsWindow *sessionsWindow = (SessionsWindow *)sessionTab->widget(index);
+        delete sessionsWindow;
     });
 }
 

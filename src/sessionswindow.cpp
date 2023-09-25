@@ -56,19 +56,12 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
             IPtyProcess::PtyType ptyType = IPtyProcess::UnixPty;
         #elif defined(Q_OS_WIN)
             IPtyProcess::PtyType ptyType = IPtyProcess::WinPty;
-            qint32 buildNumber = QSysInfo::kernelVersion().split(".").last().toInt();
-            if (buildNumber >= CONPTY_MINIMAL_WINDOWS_VERSION) {
-                ptyType = IPtyProcess::ConPty;
-            }
+            //qint32 buildNumber = QSysInfo::kernelVersion().split(".").last().toInt();
+            //if (buildNumber >= CONPTY_MINIMAL_WINDOWS_VERSION) {
+            //    ptyType = IPtyProcess::ConPty;
+            //}
         #endif
             localShell = PtyQt::createPtyProcess(ptyType);
-            connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
-                QByteArray data = localShell->readAll();
-                term->recvData(data.data(), data.size());
-            });
-            connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-                localShell->write(QByteArray(data, size));
-            });
             break;
         }
         case Telnet: {
@@ -149,7 +142,13 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         shellPath = command;
     }
     localShell->startProcess(shellPath, QProcessEnvironment::systemEnvironment().toStringList(), 87, 26);
-
+    connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
+        QByteArray data = localShell->readAll();
+        term->recvData(data.data(), data.size());
+    });
+    connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+        localShell->write(QByteArray(data, size));
+    });
     return 0;
 }
 
