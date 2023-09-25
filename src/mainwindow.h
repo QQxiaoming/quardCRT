@@ -5,11 +5,7 @@
 #include <QLocale>
 #include <QSocketNotifier>
 
-#if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
-#include <pty.h>
-#include <unistd.h>
-#include <signal.h>
-#endif
+#include "ptyqt.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,7 +22,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QSocketNotifier *localShell = nullptr;
+    IPtyProcess *localShell = nullptr;
     pid_t localShellPid = 0;
 };
 #endif // MAINWINDOW_H

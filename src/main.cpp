@@ -131,8 +131,6 @@ static QTranslator appTranslator;
 
 int main(int argc, char *argv[])
 {
-
-
     QApplication::setAttribute(Qt::AA_DontUseNativeDialogs);
     QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
     QApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);

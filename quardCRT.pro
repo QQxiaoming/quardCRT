@@ -16,6 +16,7 @@ include(./lib/QFontIcon/QFontIcon.pri)
 include(./lib/qtermwidget/qtermwidget.pro)
 include(./lib/qtxyzmodem/qtxyzmodem.pro)
 include(./lib/QTelnet/QTelnet.pri)
+include(./lib/ptyqt/ptyqt.pri)
 
 
 SOURCES += \
