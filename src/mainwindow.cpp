@@ -92,6 +92,18 @@ MainWindow::MainWindow(QWidget *parent)
         SessionsWindow *sessionsWindow = (SessionsWindow *)sessionTab->widget(index);
         delete sessionsWindow;
     });
+    connect(sessionTab,&SessionTab::showContextMenu,this,[=](int index){
+        QMenu *menu = new QMenu(this);
+        QAction *closeAction = new QAction("Close",this);
+        closeAction->setIcon(QFontIcon::icon(QChar(0xf00d)));
+        menu->addAction(closeAction);
+        connect(closeAction,&QAction::triggered,this,[=](){
+            SessionsWindow *sessionsWindow = (SessionsWindow *)sessionTab->widget(index);
+            delete sessionsWindow;
+        });
+        menu->move(cursor().pos());
+        menu->show();
+    });
 }
 
 MainWindow::~MainWindow() {
