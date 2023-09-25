@@ -8,6 +8,7 @@
 #include <QTcpSocket>
 #include <QProcess>
 #include <QMessageBox>
+#include <QSocketNotifier>
 
 #include "qtermwidget.h"
 #include "qfonticon.h"
@@ -88,13 +89,13 @@ MainWindow::MainWindow(QWidget *parent)
     QTelnet *telnet = new QTelnet(QTelnet::TCP, this);
     QSerialPort *serialPort = new QSerialPort(this);
     QTcpSocket *rawSocket = new QTcpSocket(this);
-    QProcess *localShell = new QProcess(this);
-    
+
     connect(quickConnectAction,&QAction::triggered,this,[=](){
         quickConnectWindow->show();
     });
     connect(quickConnectWindow,&QuickConnectWindow::sendQuickConnectData,this,
             [=](QuickConnectWindow::QuickConnectData data){
+        termWidget->clear();
         if(telnet->isConnected()){
             telnet->disconnectFromHost();
         }
@@ -103,10 +104,6 @@ MainWindow::MainWindow(QWidget *parent)
         }
         if(rawSocket->state() == QAbstractSocket::ConnectedState) {
             rawSocket->disconnectFromHost();
-        }
-        if(localShell->state() == QProcess::Running) {
-            localShell->kill();
-            localShell->waitForFinished();
         }
         if(data.type == QuickConnectWindow::Telnet) {
             tabWidget->setTabText(0, "Telnet - "+data.TelnetData.hostname+":"+QString::number(data.TelnetData.port));
@@ -128,15 +125,57 @@ MainWindow::MainWindow(QWidget *parent)
             serialPort->setFlowControl(QSerialPort::NoFlowControl);
             serialPort->open(QIODevice::ReadWrite);
         } else if(data.type == QuickConnectWindow::LocalShell) {
+        #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+            if(data.LocalShellData.command.isEmpty()) {
+                data.LocalShellData.command = qEnvironmentVariable("SHELL");
+                if(data.LocalShellData.command.isEmpty()) {
+                    data.LocalShellData.command = "/bin/sh";
+                }
+            }
+            tabWidget->setTabText(0, "Local Shell - "+data.LocalShellData.command);
+            if(localShell){
+                kill(localShellPid,SIGKILL);
+                disconnect(localShell,&QSocketNotifier::activated,this,nullptr);
+                disconnect(termWidget, &QTermWidget::sendData,this,nullptr);
+                delete localShell;
+            }
+            int master;
+            localShellPid = forkpty(&master, NULL, NULL, NULL);
+            if(localShellPid == 0) {
+                QStringList commandList = data.LocalShellData.command.split(" ");
+                std::string str = commandList[0].toStdString();
+                char *argv[commandList.size()+1];
+                for(int i = 0; i < commandList.size(); i++) {
+                    argv[i] = commandList[i].toLocal8Bit().data();
+                }
+                argv[commandList.size()] = NULL;
+                QString homePath = qEnvironmentVariable("HOME");
+                chdir(homePath.toLocal8Bit().data());
+                execvp(str.c_str(), argv);
+                exit(EXIT_FAILURE);
+            }
+            localShell = new QSocketNotifier(master, QSocketNotifier::Read,this);
+            connect(localShell,&QSocketNotifier::activated,this,
+                [=](int fd){
+                char buffer[1024];
+                do {
+                    int size = read(fd, buffer, sizeof(buffer));
+                    if(size > 0) {
+                        termWidget->recvData(buffer, size);
+                    }
+                } while (errno == EINTR);
+            });
+            connect(termWidget, &QTermWidget::sendData,this,
+                [=](const char *data, int size){
+                if(localShell->isEnabled()) {
+                    write(localShell->socket(), data, size);
+                }
+            });
+        #else
             //TODO:
             QMessageBox::critical(this,"Error","Not support yet.");
             return;
-            if(data.LocalShellData.command.isEmpty()) {
-                data.LocalShellData.command = "bash";
-            }
-            tabWidget->setTabText(0, "Local Shell - "+data.LocalShellData.command);
-            localShell->setProcessChannelMode(QProcess::MergedChannels);
-            localShell->start(data.LocalShellData.command);
+        #endif
         } else if(data.type == QuickConnectWindow::Raw) {
             tabWidget->setTabText(0, "Raw - "+data.RawData.hostname+":"+QString::number(data.RawData.port));
             rawSocket->connectToHost(data.RawData.hostname,data.RawData.port);
@@ -173,17 +212,7 @@ MainWindow::MainWindow(QWidget *parent)
             rawSocket->write(data, size);
         }
     });
-    connect(localShell,&QProcess::readyReadStandardOutput,this,
-        [=](){
-        QByteArray data = localShell->readAllStandardOutput();
-        termWidget->recvData(data.data(), data.size());
-    });
-    connect(termWidget, &QTermWidget::sendData,this,
-        [=](const char *data, int size){
-        if(localShell->state() == QProcess::Running) {
-            localShell->write(data, size);
-        }
-    });
+
 }
 
 MainWindow::~MainWindow() {

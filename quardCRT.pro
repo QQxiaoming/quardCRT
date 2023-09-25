@@ -69,7 +69,8 @@ win32:{
 
 unix:!macx:{
     QMAKE_RPATHDIR=$ORIGIN
-    QMAKE_LFLAGS += -no-pie
+    QMAKE_LFLAGS += -no-pie 
+    LIBS += -lutil
     
     git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
 }
@@ -77,6 +78,7 @@ unix:!macx:{
 macx:{
     QMAKE_RPATHDIR=$ORIGIN
     ICON = "icons\ico.icns"
+    LIBS += -lutil
 
     git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
 }
