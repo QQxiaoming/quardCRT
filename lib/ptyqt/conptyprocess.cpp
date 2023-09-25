@@ -34,7 +34,7 @@ HRESULT ConPtyProcess::createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn
 
 // Initializes the specified startup info struct with the required properties and
 // updates its thread attribute list with the specified ConPTY handle
-HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEX* pStartupInfo, HPCON hPC)
+HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEXA* pStartupInfo, HPCON hPC)
 {
     HRESULT hr{ E_UNEXPECTED };
 
@@ -140,7 +140,7 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList environme
     }
 
     // Initialize the necessary startup info struct
-    STARTUPINFOEX startupInfo{};
+    STARTUPINFOEXA startupInfo{};
     if (S_OK != initializeStartupInfoAttachedToPseudoConsole(&startupInfo, m_ptyHandler))
     {
         m_lastError = QString("ConPty Error: InitializeStartupInfoAttachedToPseudoConsole fail");
@@ -149,7 +149,7 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList environme
 
     // Launch ping to emit some text back via the pipe
     PROCESS_INFORMATION piClient{};
-    hr = CreateProcess(
+    hr = CreateProcessA(
                 NULL,                           // No module name - use Command Line
                 cmdArg,                         // Command Line
                 NULL,                           // Process handle not inheritable

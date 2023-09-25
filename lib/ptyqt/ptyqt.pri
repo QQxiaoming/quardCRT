@@ -16,7 +16,11 @@ win32:{
     SOURCES += \
         $$PWD/conptyprocess.cpp \
         $$PWD/winptyprocess.cpp
-    
+
+    WINPTY_DIR=D:\quardCRT\depend\winpty
+    INCLUDEPATH += $${WINPTY_DIR}\include
+    LIBS += $${WINPTY_DIR}\lib\libwinpty.a
+
     LIBS += -lwsock32 -lws2_32 -lcrypt32 -liphlpapi -lnetapi32 -lversion -lwinmm -luserenv
 }
 

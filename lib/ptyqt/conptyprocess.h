@@ -1,6 +1,8 @@
 #ifndef CONPTYPROCESS_H
 #define CONPTYPROCESS_H
 
+#define UNICODE
+
 #include "iptyprocess.h"
 #include <windows.h>
 #include <process.h>
@@ -144,7 +146,7 @@ public:
 
 private:
     HRESULT createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn, HANDLE* phPipeOut, qint16 cols, qint16 rows);
-    HRESULT initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEX* pStartupInfo, HPCON hPC);
+    HRESULT initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEXA* pStartupInfo, HPCON hPC);
 
 private:
     WindowsContext m_winContext;
