@@ -16,13 +16,18 @@ English | [简体中文](./README_zh_CN.md)
 
 quardCRT is a terminal emulation software that supports multiple terminal protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports multiple tabs and history management.
 
+![img1](./docs/img1.png)
+
+![img2](./docs/img2.png)
+
 ## Feature
 
 Currently supported terminal protocols include:
-    - telnet
-    - serial
-    - loaclshell
-    - rawsocket
+
+- telnet (Support websocket wrapper)
+- serial
+- loaclshell
+- rawsocket
 
 ## Contributing
 

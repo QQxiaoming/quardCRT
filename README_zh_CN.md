@@ -16,13 +16,18 @@
 
 quardCRT一款终端仿真软件，支持多种终端协议，无依赖跨平台使用，windows/linux/mac使用体验完全一致，支持多标签页和历史记录管理。
 
+![img1](./docs/img1.png)
+
+![img2](./docs/img2.png)
+
 ## 功能描述
 
 目前支持的终端协议包括：
-    - telnet
-    - serial
-    - loaclshell
-    - rawsocket
+
+- telnet (支持带websocket封装)
+- serial
+- loaclshell
+- rawsocket
 
 ## 贡献
 

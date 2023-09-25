@@ -9,6 +9,8 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowTitle("Quick Connect");
+
     qRegisterMetaType<QuickConnectData>("QuickConnectData");
     
     ui->comboBoxProtocol->addItem("Telnet");
