@@ -1,8 +1,6 @@
 #ifndef CONPTYPROCESS_H
 #define CONPTYPROCESS_H
 
-#define UNICODE
-
 #include "iptyprocess.h"
 #include <windows.h>
 #include <process.h>
