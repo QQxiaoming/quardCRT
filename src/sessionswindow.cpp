@@ -136,7 +136,8 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         shellPath = qEnvironmentVariable("SHELL");
         if(shellPath.isEmpty()) shellPath = "/bin/sh";
     #elif defined(Q_OS_WIN)
-        shellPath = "c:\\Windows\\system32\\cmd.exe";
+        //shellPath = "c:\\Windows\\system32\\cmd.exe";
+        shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
     #endif
     } else {
         shellPath = command;
