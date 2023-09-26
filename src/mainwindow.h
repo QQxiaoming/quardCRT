@@ -7,6 +7,9 @@
 #include <QSplitter>
 #include <QLineEdit>
 #include <QSocketNotifier>
+#include <QActionGroup>
+#include <QMenu>
+#include <QAction>
 
 #include "sessiontab.h"
 #include "quickconnectwindow.h"
