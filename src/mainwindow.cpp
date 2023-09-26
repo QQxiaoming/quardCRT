@@ -21,10 +21,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QLocale::Language lang, QWidget *parent)
+MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     : QMainWindow(parent) 
     , ui(new Ui::MainWindow)
-    , language(lang) {
+    , language(lang)
+    , isDarkTheme(isDark) {
 
     ui->setupUi(this);
 
@@ -60,35 +61,51 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     toolsMenu->setTitle(tr("Tools"));
     windowMenu->setTitle(tr("Window"));
     languageMenu->setTitle(tr("Language"));
+    themeMenu->setTitle(tr("Theme"));
     helpMenu->setTitle(tr("Help"));
 
     connectAction->setText(tr("Connect..."));
+    connectAction->setIcon(QFontIcon::icon(QChar(0xf0c1)));
     sessionManagerAction->setText(tr("Session Manager"));
+    sessionManagerAction->setIcon(QFontIcon::icon(QChar(0xf0e8)));
     quickConnectAction->setText(tr("Quick Connect..."));
+    quickConnectAction->setIcon(QFontIcon::icon(QChar(0xf0e7)));
     connectInTabAction->setText(tr("Connect in Tab/Tile..."));
     connectLocalShellAction->setText(tr("Connect Local Shell"));
+    connectLocalShellAction->setIcon(QFontIcon::icon(QChar(0xf120)));
     reconnectAction->setText(tr("Reconnect"));
+    reconnectAction->setIcon(QFontIcon::icon(QChar(0xf021)));
     reconnectAllAction->setText(tr("Reconnect All"));
     disconnectAction->setText(tr("Disconnect"));
+    disconnectAction->setIcon(QFontIcon::icon(QChar(0xf127)));
     connectAddressEdit->setPlaceholderText(tr("Enter host <Alt+R> to connect"));
     disconnectAllAction->setText(tr("Disconnect All"));
     cloneSessionAction->setText(tr("Clone Session"));
     lockSessionAction->setText(tr("Lock Session"));
+    lockSessionAction->setIcon(QFontIcon::icon(QChar(0xf023)));
     exitAction->setText(tr("Exit"));
 
     copyAction->setText(tr("Copy"));
+    copyAction->setIcon(QFontIcon::icon(QChar(0xf0c5)));
     pasteAction->setText(tr("Paste"));
+    pasteAction->setIcon(QFontIcon::icon(QChar(0xf0ea)));
     selectAllAction->setText(tr("Select All"));
     findAction->setText(tr("Find..."));
+    findAction->setIcon(QFontIcon::icon(QChar(0xf002)));
     printScreenAction->setText(tr("Print Screen"));
+    printScreenAction->setIcon(QFontIcon::icon(QChar(0xf02f)));
     resetAction->setText(tr("Reset"));
 
     zoomInAction->setText(tr("Zoom In"));
+    zoomInAction->setIcon(QFontIcon::icon(QChar(0xf00e)));
     zoomOutAction->setText(tr("Zoom Out"));
+    zoomOutAction->setIcon(QFontIcon::icon(QChar(0xf010)));
     fullScreenAction->setText(tr("Full Screen"));
 
     sessionOptionsAction->setText(tr("Session Options..."));
+    sessionOptionsAction->setIcon(QFontIcon::icon(QChar(0xf1de)));
     globalOptionsAction->setText(tr("Global Options..."));
+    globalOptionsAction->setIcon(QFontIcon::icon(QChar(0xf013)));
     autoSaveOptionsAction->setText(tr("Auto Save Options"));
     saveSettingsNowAction->setText(tr("Save Settings Now"));
 
@@ -121,7 +138,11 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     englishAction->setText(tr("English"));
     japaneseAction->setText(tr("Japanese"));
 
+    lightThemeAction->setText(tr("Light"));
+    darkThemeAction->setText(tr("Dark"));
+
     helpAction->setText(tr("Help"));
+    helpAction->setIcon(QFontIcon::icon(QChar(0xf128)));
     aboutAction->setText(tr("About"));
     aboutQtAction->setText(tr("About Qt"));
 }
@@ -148,28 +169,30 @@ void MainWindow::menuAndToolBarInit(void) {
     ui->menuBar->addMenu(windowMenu);
     languageMenu = new QMenu(this);
     ui->menuBar->addMenu(languageMenu);
+    themeMenu = new QMenu(this);
+    ui->menuBar->addMenu(themeMenu);
     helpMenu = new QMenu(this);
     ui->menuBar->addMenu(helpMenu);
 
-    connectAction = new QAction(QFontIcon::icon(QChar(0xf0c1))," ",this);
+    connectAction = new QAction(this);
     fileMenu->addAction(connectAction);
-    sessionManagerAction = new QAction(QFontIcon::icon(QChar(0xf0e8))," ",this);
+    sessionManagerAction = new QAction(this);
     ui->toolBar->addAction(sessionManagerAction);
-    quickConnectAction = new QAction(QFontIcon::icon(QChar(0xf0e7))," ",this);
+    quickConnectAction = new QAction(this);
     fileMenu->addAction(quickConnectAction);
     ui->toolBar->addAction(quickConnectAction);
     connectInTabAction = new QAction(this);
     fileMenu->addAction(connectInTabAction);
-    connectLocalShellAction = new QAction(QFontIcon::icon(QChar(0xf120))," ",this);
+    connectLocalShellAction = new QAction(this);
     fileMenu->addAction(connectLocalShellAction);
     ui->toolBar->addAction(connectLocalShellAction);
     fileMenu->addSeparator();
-    reconnectAction = new QAction(QFontIcon::icon(QChar(0xf021))," ",this);
+    reconnectAction = new QAction(this);
     fileMenu->addAction(reconnectAction);
     ui->toolBar->addAction(reconnectAction);
     reconnectAllAction = new QAction(this);
     fileMenu->addAction(reconnectAllAction);
-    disconnectAction = new QAction(QFontIcon::icon(QChar(0xf127))," ",this);
+    disconnectAction = new QAction(this);
     fileMenu->addAction(disconnectAction);
     ui->toolBar->addAction(disconnectAction);
     connectAddressEdit = new QLineEdit(this);
@@ -182,26 +205,26 @@ void MainWindow::menuAndToolBarInit(void) {
     cloneSessionAction = new QAction(this);
     fileMenu->addAction(cloneSessionAction);
     fileMenu->addSeparator();
-    lockSessionAction = new QAction(QFontIcon::icon(QChar(0xf023))," ",this);
+    lockSessionAction = new QAction(this);
     fileMenu->addAction(lockSessionAction);
     fileMenu->addSeparator();
     exitAction = new QAction(this);
     fileMenu->addAction(exitAction);
 
-    copyAction = new QAction(QFontIcon::icon(QChar(0xf0c5))," ",this);
+    copyAction = new QAction(this);
     editMenu->addAction(copyAction);
     ui->toolBar->addAction(copyAction);
-    pasteAction = new QAction(QFontIcon::icon(QChar(0xf0ea))," ",this);
+    pasteAction = new QAction(this);
     editMenu->addAction(pasteAction);
     ui->toolBar->addAction(pasteAction);
     selectAllAction = new QAction(this);
     editMenu->addAction(selectAllAction);
-    findAction = new QAction(QFontIcon::icon(QChar(0xf002))," ",this);
+    findAction = new QAction(this);
     editMenu->addAction(findAction);
     editMenu->addSeparator();
     ui->toolBar->addAction(findAction);
     ui->toolBar->addSeparator();
-    printScreenAction = new QAction(QFontIcon::icon(QChar(0xf02f))," ",this);
+    printScreenAction = new QAction(this);
     editMenu->addAction(printScreenAction);
     editMenu->addSeparator();
     ui->toolBar->addAction(printScreenAction);
@@ -209,19 +232,19 @@ void MainWindow::menuAndToolBarInit(void) {
     resetAction = new QAction(this);
     editMenu->addAction(resetAction);
 
-    zoomInAction = new QAction(QFontIcon::icon(QChar(0xf00e))," ",this);
+    zoomInAction = new QAction(this);
     viewMenu->addAction(zoomInAction);
-    zoomOutAction = new QAction(QFontIcon::icon(QChar(0xf010))," ",this);
+    zoomOutAction = new QAction(this);
     viewMenu->addAction(zoomOutAction);
     viewMenu->addSeparator();
     fullScreenAction = new QAction(this);
     fullScreenAction->setCheckable(true);
     viewMenu->addAction(fullScreenAction);
 
-    sessionOptionsAction = new QAction(QFontIcon::icon(QChar(0xf1de)),tr("Session Options..."),this);
+    sessionOptionsAction = new QAction(this);
     optionsMenu->addAction(sessionOptionsAction);
     ui->toolBar->addAction(sessionOptionsAction);
-    globalOptionsAction = new QAction(QFontIcon::icon(QChar(0xf013)),tr("Global Options..."),this);
+    globalOptionsAction = new QAction(this);
     optionsMenu->addAction(globalOptionsAction);
     optionsMenu->addSeparator();
     ui->toolBar->addAction(globalOptionsAction);
@@ -311,7 +334,19 @@ void MainWindow::menuAndToolBarInit(void) {
     japaneseAction->setChecked(language == QLocale::Japanese);
     languageMenu->addAction(japaneseAction);
 
-    helpAction = new QAction(QFontIcon::icon(QChar(0xf128))," ",this);
+    themeActionGroup = new QActionGroup(this);
+    lightThemeAction = new QAction(this);
+    lightThemeAction->setActionGroup(themeActionGroup);
+    lightThemeAction->setCheckable(true);
+    lightThemeAction->setChecked(!isDarkTheme);
+    themeMenu->addAction(lightThemeAction);
+    darkThemeAction = new QAction(this);
+    darkThemeAction->setActionGroup(themeActionGroup);
+    darkThemeAction->setCheckable(true);
+    darkThemeAction->setChecked(isDarkTheme);
+    themeMenu->addAction(darkThemeAction);
+
+    helpAction = new QAction(this);
     helpMenu->addAction(helpAction);
     ui->toolBar->addAction(helpAction);
     helpMenu->addSeparator();
@@ -391,6 +426,32 @@ void MainWindow::menuAndToolBarInit(void) {
         }
         setAppLangeuage(this->language);
         ui->retranslateUi(this);
+        menuAndToolBarRetranslateUi();
+    });
+    connect(lightThemeAction,&QAction::triggered,this,[=](){
+        isDarkTheme = false;
+        QFile ftheme(":/qdarkstyle/light/lightstyle.qss");
+        if (!ftheme.exists())   {
+            qDebug() << "Unable to set stylesheet, file not found!";
+        } else {
+            ftheme.open(QFile::ReadOnly | QFile::Text);
+            QTextStream ts(&ftheme);
+            qApp->setStyleSheet(ts.readAll());
+        }
+        QFontIcon::instance()->setColor(Qt::black);
+        menuAndToolBarRetranslateUi();
+    });
+    connect(darkThemeAction,&QAction::triggered,this,[=](){
+        isDarkTheme = true;
+        QFile ftheme(":/qdarkstyle/dark/darkstyle.qss");
+        if (!ftheme.exists())   {
+            qDebug() << "Unable to set stylesheet, file not found!";
+        } else {
+            ftheme.open(QFile::ReadOnly | QFile::Text);
+            QTextStream ts(&ftheme);
+            qApp->setStyleSheet(ts.readAll());
+        }
+        QFontIcon::instance()->setColor(Qt::white);
         menuAndToolBarRetranslateUi();
     });
     connect(exitAction, &QAction::triggered, this, [&](){

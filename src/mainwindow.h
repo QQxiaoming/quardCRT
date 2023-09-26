@@ -23,7 +23,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QLocale::Language lang = QLocale::English, QWidget *parent = nullptr);
+    MainWindow(QLocale::Language lang = QLocale::English, bool isDark = true, QWidget *parent = nullptr);
     ~MainWindow();
     static void appAbout(QWidget *parent = nullptr);
     static void appHelp(QWidget *parent = nullptr);
@@ -38,6 +38,7 @@ private:
     QSplitter *splitter;
     SessionTab *sessionTab;
     QuickConnectWindow *quickConnectWindow;
+
     QMenu *fileMenu;
     QMenu *editMenu;
     QMenu *viewMenu;
@@ -47,6 +48,7 @@ private:
     QMenu *toolsMenu;
     QMenu *windowMenu;
     QMenu *languageMenu;
+    QMenu *themeMenu;
     QMenu *helpMenu;
     QAction *connectAction;
     QAction *sessionManagerAction;
@@ -100,10 +102,14 @@ private:
     QAction *chineseAction;
     QAction *englishAction;
     QAction *japaneseAction;
+    QActionGroup *themeActionGroup;
+    QAction *lightThemeAction;
+    QAction *darkThemeAction;
     QAction *helpAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
 
     QLocale::Language language;
+    bool isDarkTheme;
 };
 #endif // MAINWINDOW_H

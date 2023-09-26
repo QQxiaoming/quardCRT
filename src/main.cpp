@@ -181,9 +181,9 @@ int main(int argc, char *argv[])
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    MainWindow window(lang);
+    MainWindow window(lang,isDarkTheme);
     window.show();
-    window.setWindowTitle(QApplication::applicationName());
+    window.setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
     return application.exec();
 }
