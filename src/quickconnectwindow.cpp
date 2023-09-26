@@ -9,14 +9,11 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle("Quick Connect");
+    setWindowTitle(tr("Quick Connect"));
+    setWindowModality(Qt::ApplicationModal);
 
     qRegisterMetaType<QuickConnectData>("QuickConnectData");
     
-    ui->comboBoxProtocol->addItem("Telnet");
-    ui->comboBoxProtocol->addItem("Serial");
-    ui->comboBoxProtocol->addItem("Local Shell");
-    ui->comboBoxProtocol->addItem("Raw");
     ui->comboBoxProtocol->setCurrentIndex(0);
     comboBoxProtocolChanged(0);
 
@@ -34,8 +31,8 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
 {
     if(index == 0)
     {
-        ui->labelHostname->setText("Hostname");
-        ui->labelPort->setText("Port");
+        ui->labelHostname->setText(tr("Hostname"));
+        ui->labelPort->setText(tr("Port"));
         ui->comboBoxHostname->setVisible(false);
         ui->lineEditHostname->setVisible(true);
         ui->labelPort->setVisible(true);
@@ -51,13 +48,14 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         ui->checkBoxFlowCtrl->setVisible(false);
         ui->checkBoxXEnable->setVisible(false);
         ui->lineEditHostname->setText("");
+        ui->lineEditHostname->setPlaceholderText(tr("e.g. 127.0.0.1"));
         ui->spinBoxPort->setMinimum(0);
         ui->spinBoxPort->setMaximum(65535);
         ui->spinBoxPort->setValue(23);
         ui->comboBoxWebSocket->setCurrentIndex(0);
     } else if(index == 1) {
-        ui->labelHostname->setText("Port Name");
-        ui->labelPort->setText("Baud Rate");
+        ui->labelHostname->setText(tr("Port Name"));
+        ui->labelPort->setText(tr("Baud Rate"));
         ui->comboBoxHostname->setVisible(true);
         ui->lineEditHostname->setVisible(false);
         ui->labelPort->setVisible(true);
@@ -91,7 +89,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         ui->spinBoxPort->setMaximum(INT_MAX);
         ui->spinBoxPort->setValue(115200);
     } else if(index == 2) {
-        ui->labelHostname->setText("Command");
+        ui->labelHostname->setText(tr("Command"));
         ui->comboBoxHostname->setVisible(false);
         ui->lineEditHostname->setVisible(true);
         ui->labelPort->setVisible(false);
@@ -107,9 +105,10 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         ui->checkBoxFlowCtrl->setVisible(false);
         ui->checkBoxXEnable->setVisible(false);
         ui->lineEditHostname->setText("");
+        ui->lineEditHostname->setPlaceholderText(tr("e.g. /bin/bash"));
     } else if(index == 3) {
-        ui->labelHostname->setText("Hostname");
-        ui->labelPort->setText("Port");
+        ui->labelHostname->setText(tr("Hostname"));
+        ui->labelPort->setText(tr("Port"));
         ui->comboBoxHostname->setVisible(false);
         ui->lineEditHostname->setVisible(true);
         ui->labelPort->setVisible(true);
@@ -125,6 +124,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         ui->checkBoxFlowCtrl->setVisible(false);
         ui->checkBoxXEnable->setVisible(false);
         ui->lineEditHostname->setText("");
+        ui->lineEditHostname->setPlaceholderText(tr("e.g. 127.0.0.1"));
         ui->spinBoxPort->setMinimum(0);
         ui->spinBoxPort->setMaximum(65535);
         ui->spinBoxPort->setValue(8080);
@@ -135,14 +135,14 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
 void QuickConnectWindow::buttonBoxAccepted(void)
 {
     QuickConnectData data;
-    if(ui->comboBoxProtocol->currentText() == "Telnet")
+    if(ui->comboBoxProtocol->currentIndex() == 0)
     {
         data.type = Telnet;
         data.TelnetData.hostname = ui->lineEditHostname->text();
         data.TelnetData.port = ui->spinBoxPort->value();
         data.TelnetData.webSocket = ui->comboBoxWebSocket->currentText();
         emit this->sendQuickConnectData(data);
-    } else if(ui->comboBoxProtocol->currentText() == "Serial") {
+    } else if(ui->comboBoxProtocol->currentIndex() == 1) {
         data.type = Serial;
         data.SerialData.portName = ui->comboBoxHostname->currentText().split(" - ")[0];
         data.SerialData.baudRate = ui->spinBoxPort->value();
@@ -152,11 +152,11 @@ void QuickConnectWindow::buttonBoxAccepted(void)
         data.SerialData.flowControl = ui->checkBoxFlowCtrl->isChecked();
         data.SerialData.xEnable = ui->checkBoxXEnable->isChecked();
         emit this->sendQuickConnectData(data);
-    } else if(ui->comboBoxProtocol->currentText() == "Local Shell") {
+    } else if(ui->comboBoxProtocol->currentIndex() == 2) {
         data.type = LocalShell;
         data.LocalShellData.command = ui->lineEditHostname->text();
         emit this->sendQuickConnectData(data);
-    } else if(ui->comboBoxProtocol->currentText() == "Raw") {
+    } else if(ui->comboBoxProtocol->currentIndex() == 3) {
         data.type = Raw;
         data.RawData.hostname = ui->lineEditHostname->text();
         data.RawData.port = ui->spinBoxPort->value();
@@ -169,4 +169,11 @@ void QuickConnectWindow::buttonBoxAccepted(void)
 void QuickConnectWindow::buttonBoxRejected(void)
 {
     emit this->rejected();
+}
+
+void QuickConnectWindow::showEvent(QShowEvent *event)
+{
+    ui->retranslateUi(this);
+    comboBoxProtocolChanged(ui->comboBoxProtocol->currentIndex());
+    QDialog::showEvent(event);
 }

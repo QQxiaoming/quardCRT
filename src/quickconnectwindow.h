@@ -2,6 +2,7 @@
 #define QUICKCONNECTWINDOW_H
 
 #include <QDialog>
+#include <QShowEvent>
 
 namespace Ui {
 class QuickConnectWindow;
@@ -53,6 +54,9 @@ private slots:
     void comboBoxProtocolChanged(int index);
     void buttonBoxAccepted(void);
     void buttonBoxRejected(void);
+
+protected:
+    void showEvent(QShowEvent *event);
 
 private:
     Ui::QuickConnectWindow *ui;
