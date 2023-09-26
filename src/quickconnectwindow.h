@@ -30,11 +30,12 @@ public:
         }TelnetData;
         struct {
             QString portName;
-            int baudRate;
+            uint32_t baudRate;
             int dataBits;
             int parity;
             int stopBits;
-            int flowControl;
+            bool flowControl;
+            bool xEnable;
         }SerialData;
         struct {
             QString command;

@@ -27,15 +27,78 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->toolBar->setIconSize(QSize(16,16));
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    QMenu *fileMenu = new QMenu("File",this);
+
+    QMenu *fileMenu = new QMenu(tr("File"),this);
     ui->menuBar->addMenu(fileMenu);
-    QAction *connectAction = new QAction("Connect...",this);
+    QMenu *editMenu = new QMenu(tr("Edit"),this);
+    ui->menuBar->addMenu(editMenu);
+    QMenu *viewMenu = new QMenu(tr("View"),this);
+    ui->menuBar->addMenu(viewMenu);
+    QMenu *optionsMenu = new QMenu(tr("Options"),this);
+    ui->menuBar->addMenu(optionsMenu);
+    QMenu *transferMenu = new QMenu(tr("Transfer"),this);
+    ui->menuBar->addMenu(transferMenu);
+    QMenu *ScriptMenu = new QMenu(tr("Script"),this);
+    ui->menuBar->addMenu(ScriptMenu);
+    QMenu *toolsMenu = new QMenu(tr("Tools"),this);
+    ui->menuBar->addMenu(toolsMenu);
+    QMenu *windowMenu = new QMenu(tr("Window"),this);
+    ui->menuBar->addMenu(windowMenu);
+    QMenu *helpMenu = new QMenu(tr("Help"),this);
+    ui->menuBar->addMenu(helpMenu);
+
+    QAction *connectAction = new QAction(tr("Connect..."),this);
     fileMenu->addAction(connectAction);
-    QAction *sessionManagerAction = new QAction(QFontIcon::icon(QChar(0xf015)),"Session Manager",this);
+    QAction *sessionManagerAction = new QAction(QFontIcon::icon(QChar(0xf015)),tr("Session Manager"),this);
     ui->toolBar->addAction(sessionManagerAction);
-    QAction *quickConnectAction = new QAction(QFontIcon::icon(QChar(0xf074)),"Quick Connect...",this);
+    QAction *quickConnectAction = new QAction(QFontIcon::icon(QChar(0xf074)),tr("Quick Connect..."),this);
     fileMenu->addAction(quickConnectAction);
     ui->toolBar->addAction(quickConnectAction);
+    QAction *connectInTabAction = new QAction(tr("Connect in Tab/Tile..."),this);
+    fileMenu->addAction(connectInTabAction);
+    QAction *connectLocalShellAction = new QAction(QFontIcon::icon(QChar(0xf120)),tr("Connect Local Shell"),this);
+    fileMenu->addAction(connectLocalShellAction);
+    ui->toolBar->addAction(connectLocalShellAction);
+    ui->toolBar->addSeparator();
+    fileMenu->addSeparator();
+    QAction *reconnectAction = new QAction(QFontIcon::icon(QChar(0xf021)),tr("Reconnect"),this);
+    fileMenu->addAction(reconnectAction);
+    QAction *reconnectAllAction = new QAction(tr("Reconnect All"),this);
+    fileMenu->addAction(reconnectAllAction);
+    QAction *disconnectAction = new QAction(tr("Disconnect"),this);
+    fileMenu->addAction(disconnectAction);
+    QAction *disconnectAllAction = new QAction(tr("Disconnect All"),this);
+    fileMenu->addAction(disconnectAllAction);
+    fileMenu->addSeparator();
+    QAction *cloneSessionAction = new QAction(tr("Clone Session"),this);
+    fileMenu->addAction(cloneSessionAction);
+    fileMenu->addSeparator();
+    QAction *lockSessionAction = new QAction(QFontIcon::icon(QChar(0xf023)),tr("Lock Session"),this);
+    fileMenu->addAction(lockSessionAction);
+    fileMenu->addSeparator();
+    QAction *exitAction = new QAction(tr("Exit"),this);
+    fileMenu->addAction(exitAction);
+
+    QAction *copyAction = new QAction(QFontIcon::icon(QChar(0xf0c5)),tr("Copy"),this);
+    editMenu->addAction(copyAction);
+    QAction *pasteAction = new QAction(QFontIcon::icon(QChar(0xf0ea)),tr("Paste"),this);
+    editMenu->addAction(pasteAction);
+    QAction *selectAllAction = new QAction(tr("Select All"),this);
+    editMenu->addAction(selectAllAction);
+    QAction *findAction = new QAction(QFontIcon::icon(QChar(0xf002)),tr("Find..."),this);
+    editMenu->addAction(findAction);
+    editMenu->addSeparator();
+    QAction *resetAction = new QAction(tr("Reset"),this);
+    editMenu->addAction(resetAction);
+
+    QAction *helpAction = new QAction(QFontIcon::icon(QChar(0xf128)),tr("Help"),this);
+    helpMenu->addAction(helpAction);
+    ui->toolBar->addAction(helpAction);
+    helpMenu->addSeparator();
+    QAction *aboutAction = new QAction(tr("About"),this);
+    helpMenu->addAction(aboutAction);
+    QAction *aboutQtAction = new QAction(tr("About Qt"),this);
+    helpMenu->addAction(aboutQtAction);
 
     QSplitter *splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
@@ -55,6 +118,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(quickConnectAction,&QAction::triggered,this,[=](){
         quickConnectWindow->show();
     });
+    connect(connectLocalShellAction,&QAction::triggered,this,[=](){
+        SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
+        sessionTab->addTab(sessionsWindow->getTermWidget(), "Local Shell");
+        sessionsWindow->startLocalShellSession("");
+        sessionTab->setCurrentIndex(sessionTab->count()-1);
+    });
     connect(quickConnectWindow,&QuickConnectWindow::sendQuickConnectData,this,
             [=](QuickConnectWindow::QuickConnectData data){
         if(data.type == QuickConnectWindow::Telnet) {
@@ -72,7 +141,11 @@ MainWindow::MainWindow(QWidget *parent)
         } else if(data.type == QuickConnectWindow::Serial) {
             SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Serial,this);
             sessionTab->addTab(sessionsWindow->getTermWidget(), "Serial - "+data.SerialData.portName);
-            sessionsWindow->startSerialSession(data.SerialData.portName,data.SerialData.baudRate);
+            sessionsWindow->startSerialSession(
+                data.SerialData.portName, data.SerialData.baudRate,
+                data.SerialData.dataBits, data.SerialData.parity,
+                data.SerialData.stopBits, data.SerialData.flowControl,
+                data.SerialData.xEnable);
         } else if(data.type == QuickConnectWindow::LocalShell) {
             SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
             if(data.LocalShellData.command.isEmpty()) {

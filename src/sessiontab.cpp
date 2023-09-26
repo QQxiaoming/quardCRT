@@ -14,6 +14,10 @@ SessionTab::~SessionTab() {
 
 void SessionTab::contextMenuEvent(QContextMenuEvent *event) {
     int index = tabBar()->tabAt(event->pos());
-    emit showContextMenu(index);
+    if(index != -1) {
+        emit showContextMenu(index);
+        return;
+    }
+
     Q_UNUSED(event);
 }

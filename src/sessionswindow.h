@@ -24,7 +24,8 @@ public:
 
     int startLocalShellSession(const QString &command);
     int startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type);
-    int startSerialSession(const QString &portName, quint32 baudRate);
+    int startSerialSession(const QString &portName, uint32_t baudRate,
+                    int dataBits, int parity, int stopBits, bool flowControl, bool xEnable );
     int startRawSocketSession(const QString &hostname, quint16 port);
 
     QTermWidget *getTermWidget() const { return term; }

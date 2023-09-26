@@ -158,13 +158,27 @@ int SessionsWindow::startTelnetSession(const QString &hostname, quint16 port, QT
     return 0;
 }
 
-int SessionsWindow::startSerialSession(const QString &portName, quint32 baudRate) {
+int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRate
+    , int dataBits, int parity, int stopBits, bool flowControl, bool xEnable ) {
     serialPort->setPortName(portName);
     serialPort->setBaudRate(baudRate);
-    serialPort->setDataBits(QSerialPort::Data8);
-    serialPort->setParity(QSerialPort::NoParity);
-    serialPort->setStopBits(QSerialPort::OneStop);
-    serialPort->setFlowControl(QSerialPort::NoFlowControl);
+    serialPort->setDataBits(static_cast<QSerialPort::DataBits>(dataBits));
+    switch (parity)
+    {
+    case 0:
+    default:
+        serialPort->setParity(QSerialPort::NoParity);
+        break;
+    case 1:
+        serialPort->setParity(QSerialPort::OddParity);
+        break;
+    case 2:
+        serialPort->setParity(QSerialPort::EvenParity);
+        break;
+    }
+    serialPort->setStopBits(static_cast<QSerialPort::StopBits>(stopBits));
+    serialPort->setFlowControl(flowControl?QSerialPort::HardwareControl:QSerialPort::NoFlowControl);
+    serialPort->setBreakEnabled(xEnable);
     serialPort->open(QIODevice::ReadWrite);
     return 0;
 }
