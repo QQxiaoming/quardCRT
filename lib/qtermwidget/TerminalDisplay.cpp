@@ -2837,6 +2837,16 @@ void TerminalDisplay::pasteSelection()
   emitSelection(true,false);
 }
 
+void TerminalDisplay::selectAll()
+{
+  if ( !_screenWindow )
+      return;
+
+  _screenWindow->clearSelection();
+  _screenWindow->setSelectionStart( 0 , 0 , false );
+  _screenWindow->setSelectionEnd( _columns - 1 , _lines - 1 );
+  setSelection(_screenWindow->selectedText(_preserveLineBreaks));
+}
 
 void TerminalDisplay::setConfirmMultilinePaste(bool confirmMultilinePaste) {
     _confirmMultilinePaste = confirmMultilinePaste;

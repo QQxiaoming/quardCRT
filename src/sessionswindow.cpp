@@ -17,16 +17,6 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
 
     term = new QTermWidget(0,static_cast<QWidget *>(parent));
 
-    QFont font = QApplication::font();
-    int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
-    QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
-    if (fontFamilies.size() > 0) {
-        font.setFamily(fontFamilies[0]);
-    }
-    font.setFixedPitch(true);
-    font.setPointSize(12);
-
-    term->setTerminalFont(font);
     term->setScrollBarPosition(QTermWidget::NoScrollBar);
 
     QStringList availableColorSchemes = term->availableColorSchemes();

@@ -465,6 +465,11 @@ public slots:
     void pasteSelection();
 
     /**
+     * Selects all of the text in the display.
+     */
+    void selectAll();
+
+    /**
        * Changes whether the flow control warning box should be shown when the flow control
        * stop key (Ctrl+S) are pressed.
        */

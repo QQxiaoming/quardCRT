@@ -558,6 +558,11 @@ void QTermWidget::pasteSelection()
     m_impl->m_terminalDisplay->pasteSelection();
 }
 
+void QTermWidget::selectAll()
+{
+    m_impl->m_terminalDisplay->selectAll();
+}
+
 void QTermWidget::setZoom(int step)
 {
     QFont font = m_impl->m_terminalDisplay->getVTFont();

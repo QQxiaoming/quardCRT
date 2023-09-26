@@ -12,7 +12,10 @@
 #include <QAction>
 
 #include "sessiontab.h"
+#include "sessionswindow.h"
 #include "quickconnectwindow.h"
+#include "keymapmanager.h"
+#include "globaloptions.h"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -35,12 +38,20 @@ public:
 private:
     void menuAndToolBarInit(void);
     void menuAndToolBarRetranslateUi(void);
+    SessionsWindow *startTelnetSession(QString hostname, quint16 port, QTelnet::SocketType type);
+    SessionsWindow *startSerialSession(QString portName, uint32_t baudRate,
+                int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
+    SessionsWindow *startLocalShellSession(const QString &command = QString());
+    SessionsWindow *startRawSocketSession(QString hostname, quint16 port);
+    int stopSession(int index);
 
 private:
     Ui::MainWindow *ui;
     QSplitter *splitter;
     SessionTab *sessionTab;
     QuickConnectWindow *quickConnectWindow;
+    keyMapManager *keyMapManagerWindow;
+    GlobalOptions *globalOptionsWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -74,6 +85,7 @@ private:
     QAction *resetAction;
     QAction *zoomInAction;
     QAction *zoomOutAction;
+    QAction *zoomResetAction;
     QAction *fullScreenAction;
     QAction *sessionOptionsAction;
     QAction *globalOptionsAction;
@@ -114,5 +126,6 @@ private:
 
     QLocale::Language language;
     bool isDarkTheme;
+    QList<SessionsWindow *> sessionActionsList;
 };
 #endif // MAINWINDOW_H

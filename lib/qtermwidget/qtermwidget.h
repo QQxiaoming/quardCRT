@@ -314,6 +314,9 @@ public slots:
     // Paste selection to terminal
     void pasteSelection();
 
+    // Select all text
+    void selectAll();
+
     // Set zoom
     void zoomIn();
     void zoomOut();
