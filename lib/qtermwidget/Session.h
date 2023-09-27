@@ -394,7 +394,7 @@ signals:
     void receivedData( const QString & text );
 
     /** Emitted when the session's title has changed. */
-    void titleChanged();
+    void titleChanged(int title,const QString& newTitle);
 
     /** Emitted when the session's profile has changed. */
     void profileChanged(const QString & profile);

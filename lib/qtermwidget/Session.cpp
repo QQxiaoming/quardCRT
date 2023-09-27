@@ -285,7 +285,7 @@ void Session::setUserTitle( int what, const QString & caption )
     }
 
     if ( modified ) {
-        emit titleChanged();
+        emit titleChanged(what,caption);
     }
 }
 
@@ -491,7 +491,7 @@ void Session::setTitle(TitleRole role , const QString & newTitle)
             _displayTitle = newTitle;
         }
 
-        emit titleChanged();
+        emit titleChanged(2,newTitle);
     }
 }
 
@@ -510,7 +510,7 @@ void Session::setIconName(const QString & iconName)
 {
     if ( iconName != _iconName ) {
         _iconName = iconName;
-        emit titleChanged();
+        emit titleChanged(1,iconName);
     }
 }
 

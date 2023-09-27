@@ -296,7 +296,7 @@ signals:
 
     void profileChanged(const QString & profile);
 
-    void titleChanged();
+    void titleChanged(int title,const QString& newTitle);
 
     void termSizeChange(int lines, int columns);
 

@@ -377,7 +377,13 @@ void MainWindow::menuAndToolBarInit(void) {
         globalOptionsWindow->show();
     });
     connect(connectLocalShellAction,&QAction::triggered,this,[=](){
-        sessionActionsList.push_back(startLocalShellSession());
+        SessionsWindow *sessionsWindow = startLocalShellSession();
+        sessionActionsList.push_back(sessionsWindow);
+        connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
+            if(title == 2) {
+                sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
+            }
+        });
         sessionTab->setCurrentIndex(sessionTab->count()-1);
     });
     connect(quickConnectWindow,&QuickConnectWindow::sendQuickConnectData,this,
@@ -404,8 +410,14 @@ void MainWindow::menuAndToolBarInit(void) {
         } else if(data.type == QuickConnectWindow::Raw) {
             sessionsWindow = startRawSocketSession(data.RawData.hostname,data.RawData.port);
         }
-        if(sessionsWindow)
+        if(sessionsWindow) {
             sessionActionsList.push_back(sessionsWindow);
+            connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
+                if(title == 2) {
+                    sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
+                }
+            });
+        }
         sessionTab->setCurrentIndex(sessionTab->count()-1);
     });
     connect(globalOptionsWindow,&GlobalOptions::colorSchemeChanged,this,[=](QString colorScheme){
