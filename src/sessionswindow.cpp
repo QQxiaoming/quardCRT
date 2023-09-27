@@ -3,6 +3,8 @@
 #include <QFontDatabase>
 #include <QStringList>
 #include <QProcessEnvironment>
+#include <QFileDialog>
+#include <QMessageBox>
 
 #include "sessionswindow.h"
 
@@ -13,7 +15,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
     , telnet(nullptr)
     , serialPort(nullptr)
     , rawSocket(nullptr)
-    , localShell(nullptr) {
+    , localShell(nullptr)
+    , enableLog(false)
+    , enableRawLog(false) {
 
     term = new QTermWidget(0,static_cast<QWidget *>(parent));
 
@@ -62,6 +66,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
             connect(telnet,&QTelnet::newData,this,
                 [=](const char *data, int size){
                 term->recvData(data, size);
+                saveRawLog(data, size);
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
@@ -76,6 +81,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
                 [=](){
                 QByteArray data = serialPort->readAll();
                 term->recvData(data.data(), data.size());
+                saveRawLog(data.data(), data.size());
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
@@ -91,6 +97,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
                 [=](){
                 QByteArray data = rawSocket->readAll();
                 term->recvData(data.data(), data.size());
+                saveRawLog(data.data(), data.size());
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
@@ -101,9 +108,29 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
             break;
         }
     }
+
+    connect(term, &QTermWidget::dupDisplayOutput, this, [=](const char *data, int size){
+        saveLog(data, size);
+    });
 }
 
 SessionsWindow::~SessionsWindow() {
+    enableLog = false;
+    enableRawLog = false;
+    log_file_mutex.lock();
+    if(log_file != nullptr) {
+        log_file->close();
+        delete log_file;
+        log_file = nullptr;
+    }
+    log_file_mutex.unlock();
+    raw_log_file_mutex.lock();
+    if(raw_log_file != nullptr) {
+        raw_log_file->close();
+        delete raw_log_file;
+        raw_log_file = nullptr;
+    }
+    raw_log_file_mutex.unlock();
     if(localShell) {
         localShell->kill();
         delete localShell;
@@ -139,6 +166,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
         term->recvData(data.data(), data.size());
+        saveRawLog(data.data(), data.size());
     });
     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
         localShell->write(QByteArray(data, size));
@@ -180,4 +208,106 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
 int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port) {
     rawSocket->connectToHost(hostname, port);
     return 0;
+}
+
+int SessionsWindow::setLog(bool enable) {
+    int ret = -1;
+    log_file_mutex.lock(); 
+    if(enable) {
+        if(log_file == nullptr) {
+            QString savefile_name = QFileDialog::getSaveFileName(term, tr("Save log..."),
+                QDir::homePath() + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".log", tr("log files (*.log)"));
+            if (!savefile_name.isEmpty()) {
+                log_file = new QFile(savefile_name);
+                if (!log_file->open(QIODevice::WriteOnly|QIODevice::Text)) {
+                    QMessageBox::warning(term, tr("Save log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
+                    delete log_file;
+                    log_file = nullptr;
+                    enableLog = false;
+                } else {
+                    enableLog = true;
+                    ret = 0;
+                }
+            } else {
+                enableLog = false;
+            }
+        }
+    } else {
+        if(log_file != nullptr) {
+            log_file->close();
+            delete log_file;
+            log_file = nullptr;
+        }
+        enableLog = false;
+        ret = 0;
+    }
+    log_file_mutex.unlock();
+    return ret;
+}
+
+int SessionsWindow::setRawLog(bool enable) {
+    int ret = -1;
+    raw_log_file_mutex.lock(); 
+    if(enable) {
+        if(raw_log_file == nullptr) {
+            QString savefile_name = QFileDialog::getSaveFileName(term, tr("Save Raw log..."),
+                QDir::homePath() + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".bin", tr("binary files (*.bin)"));
+            if (!savefile_name.isEmpty()) {
+                raw_log_file = new QFile(savefile_name);
+                if (!raw_log_file->open(QIODevice::WriteOnly)) {
+                    QMessageBox::warning(term, tr("Save Raw log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
+                    delete raw_log_file;
+                    raw_log_file = nullptr;
+                    enableRawLog = false;
+                } else {
+                    enableRawLog = true;
+                    ret = 0;
+                }
+            } else {
+                enableRawLog = false;
+            }
+        }
+    } else {
+        if(raw_log_file != nullptr) {
+            raw_log_file->close();
+            delete raw_log_file;
+            raw_log_file = nullptr;
+        }
+        enableRawLog = false;
+        ret = 0;
+    }
+    raw_log_file_mutex.unlock();
+    return ret;
+}
+
+int SessionsWindow::saveLog(const char *data, int size) {
+    int ret = 0;
+    if(enableLog) {
+        if(log_file_mutex.tryLock()) {
+            if(log_file != nullptr) {
+                ret = log_file->write(data, size);
+                if(fflush_file) {
+                    log_file->flush();
+                }
+            }
+            log_file_mutex.unlock();
+        }
+    }
+    return ret;
+}
+
+int SessionsWindow::saveRawLog(const char *data, int size) {
+    int ret = 0;
+    if(enableRawLog) {
+        if(raw_log_file_mutex.tryLock()) {
+            if(raw_log_file != nullptr) {
+                ret = raw_log_file->write(data, size);
+                if(fflush_file) {
+                    raw_log_file->flush();
+                }
+            }
+            raw_log_file_mutex.unlock();
+        }
+    }
+    return ret;
 }

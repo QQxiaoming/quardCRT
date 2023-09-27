@@ -76,6 +76,8 @@ private:
     QAction *disconnectAllAction;
     QAction *cloneSessionAction;
     QAction *lockSessionAction;
+    QAction *logSessionAction;
+    QAction *rawLogSessionAction;
     QAction *exitAction;
     QAction *copyAction;
     QAction *pasteAction;

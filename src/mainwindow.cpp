@@ -90,6 +90,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     cloneSessionAction->setText(tr("Clone Session"));
     lockSessionAction->setText(tr("Lock Session"));
     lockSessionAction->setIcon(QFontIcon::icon(QChar(0xf023)));
+    logSessionAction->setText(tr("Log Session"));
+    rawLogSessionAction->setText(tr("Raw Log Session"));
     exitAction->setText(tr("Exit"));
 
     copyAction->setText(tr("Copy"));
@@ -216,6 +218,15 @@ void MainWindow::menuAndToolBarInit(void) {
     fileMenu->addSeparator();
     lockSessionAction = new QAction(this);
     fileMenu->addAction(lockSessionAction);
+    fileMenu->addSeparator();
+    logSessionAction = new QAction(this);
+    logSessionAction->setCheckable(true);
+    logSessionAction->setChecked(false);
+    fileMenu->addAction(logSessionAction);
+    rawLogSessionAction = new QAction(this);
+    rawLogSessionAction->setCheckable(true);
+    rawLogSessionAction->setChecked(false);
+    fileMenu->addAction(rawLogSessionAction);
     fileMenu->addSeparator();
     exitAction = new QAction(this);
     fileMenu->addAction(exitAction);
@@ -420,6 +431,48 @@ void MainWindow::menuAndToolBarInit(void) {
         }
         sessionTab->setCurrentIndex(sessionTab->count()-1);
     });
+    connect(logSessionAction,&QAction::triggered,this,
+        [&](void) {
+            if(sessionTab->count() == 0) {
+                logSessionAction->setChecked(false);
+                return;
+            }
+            QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+            foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
+                if(sessionsWindow->getTermWidget() == termWidget) {
+                    if(!sessionsWindow->isLog()) {
+                        sessionsWindow->setLog(true);
+                        logSessionAction->setChecked(true);
+                    } else {
+                        sessionsWindow->setLog(false);
+                        logSessionAction->setChecked(false);
+                    }
+                    break;
+                }
+            }
+        }
+    );
+    connect(rawLogSessionAction,&QAction::triggered,this,
+        [&](void) {
+            if(sessionTab->count() == 0) {
+                rawLogSessionAction->setChecked(false);
+                return;
+            }
+            QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+            foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
+                if(sessionsWindow->getTermWidget() == termWidget) {
+                    if(!sessionsWindow->isRawLog()) {
+                        sessionsWindow->setRawLog(true);
+                        rawLogSessionAction->setChecked(true);
+                    } else {
+                        sessionsWindow->setRawLog(false);
+                        rawLogSessionAction->setChecked(false);
+                    }
+                    break;
+                }
+            }
+        }
+    );
     connect(globalOptionsWindow,&GlobalOptions::colorSchemeChanged,this,[=](QString colorScheme){
         foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
             sessionsWindow->getTermWidget()->setColorScheme(colorScheme);
@@ -432,6 +485,18 @@ void MainWindow::menuAndToolBarInit(void) {
     });
     connect(sessionTab,&QTabWidget::tabCloseRequested,this,[=](int index){
         stopSession(index);
+    });
+    connect(sessionTab,&SessionTab::currentChanged,this,[=](int index){
+        if(index > 0) {
+            QTermWidget *termWidget = (QTermWidget *)sessionTab->widget(index);
+            foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
+                if(sessionsWindow->getTermWidget() == termWidget) {
+                    logSessionAction->setChecked(sessionsWindow->isLog());
+                    rawLogSessionAction->setChecked(sessionsWindow->isRawLog());
+                    break;
+                }
+            }
+        }
     });
     connect(sessionTab,&SessionTab::showContextMenu,this,[=](int index){
         QMenu *menu = new QMenu(this);
