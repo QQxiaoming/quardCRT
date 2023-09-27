@@ -451,6 +451,11 @@ void MainWindow::menuAndToolBarInit(void) {
         }
         sessionTab->setCurrentIndex(sessionTab->count()-1);
     });
+    connect(disconnectAction,&QAction::triggered,this,[=](){
+        if(sessionTab->count() == 0) return;
+        QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+        stopSession(sessionTab->indexOf(termWidget));
+    });
     connect(cloneSessionAction,&QAction::triggered,this,[=](){
         cloneCurrentSession();
     });
@@ -551,6 +556,12 @@ void MainWindow::menuAndToolBarInit(void) {
     connect(pasteAction,&QAction::triggered,this,[=](){
         if(sessionTab->count() == 0) return;
         QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+        termWidget->pasteClipboard();
+    });
+    connect(copyAndPasteAction,&QAction::triggered,this,[=](){
+        if(sessionTab->count() == 0) return;
+        QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+        termWidget->copyClipboard();
         termWidget->pasteClipboard();
     });
     connect(selectAllAction,&QAction::triggered,this,[=](){
