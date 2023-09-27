@@ -298,6 +298,8 @@ signals:
 
     void titleChanged();
 
+    void termSizeChange(int lines, int columns);
+
     /**
      * Signals that we received new data from the process running in the
      * terminal emulator
@@ -353,6 +355,9 @@ private slots:
      * sends the specified cursor states to the terminal display
      */
     void cursorChanged(Konsole::Emulation::KeyboardCursorShape cursorShape, bool blinkingCursorEnabled);
+    void sizeChange(int lines, int columns){
+        emit termSizeChange(lines, columns);
+    }
 
 private:
     void search(bool forwards, bool next);

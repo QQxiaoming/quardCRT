@@ -52,6 +52,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
             //}
         #endif
             localShell = PtyQt::createPtyProcess(ptyType);
+            connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
+                localShell->resize(columns,lines);
+            });
             break;
         }
         case Telnet: {
@@ -132,7 +135,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     } else {
         shellPath = command;
     }
-    localShell->startProcess(shellPath, QProcessEnvironment::systemEnvironment().toStringList(), 87, 26);
+    localShell->startProcess(shellPath, QProcessEnvironment::systemEnvironment().toStringList(), term->screenColumnsCount(), term->screenLinesCount());
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
         term->recvData(data.data(), data.size());

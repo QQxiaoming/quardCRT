@@ -1,34 +1,325 @@
 <RCC>
     <qresource prefix="/lib/qtermwidget">
+        <file>./color-schemes/3024 Day.colorscheme</file>
+        <file>./color-schemes/3024 Night.colorscheme</file>
+        <file>./color-schemes/Aardvark Blue.colorscheme</file>
+        <file>./color-schemes/Abernathy.colorscheme</file>
+        <file>./color-schemes/Adventure.colorscheme</file>
+        <file>./color-schemes/AdventureTime.colorscheme</file>
+        <file>./color-schemes/Afterglow.colorscheme</file>
+        <file>./color-schemes/Alabaster.colorscheme</file>
+        <file>./color-schemes/AlienBlood.colorscheme</file>
+        <file>./color-schemes/Andromeda.colorscheme</file>
+        <file>./color-schemes/Apple Classic.colorscheme</file>
+        <file>./color-schemes/Argonaut.colorscheme</file>
+        <file>./color-schemes/Arthur.colorscheme</file>
+        <file>./color-schemes/AtelierSulphurpool.colorscheme</file>
+        <file>./color-schemes/Atom.colorscheme</file>
+        <file>./color-schemes/AtomOneLight.colorscheme</file>
+        <file>./color-schemes/Aurora.colorscheme</file>
+        <file>./color-schemes/Ayu Mirage.colorscheme</file>
+        <file>./color-schemes/Banana Blueberry.colorscheme</file>
+        <file>./color-schemes/Batman.colorscheme</file>
+        <file>./color-schemes/Belafonte Day.colorscheme</file>
+        <file>./color-schemes/Belafonte Night.colorscheme</file>
+        <file>./color-schemes/BirdsOfParadise.colorscheme</file>
         <file>./color-schemes/BlackOnLightYellow.colorscheme</file>
         <file>./color-schemes/BlackOnRandomLight.colorscheme</file>
         <file>./color-schemes/BlackOnWhite.colorscheme</file>
+        <file>./color-schemes/Blazer.colorscheme</file>
+        <file>./color-schemes/Blue Matrix.colorscheme</file>
+        <file>./color-schemes/BlueBerryPie.colorscheme</file>
+        <file>./color-schemes/BlueDolphin.colorscheme</file>
+        <file>./color-schemes/BlulocoDark.colorscheme</file>
+        <file>./color-schemes/BlulocoLight.colorscheme</file>
+        <file>./color-schemes/Borland.colorscheme</file>
+        <file>./color-schemes/Breeze.colorscheme</file>
         <file>./color-schemes/BreezeModified.colorscheme</file>
+        <file>./color-schemes/Bright Lights.colorscheme</file>
+        <file>./color-schemes/Broadcast.colorscheme</file>
+        <file>./color-schemes/Brogrammer.colorscheme</file>
+        <file>./color-schemes/Builtin Dark.colorscheme</file>
+        <file>./color-schemes/Builtin Light.colorscheme</file>
+        <file>./color-schemes/Builtin Pastel Dark.colorscheme</file>
+        <file>./color-schemes/Builtin Solarized Dark.colorscheme</file>
+        <file>./color-schemes/Builtin Solarized Light.colorscheme</file>
+        <file>./color-schemes/Builtin Tango Dark.colorscheme</file>
+        <file>./color-schemes/Builtin Tango Light.colorscheme</file>
+        <file>./color-schemes/C64.colorscheme</file>
+        <file>./color-schemes/CGA.colorscheme</file>
+        <file>./color-schemes/CLRS.colorscheme</file>
+        <file>./color-schemes/Calamity.colorscheme</file>
+        <file>./color-schemes/Chalk.colorscheme</file>
+        <file>./color-schemes/Chalkboard.colorscheme</file>
+        <file>./color-schemes/ChallengerDeep.colorscheme</file>
+        <file>./color-schemes/Chester.colorscheme</file>
+        <file>./color-schemes/Ciapre.colorscheme</file>
+        <file>./color-schemes/Cobalt Neon.colorscheme</file>
+        <file>./color-schemes/Cobalt2.colorscheme</file>
+        <file>./color-schemes/CrayonPonyFish.colorscheme</file>
+        <file>./color-schemes/Cyberdyne.colorscheme</file>
+        <file>./color-schemes/Dark Pastel.colorscheme</file>
+        <file>./color-schemes/Dark+.colorscheme</file>
         <file>./color-schemes/DarkPastels.colorscheme</file>
+        <file>./color-schemes/Darkside.colorscheme</file>
+        <file>./color-schemes/Desert.colorscheme</file>
+        <file>./color-schemes/DimmedMonokai.colorscheme</file>
+        <file>./color-schemes/Django.colorscheme</file>
+        <file>./color-schemes/DjangoRebornAgain.colorscheme</file>
+        <file>./color-schemes/DjangoSmooth.colorscheme</file>
+        <file>./color-schemes/Doom Peacock.colorscheme</file>
+        <file>./color-schemes/DoomOne.colorscheme</file>
+        <file>./color-schemes/DotGov.colorscheme</file>
+        <file>./color-schemes/Dracula+.colorscheme</file>
+        <file>./color-schemes/Dracula.colorscheme</file>
+        <file>./color-schemes/Duotone Dark.colorscheme</file>
+        <file>./color-schemes/ENCOM.colorscheme</file>
+        <file>./color-schemes/Earthsong.colorscheme</file>
+        <file>./color-schemes/Elemental.colorscheme</file>
+        <file>./color-schemes/Elementary.colorscheme</file>
+        <file>./color-schemes/Espresso Libre.colorscheme</file>
+        <file>./color-schemes/Espresso.colorscheme</file>
+        <file>./color-schemes/Everblush.colorscheme</file>
+        <file>./color-schemes/Fahrenheit.colorscheme</file>
+        <file>./color-schemes/Fairyfloss.colorscheme</file>
+        <file>./color-schemes/Fideloper.colorscheme</file>
+        <file>./color-schemes/FirefoxDev.colorscheme</file>
+        <file>./color-schemes/Firewatch.colorscheme</file>
+        <file>./color-schemes/FishTank.colorscheme</file>
+        <file>./color-schemes/Flat.colorscheme</file>
+        <file>./color-schemes/Flatland.colorscheme</file>
+        <file>./color-schemes/Floraverse.colorscheme</file>
+        <file>./color-schemes/ForestBlue.colorscheme</file>
+        <file>./color-schemes/Framer.colorscheme</file>
+        <file>./color-schemes/FrontEndDelight.colorscheme</file>
+        <file>./color-schemes/FunForrest.colorscheme</file>
+        <file>./color-schemes/Galaxy.colorscheme</file>
+        <file>./color-schemes/Galizur.colorscheme</file>
+        <file>./color-schemes/GitHub Dark.colorscheme</file>
+        <file>./color-schemes/Github.colorscheme</file>
+        <file>./color-schemes/Glacier.colorscheme</file>
+        <file>./color-schemes/Grape.colorscheme</file>
+        <file>./color-schemes/Grass.colorscheme</file>
         <file>./color-schemes/GreenOnBlack.colorscheme</file>
+        <file>./color-schemes/Grey-green.colorscheme</file>
+        <file>./color-schemes/Gruvbox Light.colorscheme</file>
+        <file>./color-schemes/GruvboxDark.colorscheme</file>
+        <file>./color-schemes/GruvboxDarkHard.colorscheme</file>
+        <file>./color-schemes/Guezwhoz.colorscheme</file>
+        <file>./color-schemes/HaX0R_BLUE.colorscheme</file>
+        <file>./color-schemes/HaX0R_GR33N.colorscheme</file>
+        <file>./color-schemes/HaX0R_R3D.colorscheme</file>
+        <file>./color-schemes/Hacktober.colorscheme</file>
+        <file>./color-schemes/Hardcore.colorscheme</file>
+        <file>./color-schemes/Harper.colorscheme</file>
+        <file>./color-schemes/Highway.colorscheme</file>
+        <file>./color-schemes/Hipster Green.colorscheme</file>
+        <file>./color-schemes/Hivacruz.colorscheme</file>
+        <file>./color-schemes/Homebrew.colorscheme</file>
+        <file>./color-schemes/Hopscotch.256.colorscheme</file>
+        <file>./color-schemes/Hopscotch.colorscheme</file>
+        <file>./color-schemes/Hurtado.colorscheme</file>
+        <file>./color-schemes/Hybrid.colorscheme</file>
+        <file>./color-schemes/IC_Green_PPL.colorscheme</file>
+        <file>./color-schemes/IC_Orange_PPL.colorscheme</file>
+        <file>./color-schemes/IR_Black.colorscheme</file>
+        <file>./color-schemes/Jackie Brown.colorscheme</file>
+        <file>./color-schemes/Japanesque.colorscheme</file>
+        <file>./color-schemes/Jellybeans.colorscheme</file>
+        <file>./color-schemes/JetBrains Darcula.colorscheme</file>
+        <file>./color-schemes/Kibble.colorscheme</file>
+        <file>./color-schemes/Kolorit.colorscheme</file>
+        <file>./color-schemes/Konsolas.colorscheme</file>
+        <file>./color-schemes/Lab Fox.colorscheme</file>
+        <file>./color-schemes/Laser.colorscheme</file>
+        <file>./color-schemes/Later This Evening.colorscheme</file>
+        <file>./color-schemes/Lavandula.colorscheme</file>
         <file>./color-schemes/Linux.colorscheme</file>
+        <file>./color-schemes/LiquidCarbon.colorscheme</file>
+        <file>./color-schemes/LiquidCarbonTransparent.colorscheme</file>
+        <file>./color-schemes/LiquidCarbonTransparentInverse.colorscheme</file>
+        <file>./color-schemes/Man Page.colorscheme</file>
+        <file>./color-schemes/Mariana.colorscheme</file>
+        <file>./color-schemes/Material.colorscheme</file>
+        <file>./color-schemes/MaterialDark.colorscheme</file>
+        <file>./color-schemes/MaterialDarker.colorscheme</file>
+        <file>./color-schemes/MaterialDesignColors.colorscheme</file>
+        <file>./color-schemes/MaterialOcean.colorscheme</file>
+        <file>./color-schemes/Mathias.colorscheme</file>
+        <file>./color-schemes/Medallion.colorscheme</file>
+        <file>./color-schemes/Mirage.colorscheme</file>
+        <file>./color-schemes/Misterioso.colorscheme</file>
+        <file>./color-schemes/Molokai.colorscheme</file>
+        <file>./color-schemes/MonaLisa.colorscheme</file>
+        <file>./color-schemes/Monokai Remastered.colorscheme</file>
+        <file>./color-schemes/Monokai Soda.colorscheme</file>
+        <file>./color-schemes/Monokai Vivid.colorscheme</file>
+        <file>./color-schemes/N0tch2k.colorscheme</file>
+        <file>./color-schemes/Neon.colorscheme</file>
+        <file>./color-schemes/Neopolitan.colorscheme</file>
+        <file>./color-schemes/Neutron.colorscheme</file>
+        <file>./color-schemes/Night Owlish Light.colorscheme</file>
+        <file>./color-schemes/NightLion v1.colorscheme</file>
+        <file>./color-schemes/NightLion v2.colorscheme</file>
+        <file>./color-schemes/Nocturnal Winter.colorscheme</file>
+        <file>./color-schemes/Novel.colorscheme</file>
+        <file>./color-schemes/Obsidian.colorscheme</file>
+        <file>./color-schemes/Ocean.colorscheme</file>
+        <file>./color-schemes/Oceanic-Next.colorscheme</file>
+        <file>./color-schemes/OceanicMaterial.colorscheme</file>
+        <file>./color-schemes/Ollie.colorscheme</file>
+        <file>./color-schemes/OneHalfDark.colorscheme</file>
+        <file>./color-schemes/OneHalfLight.colorscheme</file>
+        <file>./color-schemes/Operator Mono Dark.colorscheme</file>
+        <file>./color-schemes/Overnight Slumber.colorscheme</file>
+        <file>./color-schemes/PaleNightHC.colorscheme</file>
+        <file>./color-schemes/Pandora.colorscheme</file>
+        <file>./color-schemes/Paraiso Dark.colorscheme</file>
+        <file>./color-schemes/PaulMillr.colorscheme</file>
+        <file>./color-schemes/PencilDark.colorscheme</file>
+        <file>./color-schemes/PencilLight.colorscheme</file>
+        <file>./color-schemes/Peppermint.colorscheme</file>
+        <file>./color-schemes/Piatto Light.colorscheme</file>
+        <file>./color-schemes/Pnevma.colorscheme</file>
+        <file>./color-schemes/Popping and Locking.colorscheme</file>
+        <file>./color-schemes/PowerShell.colorscheme</file>
+        <file>./color-schemes/Pro Light.colorscheme</file>
+        <file>./color-schemes/Pro.colorscheme</file>
+        <file>./color-schemes/Purple Rain.colorscheme</file>
+        <file>./color-schemes/Rapture.colorscheme</file>
+        <file>./color-schemes/Raycast_Dark.colorscheme</file>
+        <file>./color-schemes/Raycast_Light.colorscheme</file>
+        <file>./color-schemes/Red Alert.colorscheme</file>
+        <file>./color-schemes/Red Planet.colorscheme</file>
+        <file>./color-schemes/Red Sands.colorscheme</file>
+        <file>./color-schemes/Relaxed.colorscheme</file>
+        <file>./color-schemes/Retro.colorscheme</file>
+        <file>./color-schemes/Rippedcasts.colorscheme</file>
+        <file>./color-schemes/Rouge 2.colorscheme</file>
+        <file>./color-schemes/Royal.colorscheme</file>
+        <file>./color-schemes/Ryuuko.colorscheme</file>
+        <file>./color-schemes/Sakura.colorscheme</file>
+        <file>./color-schemes/Scarlet Protocol.colorscheme</file>
+        <file>./color-schemes/SeaShells.colorscheme</file>
+        <file>./color-schemes/Seafoam Pastel.colorscheme</file>
+        <file>./color-schemes/Seti.colorscheme</file>
+        <file>./color-schemes/Shaman.colorscheme</file>
+        <file>./color-schemes/Slate.colorscheme</file>
+        <file>./color-schemes/SleepyHollow.colorscheme</file>
+        <file>./color-schemes/Smyck.colorscheme</file>
+        <file>./color-schemes/Snazzy.colorscheme</file>
+        <file>./color-schemes/SoftServer.colorscheme</file>
+        <file>./color-schemes/Solarized Darcula.colorscheme</file>
+        <file>./color-schemes/Solarized Dark - Patched.colorscheme</file>
+        <file>./color-schemes/Solarized Dark Higher Contrast.colorscheme</file>
         <file>./color-schemes/Solarized.colorscheme</file>
         <file>./color-schemes/SolarizedLight.colorscheme</file>
+        <file>./color-schemes/SpaceGray Eighties Dull.colorscheme</file>
+        <file>./color-schemes/SpaceGray Eighties.colorscheme</file>
+        <file>./color-schemes/SpaceGray.colorscheme</file>
+        <file>./color-schemes/Spacedust.colorscheme</file>
+        <file>./color-schemes/Spiderman.colorscheme</file>
+        <file>./color-schemes/Spring.colorscheme</file>
+        <file>./color-schemes/Square.colorscheme</file>
+        <file>./color-schemes/Sublette.colorscheme</file>
+        <file>./color-schemes/Subliminal.colorscheme</file>
+        <file>./color-schemes/Sundried.colorscheme</file>
+        <file>./color-schemes/Symfonic.colorscheme</file>
+        <file>./color-schemes/SynthwaveAlpha.colorscheme</file>
+        <file>./color-schemes/Tango Adapted.colorscheme</file>
+        <file>./color-schemes/Tango Half Adapted.colorscheme</file>
         <file>./color-schemes/Tango.colorscheme</file>
+        <file>./color-schemes/Teerb.colorscheme</file>
+        <file>./color-schemes/Terminal Basic.colorscheme</file>
+        <file>./color-schemes/Thayer Bright.colorscheme</file>
+        <file>./color-schemes/The Hulk.colorscheme</file>
+        <file>./color-schemes/Tinacious Design (Dark).colorscheme</file>
+        <file>./color-schemes/Tinacious Design (Light).colorscheme</file>
+        <file>./color-schemes/Tomorrow Night Blue.colorscheme</file>
+        <file>./color-schemes/Tomorrow Night Bright.colorscheme</file>
+        <file>./color-schemes/Tomorrow Night Burns.colorscheme</file>
+        <file>./color-schemes/Tomorrow Night Eighties.colorscheme</file>
+        <file>./color-schemes/Tomorrow Night.colorscheme</file>
+        <file>./color-schemes/Tomorrow.colorscheme</file>
+        <file>./color-schemes/ToyChest.colorscheme</file>
+        <file>./color-schemes/Treehouse.colorscheme</file>
+        <file>./color-schemes/Twilight.colorscheme</file>
         <file>./color-schemes/Ubuntu.colorscheme</file>
+        <file>./color-schemes/UltraDark.colorscheme</file>
+        <file>./color-schemes/UltraViolent.colorscheme</file>
+        <file>./color-schemes/UnderTheSea.colorscheme</file>
+        <file>./color-schemes/Unikitty.colorscheme</file>
+        <file>./color-schemes/Urple.colorscheme</file>
+        <file>./color-schemes/Vaughn.colorscheme</file>
+        <file>./color-schemes/VibrantInk.colorscheme</file>
+        <file>./color-schemes/Violet Dark.colorscheme</file>
+        <file>./color-schemes/Violet Light.colorscheme</file>
+        <file>./color-schemes/WarmNeon.colorscheme</file>
+        <file>./color-schemes/Wez.colorscheme</file>
+        <file>./color-schemes/Whimsy.colorscheme</file>
         <file>./color-schemes/WhiteOnBlack.colorscheme</file>
-        <file>./color-schemes/historic/BlackOnLightColor.schema</file>
-        <file>./color-schemes/historic/DarkPicture.schema</file>
-        <file>./color-schemes/historic/Example.Schema</file>
-        <file>./color-schemes/historic/GreenOnBlack.schema</file>
-        <file>./color-schemes/historic/GreenTint_MC.schema</file>
-        <file>./color-schemes/historic/GreenTint.schema</file>
-        <file>./color-schemes/historic/LightPicture.schema</file>
-        <file>./color-schemes/historic/Linux.schema</file>
-        <file>./color-schemes/historic/README.default.Schema</file>
-        <file>./color-schemes/historic/README.Schema</file>
-        <file>./color-schemes/historic/syscolor.schema</file>
-        <file>./color-schemes/historic/Transparent_darkbg.schema</file>
-        <file>./color-schemes/historic/Transparent_lightbg.schema</file>
-        <file>./color-schemes/historic/Transparent_MC.schema</file>
-        <file>./color-schemes/historic/Transparent.schema</file>
-        <file>./color-schemes/historic/vim.schema</file>
-        <file>./color-schemes/historic/XTerm.schema</file>
+        <file>./color-schemes/WildCherry.colorscheme</file>
+        <file>./color-schemes/Wombat.colorscheme</file>
+        <file>./color-schemes/Wryan.colorscheme</file>
+        <file>./color-schemes/Zenburn.colorscheme</file>
+        <file>./color-schemes/arcoiris.colorscheme</file>
+        <file>./color-schemes/ayu.colorscheme</file>
+        <file>./color-schemes/ayu_light.colorscheme</file>
+        <file>./color-schemes/catppuccin-frappe.colorscheme</file>
+        <file>./color-schemes/catppuccin-latte.colorscheme</file>
+        <file>./color-schemes/catppuccin-macchiato.colorscheme</file>
+        <file>./color-schemes/catppuccin-mocha.colorscheme</file>
+        <file>./color-schemes/coffee_theme.colorscheme</file>
+        <file>./color-schemes/cyberpunk.colorscheme</file>
+        <file>./color-schemes/darkermatrix.colorscheme</file>
+        <file>./color-schemes/darkmatrix.colorscheme</file>
+        <file>./color-schemes/deep.colorscheme</file>
+        <file>./color-schemes/duckbones.colorscheme</file>
+        <file>./color-schemes/iTerm2 Dark Background.colorscheme</file>
+        <file>./color-schemes/iTerm2 Default.colorscheme</file>
+        <file>./color-schemes/iTerm2 Light Background.colorscheme</file>
+        <file>./color-schemes/iTerm2 Pastel Dark Background.colorscheme</file>
+        <file>./color-schemes/iTerm2 Smoooooth.colorscheme</file>
+        <file>./color-schemes/iTerm2 Solarized Dark.colorscheme</file>
+        <file>./color-schemes/iTerm2 Solarized Light.colorscheme</file>
+        <file>./color-schemes/iTerm2 Tango Dark.colorscheme</file>
+        <file>./color-schemes/iTerm2 Tango Light.colorscheme</file>
+        <file>./color-schemes/iceberg-dark.colorscheme</file>
+        <file>./color-schemes/iceberg-light.colorscheme</file>
+        <file>./color-schemes/idea.colorscheme</file>
+        <file>./color-schemes/idleToes.colorscheme</file>
+        <file>./color-schemes/jubi.colorscheme</file>
+        <file>./color-schemes/kanagawabones.colorscheme</file>
+        <file>./color-schemes/lovelace.colorscheme</file>
+        <file>./color-schemes/matrix.colorscheme</file>
+        <file>./color-schemes/midnight-in-mojave.colorscheme</file>
+        <file>./color-schemes/neobones_dark.colorscheme</file>
+        <file>./color-schemes/neobones_light.colorscheme</file>
+        <file>./color-schemes/niji.colorscheme</file>
+        <file>./color-schemes/nord-light.colorscheme</file>
+        <file>./color-schemes/nord.colorscheme</file>
+        <file>./color-schemes/primary.colorscheme</file>
+        <file>./color-schemes/purplepeter.colorscheme</file>
+        <file>./color-schemes/rebecca.colorscheme</file>
+        <file>./color-schemes/rose-pine-dawn.colorscheme</file>
+        <file>./color-schemes/rose-pine-moon.colorscheme</file>
+        <file>./color-schemes/rose-pine.colorscheme</file>
+        <file>./color-schemes/seoulbones_dark.colorscheme</file>
+        <file>./color-schemes/seoulbones_light.colorscheme</file>
+        <file>./color-schemes/shades-of-purple.colorscheme</file>
+        <file>./color-schemes/synthwave-everything.colorscheme</file>
+        <file>./color-schemes/synthwave.colorscheme</file>
+        <file>./color-schemes/tokyonight-day.colorscheme</file>
+        <file>./color-schemes/tokyonight-storm.colorscheme</file>
+        <file>./color-schemes/tokyonight.colorscheme</file>
+        <file>./color-schemes/vimbones.colorscheme</file>
+        <file>./color-schemes/wilmersdorf.colorscheme</file>
+        <file>./color-schemes/zenbones.colorscheme</file>
+        <file>./color-schemes/zenbones_dark.colorscheme</file>
+        <file>./color-schemes/zenbones_light.colorscheme</file>
+        <file>./color-schemes/zenburned.colorscheme</file>
+        <file>./color-schemes/zenwritten_dark.colorscheme</file>
+        <file>./color-schemes/zenwritten_light.colorscheme</file>
         <file>./kb-layouts/default.keytab</file>
         <file>./kb-layouts/linux.keytab</file>
         <file>./kb-layouts/macbook.keytab</file>

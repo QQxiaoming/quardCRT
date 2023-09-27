@@ -550,6 +550,7 @@ signals:
     void mouseSignal(int button, int column, int line, int eventType);
     void changedFontMetricSignal(int height, int width);
     void changedContentSizeSignal(int height, int width);
+    void changedContentCountSignal(int line, int column);
 
     /**
      * Emitted when the user right clicks on the display, or right-clicks with the Shift

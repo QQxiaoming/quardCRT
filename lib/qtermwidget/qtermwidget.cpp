@@ -266,7 +266,7 @@ void QTermWidget::init(int startnow)
 
     connect(m_impl->m_session, SIGNAL(bellRequest(QString)), m_impl->m_terminalDisplay, SLOT(bell(QString)));
     connect(m_impl->m_terminalDisplay, SIGNAL(notifyBell(QString)), this, SIGNAL(bell(QString)));
-
+    connect(m_impl->m_terminalDisplay, SIGNAL(changedContentCountSignal(int,int)),this, SLOT(sizeChange(int,int)));
     connect(m_impl->m_session, SIGNAL(activity()), this, SIGNAL(activity()));
     connect(m_impl->m_session, SIGNAL(silence()), this, SIGNAL(silence()));
     connect(m_impl->m_session, &Session::profileChangeCommandReceived, this, &QTermWidget::profileChanged);

@@ -1865,6 +1865,7 @@ void TerminalDisplay::updateImageSize()
   {
       showResizeNotification();
     emit changedContentSizeSignal(_contentHeight, _contentWidth); // expose resizeEvent
+    emit changedContentCountSignal(_lines, _columns);
   }
 
   _resizing = false;
