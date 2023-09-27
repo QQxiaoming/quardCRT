@@ -131,13 +131,14 @@ public:
     ConPtyProcess();
     ~ConPtyProcess();
 
-    bool startProcess(const QString &shellPath, QStringList environment, qint16 cols, qint16 rows);
+    bool startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows);
     bool resize(qint16 cols, qint16 rows);
     bool kill();
     PtyType type();
     QString dumpDebugInfo();
     virtual QIODevice *notifier();
     virtual QByteArray readAll();
+    virtual QString currentDir();
     virtual qint64 write(const QByteArray &byteArray);
     bool isAvailable();
     void moveToThread(QThread *targetThread);

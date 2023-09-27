@@ -33,6 +33,12 @@
    </item>
    <item>
     <widget class="QSpinBox" name="spinBoxFontSize">
+     <property name="minimum">
+      <number>3</number>
+     </property>
+     <property name="singleStep">
+      <number>3</number>
+     </property>
      <property name="value">
       <number>12</number>
      </property>

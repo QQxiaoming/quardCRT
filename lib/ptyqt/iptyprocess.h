@@ -28,13 +28,14 @@ public:
     {  }
     virtual ~IPtyProcess() { }
 
-    virtual bool startProcess(const QString &shellPath, QStringList environment, qint16 cols, qint16 rows) = 0;
+    virtual bool startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows) = 0;
     virtual bool resize(qint16 cols, qint16 rows) = 0;
     virtual bool kill() = 0;
     virtual PtyType type() = 0;
     virtual QString dumpDebugInfo() = 0;
     virtual QIODevice *notifier() = 0;
     virtual QByteArray readAll() = 0;
+    virtual QString currentDir() = 0;
     virtual qint64 write(const QByteArray &byteArray) = 0;
     virtual bool isAvailable() = 0;
     virtual void moveToThread(QThread *targetThread) = 0;

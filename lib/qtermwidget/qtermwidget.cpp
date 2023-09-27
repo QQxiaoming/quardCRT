@@ -41,7 +41,7 @@
 #define DEFAULT_FONT_FAMILY                   "Monospace"
 #endif
 
-#define STEP_ZOOM 1
+#define STEP_ZOOM 3
 
 using namespace Konsole;
 

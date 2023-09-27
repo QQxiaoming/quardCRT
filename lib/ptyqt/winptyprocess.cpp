@@ -31,7 +31,7 @@ WinPtyProcess::~WinPtyProcess()
     kill();
 }
 
-bool WinPtyProcess::startProcess(const QString &shellPath, QStringList environment, qint16 cols, qint16 rows)
+bool WinPtyProcess::startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows)
 {
     if (!isAvailable())
     {
@@ -101,10 +101,9 @@ bool WinPtyProcess::startProcess(const QString &shellPath, QStringList environme
     winpty_error_free(errorPtr);
 
     //create spawn config
-    QString cwd = QDir::homePath();
     winpty_spawn_config_t* spawnConfig = winpty_spawn_config_new(WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN, m_shellPath.toStdWString().c_str(),
                                                                  //commandLine.toStdWString().c_str(), cwd.toStdWString().c_str(),
-                                                                 NULL, cwd.toStdWString().c_str(),
+                                                                 NULL, workDir.toStdWString().c_str(),
                                                                  env.c_str(),
                                                                  &errorPtr);
 
@@ -233,15 +232,15 @@ qint64 WinPtyProcess::write(const QByteArray &byteArray)
     return m_inSocket->write(byteArray);
 }
 
+QString WinPtyProcess::currentDir()
+{
+    return QDir::currentPath();
+}
+
 bool WinPtyProcess::isAvailable()
 {
-#if defined(PTYQT_BUILD_STATIC)
-    return QFile::exists(QCoreApplication::applicationDirPath() + "/" + WINPTY_AGENT_NAME);
-#elif defined(PTYQT_BUILD_DYNAMIC)
     return QFile::exists(QCoreApplication::applicationDirPath() + "/" + WINPTY_AGENT_NAME)
             && QFile::exists(QCoreApplication::applicationDirPath() + "/" + WINPTY_DLL_NAME);
-#endif
-    return true;
 }
 
 void WinPtyProcess::moveToThread(QThread *targetThread)

@@ -18,7 +18,7 @@ win32:{
         $$PWD/winptyprocess.cpp
 
     WINPTY_DIR=D:\quardCRT\depend\winpty
-    INCLUDEPATH += $${WINPTY_DIR}\include
+    INCLUDEPATH += $${WINPTY_DIR}\include\winpty
     LIBS += $${WINPTY_DIR}\lib\winpty.lib
 
     LIBS += -lwsock32 -lws2_32 -lcrypt32 -liphlpapi -lnetapi32 -lversion -lwinmm -luserenv

@@ -1,6 +1,7 @@
 #include "conptyprocess.h"
 #include <QFile>
 #include <QFileInfo>
+#include <QDir>
 #include <QThread>
 #include <sstream>
 #include <QTimer>
@@ -90,7 +91,7 @@ ConPtyProcess::~ConPtyProcess()
     kill();
 }
 
-bool ConPtyProcess::startProcess(const QString &shellPath, QStringList environment, qint16 cols, qint16 rows)
+bool ConPtyProcess::startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows)
 {
     if (!isAvailable())
     {
@@ -293,6 +294,11 @@ qint64 ConPtyProcess::write(const QByteArray &byteArray)
     DWORD dwBytesWritten{};
     WriteFile(m_hPipeOut, byteArray.data(), byteArray.size(), &dwBytesWritten, NULL);
     return dwBytesWritten;
+}
+
+QString ConPtyProcess::currentDir()
+{
+    return QDir::currentPath();
 }
 
 bool ConPtyProcess::isAvailable()

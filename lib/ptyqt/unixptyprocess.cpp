@@ -19,7 +19,7 @@ UnixPtyProcess::~UnixPtyProcess()
     kill();
 }
 
-bool UnixPtyProcess::startProcess(const QString &shellPath, QStringList environment, qint16 cols, qint16 rows)
+bool UnixPtyProcess::startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows)
 {
     if (!isAvailable())
     {
@@ -182,7 +182,7 @@ bool UnixPtyProcess::startProcess(const QString &shellPath, QStringList environm
     defaultVars.append("LANG=en_US.UTF-8");
     defaultVars.append("LC_ALL=en_US.UTF-8");
     defaultVars.append("LC_CTYPE=UTF-8");
-    defaultVars.append("INIT_CWD=" + QDir::homePath());
+    defaultVars.append("INIT_CWD=" + workDir);
     defaultVars.append("COMMAND_MODE=unix2003");
     defaultVars.append("COLORTERM=truecolor");
 
@@ -304,6 +304,11 @@ qint64 UnixPtyProcess::write(const QByteArray &byteArray)
     Q_UNUSED(result)
 
     return byteArray.size();
+}
+
+QString UnixPtyProcess::currentDir()
+{
+    return QDir::currentPath();
 }
 
 bool UnixPtyProcess::isAvailable()

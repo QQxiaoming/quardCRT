@@ -96,7 +96,7 @@ public:
     UnixPtyProcess();
     virtual ~UnixPtyProcess();
 
-    virtual bool startProcess(const QString &shellPath, QStringList environment, qint16 cols, qint16 rows);
+    virtual bool startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows);
     virtual bool resize(qint16 cols, qint16 rows);
     virtual bool kill();
     virtual PtyType type();
@@ -104,6 +104,7 @@ public:
     virtual QIODevice *notifier();
     virtual QByteArray readAll();
     virtual qint64 write(const QByteArray &byteArray);
+    virtual QString currentDir();
     virtual bool isAvailable();
     void moveToThread(QThread *targetThread);
 

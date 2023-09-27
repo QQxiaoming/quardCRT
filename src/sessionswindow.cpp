@@ -5,6 +5,7 @@
 #include <QProcessEnvironment>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDir>
 
 #include "sessionswindow.h"
 
@@ -149,6 +150,24 @@ SessionsWindow::~SessionsWindow() {
     }
 }
 
+void SessionsWindow::cloneSession(const SessionsWindow *src) {
+    switch(src->getSessionType()) {
+        case LocalShell: {
+            startLocalShellSession(src->m_command);
+            break;
+        case Telnet:
+            startTelnetSession(src->m_hostname, src->m_port, src->m_type);
+            break;
+        case Serial:
+            startSerialSession(src->m_portName, src->m_baudRate, src->m_dataBits, src->m_parity, src->m_stopBits, src->m_flowControl, src->m_xEnable);
+            break;
+        case RawSocket:
+            startRawSocketSession(src->m_hostname, src->m_port);
+            break;
+        }
+    }  
+}
+
 int SessionsWindow::startLocalShellSession(const QString &command) {
     QString shellPath;
     if(command.isEmpty()) {
@@ -162,7 +181,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     } else {
         shellPath = command;
     }
-    localShell->startProcess(shellPath, QProcessEnvironment::systemEnvironment().toStringList(), term->screenColumnsCount(), term->screenLinesCount());
+    localShell->startProcess(shellPath, QProcessEnvironment::systemEnvironment().toStringList(), QDir::homePath(), term->screenColumnsCount(), term->screenLinesCount());
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
         term->recvData(data.data(), data.size());
@@ -171,12 +190,16 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
         localShell->write(QByteArray(data, size));
     });
+    m_command = command;
     return 0;
 }
 
 int SessionsWindow::startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type) {
     telnet->setType(type);
     telnet->connectToHost(hostname, port);
+    m_hostname = hostname;
+    m_port = port;
+    m_type = type;
     return 0;
 }
 
@@ -202,11 +225,20 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     serialPort->setFlowControl(flowControl?QSerialPort::HardwareControl:QSerialPort::NoFlowControl);
     serialPort->open(QIODevice::ReadWrite);
     serialPort->setBreakEnabled(xEnable);
+    m_portName = portName;
+    m_baudRate = baudRate;
+    m_dataBits = dataBits;
+    m_parity = parity;
+    m_stopBits = stopBits;
+    m_flowControl = flowControl;
+    m_xEnable = xEnable;
     return 0;
 }
 
 int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port) {
     rawSocket->connectToHost(hostname, port);
+    m_hostname = hostname;
+    m_port = port;
     return 0;
 }
 

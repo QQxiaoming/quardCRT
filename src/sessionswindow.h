@@ -23,6 +23,7 @@ public:
     SessionsWindow(SessionType tp, QObject *parent = nullptr);
     ~SessionsWindow();
 
+    void cloneSession(const SessionsWindow *src);
     int startLocalShellSession(const QString &command);
     int startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type);
     int startSerialSession(const QString &portName, uint32_t baudRate,
@@ -35,10 +36,24 @@ public:
     bool isRawLog(void) { return enableRawLog; }
 
     QTermWidget *getTermWidget() const { return term; }
+    SessionType getSessionType() const { return type; }
 
 private:
     int saveLog(const char *data, int size);
     int saveRawLog(const char *data, int size);
+
+public:
+    QString m_hostname;
+    quint16 m_port;
+    QTelnet::SocketType m_type;
+    QString m_portName;
+    uint32_t m_baudRate;
+    int m_dataBits;
+    int m_parity;
+    int m_stopBits;
+    bool m_flowControl;
+    bool m_xEnable;
+    QString m_command;
 
 private:
     SessionType type;

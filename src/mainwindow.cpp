@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QSocketNotifier>
 #include <QTabBar>
+#include <QShortcut>
 
 #include "qfonticon.h"
 
@@ -52,6 +53,22 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     globalOptionsWindow->setAvailableColorSchemes(QTermWidget::availableColorSchemes());
 
     menuAndToolBarInit();
+
+    QShortcut *newLocalShellShortCut = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_T), this);
+    connect(newLocalShellShortCut,&QShortcut::activated,this,[=](){
+        SessionsWindow *sessionsWindow = startLocalShellSession();
+        sessionActionsList.push_back(sessionsWindow);
+        connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
+            if(title == 2) {
+                sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
+            }
+        });
+        sessionTab->setCurrentIndex(sessionTab->count()-1);
+    });
+    QShortcut *cloneSessionShortCut = new QShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_T), this);
+    connect(cloneSessionShortCut,&QShortcut::activated,this,[=](){
+        cloneCurrentSession();
+    });
 }
 
 MainWindow::~MainWindow() {
@@ -98,6 +115,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     copyAction->setIcon(QFontIcon::icon(QChar(0xf0c5)));
     pasteAction->setText(tr("Paste"));
     pasteAction->setIcon(QFontIcon::icon(QChar(0xf0ea)));
+    copyAndPasteAction->setText(tr("Copy and Paste"));
     selectAllAction->setText(tr("Select All"));
     findAction->setText(tr("Find..."));
     findAction->setIcon(QFontIcon::icon(QChar(0xf002)));
@@ -237,6 +255,8 @@ void MainWindow::menuAndToolBarInit(void) {
     pasteAction = new QAction(this);
     editMenu->addAction(pasteAction);
     ui->toolBar->addAction(pasteAction);
+    copyAndPasteAction = new QAction(this);
+    editMenu->addAction(copyAndPasteAction);
     selectAllAction = new QAction(this);
     editMenu->addAction(selectAllAction);
     findAction = new QAction(this);
@@ -431,6 +451,9 @@ void MainWindow::menuAndToolBarInit(void) {
         }
         sessionTab->setCurrentIndex(sessionTab->count()-1);
     });
+    connect(cloneSessionAction,&QAction::triggered,this,[=](){
+        cloneCurrentSession();
+    });
     connect(logSessionAction,&QAction::triggered,this,
         [&](void) {
             if(sessionTab->count() == 0) {
@@ -511,8 +534,8 @@ void MainWindow::menuAndToolBarInit(void) {
                 menu->addAction(copyAction);
                 menu->addAction(pasteAction);
                 menu->addSeparator();
-                menu->addAction(zoomInAction);
-                menu->addAction(zoomOutAction);
+                menu->addAction(selectAllAction);
+                menu->addAction(findAction);
             } else {
                 return;
             }
@@ -678,6 +701,39 @@ int MainWindow::stopSession(int index)
             sessionActionsList.removeOne(sessionsWindow);
             sessionTab->removeTab(index);
             delete sessionsWindow;
+            return 0;
+        }
+    }
+    return -1;
+}
+
+int MainWindow::stopAllSession(void)
+{
+    while(sessionTab->count() > 1) {
+        stopSession(sessionTab->count());
+    }
+    return 0;
+}
+
+int MainWindow::cloneCurrentSession(void)
+{
+    if(sessionTab->count() == 0) return -1;
+    QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+    foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
+        if(sessionsWindow->getTermWidget() == termWidget) {
+            SessionsWindow *sessionsWindowClone = new SessionsWindow(sessionsWindow->getSessionType(),this);
+            sessionsWindowClone->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
+            sessionsWindowClone->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
+            sessionsWindowClone->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+            sessionTab->addTab(sessionsWindowClone->getTermWidget(), sessionTab->tabText(sessionTab->indexOf(termWidget)));
+            sessionsWindowClone->cloneSession(sessionsWindow);
+            sessionActionsList.push_back(sessionsWindowClone);
+            connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
+                if(title == 2) {
+                    sessionTab->setTabText(sessionTab->indexOf(sessionsWindowClone->getTermWidget()), newTitle);
+                }
+            });
+            sessionTab->setCurrentIndex(sessionTab->count()-1);
             return 0;
         }
     }

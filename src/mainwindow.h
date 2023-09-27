@@ -44,6 +44,8 @@ private:
     SessionsWindow *startLocalShellSession(const QString &command = QString());
     SessionsWindow *startRawSocketSession(QString hostname, quint16 port);
     int stopSession(int index);
+    int stopAllSession(void);
+    int cloneCurrentSession(void);
 
 private:
     Ui::MainWindow *ui;
@@ -81,6 +83,7 @@ private:
     QAction *exitAction;
     QAction *copyAction;
     QAction *pasteAction;
+    QAction *copyAndPasteAction;
     QAction *selectAllAction;
     QAction *findAction;
     QAction *printScreenAction;

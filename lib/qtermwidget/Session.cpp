@@ -491,7 +491,7 @@ void Session::setTitle(TitleRole role , const QString & newTitle)
             _displayTitle = newTitle;
         }
 
-        emit titleChanged(2,newTitle);
+        //emit titleChanged();
     }
 }
 
@@ -510,7 +510,7 @@ void Session::setIconName(const QString & iconName)
 {
     if ( iconName != _iconName ) {
         _iconName = iconName;
-        emit titleChanged(1,iconName);
+        //emit titleChanged();
     }
 }
 
