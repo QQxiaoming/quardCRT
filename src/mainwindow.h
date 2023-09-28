@@ -17,6 +17,7 @@
 #include "quickconnectwindow.h"
 #include "keymapmanager.h"
 #include "globaloptions.h"
+#include "hexviewwindow.h"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -57,6 +58,7 @@ private:
     QuickConnectWindow *quickConnectWindow;
     keyMapManager *keyMapManagerWindow;
     GlobalOptions *globalOptionsWindow;
+    HexViewWindow *hexViewWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -83,6 +85,7 @@ private:
     QAction *lockSessionAction;
     QAction *logSessionAction;
     QAction *rawLogSessionAction;
+    QAction *hexViewAction;
     QAction *exitAction;
     QAction *copyAction;
     QAction *pasteAction;

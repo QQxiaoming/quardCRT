@@ -8,6 +8,7 @@
 #include <QDir>
 
 #include "sessionswindow.h"
+#include "argv_split.h"
 
 SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
     : QObject(parent)
@@ -69,6 +70,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
                 [=](const char *data, int size){
                 term->recvData(data, size);
                 saveRawLog(data, size);
+                emit hexDataDup(data, size);
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
@@ -84,6 +86,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
                 QByteArray data = serialPort->readAll();
                 term->recvData(data.data(), data.size());
                 saveRawLog(data.data(), data.size());
+                emit hexDataDup(data.data(), data.size());
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
@@ -100,6 +103,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
                 QByteArray data = rawSocket->readAll();
                 term->recvData(data.data(), data.size());
                 saveRawLog(data.data(), data.size());
+                emit hexDataDup(data.data(), data.size());
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
@@ -188,7 +192,13 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         };
     #endif
     } else {
-        shellPath = command;
+        argv_split parser;
+        parser.parse(command.toStdString());
+        for(auto &it : parser.getArguments()) {
+            args.append(QString::fromStdString(it));
+        }
+        shellPath = args.first();
+        args.removeFirst();
     }
     bool ret = localShell->startProcess(shellPath, args, QProcessEnvironment::systemEnvironment().toStringList(), workingDirectory, term->screenColumnsCount(), term->screenLinesCount());
     if(!ret) {
@@ -199,6 +209,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         QByteArray data = localShell->readAll();
         term->recvData(data.data(), data.size());
         saveRawLog(data.data(), data.size());
+        emit hexDataDup(data.data(), data.size());
     });
     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
         localShell->write(QByteArray(data, size));

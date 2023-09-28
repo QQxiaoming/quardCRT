@@ -53,6 +53,9 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     globalOptionsWindow = new GlobalOptions(this);
     globalOptionsWindow->setAvailableColorSchemes(QTermWidget::availableColorSchemes());
 
+    hexViewWindow = new HexViewWindow(HexViewWindow::RECV,this);
+    hexViewWindow->setFont(globalOptionsWindow->getCurrentFont());
+
     menuAndToolBarInit();
 
     newLocalShellShortCut = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_T), this);
@@ -87,10 +90,13 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
         if(index > 0) {
             QTermWidget *termWidget = (QTermWidget *)sessionTab->widget(index);
             foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
+                disconnect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
+                            hexViewWindow,SLOT(recvData(const char*,int)));
                 if(sessionsWindow->getTermWidget() == termWidget) {
                     logSessionAction->setChecked(sessionsWindow->isLog());
                     rawLogSessionAction->setChecked(sessionsWindow->isRawLog());
-                    break;
+                    connect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
+                                    hexViewWindow,SLOT(recvData(const char*,int)));
                 }
             }
         }
@@ -164,6 +170,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     lockSessionAction->setIcon(QFontIcon::icon(QChar(0xf023)));
     logSessionAction->setText(tr("Log Session"));
     rawLogSessionAction->setText(tr("Raw Log Session"));
+    hexViewAction->setText(tr("Hex View"));
     exitAction->setText(tr("Exit"));
 
     copyAction->setText(tr("Copy"));
@@ -300,6 +307,8 @@ void MainWindow::menuAndToolBarInit(void) {
     rawLogSessionAction->setCheckable(true);
     rawLogSessionAction->setChecked(false);
     fileMenu->addAction(rawLogSessionAction);
+    hexViewAction = new QAction(this);
+    fileMenu->addAction(hexViewAction);
     fileMenu->addSeparator();
     exitAction = new QAction(this);
     fileMenu->addAction(exitAction);
@@ -549,6 +558,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             }
         }
     );
+    connect(hexViewAction,&QAction::triggered,this,[=](){
+        hexViewWindow->show();
+    });
     connect(globalOptionsWindow,&GlobalOptions::colorSchemeChanged,this,[=](QString colorScheme){
         foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
             sessionsWindow->getTermWidget()->setColorScheme(colorScheme);

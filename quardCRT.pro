@@ -25,21 +25,25 @@ SOURCES += \
     src/quickconnectwindow.cpp \
     src/sessiontab.cpp \
     src/sessionswindow.cpp \
+    src/hexviewwindow.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
+    src/argv_split.h \
     src/globaloptions.h \
     src/keymapmanager.h \
     src/quickconnectwindow.h \
     src/sessiontab.h \
     src/sessionswindow.h \
+    src/hexviewwindow.h \
     src/mainwindow.h
 
 FORMS += \
     src/globaloptions.ui \
     src/keymapmanager.ui \
     src/quickconnectwindow.ui \
+    src/hexviewwindow.ui \
     src/mainwindow.ui
 
 RESOURCES += \

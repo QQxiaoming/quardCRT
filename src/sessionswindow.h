@@ -41,6 +41,9 @@ public:
     QTermWidget *getTermWidget() const { return term; }
     SessionType getSessionType() const { return type; }
 
+signals:
+    void hexDataDup(const char *data, int size);
+
 private:
     int saveLog(const char *data, int size);
     int saveRawLog(const char *data, int size);
