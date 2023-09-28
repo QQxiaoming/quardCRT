@@ -95,8 +95,10 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
                 if(sessionsWindow->getTermWidget() == termWidget) {
                     logSessionAction->setChecked(sessionsWindow->isLog());
                     rawLogSessionAction->setChecked(sessionsWindow->isRawLog());
-                    connect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
-                                    hexViewWindow,SLOT(recvData(const char*,int)));
+                    if(hexViewAction->isChecked()) {
+                        connect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
+                                hexViewWindow,SLOT(recvData(const char*,int)));
+                    }
                 }
             }
         }
@@ -308,6 +310,7 @@ void MainWindow::menuAndToolBarInit(void) {
     rawLogSessionAction->setChecked(false);
     fileMenu->addAction(rawLogSessionAction);
     hexViewAction = new QAction(this);
+    hexViewAction->setCheckable(true);
     fileMenu->addAction(hexViewAction);
     fileMenu->addSeparator();
     exitAction = new QAction(this);
@@ -559,7 +562,13 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         }
     );
     connect(hexViewAction,&QAction::triggered,this,[=](){
-        hexViewWindow->show();
+        if(hexViewAction->isChecked())
+            hexViewWindow->show();
+        else 
+            hexViewWindow->hide();
+    });
+    connect(hexViewWindow,&HexViewWindow::hideOrClose,this,[=](){
+        hexViewAction->setChecked(false);
     });
     connect(globalOptionsWindow,&GlobalOptions::colorSchemeChanged,this,[=](QString colorScheme){
         foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
