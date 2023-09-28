@@ -10,6 +10,7 @@
 #include <QActionGroup>
 #include <QMenu>
 #include <QAction>
+#include <QShortcut>
 
 #include "sessiontab.h"
 #include "sessionswindow.h"
@@ -38,6 +39,7 @@ public:
 private:
     void menuAndToolBarInit(void);
     void menuAndToolBarRetranslateUi(void);
+    void menuAndToolBarConnectSignals(void);
     SessionsWindow *startTelnetSession(QString hostname, quint16 port, QTelnet::SocketType type);
     SessionsWindow *startSerialSession(QString portName, uint32_t baudRate,
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
@@ -49,6 +51,7 @@ private:
 
 private:
     Ui::MainWindow *ui;
+
     QSplitter *splitter;
     SessionTab *sessionTab;
     QuickConnectWindow *quickConnectWindow;
@@ -128,6 +131,9 @@ private:
     QAction *helpAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
+
+    QShortcut *newLocalShellShortCut;
+    QShortcut *cloneSessionShortCut;
 
     QLocale::Language language;
     bool isDarkTheme;

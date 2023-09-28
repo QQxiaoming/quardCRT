@@ -23,13 +23,16 @@ public:
     SessionsWindow(SessionType tp, QObject *parent = nullptr);
     ~SessionsWindow();
 
-    void cloneSession(const SessionsWindow *src);
+    void cloneSession(SessionsWindow *src);
     int startLocalShellSession(const QString &command);
     int startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type);
     int startSerialSession(const QString &portName, uint32_t baudRate,
                     int dataBits, int parity, int stopBits, bool flowControl, bool xEnable );
     int startRawSocketSession(const QString &hostname, quint16 port);
 
+    void setWorkingDirectory(const QString &dir);
+    const QString getWorkingDirectory(void) { return workingDirectory; }
+    
     int setLog(bool enable);
     bool isLog(void) { return enableLog; }
     int setRawLog(bool enable);
@@ -57,6 +60,7 @@ public:
 
 private:
     SessionType type;
+    QString workingDirectory;
     QTermWidget *term;
     QTelnet *telnet;
     QSerialPort *serialPort;

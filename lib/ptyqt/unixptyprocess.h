@@ -96,7 +96,8 @@ public:
     UnixPtyProcess();
     virtual ~UnixPtyProcess();
 
-    virtual bool startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows);
+    virtual bool startProcess(const QString &shellPath, QStringList args,
+                 QStringList environment, QString workDir, qint16 cols, qint16 rows);
     virtual bool resize(qint16 cols, qint16 rows);
     virtual bool kill();
     virtual PtyType type();

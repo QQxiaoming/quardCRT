@@ -12,6 +12,7 @@
 SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
     : QObject(parent)
     , type(tp)
+    , workingDirectory(QDir::homePath())
     , term(nullptr)
     , telnet(nullptr)
     , serialPort(nullptr)
@@ -150,9 +151,10 @@ SessionsWindow::~SessionsWindow() {
     }
 }
 
-void SessionsWindow::cloneSession(const SessionsWindow *src) {
+void SessionsWindow::cloneSession(SessionsWindow *src) {
     switch(src->getSessionType()) {
         case LocalShell: {
+            setWorkingDirectory(src->getWorkingDirectory());
             startLocalShellSession(src->m_command);
             break;
         case Telnet:
@@ -170,18 +172,29 @@ void SessionsWindow::cloneSession(const SessionsWindow *src) {
 
 int SessionsWindow::startLocalShellSession(const QString &command) {
     QString shellPath;
+    QStringList args;
     if(command.isEmpty()) {
     #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
         shellPath = qEnvironmentVariable("SHELL");
         if(shellPath.isEmpty()) shellPath = "/bin/sh";
     #elif defined(Q_OS_WIN)
-        //shellPath = "c:\\Windows\\system32\\cmd.exe";
         shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
+        args =  {
+            "-NoLogo",
+            "-NoProfile",
+            "-NoExit",
+            "-File",
+            QApplication::applicationDirPath() + "/Profile.ps1"
+        };
     #endif
     } else {
         shellPath = command;
     }
-    localShell->startProcess(shellPath, QProcessEnvironment::systemEnvironment().toStringList(), QDir::homePath(), term->screenColumnsCount(), term->screenLinesCount());
+    bool ret = localShell->startProcess(shellPath, args, QProcessEnvironment::systemEnvironment().toStringList(), workingDirectory, term->screenColumnsCount(), term->screenLinesCount());
+    if(!ret) {
+        QMessageBox::warning(term, tr("Start Local Shell"), tr("Cannot start local shell:\n%1.").arg(localShell->lastError()));
+        return -1;
+    }
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
         term->recvData(data.data(), data.size());
@@ -240,6 +253,11 @@ int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port)
     m_hostname = hostname;
     m_port = port;
     return 0;
+}
+
+void SessionsWindow::setWorkingDirectory(const QString &dir)
+{
+    workingDirectory = dir;
 }
 
 int SessionsWindow::setLog(bool enable) {

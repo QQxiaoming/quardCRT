@@ -91,7 +91,8 @@ ConPtyProcess::~ConPtyProcess()
     kill();
 }
 
-bool ConPtyProcess::startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows)
+bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
+                 QStringList environment, QString workDir, qint16 cols, qint16 rows)
 {
     if (!isAvailable())
     {

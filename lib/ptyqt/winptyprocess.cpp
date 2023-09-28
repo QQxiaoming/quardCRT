@@ -31,7 +31,8 @@ WinPtyProcess::~WinPtyProcess()
     kill();
 }
 
-bool WinPtyProcess::startProcess(const QString &shellPath, QStringList environment, QString workDir, qint16 cols, qint16 rows)
+bool WinPtyProcess::startProcess(const QString &shellPath, QStringList args,
+                 QStringList environment, QString workDir, qint16 cols, qint16 rows)
 {
     if (!isAvailable())
     {
@@ -100,10 +101,12 @@ bool WinPtyProcess::startProcess(const QString &shellPath, QStringList environme
     }
     winpty_error_free(errorPtr);
 
+    QString commandLine = args.join(" ");
     //create spawn config
-    winpty_spawn_config_t* spawnConfig = winpty_spawn_config_new(WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN, m_shellPath.toStdWString().c_str(),
-                                                                 //commandLine.toStdWString().c_str(), cwd.toStdWString().c_str(),
-                                                                 NULL, workDir.toStdWString().c_str(),
+    winpty_spawn_config_t* spawnConfig = winpty_spawn_config_new(WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN, 
+                                                                 m_shellPath.toStdWString().c_str(),
+                                                                 args.count()? commandLine.toStdWString().c_str():NULL,
+                                                                 workDir.toStdWString().c_str(),
                                                                  env.c_str(),
                                                                  &errorPtr);
 

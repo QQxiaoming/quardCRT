@@ -131,7 +131,6 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
     }
 }
 
-
 void QuickConnectWindow::buttonBoxAccepted(void)
 {
     QuickConnectData data;
