@@ -5,7 +5,7 @@
 QT += core gui network widgets xml svg websockets serialport
 QT += core5compat
 
-BUILD_VERSION=0.1.2
+BUILD_VERSION=0.1.3
 TARGET_ARCH=$${QT_ARCH}
 CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
