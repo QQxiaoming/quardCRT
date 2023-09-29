@@ -190,7 +190,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
             "-NoProfile",
             "-NoExit",
             "-File",
-            QApplication::applicationDirPath() + "/Profile.ps1"
+            "\"" + QApplication::applicationDirPath() + "/Profile.ps1\""
         };
     #endif
     } else {
