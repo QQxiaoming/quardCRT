@@ -184,6 +184,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     #elif defined(Q_OS_WIN)
         shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
         args =  {
+            "powershell.exe",
             "-NoLogo",
             "-NoProfile",
             "-NoExit",

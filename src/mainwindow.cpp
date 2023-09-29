@@ -703,7 +703,7 @@ SessionsWindow *MainWindow::startTelnetSession(QString hostname, quint16 port, Q
     sessionsWindow->startTelnetSession(hostname,port,type);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 2) {
+        if(title == 0 || title == 2) {
             sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
         }
     });
@@ -722,7 +722,7 @@ SessionsWindow *MainWindow::startSerialSession(QString portName, uint32_t baudRa
     sessionsWindow->startSerialSession(portName,baudRate,dataBits,parity,stopBits,flowControl,xEnable);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 2) {
+        if(title == 0 || title == 2) {
             sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
         }
     });
@@ -740,7 +740,7 @@ SessionsWindow *MainWindow::startRawSocketSession(QString hostname, quint16 port
     sessionsWindow->startRawSocketSession(hostname,port);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 2) {
+        if(title == 0 || title == 2) {
             sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
         }
     });
@@ -762,10 +762,10 @@ SessionsWindow *MainWindow::startLocalShellSession(const QString &command)
     sessionsWindow->startLocalShellSession(command);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 2) {
+        if(title == 0 || title == 2) {
             sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
             // newTitle lile [hostname:dir]
-            QString dir = newTitle.split(":")[1];
+            QString dir = newTitle.right(newTitle.length()-newTitle.indexOf(":")-1);
             sessionsWindow->setWorkingDirectory(dir.replace("~",QDir::homePath()));
         }
     });
@@ -809,8 +809,13 @@ int MainWindow::cloneCurrentSession(void)
             sessionsWindowClone->cloneSession(sessionsWindow);
             sessionActionsList.push_back(sessionsWindowClone);
             connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
-                if(title == 2) {
+                if(title == 0 || title == 2) {
                     sessionTab->setTabText(sessionTab->indexOf(sessionsWindowClone->getTermWidget()), newTitle);
+                    if(sessionsWindowClone->getSessionType() == SessionsWindow::LocalShell) {
+                        // newTitle lile [hostname:dir]
+                        QString dir = newTitle.right(newTitle.length()-newTitle.indexOf(":")-1);
+                        sessionsWindowClone->setWorkingDirectory(dir.replace("~",QDir::homePath()));
+                    }
                 }
             });
             sessionTab->setCurrentIndex(sessionTab->count()-1);
