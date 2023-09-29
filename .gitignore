@@ -77,4 +77,4 @@ CMakeLists.txt.user*
 
 *build-*
 git_tag.inc
-
+build_*
