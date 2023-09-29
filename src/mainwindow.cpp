@@ -125,6 +125,16 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
         menu->move(cursor().pos());
         menu->show();
     });
+    connect(sessionTab,&SessionTab::tabBarDoubleClicked,this,[=](int index){
+        QTermWidget *termWidget = (QTermWidget *)sessionTab->widget(index);
+        foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
+            if(sessionsWindow->getTermWidget() == termWidget) {
+                sessionsWindow->setShowShortTitle(!sessionsWindow->getShowShortTitle());
+                sessionTab->setTabText(index,sessionsWindow->getTitle());
+                break;
+            }
+        }
+    });
 
     connect(newLocalShellShortCut,&QShortcut::activated,this,[=](){
         startLocalShellSession();
@@ -699,12 +709,16 @@ SessionsWindow *MainWindow::startTelnetSession(QString hostname, quint16 port, Q
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    sessionTab->addTab(sessionsWindow->getTermWidget(), tr("Telnet - ")+hostname+":"+QString::number(port));
+    sessionsWindow->setLongTitle(tr("Telnet - ")+hostname+":"+QString::number(port));
+    sessionsWindow->setShortTitle(tr("Telnet"));
+    sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     sessionsWindow->startTelnetSession(hostname,port,type);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
-            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
+            sessionsWindow->setLongTitle(newTitle);
+            sessionsWindow->setShortTitle(newTitle);
+            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
         }
     });
     sessionTab->setCurrentIndex(sessionTab->count()-1);
@@ -718,12 +732,16 @@ SessionsWindow *MainWindow::startSerialSession(QString portName, uint32_t baudRa
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    sessionTab->addTab(sessionsWindow->getTermWidget(), tr("Serial - ")+portName);
+    sessionsWindow->setLongTitle(tr("Serial - ")+portName);
+    sessionsWindow->setShortTitle(tr("Serial"));
+    sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     sessionsWindow->startSerialSession(portName,baudRate,dataBits,parity,stopBits,flowControl,xEnable);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
-            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
+            sessionsWindow->setLongTitle(newTitle);
+            sessionsWindow->setShortTitle(newTitle);
+            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
         }
     });
     sessionTab->setCurrentIndex(sessionTab->count()-1);
@@ -736,12 +754,16 @@ SessionsWindow *MainWindow::startRawSocketSession(QString hostname, quint16 port
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    sessionTab->addTab(sessionsWindow->getTermWidget(), tr("Raw - ")+hostname+":"+QString::number(port));
+    sessionsWindow->setLongTitle(tr("Raw - ")+hostname+":"+QString::number(port));
+    sessionsWindow->setShortTitle(tr("Raw"));
+    sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     sessionsWindow->startRawSocketSession(hostname,port);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
-            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
+            sessionsWindow->setLongTitle(newTitle);
+            sessionsWindow->setShortTitle(newTitle);
+            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
         }
     });
     sessionTab->setCurrentIndex(sessionTab->count()-1);
@@ -755,17 +777,21 @@ SessionsWindow *MainWindow::startLocalShellSession(const QString &command)
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
     if(command.isEmpty()) {
-        sessionTab->addTab(sessionsWindow->getTermWidget(), tr("Local Shell"));
+        sessionsWindow->setLongTitle(tr("Local Shell"));
     } else {
-        sessionTab->addTab(sessionsWindow->getTermWidget(), tr("Local Shell - ")+command);
+        sessionsWindow->setLongTitle(tr("Local Shell - ")+command);
     }
+    sessionsWindow->setShortTitle(tr("Local Shell"));
+    sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     sessionsWindow->startLocalShellSession(command);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
-            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), newTitle);
-            // newTitle lile [hostname:dir]
             QString dir = newTitle.right(newTitle.length()-newTitle.indexOf(":")-1);
+            sessionsWindow->setLongTitle(newTitle);
+            sessionsWindow->setShortTitle(dir);
+            sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+            // newTitle lile [hostname:dir]
             sessionsWindow->setWorkingDirectory(dir.replace("~",QDir::homePath()));
         }
     });
@@ -805,17 +831,24 @@ int MainWindow::cloneCurrentSession(void)
             sessionsWindowClone->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
             sessionsWindowClone->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
             sessionsWindowClone->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+            sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
+            sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
+            sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
             sessionTab->addTab(sessionsWindowClone->getTermWidget(), sessionTab->tabText(sessionTab->indexOf(termWidget)));
             sessionsWindowClone->cloneSession(sessionsWindow);
             sessionActionsList.push_back(sessionsWindowClone);
             connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
                 if(title == 0 || title == 2) {
-                    sessionTab->setTabText(sessionTab->indexOf(sessionsWindowClone->getTermWidget()), newTitle);
+                    sessionsWindowClone->setLongTitle(newTitle);
                     if(sessionsWindowClone->getSessionType() == SessionsWindow::LocalShell) {
                         // newTitle lile [hostname:dir]
                         QString dir = newTitle.right(newTitle.length()-newTitle.indexOf(":")-1);
+                        sessionsWindowClone->setShortTitle(dir);
                         sessionsWindowClone->setWorkingDirectory(dir.replace("~",QDir::homePath()));
+                    } else {
+                        sessionsWindowClone->setShortTitle(newTitle);
                     }
+                    sessionTab->setTabText(sessionTab->indexOf(sessionsWindowClone->getTermWidget()), sessionsWindowClone->getTitle());
                 }
             });
             sessionTab->setCurrentIndex(sessionTab->count()-1);

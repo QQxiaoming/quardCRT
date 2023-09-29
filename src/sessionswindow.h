@@ -40,6 +40,13 @@ public:
 
     QTermWidget *getTermWidget() const { return term; }
     SessionType getSessionType() const { return type; }
+    QString getTitle() const { return showShortTitle ? shortTitle : longTitle; }
+    QString getLongTitle() const { return longTitle; }
+    QString getShortTitle() const { return shortTitle; }
+    void setShowShortTitle(bool show) { showShortTitle = show; }
+    bool getShowShortTitle() const { return showShortTitle; }
+    void setLongTitle(const QString &title) { longTitle = title; }
+    void setShortTitle(const QString &title) { shortTitle = title; }
 
 signals:
     void hexDataDup(const char *data, int size);
@@ -64,6 +71,9 @@ public:
 private:
     SessionType type;
     QString workingDirectory;
+    QString longTitle;
+    QString shortTitle;
+    bool showShortTitle;
     QTermWidget *term;
     QTelnet *telnet;
     QSerialPort *serialPort;
