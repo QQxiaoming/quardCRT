@@ -39,8 +39,13 @@ The current project is recommended to use version Qt6.2.0 or higher.
 
 ## Thanks
 
+The code of this project references or partially refers to or depends on the following open source projects. The project fully respects the open source agreement of the original project and would like to express its gratitude.
+
 - [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 - [QFontIcon](https://github.com/dridk/QFontIcon)
 - [QTelnet](https://github.com/silderan/QTelnet.git)
 - [qtermwidget](https://github.com/lxqt/qtermwidget)
 - [ptyqt](https://github.com/kafeg/ptyqt)
+- [argv_split](https://github.com/bitmeal/argv_split)
+- [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
+- [winpty](https://github.com/rprichard/winpty)
