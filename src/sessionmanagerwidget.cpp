@@ -12,9 +12,8 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QLabel *label = new QLabel(this);
+    label = new QLabel(this);
     ui->verticalLayout->insertWidget(0,label);
-    label->setText("Session Manager");
 
     toolBar = new QToolBar(this);
     ui->verticalLayout->insertWidget(1,toolBar);
@@ -22,6 +21,8 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     toolBar->setFloatable(false);
     toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     toolBar->setIconSize(QSize(16,16));
+
+    retranslateUi();
 }
 
 SessionManagerWidget::~SessionManagerWidget()
@@ -32,4 +33,10 @@ SessionManagerWidget::~SessionManagerWidget()
 void SessionManagerWidget::addActionOnToolBar(QAction *action)
 {
     toolBar->addAction(action);
+}
+
+void SessionManagerWidget::retranslateUi()
+{
+    label->setText(tr("Session Manager"));
+    ui->retranslateUi(this);
 }

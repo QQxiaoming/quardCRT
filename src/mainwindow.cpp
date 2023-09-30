@@ -35,19 +35,6 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     ui->setupUi(this);
 
     /* Create the main UI */
-    QXmlStreamReader svgXmlStreamReader(
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n"
-            "<text x=\"0\" y=\"75\" fill=\"white\" transform=\"rotate(270 15,75)\">Session Manager</text>\n"
-        "</svg>\n");
-    QSvgRenderer svgRender;
-    svgRender.load(&svgXmlStreamReader);
-    QPixmap svgPixmap(15,100);
-    svgPixmap.fill(Qt::transparent);
-    QPainter svgPainter(&svgPixmap);
-    svgRender.render(&svgPainter);
-    ui->sessionManagerPushButton->setIcon(svgPixmap);
-    ui->sessionManagerPushButton->setIconSize(QSize(15,110));
-
     sessionManagerWidget = new SessionManagerWidget(this);
     ui->centralwidget->layout()->addWidget(sessionManagerWidget);
     sessionManagerWidget->setVisible(false);
@@ -166,6 +153,28 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::menuAndToolBarRetranslateUi(void) {
+    QXmlStreamReader svgXmlStreamReader(
+        QString("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n")+
+        QString("<text x=\"0\" y=\"75\" fill=\"white\" transform=\"rotate(270 15,75)\">")+QString(tr("Session Manager"))+QString("</text>\n")+
+        QString("</svg>\n"));
+    QSvgRenderer svgRender;
+    svgRender.load(&svgXmlStreamReader);
+    if(language == QLocale::Chinese) {
+        QPixmap svgPixmap(15,70);
+        svgPixmap.fill(Qt::transparent);
+        QPainter svgPainter(&svgPixmap);
+        svgRender.render(&svgPainter);
+        ui->sessionManagerPushButton->setIcon(svgPixmap);
+        ui->sessionManagerPushButton->setIconSize(QSize(15,80));
+    } else {
+        QPixmap svgPixmap(15,100);
+        svgPixmap.fill(Qt::transparent);
+        QPainter svgPainter(&svgPixmap);
+        svgRender.render(&svgPainter);
+        ui->sessionManagerPushButton->setIcon(svgPixmap);
+        ui->sessionManagerPushButton->setIconSize(QSize(15,110));
+    }
+
     fileMenu->setTitle(tr("File"));
     editMenu->setTitle(tr("Edit"));
     viewMenu->setTitle(tr("View"));
@@ -507,6 +516,16 @@ void MainWindow::menuAndToolBarInit(void) {
 }
 
 void MainWindow::menuAndToolBarConnectSignals(void) {
+    connect(connectAction,&QAction::triggered,this,[=](){
+        sessionManagerWidget->setVisible(true);
+    });
+    connect(sessionManagerAction,&QAction::triggered,this,[=](){
+        if(sessionManagerWidget->isVisible() == false) {
+            sessionManagerWidget->setVisible(true);
+        } else {
+            sessionManagerWidget->setVisible(false);
+        }
+    });
     connect(quickConnectAction,&QAction::triggered,this,[=](){
         quickConnectWindow->show();
     });
@@ -533,6 +552,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         } else if(data.type == QuickConnectWindow::Raw) {
             startRawSocketSession(data.RawData.hostname,data.RawData.port);
         }
+    });
+    connect(connectInTabAction,&QAction::triggered,this,[=](){
+        sessionManagerWidget->setVisible(true);
     });
     connect(connectLocalShellAction,&QAction::triggered,this,[=](){
         startLocalShellSession();
@@ -680,6 +702,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         setAppLangeuage(this->language);
         ui->retranslateUi(this);
         sessionTab->retranslateUi();
+        sessionManagerWidget->retranslateUi();
         menuAndToolBarRetranslateUi();
     });
     connect(lightThemeAction,&QAction::triggered,this,[=](){

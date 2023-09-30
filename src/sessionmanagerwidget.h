@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QToolBar>
+#include <QLabel>
 
 namespace Ui {
 class SessionManagerWidget;
@@ -17,10 +18,12 @@ public:
     ~SessionManagerWidget();
 
     void addActionOnToolBar(QAction *action);
+    void retranslateUi();
 
 private:
     Ui::SessionManagerWidget *ui;
     QToolBar *toolBar;
+    QLabel *label;
 };
 
 #endif // SESSIONMANAGERWIDGET_H
