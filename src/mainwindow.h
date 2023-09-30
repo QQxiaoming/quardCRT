@@ -18,6 +18,7 @@
 #include "keymapmanager.h"
 #include "globaloptions.h"
 #include "hexviewwindow.h"
+#include "sessionmanagerwidget.h"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -53,7 +54,7 @@ private:
 private:
     Ui::MainWindow *ui;
 
-    QSplitter *splitter;
+    SessionManagerWidget *sessionManagerWidget;
     SessionTab *sessionTab;
     QuickConnectWindow *quickConnectWindow;
     keyMapManager *keyMapManagerWindow;

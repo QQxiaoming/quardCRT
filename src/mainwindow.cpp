@@ -13,9 +13,11 @@
 #include <QSocketNotifier>
 #include <QTabBar>
 #include <QShortcut>
+#include <QVBoxLayout>
+#include <QSvgRenderer>
+#include <QPushButton>
 
 #include "qfonticon.h"
-
 #include "sessiontab.h"
 #include "sessionswindow.h"
 #include "quickconnectwindow.h"
@@ -33,17 +35,25 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     ui->setupUi(this);
 
     /* Create the main UI */
-    splitter = new QSplitter(Qt::Horizontal,this);
-    splitter->setHandleWidth(1);
-    splitter->setChildrenCollapsible(false);
-    setCentralWidget(splitter);
+    QXmlStreamReader svgXmlStreamReader(
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n"
+            "<text x=\"0\" y=\"75\" fill=\"white\" transform=\"rotate(270 15,75)\">Session Manager</text>\n"
+        "</svg>\n");
+    QSvgRenderer svgRender;
+    svgRender.load(&svgXmlStreamReader);
+    QPixmap svgPixmap(15,100);
+    svgPixmap.fill(Qt::transparent);
+    QPainter svgPainter(&svgPixmap);
+    svgRender.render(&svgPainter);
+    ui->sessionManagerPushButton->setIcon(svgPixmap);
+    ui->sessionManagerPushButton->setIconSize(QSize(15,110));
 
-    QWidget *label = new QWidget(this);
-    label->setFixedWidth(20);
-    splitter->addWidget(label);
+    sessionManagerWidget = new SessionManagerWidget(this);
+    ui->centralwidget->layout()->addWidget(sessionManagerWidget);
+    sessionManagerWidget->setVisible(false);
 
     sessionTab = new SessionTab(this);
-    splitter->addWidget(sessionTab);
+    ui->centralwidget->layout()->addWidget(sessionTab);
 
     quickConnectWindow = new QuickConnectWindow(this);
     
@@ -64,6 +74,13 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     /* connect signals */
     menuAndToolBarConnectSignals();
     
+    connect(ui->sessionManagerPushButton,&QPushButton::clicked,this,[=](){
+        if(sessionManagerWidget->isVisible() == false) {
+            sessionManagerWidget->setVisible(true);
+        } else {
+            sessionManagerWidget->setVisible(false);
+        }
+    });
     connect(sessionTab,&QTabWidget::tabCloseRequested,this,[=](int index){
         stopSession(index);
     });
@@ -279,11 +296,13 @@ void MainWindow::menuAndToolBarInit(void) {
 
     connectAction = new QAction(this);
     fileMenu->addAction(connectAction);
+    sessionManagerWidget->addActionOnToolBar(connectAction);
     sessionManagerAction = new QAction(this);
     ui->toolBar->addAction(sessionManagerAction);
     quickConnectAction = new QAction(this);
     fileMenu->addAction(quickConnectAction);
     ui->toolBar->addAction(quickConnectAction);
+    sessionManagerWidget->addActionOnToolBar(quickConnectAction);
     connectInTabAction = new QAction(this);
     fileMenu->addAction(connectInTabAction);
     connectLocalShellAction = new QAction(this);

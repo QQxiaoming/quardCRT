@@ -2,7 +2,7 @@
     message("Cannot use Qt $$QT_VERSION")
     error("Use Qt 6.2.0 or newer")
 }
-QT += core gui network widgets xml svg websockets serialport
+QT += core gui network widgets xml svgwidgets websockets serialport
 QT += core5compat
 
 BUILD_VERSION=0.1.3
@@ -23,6 +23,7 @@ SOURCES += \
     src/globaloptions.cpp \
     src/keymapmanager.cpp \
     src/quickconnectwindow.cpp \
+    src/sessionmanagerwidget.cpp \
     src/sessiontab.cpp \
     src/sessionswindow.cpp \
     src/hexviewwindow.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     src/globaloptions.h \
     src/keymapmanager.h \
     src/quickconnectwindow.h \
+    src/sessionmanagerwidget.h \
     src/sessiontab.h \
     src/sessionswindow.h \
     src/hexviewwindow.h \
@@ -44,7 +46,8 @@ FORMS += \
     src/keymapmanager.ui \
     src/quickconnectwindow.ui \
     src/hexviewwindow.ui \
-    src/mainwindow.ui
+    src/mainwindow.ui \
+    src/sessionmanagerwidget.ui
 
 RESOURCES += \
     res/resource.qrc \
