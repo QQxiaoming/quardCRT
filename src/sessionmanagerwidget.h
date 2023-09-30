@@ -5,6 +5,8 @@
 #include <QToolBar>
 #include <QLabel>
 
+#include "treemodel.h"
+
 namespace Ui {
 class SessionManagerWidget;
 }
@@ -19,11 +21,15 @@ public:
 
     void addActionOnToolBar(QAction *action);
     void retranslateUi();
-
+    void addSession(QString str, int type);
+    void removeSession(QString str);
+    bool checkSession(QString str);
+    
 private:
     Ui::SessionManagerWidget *ui;
     QToolBar *toolBar;
     QLabel *label;
+    SessionTreeWindow *tree;
 };
 
 #endif // SESSIONMANAGERWIDGET_H

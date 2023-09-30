@@ -2,6 +2,7 @@
 #include <QLabel>
 
 #include "qfonticon.h"
+#include "treemodel.h"
 
 #include "sessionmanagerwidget.h"
 #include "ui_sessionmanagerwidget.h"
@@ -22,6 +23,9 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     toolBar->setIconSize(QSize(16,16));
 
+    tree = new SessionTreeWindow(this);
+    ui->verticalLayout->addWidget(tree);
+
     retranslateUi();
 }
 
@@ -39,4 +43,19 @@ void SessionManagerWidget::retranslateUi()
 {
     label->setText(tr("Session Manager"));
     ui->retranslateUi(this);
+}
+
+void SessionManagerWidget::addSession(QString str, int type)
+{
+    tree->addSession(str, type);
+}
+
+void SessionManagerWidget::removeSession(QString str)
+{
+    tree->removeSession(str);
+}
+
+bool SessionManagerWidget::checkSession(QString str)
+{
+    return tree->checkSession(str);
 }

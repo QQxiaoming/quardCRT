@@ -15,9 +15,9 @@ class SessionsWindow : public QObject
     Q_OBJECT
 public:
     enum SessionType {
-        LocalShell,
         Telnet,
         Serial,
+        LocalShell,
         RawSocket
     };
     SessionsWindow(SessionType tp, QObject *parent = nullptr);
@@ -47,6 +47,8 @@ public:
     bool getShowShortTitle() const { return showShortTitle; }
     void setLongTitle(const QString &title) { longTitle = title; }
     void setShortTitle(const QString &title) { shortTitle = title; }
+    void setName(const QString &name) { this->name = name; }
+    QString getName() const { return name; }
 
 signals:
     void hexDataDup(const char *data, int size);
@@ -73,6 +75,7 @@ private:
     QString workingDirectory;
     QString longTitle;
     QString shortTitle;
+    QString name;
     bool showShortTitle;
     QTermWidget *term;
     QTelnet *telnet;

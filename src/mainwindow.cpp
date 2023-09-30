@@ -754,6 +754,15 @@ SessionsWindow *MainWindow::startTelnetSession(QString hostname, quint16 port, Q
     sessionsWindow->setLongTitle(tr("Telnet - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Telnet"));
     sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    QString name = hostname;
+    for(uint32_t i=0;i<UINT_MAX;i++) {
+        if(sessionManagerWidget->checkSession(name) == false) {
+            break;
+        }
+        name = hostname+" ("+QString::number(i)+")";
+    }
+    sessionManagerWidget->addSession(name,SessionsWindow::Telnet);
+    sessionsWindow->setName(name);
     sessionsWindow->startTelnetSession(hostname,port,type);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
@@ -777,6 +786,15 @@ SessionsWindow *MainWindow::startSerialSession(QString portName, uint32_t baudRa
     sessionsWindow->setLongTitle(tr("Serial - ")+portName);
     sessionsWindow->setShortTitle(tr("Serial"));
     sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    QString name = portName;
+    for(uint32_t i=0;i<UINT_MAX;i++) {
+        if(sessionManagerWidget->checkSession(name) == false) {
+            break;
+        }
+        name = portName+" ("+QString::number(i)+")";
+    }
+    sessionManagerWidget->addSession(name,SessionsWindow::Serial);
+    sessionsWindow->setName(name);
     sessionsWindow->startSerialSession(portName,baudRate,dataBits,parity,stopBits,flowControl,xEnable);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
@@ -799,6 +817,15 @@ SessionsWindow *MainWindow::startRawSocketSession(QString hostname, quint16 port
     sessionsWindow->setLongTitle(tr("Raw - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Raw"));
     sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    QString name = hostname;
+    for(uint32_t i=0;i<UINT_MAX;i++) {
+        if(sessionManagerWidget->checkSession(name) == false) {
+            break;
+        }
+        name = hostname+" ("+QString::number(i)+")";
+    }
+    sessionManagerWidget->addSession(name,SessionsWindow::RawSocket);
+    sessionsWindow->setName(name);
     sessionsWindow->startRawSocketSession(hostname,port);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
@@ -825,6 +852,15 @@ SessionsWindow *MainWindow::startLocalShellSession(const QString &command)
     }
     sessionsWindow->setShortTitle(tr("Local Shell"));
     sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    QString name = "Local Shell";
+    for(uint32_t i=0;i<UINT_MAX;i++) {
+        if(sessionManagerWidget->checkSession(name) == false) {
+            break;
+        }
+        name = "Local Shell ("+QString::number(i)+")";
+    }
+    sessionManagerWidget->addSession(name,SessionsWindow::LocalShell);
+    sessionsWindow->setName(name);
     sessionsWindow->startLocalShellSession(command);
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
@@ -846,6 +882,7 @@ int MainWindow::stopSession(int index)
     QTermWidget *termWidget = (QTermWidget *)sessionTab->widget(index);
     foreach(SessionsWindow *sessionsWindow, sessionActionsList) {
         if(sessionsWindow->getTermWidget() == termWidget) {
+            sessionManagerWidget->removeSession(sessionsWindow->getName());
             sessionActionsList.removeOne(sessionsWindow);
             sessionTab->removeTab(index);
             delete sessionsWindow;
@@ -877,6 +914,15 @@ int MainWindow::cloneCurrentSession(void)
             sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
             sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
             sessionTab->addTab(sessionsWindowClone->getTermWidget(), sessionTab->tabText(sessionTab->indexOf(termWidget)));
+            QString name = sessionsWindow->getName();
+            for(uint32_t i=0;i<UINT_MAX;i++) {
+                if(sessionManagerWidget->checkSession(name) == false) {
+                    break;
+                }
+                name = sessionsWindow->getName()+" ("+QString::number(i)+")";
+            }
+            sessionManagerWidget->addSession(name,sessionsWindow->getSessionType());
+            sessionsWindowClone->setName(name);
             sessionsWindowClone->cloneSession(sessionsWindow);
             sessionActionsList.push_back(sessionsWindowClone);
             connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){

@@ -27,6 +27,7 @@ SOURCES += \
     src/sessiontab.cpp \
     src/sessionswindow.cpp \
     src/hexviewwindow.cpp \
+    src/treemodel.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
@@ -39,6 +40,7 @@ HEADERS += \
     src/sessiontab.h \
     src/sessionswindow.h \
     src/hexviewwindow.h \
+    src/treemodel.h \
     src/mainwindow.h
 
 FORMS += \
