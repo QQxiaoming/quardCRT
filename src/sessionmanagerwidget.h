@@ -5,7 +5,7 @@
 #include <QToolBar>
 #include <QLabel>
 
-#include "treemodel.h"
+#include "sessiontreeview.h"
 
 namespace Ui {
 class SessionManagerWidget;
@@ -29,7 +29,7 @@ private:
     Ui::SessionManagerWidget *ui;
     QToolBar *toolBar;
     QLabel *label;
-    SessionTreeWindow *tree;
+    SessionTreeView *tree;
 };
 
 #endif // SESSIONMANAGERWIDGET_H

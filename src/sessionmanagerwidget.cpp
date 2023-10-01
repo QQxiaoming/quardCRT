@@ -24,7 +24,7 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     toolBar->setIconSize(QSize(16,16));
     toolBar->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
 
-    tree = new SessionTreeWindow(this);
+    tree = new SessionTreeView(this);
     ui->verticalLayout->addWidget(tree);
 
     retranslateUi();

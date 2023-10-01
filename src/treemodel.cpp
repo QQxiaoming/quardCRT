@@ -30,7 +30,7 @@ class TreeItem
 public:
 	TreeItem() {}
 	TreeItem(QString str, int type, TreeItem *parent) :
-        m_str(str),m_type(type),m_size(0),m_timestamp(0),m_pParent(parent)
+        m_str(str),m_type(type),m_pParent(parent)
 	{
 	}
 	~TreeItem()
@@ -49,12 +49,8 @@ public:
 
 	QString data() { return m_str ; }
 	int type() { return m_type ; }
-    uint64_t size() { return m_size ; }
-    uint32_t timestamp() { return m_timestamp ; }
 	void setData(QString str) { m_str = str ; }
 	void setType(int type) { m_type = type ; }
-	void setSize(uint64_t size) { m_size = size ; }
-	void setTimestamp(uint32_t timestamp) { m_timestamp = timestamp ; }
 	int childCount() { return m_children.size() ; }
 	QList<TreeItem *> &children() { return m_children ; }
 	TreeItem *parent() { return m_pParent ; }
@@ -83,8 +79,6 @@ public:
 private:
     QString				m_str;
     int				    m_type;
-	uint64_t            m_size;
-	uint32_t 		 	m_timestamp;
 	TreeItem			*m_pParent ;
 	QList<TreeItem *>	m_children ;
 } ;
@@ -152,7 +146,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 	return QVariant();
 }
 
-void TreeModel::info(const QModelIndex &index, int &type, QString &name, uint64_t &size)
+void TreeModel::info(const QModelIndex &index, int &type, QString &name)
 {
 	if ( !index.isValid() ) { return; }
 
@@ -160,7 +154,6 @@ void TreeModel::info(const QModelIndex &index, int &type, QString &name, uint64_
 
 	type = p->type();
 	name = p->data();
-    size = 0;
 }
 
 int TreeModel::rowCount(const QModelIndex &parent) const
@@ -190,11 +183,10 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    return setData(index, value.toList()[0].toString(),value.toList()[1].toInt(),
-                   value.toList()[2].toULongLong(),value.toList()[3].toUInt(),role);
+    return setData(index, value.toList()[0].toString(),value.toList()[1].toInt(),role);
 }
 
-bool TreeModel::setData(const QModelIndex &index, QString data, int type, uint64_t size, uint32_t time , int role)
+bool TreeModel::setData(const QModelIndex &index, QString data, int type, int role)
 {
     if ( role != Qt::DisplayRole && role != Qt::EditRole ) {
 		return false ;
@@ -207,8 +199,6 @@ bool TreeModel::setData(const QModelIndex &index, QString data, int type, uint64
 
     p->setData(data) ;
     p->setType(type) ;
-    p->setSize(size) ;
-    p->setTimestamp(time) ;
     QList<int> lRole = {role} ;
 	emit dataChanged(index, index, lRole);
 	return true ;
@@ -324,7 +314,7 @@ bool TreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int r
 		p = reinterpret_cast<TreeItem *>(val) ;
 
 		QString text = p->data() ;
-        QModelIndex index = addTree(text, 0, 0, 0, parent) ;
+        QModelIndex index = addTree(text, 0, parent) ;
 		TreeItem *newItem = static_cast<TreeItem *>(index.internalPointer()) ;
 		newItem->copy(p) ;
 	}
@@ -332,7 +322,7 @@ bool TreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int r
 }
 // drag and drop 処理 ここまで ----------------------------------
 
-QModelIndex TreeModel::addTree(QString str, int type, uint64_t size, uint32_t timestamp, const QModelIndex &parent)
+QModelIndex TreeModel::addTree(QString str, int type, const QModelIndex &parent)
 {
 	TreeItem *p = m_pRootItem ;
 	if ( parent.isValid() ) {
@@ -343,8 +333,7 @@ QModelIndex TreeModel::addTree(QString str, int type, uint64_t size, uint32_t ti
 	insertRows(row, 1, parent) ;	// row 追加
 
     QModelIndex index = this->index(row, 0, parent) ;
-    QList<QVariant> list = {str, type, static_cast<quint64>(size), timestamp };
-    setData(index, list, Qt::DisplayRole) ;
+    setData(index, str, type, Qt::DisplayRole) ;
 	return index ;
 }
 

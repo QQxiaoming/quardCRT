@@ -40,7 +40,7 @@ public:
 	int columnCount(const QModelIndex &parent) const ;
 	Qt::ItemFlags flags(const QModelIndex &index) const ;
     bool setData(const QModelIndex &index, const QVariant &value, int role) ;
-    bool setData(const QModelIndex &index, QString data, int type, uint64_t size, uint32_t time, int role);
+    bool setData(const QModelIndex &index, QString data, int type, int role);
 	bool insertRows(int row, int count, const QModelIndex &parent) ;
 	bool removeRows(int row, int count, const QModelIndex &parent) ;
 	QModelIndex index(int row, int column, const QModelIndex &parent) const ;
@@ -54,9 +54,9 @@ public:
 	bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) ;
 	// -----------------
 
-    QModelIndex addTree(QString str, int type, uint64_t size, uint32_t timestamp, const QModelIndex &parent) ;
+    QModelIndex addTree(QString str, int type, const QModelIndex &parent) ;
     void removeTree(QModelIndex &parent) ;
-	void info(const QModelIndex &index, int &type, QString &name, uint64_t &size);
+	void info(const QModelIndex &index, int &type, QString &name);
 	QModelIndex findItems(QString str, QModelIndex &index);
 
 	void dumpTreeItems() ;
@@ -72,54 +72,6 @@ private:
 	TreeItem	*m_pRootItem ;
 	uint32_t     m_roottimestamp;
     QTreeView   *m_parent;
-};
-
-
-class SessionTreeWindow : public QTreeView
-{
-    Q_OBJECT
-public:
-    explicit SessionTreeWindow(QWidget *parent = 0) :
-        QTreeView(parent)
-    {
-        mode = new TreeModel(this);
-        setModel(mode);
-        setEditTriggers(QAbstractItemView::NoEditTriggers);
-        setAnimated(true);
-        setUniformRowHeights(true);
-        setWordWrap(false);
-        setSortingEnabled(false);
-        setAllColumnsShowFocus(true);
-        setColumnWidth(0,180);
-        setColumnWidth(1,70);
-        setFixedWidth(250);
-        setHeaderHidden(true);
-        rootIndex = mode->addTree(tr("Session"), -1, 0, 0, QModelIndex());
-        expand(rootIndex);
-    }
-    ~SessionTreeWindow() {
-        delete mode;
-    }
-    void addSession(QString str, int type) {
-        mode->addTree(str, type, 0, 0, rootIndex);
-    }
-    void removeSession(QString str) {
-        QModelIndex index = mode->findItems(str, rootIndex);
-        mode->removeTree(index);
-    }
-    bool checkSession(QString str) {
-        QModelIndex index = mode->findItems(str, rootIndex);
-        if (index.isValid()) {
-            return true;
-        }
-        return false;
-    }
-    void retranslateUi() {
-        mode->setData(rootIndex, tr("Session"), -1, 0, 0, Qt::DisplayRole);
-    }
-private:
-    TreeModel *mode;
-    QModelIndex rootIndex;
 };
 
 #endif // TREEMODEL_H
