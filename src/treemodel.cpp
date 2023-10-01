@@ -190,6 +190,12 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    return setData(index, value.toList()[0].toString(),value.toList()[1].toInt(),
+                   value.toList()[2].toULongLong(),value.toList()[3].toUInt(),role);
+}
+
+bool TreeModel::setData(const QModelIndex &index, QString data, int type, uint64_t size, uint32_t time , int role)
+{
     if ( role != Qt::DisplayRole && role != Qt::EditRole ) {
 		return false ;
 	}
@@ -199,11 +205,12 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
 		p = static_cast<TreeItem *>(index.internalPointer()) ;
 	}
 
-    p->setData(value.toList()[0].toString()) ;
-    p->setType(value.toList()[1].toInt()) ;
-    p->setSize(value.toList()[2].toULongLong()) ;
-	p->setTimestamp(value.toList()[3].toUInt()) ;
-	emit dataChanged(index, index);
+    p->setData(data) ;
+    p->setType(type) ;
+    p->setSize(size) ;
+    p->setTimestamp(time) ;
+    QList<int> lRole = {role} ;
+	emit dataChanged(index, index, lRole);
 	return true ;
 }
 
@@ -387,5 +394,3 @@ void TreeModel::_dump(TreeItem *p, int tab)
 		_dump(p->child(i), tab + 1) ;
 	}
 }
-
-

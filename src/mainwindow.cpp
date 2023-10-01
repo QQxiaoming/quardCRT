@@ -153,19 +153,20 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::menuAndToolBarRetranslateUi(void) {
+    QString color = isDarkTheme?"white":"black";
     QXmlStreamReader svgXmlStreamReader(
         QString("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n")+
-        QString("<text x=\"0\" y=\"75\" fill=\"white\" transform=\"rotate(270 15,75)\">")+QString(tr("Session Manager"))+QString("</text>\n")+
+        QString("<text x=\"0\" y=\"75\" fill=\"")+color+QString("\" transform=\"rotate(270 15,75)\">")+QString(tr("Session Manager"))+QString("</text>\n")+
         QString("</svg>\n"));
     QSvgRenderer svgRender;
     svgRender.load(&svgXmlStreamReader);
     if(language == QLocale::Chinese) {
-        QPixmap svgPixmap(15,70);
+        QPixmap svgPixmap(15,60);
         svgPixmap.fill(Qt::transparent);
         QPainter svgPainter(&svgPixmap);
         svgRender.render(&svgPainter);
         ui->sessionManagerPushButton->setIcon(svgPixmap);
-        ui->sessionManagerPushButton->setIconSize(QSize(15,80));
+        ui->sessionManagerPushButton->setIconSize(QSize(15,70));
     } else {
         QPixmap svgPixmap(15,100);
         svgPixmap.fill(Qt::transparent);
@@ -317,6 +318,7 @@ void MainWindow::menuAndToolBarInit(void) {
     connectLocalShellAction = new QAction(this);
     fileMenu->addAction(connectLocalShellAction);
     ui->toolBar->addAction(connectLocalShellAction);
+    sessionManagerWidget->addActionOnToolBar(connectLocalShellAction);
     fileMenu->addSeparator();
     reconnectAction = new QAction(this);
     fileMenu->addAction(reconnectAction);
@@ -339,6 +341,7 @@ void MainWindow::menuAndToolBarInit(void) {
     lockSessionAction = new QAction(this);
     fileMenu->addAction(lockSessionAction);
     fileMenu->addSeparator();
+    sessionManagerWidget->addActionOnToolBar(lockSessionAction);
     logSessionAction = new QAction(this);
     logSessionAction->setCheckable(true);
     logSessionAction->setChecked(false);
@@ -357,18 +360,22 @@ void MainWindow::menuAndToolBarInit(void) {
     copyAction = new QAction(this);
     editMenu->addAction(copyAction);
     ui->toolBar->addAction(copyAction);
+    sessionManagerWidget->addActionOnToolBar(copyAction);
     pasteAction = new QAction(this);
     editMenu->addAction(pasteAction);
     ui->toolBar->addAction(pasteAction);
+    sessionManagerWidget->addActionOnToolBar(pasteAction);
     copyAndPasteAction = new QAction(this);
     editMenu->addAction(copyAndPasteAction);
     selectAllAction = new QAction(this);
     editMenu->addAction(selectAllAction);
     findAction = new QAction(this);
     editMenu->addAction(findAction);
+    sessionManagerWidget->addActionOnToolBar(findAction);
     editMenu->addSeparator();
     ui->toolBar->addAction(findAction);
     ui->toolBar->addSeparator();
+    sessionManagerWidget->addActionOnToolBar(findAction);
     printScreenAction = new QAction(this);
     editMenu->addAction(printScreenAction);
     editMenu->addSeparator();
@@ -392,9 +399,11 @@ void MainWindow::menuAndToolBarInit(void) {
     sessionOptionsAction = new QAction(this);
     optionsMenu->addAction(sessionOptionsAction);
     ui->toolBar->addAction(sessionOptionsAction);
+    sessionManagerWidget->addActionOnToolBar(sessionOptionsAction);
     globalOptionsAction = new QAction(this);
     optionsMenu->addAction(globalOptionsAction);
     optionsMenu->addSeparator();
+    sessionManagerWidget->addActionOnToolBar(globalOptionsAction);
     ui->toolBar->addAction(globalOptionsAction);
     ui->toolBar->addSeparator();
     autoSaveOptionsAction = new QAction(this);
@@ -497,6 +506,7 @@ void MainWindow::menuAndToolBarInit(void) {
     helpAction = new QAction(this);
     helpMenu->addAction(helpAction);
     ui->toolBar->addAction(helpAction);
+    sessionManagerWidget->addActionOnToolBar(helpAction);
     helpMenu->addSeparator();
     aboutAction = new QAction(this);
     helpMenu->addAction(aboutAction);

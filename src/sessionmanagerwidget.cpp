@@ -22,6 +22,7 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     toolBar->setFloatable(false);
     toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     toolBar->setIconSize(QSize(16,16));
+    toolBar->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
 
     tree = new SessionTreeWindow(this);
     ui->verticalLayout->addWidget(tree);
@@ -42,7 +43,9 @@ void SessionManagerWidget::addActionOnToolBar(QAction *action)
 void SessionManagerWidget::retranslateUi()
 {
     label->setText(tr("Session Manager"));
+    ui->lineEdit->setPlaceholderText(tr("Filter by folder/session name"));
     ui->retranslateUi(this);
+    tree->retranslateUi();
 }
 
 void SessionManagerWidget::addSession(QString str, int type)
