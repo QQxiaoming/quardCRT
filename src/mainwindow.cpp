@@ -16,6 +16,7 @@
 #include <QVBoxLayout>
 #include <QSvgRenderer>
 #include <QPushButton>
+#include <QGraphicsProxyWidget>
 
 #include "qfonticon.h"
 #include "sessiontab.h"
@@ -27,7 +28,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
-    : QMainWindow(parent) 
+    : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , language(lang)
     , isDarkTheme(isDark) {
@@ -43,7 +44,7 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     ui->centralwidget->layout()->addWidget(sessionTab);
 
     quickConnectWindow = new QuickConnectWindow(this);
-    
+
     keyMapManagerWindow = new keyMapManager(this);
     keyMapManagerWindow->setAvailableKeyBindings(QTermWidget::availableKeyBindings());
 
@@ -53,6 +54,15 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     hexViewWindow = new HexViewWindow(HexViewWindow::RECV,this);
     hexViewWindow->setFont(globalOptionsWindow->getCurrentFont());
 
+    QGraphicsScene *scene = new QGraphicsScene(this);
+    sessionManagerPushButton = new QPushButton();
+    QGraphicsProxyWidget *w = scene->addWidget(sessionManagerPushButton);
+    w->setPos(0,0);
+    w->setRotation(-90);
+    ui->graphicsView->setScene(scene);
+    sessionManagerPushButton->setFixedSize(127,20);
+    ui->graphicsView->setFixedSize(20+6, 127+6);
+
     menuAndToolBarInit();
 
     newLocalShellShortCut = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_T), this);
@@ -60,8 +70,8 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
 
     /* connect signals */
     menuAndToolBarConnectSignals();
-    
-    connect(ui->sessionManagerPushButton,&QPushButton::clicked,this,[=](){
+
+    connect(sessionManagerPushButton,&QPushButton::clicked,this,[=](){
         if(sessionManagerWidget->isVisible() == false) {
             sessionManagerWidget->setVisible(true);
         } else {
@@ -123,6 +133,7 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
                 menu->addAction(selectAllAction);
                 menu->addAction(findAction);
             } else {
+                delete menu;
                 return;
             }
         }
@@ -149,32 +160,12 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
+    delete sessionManagerPushButton;
     delete ui;
 }
 
 void MainWindow::menuAndToolBarRetranslateUi(void) {
-    QString color = isDarkTheme?"white":"black";
-    QXmlStreamReader svgXmlStreamReader(
-        QString("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n")+
-        QString("<text x=\"0\" y=\"75\" fill=\"")+color+QString("\" transform=\"rotate(270 15,75)\">")+QString(tr("Session Manager"))+QString("</text>\n")+
-        QString("</svg>\n"));
-    QSvgRenderer svgRender;
-    svgRender.load(&svgXmlStreamReader);
-    if(language == QLocale::Chinese) {
-        QPixmap svgPixmap(15,60);
-        svgPixmap.fill(Qt::transparent);
-        QPainter svgPainter(&svgPixmap);
-        svgRender.render(&svgPainter);
-        ui->sessionManagerPushButton->setIcon(svgPixmap);
-        ui->sessionManagerPushButton->setIconSize(QSize(15,70));
-    } else {
-        QPixmap svgPixmap(15,100);
-        svgPixmap.fill(Qt::transparent);
-        QPainter svgPainter(&svgPixmap);
-        svgRender.render(&svgPainter);
-        ui->sessionManagerPushButton->setIcon(svgPixmap);
-        ui->sessionManagerPushButton->setIconSize(QSize(15,110));
-    }
+    sessionManagerPushButton->setText(tr("Session Manager"));
 
     fileMenu->setTitle(tr("File"));
     editMenu->setTitle(tr("Edit"));
@@ -625,7 +616,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     connect(hexViewAction,&QAction::triggered,this,[=](){
         if(hexViewAction->isChecked())
             hexViewWindow->show();
-        else 
+        else
             hexViewWindow->hide();
     });
     connect(hexViewWindow,&HexViewWindow::hideOrClose,this,[=](){
@@ -975,7 +966,7 @@ void MainWindow::appAbout(QWidget *parent)
 
 void MainWindow::appHelp(QWidget *parent)
 {
-    QMessageBox::about(parent, tr("Help"), "TODO"); 
+    QMessageBox::about(parent, tr("Help"), "TODO");
 }
 
 void MainWindow::setAppLangeuage(QLocale::Language lang) {

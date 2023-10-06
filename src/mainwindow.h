@@ -60,6 +60,7 @@ private:
     keyMapManager *keyMapManagerWindow;
     GlobalOptions *globalOptionsWindow;
     HexViewWindow *hexViewWindow;
+    QPushButton *sessionManagerPushButton;
 
     QMenu *fileMenu;
     QMenu *editMenu;
