@@ -16,13 +16,13 @@ English | [简体中文](./README_zh_CN.md)
 
 quardCRT is a terminal emulation software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports multiple tabs and history management.
 
-| ![img2](./docs/img2.png) |
-| :----------------------: |
-| Windows                  |
-| ![img1](./docs/img1.png) |
-| MacOS                    |
-| ![img3](./docs/img3.png) |
-| Linux                    |
+| ![img2](./docs/windows.png) |
+| :-------------------------: |
+| Windows                     |
+| ![img1](./docs/macos.png)   |
+| MacOS                       |
+| ![img3](./docs/linux.png)   |
+| Linux                       |
 
 Other protocol selection interface:
 

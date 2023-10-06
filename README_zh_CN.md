@@ -17,13 +17,13 @@
 quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台使用，windows/linux/mac使用体验完全一致，支持多标签页和历史记录管理。
 
 
-| ![img2](./docs/img2.png) |
-| :----------------------: |
-| Windows                  |
-| ![img1](./docs/img1.png) |
-| MacOS                    |
-| ![img3](./docs/img3.png) |
-| Linux                    |
+| ![img2](./docs/windows.png) |
+| :-------------------------: |
+| Windows                     |
+| ![img1](./docs/macos.png)   |
+| MacOS                       |
+| ![img3](./docs/linux.png)   |
+| Linux                       |
 
 其他协议选择界面：
 
