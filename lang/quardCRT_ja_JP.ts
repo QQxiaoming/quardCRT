@@ -166,12 +166,12 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="179"/>
         <source>Connect to a host &lt;Alt+C&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>ホストに接続 &lt;Alt+C&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="183"/>
         <source>Go to the Session Manager &lt;Alt+M&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>セッションマネージャーへ &lt;Alt+M&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="185"/>
@@ -181,7 +181,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="187"/>
         <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>ホストにクイックコネクト &lt;Alt+Q&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="189"/>
@@ -191,7 +191,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="190"/>
         <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>新しいタブでホストに接続 &lt;Alt+B&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="192"/>
@@ -201,7 +201,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="194"/>
         <source>Connect to a local shell &lt;Alt+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>ローカル端末に接続 &lt;Alt+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="196"/>
@@ -211,7 +211,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="198"/>
         <source>Reconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションを再接続</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="199"/>
@@ -221,7 +221,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="200"/>
         <source>Reconnect all sessions &lt;Alt+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>全てのセッションを再接続 &lt;Alt+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="202"/>
@@ -231,7 +231,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="204"/>
         <source>Disconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションを切断</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="205"/>
@@ -246,7 +246,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="207"/>
         <source>Disconnect all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>全てのセッションを切断</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="208"/>
@@ -256,7 +256,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="209"/>
         <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションを複製 &lt;Ctrl+Shift+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="211"/>
@@ -266,7 +266,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="213"/>
         <source>Lock/Unlock current session</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションをロック/アンロック</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="214"/>
@@ -276,7 +276,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="215"/>
         <source>Create a log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションを記録</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="216"/>
@@ -286,7 +286,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="217"/>
         <source>Create a raw log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションを生記録</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="218"/>
@@ -296,7 +296,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="219"/>
         <source>Show/Hide Hex View for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションの16進数ビューを表示/非表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="220"/>
@@ -306,7 +306,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="221"/>
         <source>Quit the application</source>
-        <translation type="unfinished"></translation>
+        <translation>アプリケーションを終了</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="223"/>
@@ -316,7 +316,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="225"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>選択したテキストをクリップボードにコピー &lt;Ctrl+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="227"/>
@@ -326,7 +326,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="229"/>
         <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>クリップボードのテキストを現在のセッションに貼り付け &lt;Shift+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="231"/>
@@ -336,7 +336,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="232"/>
         <source>Copy the selected text to the clipboard and paste to the current session</source>
-        <translation type="unfinished"></translation>
+        <translation>選択したテキストをクリップボードにコピーして現在のセッションに貼り付け</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="233"/>
@@ -346,7 +346,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="234"/>
         <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションの全てのテキストを選択 &lt;Ctrl+Shift+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="236"/>
@@ -356,7 +356,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="238"/>
         <source>Find text in the current session</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のセッションのテキストを検索</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="239"/>
@@ -366,7 +366,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="241"/>
         <source>Print current screen</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のスクリーンを印刷</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="242"/>
@@ -376,7 +376,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="243"/>
         <source>Reset terminal emulator</source>
-        <translation type="unfinished"></translation>
+        <translation>端末エミュレータをリセット</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="245"/>
@@ -404,7 +404,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="255"/>
         <source>Full Screen &lt;Alt+Enter&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>全画面表示 &lt;Alt+Enter&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="258"/>
@@ -414,7 +414,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="260"/>
         <source>Configure session options</source>
-        <translation type="unfinished"></translation>
+        <translation>セッションオプションを設定</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="261"/>
@@ -424,7 +424,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="263"/>
         <source>Configure global options</source>
-        <translation type="unfinished"></translation>
+        <translation>グローバルオプションを設定</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="264"/>
@@ -434,7 +434,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="265"/>
         <source>Automatically save session options and global options</source>
-        <translation type="unfinished"></translation>
+        <translation>セッションオプションとグローバルオプションを自動的に保存</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="266"/>
@@ -444,7 +444,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="267"/>
         <source>Save options configuration now</source>
-        <translation type="unfinished"></translation>
+        <translation>オプション設定を保存</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="269"/>
@@ -454,7 +454,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="270"/>
         <source>Send ASCII file</source>
-        <translation type="unfinished"></translation>
+        <translation>ASCIIファイルを送信</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="271"/>
@@ -464,7 +464,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="272"/>
         <source>Receive ASCII file</source>
-        <translation type="unfinished"></translation>
+        <translation>ASCIIファイルを受信</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="273"/>
@@ -474,7 +474,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="274"/>
         <source>Send Binary file</source>
-        <translation type="unfinished"></translation>
+        <translation>バイナリファイルを送信</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="275"/>
@@ -484,7 +484,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="276"/>
         <source>Send a file using Xmodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Xmodemでファイルを送信</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="277"/>
@@ -494,7 +494,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="278"/>
         <source>Receive a file using Xmodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Xmodemでファイルを受信</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="279"/>
@@ -504,7 +504,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="280"/>
         <source>Send a file using Ymodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Ymodemでファイルを送信</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="281"/>
@@ -514,7 +514,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="282"/>
         <source>Receive a file using Ymodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Ymodemでファイルを受信</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="283"/>
@@ -524,7 +524,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="284"/>
         <source>Display Zmodem file upload list</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmodemファイルアップロードリストを表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="285"/>
@@ -534,7 +534,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="286"/>
         <source>Start Zmodem file upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmodemファイルアップロードを開始</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="287"/>
@@ -544,7 +544,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="288"/>
         <source>Start/Stop the TFTP server</source>
-        <translation type="unfinished"></translation>
+        <translation>TFTPサーバーを開始/停止</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="290"/>
@@ -554,7 +554,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="291"/>
         <source>Run a script</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトを実行</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="292"/>
@@ -564,7 +564,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="293"/>
         <source>Cancel script execution</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプト実行をキャンセル</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="294"/>
@@ -574,7 +574,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="295"/>
         <source>Start recording script</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプト記録を開始</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="296"/>
@@ -584,7 +584,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="297"/>
         <source>Stop recording script</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプト記録を停止</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="298"/>
@@ -594,7 +594,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="299"/>
         <source>Cancel recording script</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプト記録をキャンセル</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="301"/>
@@ -604,7 +604,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="302"/>
         <source>Display keymap editor</source>
-        <translation type="unfinished"></translation>
+        <translation>キーマップエディターを表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="303"/>
@@ -614,7 +614,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="304"/>
         <source>Create a public key</source>
-        <translation type="unfinished"></translation>
+        <translation>公開鍵を作成</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="305"/>
@@ -624,7 +624,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="306"/>
         <source>Display publickey manager</source>
-        <translation type="unfinished"></translation>
+        <translation>公開鍵マネージャーを表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="308"/>
@@ -634,7 +634,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="309"/>
         <source>Arrange sessions in tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>セッションをタブで表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="310"/>
@@ -644,7 +644,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="311"/>
         <source>Arrange sessions in non-overlapping tiles</source>
-        <translation type="unfinished"></translation>
+        <translation>セッションを重ならないようにタイルで表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="312"/>
@@ -654,7 +654,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="313"/>
         <source>Arrange sessions to overlap each other</source>
-        <translation type="unfinished"></translation>
+        <translation>セッションを重ねて表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="315"/>
@@ -664,7 +664,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="316"/>
         <source>Switch to Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>切换到中文</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="317"/>
@@ -674,7 +674,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="318"/>
         <source>Switch to English</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="319"/>
@@ -684,7 +684,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="320"/>
         <source>Switch to Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>日本語に切り替える</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="322"/>
@@ -694,7 +694,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="323"/>
         <source>Switch to light theme</source>
-        <translation type="unfinished"></translation>
+        <translation>明るいテーマに切り替える</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="324"/>
@@ -704,12 +704,12 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="325"/>
         <source>Switch to dark theme</source>
-        <translation type="unfinished"></translation>
+        <translation>暗いテーマに切り替える</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="329"/>
         <source>Display help</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘルプを表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="330"/>
@@ -720,7 +720,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="331"/>
         <source>Display about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>についてのダイアログを表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="332"/>
@@ -730,7 +730,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="333"/>
         <source>Display about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Qtについてのダイアログを表示</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="821"/>
@@ -1028,7 +1028,7 @@
         <location filename="../src/sessiontreeview.cpp" line="20"/>
         <location filename="../src/sessiontreeview.cpp" line="46"/>
         <source>Session</source>
-        <translation type="unfinished">セッション</translation>
+        <translation>セッション</translation>
     </message>
     <message>
         <location filename="../src/sessiontreeview.cpp" line="53"/>

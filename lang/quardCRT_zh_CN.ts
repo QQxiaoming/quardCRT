@@ -740,7 +740,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="853"/>
         <source>Serial</source>
-        <translation type="unfinished">串行通讯</translation>
+        <translation>串行通讯</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="884"/>
@@ -1028,7 +1028,7 @@
         <location filename="../src/sessiontreeview.cpp" line="20"/>
         <location filename="../src/sessiontreeview.cpp" line="46"/>
         <source>Session</source>
-        <translation type="unfinished">会话</translation>
+        <translation>会话</translation>
     </message>
     <message>
         <location filename="../src/sessiontreeview.cpp" line="53"/>
