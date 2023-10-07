@@ -137,9 +137,6 @@ private:
     QAction *aboutAction;
     QAction *aboutQtAction;
 
-    QShortcut *newLocalShellShortCut;
-    QShortcut *cloneSessionShortCut;
-
     QLocale::Language language;
     bool isDarkTheme;
     QList<SessionsWindow *> sessionActionsList;

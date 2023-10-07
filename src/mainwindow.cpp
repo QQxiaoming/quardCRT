@@ -60,13 +60,15 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     w->setPos(0,0);
     w->setRotation(-90);
     ui->graphicsView->setScene(scene);
-    sessionManagerPushButton->setFixedSize(127,20);
-    ui->graphicsView->setFixedSize(20+6, 127+6);
+    ui->graphicsView->setFrameStyle(0);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    sessionManagerPushButton->setFixedSize(200,26);
+    ui->graphicsView->setFixedSize(30, 200);
 
     menuAndToolBarInit();
 
-    newLocalShellShortCut = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_T), this);
-    cloneSessionShortCut = new QShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_T), this);
+    statusBar();
 
     /* connect signals */
     menuAndToolBarConnectSignals();
@@ -150,13 +152,6 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
             }
         }
     });
-
-    connect(newLocalShellShortCut,&QShortcut::activated,this,[=](){
-        startLocalShellSession();
-    });
-    connect(cloneSessionShortCut,&QShortcut::activated,this,[=](){
-        cloneCurrentSession();
-    });
 }
 
 MainWindow::~MainWindow() {
@@ -181,91 +176,161 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
 
     connectAction->setText(tr("Connect..."));
     connectAction->setIcon(QFontIcon::icon(QChar(0xf0c1)));
+    connectAction->setStatusTip(tr("Connect to a host <Alt+C>"));
+    connectAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_C));
     sessionManagerAction->setText(tr("Session Manager"));
     sessionManagerAction->setIcon(QFontIcon::icon(QChar(0xf0e8)));
+    sessionManagerAction->setStatusTip(tr("Go to the Session Manager <Alt+M>"));
+    sessionManagerAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_M));
     quickConnectAction->setText(tr("Quick Connect..."));
     quickConnectAction->setIcon(QFontIcon::icon(QChar(0xf0e7)));
+    quickConnectAction->setStatusTip(tr("Quick Connect to a host <Alt+Q>"));
+    quickConnectAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_Q));
     connectInTabAction->setText(tr("Connect in Tab/Tile..."));
+    connectInTabAction->setStatusTip(tr("Connect to a host in a new tab <Alt+B>"));
+    connectInTabAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_B));
     connectLocalShellAction->setText(tr("Connect Local Shell"));
     connectLocalShellAction->setIcon(QFontIcon::icon(QChar(0xf120)));
+    connectLocalShellAction->setStatusTip(tr("Connect to a local shell <Alt+T>"));
+    connectLocalShellAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_T));
     reconnectAction->setText(tr("Reconnect"));
     reconnectAction->setIcon(QFontIcon::icon(QChar(0xf021)));
+    reconnectAction->setStatusTip(tr("Reconnect current session"));
     reconnectAllAction->setText(tr("Reconnect All"));
+    reconnectAllAction->setStatusTip(tr("Reconnect all sessions <Alt+A>"));
+    reconnectAllAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_A));
     disconnectAction->setText(tr("Disconnect"));
     disconnectAction->setIcon(QFontIcon::icon(QChar(0xf127)));
+    disconnectAction->setStatusTip(tr("Disconnect current session"));
     connectAddressEdit->setPlaceholderText(tr("Enter host <Alt+R> to connect"));
     disconnectAllAction->setText(tr("Disconnect All"));
+    disconnectAllAction->setStatusTip(tr("Disconnect all sessions"));
     cloneSessionAction->setText(tr("Clone Session"));
+    cloneSessionAction->setStatusTip(tr("Clone current session <Ctrl+Shift+T>"));
+    cloneSessionAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_T));
     lockSessionAction->setText(tr("Lock Session"));
     lockSessionAction->setIcon(QFontIcon::icon(QChar(0xf023)));
+    lockSessionAction->setStatusTip(tr("Lock/Unlock current session"));
     logSessionAction->setText(tr("Log Session"));
+    logSessionAction->setStatusTip(tr("Create a log file for current session"));
     rawLogSessionAction->setText(tr("Raw Log Session"));
+    logSessionAction->setStatusTip(tr("Create a raw log file for current session"));
     hexViewAction->setText(tr("Hex View"));
+    hexViewAction->setStatusTip(tr("Show/Hide Hex View for current session"));
     exitAction->setText(tr("Exit"));
+    exitAction->setStatusTip(tr("Quit the application"));
 
     copyAction->setText(tr("Copy"));
     copyAction->setIcon(QFontIcon::icon(QChar(0xf0c5)));
+    copyAction->setStatusTip(tr("Copy the selected text to the clipboard <Ctrl+Ins>"));
+    copyAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_Insert));
     pasteAction->setText(tr("Paste"));
     pasteAction->setIcon(QFontIcon::icon(QChar(0xf0ea)));
+    pasteAction->setStatusTip(tr("Paste the clipboard text to the current session <Shift+Ins>"));
+    pasteAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::Key_Insert));
     copyAndPasteAction->setText(tr("Copy and Paste"));
+    copyAndPasteAction->setStatusTip(tr("Copy the selected text to the clipboard and paste to the current session"));
     selectAllAction->setText(tr("Select All"));
+    selectAllAction->setStatusTip(tr("Select all text in the current session <Ctrl+Shift+A>"));
+    selectAllAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_A));
     findAction->setText(tr("Find..."));
     findAction->setIcon(QFontIcon::icon(QChar(0xf002)));
+    findAction->setStatusTip(tr("Find text in the current session"));
     printScreenAction->setText(tr("Print Screen"));
     printScreenAction->setIcon(QFontIcon::icon(QChar(0xf02f)));
+    printScreenAction->setStatusTip(tr("Print current screen"));
     resetAction->setText(tr("Reset"));
+    resetAction->setStatusTip(tr("Reset terminal emulator"));
 
     zoomInAction->setText(tr("Zoom In"));
     zoomInAction->setIcon(QFontIcon::icon(QChar(0xf00e)));
+    zoomInAction->setStatusTip(tr("Zoom In"));
     zoomOutAction->setText(tr("Zoom Out"));
     zoomOutAction->setIcon(QFontIcon::icon(QChar(0xf010)));
+    zoomOutAction->setStatusTip(tr("Zoom Out"));
     zoomResetAction->setText(tr("Zoom Reset"));
     zoomResetAction->setIcon(QFontIcon::icon(QChar(0xf057)));
+    zoomResetAction->setStatusTip(tr("Zoom Reset"));
     fullScreenAction->setText(tr("Full Screen"));
+    fullScreenAction->setStatusTip(tr("Full Screen <Alt+Enter>"));
+    fullScreenAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_Enter));
 
     sessionOptionsAction->setText(tr("Session Options..."));
     sessionOptionsAction->setIcon(QFontIcon::icon(QChar(0xf1de)));
+    sessionOptionsAction->setStatusTip(tr("Configure session options"));
     globalOptionsAction->setText(tr("Global Options..."));
     globalOptionsAction->setIcon(QFontIcon::icon(QChar(0xf013)));
+    globalOptionsAction->setStatusTip(tr("Configure global options"));
     autoSaveOptionsAction->setText(tr("Auto Save Options"));
+    autoSaveOptionsAction->setStatusTip(tr("Automatically save session options and global options"));
     saveSettingsNowAction->setText(tr("Save Settings Now"));
+    saveSettingsNowAction->setStatusTip(tr("Save options configuration now"));
 
     sendASCIIAction->setText(tr("Send ASCII..."));
+    sendASCIIAction->setStatusTip(tr("Send ASCII file"));
     receiveASCIIAction->setText(tr("Receive ASCII..."));
+    receiveASCIIAction->setStatusTip(tr("Receive ASCII file"));
     sendBinaryAction->setText(tr("Send Binary..."));
+    sendBinaryAction->setStatusTip(tr("Send Binary file"));
     sendXmodemAction->setText(tr("Send Xmodem..."));
+    sendXmodemAction->setStatusTip(tr("Send a file using Xmodem"));
     receiveXmodemAction->setText(tr("Receive Xmodem..."));
+    receiveXmodemAction->setStatusTip(tr("Receive a file using Xmodem"));
     sendYmodemAction->setText(tr("Send Ymodem..."));
+    sendYmodemAction->setStatusTip(tr("Send a file using Ymodem"));
     receiveYmodemAction->setText(tr("Receive Ymodem..."));
+    receiveYmodemAction->setStatusTip(tr("Receive a file using Ymodem"));
     zmodemUploadListAction->setText(tr("Zmodem Upload List..."));
+    zmodemUploadListAction->setStatusTip(tr("Display Zmodem file upload list"));
     startZmodemUploadAction->setText(tr("Start Zmodem Upload"));
+    startZmodemUploadAction->setStatusTip(tr("Start Zmodem file upload"));
     startTFTPServerAction->setText(tr("Start TFTP Server"));
+    startTFTPServerAction->setStatusTip(tr("Start/Stop the TFTP server"));
 
     runAction->setText(tr("Run..."));
+    runAction->setStatusTip(tr("Run a script"));
     cancelAction->setText(tr("Cancel"));
+    cancelAction->setStatusTip(tr("Cancel script execution"));
     startRecordingScriptAction->setText(tr("Start Recording Script"));
+    startRecordingScriptAction->setStatusTip(tr("Start recording script"));
     stopRecordingScriptAction->setText(tr("Stop Recording Script..."));
+    stopRecordingScriptAction->setStatusTip(tr("Stop recording script"));
     canlcelRecordingScriptAction->setText(tr("Cancel Recording Script"));
+    canlcelRecordingScriptAction->setStatusTip(tr("Cancel recording script"));
 
     keymapManagerAction->setText(tr("Keymap Manager"));
+    keymapManagerAction->setStatusTip(tr("Display keymap editor"));
     createPublicKeyAction->setText(tr("Create Public Key..."));
+    createPublicKeyAction->setStatusTip(tr("Create a public key"));
     publickeyManagerAction->setText(tr("Publickey Manager"));
+    publickeyManagerAction->setStatusTip(tr("Display publickey manager"));
 
     tabAction->setText(tr("Tab"));
+    tabAction->setStatusTip(tr("Arrange sessions in tabs"));
     tileAction->setText(tr("Tile"));
+    tileAction->setStatusTip(tr("Arrange sessions in non-overlapping tiles"));
     cascadeAction->setText(tr("Cascade"));
+    cascadeAction->setStatusTip(tr("Arrange sessions to overlap each other"));
 
     chineseAction->setText(tr("Chinese"));
+    chineseAction->setStatusTip(tr("Switch to Chinese"));
     englishAction->setText(tr("English"));
+    englishAction->setStatusTip(tr("Switch to English"));
     japaneseAction->setText(tr("Japanese"));
+    japaneseAction->setStatusTip(tr("Switch to Japanese"));
 
     lightThemeAction->setText(tr("Light"));
+    lightThemeAction->setStatusTip(tr("Switch to light theme"));
     darkThemeAction->setText(tr("Dark"));
+    darkThemeAction->setStatusTip(tr("Switch to dark theme"));
 
     helpAction->setText(tr("Help"));
     helpAction->setIcon(QFontIcon::icon(QChar(0xf128)));
+    helpAction->setStatusTip(tr("Display help"));
     aboutAction->setText(tr("About"));
+    aboutAction->setStatusTip(tr("Display about dialog"));
     aboutQtAction->setText(tr("About Qt"));
+    aboutQtAction->setStatusTip(tr("Display about Qt dialog"));
 }
 
 void MainWindow::menuAndToolBarInit(void) {
