@@ -20,6 +20,7 @@ include(./lib/ptyqt/ptyqt.pri)
 
 
 SOURCES += \
+    src/commandwindow.cpp \
     src/globaloptions.cpp \
     src/keymapmanager.cpp \
     src/quickconnectwindow.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
     src/argv_split.h \
+    src/commandwindow.h \
     src/globaloptions.h \
     src/keymapmanager.h \
     src/quickconnectwindow.h \
@@ -46,6 +48,7 @@ HEADERS += \
     src/mainwindow.h
 
 FORMS += \
+    src/commandwindow.ui \
     src/globaloptions.ui \
     src/keymapmanager.ui \
     src/quickconnectwindow.ui \

@@ -266,6 +266,10 @@ public:
 
     void setConfirmMultilinePaste(bool confirmMultilinePaste);
     void setTrimPastedTrailingNewlines(bool trimPastedTrailingNewlines);
+    void proxySendData(QByteArray data) {
+        emit sendData(data.data(), data.size());
+    }
+
     void reTranslateUi(void);
     static void setLangeuage(QLocale::Language lang);
 

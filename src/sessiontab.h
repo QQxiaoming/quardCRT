@@ -1,10 +1,27 @@
 #ifndef SESSIONTAB_H
 #define SESSIONTAB_H
 
+#include <QWidget>
 #include <QTabWidget>
 #include <QContextMenuEvent>
 #include <QPaintEvent>
 #include <QLabel>
+#include <QVBoxLayout>
+
+class EmptyTabWidget : public QWidget {
+    Q_OBJECT
+public:
+    explicit EmptyTabWidget(QWidget *parent = nullptr);
+    ~EmptyTabWidget();
+    void retranslateUi(void);
+    
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+
+private:
+    QLabel *label;
+    QLabel *easterEggs;
+};
 
 class SessionTab : public QTabWidget {
     Q_OBJECT
@@ -22,7 +39,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
-    QLabel *label;
+    EmptyTabWidget *emptyTab;
 };
 
 #endif // SESSIONTAB_H

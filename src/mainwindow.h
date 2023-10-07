@@ -19,6 +19,7 @@
 #include "globaloptions.h"
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
+#include "commandwindow.h"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -60,6 +61,7 @@ private:
     keyMapManager *keyMapManagerWindow;
     GlobalOptions *globalOptionsWindow;
     HexViewWindow *hexViewWindow;
+    CommandWindow *cmdWindow;
     QPushButton *sessionManagerPushButton;
 
     QMenu *fileMenu;

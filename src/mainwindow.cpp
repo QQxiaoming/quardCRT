@@ -17,6 +17,8 @@
 #include <QSvgRenderer>
 #include <QPushButton>
 #include <QGraphicsProxyWidget>
+#include <QStatusBar>
+#include <QPlainTextEdit>
 
 #include "qfonticon.h"
 #include "sessiontab.h"
@@ -24,6 +26,7 @@
 #include "quickconnectwindow.h"
 #include "keymapmanager.h"
 #include "globaloptions.h"
+#include "commandwindow.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -40,8 +43,18 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     ui->centralwidget->layout()->addWidget(sessionManagerWidget);
     sessionManagerWidget->setVisible(false);
 
+    QSplitter *splitter = new QSplitter(Qt::Vertical,this);
+    splitter->setHandleWidth(1);
+    ui->centralwidget->layout()->addWidget(splitter);
+
     sessionTab = new SessionTab(this);
-    ui->centralwidget->layout()->addWidget(sessionTab);
+    splitter->addWidget(sessionTab);
+    splitter->setCollapsible(0,false);
+
+    cmdWindow = new CommandWindow(this);
+    splitter->addWidget(cmdWindow);
+    splitter->setCollapsible(1,true);
+    splitter->setSizes(QList<int>() << 1 << 0);
 
     quickConnectWindow = new QuickConnectWindow(this);
 
@@ -67,8 +80,6 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     ui->graphicsView->setFixedSize(30, 200);
 
     menuAndToolBarInit();
-
-    statusBar();
 
     /* connect signals */
     menuAndToolBarConnectSignals();
@@ -152,6 +163,22 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
             }
         }
     });
+    connect(cmdWindow, &CommandWindow::sendData, this, [=](const QByteArray &data) {
+        if(sessionTab->count() != 0) {
+            QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+            termWidget->proxySendData(data);
+        }
+    });
+
+    connect(ui->statusBar,&QStatusBar::messageChanged,this,[&](const QString &message){
+        if(message.isEmpty()) {
+            ui->statusBar->showMessage(tr("Ready"));
+        } else {
+            ui->statusBar->showMessage(message);
+        }
+    });
+
+    ui->statusBar->showMessage(tr("Ready"));
 }
 
 MainWindow::~MainWindow() {
@@ -203,6 +230,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     disconnectAction->setIcon(QFontIcon::icon(QChar(0xf127)));
     disconnectAction->setStatusTip(tr("Disconnect current session"));
     connectAddressEdit->setPlaceholderText(tr("Enter host <Alt+R> to connect"));
+    connectAddressEdit->setStatusTip(tr("Enter host <Alt+R> to connect"));
     disconnectAllAction->setText(tr("Disconnect All"));
     disconnectAllAction->setStatusTip(tr("Disconnect all sessions"));
     cloneSessionAction->setText(tr("Clone Session"));
@@ -769,6 +797,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         ui->retranslateUi(this);
         sessionTab->retranslateUi();
         sessionManagerWidget->retranslateUi();
+        cmdWindow->retranslateUi();
         menuAndToolBarRetranslateUi();
     });
     connect(lightThemeAction,&QAction::triggered,this,[=](){

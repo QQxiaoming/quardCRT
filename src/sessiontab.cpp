@@ -4,8 +4,66 @@
 #include <QPainter>
 #include <QPen>
 #include <QApplication>
-#include <QLabel>
 #include "sessiontab.h"
+
+EmptyTabWidget::EmptyTabWidget(QWidget *parent) 
+    : QWidget(parent) {
+    label = new QLabel(this);
+    label->setAlignment(Qt::AlignCenter);
+    label->setEnabled(false);
+    setLayout(new QVBoxLayout);
+    layout()->addWidget(label);
+
+    easterEggs = new QLabel(this);
+    easterEggs->setAlignment(Qt::AlignCenter);
+    layout()->addWidget(easterEggs);
+    easterEggs->setVisible(false);
+    easterEggs->setEnabled(false);
+}
+
+EmptyTabWidget::~EmptyTabWidget() {
+
+}
+
+void EmptyTabWidget::retranslateUi(void) {
+    label->setText(tr("No session"));
+}
+
+void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
+    static int count = 0;
+    static int hitCount = 0;
+    if(event->button() == Qt::LeftButton) {
+        count++;
+        if(count == 5) {
+            label->setVisible(false);
+            easterEggs->setVisible(true);
+            hitCount++;
+            switch(hitCount) {
+                case 1:
+                    easterEggs->setText(tr("This is a boring game!"));
+                    break;
+                case 2:
+                    easterEggs->setText(tr("You are so boring!"));
+                    break;
+                case 3:
+                    easterEggs->setText(tr("I'm tired of you!"));
+                    break;
+                case 4:
+                    easterEggs->setText(tr("I'm going to sleep!"));
+                    break;
+                case 5:
+                    easterEggs->setText(tr("Goodbye!"));
+                    hitCount = 0;
+                    break;                    
+            }
+            count = 0;
+        } else {
+            label->setVisible(true);
+            easterEggs->setVisible(false);
+        }
+    }
+}
+
 
 SessionTab::SessionTab(QWidget *parent) 
     : QTabWidget(parent) {
@@ -15,12 +73,10 @@ SessionTab::SessionTab(QWidget *parent)
     setUsesScrollButtons(true);
     setTabBarAutoHide(true);
 
-    label = new QLabel(this);
+    emptyTab = new EmptyTabWidget(this);
     retranslateUi();
-    label->setAlignment(Qt::AlignCenter);
-    addTab(label,"");
+    addTab(emptyTab,"");
     tabBar()->setTabVisible(0,false);
-    setTabEnabled(0, false);
 }
 
 SessionTab::~SessionTab() {
@@ -44,5 +100,5 @@ void SessionTab::contextMenuEvent(QContextMenuEvent *event) {
 }
 
 void SessionTab::retranslateUi(void) {
-    label->setText(tr("No session"));
+    emptyTab->retranslateUi();
 }

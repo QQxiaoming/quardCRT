@@ -203,6 +203,10 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         }
         shellPath = args.first();
         args.removeFirst();
+    #if defined(Q_OS_WIN)
+        QFileInfo fi(shellPath);
+        args.insert(0, fi.fileName());
+    #endif
     }
     bool ret = localShell->startProcess(shellPath, args, QProcessEnvironment::systemEnvironment().toStringList(), workingDirectory, term->screenColumnsCount(), term->screenLinesCount());
     if(!ret) {
