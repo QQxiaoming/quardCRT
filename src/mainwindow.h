@@ -51,6 +51,7 @@ private:
     int stopSession(int index);
     int stopAllSession(void);
     int cloneCurrentSession(void);
+    QMenu *createPopupMenu(void) override;
 
 private:
     Ui::MainWindow *ui;
@@ -101,6 +102,9 @@ private:
     QAction *zoomInAction;
     QAction *zoomOutAction;
     QAction *zoomResetAction;
+    QAction *menuBarAction;
+    QAction *toolBarAction;
+    QAction *cmdWindowAction;
     QAction *fullScreenAction;
     QAction *sessionOptionsAction;
     QAction *globalOptionsAction;

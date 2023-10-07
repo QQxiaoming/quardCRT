@@ -145,6 +145,8 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
                 menu->addSeparator();
                 menu->addAction(selectAllAction);
                 menu->addAction(findAction);
+                menu->addSeparator();
+                menu->addAction(menuBarAction);
             } else {
                 delete menu;
                 return;
@@ -292,6 +294,13 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     zoomResetAction->setText(tr("Zoom Reset"));
     zoomResetAction->setIcon(QFontIcon::icon(QChar(0xf057)));
     zoomResetAction->setStatusTip(tr("Zoom Reset"));
+    menuBarAction->setText(tr("Menu Bar"));
+    menuBarAction->setStatusTip(tr("Show/Hide Menu Bar <Alt+U>"));
+    menuBarAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_U));
+    toolBarAction->setText(tr("Tool Bar"));
+    toolBarAction->setStatusTip(tr("Show/Hide Tool Bar"));
+    cmdWindowAction->setText(tr("Command Window"));
+    cmdWindowAction->setStatusTip(tr("Show/Hide Command Window"));
     fullScreenAction->setText(tr("Full Screen"));
     fullScreenAction->setStatusTip(tr("Full Screen <Alt+Enter>"));
     fullScreenAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_Enter));
@@ -488,6 +497,19 @@ void MainWindow::menuAndToolBarInit(void) {
     viewMenu->addSeparator();
     zoomResetAction = new QAction(this);
     viewMenu->addAction(zoomResetAction);
+    viewMenu->addSeparator();
+    menuBarAction = new QAction(this);
+    menuBarAction->setCheckable(true);
+    menuBarAction->setChecked(true);
+    viewMenu->addAction(menuBarAction);
+    toolBarAction = new QAction(this);
+    toolBarAction->setCheckable(true);
+    toolBarAction->setChecked(true);
+    viewMenu->addAction(toolBarAction);
+    cmdWindowAction = new QAction(this);
+    cmdWindowAction->setCheckable(true);
+    cmdWindowAction->setChecked(true);
+    viewMenu->addAction(cmdWindowAction);
     viewMenu->addSeparator();
     fullScreenAction = new QAction(this);
     fullScreenAction->setCheckable(true);
@@ -785,6 +807,15 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
         termWidget->setTerminalFont(globalOptionsWindow->getCurrentFont());
     });
+    connect(menuBarAction,&QAction::triggered,this,[=](bool checked){
+        ui->menuBar->setVisible(checked);
+    });
+    connect(toolBarAction,&QAction::triggered,this,[=](bool checked){
+        ui->toolBar->setVisible(checked);
+    });
+    connect(cmdWindowAction,&QAction::triggered,this,[=](bool checked){
+        cmdWindow->setVisible(checked);
+    });
     connect(fullScreenAction,&QAction::triggered,this,[=](bool checked){
         if(checked) {
             this->showFullScreen();
@@ -1052,6 +1083,16 @@ int MainWindow::cloneCurrentSession(void)
         }
     }
     return -1;
+}
+
+QMenu *MainWindow::createPopupMenu()
+{
+    QMenu *menu = new QMenu(this);
+    menu->addAction(menuBarAction);
+    menu->addAction(toolBarAction);
+    menu->addAction(cmdWindowAction);
+    menu->addAction(fullScreenAction);
+    return menu;
 }
 
 void MainWindow::appAbout(QWidget *parent)
