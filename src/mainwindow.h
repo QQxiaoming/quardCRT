@@ -104,7 +104,9 @@ private:
     QAction *zoomResetAction;
     QAction *menuBarAction;
     QAction *toolBarAction;
+    QAction *statusBarAction;
     QAction *cmdWindowAction;
+    QAction *sideWindowAction;
     QAction *fullScreenAction;
     QAction *sessionOptionsAction;
     QAction *globalOptionsAction;

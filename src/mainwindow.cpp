@@ -299,8 +299,12 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     menuBarAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_U));
     toolBarAction->setText(tr("Tool Bar"));
     toolBarAction->setStatusTip(tr("Show/Hide Tool Bar"));
+    statusBarAction->setText(tr("Status Bar"));
+    statusBarAction->setStatusTip(tr("Show/Hide Status Bar"));
     cmdWindowAction->setText(tr("Command Window"));
     cmdWindowAction->setStatusTip(tr("Show/Hide Command Window"));
+    sideWindowAction->setText(tr("Side Window"));
+    sideWindowAction->setStatusTip(tr("Show/Hide Side Window"));
     fullScreenAction->setText(tr("Full Screen"));
     fullScreenAction->setStatusTip(tr("Full Screen <Alt+Enter>"));
     fullScreenAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_Enter));
@@ -506,10 +510,18 @@ void MainWindow::menuAndToolBarInit(void) {
     toolBarAction->setCheckable(true);
     toolBarAction->setChecked(true);
     viewMenu->addAction(toolBarAction);
+    statusBarAction = new QAction(this);
+    statusBarAction->setCheckable(true);
+    statusBarAction->setChecked(true);
+    viewMenu->addAction(statusBarAction);
     cmdWindowAction = new QAction(this);
     cmdWindowAction->setCheckable(true);
     cmdWindowAction->setChecked(true);
     viewMenu->addAction(cmdWindowAction);
+    sideWindowAction = new QAction(this);
+    sideWindowAction->setCheckable(true);
+    sideWindowAction->setChecked(true);
+    viewMenu->addAction(sideWindowAction);
     viewMenu->addSeparator();
     fullScreenAction = new QAction(this);
     fullScreenAction->setCheckable(true);
@@ -813,8 +825,14 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     connect(toolBarAction,&QAction::triggered,this,[=](bool checked){
         ui->toolBar->setVisible(checked);
     });
+    connect(statusBarAction,&QAction::triggered,this,[=](bool checked){
+        ui->statusBar->setVisible(checked);
+    });
     connect(cmdWindowAction,&QAction::triggered,this,[=](bool checked){
         cmdWindow->setVisible(checked);
+    });
+    connect(sideWindowAction,&QAction::triggered,this,[=](bool checked){
+        ui->graphicsView->setVisible(checked);
     });
     connect(fullScreenAction,&QAction::triggered,this,[=](bool checked){
         if(checked) {
