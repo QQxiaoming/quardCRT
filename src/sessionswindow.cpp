@@ -47,6 +47,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
         }
     }
     term->startTerminalTeletype();
+    term->setMargin(0);
 
     switch (type) {
         case LocalShell: {

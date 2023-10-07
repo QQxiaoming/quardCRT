@@ -250,12 +250,22 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
 
     copyAction->setText(tr("Copy"));
     copyAction->setIcon(QFontIcon::icon(QChar(0xf0c5)));
+#if defined(Q_OS_MACOS)
+    copyAction->setStatusTip(tr("Copy the selected text to the clipboard <Ctrl+C>"));
+    copyAction->setShortcut(QKeySequence(Qt::META|Qt::Key_C));
+#else
     copyAction->setStatusTip(tr("Copy the selected text to the clipboard <Ctrl+Ins>"));
     copyAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_Insert));
+#endif
     pasteAction->setText(tr("Paste"));
     pasteAction->setIcon(QFontIcon::icon(QChar(0xf0ea)));
+#if defined(Q_OS_MACOS)
+    pasteAction->setStatusTip(tr("Paste the clipboard text to the current session <Ctrl+V>"));
+    pasteAction->setShortcut(QKeySequence(Qt::META|Qt::Key_V));
+#else
     pasteAction->setStatusTip(tr("Paste the clipboard text to the current session <Shift+Ins>"));
     pasteAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::Key_Insert));
+#endif
     copyAndPasteAction->setText(tr("Copy and Paste"));
     copyAndPasteAction->setStatusTip(tr("Copy the selected text to the clipboard and paste to the current session"));
     selectAllAction->setText(tr("Select All"));
@@ -263,7 +273,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     selectAllAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_A));
     findAction->setText(tr("Find..."));
     findAction->setIcon(QFontIcon::icon(QChar(0xf002)));
-    findAction->setStatusTip(tr("Find text in the current session"));
+    findAction->setStatusTip(tr("Find text in the current session <Ctrl+F>"));
+    findAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_F));
     printScreenAction->setText(tr("Print Screen"));
     printScreenAction->setIcon(QFontIcon::icon(QChar(0xf02f)));
     printScreenAction->setStatusTip(tr("Print current screen"));
@@ -272,10 +283,12 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
 
     zoomInAction->setText(tr("Zoom In"));
     zoomInAction->setIcon(QFontIcon::icon(QChar(0xf00e)));
-    zoomInAction->setStatusTip(tr("Zoom In"));
+    zoomInAction->setStatusTip(tr("Zoom In <Ctrl+\"=\">"));
+    zoomInAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_Equal));
     zoomOutAction->setText(tr("Zoom Out"));
     zoomOutAction->setIcon(QFontIcon::icon(QChar(0xf010)));
-    zoomOutAction->setStatusTip(tr("Zoom Out"));
+    zoomOutAction->setStatusTip(tr("Zoom Out <Ctrl+\"-\">"));
+    zoomOutAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_Minus));
     zoomResetAction->setText(tr("Zoom Reset"));
     zoomResetAction->setIcon(QFontIcon::icon(QChar(0xf057)));
     zoomResetAction->setStatusTip(tr("Zoom Reset"));
