@@ -39,6 +39,9 @@
        </sizepolicy>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>1</number>
+       </property>
        <property name="leftMargin">
         <number>1</number>
        </property>

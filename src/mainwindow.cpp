@@ -147,11 +147,17 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
                 menu->addSeparator();
                 menu->addAction(selectAllAction);
                 menu->addAction(findAction);
-                menu->addSeparator();
-                menu->addAction(menuBarAction);
+                if(!ui->menuBar->isVisible()) {
+                    menu->addSeparator();
+                    menu->addAction(menuBarAction);
+                }
             } else {
-                delete menu;
-                return;
+                if(!ui->menuBar->isVisible()) {
+                    menu->addAction(menuBarAction);
+                } else {
+                    delete menu;
+                    return;
+                }
             }
         }
         menu->move(cursor().pos());
@@ -1110,7 +1116,7 @@ int MainWindow::cloneCurrentSession(void)
                         QString username = stdTitleFormat.match(newTitle).captured(1);
                         QString hostname = stdTitleFormat.match(newTitle).captured(2);
                         QString dir = stdTitleFormat.match(newTitle).captured(3);
-                        sessionsWindow->setShortTitle(dir);
+                        sessionsWindowClone->setShortTitle(dir);
                     #if defined(Q_OS_WIN)
                         QString sysUsername = qEnvironmentVariable("USERNAME");
                         QString sysHostname = qEnvironmentVariable("COMPUTERNAME");
@@ -1119,7 +1125,7 @@ int MainWindow::cloneCurrentSession(void)
                         QString sysHostname = QHostInfo::localHostName();
                     #endif
                         if((username == sysUsername) && (hostname == sysHostname)) {
-                            sessionsWindow->setWorkingDirectory(dir.replace("~",QDir::homePath()));
+                            sessionsWindowClone->setWorkingDirectory(dir.replace("~",QDir::homePath()));
                         }
                     } else {
                         sessionsWindowClone->setShortTitle(newTitle);

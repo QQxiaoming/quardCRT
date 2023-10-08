@@ -1,4 +1,4 @@
-Package: quardCRT
+Package: quardcrt
 Version: #VERSION#
 Architecture: amd64
 Section: utils
