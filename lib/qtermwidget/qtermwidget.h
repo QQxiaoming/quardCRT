@@ -304,6 +304,8 @@ signals:
 
     void termSizeChange(int lines, int columns);
 
+    void mousePressEventForwarded(QMouseEvent* event);
+
     /**
      * Signals that we received new data from the process running in the
      * terminal emulator

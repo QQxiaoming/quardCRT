@@ -119,11 +119,20 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
         }
     }
 
-    connect(term, &QTermWidget::dupDisplayOutput, this, [=](const char *data, int size){
+    connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
         saveLog(data, size);
     });
-    connect(term, &QTermWidget::urlActivated, this, [=](const QUrl& url, bool fromContextMenu){
+    connect(term, &QTermWidget::urlActivated, this, [](const QUrl& url, bool fromContextMenu){
         QDesktopServices::openUrl(url);
+    });
+    connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event){
+        // only windows need do this
+    #if defined(Q_OS_WIN)
+        if(event->button() == Qt::MiddleButton) {
+            term->copyClipboard();
+            term->pasteClipboard();
+        }
+    #endif
     });
 }
 

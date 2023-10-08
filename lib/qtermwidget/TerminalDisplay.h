@@ -548,6 +548,7 @@ signals:
      * @param eventType The type of event.  0 for a mouse press / release or 1 for mouse motion
      */
     void mouseSignal(int button, int column, int line, int eventType);
+    void mousePressEventForwarded(QMouseEvent* event);
     void changedFontMetricSignal(int height, int width);
     void changedContentSizeSignal(int height, int width);
     void changedContentCountSignal(int line, int column);

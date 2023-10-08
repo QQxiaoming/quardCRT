@@ -1959,6 +1959,8 @@ void TerminalDisplay::setScrollBarPosition(QTermWidget::ScrollBarPosition positi
 
 void TerminalDisplay::mousePressEvent(QMouseEvent* ev)
 {
+  emit mousePressEventForwarded(ev);
+
   if ( _possibleTripleClick && (ev->button()==Qt::LeftButton) ) {
     mouseTripleClickEvent(ev);
     return;
