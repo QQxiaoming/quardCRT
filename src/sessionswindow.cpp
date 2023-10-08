@@ -126,8 +126,8 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
         QDesktopServices::openUrl(url);
     });
     connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event){
-        // only windows need do this
-    #if defined(Q_OS_WIN)
+        // only windows and macos need do this
+    #if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
         if(event->button() == Qt::MiddleButton) {
             term->copyClipboard();
             term->pasteClipboard();
