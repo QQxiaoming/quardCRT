@@ -28,14 +28,14 @@ CommandWindow::CommandWindow(QWidget *parent) :
             ui->commandPlainEdit->setEnabled(false);
             ui->asciiRadioButton->setEnabled(false);
             ui->hexRadioButton->setEnabled(false);
-            ui->autoSendIntervalSpinBox->setEnabled(true);
+            ui->autoSendIntervalSpinBox->setEnabled(false);
             autoSendTimer->start(ui->autoSendIntervalSpinBox->value());
         } else {
             ui->sendPushButton->setEnabled(true);
             ui->commandPlainEdit->setEnabled(true);
             ui->asciiRadioButton->setEnabled(true);
             ui->hexRadioButton->setEnabled(true);
-            ui->autoSendIntervalSpinBox->setEnabled(false);
+            ui->autoSendIntervalSpinBox->setEnabled(true);
             autoSendTimer->stop();
         }
     });
