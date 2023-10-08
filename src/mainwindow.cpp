@@ -19,6 +19,7 @@
 #include <QGraphicsProxyWidget>
 #include <QStatusBar>
 #include <QPlainTextEdit>
+#include <QHostInfo>
 
 #include "qfonticon.h"
 #include "sessiontab.h"
@@ -78,6 +79,7 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     sessionManagerPushButton->setFixedSize(200,26);
     ui->graphicsView->setFixedSize(30, 200);
+    ui->sidewidget->setFixedWidth(30);
 
     menuAndToolBarInit();
 
@@ -832,7 +834,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         cmdWindow->setVisible(checked);
     });
     connect(sideWindowAction,&QAction::triggered,this,[=](bool checked){
-        ui->graphicsView->setVisible(checked);
+        ui->sidewidget->setVisible(checked);
     });
     connect(fullScreenAction,&QAction::triggered,this,[=](bool checked){
         if(checked) {
@@ -1022,12 +1024,28 @@ SessionsWindow *MainWindow::startLocalShellSession(const QString &command)
     sessionActionsList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
-            QString dir = newTitle.right(newTitle.length()-newTitle.indexOf(":")-1);
             sessionsWindow->setLongTitle(newTitle);
-            sessionsWindow->setShortTitle(dir);
+            // newTitle lile username@hostname:dir
+            static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*)$");
+            if(stdTitleFormat.match(newTitle).hasMatch()) {
+                QString username = stdTitleFormat.match(newTitle).captured(1);
+                QString hostname = stdTitleFormat.match(newTitle).captured(2);
+                QString dir = stdTitleFormat.match(newTitle).captured(3);
+                sessionsWindow->setShortTitle(dir);
+            #if defined(Q_OS_WIN)
+                QString sysUsername = qEnvironmentVariable("USERNAME");
+                QString sysHostname = qEnvironmentVariable("COMPUTERNAME");
+            #else
+                QString sysUsername = qEnvironmentVariable("USER");
+                QString sysHostname = QHostInfo::localHostName();
+            #endif
+                if((username == sysUsername) && (hostname == sysHostname)) {
+                    sessionsWindow->setWorkingDirectory(dir.replace("~",QDir::homePath()));
+                }
+            } else {
+                sessionsWindow->setShortTitle(newTitle);
+            }
             sessionTab->setTabText(sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
-            // newTitle lile [hostname:dir]
-            sessionsWindow->setWorkingDirectory(dir.replace("~",QDir::homePath()));
         }
     });
     sessionTab->setCurrentIndex(sessionTab->count()-1);
@@ -1085,11 +1103,24 @@ int MainWindow::cloneCurrentSession(void)
             connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
                 if(title == 0 || title == 2) {
                     sessionsWindowClone->setLongTitle(newTitle);
-                    if(sessionsWindowClone->getSessionType() == SessionsWindow::LocalShell) {
-                        // newTitle lile [hostname:dir]
-                        QString dir = newTitle.right(newTitle.length()-newTitle.indexOf(":")-1);
-                        sessionsWindowClone->setShortTitle(dir);
-                        sessionsWindowClone->setWorkingDirectory(dir.replace("~",QDir::homePath()));
+                    static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*)$");
+                    if((sessionsWindowClone->getSessionType() == SessionsWindow::LocalShell) 
+                            && (stdTitleFormat.match(newTitle).hasMatch()) ) {
+                        // newTitle lile username@hostname:dir
+                        QString username = stdTitleFormat.match(newTitle).captured(1);
+                        QString hostname = stdTitleFormat.match(newTitle).captured(2);
+                        QString dir = stdTitleFormat.match(newTitle).captured(3);
+                        sessionsWindow->setShortTitle(dir);
+                    #if defined(Q_OS_WIN)
+                        QString sysUsername = qEnvironmentVariable("USERNAME");
+                        QString sysHostname = qEnvironmentVariable("COMPUTERNAME");
+                    #else
+                        QString sysUsername = qEnvironmentVariable("USER");
+                        QString sysHostname = QHostInfo::localHostName();
+                    #endif
+                        if((username == sysUsername) && (hostname == sysHostname)) {
+                            sessionsWindow->setWorkingDirectory(dir.replace("~",QDir::homePath()));
+                        }
                     } else {
                         sessionsWindowClone->setShortTitle(newTitle);
                     }

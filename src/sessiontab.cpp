@@ -77,6 +77,7 @@ SessionTab::SessionTab(QWidget *parent)
     retranslateUi();
     addTab(emptyTab,"");
     tabBar()->setTabVisible(0,false);
+    tabBar()->setTabEnabled(0,false);
 }
 
 SessionTab::~SessionTab() {
