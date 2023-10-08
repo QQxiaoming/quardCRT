@@ -27,7 +27,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
 
     term = new QTermWidget(0,static_cast<QWidget *>(parent));
 
-    term->setScrollBarPosition(QTermWidget::NoScrollBar);
+    term->setScrollBarPosition(QTermWidget::ScrollBarRight);
 
     QStringList availableColorSchemes = term->availableColorSchemes();
     availableColorSchemes.sort();
