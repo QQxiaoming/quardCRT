@@ -400,8 +400,10 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     helpAction->setIcon(QFontIcon::icon(QChar(0xf128)));
     helpAction->setStatusTip(tr("Display help"));
     aboutAction->setText(tr("About"));
+    aboutAction->setIcon(QIcon(":/icons/icons/about.png"));
     aboutAction->setStatusTip(tr("Display about dialog"));
     aboutQtAction->setText(tr("About Qt"));
+    aboutQtAction->setIcon(QIcon(":/icons/icons/aboutqt.png"));
     aboutQtAction->setStatusTip(tr("Display about Qt dialog"));
 }
 
