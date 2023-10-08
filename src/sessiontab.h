@@ -2,11 +2,11 @@
 #define SESSIONTAB_H
 
 #include <QWidget>
-#include <QTabWidget>
 #include <QContextMenuEvent>
 #include <QPaintEvent>
 #include <QLabel>
 #include <QVBoxLayout>
+#include "fancytabwidget.h"
 
 class EmptyTabWidget : public QWidget {
     Q_OBJECT
@@ -23,7 +23,7 @@ private:
     QLabel *easterEggs;
 };
 
-class SessionTab : public QTabWidget {
+class SessionTab : public FancyTabWidget {
     Q_OBJECT
 public:
     explicit SessionTab(QWidget *parent = nullptr);

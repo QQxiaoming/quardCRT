@@ -66,18 +66,25 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
 
 
 SessionTab::SessionTab(QWidget *parent) 
-    : QTabWidget(parent) {
+    : FancyTabWidget(parent) {
 
     setTabsClosable(true);
     setMovable(true);
     setUsesScrollButtons(true);
     setTabBarAutoHide(true);
+    setTabTextEditable(false);
+    setAddTabButtonVisible(false);
 
     emptyTab = new EmptyTabWidget(this);
     retranslateUi();
     addTab(emptyTab,"");
     tabBar()->setTabVisible(0,false);
     tabBar()->setTabEnabled(0,false);
+
+    connect(this,&SessionTab::currentChanged,this,[&](int index) {
+        setAddTabButtonVisible(count() != 0);
+        Q_UNUSED(index);
+    });
 }
 
 SessionTab::~SessionTab() {
@@ -85,12 +92,12 @@ SessionTab::~SessionTab() {
 }
 
 int SessionTab::count(void) {
-    int count = QTabWidget::count() - 1;
+    int count = FancyTabWidget::count() - 1;
     return count < 0 ? 0 : count;
 } 
 
 void SessionTab::setCurrentIndex(int index) {
-    QTabWidget::setCurrentIndex(index+1);
+    FancyTabWidget::setCurrentIndex(index+1);
 }
 
 void SessionTab::contextMenuEvent(QContextMenuEvent *event) {

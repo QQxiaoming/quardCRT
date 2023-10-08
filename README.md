@@ -54,3 +54,4 @@ The code of this project references or partially refers to or depends on the fol
 - [argv_split](https://github.com/bitmeal/argv_split)
 - [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
 - [winpty](https://github.com/rprichard/winpty)
+- [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget.git)

@@ -59,6 +59,11 @@ void GlobalOptions::fontSizeChanged(int size)
     font.setPointSize(size);
 }
 
+int GlobalOptions::getTransparency(void)
+{
+    return ui->horizontalSliderTransparent->value();
+}
+
 void GlobalOptions::buttonBoxAccepted(void)
 {
     emit colorSchemeChanged(ui->comBoxColorSchemes->currentText());

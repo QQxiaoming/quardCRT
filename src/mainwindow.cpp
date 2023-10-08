@@ -93,7 +93,10 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
             sessionManagerWidget->setVisible(false);
         }
     });
-    connect(sessionTab,&QTabWidget::tabCloseRequested,this,[=](int index){
+    connect(sessionTab,&FancyTabWidget::tabAddRequested,this,[=](){
+        cloneCurrentSession();
+    });
+    connect(sessionTab,&FancyTabWidget::tabCloseRequested,this,[=](int index){
         stopSession(index);
     });
     connect(sessionTab,&SessionTab::currentChanged,this,[=](int index){
@@ -923,6 +926,7 @@ SessionsWindow *MainWindow::startTelnetSession(QString hostname, quint16 port, Q
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
     sessionsWindow->setLongTitle(tr("Telnet - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Telnet"));
     sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
@@ -955,6 +959,7 @@ SessionsWindow *MainWindow::startSerialSession(QString portName, uint32_t baudRa
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
     sessionsWindow->setLongTitle(tr("Serial - ")+portName);
     sessionsWindow->setShortTitle(tr("Serial"));
     sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
@@ -986,6 +991,7 @@ SessionsWindow *MainWindow::startRawSocketSession(QString hostname, quint16 port
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
     sessionsWindow->setLongTitle(tr("Raw - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Raw"));
     sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
@@ -1017,6 +1023,7 @@ SessionsWindow *MainWindow::startLocalShellSession(const QString &command)
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency()/100.0);
     if(command.isEmpty()) {
         sessionsWindow->setLongTitle(tr("Local Shell"));
     } else {
@@ -1098,6 +1105,7 @@ int MainWindow::cloneCurrentSession(void)
             sessionsWindowClone->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
             sessionsWindowClone->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
             sessionsWindowClone->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+            sessionsWindowClone->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
             sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
             sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
             sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());

@@ -17,6 +17,7 @@ public:
     void setAvailableColorSchemes(QStringList colorSchemes);
     QString getCurrentColorScheme(void);
     QFont getCurrentFont(void);
+    int getTransparency(void);
 
 signals:
     void colorSchemeChanged(QString colorScheme);

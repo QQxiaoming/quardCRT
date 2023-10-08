@@ -5,7 +5,7 @@
 QT += core gui network widgets xml svgwidgets websockets serialport
 QT += core5compat
 
-BUILD_VERSION=0.1.3
+BUILD_VERSION=0.1.4
 TARGET_ARCH=$${QT_ARCH}
 CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -17,6 +17,7 @@ include(./lib/qtermwidget/qtermwidget.pro)
 include(./lib/qtxyzmodem/qtxyzmodem.pro)
 include(./lib/QTelnet/QTelnet.pri)
 include(./lib/ptyqt/ptyqt.pri)
+include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
 
 
 SOURCES += \
