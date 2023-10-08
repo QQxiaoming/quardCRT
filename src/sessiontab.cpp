@@ -83,7 +83,7 @@ SessionTab::SessionTab(QWidget *parent)
 
     connect(this,&SessionTab::currentChanged,this,[&](int index) {
         setAddTabButtonVisible(count() != 0);
-        Q_UNUSED(index);
+        widget(index)->setFocus();
     });
 }
 
