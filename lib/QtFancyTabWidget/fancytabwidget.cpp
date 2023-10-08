@@ -66,6 +66,9 @@ FancyTabWidget::FancyTabWidget(QWidget *parent)
     : QTabWidget{parent}
 {
     setStyle( new FancyTabStyle(this) );
+#if defined(Q_OS_MACOS)
+    setStyleSheet("QTabWidget::right-corner {alignment: left;}");
+#endif
 
     int addButtonSize = tabBar()->height() - 4;
 

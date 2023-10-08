@@ -16,6 +16,7 @@
  */
 
 #include "addtabbutton.h"
+#include "qfonticon.h"
 
 #include <QPainter>
 #include <QStyleOption>
@@ -53,7 +54,7 @@ void AddTabButton::paintEvent(QPaintEvent *)
 
     if ( m_newTabIcon.isNull() )
     {
-        m_newTabIcon = QIcon::fromTheme(QLatin1String("list-add-symbolic.symbolic"));
+        m_newTabIcon = QFontIcon::icon(QChar(0xf067));
     }
 
     int width = style()->pixelMetric(QStyle::PM_TabCloseIndicatorWidth, nullptr, this);
