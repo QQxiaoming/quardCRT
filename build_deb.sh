@@ -44,7 +44,9 @@ cp ./icons/ico.png ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT
 mkdir -p ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT
 # 配置打包信息
 sed -i "s/#VERSION#/$QUARDCRT_MAJARVERSION.$QUARDCRT_SUBVERSION$QUARDCRT_REVISION/g" ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/DEBIAN/control
-SIZE=$(du -sh -B 1024 ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64 | sed "s/.\///g")
+cd ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64
+SIZE=$(du -sh -B 1024 ./ | sed "s/.\///g")
+cd -
 InstalledSize=$SIZE
 sed -i "s/#SIZE#/$InstalledSize/g" ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/DEBIAN/control
 chmod 755 ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/* -R
