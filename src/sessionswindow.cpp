@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDir>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include "sessionswindow.h"
 #include "argv_split.h"
@@ -119,6 +121,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
 
     connect(term, &QTermWidget::dupDisplayOutput, this, [=](const char *data, int size){
         saveLog(data, size);
+    });
+    connect(term, &QTermWidget::urlActivated, this, [=](const QUrl& url, bool fromContextMenu){
+        QDesktopServices::openUrl(url);
     });
 }
 

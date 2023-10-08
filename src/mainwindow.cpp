@@ -132,7 +132,7 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
             }
         }
     });
-    connect(sessionTab,&SessionTab::showContextMenu,this,[=](int index){
+    connect(sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
         QMenu *menu = new QMenu(this);
         if(index != -1) {
             QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
@@ -142,6 +142,13 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
             });
         } else {
             if(sessionTab->count() != 0) {
+                QTermWidget *termWidget = (QTermWidget *)sessionTab->currentWidget();
+                QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
+                QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
+                if(!ftActions.isEmpty()) {
+                    menu->addActions(ftActions);
+                    menu->addSeparator();
+                }
                 menu->addAction(copyAction);
                 menu->addAction(pasteAction);
                 menu->addSeparator();

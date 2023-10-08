@@ -96,7 +96,7 @@ void SessionTab::setCurrentIndex(int index) {
 void SessionTab::contextMenuEvent(QContextMenuEvent *event) {
     int index = tabBar()->tabAt(event->pos());
     index = index == 0 ? -1 : index;
-    emit showContextMenu(index);
+    emit showContextMenu(index,event->globalPos());
     Q_UNUSED(event);
 }
 

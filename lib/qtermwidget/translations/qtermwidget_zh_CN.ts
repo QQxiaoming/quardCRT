@@ -971,7 +971,7 @@
     <message>
         <location filename="../Filter.cpp" line="516"/>
         <source>Copy Link Address</source>
-        <translation>复制链接地址</translation>
+        <translation>复制链接</translation>
     </message>
     <message>
         <location filename="../Filter.cpp" line="520"/>

@@ -33,7 +33,7 @@ public:
     void retranslateUi(void);
 
 signals:
-    void showContextMenu(int index);
+    void showContextMenu(int index, const QPoint& position);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
