@@ -56,14 +56,15 @@ private:
     int stopSession(MainWidgetGroup *group, int index);
     int stopAllSession(void);
     int cloneCurrentSession(MainWidgetGroup *group);
+    MainWidgetGroup *findCurrentFocusGroup(void);
+    QTermWidget *findCurrentFocusTermWidget(void);
     QMenu *createPopupMenu(void) override;
-    int findCurrentFocusGroup(void);
 
 private:
     Ui::MainWindow *ui;
 
     SessionManagerWidget *sessionManagerWidget;
-    MainWidgetGroup *mainWidgetGroup[2];
+    QList<MainWidgetGroup *> mainWidgetGroupList;
     QuickConnectWindow *quickConnectWindow;
     MainWidgetGroup *quickConnectMainWidgetGroup;
     keyMapManager *keyMapManagerWindow;
