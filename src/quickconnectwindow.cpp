@@ -11,6 +11,7 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
 
     setWindowTitle(tr("Quick Connect"));
     setWindowModality(Qt::ApplicationModal);
+    setWindowFlags(Qt::Tool);
 
     qRegisterMetaType<QuickConnectData>("QuickConnectData");
     

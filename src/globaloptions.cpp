@@ -3,6 +3,12 @@
 #include "globaloptions.h"
 #include "ui_globaloptions.h"
 
+#if defined(Q_OS_WIN)
+const QString GlobalOptions::defaultColorScheme = "PowerShell";
+#else
+const QString GlobalOptions::defaultColorScheme = "Tomorrow Night";
+#endif
+
 GlobalOptions::GlobalOptions(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::GlobalOptions)
@@ -37,11 +43,7 @@ void GlobalOptions::setAvailableColorSchemes(QStringList colorSchemes)
     colorSchemes.sort();
     ui->comBoxColorSchemes->clear();
     ui->comBoxColorSchemes->addItems(colorSchemes);
-#if defined(Q_OS_WIN)
-    ui->comBoxColorSchemes->setCurrentText("PowerShell");
-#else
-    ui->comBoxColorSchemes->setCurrentText("WhiteOnBlack");
-#endif
+    ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
 }
 
 QString GlobalOptions::getCurrentColorScheme(void)

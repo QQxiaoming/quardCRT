@@ -8,6 +8,7 @@
 
 EmptyTabWidget::EmptyTabWidget(QWidget *parent) 
     : QWidget(parent) {
+    setFocusPolicy(Qt::StrongFocus);
     label = new QLabel(this);
     label->setAlignment(Qt::AlignCenter);
     label->setEnabled(false);

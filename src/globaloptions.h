@@ -19,6 +19,8 @@ public:
     QFont getCurrentFont(void);
     int getTransparency(void);
 
+    const static QString defaultColorScheme;
+
 signals:
     void colorSchemeChanged(QString colorScheme);
 

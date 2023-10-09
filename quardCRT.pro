@@ -31,8 +31,9 @@ SOURCES += \
     src/sessiontreeview.cpp \
     src/hexviewwindow.cpp \
     src/treemodel.cpp \
-    src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwidgetgroup.cpp \
+    src/mainwindow.cpp \
+    src/main.cpp
 
 HEADERS += \
     src/argv_split.h \
@@ -46,6 +47,7 @@ HEADERS += \
     src/sessiontreeview.h \
     src/hexviewwindow.h \
     src/treemodel.h \
+    src/mainwidgetgroup.h \
     src/mainwindow.h
 
 FORMS += \
