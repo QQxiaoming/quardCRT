@@ -196,6 +196,22 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
         }
     });
 
+    shortcutMenuBarView = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_U),this);
+    connect(shortcutMenuBarView,&QShortcut::activated,this,[=](){
+        menuBarAction->trigger();
+    });
+    shortcutMenuBarView->setEnabled(false);
+    shortcutConnectLocalShell = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_T),this);
+    connect(shortcutConnectLocalShell,&QShortcut::activated,this,[=](){
+        connectLocalShellAction->trigger();
+    });
+    shortcutConnectLocalShell->setEnabled(false);
+    shortcutCloneSession = new QShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_T),this);
+    connect(shortcutCloneSession,&QShortcut::activated,this,[=](){
+        cloneSessionAction->trigger();
+    });
+    shortcutCloneSession->setEnabled(false);
+
     ui->statusBar->showMessage(tr("Ready"));
 
     if(mode == MINIUI_MODE) {
@@ -869,9 +885,26 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(menuBarAction,&QAction::triggered,this,[=](bool checked){
         ui->menuBar->setVisible(checked);
+        if(ui->menuBar->isVisible() == false) {
+            shortcutMenuBarView->setEnabled(true);
+            shortcutCloneSession->setEnabled(true);
+        } else {
+            shortcutMenuBarView->setEnabled(false);
+            shortcutCloneSession->setEnabled(false);
+        }
+        if(ui->menuBar->isVisible() || ui->toolBar->isVisible()) {
+            shortcutConnectLocalShell->setEnabled(false);
+        } else {
+            shortcutConnectLocalShell->setEnabled(true);
+        }
     });
     connect(toolBarAction,&QAction::triggered,this,[=](bool checked){
         ui->toolBar->setVisible(checked);
+        if(ui->menuBar->isVisible() || ui->toolBar->isVisible()) {
+            shortcutConnectLocalShell->setEnabled(false);
+        } else {
+            shortcutConnectLocalShell->setEnabled(true);
+        }
     });
     connect(statusBarAction,&QAction::triggered,this,[=](bool checked){
         ui->statusBar->setVisible(checked);

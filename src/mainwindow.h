@@ -151,6 +151,10 @@ private:
     QAction *aboutAction;
     QAction *aboutQtAction;
 
+    QShortcut *shortcutMenuBarView;
+    QShortcut *shortcutConnectLocalShell;
+    QShortcut *shortcutCloneSession;
+
     QLocale::Language language;
     bool isDarkTheme;
     QList<SessionsWindow *> sessionList;
