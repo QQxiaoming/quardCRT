@@ -58,7 +58,7 @@ private:
                 "GUI dark theme",
                 "dark-theme",
                 "auto"
-                )
+            )
         },
         {"language",
             QCommandLineOption(
@@ -66,7 +66,15 @@ private:
                 "application language",
                 "language",
                 "auto"
-                )
+            )
+        },
+        {"miniui",
+            QCommandLineOption(
+                {"m","miniui"},
+                "miniui mode",
+                "miniui",
+                "false"
+            )
         },
     };
 
@@ -177,11 +185,13 @@ int main(int argc, char *argv[])
         qApp->setStyleSheet(ts.readAll());
     }
 
+    bool isMiniUI = AppComLineParser->getOpt("miniui") == "true"?true:false;
+
     QFontIcon::addFont(":/icons/icons/fontawesome-webfont.ttf");
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    MainWindow window(lang,isDarkTheme);
+    MainWindow window(isMiniUI?MainWindow::MINIUI_MODE:MainWindow::STDUI_MODE,lang,isDarkTheme);
     window.show();
     window.setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 

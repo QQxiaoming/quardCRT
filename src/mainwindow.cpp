@@ -31,12 +31,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
+MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , language(lang)
     , isDarkTheme(isDark) {
-
     ui->setupUi(this);
 
     /* Create the main UI */
@@ -198,6 +197,14 @@ MainWindow::MainWindow(QLocale::Language lang, bool isDark, QWidget *parent)
     });
 
     ui->statusBar->showMessage(tr("Ready"));
+
+    if(mode == MINIUI_MODE) {
+        menuBarAction->trigger();
+        toolBarAction->trigger();
+        statusBarAction->trigger();
+        sideWindowAction->trigger();
+        connectLocalShellAction->trigger();
+    }
 }
 
 MainWindow::~MainWindow() {

@@ -6,7 +6,7 @@
 #if defined(Q_OS_WIN)
 const QString GlobalOptions::defaultColorScheme = "PowerShell";
 #else
-const QString GlobalOptions::defaultColorScheme = "Tomorrow Night";
+const QString GlobalOptions::defaultColorScheme = "QuardCRT";
 #endif
 
 GlobalOptions::GlobalOptions(QWidget *parent) :

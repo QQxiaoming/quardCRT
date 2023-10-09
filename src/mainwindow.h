@@ -34,7 +34,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QLocale::Language lang = QLocale::English, bool isDark = true, QWidget *parent = nullptr);
+    enum StartupUIMode {
+        STDUI_MODE = 0,
+        MINIUI_MODE,
+    };
+    MainWindow(StartupUIMode mode = STDUI_MODE, QLocale::Language lang = QLocale::English, bool isDark = true, QWidget *parent = nullptr);
     ~MainWindow();
     static void appAbout(QWidget *parent = nullptr);
     static void appHelp(QWidget *parent = nullptr);
