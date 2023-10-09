@@ -125,6 +125,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
     });
     connect(term, &QTermWidget::urlActivated, this, [](const QUrl& url, bool fromContextMenu){
         QDesktopServices::openUrl(url);
+        Q_UNUSED(fromContextMenu);
     });
     connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event){
         // only windows and macos need do this

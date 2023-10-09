@@ -154,6 +154,8 @@ private:
     QShortcut *shortcutMenuBarView;
     QShortcut *shortcutConnectLocalShell;
     QShortcut *shortcutCloneSession;
+    QShortcut *shortcutMiniModeSwitch;
+    QShortcut *shortcutStdModeSwitch;
 
     QLocale::Language language;
     bool isDarkTheme;

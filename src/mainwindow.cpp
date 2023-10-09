@@ -211,6 +211,25 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
         cloneSessionAction->trigger();
     });
     shortcutCloneSession->setEnabled(false);
+    shortcutMiniModeSwitch = new QShortcut(QKeySequence(Qt::META|Qt::Key_M),this);
+    connect(shortcutMiniModeSwitch,&QShortcut::activated,this,[=](){
+        if(ui->menuBar->isVisible() == true) menuBarAction->trigger();
+        if(ui->toolBar->isVisible() == true) toolBarAction->trigger();
+        if(ui->statusBar->isVisible() == true) statusBarAction->trigger();
+        if(ui->sidewidget->isVisible() == true) sideWindowAction->trigger();
+        int currentTab = 0;
+        for(size_t i=0;i<sizeof(mainWidgetGroup)/sizeof(MainWidgetGroup *);i++) {
+            currentTab += mainWidgetGroup[i]->sessionTab->count();
+        }
+        if(currentTab == 0) connectLocalShellAction->trigger();
+    });
+    shortcutStdModeSwitch = new QShortcut(QKeySequence(Qt::META|Qt::Key_N),this);
+    connect(shortcutStdModeSwitch,&QShortcut::activated,this,[=](){
+        if(ui->menuBar->isVisible() == false) menuBarAction->trigger();
+        if(ui->toolBar->isVisible() == false) toolBarAction->trigger();
+        if(ui->statusBar->isVisible() == false) statusBarAction->trigger();
+        if(ui->sidewidget->isVisible() == false) sideWindowAction->trigger();
+    });
 
     ui->statusBar->showMessage(tr("Ready"));
 
