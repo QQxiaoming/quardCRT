@@ -10,8 +10,6 @@ UnixPtyProcess::UnixPtyProcess()
     , m_readMasterNotify(0)
 {
     m_shellProcess.setWorkingDirectory(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
-
-
 }
 
 UnixPtyProcess::~UnixPtyProcess()

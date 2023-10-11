@@ -168,7 +168,6 @@ void Session::addView(TerminalDisplay * widget)
                       SLOT(viewDestroyed(QObject *)) );
 //slot for close
     QObject::connect(this, SIGNAL(finished()), widget, SLOT(close()));
-
 }
 
 void Session::viewDestroyed(QObject * view)

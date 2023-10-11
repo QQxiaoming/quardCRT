@@ -9,6 +9,7 @@
 
 class QXmodem: public QThread {
     Q_OBJECT
+
 public:
     explicit QXmodem(QObject *parent = nullptr):
         QThread(parent)
@@ -97,12 +98,14 @@ private:
     int xmodemCrcCheck(int crcflag, const unsigned char *buffer, int size);
     int xmodemInTime(unsigned char *c, unsigned short timeout);
     void xmodemInFlush(void);
+
 public:
     int dir=SEND;
 };
 
 class QXmodemFile: public QXmodem {
     Q_OBJECT
+
 public:
     QXmodemFile(QString filename,QObject *parent = nullptr) :
         QXmodem(parent)

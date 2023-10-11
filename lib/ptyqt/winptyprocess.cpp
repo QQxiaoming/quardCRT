@@ -23,7 +23,6 @@ WinPtyProcess::WinPtyProcess()
     , m_inSocket(nullptr)
     , m_outSocket(nullptr)
 {
-
 }
 
 WinPtyProcess::~WinPtyProcess()

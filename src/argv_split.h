@@ -119,7 +119,6 @@ private:
 				w_front = - 1;
 
 			pre_quoted_str = cmdlinestr.substr( w_front + 1, q_front - w_front - 1 );
-
 		}
 
         // split by whitespace in [0, w_front[

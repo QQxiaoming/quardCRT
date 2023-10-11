@@ -60,7 +60,6 @@ BlockArray::BlockArray()
         blocksize = ((sizeof(Block) / getpagesize()) + 1) * getpagesize();
 #endif
     }
-
 }
 
 BlockArray::~BlockArray()
@@ -325,7 +324,6 @@ void BlockArray::decreaseBuffer(size_t newsize)
     delete [] buffer1;
 
     fclose(fion);
-
 }
 
 void BlockArray::increaseBuffer()
@@ -393,6 +391,5 @@ void BlockArray::increaseBuffer()
     delete [] buffer2;
 
     fclose(fion);
-
 }
 

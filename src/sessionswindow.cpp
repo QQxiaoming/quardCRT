@@ -25,7 +25,6 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
     , localShell(nullptr)
     , enableLog(false)
     , enableRawLog(false) {
-
     term = new QTermWidget(0,static_cast<QWidget *>(parent));
 
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);

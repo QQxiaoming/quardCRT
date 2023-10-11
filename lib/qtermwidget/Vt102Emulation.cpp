@@ -458,7 +458,6 @@ void Vt102Emulation::processToken(int token, wchar_t p, int q)
 {
   switch (token)
   {
-
     case TY_CHR(         ) : _currentScreen->displayCharacter     (p         );dupDisplayCharacter(p); break; //UTF16
 
     //             127 DEL    : ignored on input

@@ -224,7 +224,6 @@ public:
 class ColorSchemeManager
 {
 public:
-
     /**
      * Constructs a new ColorSchemeManager and loads the list
      * of available color schemes.

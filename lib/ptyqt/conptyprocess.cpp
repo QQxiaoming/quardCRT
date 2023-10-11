@@ -83,7 +83,6 @@ ConPtyProcess::ConPtyProcess()
     , m_hPipeOut { INVALID_HANDLE_VALUE }
     , m_readThread(nullptr)
 {
-
 }
 
 ConPtyProcess::~ConPtyProcess()

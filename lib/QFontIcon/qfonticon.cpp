@@ -93,7 +93,6 @@ QFontIcon::QFontIcon(QObject *parent)
 
 QFontIcon::~QFontIcon()
 {
-
 }
 
 //=======================================================================================================
@@ -145,7 +144,6 @@ QPixmap QFontIconEngine::pixmap(const QSize &size, QIcon::Mode mode, QIcon::Stat
     QPainter painter(&pix);
     paint(&painter, QRect(QPoint(0,0),size), mode, state);
     return pix;
-
 }
 
 void QFontIconEngine::setFontFamily(const QString &family)

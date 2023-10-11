@@ -39,7 +39,6 @@ PlainTextDecoder::PlainTextDecoder()
  , _includeTrailingWhitespace(true)
  , _recordLinePositions(false)
 {
-
 }
 void PlainTextDecoder::setTrailingWhitespace(bool enable)
 {
@@ -126,7 +125,6 @@ HTMLDecoder::HTMLDecoder() :
        ,_innerSpanOpen(false)
        ,_lastRendition(DEFAULT_RENDITION)
 {
-
 }
 
 void HTMLDecoder::begin(QTextStream* output)
@@ -152,7 +150,6 @@ void HTMLDecoder::end()
     *_output << QString::fromStdWString(text);
 
     _output = nullptr;
-
 }
 
 //TODO: Support for LineProperty (mainly double width , double height)

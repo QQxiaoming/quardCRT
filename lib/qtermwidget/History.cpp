@@ -267,13 +267,12 @@ int HistoryScrollFile::startOfLine(int lineno)
   if (lineno <= 0) return 0;
   if (lineno <= getLines())
     {
+      if (!index.isMapped())
+        index.map();
 
-    if (!index.isMapped())
-            index.map();
-
-    int res = 0;
-    index.get((unsigned char*)&res,sizeof(int),(lineno-1)*sizeof(int));
-    return res;
+      int res = 0;
+      index.get((unsigned char*)&res,sizeof(int),(lineno-1)*sizeof(int));
+      return res;
     }
   return cells.len();
 }

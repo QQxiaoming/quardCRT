@@ -24,40 +24,36 @@
 class FancyTabWidget : public QTabWidget
 {
     Q_OBJECT
-    public:
 
-        explicit    FancyTabWidget(QWidget *parent = nullptr);
+public:
+    explicit    FancyTabWidget(QWidget *parent = nullptr);
 
-        void       setTabTextEditable(bool editable) {
-            m_tabTextEditable = editable;
-        }
-        void       setAddTabButtonVisible(bool visible) {
-            addButton->setVisible(visible);
-        }
+    void       setTabTextEditable(bool editable) {
+        m_tabTextEditable = editable;
+    }
+    void       setAddTabButtonVisible(bool visible) {
+        addButton->setVisible(visible);
+    }
 
-    signals:
+signals:
+    void        tabAddRequested();
+    void        tabTextChanged(int index, const QString &text);
 
-        void        tabAddRequested();
-        void        tabTextChanged(int index, const QString &text);
+protected slots:
+    void        addTabButtonClicked(bool checked);
+    void        paintEvent(QPaintEvent *event) override;
+    void        onTabBarDoubleClick(int tabIndex);
 
-    protected slots:
+    void        startTabNameEditing(int tabIndex);
+    void        finishTabNameEditing();
+    void        adjustTabLineEdit();
 
-        void        addTabButtonClicked(bool checked);
-        void        paintEvent(QPaintEvent *event) override;
-        void        onTabBarDoubleClick(int tabIndex);
+protected:
+    int         m_editingTabIndex = { -1 };
 
-        void        startTabNameEditing(int tabIndex);
-        void        finishTabNameEditing();
-        void        adjustTabLineEdit();
-
-    protected:
-
-        int         m_editingTabIndex = { -1 };
-
-    private:
-
-        bool       m_tabTextEditable = false;
-        AddTabButton *addButton;
+private:
+    bool       m_tabTextEditable = false;
+    AddTabButton *addButton;
 };
 
 #endif // FANCYTABWIDGET_H

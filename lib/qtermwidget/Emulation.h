@@ -123,7 +123,6 @@ class QTERMWIDGET_EXPORT Emulation : public QObject
 Q_OBJECT
 
 public:
-
   /**
    * This enum describes the available shapes for the keyboard cursor.
    * See setKeyboardCursorShape()

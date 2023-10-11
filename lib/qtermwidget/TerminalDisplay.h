@@ -649,7 +649,6 @@ private slots:
     void tripleClickTimeout();  // resets possibleTripleClick
 
 private:
-
     // -- Drawing helpers --
 
     // determine the width of this text

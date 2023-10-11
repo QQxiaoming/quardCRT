@@ -131,7 +131,6 @@ public:
 
 protected:
   HistoryType* m_histType;
-
 };
 
 #if 1
@@ -295,7 +294,6 @@ public:
 class CompactHistoryBlock
 {
 public:
-
   CompactHistoryBlock(){
     blockLength = 4096*64; // 256kb
 

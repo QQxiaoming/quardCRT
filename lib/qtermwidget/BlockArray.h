@@ -122,7 +122,6 @@ private:
 
     int ion;
     size_t length;
-
 };
 
 }

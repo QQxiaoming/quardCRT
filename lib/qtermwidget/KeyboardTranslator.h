@@ -318,7 +318,6 @@ public:
     static const Qt::KeyboardModifier CTRL_MOD;
 
 private:
-
     QMultiHash<int,Entry> _entries; // entries in this keyboard translation,
                                                  // entries are indexed according to
                                                  // their keycode

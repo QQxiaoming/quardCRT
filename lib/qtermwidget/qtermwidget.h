@@ -35,8 +35,8 @@ class QUrl;
 
 class QTERMWIDGET_EXPORT QTermWidget : public QWidget {
     Q_OBJECT
-public:
 
+public:
     /**
      * This enum describes the location where the scroll bar is positioned in the display widget.
      */
@@ -343,6 +343,7 @@ public slots:
     void toggleShowSearchBar();
 
     void saveHistory(QIODevice *device);
+
 protected:
     void resizeEvent(QResizeEvent *) override;
 

@@ -128,7 +128,6 @@ public:
        int    _endLine;
        int    _endColumn;
        Type _type;
-
     };
 
     /** Constructs a new filter. */
@@ -283,12 +282,12 @@ protected:
     RegExpFilter::HotSpot* newHotSpot(int,int,int,int) override;
 
 private:
-
     static const QRegExp FullUrlRegExp;
     static const QRegExp EmailAddressRegExp;
 
     // combined OR of FullUrlRegExp and EmailAddressRegExp
     static const QRegExp CompleteUrlRegExp;
+
 signals:
     void activated(const QUrl& url, bool fromContextMenu);
 };
@@ -355,7 +354,6 @@ public:
     QList<Filter::HotSpot*> hotSpots() const;
     /** Returns a list of all hotspots at the given line in all the chain's filters */
     QList<Filter::HotSpot> hotSpotsAtLine(int line) const;
-
 };
 
 /** A filter chain which processes character images from terminal displays */

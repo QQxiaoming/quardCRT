@@ -138,7 +138,6 @@ void TerminalDisplay::setScreenWindow(ScreenWindow* window)
 
     if ( window )
     {
-
 // TODO: Determine if this is an issue.
 //#warning "The order here is not specified - does it matter whether updateImage or updateLineProperties comes first?"
         connect( _screenWindow , SIGNAL(outputChanged()) , this , SLOT(updateLineProperties()) );
@@ -564,7 +563,6 @@ static void drawLineChar(QPainter& paint, int x, int y, int w, int h, uint8_t co
         paint.drawPoint(cx, cy+1);
     if (toDraw & Int33)
         paint.drawPoint(cx+1, cy+1);
-
 }
 
 static void drawOtherChar(QPainter& paint, int x, int y, int w, int h, uchar code)
@@ -791,7 +789,6 @@ void TerminalDisplay::drawCursor(QPainter& painter,
                              cursorRect.top(),
                              cursorRect.left(),
                              cursorRect.bottom());
-
     }
 }
 
@@ -1203,7 +1200,6 @@ void TerminalDisplay::updateImage()
         _fixedFont = saveFixedFont;
         x += len - 1;
       }
-
     }
 
     //both the top and bottom halves of double height _lines must always be redrawn
@@ -1264,7 +1260,6 @@ void TerminalDisplay::updateImage()
   if (!_hasBlinker && _blinkTimer->isActive()) { _blinkTimer->stop(); _blinking = false; }
   delete[] dirtyMask;
   delete[] disstrU;
-
 }
 
 void TerminalDisplay::showResizeNotification()
@@ -2010,7 +2005,6 @@ void TerminalDisplay::mousePressEvent(QMouseEvent* ev)
         pos.ry() += _scrollBar->value();
         _iPntSel = _pntSel = pos;
         _actSel = 1; // left mouse button pressed but nothing selected yet.
-
       }
       else
       {
@@ -2352,7 +2346,6 @@ void TerminalDisplay::extendSelection( const QPoint& position )
     {
         _screenWindow->setSelectionStart( ohere.x()-1-offset , ohere.y() , false );
     }
-
   }
 
   _actSel = 2; // within selection
@@ -2367,7 +2360,6 @@ void TerminalDisplay::extendSelection( const QPoint& position )
   {
      _screenWindow->setSelectionEnd( here.x()+offset , here.y() );
   }
-
 }
 
 void TerminalDisplay::mouseReleaseEvent(QMouseEvent* ev)
@@ -3302,7 +3294,6 @@ void TerminalDisplay::outputSuspended(bool suspended)
             _gridLayout->addItem( new QSpacerItem(0,0,QSizePolicy::Expanding,
                                                       QSizePolicy::Expanding),
                                  1,0);
-
     }
 
     _outputSuspendedLabel->setVisible(suspended);

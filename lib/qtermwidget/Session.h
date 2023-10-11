@@ -479,7 +479,6 @@ private slots:
 //  void zmodemFinished();
 
 private:
-
     void updateTerminalSize();
     WId windowId() const;
 
@@ -536,7 +535,6 @@ private:
     static int lastSessionId;
 
     int ptySlaveFd;
-
 };
 
 /**

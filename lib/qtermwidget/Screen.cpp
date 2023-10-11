@@ -140,7 +140,6 @@ void Screen::cursorNextLine(int n)
         }
         n--;
     }
-
 }
 
 void Screen::cursorPreviousLine(int n)
@@ -180,7 +179,6 @@ void Screen::setMargins(int top, int bot)
     _bottomMargin = bot;
     cuX = 0;
     cuY = getMode(MODE_Origin) ? top : 0;
-
 }
 
 int Screen::topMargin() const
@@ -501,7 +499,6 @@ void Screen::copyFromScreen(Character* dest , int startLine , int count) const
             if (selBegin != -1 && isSelected(column,line + history->getLines()))
                 reverseRendition(dest[destIndex]);
         }
-
     }
 }
 
@@ -1373,7 +1370,6 @@ void Screen::addHistLine()
                 selBegin = selBottomRight;
         }
     }
-
 }
 
 int Screen::getHistLines() const

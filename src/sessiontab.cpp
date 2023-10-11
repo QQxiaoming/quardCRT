@@ -23,7 +23,6 @@ EmptyTabWidget::EmptyTabWidget(QWidget *parent)
 }
 
 EmptyTabWidget::~EmptyTabWidget() {
-
 }
 
 void EmptyTabWidget::retranslateUi(void) {
@@ -90,7 +89,6 @@ SessionTab::SessionTab(QWidget *parent)
 }
 
 SessionTab::~SessionTab() {
-
 }
 
 int SessionTab::count(void) {

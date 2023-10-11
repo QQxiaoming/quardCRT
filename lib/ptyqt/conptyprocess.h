@@ -47,7 +47,6 @@ public:
         , resizePseudoConsole(nullptr)
         , closePseudoConsole(nullptr)
     {
-
     }
 
     bool init()
@@ -99,8 +98,8 @@ class PtyBuffer : public QIODevice
 {
     friend class ConPtyProcess;
     Q_OBJECT
+    
 public:
-
     PtyBuffer() {  }
     ~PtyBuffer() { }
 
@@ -156,7 +155,6 @@ private:
     QThread *m_readThread;
     QMutex m_bufferMutex;
     PtyBuffer m_buffer;
-
 };
 
 #endif // CONPTYPROCESS_H

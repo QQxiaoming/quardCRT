@@ -46,7 +46,6 @@
 using namespace Konsole;
 
 class TermWidgetImpl {
-
 public:
     TermWidgetImpl(QWidget* parent = nullptr);
 

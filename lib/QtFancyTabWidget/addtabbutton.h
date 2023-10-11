@@ -24,22 +24,21 @@
 class AddTabButton : public QAbstractButton
 {
     Q_OBJECT
-    public:
 
-        explicit AddTabButton(int width, int height, QWidget *parent = nullptr);
+public:
+    explicit AddTabButton(int width, int height, QWidget *parent = nullptr);
 
-        QSize sizeHint() const override;
-        QSize minimumSizeHint() const override { return sizeHint(); }
-        void paintEvent(QPaintEvent *event) override;
+    QSize sizeHint() const override;
+    QSize minimumSizeHint() const override { return sizeHint(); }
+    void paintEvent(QPaintEvent *event) override;
 
-        void setHoverEnabled(bool enabled);
+    void setHoverEnabled(bool enabled);
 
-    protected:
-
-        int     m_width;
-        int     m_height;
-        QIcon   m_newTabIcon;
-        bool    m_hoverEnabled = {false};
+protected:
+    int     m_width;
+    int     m_height;
+    QIcon   m_newTabIcon;
+    bool    m_hoverEnabled = {false};
 };
 
 #endif // ADDTABBUTTON_H

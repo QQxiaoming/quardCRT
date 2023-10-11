@@ -113,7 +113,6 @@ private:
     ShellProcess m_shellProcess;
     QSocketNotifier *m_readMasterNotify;
     QByteArray m_shellReadBuffer;
-
 };
 
 #endif // UNIXPTYPROCESS_H
