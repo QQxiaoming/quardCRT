@@ -48,6 +48,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
             currentAvailableKeyBindings = "linux";
         }
     }
+    term->setBlinkingCursor(true);
     term->startTerminalTeletype();
     term->setMargin(0);
 

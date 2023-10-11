@@ -124,6 +124,7 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
             if(index > 0) {
                 QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->widget(index);
                 foreach(SessionsWindow *sessionsWindow, sessionList) {
+                    sessionsWindow->getTermWidget()->setScrollBarPosition(verticalScrollBarAction->isChecked()?QTermWidget::ScrollBarRight:QTermWidget::NoScrollBar);
                     disconnect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
                                 hexViewWindow,SLOT(recvData(const char*,int)));
                     if(sessionsWindow->getTermWidget() == termWidget) {
@@ -360,6 +361,12 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     printScreenAction->setText(tr("Print Screen"));
     printScreenAction->setIcon(QFontIcon::icon(QChar(0xf02f)));
     printScreenAction->setStatusTip(tr("Print current screen"));
+    clearScrollbackAction->setText(tr("Clear Scrollback"));
+    clearScrollbackAction->setStatusTip(tr("Clear the contents of the scrollback rows"));
+    clearScreenAction->setText(tr("Clear Screen"));
+    clearScreenAction->setStatusTip(tr("Clear the contents of the current screen"));
+    clearScreenAndScrollbackAction->setText(tr("Clear Screen and Scrollback"));
+    clearScreenAndScrollbackAction->setStatusTip(tr("Clear the contents of the screen and scrollback"));
     resetAction->setText(tr("Reset"));
     resetAction->setStatusTip(tr("Reset terminal emulator"));
 
@@ -383,10 +390,16 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     statusBarAction->setStatusTip(tr("Show/Hide Status Bar"));
     cmdWindowAction->setText(tr("Command Window"));
     cmdWindowAction->setStatusTip(tr("Show/Hide Command Window"));
+    connectBarAction->setText(tr("Connect Bar"));
+    connectBarAction->setStatusTip(tr("Show/Hide Connect Bar"));
     sideWindowAction->setText(tr("Side Window"));
     sideWindowAction->setStatusTip(tr("Show/Hide Side Window"));
+    verticalScrollBarAction->setText(tr("Vertical Scroll Bar"));
+    verticalScrollBarAction->setStatusTip(tr("Show/Hide Vertical Scroll Bar"));
+    allwaysOnTopAction->setText(tr("Allways On Top"));
+    allwaysOnTopAction->setStatusTip(tr("Show window always on top"));
     fullScreenAction->setText(tr("Full Screen"));
-    fullScreenAction->setStatusTip(tr("Full Screen <Alt+Enter>"));
+    fullScreenAction->setStatusTip(tr("Toggle between full screen and normal mode <Alt+Enter>"));
     fullScreenAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_Enter));
 
     sessionOptionsAction->setText(tr("Session Options..."));
@@ -522,7 +535,7 @@ void MainWindow::menuAndToolBarInit(void) {
     ui->toolBar->addAction(disconnectAction);
     connectAddressEdit = new QLineEdit(this);
     connectAddressEdit->setFixedWidth(180);
-    ui->toolBar->addWidget(connectAddressEdit);
+    connectAddressEditAction = ui->toolBar->addWidget(connectAddressEdit);
     ui->toolBar->addSeparator();
     disconnectAllAction = new QAction(this);
     fileMenu->addAction(disconnectAllAction);
@@ -573,6 +586,13 @@ void MainWindow::menuAndToolBarInit(void) {
     editMenu->addSeparator();
     ui->toolBar->addAction(printScreenAction);
     ui->toolBar->addSeparator();
+    clearScrollbackAction = new QAction(this);
+    editMenu->addAction(clearScrollbackAction);
+    clearScreenAction = new QAction(this);
+    editMenu->addAction(clearScreenAction);
+    clearScreenAndScrollbackAction = new QAction(this);
+    editMenu->addAction(clearScreenAndScrollbackAction);
+    editMenu->addSeparator();
     resetAction = new QAction(this);
     editMenu->addAction(resetAction);
 
@@ -600,11 +620,23 @@ void MainWindow::menuAndToolBarInit(void) {
     cmdWindowAction->setCheckable(true);
     cmdWindowAction->setChecked(true);
     viewMenu->addAction(cmdWindowAction);
+    connectBarAction = new QAction(this);
+    connectBarAction->setCheckable(true);
+    connectBarAction->setChecked(true);
+    viewMenu->addAction(connectBarAction);
     sideWindowAction = new QAction(this);
     sideWindowAction->setCheckable(true);
     sideWindowAction->setChecked(true);
     viewMenu->addAction(sideWindowAction);
     viewMenu->addSeparator();
+    verticalScrollBarAction = new QAction(this);
+    verticalScrollBarAction->setCheckable(true);
+    verticalScrollBarAction->setChecked(true);
+    viewMenu->addAction(verticalScrollBarAction);
+    viewMenu->addSeparator();
+    allwaysOnTopAction = new QAction(this);
+    allwaysOnTopAction->setCheckable(true);
+    viewMenu->addAction(allwaysOnTopAction);
     fullScreenAction = new QAction(this);
     fullScreenAction->setCheckable(true);
     viewMenu->addAction(fullScreenAction);
@@ -878,6 +910,21 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         if(termWidget == nullptr) return;
         termWidget->toggleShowSearchBar();
     });
+    connect(clearScrollbackAction,&QAction::triggered,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        termWidget->clearScrollback();
+    });
+    connect(clearScreenAction,&QAction::triggered,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        termWidget->clearScreen();
+    });
+    connect(clearScreenAndScrollbackAction,&QAction::triggered,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        termWidget->clear();
+    });
     connect(resetAction,&QAction::triggered,this,[=](){
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
@@ -929,8 +976,24 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             mainWidgetGroup->commandWindow->setVisible(checked);
         }
     });
+    connect(connectBarAction,&QAction::triggered,this,[=](bool checked){
+        connectAddressEditAction->setVisible(checked);
+    });
     connect(sideWindowAction,&QAction::triggered,this,[=](bool checked){
         ui->sidewidget->setVisible(checked);
+    });
+    connect(verticalScrollBarAction,&QAction::triggered,this,[=](bool checked){
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            sessionsWindow->getTermWidget()->setScrollBarPosition(checked?QTermWidget::ScrollBarRight:QTermWidget::NoScrollBar);
+        }
+    });
+    connect(allwaysOnTopAction,&QAction::triggered,this,[=](bool checked){
+        if(checked) {
+            setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+        } else {
+            setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
+        }
+        show();
     });
     connect(fullScreenAction,&QAction::triggered,this,[=](bool checked){
         if(checked) {

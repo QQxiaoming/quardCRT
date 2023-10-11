@@ -588,9 +588,19 @@ void QTermWidget::setKeyBindings(const QString & kb)
 
 void QTermWidget::clear()
 {
+    clearScreen();
+    clearScrollback();
+}
+
+void QTermWidget::clearScrollback()
+{
+    m_impl->m_session->clearHistory();
+}
+
+void QTermWidget::clearScreen()
+{
     m_impl->m_session->emulation()->reset();
     m_impl->m_session->refresh();
-    m_impl->m_session->clearHistory();
 }
 
 void QTermWidget::setFlowControlEnabled(bool enabled)

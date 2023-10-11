@@ -93,6 +93,7 @@ private:
     QAction *reconnectAllAction;
     QAction *disconnectAction;
     QLineEdit *connectAddressEdit;
+    QAction *connectAddressEditAction;
     QAction *disconnectAllAction;
     QAction *cloneSessionAction;
     QAction *lockSessionAction;
@@ -106,6 +107,9 @@ private:
     QAction *selectAllAction;
     QAction *findAction;
     QAction *printScreenAction;
+    QAction *clearScrollbackAction;
+    QAction *clearScreenAction;
+    QAction *clearScreenAndScrollbackAction;
     QAction *resetAction;
     QAction *zoomInAction;
     QAction *zoomOutAction;
@@ -114,7 +118,10 @@ private:
     QAction *toolBarAction;
     QAction *statusBarAction;
     QAction *cmdWindowAction;
+    QAction *connectBarAction;
     QAction *sideWindowAction;
+    QAction *verticalScrollBarAction;
+    QAction *allwaysOnTopAction;
     QAction *fullScreenAction;
     QAction *sessionOptionsAction;
     QAction *globalOptionsAction;

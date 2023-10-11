@@ -338,6 +338,8 @@ public slots:
 
     /*! Clear the terminal content and move to home position
      */
+    void clearScrollback();
+    void clearScreen();
     void clear();
 
     void toggleShowSearchBar();
