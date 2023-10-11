@@ -56,6 +56,9 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
     quickConnectWindow = new QuickConnectWindow(this);
     quickConnectMainWidgetGroup = mainWidgetGroupList[0];
 
+    startTftpSeverWindow = new StartTftpSeverWindow(this);
+    tftpServer = new QTftp;
+
     keyMapManagerWindow = new keyMapManager(this);
     keyMapManagerWindow->setAvailableKeyBindings(QTermWidget::availableKeyBindings());
 
@@ -89,6 +92,15 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
         } else {
             sessionManagerWidget->setVisible(false);
         }
+    });
+    connect(startTftpSeverWindow,&StartTftpSeverWindow::setTftpDir,this,[=](const QString &upDir, const QString &downDir){
+        //if(tftpServer->isRunning()) {
+        //    tftpServer->stopServer();
+        //}
+        //tftpServer->setUpDir(upDir);
+        //tftpServer->setDownDir(downDir);
+        //tftpServer->PORT = 20069;
+        //tftpServer->startServer();
     });
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         connect(mainWidgetGroup->sessionTab,&FancyTabWidget::tabAddRequested,this,[=](){
@@ -249,6 +261,7 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
 }
 
 MainWindow::~MainWindow() {
+    delete tftpServer;
     delete sessionManagerPushButton;
     delete ui;
 }
@@ -1002,6 +1015,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             this->showNormal();
         }
     });
+    connect(startTFTPServerAction,&QAction::triggered,this,[=](){
+        startTftpSeverWindow->show();
+    });
     connect(keymapManagerAction,&QAction::triggered,this,[=](){
         keyMapManagerWindow->show();
     });
@@ -1019,6 +1035,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         setAppLangeuage(this->language);
         ui->retranslateUi(this);
         sessionManagerWidget->retranslateUi();
+        startTftpSeverWindow->retranslateUi();
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
             mainWidgetGroup->commandWindow->retranslateUi();

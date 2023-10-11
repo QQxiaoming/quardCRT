@@ -18,7 +18,7 @@ include(./lib/qtxyzmodem/qtxyzmodem.pro)
 include(./lib/QTelnet/QTelnet.pri)
 include(./lib/ptyqt/ptyqt.pri)
 include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
-
+include(./lib/Qtftp/Qtftp.pri)
 
 SOURCES += \
     src/commandwindow.cpp \
@@ -30,6 +30,7 @@ SOURCES += \
     src/sessionswindow.cpp \
     src/sessiontreeview.cpp \
     src/hexviewwindow.cpp \
+    src/starttftpseverwindow.cpp \
     src/treemodel.cpp \
     src/mainwidgetgroup.cpp \
     src/mainwindow.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     src/sessionswindow.h \
     src/sessiontreeview.h \
     src/hexviewwindow.h \
+    src/starttftpseverwindow.h \
     src/treemodel.h \
     src/mainwidgetgroup.h \
     src/mainwindow.h
@@ -57,7 +59,8 @@ FORMS += \
     src/quickconnectwindow.ui \
     src/hexviewwindow.ui \
     src/mainwindow.ui \
-    src/sessionmanagerwidget.ui
+    src/sessionmanagerwidget.ui \
+    src/starttftpseverwindow.ui
 
 RESOURCES += \
     res/resource.qrc \

@@ -22,6 +22,8 @@
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
 #include "commandwindow.h"
+#include "starttftpseverwindow.h"
+#include "qtftp.h"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -72,6 +74,7 @@ private:
     GlobalOptions *globalOptionsWindow;
     HexViewWindow *hexViewWindow;
     QPushButton *sessionManagerPushButton;
+    StartTftpSeverWindow *startTftpSeverWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -166,8 +169,10 @@ private:
     QShortcut *shortcutMiniModeSwitch;
     QShortcut *shortcutStdModeSwitch;
 
+    QList<SessionsWindow *> sessionList;
+    QTftp *tftpServer;
+
     QLocale::Language language;
     bool isDarkTheme;
-    QList<SessionsWindow *> sessionList;
 };
 #endif // MAINWINDOW_H
