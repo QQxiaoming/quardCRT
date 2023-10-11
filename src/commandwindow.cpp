@@ -12,7 +12,11 @@ CommandWindow::CommandWindow(QWidget *parent) :
 
     connect(ui->sendPushButton, &QPushButton::clicked, this, [=]() {
         if(ui->asciiRadioButton->isChecked()) {
+        #if defined(Q_OS_WIN)
+            emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1());
+        #else
             emit sendData(ui->commandPlainEdit->toPlainText().toLatin1());
+        #endif
         } else if(ui->hexRadioButton->isChecked()) {
             QString input = ui->commandPlainEdit->toPlainText();
             QByteArray array = QByteArray::fromHex(input.toLatin1());
@@ -42,7 +46,11 @@ CommandWindow::CommandWindow(QWidget *parent) :
 
     connect(autoSendTimer, &QTimer::timeout, this, [=]() {
         if(ui->asciiRadioButton->isChecked()) {
+        #if defined(Q_OS_WIN)
+            emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1());
+        #else
             emit sendData(ui->commandPlainEdit->toPlainText().toLatin1());
+        #endif
         } else if(ui->hexRadioButton->isChecked()) {
             QString input = ui->commandPlainEdit->toPlainText();
             QByteArray array = QByteArray::fromHex(input.toLatin1());
