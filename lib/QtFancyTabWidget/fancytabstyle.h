@@ -27,7 +27,7 @@ class FancyTabStyle : public QProxyStyle
 public:
     explicit FancyTabStyle(QObject *parent = nullptr);
 
-    virtual QRect subElementRect(SubElement subElement, const QStyleOption *option, const QWidget *widget) const override;
+    QRect subElementRect(SubElement subElement, const QStyleOption *option, const QWidget *widget) const override;
 };
 
 

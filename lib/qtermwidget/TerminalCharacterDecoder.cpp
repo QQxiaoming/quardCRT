@@ -232,7 +232,6 @@ void HTMLDecoder::decodeLine(const Character* const characters, int count, LineP
         {
             text.append(L"&nbsp;"); //HTML truncates multiple spaces, so use a space marker instead
         }
-
     }
 
     //close any remaining open inner spans
