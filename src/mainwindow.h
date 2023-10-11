@@ -11,6 +11,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QShortcut>
+#include <QDir>
 
 #include "mainwidgetgroup.h"
 #include "sessiontab.h"
@@ -51,7 +52,7 @@ private:
     SessionsWindow *startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type);
     SessionsWindow *startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
-    SessionsWindow *startLocalShellSession(MainWidgetGroup *group, const QString &command = QString());
+    SessionsWindow *startLocalShellSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath());
     SessionsWindow *startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port);
     int stopSession(MainWidgetGroup *group, int index);
     int stopAllSession(void);

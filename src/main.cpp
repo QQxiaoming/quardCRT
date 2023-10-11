@@ -193,7 +193,6 @@ int main(int argc, char *argv[])
 
     MainWindow window(isMiniUI?MainWindow::MINIUI_MODE:MainWindow::STDUI_MODE,lang,isDarkTheme);
     window.show();
-    window.setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
     return application.exec();
 }

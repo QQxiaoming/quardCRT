@@ -37,6 +37,7 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
     , language(lang)
     , isDarkTheme(isDark) {
     ui->setupUi(this);
+    setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
     /* Create the main UI */
     sessionManagerWidget = new SessionManagerWidget(this);
@@ -1098,7 +1099,7 @@ SessionsWindow *MainWindow::startRawSocketSession(MainWidgetGroup *group, QStrin
     return sessionsWindow;
 }
 
-SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString &command)
+SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString &command, const QString &workingDirectory)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
@@ -1121,6 +1122,7 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
     }
     sessionManagerWidget->addSession(name,SessionsWindow::LocalShell);
     sessionsWindow->setName(name);
+    sessionsWindow->setWorkingDirectory(workingDirectory);
     sessionsWindow->startLocalShellSession(command);
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){

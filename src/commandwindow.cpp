@@ -58,6 +58,10 @@ CommandWindow::~CommandWindow()
     delete ui;
 }
 
+void CommandWindow::setCmd(QString cmd) {
+    ui->commandPlainEdit->setPlainText(cmd);
+}
+
 void CommandWindow::retranslateUi(void) {
     ui->retranslateUi(this);
 }

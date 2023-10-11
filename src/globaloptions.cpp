@@ -3,11 +3,7 @@
 #include "globaloptions.h"
 #include "ui_globaloptions.h"
 
-#if defined(Q_OS_WIN)
-const QString GlobalOptions::defaultColorScheme = "PowerShell";
-#else
 const QString GlobalOptions::defaultColorScheme = "QuardCRT";
-#endif
 
 GlobalOptions::GlobalOptions(QWidget *parent) :
     QDialog(parent),

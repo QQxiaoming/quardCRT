@@ -134,6 +134,8 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
             term->copyClipboard();
             term->pasteClipboard();
         }
+    #else
+        Q_UNUSED(event);
     #endif
     });
 }

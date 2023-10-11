@@ -28,6 +28,10 @@ QuickConnectWindow::~QuickConnectWindow()
     delete ui;
 }
 
+void QuickConnectWindow::setProtocol(QuickConnectType index) {
+    ui->comboBoxProtocol->setCurrentIndex((int)index);
+}
+
 void QuickConnectWindow::comboBoxProtocolChanged(int index)
 {
     if(index == 0)

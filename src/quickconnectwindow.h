@@ -46,6 +46,7 @@ public:
             int port;
         }RawData;
     };
+    void setProtocol(QuickConnectType index);
     
 signals:
     void sendQuickConnectData(QuickConnectData);
