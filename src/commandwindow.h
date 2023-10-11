@@ -16,6 +16,7 @@ public:
     explicit CommandWindow(QWidget *parent = nullptr);
     ~CommandWindow();
     void setCmd(QString cmd);
+    void sendCurrentData(void);
     void retranslateUi(void);
 
 signals:

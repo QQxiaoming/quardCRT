@@ -11,19 +11,7 @@ CommandWindow::CommandWindow(QWidget *parent) :
     ui->asciiRadioButton->setChecked(true);
 
     connect(ui->sendPushButton, &QPushButton::clicked, this, [=]() {
-        if(ui->asciiRadioButton->isChecked()) {
-        #if defined(Q_OS_WIN)
-            emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1());
-        #else
-            emit sendData(ui->commandPlainEdit->toPlainText().toLatin1());
-        #endif
-        } else if(ui->hexRadioButton->isChecked()) {
-            QString input = ui->commandPlainEdit->toPlainText();
-            QByteArray array = QByteArray::fromHex(input.toLatin1());
-            emit sendData(array);
-            QString output = array.toHex(' ');
-            ui->commandPlainEdit->setPlainText(output);
-        }
+        sendCurrentData();
     });
 
     connect(ui->autoSendCheckBox, &QCheckBox::stateChanged, this, [=](int state) {
@@ -45,19 +33,7 @@ CommandWindow::CommandWindow(QWidget *parent) :
     });
 
     connect(autoSendTimer, &QTimer::timeout, this, [=]() {
-        if(ui->asciiRadioButton->isChecked()) {
-        #if defined(Q_OS_WIN)
-            emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1());
-        #else
-            emit sendData(ui->commandPlainEdit->toPlainText().toLatin1());
-        #endif
-        } else if(ui->hexRadioButton->isChecked()) {
-            QString input = ui->commandPlainEdit->toPlainText();
-            QByteArray array = QByteArray::fromHex(input.toLatin1());
-            emit sendData(array);
-            QString output = array.toHex(' ');
-            ui->commandPlainEdit->setPlainText(output);
-        }
+        sendCurrentData();
     });
 }
 
@@ -68,6 +44,22 @@ CommandWindow::~CommandWindow()
 
 void CommandWindow::setCmd(QString cmd) {
     ui->commandPlainEdit->setPlainText(cmd);
+}
+
+void CommandWindow::sendCurrentData(void) {
+    if(ui->asciiRadioButton->isChecked()) {
+    #if defined(Q_OS_WIN)
+        emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1());
+    #else
+        emit sendData(ui->commandPlainEdit->toPlainText().toLatin1());
+    #endif
+    } else if(ui->hexRadioButton->isChecked()) {
+        QString input = ui->commandPlainEdit->toPlainText();
+        QByteArray array = QByteArray::fromHex(input.toLatin1());
+        emit sendData(array);
+        QString output = array.toHex(' ');
+        ui->commandPlainEdit->setPlainText(output);
+    }
 }
 
 void CommandWindow::retranslateUi(void) {
