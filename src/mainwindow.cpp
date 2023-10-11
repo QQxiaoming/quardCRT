@@ -216,7 +216,7 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
         cloneSessionAction->trigger();
     });
     shortcutCloneSession->setEnabled(false);
-    shortcutMiniModeSwitch = new QShortcut(QKeySequence(Qt::META|Qt::Key_M),this);
+    shortcutMiniModeSwitch = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_J),this);
     connect(shortcutMiniModeSwitch,&QShortcut::activated,this,[=](){
         if(ui->menuBar->isVisible() == true) menuBarAction->trigger();
         if(ui->toolBar->isVisible() == true) toolBarAction->trigger();
@@ -228,7 +228,7 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
         }
         if(currentTab == 0) connectLocalShellAction->trigger();
     });
-    shortcutStdModeSwitch = new QShortcut(QKeySequence(Qt::META|Qt::Key_N),this);
+    shortcutStdModeSwitch = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_N),this);
     connect(shortcutStdModeSwitch,&QShortcut::activated,this,[=](){
         if(ui->menuBar->isVisible() == false) menuBarAction->trigger();
         if(ui->toolBar->isVisible() == false) toolBarAction->trigger();

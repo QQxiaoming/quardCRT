@@ -274,7 +274,9 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     }
     serialPort->setStopBits(static_cast<QSerialPort::StopBits>(stopBits));
     serialPort->setFlowControl(flowControl?QSerialPort::HardwareControl:QSerialPort::NoFlowControl);
-    serialPort->open(QIODevice::ReadWrite);
+    if(!serialPort->open(QIODevice::ReadWrite)) {
+        QMessageBox::warning(term, tr("Start Serial"), tr("Cannot open serial port:\n%1.").arg(serialPort->errorString()));
+    }
     serialPort->setBreakEnabled(xEnable);
     m_portName = portName;
     m_baudRate = baudRate;
