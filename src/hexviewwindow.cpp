@@ -18,6 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include <QMessageBox>
+#include <QScrollBar>
 #include "hexviewwindow.h"
 #include "ui_hexviewwindow.h"
 
@@ -28,26 +29,37 @@ HexViewWindow::HexViewWindow(int type, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPalette p = ui->textEdit->palette();
+    QPalette p = ui->textEditHEX->palette();
     p.setColor(QPalette::Text, Qt::white);
     p.setColor(QPalette::Base, Qt::black);
-    ui->textEdit->setPalette(p);
+    ui->textEditHEX->setPalette(p);
+    ui->textEditASCII->setPalette(p);
 
     setWindowTitle(tr("Hex View"));
 
     if(type == SEND) {
-        ui->textEdit->setReadOnly(false);
+        ui->textEditHEX->setReadOnly(false);
         ui->buttonBox->setVisible(true);
+        ui->textEditASCII->setVisible(false);
     } else if(type == RECV){
-        ui->textEdit->setReadOnly(true);
         ui->buttonBox->setEnabled(false);
-        ui->textEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        ui->textEdit->setLineWrapMode(QTextEdit::WidgetWidth);
         ui->buttonBox->setVisible(false);
+        ui->textEditHEX->setReadOnly(true);
+        ui->textEditHEX->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        ui->textEditHEX->setFocusPolicy(Qt::NoFocus);
+        ui->textEditHEX->setLineWrapMode(QTextEdit::FixedColumnWidth);
+        ui->textEditHEX->setLineWrapColumnOrWidth(3*16+2);
+        ui->textEditASCII->setReadOnly(true);
+        ui->textEditASCII->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        ui->textEditASCII->setFocusPolicy(Qt::NoFocus);
+        ui->textEditASCII->setLineWrapMode(QTextEdit::FixedColumnWidth);
+        ui->textEditASCII->setLineWrapColumnOrWidth(16);
     }
 
-    QObject::connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
-    QObject::connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
+    connect(ui->textEditHEX->verticalScrollBar(), &QScrollBar::valueChanged, ui->textEditASCII->verticalScrollBar(), &QScrollBar::setValue);
+    connect(ui->textEditASCII->verticalScrollBar(), &QScrollBar::valueChanged, ui->textEditHEX->verticalScrollBar(), &QScrollBar::setValue);
+    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
+    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
 }
 
 HexViewWindow::~HexViewWindow()
@@ -57,18 +69,18 @@ HexViewWindow::~HexViewWindow()
 
 void HexViewWindow::setFont(const QFont &font)
 {
-    ui->textEdit->setFont(font);
+    ui->textEditHEX->setFont(font);
 }
 
 void HexViewWindow::buttonBoxAccepted(void)
 {
     if(m_type == SEND) {
-        QString input = ui->textEdit->toPlainText();
+        QString input = ui->textEditHEX->toPlainText();
         QByteArray array = QByteArray::fromHex(input.toLatin1());
         if(!array.isEmpty()) {
-            QMessageBox::information(this, tr("Information"), tr("Will send Hex:\n")+"0x"+array.toHex(' ').replace(" "," 0x"));
+            QMessageBox::information(this, tr("Information"), tr("Will send Hex:\n")+array.toHex(' '));
             emit sendData(array.constData(),array.size());
-            ui->textEdit->setPlainText(array.toHex(' '));
+            ui->textEditHEX->setPlainText(array.toHex(' '));
         }
     }
     emit this->accepted();
@@ -81,10 +93,69 @@ void HexViewWindow::buttonBoxRejected(void)
 
 void HexViewWindow::recvData(const char *data,int size)
 {
+    auto insertPlainText = [&](const char *data,int size){
+        if(size > 0) {
+            QByteArray ba(data,size);
+            ui->textEditHEX->insertPlainText(ba.toHex(' ') + " ");
+            for(int j=0;j<size;j++) {
+                uint8_t ch = ba.at(j);
+                const static QString ascii_table[256] = {
+                    ".",".",".",".",".",".",".",".",
+                    ".",".",".",".",".",".",".",".",
+                    ".",".",".",".",".",".",".",".",
+                    ".",".",".",".",".",".",".",".",
+                    ".","!","\"","#","$","%","&","\'",
+                    "(",")","*","+",",","-",".","/",
+                    "0","1","2","3","4","5","6","7",
+                    "8","9",":",";","<","=",">","?",
+                    "@","A","B","C","D","E","F","G",
+                    "H","I","J","K","L","M","N","O",
+                    "P","Q","R","S","T","U","V","W",
+                    "X","Y","Z","[","\\","]","^",".",
+                    "`","a","b","c","d","e","f","g",
+                    "h","i","j","k","l","m","n","o",
+                    "p","q","r","s","t","u","v","w",
+                    "x","y","z","{","|","}","~",".",
+                    "€",".",".","ƒ",".",".","†","‡",
+                    "ˆ","‰","Š","‹","Œ",".","Ž",".",
+                    ".",".",".",".",".",".","–",".",
+                    "˜","™","š","›","œ",".","ž","Ÿ",
+                    ".","¡","¢","£",".","¥","¦",".",
+                    "¨",".","ª","«","¬",".",".","¯",
+                    "°",".","²","³","´","µ","¶",".",
+                    "¸","¹","º","»","¼","½","¾","¿",
+                    "À","Á","Â","Ã","Ä","Å","Æ","Ç",
+                    "È","É","Ê","Ë","Ì","Í","Î","Ï",
+                    "Ð","Ñ","Ò","Ó","Ô","Õ","Ö",".",
+                    "Ø","Ù","Ú","Û","Ü","Ý","Þ","ß",
+                    "à","á","â","ã","ä","å","æ","ç",
+                    "è","é","ê","ë","ì","í","î","ï",
+                    "ð","ñ","ò","ó","ô","õ","ö",".",
+                    "ø","ù","ú","û","ü","ý","þ","ÿ"
+                };
+                ui->textEditASCII->insertPlainText(ascii_table[ch]);
+            }
+        }
+    };
     if(size > 0) {
-        QByteArray ba(data,size);
-        ui->textEdit->insertPlainText("0x" + ba.toHex(' ').replace(" "," 0x") + " ");
-        ui->textEdit->ensureCursorVisible();
+        int firstSize = ((8*3+1) - ui->textEditHEX->toPlainText().size()%(8*3+1))/3;
+        if(size >= firstSize) {
+            insertPlainText(data,firstSize);
+            ui->textEditHEX->insertPlainText(" ");
+
+            int i=firstSize;
+            for(i=firstSize;i+8<size;i+=8) {
+                insertPlainText(data+i,8);
+                ui->textEditHEX->insertPlainText(" ");
+            }
+            if(i < size) {
+                insertPlainText(data+i,size-i);
+            }
+        } else {
+            insertPlainText(data,size);
+        }
+        ui->textEditHEX->ensureCursorVisible();
+        ui->textEditASCII->ensureCursorVisible();
     }
 }
 
@@ -96,6 +167,6 @@ void HexViewWindow::hideEvent(QHideEvent *event)
 
 void HexViewWindow::on_pushButton_clicked()
 {
-    ui->textEdit->clear();
+    ui->textEditHEX->clear();
 }
 

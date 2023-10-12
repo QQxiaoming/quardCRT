@@ -40,19 +40,19 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
             hitCount++;
             switch(hitCount) {
                 case 1:
-                    easterEggs->setText(tr("This is a boring game!"));
+                    easterEggs->setText("This is a boring game!");
                     break;
                 case 2:
-                    easterEggs->setText(tr("You are so boring!"));
+                    easterEggs->setText("You are so boring!");
                     break;
                 case 3:
-                    easterEggs->setText(tr("I'm tired of you!"));
+                    easterEggs->setText("I'm tired of you!");
                     break;
                 case 4:
-                    easterEggs->setText(tr("I'm going to sleep!"));
+                    easterEggs->setText("I'm going to sleep!");
                     break;
                 case 5:
-                    easterEggs->setText(tr("Goodbye!"));
+                    easterEggs->setText("Goodbye!");
                     hitCount = 0;
                     break;                    
             }

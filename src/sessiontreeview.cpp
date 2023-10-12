@@ -50,12 +50,15 @@ void SessionTreeView::contextMenuEvent(QContextMenuEvent *event) {
     QModelIndex tIndex = indexAt(viewport()->mapFromGlobal(event->globalPos()));
     if (tIndex.isValid()) {
         QMenu *contextMenu = new QMenu(this); 
-        QAction *pExport= new QAction(tr("Export"), contextMenu);
-        pExport->setIcon(QIcon(QFontIcon::icon(QChar(0xf019))));
-        contextMenu->addAction(pExport);
-        QAction *pImport= new QAction(tr("Import"), contextMenu);
-        pImport->setIcon(QIcon(QFontIcon::icon(QChar(0xf093))));
-        contextMenu->addAction(pImport);
+        QAction *connectTerminalAction = new QAction(tr("Connect Terminal"), contextMenu);
+        contextMenu->addAction(connectTerminalAction);
+        QAction *connectInNewWindowAction = new QAction(tr("Connect in New Window"), contextMenu);
+        contextMenu->addAction(connectInNewWindowAction);
+        QAction *connectInNewTabGroupAction = new QAction(tr("Connect in New Tab Group"), contextMenu);
+        contextMenu->addAction(connectInNewTabGroupAction);
+        contextMenu->addSeparator();
+        QAction *propertiesAction = new QAction(tr("Properties"), contextMenu);
+        contextMenu->addAction(propertiesAction);
         if(!contextMenu->isEmpty()) {
             contextMenu->move(cursor().pos());
             contextMenu->show();
