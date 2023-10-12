@@ -12,6 +12,8 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
     ui(new Ui::StartTftpSeverWindow)
 {
     ui->setupUi(this);
+    ui->uploadLineEdit->setText(QDir::homePath());
+    ui->downloadLineEdit->setText(QDir::homePath());
 
     connect(ui->uploadToolButton, &QToolButton::clicked, this, [=](){
         QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
@@ -56,7 +58,7 @@ void StartTftpSeverWindow::buttonBoxAccepted(void)
         QMessageBox::warning(this, tr("Warning"), tr("Please select a valid directory!"));
         return;
     }
-    emit setTftpDir(ui->uploadLineEdit->text(), ui->downloadLineEdit->text());
+    emit setTftpInfo(ui->spinBox->value(), ui->uploadLineEdit->text(), ui->downloadLineEdit->text());
     
     emit this->accepted();
 }

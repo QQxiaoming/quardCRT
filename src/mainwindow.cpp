@@ -21,6 +21,7 @@
 #include <QPlainTextEdit>
 #include <QHostInfo>
 
+#include "qtftp.h"
 #include "qfonticon.h"
 #include "sessiontab.h"
 #include "sessionswindow.h"
@@ -93,14 +94,32 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
             sessionManagerWidget->setVisible(false);
         }
     });
-    connect(startTftpSeverWindow,&StartTftpSeverWindow::setTftpDir,this,[=](const QString &upDir, const QString &downDir){
-        //if(tftpServer->isRunning()) {
-        //    tftpServer->stopServer();
-        //}
-        //tftpServer->setUpDir(upDir);
-        //tftpServer->setDownDir(downDir);
-        //tftpServer->PORT = 20069;
-        //tftpServer->startServer();
+    connect(startTftpSeverWindow,&StartTftpSeverWindow::setTftpInfo,this,[=](int port, const QString &upDir, const QString &downDir){
+        if(tftpServer->isRunning()) {
+            tftpServer->stopServer();
+        }
+        tftpServer->setUpDir(upDir);
+        tftpServer->setDownDir(downDir);
+        tftpServer->setPort(port);
+        tftpServer->startServer();
+    });
+    connect(tftpServer,&QTftp::serverRuning,this,[=](bool runing){
+        startTFTPServerAction->setChecked(runing);
+    });
+    connect(tftpServer,&QTftp::error,this,[=](int error){
+        switch(error) {
+        case QTftp::BindError:
+            QMessageBox::warning(this, tr("Warning"), tr("TFTP server bind error!"));
+            break;
+        case QTftp::FileError:
+            QMessageBox::warning(this, tr("Warning"), tr("TFTP server file error!"));
+            break;
+        case QTftp::NetworkError:
+            QMessageBox::warning(this, tr("Warning"), tr("TFTP server network error!"));
+            break;
+        default:
+            break;
+        }
     });
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         connect(mainWidgetGroup->sessionTab,&FancyTabWidget::tabAddRequested,this,[=](){
@@ -114,25 +133,7 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
             foreach(MainWidgetGroup *group, mainWidgetGroupList) {
                 currentTabNum += group->sessionTab->count();
             }
-            if(currentTabNum == 0) {
-                reconnectAction->setEnabled(false);
-                reconnectAllAction->setEnabled(false);
-                disconnectAction->setEnabled(false);
-                disconnectAllAction->setEnabled(false);
-                cloneSessionAction->setEnabled(false);
-                lockSessionAction->setEnabled(false);
-                logSessionAction->setEnabled(false);
-                rawLogSessionAction->setEnabled(false);
-            } else {
-                reconnectAction->setEnabled(true);
-                reconnectAllAction->setEnabled(true);
-                disconnectAction->setEnabled(true);
-                disconnectAllAction->setEnabled(true);
-                cloneSessionAction->setEnabled(true);
-                lockSessionAction->setEnabled(true);
-                logSessionAction->setEnabled(true);
-                rawLogSessionAction->setEnabled(true);
-            }
+            setSessionClassActionEnable(currentTabNum != 0);
             if(index > 0) {
                 QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->widget(index);
                 foreach(SessionsWindow *sessionsWindow, sessionList) {
@@ -695,6 +696,7 @@ void MainWindow::menuAndToolBarInit(void) {
     transferMenu->addAction(startZmodemUploadAction);
     transferMenu->addSeparator();
     startTFTPServerAction = new QAction(this);
+    startTFTPServerAction->setCheckable(true);
     transferMenu->addAction(startTFTPServerAction);
 
     runAction = new QAction(this);
@@ -773,14 +775,28 @@ void MainWindow::menuAndToolBarInit(void) {
 
     menuAndToolBarRetranslateUi();
 
-    reconnectAction->setEnabled(false);
-    reconnectAllAction->setEnabled(false);
-    disconnectAction->setEnabled(false);
-    disconnectAllAction->setEnabled(false);
-    cloneSessionAction->setEnabled(false);
-    lockSessionAction->setEnabled(false);
-    logSessionAction->setEnabled(false);
-    rawLogSessionAction->setEnabled(false);
+    setSessionClassActionEnable(false);
+}
+
+void MainWindow::setSessionClassActionEnable(bool enable)
+{
+    reconnectAction->setEnabled(enable);
+    reconnectAllAction->setEnabled(enable);
+    disconnectAction->setEnabled(enable);
+    disconnectAllAction->setEnabled(enable);
+    cloneSessionAction->setEnabled(enable);
+    lockSessionAction->setEnabled(enable);
+    logSessionAction->setEnabled(enable);
+    rawLogSessionAction->setEnabled(enable);
+    sendASCIIAction->setEnabled(enable);
+    receiveASCIIAction->setEnabled(enable);
+    sendBinaryAction->setEnabled(enable);
+    sendXmodemAction->setEnabled(enable);
+    receiveXmodemAction->setEnabled(enable);
+    sendYmodemAction->setEnabled(enable);
+    receiveYmodemAction->setEnabled(enable);
+    zmodemUploadListAction->setEnabled(enable);
+    startZmodemUploadAction->setEnabled(enable);
 }
 
 void MainWindow::menuAndToolBarConnectSignals(void) {

@@ -18,7 +18,7 @@ public:
     void retranslateUi(void);
     
 signals:
-    void setTftpDir(QString updir, QString downdir);
+    void setTftpInfo(int port, QString updir, QString downdir);
 
 private slots:
     void buttonBoxAccepted(void);

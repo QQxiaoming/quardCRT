@@ -62,6 +62,7 @@ private:
     MainWidgetGroup *findCurrentFocusGroup(void);
     QTermWidget *findCurrentFocusTermWidget(void);
     QMenu *createPopupMenu(void) override;
+    void setSessionClassActionEnable(bool enable);
 
 private:
     Ui::MainWindow *ui;

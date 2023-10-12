@@ -4,17 +4,53 @@
 #include <QUdpSocket>
 #include <QThread>
 
-class QTftp : public QObject
+class QTftp : public QThread
 {
-Q_OBJECT
+	Q_OBJECT
+
+public:
+	explicit QTftp(QObject *parent = 0);
+
+	void startServer();
+	void stopServer();
+	bool isServerRunning();
+	QString getUpDir() { return upPath; }
+	QString getDownDir() { return downPath; }
+	void setUpDir(QString path) { upPath = path; }
+	void setDownDir(QString path) { downPath = path; }
+	int getPort() { return m_port; }
+	void setPort(int port) { m_port = port; }
+
+	void client_get(QString path, QString server);
+	void client_put(QString path, QString server);
+
+	enum Error {
+		Ok,
+		Timeout,
+		BindError,
+		FileError,
+		NetworkError
+	};
+
+protected:
+    void run();
+
+signals:
+	void serverRuning(bool);
+	void progress(int);
+	void error(int);
 
 private:
-	QThread worker;
-	QUdpSocket *sock;
+	bool sever_running;
+	QUdpSocket *sock = nullptr;
 	QHostAddress rhost;
 	quint16 rport;
 	QString upPath;
 	QString downPath;
+	int m_port;
+	int m_timeout;
+	int m_retries;
+    quint64 m_segsize;
 
 	enum Block : quint16 {
 		RRQ	= 1,	// read request
@@ -48,15 +84,15 @@ private:
 		int e_code;
 		const char *e_msg;
 	} errmsgs[9] = {
-		{ EUNDEF,	"Undefined error code" },
-		{ ENOTFOUND,	"File not found" },
-		{ EACCESS,	"Access violation" },
-		{ ENOSPACE,	"Disk full or allocation exceeded" },
-		{ EBADOP,	"Illegal TFTP operation" },
-		{ EBADID,	"Unknown transfer ID" },
-		{ EEXISTS,	"File already exists" },
-		{ ENOUSER,	"No such user" },
-		{ -1,			0 }
+		{ EUNDEF,	 "Undefined error code" },
+		{ ENOTFOUND, "File not found" },
+		{ EACCESS,	 "Access violation" },
+		{ ENOSPACE,	 "Disk full or allocation exceeded" },
+		{ EBADOP,	 "Illegal TFTP operation" },
+		{ EBADID,	 "Unknown transfer ID" },
+		{ EEXISTS,	 "File already exists" },
+		{ ENOUSER,	 "No such user" },
+		{ -1,		 0 }
 	};
 
 	struct tftp_header {
@@ -72,51 +108,13 @@ private:
 
 	char buffer[9000 + sizeof(tftp_header)];
 
+	void server();
 	void server_get();
 	void server_put();
 
 	void nak(TftpError);
 	void sendAck(quint16);
 	bool waitForAck(quint16);
-
-public:
-	QTftp();
-	void put(QString, QString);
-	void get(QString, QString);
-	void startServer();
-	void stopServer();
-	bool isRunning();
-	QString getUpDir() { return upPath; }
-	QString getDownDir() { return downPath; }
-	void setUpDir(QString path) { upPath = path; }
-	void setDownDir(QString path) { downPath = path; }
-	int PORT = 69;
-	int TIMEOUT = 1000;
-	int RETRIES = 3;
-    quint64 SEGSIZE = 512;
-
-	enum Error {
-		Ok,
-		Timeout,
-		BindError,
-		FileError,
-		NetworkError
-	};
-
-private slots:
-	void client_get(QString, QString);
-	void client_put(QString, QString);
-	void server();
-
-signals:
-	void fileSent(QString);
-	void fileReceived(QString);
-	void doGet(QString, QString);
-	void doPut(QString, QString);
-	void doServer();
-	void error(int);
-	void progress(int);
-	void send(bool);
 };
 
 #endif
