@@ -112,19 +112,6 @@ void Session::setCodec(QTextCodec * codec) const
     emulation()->setCodec(codec);
 }
 
-void Session::setProgram(const QString & program)
-{
-    _program = ShellCommand::expand(program);
-}
-void Session::setInitialWorkingDirectory(const QString & dir)
-{
-    _initialWorkingDir = ShellCommand::expand(dir);
-}
-void Session::setArguments(const QStringList & arguments)
-{
-    _arguments = ShellCommand::expand(arguments);
-}
-
 QList<TerminalDisplay *> Session::views() const
 {
     return _views;
@@ -202,11 +189,6 @@ void Session::removeView(TerminalDisplay * widget)
     if ( _views.count() == 0 ) {
         close();
     }
-}
-
-void Session::run()
-{
-    emit started();
 }
 
 void Session::runEmptyPTY()
@@ -461,16 +443,6 @@ QString Session::keyBindings() const
     return _emulation->keyBindings();
 }
 
-QStringList Session::environment() const
-{
-    return _environment;
-}
-
-void Session::setEnvironment(const QStringList & environment)
-{
-    _environment = environment;
-}
-
 int Session::sessionId() const
 {
     return _sessionId;
@@ -547,16 +519,6 @@ const HistoryType & Session::historyType() const
 void Session::clearHistory()
 {
     _emulation->clearHistory();
-}
-
-QStringList Session::arguments() const
-{
-    return _arguments;
-}
-
-QString Session::program() const
-{
-    return _program;
 }
 
 // unused currently

@@ -28,9 +28,6 @@
 #include <QHash>
 #include <QRegExp>
 
-// Local
-#include "qtermwidget_export.h"
-
 namespace Konsole
 {
 
@@ -55,7 +52,7 @@ class Character;
  * When processing the text they should create instances of Filter::HotSpot subclasses for sections of interest
  * and add them to the filter's list of hotspots using addHotSpot()
  */
-class QTERMWIDGET_EXPORT Filter : public QObject
+class Filter : public QObject
 {
 public:
     /**
@@ -183,7 +180,7 @@ private:
  * Subclasses can reimplement newHotSpot() to return custom hotspot types when matches for the regular expression
  * are found.
  */
-class QTERMWIDGET_EXPORT RegExpFilter : public Filter
+class RegExpFilter : public Filter
 {
 public:
     /**
@@ -240,7 +237,7 @@ private:
 class FilterObject;
 
 /** A filter which matches URLs in blocks of text */
-class QTERMWIDGET_EXPORT UrlFilter : public RegExpFilter
+class UrlFilter : public RegExpFilter
 {
     Q_OBJECT
 public:
@@ -292,7 +289,7 @@ signals:
     void activated(const QUrl& url, bool fromContextMenu);
 };
 
-class QTERMWIDGET_NO_EXPORT FilterObject : public QObject
+class FilterObject : public QObject
 {
     Q_OBJECT
 public:
@@ -324,7 +321,7 @@ signals:
  * The hotSpots() and hotSpotsAtLine() method return all of the hotspots in the text and on
  * a given line respectively.
  */
-class QTERMWIDGET_EXPORT FilterChain : protected QList<Filter*>
+class FilterChain : protected QList<Filter*>
 {
 public:
     virtual ~FilterChain();

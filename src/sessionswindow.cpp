@@ -13,7 +13,7 @@
 #include "globaloptions.h"
 #include "argv_split.h"
 
-SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
+SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     : QObject(parent)
     , type(tp)
     , workingDirectory(QDir::homePath())
@@ -25,7 +25,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QObject *parent)
     , localShell(nullptr)
     , enableLog(false)
     , enableRawLog(false) {
-    term = new QTermWidget(0,static_cast<QWidget *>(parent));
+    term = new QTermWidget(parent);
 
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);
 

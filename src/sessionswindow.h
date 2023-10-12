@@ -2,6 +2,7 @@
 #define SESSIONSWINDOW_H
 
 #include <QObject>
+#include <QWidget>
 #include <QTcpSocket>
 #include <QSerialPort>
 #include <QMutex>
@@ -20,7 +21,7 @@ public:
         LocalShell,
         RawSocket
     };
-    SessionsWindow(SessionType tp, QObject *parent = nullptr);
+    SessionsWindow(SessionType tp, QWidget *parent = nullptr);
     ~SessionsWindow();
 
     void cloneSession(SessionsWindow *src);

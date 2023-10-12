@@ -57,14 +57,6 @@ public:
 
     /**
      * Constructs a new session.
-     *
-     * To start the terminal process, call the run() method,
-     * after specifying the program and arguments
-     * using setProgram() and setArguments()
-     *
-     * If no program or arguments are specified explicitly, the Session
-     * falls back to using the program specified in the SHELL environment
-     * variable.
      */
     Session(QObject* parent = nullptr);
     ~Session() override;
@@ -114,18 +106,6 @@ public:
      */
     Emulation * emulation() const;
 
-    /**
-     * Returns the environment of this session as a list of strings like
-     * VARIABLE=VALUE
-     */
-    QStringList environment() const;
-    /**
-     * Sets the environment for this session.
-     * @p environment should be a list of strings like
-     * VARIABLE=VALUE
-     */
-    void setEnvironment(const QStringList & environment);
-
     /** Returns the unique ID for this session. */
     int sessionId() const;
 
@@ -160,31 +140,6 @@ public:
     void setTabTitleFormat(TabTitleContext context , const QString & format);
     /** Returns the format used by this session for tab titles. */
     QString tabTitleFormat(TabTitleContext context) const;
-
-
-    /** Returns the arguments passed to the shell process when run() is called. */
-    QStringList arguments() const;
-    /** Returns the program name of the shell process started when run() is called. */
-    QString program() const;
-
-    /**
-     * Sets the command line arguments which the session's program will be passed when
-     * run() is called.
-     */
-    void setArguments(const QStringList & arguments);
-    /** Sets the program to be executed when run() is called. */
-    void setProgram(const QString & program);
-
-    /** Returns the session's current working directory. */
-    QString initialWorkingDirectory() {
-        return _initialWorkingDir;
-    }
-
-    /**
-     * Sets the initial working directory for the session when it is run
-     * This has no effect once the session has been started.
-     */
-    void setInitialWorkingDirectory( const QString & dir );
 
     /**
      * Sets the type of history store used by this session.
@@ -349,14 +304,6 @@ public:
     int recvData(const char *buff, int len);
 
 public slots:
-
-    /**
-     * Starts the terminal session.
-     *
-     * This creates the terminal process and connects the teletype to it.
-     */
-    void run();
-
     /**
      * Starts the terminal session for "as is" PTY
      * (without the direction a data to internal terminal process).
@@ -511,13 +458,7 @@ private:
     bool           _flowControl;
     bool           _fullScripting;
 
-    QString        _program;
-    QStringList    _arguments;
-
-    QStringList    _environment;
     int            _sessionId;
-
-    QString        _initialWorkingDir;
 
     // ZModem
 //  bool           _zmodemBusy;

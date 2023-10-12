@@ -33,7 +33,6 @@
 #include <QTextStream>
 #include <QTimer>
 
-#include "qtermwidget_export.h"
 #include "KeyboardTranslator.h"
 
 namespace Konsole
@@ -118,7 +117,7 @@ enum
  * how long the emulation has been active/idle for and also respond to
  * a 'bell' event in different ways.
  */
-class QTERMWIDGET_EXPORT Emulation : public QObject
+class Emulation : public QObject
 {
 Q_OBJECT
 

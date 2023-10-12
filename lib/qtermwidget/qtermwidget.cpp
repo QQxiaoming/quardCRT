@@ -69,21 +69,7 @@ Session *TermWidgetImpl::createSession(QWidget* parent)
 
     session->setTitle(Session::NameRole, QLatin1String("QTermWidget"));
 
-    /* That's a freaking bad idea!!!!
-     * /bin/bash is not there on every system
-     * better set it to the current $SHELL
-     * Maybe you can also make a list available and then let the widget-owner decide what to use.
-     * By setting it to $SHELL right away we actually make the first filecheck obsolete.
-     * But as I'm not sure if you want to do anything else I'll just let both checks in and set this to $SHELL anyway.
-     */
-    //session->setProgram("/bin/bash");
-
-    session->setProgram(QString::fromLocal8Bit(qgetenv("SHELL")));
-
-
-
     QStringList args = QStringList(QString());
-    session->setArguments(args);
     session->setAutoClose(true);
 
     session->setCodec(QTextCodec::codecForName("UTF-8"));
@@ -112,17 +98,10 @@ TerminalDisplay *TermWidgetImpl::createTerminalDisplay(Session *session, QWidget
     return display;
 }
 
-
-QTermWidget::QTermWidget(int startnow, QWidget *parent)
-    : QWidget(parent)
-{
-    init(startnow);
-}
-
 QTermWidget::QTermWidget(QWidget *parent)
     : QWidget(parent)
 {
-    init(1);
+    init();
 }
 
 void QTermWidget::selectionChanged(bool textSelected)
@@ -212,11 +191,6 @@ bool QTermWidget::terminalSizeHint()
     return m_impl->m_terminalDisplay->terminalSizeHint();
 }
 
-void QTermWidget::startShellProgram()
-{
-    m_impl->m_session->run();
-}
-
 void QTermWidget::startTerminalTeletype()
 {
     m_impl->m_session->runEmptyPTY();
@@ -253,7 +227,7 @@ void QTermWidget::setLangeuage(QLocale::Language lang)
         qApp->installTranslator(translator);
 }
 
-void QTermWidget::init(int startnow)
+void QTermWidget::init(void)
 {
     m_layout = new QVBoxLayout();
     m_layout->setContentsMargins(0, 0, 0, 0);
@@ -284,10 +258,6 @@ void QTermWidget::init(int startnow)
     connect(m_searchBar, SIGNAL(findPrevious()), this, SLOT(findPrevious()));
     m_layout->addWidget(m_searchBar);
     m_searchBar->hide();
-
-    if (startnow && m_impl->m_session) {
-        m_impl->m_session->run();
-    }
 
     this->setFocus( Qt::OtherFocusReason );
     this->setFocusPolicy( Qt::WheelFocus );
@@ -353,35 +323,6 @@ void QTermWidget::setTerminalBackgroundImage(const QString& backgroundImage)
 void QTermWidget::setTerminalBackgroundMode(int mode)
 {
     m_impl->m_terminalDisplay->setBackgroundMode((Konsole::BackgroundMode)mode);
-}
-
-void QTermWidget::setShellProgram(const QString &program)
-{
-    if (!m_impl->m_session)
-        return;
-    m_impl->m_session->setProgram(program);
-}
-
-void QTermWidget::setWorkingDirectory(const QString& dir)
-{
-    if (!m_impl->m_session)
-        return;
-    m_impl->m_session->setInitialWorkingDirectory(dir);
-}
-
-QString QTermWidget::workingDirectory()
-{
-    if (!m_impl->m_session)
-        return QString();
-
-    return m_impl->m_session->initialWorkingDirectory();
-}
-
-void QTermWidget::setArgs(const QStringList &args)
-{
-    if (!m_impl->m_session)
-        return;
-    m_impl->m_session->setArguments(args);
 }
 
 void QTermWidget::setTextCodec(QTextCodec *codec)
@@ -634,11 +575,6 @@ void QTermWidget::setFlowControlWarningEnabled(bool enabled)
         // Do not show warning label if flow control is disabled
         m_impl->m_terminalDisplay->setFlowControlWarningEnabled(enabled);
     }
-}
-
-void QTermWidget::setEnvironment(const QStringList& environment)
-{
-    m_impl->m_session->setEnvironment(environment);
 }
 
 void QTermWidget::setMotionAfterPasting(int action)

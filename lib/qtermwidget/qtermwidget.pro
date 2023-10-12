@@ -37,7 +37,6 @@ HEADERS += \
     $$PWD/konsole_wcwidth.h \
     $$PWD/LineFont.h \
     $$PWD/qtermwidget.h \
-    $$PWD/qtermwidget_export.h \
     $$PWD/qtermwidget_version.h \
     $$PWD/Screen.h \
     $$PWD/ScreenWindow.h \

@@ -25,15 +25,13 @@
 #include <QWidget>
 #include "Emulation.h"
 #include "Filter.h"
-#include "qtermwidget_export.h"
-#include "qtermwidget_version.h"
 
 class QVBoxLayout;
 class TermWidgetImpl;
 class SearchBar;
 class QUrl;
 
-class QTERMWIDGET_EXPORT QTermWidget : public QWidget {
+class QTermWidget : public QWidget {
     Q_OBJECT
 
 public:
@@ -52,9 +50,6 @@ public:
     using KeyboardCursorShape = Konsole::Emulation::KeyboardCursorShape;
 
     //Creation of widget
-    QTermWidget(int startnow, // 1 = start shell program immediately
-                QWidget * parent = nullptr);
-    // A dummy constructor for Qt Designer. startnow is 1 by default
     QTermWidget(QWidget *parent = nullptr);
 
     ~QTermWidget() override;
@@ -66,19 +61,12 @@ public:
     void setTerminalSizeHint(bool enabled);
     bool terminalSizeHint();
 
-    //start shell program if it was not started in constructor
-    void startShellProgram();
-
     /**
      * Start terminal teletype as is
      * and redirect data for external recipient.
      * It can be used for display and control a remote terminal.
      */
     void startTerminalTeletype();
-
-    int getShellPID();
-
-    void changeDir(const QString & dir);
 
     //look-n-feel, if you don`t like defaults
 
@@ -90,19 +78,6 @@ public:
     void setTerminalOpacity(qreal level);
     void setTerminalBackgroundImage(const QString& backgroundImage);
     void setTerminalBackgroundMode(int mode);
-
-    //environment
-    void setEnvironment(const QStringList & environment);
-
-    //  Shell program, default is /bin/bash
-    void setShellProgram(const QString & program);
-
-    //working directory
-    void setWorkingDirectory(const QString & dir);
-    QString workingDirectory();
-
-    // Shell program args, default is none
-    void setArgs(const QStringList & args);
 
     //Text codec, default is UTF-8
     void setTextCodec(QTextCodec * codec);
@@ -371,7 +346,7 @@ private slots:
 private:
     void search(bool forwards, bool next);
     void setZoom(int step);
-    void init(int startnow);
+    void init(void);
     TermWidgetImpl * m_impl;
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;

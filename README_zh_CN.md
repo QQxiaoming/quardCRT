@@ -62,3 +62,4 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 - [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
 - [winpty](https://github.com/rprichard/winpty)
 - [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget.git)
+- [qtftp](https://github.com/teknoraver/qtftp)
