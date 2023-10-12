@@ -55,11 +55,11 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 
 - [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 - [QFontIcon](https://github.com/dridk/QFontIcon)
-- [QTelnet](https://github.com/silderan/QTelnet.git)
+- [QTelnet](https://github.com/silderan/QTelnet)
 - [qtermwidget](https://github.com/lxqt/qtermwidget)
 - [ptyqt](https://github.com/kafeg/ptyqt)
 - [argv_split](https://github.com/bitmeal/argv_split)
 - [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
 - [winpty](https://github.com/rprichard/winpty)
-- [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget.git)
+- [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget)
 - [qtftp](https://github.com/teknoraver/qtftp)
