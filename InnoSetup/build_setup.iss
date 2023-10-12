@@ -34,6 +34,8 @@ WizardStyle=modern
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "chinese"; MessagesFile: ".\ChineseSimplified.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -53,3 +55,11 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Registry]
+Root: HKCR; Subkey: "Directory\shell\QuardCRT"; ValueType: string; ValueName: ""; ValueData: "Open With QuardCRT"; Flags: uninsdeletekey ;
+Root: HKCR; Subkey: "Directory\shell\QuardCRT"; ValueType: string; ValueName: "Icon"; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Directory\shell\QuardCRT\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""-m"" ""true"" ""-s"" ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Directory\Background\shell\QuardCRT"; ValueType: string; ValueName: ""; ValueData: "Open With QuardCRT"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Directory\Background\shell\QuardCRT"; ValueType: string; ValueName: "Icon"; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Directory\Background\shell\QuardCRT\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""-m"" ""true"" ""-s"" ""%V"""; Flags: uninsdeletekey

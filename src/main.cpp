@@ -76,6 +76,14 @@ private:
                 "false"
             )
         },
+        {"start_dir",
+            QCommandLineOption(
+                {"s","start_dir"},
+                "start with directory",
+                "start_dir",
+                ""
+            )
+        },
     };
 
 public:
@@ -92,7 +100,10 @@ public:
                     if(parser.isSet(dstOpt)) {
                         return parser.value(dstOpt);
                     } else {
-                        return dstOpt.defaultValues().at(0);
+                        if(dstOpt.defaultValues().size() > 0)
+                            return dstOpt.defaultValues().at(0);
+                        else 
+                            return "";
                     }
                 }
             }
@@ -186,12 +197,13 @@ int main(int argc, char *argv[])
     }
 
     bool isMiniUI = AppComLineParser->getOpt("miniui") == "true"?true:false;
+    QString dir = AppComLineParser->getOpt("start_dir");
 
     QFontIcon::addFont(":/icons/icons/fontawesome-webfont.ttf");
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    MainWindow window(isMiniUI?MainWindow::MINIUI_MODE:MainWindow::STDUI_MODE,lang,isDarkTheme);
+    MainWindow window(dir,isMiniUI?MainWindow::MINIUI_MODE:MainWindow::STDUI_MODE,lang,isDarkTheme);
     window.show();
 
     return application.exec();

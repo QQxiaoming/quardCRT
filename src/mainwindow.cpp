@@ -32,7 +32,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, QWidget *parent)
+MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, bool isDark, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , language(lang)
@@ -49,13 +49,13 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
     splitter->setHandleWidth(1);
     ui->centralwidget->layout()->addWidget(splitter);
     mainWidgetGroupList.append(new MainWidgetGroup(this));
-    splitter->addWidget(mainWidgetGroupList[0]->splitter);
+    splitter->addWidget(mainWidgetGroupList.at(0)->splitter);
     mainWidgetGroupList.append(new MainWidgetGroup(this));
-    splitter->addWidget(mainWidgetGroupList[1]->splitter);
+    splitter->addWidget(mainWidgetGroupList.at(1)->splitter);
     splitter->setSizes(QList<int>() << 1 << 0);
     
     quickConnectWindow = new QuickConnectWindow(this);
-    quickConnectMainWidgetGroup = mainWidgetGroupList[0];
+    quickConnectMainWidgetGroup = mainWidgetGroupList.at(0);
 
     startTftpSeverWindow = new StartTftpSeverWindow(this);
     tftpServer = new QTftp;
@@ -252,12 +252,22 @@ MainWindow::MainWindow(StartupUIMode mode, QLocale::Language lang, bool isDark, 
 
     ui->statusBar->showMessage(tr("Ready"));
 
+    if(!dir.isEmpty()) {
+        QFileInfo fileInfo(dir);
+        if(!fileInfo.isDir()) {
+            dir = "";
+        }
+    }
     if(mode == MINIUI_MODE) {
         menuBarAction->trigger();
         toolBarAction->trigger();
         statusBarAction->trigger();
         sideWindowAction->trigger();
-        connectLocalShellAction->trigger();
+        if(dir.isEmpty())
+            connectLocalShellAction->trigger();
+    }
+    if(!dir.isEmpty()) {
+        startLocalShellSession(mainWidgetGroupList.at(0),QString(),dir);
     }
 }
 
