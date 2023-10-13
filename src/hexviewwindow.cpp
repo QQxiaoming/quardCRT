@@ -36,6 +36,7 @@ HexViewWindow::HexViewWindow(int type, QWidget *parent) :
     ui->textEditASCII->setPalette(p);
 
     setWindowTitle(tr("Hex View"));
+    setWindowFlags(Qt::Window);
 
     if(type == SEND) {
         ui->textEditHEX->setReadOnly(false);
@@ -138,6 +139,10 @@ void HexViewWindow::recvData(const char *data,int size)
         }
     };
     if(size > 0) {
+        // FIXME: We need format the data to hex 
+        // Now we have implemented it. but it is not perfect.
+        // We hope to process it faster or separate it into the background 
+        // without affecting the main event loop.
         int firstSize = ((8*3+1) - ui->textEditHEX->toPlainText().size()%(8*3+1))/3;
         if(size >= firstSize) {
             insertPlainText(data,firstSize);
@@ -168,5 +173,6 @@ void HexViewWindow::hideEvent(QHideEvent *event)
 void HexViewWindow::on_pushButton_clicked()
 {
     ui->textEditHEX->clear();
+    ui->textEditASCII->clear();
 }
 
