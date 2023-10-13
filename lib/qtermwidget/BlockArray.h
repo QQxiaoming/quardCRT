@@ -28,16 +28,13 @@
 //#error Do not use in KDE 2.1
 
 #define QTERMWIDGET_BLOCKSIZE (1 << 12)
-#define ENTRIES   ((QTERMWIDGET_BLOCKSIZE - sizeof(size_t) ) / sizeof(unsigned char))
+#define ENTRIES   (QTERMWIDGET_BLOCKSIZE - sizeof(size_t))
 
 namespace Konsole {
 
 struct Block {
-    Block() {
-        size = 0;
-    }
-    unsigned char data[ENTRIES];
-    size_t size;
+    unsigned char data[ENTRIES] = {};
+    size_t size = 0;
 };
 
 // ///////////////////////////////////////////////////////
