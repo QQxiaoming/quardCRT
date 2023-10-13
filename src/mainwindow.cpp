@@ -39,6 +39,7 @@
 #include <QStatusBar>
 #include <QPlainTextEdit>
 #include <QHostInfo>
+#include <QDesktopServices>
 
 #include "qtftp.h"
 #include "qfonticon.h"
@@ -175,6 +176,47 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         connect(mainWidgetGroup->sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
             QMenu *menu = new QMenu(this);
             if(index != -1) {
+                if(mainWidgetGroup->sessionTab->currentIndex() != index) {
+                    delete menu;
+                    return;
+                }
+                QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
+                menu->addAction(moveToAnotherTabAction);
+                connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
+                    auto moveToAnotherTab = [&](int src,int dst, int index) {
+                        mainWidgetGroupList.at(dst)->sessionTab->addTab(
+                            mainWidgetGroupList.at(src)->sessionTab->widget(index),
+                            mainWidgetGroupList.at(src)->sessionTab->tabText(index));
+                        mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
+                        mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
+                            mainWidgetGroupList.at(dst)->sessionTab->count()-1);
+                        mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
+                            mainWidgetGroupList.at(src)->sessionTab->count()-1);
+                    };
+                    if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
+                        moveToAnotherTab(0,1,index);
+                    } else {
+                        moveToAnotherTab(1,0,index);
+                    }
+                });
+                QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
+                menu->addAction(openWorkingFolderAction);
+                connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
+                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                    foreach(SessionsWindow *sessionsWindow, sessionList) {
+                        if(sessionsWindow->getTermWidget() == termWidget) {
+                            QString dir = sessionsWindow->getWorkingDirectory();
+                            if(!dir.isEmpty()) {
+                                QFileInfo fileInfo(dir);
+                                if(fileInfo.isDir()) {
+                                    QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    
+                });
                 QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
                 menu->addAction(closeAction);
                 connect(closeAction,&QAction::triggered,this,[=](){
@@ -1460,7 +1502,7 @@ void MainWindow::appAbout(QWidget *parent)
                            "<p>Author</p>"
                            "<p>&nbsp;qiaoqm@aliyun.com</p>"
                            "<p>Website</p>"
-                           "<p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</p>"
+                           "<p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</a></p>"
                            "<p>&nbsp;<a href='https://gitee.com/QQxiaoming/quardCRT'>https://gitee.com/QQxiaoming</a></p>"
                            ).arg(VERSION,GIT_TAG)
                        );
