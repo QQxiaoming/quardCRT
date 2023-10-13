@@ -35,6 +35,8 @@
 MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, bool isDark, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , windowTransparency(1.0)
+    , windowTransparencyEnabled(false)
     , language(lang)
     , isDarkTheme(isDark) {
     ui->setupUi(this);
@@ -272,6 +274,9 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
 }
 
 MainWindow::~MainWindow() {
+    if(tftpServer->isRunning()) {
+        tftpServer->stopServer();
+    }
     delete tftpServer;
     delete sessionManagerPushButton;
     delete ui;
@@ -418,6 +423,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     connectBarAction->setStatusTip(tr("Show/Hide Connect Bar"));
     sideWindowAction->setText(tr("Side Window"));
     sideWindowAction->setStatusTip(tr("Show/Hide Side Window"));
+    windwosTransparencyAction->setText(tr("Windows Transparency"));
+    windwosTransparencyAction->setStatusTip(tr("Enable/Disable alpha transparency"));
     verticalScrollBarAction->setText(tr("Vertical Scroll Bar"));
     verticalScrollBarAction->setStatusTip(tr("Show/Hide Vertical Scroll Bar"));
     allwaysOnTopAction->setText(tr("Allways On Top"));
@@ -653,6 +660,10 @@ void MainWindow::menuAndToolBarInit(void) {
     sideWindowAction->setChecked(true);
     viewMenu->addAction(sideWindowAction);
     viewMenu->addSeparator();
+    windwosTransparencyAction = new QAction(this);
+    windwosTransparencyAction->setCheckable(true);
+    viewMenu->addAction(windwosTransparencyAction);
+    viewMenu->addSeparator();
     verticalScrollBarAction = new QAction(this);
     verticalScrollBarAction->setCheckable(true);
     verticalScrollBarAction->setChecked(true);
@@ -798,6 +809,22 @@ void MainWindow::setSessionClassActionEnable(bool enable)
     lockSessionAction->setEnabled(enable);
     logSessionAction->setEnabled(enable);
     rawLogSessionAction->setEnabled(enable);
+
+    copyAction->setEnabled(enable);
+    pasteAction->setEnabled(enable);
+    copyAndPasteAction->setEnabled(enable);
+    selectAllAction->setEnabled(enable);
+    findAction->setEnabled(enable);
+    printScreenAction->setEnabled(enable);
+    clearScrollbackAction->setEnabled(enable);
+    clearScreenAction->setEnabled(enable);
+    clearScreenAndScrollbackAction->setEnabled(enable);
+    resetAction->setEnabled(enable);
+
+    zoomInAction->setEnabled(enable);
+    zoomOutAction->setEnabled(enable);
+    zoomResetAction->setEnabled(enable);
+
     sendASCIIAction->setEnabled(enable);
     receiveASCIIAction->setEnabled(enable);
     sendBinaryAction->setEnabled(enable);
@@ -846,6 +873,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             startLocalShellSession(quickConnectMainWidgetGroup,data.LocalShellData.command);
         } else if(data.type == QuickConnectWindow::Raw) {
             startRawSocketSession(quickConnectMainWidgetGroup,data.RawData.hostname,data.RawData.port);
+        } else if(data.type == QuickConnectWindow::SSH2) {
+            QString opensshCmd = "/usr/bin/sshpass -p "+data.SSH2Data.password + " /usr/bin/ssh "+data.SSH2Data.username+"@"+data.SSH2Data.hostname+" -p "+QString::number(data.SSH2Data.port);
+            startLocalShellSession(quickConnectMainWidgetGroup,opensshCmd);
         }
     });
     connect(connectInTabAction,&QAction::triggered,this,[=](){
@@ -916,6 +946,10 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         foreach(SessionsWindow *sessionsWindow, sessionList) {
             sessionsWindow->getTermWidget()->setColorScheme(colorScheme);
         }
+    });
+    connect(globalOptionsWindow,&GlobalOptions::transparencyChanged,this,[=](int transparency){
+        windowTransparency = (100-transparency)/100.0;
+        setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
     });
     connect(keyMapManagerWindow,&keyMapManager::keyBindingChanged,this,[=](QString keyBinding){
         foreach(SessionsWindow *sessionsWindow, sessionList) {
@@ -1021,6 +1055,10 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     connect(sideWindowAction,&QAction::triggered,this,[=](bool checked){
         ui->sidewidget->setVisible(checked);
     });
+    connect(windwosTransparencyAction,&QAction::triggered,this,[=](bool checked){
+        windowTransparencyEnabled = checked;
+        setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+    });
     connect(verticalScrollBarAction,&QAction::triggered,this,[=](bool checked){
         foreach(SessionsWindow *sessionsWindow, sessionList) {
             sessionsWindow->getTermWidget()->setScrollBarPosition(checked?QTermWidget::ScrollBarRight:QTermWidget::NoScrollBar);
@@ -1041,8 +1079,14 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             this->showNormal();
         }
     });
-    connect(startTFTPServerAction,&QAction::triggered,this,[=](){
-        startTftpSeverWindow->show();
+    connect(startTFTPServerAction,&QAction::triggered,this,[=](bool checked){
+        if(checked) {
+            startTftpSeverWindow->show();
+        } else {
+            if(tftpServer->isRunning()) {
+                tftpServer->stopServer();
+            }
+        }
     });
     connect(keymapManagerAction,&QAction::triggered,this,[=](){
         keyMapManagerWindow->show();
@@ -1067,6 +1111,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             mainWidgetGroup->commandWindow->retranslateUi();
         }
         menuAndToolBarRetranslateUi();
+        ui->statusBar->showMessage(tr("Ready"));
     });
     connect(lightThemeAction,&QAction::triggered,this,[=](){
         isDarkTheme = false;
@@ -1114,7 +1159,6 @@ SessionsWindow *MainWindow::startTelnetSession(MainWidgetGroup *group, QString h
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
     sessionsWindow->setLongTitle(tr("Telnet - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Telnet"));
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
@@ -1147,7 +1191,6 @@ SessionsWindow *MainWindow::startSerialSession(MainWidgetGroup *group, QString p
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
     sessionsWindow->setLongTitle(tr("Serial - ")+portName);
     sessionsWindow->setShortTitle(tr("Serial"));
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
@@ -1179,7 +1222,6 @@ SessionsWindow *MainWindow::startRawSocketSession(MainWidgetGroup *group, QStrin
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
     sessionsWindow->setLongTitle(tr("Raw - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Raw"));
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
@@ -1211,7 +1253,6 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
     sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    sessionsWindow->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency()/100.0);
     if(command.isEmpty()) {
         sessionsWindow->setLongTitle(tr("Local Shell"));
     } else {
@@ -1296,7 +1337,6 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group)
             sessionsWindowClone->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
             sessionsWindowClone->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
             sessionsWindowClone->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-            sessionsWindowClone->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getTransparency());
             sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
             sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
             sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());

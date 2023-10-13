@@ -16,11 +16,12 @@ public:
     explicit QuickConnectWindow(QWidget *parent = nullptr);
     ~QuickConnectWindow();
 
-    enum QuickConnectType {
-        Telnet,
+    enum QuickConnectType : uint32_t {
+        Telnet = 0,
         Serial,
         LocalShell,
         Raw,
+        SSH2,
     };
     struct QuickConnectData {
         QuickConnectType type;
@@ -45,6 +46,14 @@ public:
             QString hostname;
             int port;
         }RawData;
+        struct {
+            QString hostname;
+            int port;
+            QString username;
+            QString password;
+            QString privateKey;
+            QString passphrase;
+        }SSH2Data;
     };
     void setProtocol(QuickConnectType index);
     

@@ -124,6 +124,7 @@ private:
     QAction *cmdWindowAction;
     QAction *connectBarAction;
     QAction *sideWindowAction;
+    QAction *windwosTransparencyAction;
     QAction *verticalScrollBarAction;
     QAction *allwaysOnTopAction;
     QAction *fullScreenAction;
@@ -172,6 +173,8 @@ private:
 
     QList<SessionsWindow *> sessionList;
     QTftp *tftpServer;
+    qreal windowTransparency;
+    bool windowTransparencyEnabled;
 
     QLocale::Language language;
     bool isDarkTheme;

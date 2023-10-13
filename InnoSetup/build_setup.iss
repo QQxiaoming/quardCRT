@@ -57,9 +57,9 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Registry]
-Root: HKCR; Subkey: "Directory\shell\QuardCRT"; ValueType: string; ValueName: ""; ValueData: "Open With QuardCRT"; Flags: uninsdeletekey ;
+Root: HKCR; Subkey: "Directory\shell\QuardCRT"; ValueType: string; ValueName: ""; ValueData: "Open with QuardCRT"; Flags: uninsdeletekey ;
 Root: HKCR; Subkey: "Directory\shell\QuardCRT"; ValueType: string; ValueName: "Icon"; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Directory\shell\QuardCRT\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""-m"" ""true"" ""-s"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Directory\Background\shell\QuardCRT"; ValueType: string; ValueName: ""; ValueData: "Open With QuardCRT"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Directory\Background\shell\QuardCRT"; ValueType: string; ValueName: ""; ValueData: "Open with QuardCRT"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Directory\Background\shell\QuardCRT"; ValueType: string; ValueName: "Icon"; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Directory\Background\shell\QuardCRT\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""-m"" ""true"" ""-s"" ""%V"""; Flags: uninsdeletekey

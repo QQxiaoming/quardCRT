@@ -23,6 +23,7 @@ public:
 
 signals:
     void colorSchemeChanged(QString colorScheme);
+    void transparencyChanged(int transparency);
 
 private slots:
     void fontSizeChanged(int size);
