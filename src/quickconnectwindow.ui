@@ -55,7 +55,7 @@
          </item>
          <item>
           <property name="text">
-           <string>SSH2</string>
+           <string notr="true">SSH2</string>
           </property>
          </item>
         </widget>

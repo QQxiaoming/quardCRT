@@ -56,6 +56,8 @@ private:
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
     SessionsWindow *startLocalShellSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath());
     SessionsWindow *startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port);
+    SessionsWindow *startSSH2Session(MainWidgetGroup *group,
+        QString hostname, quint16 port, QString username, QString password);
     int stopSession(MainWidgetGroup *group, int index);
     int stopAllSession(void);
     int cloneCurrentSession(MainWidgetGroup *group);

@@ -212,7 +212,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="314"/>
         <location filename="../src/mainwindow.cpp" line="505"/>
-        <location filename="../src/mainwindow.cpp" line="1414"/>
+        <location filename="../src/mainwindow.cpp" line="1451"/>
         <source>Help</source>
         <translation></translation>
     </message>
@@ -252,6 +252,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="214"/>
         <location filename="../src/mainwindow.cpp" line="255"/>
+        <location filename="../src/mainwindow.cpp" line="1113"/>
         <source>Ready</source>
         <translation></translation>
     </message>
@@ -929,7 +930,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="508"/>
-        <location filename="../src/mainwindow.cpp" line="1397"/>
+        <location filename="../src/mainwindow.cpp" line="1434"/>
         <source>About</source>
         <translation></translation>
     </message>
@@ -964,48 +965,48 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1158"/>
+        <location filename="../src/mainwindow.cpp" line="1161"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1159"/>
+        <location filename="../src/mainwindow.cpp" line="1162"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1190"/>
+        <location filename="../src/mainwindow.cpp" line="1193"/>
         <source>Serial - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1191"/>
+        <location filename="../src/mainwindow.cpp" line="1194"/>
         <source>Serial</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <location filename="../src/mainwindow.cpp" line="1224"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1222"/>
+        <location filename="../src/mainwindow.cpp" line="1225"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1253"/>
-        <location filename="../src/mainwindow.cpp" line="1257"/>
+        <location filename="../src/mainwindow.cpp" line="1256"/>
+        <location filename="../src/mainwindow.cpp" line="1260"/>
         <source>Local Shell</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1255"/>
+        <location filename="../src/mainwindow.cpp" line="1258"/>
         <source>Local Shell - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1398"/>
+        <location filename="../src/mainwindow.cpp" line="1435"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation></translation>
     </message>
@@ -1083,62 +1084,74 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="71"/>
+        <location filename="../src/quickconnectwindow.ui" line="76"/>
         <location filename="../src/quickconnectwindow.cpp" line="39"/>
-        <location filename="../src/quickconnectwindow.cpp" line="115"/>
+        <location filename="../src/quickconnectwindow.cpp" line="133"/>
+        <location filename="../src/quickconnectwindow.cpp" line="161"/>
         <source>Hostname</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="94"/>
+        <location filename="../src/quickconnectwindow.ui" line="99"/>
         <location filename="../src/quickconnectwindow.cpp" line="40"/>
-        <location filename="../src/quickconnectwindow.cpp" line="116"/>
+        <location filename="../src/quickconnectwindow.cpp" line="134"/>
+        <location filename="../src/quickconnectwindow.cpp" line="162"/>
         <source>Port</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="110"/>
+        <location filename="../src/quickconnectwindow.ui" line="115"/>
         <source>WebSocket</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="118"/>
-        <location filename="../src/quickconnectwindow.ui" line="191"/>
+        <location filename="../src/quickconnectwindow.ui" line="123"/>
+        <location filename="../src/quickconnectwindow.ui" line="230"/>
         <source>None</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="123"/>
+        <location filename="../src/quickconnectwindow.ui" line="128"/>
         <source>Insecure</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="128"/>
+        <location filename="../src/quickconnectwindow.ui" line="133"/>
         <source>Secure</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="146"/>
+        <location filename="../src/quickconnectwindow.ui" line="151"/>
+        <source>Username</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/quickconnectwindow.ui" line="161"/>
+        <source>Password</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/quickconnectwindow.ui" line="185"/>
         <source>DataBits</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="183"/>
+        <location filename="../src/quickconnectwindow.ui" line="222"/>
         <source>Parity</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="196"/>
+        <location filename="../src/quickconnectwindow.ui" line="235"/>
         <source>Odd</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="201"/>
+        <location filename="../src/quickconnectwindow.ui" line="240"/>
         <source>Even</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="219"/>
+        <location filename="../src/quickconnectwindow.ui" line="258"/>
         <source>StopBits</source>
         <translation></translation>
     </message>
@@ -1148,28 +1161,29 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="56"/>
-        <location filename="../src/quickconnectwindow.cpp" line="132"/>
+        <location filename="../src/quickconnectwindow.cpp" line="60"/>
+        <location filename="../src/quickconnectwindow.cpp" line="154"/>
+        <location filename="../src/quickconnectwindow.cpp" line="182"/>
         <source>e.g. 127.0.0.1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="62"/>
+        <location filename="../src/quickconnectwindow.cpp" line="68"/>
         <source>Port Name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="63"/>
+        <location filename="../src/quickconnectwindow.cpp" line="69"/>
         <source>Baud Rate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="97"/>
+        <location filename="../src/quickconnectwindow.cpp" line="109"/>
         <source>Command</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="113"/>
+        <location filename="../src/quickconnectwindow.cpp" line="129"/>
         <source>e.g. /bin/bash</source>
         <translation></translation>
     </message>

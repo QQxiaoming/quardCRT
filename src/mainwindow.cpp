@@ -874,8 +874,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         } else if(data.type == QuickConnectWindow::Raw) {
             startRawSocketSession(quickConnectMainWidgetGroup,data.RawData.hostname,data.RawData.port);
         } else if(data.type == QuickConnectWindow::SSH2) {
-            QString opensshCmd = "/usr/bin/sshpass -p "+data.SSH2Data.password + " /usr/bin/ssh "+data.SSH2Data.username+"@"+data.SSH2Data.hostname+" -p "+QString::number(data.SSH2Data.port);
-            startLocalShellSession(quickConnectMainWidgetGroup,opensshCmd);
+            startSSH2Session(quickConnectMainWidgetGroup,data.SSH2Data.hostname,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password);
         }
     });
     connect(connectInTabAction,&QAction::triggered,this,[=](){
@@ -1295,6 +1294,40 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
             } else {
                 sessionsWindow->setShortTitle(newTitle);
             }
+            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+        }
+    });
+    group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
+    return sessionsWindow;
+}
+
+SessionsWindow *MainWindow::startSSH2Session(MainWidgetGroup *group, 
+        QString hostname, quint16 port, QString username, QString password)
+{
+    QString opensshCmd = "/usr/bin/sshpass -p "+ password + " /usr/bin/ssh "+username+"@"+hostname+" -p "+QString::number(port);
+    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
+    sessionsWindow->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
+    sessionsWindow->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
+    sessionsWindow->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
+    sessionsWindow->setLongTitle("SSH2 - "+username+"@"+hostname);
+    sessionsWindow->setShortTitle("SSH2");
+    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    QString name = "SSH2";
+    for(uint32_t i=0;i<UINT_MAX;i++) {
+        if(sessionManagerWidget->checkSession(name) == false) {
+            break;
+        }
+        name = "SSH2 ("+QString::number(i)+")";
+    }
+    sessionManagerWidget->addSession(name,SessionsWindow::LocalShell);
+    sessionsWindow->setName(name);
+    sessionsWindow->setWorkingDirectory(QDir::homePath());
+    sessionsWindow->startLocalShellSession(opensshCmd);
+    sessionList.push_back(sessionsWindow);
+    connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
+        if(title == 0 || title == 2) {
+            sessionsWindow->setLongTitle(newTitle);
+            sessionsWindow->setShortTitle(newTitle);
             group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
         }
     });
