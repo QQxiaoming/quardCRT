@@ -1346,6 +1346,9 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
             #if defined(Q_OS_WIN)
                 QString sysUsername = qEnvironmentVariable("USERNAME");
                 QString sysHostname = qEnvironmentVariable("COMPUTERNAME");
+            #elif defined(Q_OS_MAC)
+                QString sysUsername = qEnvironmentVariable("USER");
+                QString sysHostname = QHostInfo::localHostName().replace(".local","");
             #else
                 QString sysUsername = qEnvironmentVariable("USER");
                 QString sysHostname = QHostInfo::localHostName();
