@@ -1337,15 +1337,25 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
             // newTitle lile username@hostname:dir
+        #if defined(Q_OS_WIN)
+            static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*):(.*)$");
+            if(stdTitleFormat.match(newTitle).hasMatch()) {
+                QString username = stdTitleFormat.match(newTitle).captured(1);
+                QString hostname = stdTitleFormat.match(newTitle).captured(2);
+                QString dir = stdTitleFormat.match(newTitle).captured(3) + ":" +
+                                stdTitleFormat.match(newTitle).captured(4);
+        #else
             static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*)$");
             if(stdTitleFormat.match(newTitle).hasMatch()) {
                 QString username = stdTitleFormat.match(newTitle).captured(1);
                 QString hostname = stdTitleFormat.match(newTitle).captured(2);
                 QString dir = stdTitleFormat.match(newTitle).captured(3);
+        #endif
                 sessionsWindow->setShortTitle(dir);
             #if defined(Q_OS_WIN)
                 QString sysUsername = qEnvironmentVariable("USERNAME");
                 QString sysHostname = qEnvironmentVariable("COMPUTERNAME");
+                hostname = hostname.left(hostname.indexOf(":"));
             #elif defined(Q_OS_MAC)
                 QString sysUsername = qEnvironmentVariable("USER");
                 QString sysHostname = QHostInfo::localHostName().replace(".local","");
@@ -1453,17 +1463,29 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group)
             connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
                 if(title == 0 || title == 2) {
                     sessionsWindowClone->setLongTitle(newTitle);
+                    // newTitle lile username@hostname:dir
+                #if defined(Q_OS_WIN)
+                    static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*):(.*)$");
+                    if(stdTitleFormat.match(newTitle).hasMatch()) {
+                        QString username = stdTitleFormat.match(newTitle).captured(1);
+                        QString hostname = stdTitleFormat.match(newTitle).captured(2);
+                        QString dir = stdTitleFormat.match(newTitle).captured(3) + ":" +
+                                        stdTitleFormat.match(newTitle).captured(4);
+                #else
                     static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*)$");
-                    if((sessionsWindowClone->getSessionType() == SessionsWindow::LocalShell) 
-                            && (stdTitleFormat.match(newTitle).hasMatch()) ) {
-                        // newTitle lile username@hostname:dir
+                    if(stdTitleFormat.match(newTitle).hasMatch()) {
                         QString username = stdTitleFormat.match(newTitle).captured(1);
                         QString hostname = stdTitleFormat.match(newTitle).captured(2);
                         QString dir = stdTitleFormat.match(newTitle).captured(3);
+                #endif
                         sessionsWindowClone->setShortTitle(dir);
                     #if defined(Q_OS_WIN)
                         QString sysUsername = qEnvironmentVariable("USERNAME");
                         QString sysHostname = qEnvironmentVariable("COMPUTERNAME");
+                        hostname = hostname.left(hostname.indexOf(":"));
+                    #elif defined(Q_OS_MAC)
+                        QString sysUsername = qEnvironmentVariable("USER");
+                        QString sysHostname = QHostInfo::localHostName().replace(".local","");
                     #else
                         QString sysUsername = qEnvironmentVariable("USER");
                         QString sysHostname = QHostInfo::localHostName();
