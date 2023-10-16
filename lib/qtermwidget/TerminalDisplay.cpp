@@ -1278,7 +1278,7 @@ void TerminalDisplay::showResizeNotification()
         _resizeWidget->setMinimumHeight(_resizeWidget->sizeHint().height());
         _resizeWidget->setAlignment(Qt::AlignCenter);
 
-        _resizeWidget->setStyleSheet(QLatin1String("background-color:palette(window);border-style:solid;border-width:1px;border-color:palette(dark)"));
+        _resizeWidget->setStyleSheet(QLatin1String("background-color:palette(window);border-style:solid;border-width:1px;border-color:palette(dark);color:palette(windowText);"));
 
         _resizeTimer = new QTimer(this);
         _resizeTimer->setSingleShot(true);

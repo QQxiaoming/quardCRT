@@ -217,6 +217,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     }
                     
                 });
+                menu->addSeparator();
                 QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
                 menu->addAction(closeAction);
                 connect(closeAction,&QAction::triggered,this,[=](){
