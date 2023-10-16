@@ -74,7 +74,7 @@
     </message>
     <message>
         <location filename="../../../src/globaloptions.ui" line="50"/>
-        <source>Transparent background</source>
+        <source>Transparent window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -111,6 +111,11 @@
     <message>
         <location filename="../../../src/globaloptions.ui" line="122"/>
         <source>Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions.ui" line="130"/>
+        <source>Background opacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -176,27 +181,27 @@
 <context>
     <name>Konsole::TerminalDisplay</name>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="1275"/>
+        <location filename="../TerminalDisplay.cpp" line="1276"/>
         <source>Size: XXX x XXX</source>
         <translation>Tamaño: XXX × XXX</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="1287"/>
+        <location filename="../TerminalDisplay.cpp" line="1288"/>
         <source>Size: %1 x %2</source>
         <translation>Tamaño: %1 × %2</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2789"/>
+        <location filename="../TerminalDisplay.cpp" line="2790"/>
         <source>Paste multiline text</source>
         <translation>Pegar un texto de varias líneas</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2790"/>
+        <location filename="../TerminalDisplay.cpp" line="2791"/>
         <source>Are you sure you want to paste this text?</source>
         <translation>¿Seguro que quiere pegar el texto?</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="3273"/>
+        <location filename="../TerminalDisplay.cpp" line="3274"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;La salida se ha &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspendido&lt;/a&gt; al presionar Ctrl+S. Presione &lt;b&gt;Ctrl+Q&lt;/b&gt; para reanudarla.&lt;/qt&gt;</translation>
     </message>
@@ -264,7 +269,7 @@
     <message>
         <location filename="../../../src/mainwindow.cpp" line="376"/>
         <location filename="../../../src/mainwindow.cpp" line="567"/>
-        <location filename="../../../src/mainwindow.cpp" line="1535"/>
+        <location filename="../../../src/mainwindow.cpp" line="1519"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -987,7 +992,7 @@
     </message>
     <message>
         <location filename="../../../src/mainwindow.cpp" line="570"/>
-        <location filename="../../../src/mainwindow.cpp" line="1518"/>
+        <location filename="../../../src/mainwindow.cpp" line="1502"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1022,13 +1027,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1319"/>
-        <location filename="../../../src/mainwindow.cpp" line="1323"/>
+        <location filename="../../../src/mainwindow.cpp" line="1355"/>
+        <location filename="../../../src/mainwindow.cpp" line="1359"/>
         <source>Local Shell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1519"/>
+        <location filename="../../../src/mainwindow.cpp" line="1503"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1058,7 +1063,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1321"/>
+        <location filename="../../../src/mainwindow.cpp" line="1357"/>
         <source>Local Shell - </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1082,7 +1087,7 @@
 <context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2796"/>
+        <location filename="../TerminalDisplay.cpp" line="2797"/>
         <source>Show Details...</source>
         <translation>Mostrar los detalles…</translation>
     </message>

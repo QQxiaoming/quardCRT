@@ -85,6 +85,7 @@ private:
     QMenu *createPopupMenu(void) override;
     void setSessionClassActionEnable(bool enable);
     void setGlobalOptions(SessionsWindow *window);
+    QString getDirAndcheckeSysName(const QString &title);
 
 private:
     Ui::MainWindow *ui;

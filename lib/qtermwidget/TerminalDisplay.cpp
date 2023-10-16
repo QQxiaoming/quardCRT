@@ -727,15 +727,16 @@ void TerminalDisplay::drawBackground(QPainter& painter, const QRect& rect, const
         // left to the widget style for a consistent look.
         if ( useOpacitySetting )
         {
+            QColor color(backgroundColor);
             if (_backgroundImage.isNull()) {
-                QColor color(backgroundColor);
+                color.setAlphaF(1.0);
+            } else {
                 color.setAlphaF(_opacity);
-
-                painter.save();
-                painter.setCompositionMode(QPainter::CompositionMode_Source);
-                painter.fillRect(rect, color);
-                painter.restore();
             }
+            painter.save();
+            painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+            painter.fillRect(rect, color);
+            painter.restore();
         }
         else
             painter.fillRect(rect, backgroundColor);

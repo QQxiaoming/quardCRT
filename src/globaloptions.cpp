@@ -106,6 +106,11 @@ int GlobalOptions::getBackgroundImageMode(void)
     return ui->comboBoxBackgroundMode->currentIndex();
 }
 
+qreal GlobalOptions::getBackgroundImageOpacity(void)
+{
+    return ui->horizontalSliderBackgroundImageOpacity->value() / 100.0;
+}
+
 void GlobalOptions::buttonBoxAccepted(void)
 {
     emit colorSchemeChanged(ui->comBoxColorSchemes->currentText());

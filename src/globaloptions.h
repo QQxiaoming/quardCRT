@@ -39,6 +39,7 @@ public:
     int getTransparency(void);
     QString getBackgroundImage(void);
     int getBackgroundImageMode(void);
+    qreal getBackgroundImageOpacity(void);
 
     const static QString defaultColorScheme;
 
