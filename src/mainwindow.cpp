@@ -40,6 +40,7 @@
 #include <QPlainTextEdit>
 #include <QHostInfo>
 #include <QDesktopServices>
+#include <QClipboard>
 
 #include "qtftp.h"
 #include "qfonticon.h"
@@ -210,11 +211,30 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                                 QFileInfo fileInfo(dir);
                                 if(fileInfo.isDir()) {
                                     QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
+                                    return;
                                 }
                             }
-                            break;
                         }
                     }
+                    QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                });
+                QAction *copyPathAction = new QAction(tr("Copy Path"),this);
+                menu->addAction(copyPathAction);
+                connect(copyPathAction,&QAction::triggered,this,[=](){
+                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                    foreach(SessionsWindow *sessionsWindow, sessionList) {
+                        if(sessionsWindow->getTermWidget() == termWidget) {
+                            QString dir = sessionsWindow->getWorkingDirectory();
+                            if(!dir.isEmpty()) {
+                                QFileInfo fileInfo(dir);
+                                if(fileInfo.isDir()) {
+                                    QApplication::clipboard()->setText(dir);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                 });
                 menu->addSeparator();
                 QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
