@@ -70,7 +70,6 @@ Session *TermWidgetImpl::createSession(QWidget* parent)
     session->setTitle(Session::NameRole, QLatin1String("QTermWidget"));
 
     QStringList args = QStringList(QString());
-    session->setAutoClose(true);
 
     session->setCodec(QTextCodec::codecForName("UTF-8"));
 
@@ -216,7 +215,7 @@ void QTermWidget::setLangeuage(QLocale::Language lang)
     QStringList dirs;
     dirs.append(QFile::decodeName(":/lib/qtermwidget/translations"));
 
-    for (const QString& dir : qAsConst(dirs)) {
+    for (const QString& dir : std::as_const(dirs)) {
         if (translator->load(QLocale(lang), QLatin1String("qtermwidget"), QLatin1String(QLatin1String("_")), dir)) {
             qApp->installTranslator(translator);
             return;
@@ -698,11 +697,6 @@ QString QTermWidget::icon() const
 bool QTermWidget::isTitleChanged() const
 {
     return m_impl->m_session->isTitleChanged();
-}
-
-void QTermWidget::setAutoClose(bool enabled)
-{
-    m_impl->m_session->setAutoClose(enabled);
 }
 
 void QTermWidget::cursorChanged(Konsole::Emulation::KeyboardCursorShape cursorShape, bool blinkingCursorEnabled)

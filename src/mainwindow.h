@@ -84,6 +84,7 @@ private:
     QTermWidget *findCurrentFocusTermWidget(void);
     QMenu *createPopupMenu(void) override;
     void setSessionClassActionEnable(bool enable);
+    void setGlobalOptions(SessionsWindow *window);
 
 private:
     Ui::MainWindow *ui;

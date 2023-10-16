@@ -51,7 +51,6 @@ Session::Session(QObject* parent) :
         , _monitorActivity(false)
         , _monitorSilence(false)
         , _notifiedActivity(false)
-        , _autoClose(true)
         , _wantedClose(false)
         , _silenceSeconds(10)
         , _isTitleChanged(false)
@@ -397,14 +396,8 @@ void Session::refresh()
     // send an email with method or patches to konsole-devel@kde.org
 }
 
-bool Session::sendHangUp(void)
-{
-    return true;
-}
-
 void Session::close()
 {
-    _autoClose = true;
     _wantedClose = true;
 }
 

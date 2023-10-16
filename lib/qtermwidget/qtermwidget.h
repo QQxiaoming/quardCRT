@@ -191,11 +191,6 @@ public:
      * */
     QList<QAction*> filterActions(const QPoint& position);
 
-    /**
-     * Returns a pty slave file descriptor.
-     * This can be used for display and control
-     * a remote terminal.
-     */
     int recvData(const char *buff, int len) const;
 
     /**
@@ -209,12 +204,6 @@ public:
     /** Enables or disables bidi text in the terminal. */
     void setBidiEnabled(bool enabled);
     bool isBidiEnabled();
-
-    /**
-     * Automatically close the terminal session after the shell process exits or
-     * keep it running.
-     */
-    void setAutoClose(bool);
 
     QString title() const;
     QString icon() const;
@@ -352,13 +341,4 @@ private:
     QVBoxLayout *m_layout;
 };
 
-
-//Maybe useful, maybe not
-
-#ifdef __cplusplus
-extern "C"
 #endif
-void * createTermWidget(int startnow, void * parent);
-
-#endif
-

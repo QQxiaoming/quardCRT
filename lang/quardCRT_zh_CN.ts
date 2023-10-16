@@ -77,6 +77,52 @@
         <source>Transparent background</source>
         <translation>背景透明度</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions.ui" line="67"/>
+        <source>Background image</source>
+        <translation>背景图片</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.ui" line="88"/>
+        <source>Background mode</source>
+        <translation>背景模式</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.ui" line="95"/>
+        <location filename="../src/globaloptions.ui" line="107"/>
+        <source>Stretch</source>
+        <translation>拉伸</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.ui" line="102"/>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.ui" line="112"/>
+        <source>Zoom</source>
+        <translation>缩放</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.ui" line="117"/>
+        <source>Fit</source>
+        <translation>适应</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.ui" line="122"/>
+        <source>Center</source>
+        <translation>居中</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.cpp" line="50"/>
+        <source>Select Background Image</source>
+        <translation>选择背景图片</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.cpp" line="50"/>
+        <source>Image Files (*.png *.jpg *.bmp)</source>
+        <translation>图片文件 (*.png *.jpg *.bmp)</translation>
+    </message>
 </context>
 <context>
     <name>HexViewWindow</name>
@@ -111,7 +157,7 @@
 <context>
     <name>Konsole::Session</name>
     <message>
-        <location filename="../lib/qtermwidget/Session.cpp" line="319"/>
+        <location filename="../lib/qtermwidget/Session.cpp" line="318"/>
         <source>Bell in session &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -207,7 +253,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="376"/>
         <location filename="../src/mainwindow.cpp" line="567"/>
-        <location filename="../src/mainwindow.cpp" line="1513"/>
+        <location filename="../src/mainwindow.cpp" line="1535"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
@@ -938,7 +984,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="570"/>
-        <location filename="../src/mainwindow.cpp" line="1496"/>
+        <location filename="../src/mainwindow.cpp" line="1518"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -958,33 +1004,33 @@
         <translation>显示关于 Qt 对话框</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1224"/>
+        <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1256"/>
+        <location filename="../src/mainwindow.cpp" line="1261"/>
         <source>Serial</source>
         <translation>串行通讯</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1287"/>
+        <location filename="../src/mainwindow.cpp" line="1290"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1318"/>
-        <location filename="../src/mainwindow.cpp" line="1322"/>
+        <location filename="../src/mainwindow.cpp" line="1319"/>
+        <location filename="../src/mainwindow.cpp" line="1323"/>
         <source>Local Shell</source>
         <translation>本机终端</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1497"/>
+        <location filename="../src/mainwindow.cpp" line="1519"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1223"/>
+        <location filename="../src/mainwindow.cpp" line="1230"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
@@ -1004,17 +1050,17 @@
         <translation>在全屏和正常模式之间切换 &lt;Alt+Enter&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1255"/>
+        <location filename="../src/mainwindow.cpp" line="1260"/>
         <source>Serial - </source>
         <translation>串行通讯 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1320"/>
+        <location filename="../src/mainwindow.cpp" line="1321"/>
         <source>Local Shell - </source>
         <translation>本机终端 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1286"/>
+        <location filename="../src/mainwindow.cpp" line="1289"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
@@ -1079,12 +1125,12 @@
 <context>
     <name>QTermWidget</name>
     <message>
-        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="366"/>
+        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="365"/>
         <source>Color Scheme Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="367"/>
+        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="366"/>
         <source>Cannot load color scheme: %1</source>
         <translation type="unfinished"></translation>
     </message>

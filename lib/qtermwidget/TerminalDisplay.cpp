@@ -872,7 +872,7 @@ void TerminalDisplay::drawTextFragment(QPainter& painter ,
     const QColor backgroundColor = style->backgroundColor.color(_colorTable);
 
     // draw background if different from the display's background color
-    if ( backgroundColor != palette().window().color() )
+    if ( backgroundColor != _colorTable[DEFAULT_BACK_COLOR].color )
         drawBackground(painter,rect,backgroundColor,
                        false /* do not use transparency */);
 
@@ -1445,7 +1445,7 @@ void TerminalDisplay::paintEvent( QPaintEvent* pe )
   const QRegion regToDraw = pe->region() & cr;
   for (auto rect = regToDraw.begin(); rect != regToDraw.end(); rect++)
   {
-    drawBackground(paint,*rect,palette().window().color(),
+    drawBackground(paint,*rect,_colorTable[DEFAULT_BACK_COLOR].color,
                    true /* use opacity setting */);
     drawContents(paint, *rect);
   }

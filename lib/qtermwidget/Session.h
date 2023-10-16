@@ -230,17 +230,6 @@ public:
     /** Flag if the title/icon was changed by user/shell. */
     bool isTitleChanged() const;
 
-    /** Sends the HangUp signal to the terminal process. */
-    bool sendHangUp(void);
-
-    /**
-     * Specifies whether to close the session automatically when the terminal
-     * process terminates.
-     */
-    void setAutoClose(bool b) {
-        _autoClose = b;
-    }
-
     /**
      * Sets whether flow control is enabled for this terminal
      * session.
@@ -439,7 +428,6 @@ private:
     bool           _monitorSilence;
     bool           _notifiedActivity;
     bool           _masterMode;
-    bool           _autoClose;
     bool           _wantedClose;
     QTimer    *    _monitorTimer;
 

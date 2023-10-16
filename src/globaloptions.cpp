@@ -19,6 +19,8 @@
  */
 #include <QFont>
 #include <QFontDatabase>
+#include <QFileInfo>
+#include <QFileDialog>
 #include "globaloptions.h"
 #include "ui_globaloptions.h"
 
@@ -44,7 +46,14 @@ GlobalOptions::GlobalOptions(QWidget *parent) :
     ui->comBoxColorSchemes->setInsertPolicy(QComboBox::NoInsert);
   
     connect(ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
+    connect(ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
+        QString imgPath = QFileDialog::getOpenFileName(this, tr("Select Background Image"), QString(), tr("Image Files (*.png *.jpg *.bmp)"));
+        if (!imgPath.isEmpty()) {
+            ui->lineEditBackgroundImage->setText(imgPath);
+        }
+    });
     connect(ui->horizontalSliderTransparent, SIGNAL(valueChanged(int)), this, SIGNAL(transparencyChanged(int)));
+
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
 }
@@ -82,6 +91,21 @@ int GlobalOptions::getTransparency(void)
     return ui->horizontalSliderTransparent->value();
 }
 
+QString GlobalOptions::getBackgroundImage(void)
+{
+    QString imgPath = ui->lineEditBackgroundImage->text();
+    QFileInfo imgInfo(imgPath);
+    if (imgInfo.exists() && imgInfo.isFile()) {
+        return imgPath;
+    }
+    return QString(); 
+}
+
+int GlobalOptions::getBackgroundImageMode(void)
+{
+    return ui->comboBoxBackgroundMode->currentIndex();
+}
+
 void GlobalOptions::buttonBoxAccepted(void)
 {
     emit colorSchemeChanged(ui->comBoxColorSchemes->currentText());
@@ -95,6 +119,8 @@ void GlobalOptions::buttonBoxRejected(void)
 
 void GlobalOptions::showEvent(QShowEvent *event)
 {
+    int index = ui->comboBoxBackgroundMode->currentIndex();
     ui->retranslateUi(this);
+    ui->comboBoxBackgroundMode->setCurrentIndex(index);
     QDialog::showEvent(event);
 }

@@ -37,6 +37,8 @@ public:
     QString getCurrentColorScheme(void);
     QFont getCurrentFont(void);
     int getTransparency(void);
+    QString getBackgroundImage(void);
+    int getBackgroundImageMode(void);
 
     const static QString defaultColorScheme;
 
