@@ -234,7 +234,7 @@ void TerminalDisplay::fontChange(const QFont&)
   // Get the width from representative normal width characters
   _fontWidth = qRound((double)fm.horizontalAdvance(QLatin1String(REPCHAR))/(double)qstrlen(REPCHAR));
 
-  _fixedFont = true;
+  _fixedFont = false;
 
   int fw = fm.horizontalAdvance(QLatin1Char(REPCHAR[0]));
   for(unsigned int i=1; i< qstrlen(REPCHAR); i++)
