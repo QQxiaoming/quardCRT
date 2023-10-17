@@ -63,3 +63,4 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 - [winpty](https://github.com/rprichard/winpty)
 - [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget)
 - [qtftp](https://github.com/teknoraver/qtftp)
+- [utf8proc](https://github.com/JuliaStrings/utf8proc)

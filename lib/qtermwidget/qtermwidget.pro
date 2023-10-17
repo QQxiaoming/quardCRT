@@ -1,7 +1,10 @@
 INCLUDEPATH += \
+        -I $$PWD/utf8proc \
         -I $$PWD 
 
 SOURCES += \
+    $$PWD/utf8proc/utf8proc.c \
+    $$PWD/utf8proc/utf8proc_data.c \
     $$PWD/BlockArray.cpp \
     $$PWD/ColorScheme.cpp \
     $$PWD/Emulation.cpp \
@@ -22,6 +25,7 @@ SOURCES += \
     $$PWD/Vt102Emulation.cpp
 
 HEADERS += \
+    $$PWD/utf8proc/utf8proc.h \
     $$PWD/BlockArray.h \
     $$PWD/CharacterColor.h \
     $$PWD/Character.h \

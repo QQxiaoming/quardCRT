@@ -56,3 +56,4 @@ The code of this project references or partially refers to or depends on the fol
 - [winpty](https://github.com/rprichard/winpty)
 - [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget)
 - [qtftp](https://github.com/teknoraver/qtftp)
+- [utf8proc](https://github.com/JuliaStrings/utf8proc)
