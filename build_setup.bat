@@ -7,7 +7,7 @@ set "QT_TOOLS_DIR=C:/Qt/Qt6.2.0/Tools/mingw810_32/bin"
 :: 定义Inno Setup目录
 set "INNO_SETUP_DIR=C:/Program Files (x86)/Inno Setup 6"
 :: 定义版本号
-set "QUARDCRT_VERSION=0.1.5"
+set "QUARDCRT_VERSION=0.2.0"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
