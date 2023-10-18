@@ -22,6 +22,7 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include "globaloptions.h"
+#include "globalsetting.h"
 #include "ui_globaloptions.h"
 
 const QString GlobalOptions::defaultColorScheme = "QuardCRT";
@@ -31,6 +32,9 @@ GlobalOptions::GlobalOptions(QWidget *parent) :
     ui(new Ui::GlobalOptions)
 {
     ui->setupUi(this);
+
+    GlobalSetting settings;
+    settings.beginGroup("Global/Options");
     
     font = QApplication::font();
     int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
@@ -39,11 +43,26 @@ GlobalOptions::GlobalOptions(QWidget *parent) :
         font.setFamily(fontFamilies[0]);
     }
     font.setFixedPitch(true);
-    font.setPointSize(12);
+    if(settings.contains("fontPointSize")) {
+        font.setPointSize(settings.value("fontPointSize").toInt());
+    } else {
+        font.setPointSize(12);
+        settings.setValue("fontPointSize", font.pointSize());
+    }
     ui->spinBoxFontSize->setValue(font.pointSize());
 
     ui->comBoxColorSchemes->setEditable(true);
     ui->comBoxColorSchemes->setInsertPolicy(QComboBox::NoInsert);
+
+    if(settings.contains("transparency"))
+        ui->horizontalSliderTransparent->setValue(settings.value("transparency").toInt());
+    if(settings.contains("backgroundImage"))
+        ui->lineEditBackgroundImage->setText(settings.value("backgroundImage").toString());
+    if(settings.contains("backgroundImageMode"))
+        ui->comboBoxBackgroundMode->setCurrentIndex(settings.value("backgroundImageMode").toInt());
+    if(settings.contains("backgroundImageOpacity"))
+        ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
+    settings.endGroup();
   
     connect(ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
     connect(ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
@@ -68,7 +87,15 @@ void GlobalOptions::setAvailableColorSchemes(QStringList colorSchemes)
     colorSchemes.sort();
     ui->comBoxColorSchemes->clear();
     ui->comBoxColorSchemes->addItems(colorSchemes);
-    ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
+    GlobalSetting settings;
+    settings.beginGroup("Global/Options");
+    if((settings.contains("colorScheme")) &&(colorSchemes.contains(settings.value("colorScheme").toString()))) {
+        ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+    } else {
+        ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
+        settings.setValue("colorScheme", defaultColorScheme);
+    }
+    settings.endGroup();
 }
 
 QString GlobalOptions::getCurrentColorScheme(void)
@@ -113,6 +140,15 @@ qreal GlobalOptions::getBackgroundImageOpacity(void)
 
 void GlobalOptions::buttonBoxAccepted(void)
 {
+    GlobalSetting settings;
+    settings.beginGroup("Global/Options");
+    settings.setValue("colorScheme", ui->comBoxColorSchemes->currentText());
+    settings.setValue("fontPointSize", font.pointSize());
+    settings.setValue("transparency", ui->horizontalSliderTransparent->value());
+    settings.setValue("backgroundImage", ui->lineEditBackgroundImage->text());
+    settings.setValue("backgroundImageMode", ui->comboBoxBackgroundMode->currentIndex());
+    settings.setValue("backgroundImageOpacity", ui->horizontalSliderBackgroundImageOpacity->value());
+    settings.endGroup();
     emit colorSchemeChanged(ui->comBoxColorSchemes->currentText());
     emit this->accepted();
 }

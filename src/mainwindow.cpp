@@ -51,6 +51,7 @@
 #include "globaloptions.h"
 #include "commandwindow.h"
 #include "mainwindow.h"
+#include "globalsetting.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, bool isDark, QWidget *parent)
@@ -236,6 +237,24 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     }
                     QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                 });
+                QAction *addPathToBookmarkAction = new QAction(tr("Add Path to Bookmark"),this);
+                menu->addAction(addPathToBookmarkAction);
+                connect(addPathToBookmarkAction,&QAction::triggered,this,[=](){
+                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                    foreach(SessionsWindow *sessionsWindow, sessionList) {
+                        if(sessionsWindow->getTermWidget() == termWidget) {
+                            QString dir = sessionsWindow->getWorkingDirectory();
+                            if(!dir.isEmpty()) {
+                                QFileInfo fileInfo(dir);
+                                if(fileInfo.isDir()) {
+                                    addBookmark(dir);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                });
                 menu->addSeparator();
                 QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
                 menu->addAction(closeAction);
@@ -389,6 +408,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     optionsMenu->setTitle(tr("Options"));
     transferMenu->setTitle(tr("Transfer"));
     scriptMenu->setTitle(tr("Script"));
+    bookmarkMenu->setTitle(tr("Bookmark"));
     toolsMenu->setTitle(tr("Tools"));
     windowMenu->setTitle(tr("Window"));
     languageMenu->setTitle(tr("Language"));
@@ -558,6 +578,9 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     canlcelRecordingScriptAction->setText(tr("Cancel Recording Script"));
     canlcelRecordingScriptAction->setStatusTip(tr("Cancel recording script"));
 
+    cleanAllBookmark->setText(tr("Clean All Bookmark"));
+    cleanAllBookmark->setStatusTip(tr("Clean all bookmark"));
+
     keymapManagerAction->setText(tr("Keymap Manager"));
     keymapManagerAction->setStatusTip(tr("Display keymap editor"));
     createPublicKeyAction->setText(tr("Create Public Key..."));
@@ -611,6 +634,8 @@ void MainWindow::menuAndToolBarInit(void) {
     ui->menuBar->addMenu(transferMenu);
     scriptMenu = new QMenu(this);
     ui->menuBar->addMenu(scriptMenu);
+    bookmarkMenu = new QMenu(this);
+    ui->menuBar->addMenu(bookmarkMenu);
     toolsMenu = new QMenu(this);
     ui->menuBar->addMenu(toolsMenu);
     windowMenu = new QMenu(this);
@@ -813,6 +838,22 @@ void MainWindow::menuAndToolBarInit(void) {
     scriptMenu->addAction(stopRecordingScriptAction);
     canlcelRecordingScriptAction = new QAction(this);
     scriptMenu->addAction(canlcelRecordingScriptAction);
+
+    cleanAllBookmark = new QAction(this);
+    bookmarkMenu->addAction(cleanAllBookmark);
+    bookmarkMenu->addSeparator();
+    GlobalSetting settings;
+    int size = settings.beginReadArray("Global/Bookmark");
+    for(int i=0;i<size;i++) {
+        settings.setArrayIndex(i);
+        QString path = settings.value("path").toString();
+        QAction *action = new QAction(path,bookmarkMenu);
+        bookmarkMenu->addAction(action);
+        connect(action,&QAction::triggered,this,[=](){
+            startLocalShellSession(findCurrentFocusGroup(),QString(),path);
+        });
+    }
+    settings.endArray();
 
     keymapManagerAction = new QAction(this);
     toolsMenu->addAction(keymapManagerAction);
@@ -1169,6 +1210,14 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             }
         }
     });
+    connect(cleanAllBookmark, &QAction::triggered, this, [&]() {
+        GlobalSetting settings;
+        settings.beginWriteArray("Global/Bookmark");
+        settings.remove("");
+        settings.endArray();
+        bookmarkMenu->clear();
+        bookmarkMenu->addAction(cleanAllBookmark);
+    });
     connect(keymapManagerAction,&QAction::triggered,this,[=](){
         keyMapManagerWindow->show();
     });
@@ -1206,6 +1255,8 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         }
         QFontIcon::instance()->setColor(Qt::black);
         menuAndToolBarRetranslateUi();
+        GlobalSetting settings;
+        settings.setValue("Global/Startup/dark_theme","false");
     });
     connect(darkThemeAction,&QAction::triggered,this,[=](){
         isDarkTheme = true;
@@ -1219,6 +1270,8 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         }
         QFontIcon::instance()->setColor(Qt::white);
         menuAndToolBarRetranslateUi();
+        GlobalSetting settings;
+        settings.setValue("Global/Startup/dark_theme","true");
     });
     connect(exitAction, &QAction::triggered, this, [&](){
         qApp->quit();
@@ -1507,6 +1560,22 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group)
     return -1;
 }
 
+void MainWindow::addBookmark(const QString &path)
+{
+    QAction *action = new QAction(path,bookmarkMenu);
+    bookmarkMenu->addAction(action);
+    connect(action,&QAction::triggered,this,[=](){
+        startLocalShellSession(findCurrentFocusGroup(),QString(),path);
+    });
+    GlobalSetting settings;
+    int size = settings.beginReadArray("Global/Bookmark");
+    settings.endArray();
+    settings.beginWriteArray("Global/Bookmark");
+    settings.setArrayIndex(size);
+    settings.setValue("path",path);
+    settings.endArray();
+}
+
 QMenu *MainWindow::createPopupMenu()
 {
     QMenu *menu = new QMenu(this);
@@ -1540,6 +1609,7 @@ void MainWindow::appHelp(QWidget *parent)
 }
 
 void MainWindow::setAppLangeuage(QLocale::Language lang) {
+    GlobalSetting settings;
     static QTranslator *qtTranslator = nullptr;
     static QTranslator *qtbaseTranslator = nullptr;
     static QTranslator *appTranslator = nullptr;
@@ -1573,6 +1643,7 @@ void MainWindow::setAppLangeuage(QLocale::Language lang) {
             qApp->installTranslator(qtbaseTranslator);
         if(appTranslator->load(":/lang/lang/quardCRT_zh_CN.qm"))
             qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","zh_CN");
         break;
     case QLocale::Japanese:
         if(qtTranslator->load("qt_ja.qm",qlibpath))
@@ -1581,6 +1652,7 @@ void MainWindow::setAppLangeuage(QLocale::Language lang) {
             qApp->installTranslator(qtbaseTranslator);
         if(appTranslator->load(":/lang/lang/quardCRT_ja_JP.qm"))
             qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","ja_JP");
         break;
     default:
     case QLocale::English:
@@ -1590,6 +1662,7 @@ void MainWindow::setAppLangeuage(QLocale::Language lang) {
             qApp->installTranslator(qtbaseTranslator);
         if(appTranslator->load(":/lang/lang/quardCRT_en_US.qm"))
             qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","en_US");
         break;
     }
     QTermWidget::setLangeuage(lang);

@@ -23,6 +23,7 @@ include(./lib/Qtftp/Qtftp.pri)
 SOURCES += \
     src/commandwindow.cpp \
     src/globaloptions.cpp \
+    src/globalsetting.cpp \
     src/keymapmanager.cpp \
     src/quickconnectwindow.cpp \
     src/sessionmanagerwidget.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     src/argv_split.h \
     src/commandwindow.h \
     src/globaloptions.h \
+    src/globalsetting.h \
     src/keymapmanager.h \
     src/quickconnectwindow.h \
     src/sessionmanagerwidget.h \

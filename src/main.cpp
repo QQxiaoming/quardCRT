@@ -27,6 +27,7 @@
 #include "qfonticon.h"
 
 #include "mainwindow.h"
+#include "globalsetting.h"
 
 QString VERSION = APP_VERSION;
 QString GIT_TAG =
@@ -162,8 +163,37 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion(VERSION+" "+GIT_TAG);
 
     AppComLineParser->process(application);
-    QString dark_theme = AppComLineParser->getOpt("dark_theme");
-    QString app_lang = AppComLineParser->getOpt("language");
+
+    QString dark_theme = "true";
+    QString app_lang;
+    bool isMiniUI = false;
+    QString dir;
+
+    GlobalSetting settings;
+    settings.beginGroup("Global/Startup");
+    if(settings.contains("dark_theme"))
+        dark_theme = settings.value("dark_theme").toString();
+    if(settings.contains("language"))
+        app_lang = settings.value("language").toString();
+    if(settings.contains("miniui"))
+        isMiniUI = settings.value("miniui").toBool();
+    if(settings.contains("start_dir"))
+        dir = settings.value("start_dir").toString();
+
+    if(AppComLineParser->isSetOpt("dark_theme")) {
+        dark_theme = AppComLineParser->getOpt("dark_theme");
+        settings.setValue("dark_theme",dark_theme);
+    }
+    if(AppComLineParser->isSetOpt("language")) {
+        app_lang = AppComLineParser->getOpt("language");
+        settings.setValue("language",app_lang);
+    }
+    if(AppComLineParser->isSetOpt("miniui"))
+        isMiniUI = AppComLineParser->getOpt("miniui") == "true"?true:false;
+    if(AppComLineParser->isSetOpt("start_dir")) 
+        dir = AppComLineParser->getOpt("start_dir");
+
+    settings.endGroup();
 
     QLocale locale;
     QLocale::Language lang = locale.language();
@@ -195,9 +225,6 @@ int main(int argc, char *argv[])
         QTextStream ts(&ftheme);
         qApp->setStyleSheet(ts.readAll());
     }
-
-    bool isMiniUI = AppComLineParser->getOpt("miniui") == "true"?true:false;
-    QString dir = AppComLineParser->getOpt("start_dir");
 
     QFontIcon::addFont(":/icons/icons/fontawesome-webfont.ttf");
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);

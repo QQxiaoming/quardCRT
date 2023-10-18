@@ -86,6 +86,7 @@ private:
     void setSessionClassActionEnable(bool enable);
     void setGlobalOptions(SessionsWindow *window);
     QString getDirAndcheckeSysName(const QString &title);
+    void addBookmark(const QString &path);
 
 private:
     Ui::MainWindow *ui;
@@ -106,6 +107,7 @@ private:
     QMenu *optionsMenu;
     QMenu *transferMenu;
     QMenu *scriptMenu;
+    QMenu *bookmarkMenu;
     QMenu *toolsMenu;
     QMenu *windowMenu;
     QMenu *languageMenu;
@@ -170,6 +172,7 @@ private:
     QAction *startRecordingScriptAction;
     QAction *stopRecordingScriptAction;
     QAction *canlcelRecordingScriptAction;
+    QAction *cleanAllBookmark;
     QAction *keymapManagerAction;
     QAction *createPublicKeyAction;
     QAction *publickeyManagerAction;
