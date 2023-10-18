@@ -19,6 +19,7 @@
  */
 #include <QMessageBox>
 #include <QScrollBar>
+#include <QMutexLocker>
 #include "hexviewwindow.h"
 #include "ui_hexviewwindow.h"
 
@@ -71,6 +72,7 @@ HexViewWindow::~HexViewWindow()
 void HexViewWindow::setFont(const QFont &font)
 {
     ui->textEditHEX->setFont(font);
+    ui->textEditASCII->setFont(font);
 }
 
 void HexViewWindow::buttonBoxAccepted(void)
@@ -94,6 +96,7 @@ void HexViewWindow::buttonBoxRejected(void)
 
 void HexViewWindow::recvData(const char *data,int size)
 {
+    QMutexLocker locker(&m_mutex);
     auto insertPlainText = [&](const char *data,int size){
         if(size > 0) {
             QByteArray ba(data,size);

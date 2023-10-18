@@ -389,6 +389,11 @@ MainWidgetGroup* MainWindow::findCurrentFocusGroup(void) {
             return mainWidgetGroup;
         }
     }
+    foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+        if(mainWidgetGroup->sessionTab->count() != 0) {
+            return mainWidgetGroup;
+        }
+    }
     return mainWidgetGroupList[0];
 }
 
@@ -1056,8 +1061,19 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         }
     );
     connect(hexViewAction,&QAction::triggered,this,[=](){
-        if(hexViewAction->isChecked())
+        if(hexViewAction->isChecked()) {
             hexViewWindow->show();
+            QTermWidget *termWidget = findCurrentFocusTermWidget();
+            if(termWidget == nullptr) return;
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                disconnect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
+                            hexViewWindow,SLOT(recvData(const char*,int)));
+                if(sessionsWindow->getTermWidget() == termWidget) {
+                    connect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
+                            hexViewWindow,SLOT(recvData(const char*,int)));
+                }
+            }
+        }
         else
             hexViewWindow->hide();
     });
