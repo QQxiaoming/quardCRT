@@ -36,6 +36,7 @@ rm -rf ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/apprun-hooks
 mv ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/usr ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT
 mv ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/bin/quardCRT ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/quardCRT
 mv ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/bin/qt.conf ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/qt.conf
+cp ./depend/libfcitxplatforminputcontextplugin-qt6.so ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin-qt6.so
 rm -rf ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/bin
 sed -i "s/Prefix = ..\//Prefix = .\//g" ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/qt.conf
 chrpath -r "\$ORIGIN/./lib" ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/quardCRT
