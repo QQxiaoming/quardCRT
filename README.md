@@ -29,12 +29,21 @@ Other protocol selection interface:
 ![img4](./docs/img4.png)
 ## Feature
 
-Currently supported terminal protocols include:
+- Currently supported terminal protocols include:
 
-- telnet (Support websocket wrapper)
-- serial
-- loaclshell
-- rawsocket
+    - telnet (Support websocket wrapper)
+    - serial
+    - loaclshell
+    - rawsocket
+
+- Multi-tab management, tab cloning, tab drag-and-drop sorting
+- Dual column split screen
+- Working directory bookmark
+- Automated sending
+- HEX display
+- History management (in progress)
+- Terminal style configuration
+- Custom font (in progress, currently fixed fixed width font, size configurable)
 
 ## Contributing
 
