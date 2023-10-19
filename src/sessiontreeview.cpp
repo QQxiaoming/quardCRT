@@ -68,14 +68,27 @@ void SessionTreeView::retranslateUi() {
 void SessionTreeView::contextMenuEvent(QContextMenuEvent *event) {
     QModelIndex tIndex = indexAt(viewport()->mapFromGlobal(event->globalPos()));
     if (tIndex.isValid()) {
+        int type; QString name;
+        mode->info(tIndex, type, name);
         QMenu *contextMenu = new QMenu(this); 
-        QAction *connectTerminalAction = new QAction(tr("Connect Terminal"), contextMenu);
-        contextMenu->addAction(connectTerminalAction);
-        QAction *connectInNewWindowAction = new QAction(tr("Connect in New Window"), contextMenu);
-        contextMenu->addAction(connectInNewWindowAction);
-        QAction *connectInNewTabGroupAction = new QAction(tr("Connect in New Tab Group"), contextMenu);
-        contextMenu->addAction(connectInNewTabGroupAction);
-        contextMenu->addSeparator();
+        if(type != -1) {
+            QAction *connectTerminalAction = new QAction(tr("Connect Terminal"), contextMenu);
+            contextMenu->addAction(connectTerminalAction);
+            connect(connectTerminalAction, &QAction::triggered, this, [=](){
+                emit sessionConnect(name);
+            });
+            QAction *connectInNewWindowAction = new QAction(tr("Connect in New Window"), contextMenu);
+            contextMenu->addAction(connectInNewWindowAction);
+            QAction *connectInNewTabGroupAction = new QAction(tr("Connect in New Tab Group"), contextMenu);
+            contextMenu->addAction(connectInNewTabGroupAction);
+            contextMenu->addSeparator();
+            QAction *deleteAction = new QAction(tr("Delete"), contextMenu);
+            contextMenu->addAction(deleteAction);
+            connect(deleteAction, &QAction::triggered, this, [=](){
+                emit sessionRemove(name);
+            });
+            contextMenu->addSeparator();
+        }
         QAction *propertiesAction = new QAction(tr("Properties"), contextMenu);
         contextMenu->addAction(propertiesAction);
         if(!contextMenu->isEmpty()) {

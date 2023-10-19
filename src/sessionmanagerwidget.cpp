@@ -46,6 +46,9 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     tree = new SessionTreeView(this);
     ui->verticalLayout->addWidget(tree);
 
+    connect(tree, &SessionTreeView::sessionConnect, this, &SessionManagerWidget::sessionConnect);
+    connect(tree, &SessionTreeView::sessionRemove, this, &SessionManagerWidget::sessionRemove);
+
     retranslateUi();
 }
 

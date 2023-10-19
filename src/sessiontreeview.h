@@ -38,6 +38,10 @@ public:
     bool checkSession(QString str);
     void retranslateUi();
 
+signals:
+    void sessionConnect(QString str);
+    void sessionRemove(QString str);
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 

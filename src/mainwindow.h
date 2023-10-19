@@ -70,16 +70,16 @@ private:
     void menuAndToolBarInit(void);
     void menuAndToolBarRetranslateUi(void);
     void menuAndToolBarConnectSignals(void);
-    SessionsWindow *startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type);
+    SessionsWindow *startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type, bool addTab = false, QString name = QString());
     SessionsWindow *startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
-                int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
-    SessionsWindow *startLocalShellSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath());
-    SessionsWindow *startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port);
+                int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, bool addTab = false, QString name = QString());
+    SessionsWindow *startLocalShellSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), bool addTab = false, QString name = QString());
+    SessionsWindow *startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, bool addTab = false, QString name = QString());
     SessionsWindow *startSSH2Session(MainWidgetGroup *group,
-        QString hostname, quint16 port, QString username, QString password);
+        QString hostname, quint16 port, QString username, QString password, bool addTab = false, QString name = QString());
     int stopSession(MainWidgetGroup *group, int index);
     int stopAllSession(void);
-    int cloneCurrentSession(MainWidgetGroup *group);
+    int cloneCurrentSession(MainWidgetGroup *group, bool addTab = false, QString name = QString());
     MainWidgetGroup *findCurrentFocusGroup(void);
     QTermWidget *findCurrentFocusTermWidget(void);
     QMenu *createPopupMenu(void) override;
@@ -87,6 +87,11 @@ private:
     void setGlobalOptions(SessionsWindow *window);
     QString getDirAndcheckeSysName(const QString &title);
     void addBookmark(const QString &path);
+    bool checkSessionName(QString &name);
+    int addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name);
+    void removeSessionFromSessionManager(QString name);
+    void connectSessionFromSessionManager(QString name);
+    void restoreSessionToSessionManager(void);
 
 private:
     Ui::MainWindow *ui;

@@ -43,7 +43,11 @@ public:
     void addSession(QString str, int type);
     void removeSession(QString str);
     bool checkSession(QString str);
-    
+
+signals:
+    void sessionConnect(QString str);
+    void sessionRemove(QString str);
+
 private:
     Ui::SessionManagerWidget *ui;
     QToolBar *toolBar;
