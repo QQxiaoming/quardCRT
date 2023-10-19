@@ -43,7 +43,7 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 - 工作目录书签
 - 自动化发送
 - HEX显示
-- 历史记录管理 (进行中)
+- 会话记录管理
 - 终端样式配置
 - 自定义字体 (进行中，目前固定等宽字体，大小可配置)
 
@@ -68,3 +68,4 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 - [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget)
 - [qtftp](https://github.com/teknoraver/qtftp)
 - [utf8proc](https://github.com/JuliaStrings/utf8proc)
+- [fcitx-qt5](https://github.com/fcitx/fcitx-qt5)

@@ -27,6 +27,7 @@ quardCRT is a terminal emulation software that supports multiple backend protoco
 Other protocol selection interface:
 
 ![img4](./docs/img4.png)
+
 ## Feature
 
 - Currently supported terminal protocols include:
@@ -41,9 +42,9 @@ Other protocol selection interface:
 - Working directory bookmark
 - Automated sending
 - HEX display
-- History management (in progress)
+- Session history management
 - Terminal style configuration
-- Custom font (in progress, currently fixed fixed width font, size configurable)
+- Custom font (in progress)
 
 ## Contributing
 
@@ -66,3 +67,4 @@ The code of this project references or partially refers to or depends on the fol
 - [QtFancyTabWidget](https://github.com/SM-nzberg/QtFancyTabWidget)
 - [qtftp](https://github.com/teknoraver/qtftp)
 - [utf8proc](https://github.com/JuliaStrings/utf8proc)
+- [fcitx-qt5](https://github.com/fcitx/fcitx-qt5)
