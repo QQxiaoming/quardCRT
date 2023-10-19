@@ -23,7 +23,6 @@
 #include <QDialog>
 #include <QHideEvent>
 #include <QFont>
-#include <QMutex>
 
 namespace Ui {
 class HexViewWindow;
@@ -61,7 +60,6 @@ private slots:
 private:
     Ui::HexViewWindow *ui;
     int m_type;
-    QMutex m_mutex;
 };
 
 #endif // HEXVIEWWINDOWS_H

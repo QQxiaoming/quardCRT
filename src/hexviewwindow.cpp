@@ -19,7 +19,6 @@
  */
 #include <QMessageBox>
 #include <QScrollBar>
-#include <QMutexLocker>
 #include "hexviewwindow.h"
 #include "ui_hexviewwindow.h"
 
@@ -50,7 +49,7 @@ HexViewWindow::HexViewWindow(int type, QWidget *parent) :
         ui->textEditHEX->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         ui->textEditHEX->setFocusPolicy(Qt::NoFocus);
         ui->textEditHEX->setLineWrapMode(QTextEdit::FixedColumnWidth);
-        ui->textEditHEX->setLineWrapColumnOrWidth(3*16+2);
+        ui->textEditHEX->setLineWrapColumnOrWidth(3*16);
         ui->textEditASCII->setReadOnly(true);
         ui->textEditASCII->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         ui->textEditASCII->setFocusPolicy(Qt::NoFocus);
@@ -96,7 +95,6 @@ void HexViewWindow::buttonBoxRejected(void)
 
 void HexViewWindow::recvData(const char *data,int size)
 {
-    QMutexLocker locker(&m_mutex);
     auto insertPlainText = [&](const char *data,int size){
         if(size > 0) {
             QByteArray ba(data,size);
@@ -142,26 +140,7 @@ void HexViewWindow::recvData(const char *data,int size)
         }
     };
     if(size > 0) {
-        // FIXME: We need format the data to hex 
-        // Now we have implemented it. but it is not perfect.
-        // We hope to process it faster or separate it into the background 
-        // without affecting the main event loop.
-        int firstSize = ((8*3+1) - ui->textEditHEX->toPlainText().size()%(8*3+1))/3;
-        if(size >= firstSize) {
-            insertPlainText(data,firstSize);
-            ui->textEditHEX->insertPlainText(" ");
-
-            int i=firstSize;
-            for(i=firstSize;i+8<size;i+=8) {
-                insertPlainText(data+i,8);
-                ui->textEditHEX->insertPlainText(" ");
-            }
-            if(i < size) {
-                insertPlainText(data+i,size-i);
-            }
-        } else {
-            insertPlainText(data,size);
-        }
+        insertPlainText(data,size);
         ui->textEditHEX->ensureCursorVisible();
         ui->textEditASCII->ensureCursorVisible();
     }
