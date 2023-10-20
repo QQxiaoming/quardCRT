@@ -178,7 +178,9 @@ private:
     QAction *startRecordingScriptAction;
     QAction *stopRecordingScriptAction;
     QAction *canlcelRecordingScriptAction;
-    QAction *cleanAllBookmark;
+    QAction *addBookmarkAction;
+    QAction *removeBookmarkAction;
+    QAction *cleanAllBookmarkAction;
     QAction *keymapManagerAction;
     QAction *createPublicKeyAction;
     QAction *publickeyManagerAction;

@@ -41,6 +41,8 @@
 #include <QHostInfo>
 #include <QDesktopServices>
 #include <QClipboard>
+#include <QInputDialog>
+#include <QFileDialog>
 
 #include "qtftp.h"
 #include "qfonticon.h"
@@ -255,6 +257,27 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         }
                     }
                     QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                });
+                QAction *saveSessionAction = new QAction(tr("Save Session"),this);
+                menu->addAction(saveSessionAction);
+                connect(saveSessionAction,&QAction::triggered,this,[=](){
+                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                    foreach(SessionsWindow *sessionsWindow, sessionList) {
+                        if(sessionsWindow->getTermWidget() == termWidget) {
+                            QString name = sessionsWindow->getName();
+                            if(checkSessionName(name)) {
+                                addSessionToSessionManager(sessionsWindow,name);
+                            } else {
+                                bool isOK = false;
+                                QString getName = QInputDialog::getText(this, tr("Enter Session Name"),
+                                     tr("The session already exists, please rename the new session or cancel saving."), QLineEdit::Normal, name, &isOK);
+                                if(isOK && !getName.isEmpty()) {
+                                    addSessionToSessionManager(sessionsWindow,getName);
+                                }
+                            }
+                            break;
+                        }
+                    }
                 });
                 menu->addSeparator();
                 QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
@@ -590,8 +613,12 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     canlcelRecordingScriptAction->setText(tr("Cancel Recording Script"));
     canlcelRecordingScriptAction->setStatusTip(tr("Cancel recording script"));
 
-    cleanAllBookmark->setText(tr("Clean All Bookmark"));
-    cleanAllBookmark->setStatusTip(tr("Clean all bookmark"));
+    addBookmarkAction->setText(tr("Add Bookmark"));
+    addBookmarkAction->setStatusTip(tr("Add a bookmark"));
+    removeBookmarkAction->setText(tr("Remove Bookmark"));
+    removeBookmarkAction->setStatusTip(tr("Remove a bookmark"));
+    cleanAllBookmarkAction->setText(tr("Clean All Bookmark"));
+    cleanAllBookmarkAction->setStatusTip(tr("Clean all bookmark"));
 
     keymapManagerAction->setText(tr("Keymap Manager"));
     keymapManagerAction->setStatusTip(tr("Display keymap editor"));
@@ -851,8 +878,12 @@ void MainWindow::menuAndToolBarInit(void) {
     canlcelRecordingScriptAction = new QAction(this);
     scriptMenu->addAction(canlcelRecordingScriptAction);
 
-    cleanAllBookmark = new QAction(this);
-    bookmarkMenu->addAction(cleanAllBookmark);
+    addBookmarkAction = new QAction(this);
+    bookmarkMenu->addAction(addBookmarkAction);
+    removeBookmarkAction = new QAction(this);
+    bookmarkMenu->addAction(removeBookmarkAction);
+    cleanAllBookmarkAction = new QAction(this);
+    bookmarkMenu->addAction(cleanAllBookmarkAction);
     bookmarkMenu->addSeparator();
     GlobalSetting settings;
     int size = settings.beginReadArray("Global/Bookmark");
@@ -860,6 +891,7 @@ void MainWindow::menuAndToolBarInit(void) {
         settings.setArrayIndex(i);
         QString path = settings.value("path").toString();
         QAction *action = new QAction(path,bookmarkMenu);
+        action->setStatusTip(path);
         bookmarkMenu->addAction(action);
         connect(action,&QAction::triggered,this,[=](){
             startLocalShellSession(findCurrentFocusGroup(),QString(),path);
@@ -1264,13 +1296,73 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             }
         }
     });
-    connect(cleanAllBookmark, &QAction::triggered, this, [&]() {
+    connect(addBookmarkAction, &QAction::triggered, this, [&]() {
+        QString path = QFileDialog::getExistingDirectory(this,tr("Select a directory"),QDir::homePath());
+        if(path.isEmpty()) return;
+        GlobalSetting settings;
+        int size = settings.beginReadArray("Global/Bookmark");
+        settings.endArray();
+        settings.beginWriteArray("Global/Bookmark");
+        settings.setArrayIndex(size);
+        settings.setValue("path",path);
+        settings.endArray();
+        QAction *action = new QAction(path,bookmarkMenu);
+        action->setStatusTip(path);
+        bookmarkMenu->addAction(action);
+        connect(action,&QAction::triggered,this,[=](){
+            startLocalShellSession(findCurrentFocusGroup(),QString(),path);
+        });
+    });
+    connect(removeBookmarkAction, &QAction::triggered, this, [&]() {
+        QStringList bookmarkList;
+        GlobalSetting settings;
+        int size = settings.beginReadArray("Global/Bookmark");
+        for(int i=0;i<size;i++) {
+            settings.setArrayIndex(i);
+            bookmarkList.append(settings.value("path").toString());
+        }
+        settings.endArray();
+
+        bool isOk = false;
+        QString removePath = QInputDialog::getItem(this,tr("Remove Bookmark"),tr("Select a bookmark"),bookmarkList,0,false,&isOk);
+        if(!isOk || removePath.isEmpty()) return;
+        bookmarkList.removeOne(removePath);
+
+        settings.beginWriteArray("Global/Bookmark");
+        settings.remove("");
+        settings.endArray();
+        bookmarkMenu->clear();
+        bookmarkMenu->addAction(addBookmarkAction);
+        bookmarkMenu->addAction(removeBookmarkAction);
+        bookmarkMenu->addAction(cleanAllBookmarkAction);
+        bookmarkMenu->addSeparator();
+
+        foreach(QString path, bookmarkList) {
+            settings.beginWriteArray("Global/Bookmark");
+            settings.setArrayIndex(bookmarkList.indexOf(path));
+            settings.setValue("path",path);
+            settings.endArray();
+            QAction *action = new QAction(path,bookmarkMenu);
+            action->setStatusTip(path);
+            bookmarkMenu->addAction(action);
+            connect(action,&QAction::triggered,this,[=](){
+                startLocalShellSession(findCurrentFocusGroup(),QString(),path);
+            });
+        }
+    });
+    connect(cleanAllBookmarkAction, &QAction::triggered, this, [&]() {
+        if(QMessageBox::question(this,tr("Clean All Bookmark"),tr("Are you sure to clean all bookmark?"),QMessageBox::Yes|QMessageBox::No) == QMessageBox::No) 
+            return;
+        
         GlobalSetting settings;
         settings.beginWriteArray("Global/Bookmark");
         settings.remove("");
         settings.endArray();
         bookmarkMenu->clear();
-        bookmarkMenu->addAction(cleanAllBookmark);
+        bookmarkMenu->addAction(addBookmarkAction);
+        bookmarkMenu->addAction(removeBookmarkAction);
+        bookmarkMenu->addAction(cleanAllBookmarkAction);
+        bookmarkMenu->addSeparator();
     });
     connect(keymapManagerAction,&QAction::triggered,this,[=](){
         keyMapManagerWindow->show();
@@ -1852,6 +1944,7 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, bool saveSession, QS
 void MainWindow::addBookmark(const QString &path)
 {
     QAction *action = new QAction(path,bookmarkMenu);
+    action->setStatusTip(path);
     bookmarkMenu->addAction(action);
     connect(action,&QAction::triggered,this,[=](){
         startLocalShellSession(findCurrentFocusGroup(),QString(),path);

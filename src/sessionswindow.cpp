@@ -73,6 +73,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
 
     switch (type) {
         case LocalShell: {
+            showShortTitle = true;
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
             IPtyProcess::PtyType ptyType = IPtyProcess::UnixPty;
         #elif defined(Q_OS_WIN)
