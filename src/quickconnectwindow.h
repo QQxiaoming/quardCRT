@@ -77,7 +77,9 @@ public:
         bool openInTab;
     };
     void setProtocol(QuickConnectType index);
-    
+    void setSaveSession(bool enable);
+    void setOpenInTab(bool enable);
+
 signals:
     void sendQuickConnectData(QuickConnectData);
 

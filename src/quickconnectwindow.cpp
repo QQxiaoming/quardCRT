@@ -51,6 +51,14 @@ void QuickConnectWindow::setProtocol(QuickConnectType index) {
     ui->comboBoxProtocol->setCurrentIndex((int)index);
 }
 
+void QuickConnectWindow::setSaveSession(bool enable) {
+    ui->checkBoxSaveSession->setChecked(enable);
+}
+
+void QuickConnectWindow::setOpenInTab(bool enable) {
+    ui->checkBoxOpenInTab->setChecked(enable);
+}
+
 void QuickConnectWindow::comboBoxProtocolChanged(int index)
 {
     switch(index) {
