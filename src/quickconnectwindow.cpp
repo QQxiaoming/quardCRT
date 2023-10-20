@@ -212,6 +212,8 @@ void QuickConnectWindow::buttonBoxAccepted(void)
 {
     QuickConnectData data;
     data.type = (QuickConnectType)ui->comboBoxProtocol->currentIndex();
+    data.saveSession = ui->checkBoxSaveSession->isChecked();
+    data.openInTab = ui->checkBoxOpenInTab->isChecked();
     switch(ui->comboBoxProtocol->currentIndex()) {
         case Telnet:
             data.TelnetData.hostname = ui->lineEditHostname->text();

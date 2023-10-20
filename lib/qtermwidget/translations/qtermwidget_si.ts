@@ -257,7 +257,7 @@
     <message>
         <location filename="../../../src/mainwindow.cpp" line="428"/>
         <location filename="../../../src/mainwindow.cpp" line="622"/>
-        <location filename="../../../src/mainwindow.cpp" line="1824"/>
+        <location filename="../../../src/mainwindow.cpp" line="1897"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -322,7 +322,7 @@
     <message>
         <location filename="../../../src/mainwindow.cpp" line="321"/>
         <location filename="../../../src/mainwindow.cpp" line="362"/>
-        <location filename="../../../src/mainwindow.cpp" line="1267"/>
+        <location filename="../../../src/mainwindow.cpp" line="1298"/>
         <source>Ready</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1015,7 +1015,7 @@
     </message>
     <message>
         <location filename="../../../src/mainwindow.cpp" line="625"/>
-        <location filename="../../../src/mainwindow.cpp" line="1807"/>
+        <location filename="../../../src/mainwindow.cpp" line="1880"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1035,33 +1035,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1539"/>
+        <location filename="../../../src/mainwindow.cpp" line="1612"/>
         <source>Telnet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1566"/>
+        <location filename="../../../src/mainwindow.cpp" line="1639"/>
         <source>Serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1592"/>
+        <location filename="../../../src/mainwindow.cpp" line="1665"/>
         <source>Raw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1654"/>
-        <location filename="../../../src/mainwindow.cpp" line="1658"/>
+        <location filename="../../../src/mainwindow.cpp" line="1727"/>
+        <location filename="../../../src/mainwindow.cpp" line="1731"/>
         <source>Local Shell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1808"/>
+        <location filename="../../../src/mainwindow.cpp" line="1881"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1538"/>
+        <location filename="../../../src/mainwindow.cpp" line="1611"/>
         <source>Telnet - </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1081,17 +1081,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1565"/>
+        <location filename="../../../src/mainwindow.cpp" line="1638"/>
         <source>Serial - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1656"/>
+        <location filename="../../../src/mainwindow.cpp" line="1729"/>
         <source>Local Shell - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1591"/>
+        <location filename="../../../src/mainwindow.cpp" line="1664"/>
         <source>Raw - </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1234,6 +1234,16 @@
     <message>
         <location filename="../../../src/quickconnectwindow.ui" line="258"/>
         <source>StopBits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/quickconnectwindow.ui" line="310"/>
+        <source>Save session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/quickconnectwindow.ui" line="320"/>
+        <source>Open in tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

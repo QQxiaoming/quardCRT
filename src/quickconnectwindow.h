@@ -73,6 +73,8 @@ public:
             QString privateKey;
             QString passphrase;
         }SSH2Data;
+        bool saveSession;
+        bool openInTab;
     };
     void setProtocol(QuickConnectType index);
     
