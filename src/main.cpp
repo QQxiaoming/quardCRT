@@ -23,6 +23,7 @@
 #include <QLibraryInfo>
 #include <QStyleFactory>
 #include <QRegularExpression>
+#include <QFileInfo>
 
 #include "qfonticon.h"
 
@@ -164,12 +165,21 @@ int main(int argc, char *argv[])
 
     AppComLineParser->process(application);
 
+    GlobalSetting settings;
+    bool debugMode = settings.value("Debug/DebugMode",false).toBool();
+    if(debugMode) {
+        uint32_t debugLevel = settings.value("Debug/DebugLevel",0).toUInt();
+        QString debugLogFile = settings.value("Debug/DebugLogFile","").toString();
+        qDebug() << "DebugMode: " << debugMode;
+        qDebug() << "DebugLevel: " << debugLevel;
+        qDebug() << "DebugLogFile: " << debugLogFile;
+    }
+
     QString dark_theme = "true";
     QString app_lang;
     bool isMiniUI = false;
     QString dir;
 
-    GlobalSetting settings;
     settings.beginGroup("Global/Startup");
     if(settings.contains("dark_theme"))
         dark_theme = settings.value("dark_theme").toString();
@@ -192,6 +202,10 @@ int main(int argc, char *argv[])
         isMiniUI = AppComLineParser->getOpt("miniui") == "true"?true:false;
     if(AppComLineParser->isSetOpt("start_dir")) 
         dir = AppComLineParser->getOpt("start_dir");
+    QFileInfo start_dir(dir);
+    if(start_dir.isFile()) {
+        dir = start_dir.absolutePath();
+    }
 
     settings.endGroup();
 

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Icon=/opt/quardCRT/quardCRT.png
+NoDisplay=true
+Exec=/usr/bin/quardCRT -m true -s %U %f
+Name=quardCRT
+Comment=open with quardCRT
+MimeType=x-scheme-handler/file;x-scheme-handler/dir;
+

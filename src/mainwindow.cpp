@@ -658,6 +658,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
 }
 
 void MainWindow::menuAndToolBarInit(void) {
+    GlobalSetting settings;
+
     ui->toolBar->setIconSize(QSize(16,16));
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
@@ -834,6 +836,8 @@ void MainWindow::menuAndToolBarInit(void) {
     ui->toolBar->addSeparator();
     autoSaveOptionsAction = new QAction(this);
     autoSaveOptionsAction->setCheckable(true);
+    bool checked = settings.value("Global/Options/AutoSaveOptions",false).toBool();
+    autoSaveOptionsAction->setChecked(checked);
     optionsMenu->addAction(autoSaveOptionsAction);
     saveSettingsNowAction = new QAction(this);
     optionsMenu->addAction(saveSettingsNowAction);
@@ -885,7 +889,6 @@ void MainWindow::menuAndToolBarInit(void) {
     cleanAllBookmarkAction = new QAction(this);
     bookmarkMenu->addAction(cleanAllBookmarkAction);
     bookmarkMenu->addSeparator();
-    GlobalSetting settings;
     int size = settings.beginReadArray("Global/Bookmark");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
@@ -1158,6 +1161,15 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     connect(globalOptionsWindow,&GlobalOptions::transparencyChanged,this,[=](int transparency){
         windowTransparency = (100-transparency)/100.0;
         setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+    });
+    connect(autoSaveOptionsAction,&QAction::triggered,this,[=](bool checked){
+        GlobalSetting settings;
+        settings.setValue("Global/Options/AutoSaveOptions",checked);
+        settings.setRealtimeSave(checked);
+    });
+    connect(saveSettingsNowAction,&QAction::triggered,this,[=](){
+        GlobalSetting settings;
+        settings.sync();
     });
     connect(keyMapManagerWindow,&keyMapManager::keyBindingChanged,this,[=](QString keyBinding){
         foreach(SessionsWindow *sessionsWindow, sessionList) {

@@ -1476,7 +1476,7 @@ QTabWidget::pane:selected {
 }
 
 QTabWidget::tab-bar {
-    alignment: left;
+  alignment: left;
 }
 
 /* QTabBar ----------------------------------------------------------------
