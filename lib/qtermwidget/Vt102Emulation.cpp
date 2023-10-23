@@ -1080,6 +1080,30 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent* event, bool fromPaste)
             textToSend.prepend("\030@s");
         }
 
+#if defined(Q_OS_MACOS)
+        if ((modifiers & Qt::AltModifier) && (event->key() == Qt::Key_Left)) {
+            for(int i = 0; i < _currentScreen->getCursorX(); ++i) {
+                textToSend += "\033[D";
+            }
+        }
+        else if ((modifiers & Qt::AltModifier) && (event->key() == Qt::Key_Right)) {
+            for(int i = 0; i < _currentScreen->getColumns() - _currentScreen->getCursorX() - 1; ++i) {
+                textToSend += "\033[C";
+            }
+        } else
+#else 
+        if (event->key() == Qt::Key_Home) {
+            for(int i = 0; i < _currentScreen->getCursorX(); ++i) {
+                textToSend += "\033[D";
+            }
+        }
+        else if (event->key() == Qt::Key_End) {
+            for(int i = 0; i < _currentScreen->getColumns() - _currentScreen->getCursorX() - 1; ++i) {
+                textToSend += "\033[C";
+            }
+        } else
+#endif
+
         if ( entry.command() != KeyboardTranslator::NoCommand )
         {
             if (entry.command() & KeyboardTranslator::EraseCommand) {
