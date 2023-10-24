@@ -64,6 +64,11 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     , language(lang)
     , isDarkTheme(isDark) {
     ui->setupUi(this);
+
+    GlobalSetting settings;
+    restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
+    restoreState(settings.value("MainWindow/State").toByteArray());
+
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
     /* Create the main UI */
@@ -430,6 +435,9 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
 }
 
 MainWindow::~MainWindow() {
+    GlobalSetting settings;
+    settings.setValue("MainWindow/Geometry", saveGeometry());
+    settings.setValue("MainWindow/State", saveState());
     if(tftpServer->isRunning()) {
         tftpServer->stopServer();
     }
@@ -2026,7 +2034,7 @@ void MainWindow::appAbout(QWidget *parent)
 void MainWindow::appHelp(QWidget *parent)
 {
     QMessageBox::about(parent, tr("Help"), 
-        "Global Shortcuts:\n\n"
+        tr("Global Shortcuts:\n\n"
         "  ALT+\"U\"\t\tshow/hide menu bar\n"
         "  ALT+\"T\"\t\tconnect to LocalShell\n"
         "  CTRL+SHIFT+\"T\"\tclone current session\n"
@@ -2035,7 +2043,7 @@ void MainWindow::appHelp(QWidget *parent)
         "  ALT+\"-\"\t\tswitch to previous session\n"
         "  ALT+\"=\"\t\tswitch to next session\n"
         "  ALT+LEFT\tGo to line start\n"
-        "  ALT+RIGHT\tGo to line end\n"
+        "  ALT+RIGHT\tGo to line end\n")
     );
 }
 
