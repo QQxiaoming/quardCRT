@@ -7,5 +7,5 @@ NoDisplay=true
 Exec=/usr/bin/quardCRT -m true -s %U %f
 Name=quardCRT
 Comment=open with quardCRT
-MimeType=x-scheme-handler/file;x-scheme-handler/dir;
+MimeType=x-scheme-handler/quardCRT;
 
