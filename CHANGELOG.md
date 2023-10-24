@@ -7,6 +7,7 @@
 - 实现保存设置和自动保存设置按钮功能
 - 增加ALT+'-'、ALT+'='、ALT+LEFT、ALT+RIGHT四个实用全局快捷键
 - 持久化存储主界面布局信息
+- 优化界面上下文菜单
 
 ## [[V0.2.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.1)] - 2023-10-19
 

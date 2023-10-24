@@ -65,9 +65,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     , isDarkTheme(isDark) {
     ui->setupUi(this);
 
-    GlobalSetting settings;
-    restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
-    restoreState(settings.value("MainWindow/State").toByteArray());
+    restoreSettings();
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
@@ -185,7 +183,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
             QMenu *menu = new QMenu(this);
-            if(index != -1) {
+            if(index >= 0) {
                 if(mainWidgetGroup->sessionTab->currentIndex() != index) {
                     delete menu;
                     return;
@@ -290,7 +288,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                 connect(closeAction,&QAction::triggered,this,[=](){
                     stopSession(mainWidgetGroup,index);
                 });
-            } else {
+            } else if(index == -1) {
                 if(mainWidgetGroup->sessionTab->count() != 0) {
                     QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
                     QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
@@ -316,6 +314,14 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         return;
                     }
                 }
+            } else if(index == -2) {
+                menu->addAction(menuBarAction);
+                menu->addAction(toolBarAction);
+                menu->addAction(cmdWindowAction);
+                menu->addAction(fullScreenAction);
+            } else {
+                delete menu;
+                return;
             }
             menu->move(cursor().pos());
             menu->show();
@@ -435,9 +441,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
 }
 
 MainWindow::~MainWindow() {
-    GlobalSetting settings;
-    settings.setValue("MainWindow/Geometry", saveGeometry());
-    settings.setValue("MainWindow/State", saveState());
+    saveSettings();
     if(tftpServer->isRunning()) {
         tftpServer->stopServer();
     }
@@ -445,6 +449,18 @@ MainWindow::~MainWindow() {
     delete sessionManagerPushButton;
     delete hexViewWindow;
     delete ui;
+}
+
+void MainWindow::saveSettings(void) {
+    GlobalSetting settings;
+    settings.setValue("MainWindow/Geometry", saveGeometry());
+    settings.setValue("MainWindow/State", saveState());
+}
+
+void MainWindow::restoreSettings(void) {
+    GlobalSetting settings;
+    restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
+    restoreState(settings.value("MainWindow/State").toByteArray());
 }
 
 MainWidgetGroup* MainWindow::findCurrentFocusGroup(void) {
@@ -1203,6 +1219,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(saveSettingsNowAction,&QAction::triggered,this,[=](){
         GlobalSetting settings;
+        saveSettings();
         settings.sync();
     });
     connect(keyMapManagerWindow,&keyMapManager::keyBindingChanged,this,[=](QString keyBinding){

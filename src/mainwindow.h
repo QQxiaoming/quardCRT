@@ -93,6 +93,8 @@ private:
     void removeSessionFromSessionManager(QString name);
     void connectSessionFromSessionManager(QString name);
     void restoreSessionToSessionManager(void);
+    void saveSettings(void);
+    void restoreSettings(void);
 
 private:
     Ui::MainWindow *ui;

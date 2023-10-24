@@ -23,6 +23,8 @@
 #include <QPainter>
 #include <QPen>
 #include <QApplication>
+#include <QFont>
+#include <QFontDatabase>
 #include "sessiontab.h"
 
 EmptyTabWidget::EmptyTabWidget(QWidget *parent) 
@@ -39,6 +41,15 @@ EmptyTabWidget::EmptyTabWidget(QWidget *parent)
     layout()->addWidget(easterEggs);
     easterEggs->setVisible(false);
     easterEggs->setEnabled(false);
+    QFont font = QApplication::font();
+    int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
+    QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
+    if (fontFamilies.size() > 0) {
+        font.setFamily(fontFamilies[0]);
+    }
+    font.setFixedPitch(true);
+    font.setPointSize(12);
+    easterEggs->setFont(font);
 }
 
 EmptyTabWidget::~EmptyTabWidget() {
@@ -53,25 +64,22 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
     static int hitCount = 0;
     if(event->button() == Qt::LeftButton) {
         count++;
-        if(count == 5) {
+        if(count == 7) {
             label->setVisible(false);
             easterEggs->setVisible(true);
             hitCount++;
             switch(hitCount) {
                 case 1:
-                    easterEggs->setText("This is a boring game!");
-                    break;
-                case 2:
-                    easterEggs->setText("You are so boring!");
-                    break;
-                case 3:
-                    easterEggs->setText("I'm tired of you!");
-                    break;
-                case 4:
-                    easterEggs->setText("I'm going to sleep!");
-                    break;
-                case 5:
-                    easterEggs->setText("Goodbye!");
+                    easterEggs->setText(
+"+--------------------------------------------------+\n"
+"|    ___                      _  ____ ____ _____   |\n"
+"|   / _ \\ _   _  __ _ _ __ __| |/ ___|  _ \\_   _|  |\n"
+"|  | | | | | | |/ _` | '__/ _` | |   | |_) || |    |\n"
+"|  | |_| | |_| | (_| | | | (_| | |___|  _ < | |    |\n"
+"|   \\__\\_\\\\__,_|\\__,_|_|  \\__,_|\\____|_| \\_\\|_|    |\n"
+"|       Please enjoy coding! Quard(乔). 2023.10.24 |\n"
+"+--------------------------------------------------+\n"
+);
                     hitCount = 0;
                     break;                    
             }
@@ -122,6 +130,12 @@ void SessionTab::setCurrentIndex(int index) {
 void SessionTab::contextMenuEvent(QContextMenuEvent *event) {
     int index = tabBar()->tabAt(event->pos());
     index = index == 0 ? -1 : index;
+    if(index == -1) {
+        if(event->pos().x() > tabBar()->width() &&
+            event->pos().y() < tabBar()->height()) {
+            index = -2;
+        }
+    }
     emit showContextMenu(index,event->globalPos());
     Q_UNUSED(event);
 }
