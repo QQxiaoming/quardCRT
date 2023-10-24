@@ -20,13 +20,9 @@
     02110-1301  USA.
 */
 
-// Own
 #include "Vt102Emulation.h"
 #include "tools.h"
 #include <string>
-
-// XKB
-//#include <config-konsole.h>
 
 // this allows konsole to be compiled without XKB and XTEST extensions
 // even though it might be available on a particular system.
@@ -39,20 +35,13 @@
     void scrolllock_set_on();
 #endif
 
-// Standard
 #include <cstdio>
 #include <unistd.h>
 
-// Qt
 #include <QEvent>
 #include <QKeyEvent>
 #include <QDebug>
 
-// KDE
-//#include <kdebug.h>
-//#include <klocale.h>
-
-// Konsole
 #include "KeyboardTranslator.h"
 #include "Screen.h"
 
@@ -1080,7 +1069,6 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent* event, bool fromPaste)
             textToSend.prepend("\030@s");
         }
 
-#if defined(Q_OS_MACOS)
         if ((modifiers & Qt::AltModifier) && (event->key() == Qt::Key_Left)) {
             for(int i = 0; i < _currentScreen->getCursorX(); ++i) {
                 textToSend += "\033[D";
@@ -1090,21 +1078,8 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent* event, bool fromPaste)
             for(int i = 0; i < _currentScreen->getColumns() - _currentScreen->getCursorX() - 1; ++i) {
                 textToSend += "\033[C";
             }
-        } else
-#else 
-        if (event->key() == Qt::Key_Home) {
-            for(int i = 0; i < _currentScreen->getCursorX(); ++i) {
-                textToSend += "\033[D";
-            }
-        }
-        else if (event->key() == Qt::Key_End) {
-            for(int i = 0; i < _currentScreen->getColumns() - _currentScreen->getCursorX() - 1; ++i) {
-                textToSend += "\033[C";
-            }
-        } else
-#endif
-
-        if ( entry.command() != KeyboardTranslator::NoCommand )
+        } 
+        else if ( entry.command() != KeyboardTranslator::NoCommand )
         {
             if (entry.command() & KeyboardTranslator::EraseCommand) {
                 textToSend += eraseChar();

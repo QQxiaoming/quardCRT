@@ -204,6 +204,8 @@ private:
     QShortcut *shortcutCloneSession;
     QShortcut *shortcutMiniModeSwitch;
     QShortcut *shortcutStdModeSwitch;
+    QShortcut *shortcutTabPlusSwitch;
+    QShortcut *shortcutTabMinusSwitch;
 
     QList<SessionsWindow *> sessionList;
     QTftp *tftpServer;

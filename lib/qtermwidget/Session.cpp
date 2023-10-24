@@ -481,7 +481,6 @@ void Session::setIconName(const QString & iconName)
 void Session::setIconText(const QString & iconText)
 {
     _iconText = iconText;
-    //kDebug(1211)<<"Session setIconText " <<  _iconText;
 }
 
 QString Session::iconName() const

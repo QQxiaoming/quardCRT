@@ -9,9 +9,9 @@
 
 #include <QString>
 #include "utf8proc.h"
-#include "konsole_wcwidth.h"
+#include "console_charwidth.h"
 
-int konsole_wcwidth(wchar_t ucs)
+int wcharwidth(wchar_t ucs)
 {
     utf8proc_category_t cat = utf8proc_category( ucs );
     if (cat == UTF8PROC_CATEGORY_CO) {
@@ -27,7 +27,7 @@ int string_width( const std::wstring & wstr )
 {
     int w = 0;
     for ( size_t i = 0; i < wstr.length(); ++i ) {
-        w += konsole_wcwidth( wstr[ i ] );
+        w += wcharwidth( wstr[ i ] );
     }
     return w;
 }

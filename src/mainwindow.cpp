@@ -381,6 +381,32 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         if(ui->statusBar->isVisible() == false) statusBarAction->trigger();
         if(ui->sidewidget->isVisible() == false) sideWindowAction->trigger();
     });
+    shortcutTabPlusSwitch = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_Equal),this);
+    connect(shortcutTabPlusSwitch,&QShortcut::activated,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        MainWidgetGroup *group = findCurrentFocusGroup();
+        int index = group->sessionTab->indexOf(termWidget);
+        if(index < group->sessionTab->count()) {
+            group->sessionTab->setCurrentIndex(index);
+        } else {
+            group->sessionTab->setCurrentIndex(0);
+        }
+        group->sessionTab->currentWidget()->setFocus();
+    });
+    shortcutTabMinusSwitch = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_Minus),this);
+    connect(shortcutTabMinusSwitch,&QShortcut::activated,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        MainWidgetGroup *group = findCurrentFocusGroup();
+        int index = group->sessionTab->indexOf(termWidget) - 2;
+        if(index >= 0) {
+            group->sessionTab->setCurrentIndex(index);
+        } else {
+            group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
+        }
+        group->sessionTab->currentWidget()->setFocus();
+    });
 
     ui->statusBar->showMessage(tr("Ready"));
 
@@ -1999,7 +2025,18 @@ void MainWindow::appAbout(QWidget *parent)
 
 void MainWindow::appHelp(QWidget *parent)
 {
-    QMessageBox::about(parent, tr("Help"), "TODO");
+    QMessageBox::about(parent, tr("Help"), 
+        "Global Shortcuts:\n\n"
+        "  ALT+\"U\"\t\tshow/hide menu bar\n"
+        "  ALT+\"T\"\t\tconnect to LocalShell\n"
+        "  CTRL+SHIFT+\"T\"\tclone current session\n"
+        "  ALT+\"N\"\t\tswitch ui to STD mode\n"
+        "  ALT+\"J\"\t\tswitch ui to MINI mode\n"
+        "  ALT+\"-\"\t\tswitch to previous session\n"
+        "  ALT+\"=\"\t\tswitch to next session\n"
+        "  ALT+LEFT\tGo to line start\n"
+        "  ALT+RIGHT\tGo to line end\n"
+    );
 }
 
 void MainWindow::setAppLangeuage(QLocale::Language lang) {

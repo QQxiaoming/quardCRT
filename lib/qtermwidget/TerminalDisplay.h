@@ -21,17 +21,13 @@
 #ifndef TERMINALDISPLAY_H
 #define TERMINALDISPLAY_H
 
-// Qt
 #include <QColor>
 #include <QPointer>
 #include <QWidget>
 
-// Konsole
 #include "Filter.h"
 #include "Character.h"
 #include "qtermwidget.h"
-//#include "konsole_export.h"
-#define KONSOLEPRIVATE_EXPORT
 
 class QDrag;
 class QDragEnterEvent;
@@ -83,7 +79,7 @@ class ScreenWindow;
  *
  * TODO More documentation
  */
-class KONSOLEPRIVATE_EXPORT TerminalDisplay : public QWidget
+class TerminalDisplay : public QWidget
 {
    Q_OBJECT
 

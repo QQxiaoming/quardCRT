@@ -47,22 +47,8 @@
 #include <QMimeData>
 #include <QDrag>
 
-// KDE
-//#include <kshell.h>
-//#include <KColorScheme>
-//#include <KCursor>
-//#include <kdebug.h>
-//#include <KLocale>
-//#include <KMenu>
-//#include <KNotification>
-//#include <KGlobalSettings>
-//#include <KShortcut>
-//#include <KIO/NetAccess>
-
-// Konsole
-//#include <config-apps.h>
 #include "Filter.h"
-#include "konsole_wcwidth.h"
+#include "console_charwidth.h"
 #include "ScreenWindow.h"
 #include "TerminalCharacterDecoder.h"
 

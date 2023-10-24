@@ -19,29 +19,21 @@
     02110-1301  USA.
 */
 
-// Own
 #include "Emulation.h"
 
-// System
 #include <cstdio>
 #include <cstdlib>
 #include <unistd.h>
 #include <string>
 
-// Qt
 #include <QApplication>
 #include <QClipboard>
 #include <QHash>
 #include <QKeyEvent>
 #include <QTextStream>
 #include <QThread>
-
 #include <QTime>
 
-// KDE
-//#include <kdebug.h>
-
-// Konsole
 #include "KeyboardTranslator.h"
 #include "Screen.h"
 #include "TerminalCharacterDecoder.h"

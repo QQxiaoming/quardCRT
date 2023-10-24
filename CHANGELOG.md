@@ -4,6 +4,8 @@
 
 - 快速连接支持选择仅打开会话和仅保存会话
 - 改进书签管理功能
+- 实现保存设置和自动保存设置按钮功能
+- 增加ALT+'-'、ALT+'='、ALT+LEFT、ALT+RIGHT四个实用全局快捷键
 
 ## [[V0.2.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.1)] - 2023-10-19
 

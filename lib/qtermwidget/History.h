@@ -27,14 +27,9 @@
 #include <QVector>
 #include <QTemporaryFile>
 
-// KDE
-//#include <ktemporaryfile.h>
-
-// Konsole
 #include "BlockArray.h"
 #include "Character.h"
 
-// map
 #if defined(Q_OS_WIN)
 #include <windows.h>
 #else

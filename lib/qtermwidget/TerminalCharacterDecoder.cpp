@@ -19,18 +19,9 @@
     02110-1301  USA.
 */
 
-// Own
 #include "TerminalCharacterDecoder.h"
-
-// Qt
 #include <QTextStream>
-
-// KDE
-//#include <kdebug.h>
-
-// Konsole
-#include "konsole_wcwidth.h"
-
+#include "console_charwidth.h"
 #include <cwctype>
 
 using namespace Konsole;
@@ -114,7 +105,7 @@ void PlainTextDecoder::decodeLine(const Character* const characters, int count, 
     for (int i=0;i<outputCount;)
     {
         plainText.push_back( characters[i].character );
-        i += qMax(1,konsole_wcwidth(characters[i].character));
+        i += qMax(1,wcharwidth(characters[i].character));
     }
     *_output << QString::fromStdWString(plainText);
 }
