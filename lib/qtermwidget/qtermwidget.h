@@ -309,6 +309,7 @@ public slots:
     void toggleShowSearchBar();
 
     void saveHistory(QIODevice *device);
+    void screenShot(const QString &fileName);
 
 protected:
     void resizeEvent(QResizeEvent *) override;

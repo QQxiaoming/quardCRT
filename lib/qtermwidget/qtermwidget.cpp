@@ -724,6 +724,13 @@ void QTermWidget::saveHistory(QIODevice *device)
     m_impl->m_session->emulation()->writeToStream(&decoder, 0, m_impl->m_session->emulation()->lineCount());
 }
 
+void QTermWidget::screenShot(const QString &fileName)
+{
+    QPixmap pixmap(m_impl->m_terminalDisplay->size());
+    m_impl->m_terminalDisplay->render(&pixmap);
+    pixmap.save(fileName);
+}
+
 void QTermWidget::setDrawLineChars(bool drawLineChars)
 {
     m_impl->m_terminalDisplay->setDrawLineChars(drawLineChars);

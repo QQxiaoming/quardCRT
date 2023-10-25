@@ -18,6 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include "keymapmanager.h"
+#include "globalsetting.h"
 #include "ui_keymapmanager.h"
 
 keyMapManager::keyMapManager(QWidget *parent) :
@@ -39,13 +40,23 @@ void keyMapManager::setAvailableKeyBindings(QStringList keyBindings)
 {
     ui->comboBoxKeyBinding->clear();
     ui->comboBoxKeyBinding->addItems(keyBindings);
-#if defined(Q_OS_WIN)
-    ui->comboBoxKeyBinding->setCurrentText("default");
-#elif defined(Q_OS_LINUX)
-    ui->comboBoxKeyBinding->setCurrentText("default");
-#elif defined(Q_OS_MAC)
-    ui->comboBoxKeyBinding->setCurrentText("macbook");
-#endif
+
+    GlobalSetting settings;
+    settings.beginGroup("Global/keyMapManager");
+    if((settings.contains("keyBinding")) &&(keyBindings.contains(settings.value("keyBinding").toString()))) {
+        ui->comboBoxKeyBinding->setCurrentText(settings.value("keyBinding").toString());
+    } else {
+    #if defined(Q_OS_WIN)
+        QString defaultKeyBinding = "default";
+    #elif defined(Q_OS_LINUX)
+        QString defaultKeyBinding = "default";
+    #elif defined(Q_OS_MAC)
+        QString defaultKeyBinding = "macbook";
+    #endif
+        ui->comboBoxKeyBinding->setCurrentText(defaultKeyBinding);
+        settings.setValue("keyBinding", defaultKeyBinding);
+    }
+    settings.endGroup();
 }
 
 QString keyMapManager::getCurrentKeyBinding(void)
@@ -55,6 +66,10 @@ QString keyMapManager::getCurrentKeyBinding(void)
 
 void keyMapManager::buttonBoxAccepted(void)
 {
+    GlobalSetting settings;
+    settings.beginGroup("Global/keyMapManager");
+    settings.setValue("keyBinding", ui->comboBoxKeyBinding->currentText());
+    settings.endGroup();
     emit keyBindingChanged(ui->comboBoxKeyBinding->currentText());
     emit this->accepted();
 }

@@ -391,6 +391,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         if(ui->toolBar->isVisible() == false) toolBarAction->trigger();
         if(ui->statusBar->isVisible() == false) statusBarAction->trigger();
         if(ui->sidewidget->isVisible() == false) sideWindowAction->trigger();
+
     });
     shortcutTabPlusSwitch = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_Equal),this);
     connect(shortcutTabPlusSwitch,&QShortcut::activated,this,[=](){
@@ -418,6 +419,14 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         }
         group->sessionTab->currentWidget()->setFocus();
     });
+    for(int i=0;i<9;i++) {
+        shortcutTabSwitch[i] = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_1+i),this);
+        connect(shortcutTabSwitch[i],&QShortcut::activated,this,[=](){
+            MainWidgetGroup *group = findCurrentFocusGroup();
+            group->sessionTab->setCurrentIndex(i);
+            group->sessionTab->currentWidget()->setFocus();
+        });
+    }
 
     ui->statusBar->showMessage(tr("Ready"));
 
@@ -577,6 +586,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     printScreenAction->setText(tr("Print Screen"));
     printScreenAction->setIcon(QFontIcon::icon(QChar(0xf02f)));
     printScreenAction->setStatusTip(tr("Print current screen"));
+    screenShotAction->setText(tr("Screen Shot"));
+    screenShotAction->setStatusTip(tr("Screen shot current screen"));
     clearScrollbackAction->setText(tr("Clear Scrollback"));
     clearScrollbackAction->setStatusTip(tr("Clear the contents of the scrollback rows"));
     clearScreenAction->setText(tr("Clear Screen"));
@@ -626,8 +637,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     globalOptionsAction->setText(tr("Global Options..."));
     globalOptionsAction->setIcon(QFontIcon::icon(QChar(0xf013)));
     globalOptionsAction->setStatusTip(tr("Configure global options"));
-    autoSaveOptionsAction->setText(tr("Auto Save Options"));
-    autoSaveOptionsAction->setStatusTip(tr("Automatically save session options and global options"));
+    realTimeSaveOptionsAction->setText(tr("Real-time Save Options"));
+    realTimeSaveOptionsAction->setStatusTip(tr("Real-time save session options and global options"));
     saveSettingsNowAction->setText(tr("Save Settings Now"));
     saveSettingsNowAction->setStatusTip(tr("Save options configuration now"));
 
@@ -812,8 +823,10 @@ void MainWindow::menuAndToolBarInit(void) {
     sessionManagerWidget->addActionOnToolBar(findAction);
     printScreenAction = new QAction(this);
     editMenu->addAction(printScreenAction);
-    editMenu->addSeparator();
     ui->toolBar->addAction(printScreenAction);
+    screenShotAction = new QAction(this);
+    editMenu->addAction(screenShotAction);
+    editMenu->addSeparator();
     ui->toolBar->addSeparator();
     clearScrollbackAction = new QAction(this);
     editMenu->addAction(clearScrollbackAction);
@@ -884,11 +897,11 @@ void MainWindow::menuAndToolBarInit(void) {
     sessionManagerWidget->addActionOnToolBar(globalOptionsAction);
     ui->toolBar->addAction(globalOptionsAction);
     ui->toolBar->addSeparator();
-    autoSaveOptionsAction = new QAction(this);
-    autoSaveOptionsAction->setCheckable(true);
+    realTimeSaveOptionsAction = new QAction(this);
+    realTimeSaveOptionsAction->setCheckable(true);
     bool checked = settings.value("Global/Options/AutoSaveOptions",false).toBool();
-    autoSaveOptionsAction->setChecked(checked);
-    optionsMenu->addAction(autoSaveOptionsAction);
+    realTimeSaveOptionsAction->setChecked(checked);
+    optionsMenu->addAction(realTimeSaveOptionsAction);
     saveSettingsNowAction = new QAction(this);
     optionsMenu->addAction(saveSettingsNowAction);
 
@@ -1036,6 +1049,7 @@ void MainWindow::setSessionClassActionEnable(bool enable)
     selectAllAction->setEnabled(enable);
     findAction->setEnabled(enable);
     printScreenAction->setEnabled(enable);
+    screenShotAction->setEnabled(enable);
     clearScrollbackAction->setEnabled(enable);
     clearScreenAction->setEnabled(enable);
     clearScreenAndScrollbackAction->setEnabled(enable);
@@ -1212,9 +1226,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         windowTransparency = (100-transparency)/100.0;
         setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
     });
-    connect(autoSaveOptionsAction,&QAction::triggered,this,[=](bool checked){
+    connect(realTimeSaveOptionsAction,&QAction::triggered,this,[=](bool checked){
         GlobalSetting settings;
-        settings.setValue("Global/Options/AutoSaveOptions",checked);
+        settings.setValue("Global/Options/RealtimeSaveOptions",checked);
         settings.setRealtimeSave(checked);
     });
     connect(saveSettingsNowAction,&QAction::triggered,this,[=](){
@@ -1253,6 +1267,15 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
         termWidget->toggleShowSearchBar();
+    });
+    connect(screenShotAction,&QAction::triggered,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        QString fileName = QFileDialog::getSaveFileName(this,tr("Save Screenshot"),QDir::homePath(),tr("Image Files (*.jpg)"));
+        if(fileName.isEmpty()) return;
+        if(!fileName.endsWith(".jpg")) fileName.append(".jpg");
+        termWidget->screenShot(fileName);
+        ui->statusBar->showMessage(tr("Screenshot saved to %1").arg(fileName),3000);
     });
     connect(clearScrollbackAction,&QAction::triggered,this,[=](){
         QTermWidget *termWidget = findCurrentFocusTermWidget();

@@ -144,6 +144,7 @@ private:
     QAction *selectAllAction;
     QAction *findAction;
     QAction *printScreenAction;
+    QAction *screenShotAction;
     QAction *clearScrollbackAction;
     QAction *clearScreenAction;
     QAction *clearScreenAndScrollbackAction;
@@ -163,7 +164,7 @@ private:
     QAction *fullScreenAction;
     QAction *sessionOptionsAction;
     QAction *globalOptionsAction;
-    QAction *autoSaveOptionsAction;
+    QAction *realTimeSaveOptionsAction;
     QAction *saveSettingsNowAction;
     QAction *sendASCIIAction;
     QAction *receiveASCIIAction;
@@ -208,6 +209,7 @@ private:
     QShortcut *shortcutStdModeSwitch;
     QShortcut *shortcutTabPlusSwitch;
     QShortcut *shortcutTabMinusSwitch;
+    QShortcut *shortcutTabSwitch[9];
 
     QList<SessionsWindow *> sessionList;
     QTftp *tftpServer;
