@@ -63,7 +63,8 @@ namespace Konsole
         Stretch,
         Zoom,
         Fit,
-        Center
+        Center,
+        Tile
     };
 
 extern unsigned short vt100_graphics[32];

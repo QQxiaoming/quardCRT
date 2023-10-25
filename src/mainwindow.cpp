@@ -66,6 +66,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     ui->setupUi(this);
 
     restoreSettings();
+    ui->toolBar->setVisible(true);
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 

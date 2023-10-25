@@ -122,6 +122,11 @@
        <string>Center</string>
       </property>
      </item>
+     <item>
+        <property name="text">
+         <string>Tile</string>
+        </property>
+     </item>
     </widget>
    </item>
    <item>
