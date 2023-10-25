@@ -8,9 +8,12 @@
 - 增加ALT+'-'和ALT+'='全局快捷键切换当前标签
 - 增加ALT+'{num}'全局快捷键切换到指定标签
 - 增加ALT+LEFT、ALT+RIGHT全局快捷键映射到home和end按键（考虑macbook没有home和end按键）
-- 增加截图当前终端功能
+- 增加高清截图当前终端功能
+- 增加导出当前终端会话功能
 - 持久化存储主界面布局信息
 - 优化界面上下文菜单
+- 优化打开文件对话框UI
+- windows上渲染粗体字体导致光标异常，暂时不支持粗体渲染保证光标位置正确
 
 ## [[V0.2.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.1)] - 2023-10-19
 

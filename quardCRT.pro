@@ -39,6 +39,7 @@ SOURCES += \
 
 HEADERS += \
     src/argv_split.h \
+    src/filedialog.h \
     src/commandwindow.h \
     src/globaloptions.h \
     src/globalsetting.h \

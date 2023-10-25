@@ -22,12 +22,12 @@
 #include <QFontDatabase>
 #include <QStringList>
 #include <QProcessEnvironment>
-#include <QFileDialog>
 #include <QMessageBox>
 #include <QDir>
 #include <QDesktopServices>
 #include <QUrl>
 
+#include "filedialog.h"
 #include "sessionswindow.h"
 #include "globaloptions.h"
 #include "argv_split.h"
@@ -325,7 +325,7 @@ int SessionsWindow::setLog(bool enable) {
     log_file_mutex.lock(); 
     if(enable) {
         if(log_file == nullptr) {
-            QString savefile_name = QFileDialog::getSaveFileName(term, tr("Save log..."),
+            QString savefile_name = FileDialog::getSaveFileName(term, tr("Save log..."),
                 QDir::homePath() + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".log", tr("log files (*.log)"));
             if (!savefile_name.isEmpty()) {
                 log_file = new QFile(savefile_name);
@@ -360,7 +360,7 @@ int SessionsWindow::setRawLog(bool enable) {
     raw_log_file_mutex.lock(); 
     if(enable) {
         if(raw_log_file == nullptr) {
-            QString savefile_name = QFileDialog::getSaveFileName(term, tr("Save Raw log..."),
+            QString savefile_name = FileDialog::getSaveFileName(term, tr("Save Raw log..."),
                 QDir::homePath() + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".bin", tr("binary files (*.bin)"));
             if (!savefile_name.isEmpty()) {
                 raw_log_file = new QFile(savefile_name);

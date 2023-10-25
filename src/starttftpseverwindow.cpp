@@ -20,9 +20,9 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QMessageBox>
-#include <QFileDialog>
 #include <QToolButton>
 
+#include "filedialog.h"
 #include "starttftpseverwindow.h"
 #include "ui_starttftpseverwindow.h"
 
@@ -35,14 +35,14 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
     ui->downloadLineEdit->setText(QDir::homePath());
 
     connect(ui->uploadToolButton, &QToolButton::clicked, this, [=](){
-        QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+        QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
                                 QDir::homePath(),
                                 QFileDialog::ShowDirsOnly
                                 | QFileDialog::DontResolveSymlinks);
         ui->uploadLineEdit->setText(dir);
     });
     connect(ui->downloadToolButton, &QToolButton::clicked, this, [=](){
-        QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+        QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
                                 QDir::homePath(),
                                 QFileDialog::ShowDirsOnly
                                 | QFileDialog::DontResolveSymlinks);

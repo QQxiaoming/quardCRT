@@ -308,7 +308,7 @@ public slots:
 
     void toggleShowSearchBar();
 
-    void saveHistory(QIODevice *device);
+    void saveHistory(QIODevice *device, int format = 0);
     void screenShot(const QString &fileName);
 
 protected:

@@ -637,12 +637,14 @@ void TerminalDisplay::drawLineCharString(    QPainter& painter, int x, int y, co
 {
         const QPen& currentPen = painter.pen();
 
+      #if !defined(Q_OS_WIN)
         if ( (attributes->rendition & RE_BOLD) && _boldIntense )
         {
             QPen boldPen(currentPen);
             boldPen.setWidth(3);
             painter.setPen( boldPen );
         }
+      #endif
 
         for (size_t i=0 ; i < str.length(); i++)
         {
@@ -806,7 +808,9 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
          || font.italic() != useItalic
          || font.strikeOut() != useStrikeOut
          || font.overline() != useOverline) {
+      #if !defined(Q_OS_WIN)
        font.setBold(useBold);
+      #endif
        font.setUnderline(useUnderline);
        font.setItalic(useItalic);
        font.setStrikeOut(useStrikeOut);

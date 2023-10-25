@@ -145,6 +145,7 @@ private:
     QAction *findAction;
     QAction *printScreenAction;
     QAction *screenShotAction;
+    QAction *sessionExportAction;
     QAction *clearScrollbackAction;
     QAction *clearScreenAction;
     QAction *clearScreenAndScrollbackAction;

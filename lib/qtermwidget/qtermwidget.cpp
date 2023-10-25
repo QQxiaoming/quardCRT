@@ -716,17 +716,26 @@ int QTermWidget::getMargin() const
     return m_impl->m_terminalDisplay->margin();
 }
 
-void QTermWidget::saveHistory(QIODevice *device)
+void QTermWidget::saveHistory(QIODevice *device, int format)
 {
     QTextStream stream(device);
-    PlainTextDecoder decoder;
-    decoder.begin(&stream);
-    m_impl->m_session->emulation()->writeToStream(&decoder, 0, m_impl->m_session->emulation()->lineCount());
+    TerminalCharacterDecoder *decoder;
+    if(format == 0) {
+        decoder = new PlainTextDecoder;
+    } else {
+        decoder = new HTMLDecoder;
+    }
+    decoder->begin(&stream);
+    m_impl->m_session->emulation()->writeToStream(decoder, 0, m_impl->m_session->emulation()->lineCount());
+    delete decoder;
 }
 
 void QTermWidget::screenShot(const QString &fileName)
 {
-    QPixmap pixmap(m_impl->m_terminalDisplay->size());
+    qreal deviceratio = m_impl->m_terminalDisplay->devicePixelRatio();
+    deviceratio = deviceratio*2;
+    QPixmap pixmap(m_impl->m_terminalDisplay->size() * deviceratio);
+    pixmap.setDevicePixelRatio(deviceratio);
     m_impl->m_terminalDisplay->render(&pixmap);
     pixmap.save(fileName);
 }

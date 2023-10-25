@@ -42,8 +42,8 @@
 #include <QDesktopServices>
 #include <QClipboard>
 #include <QInputDialog>
-#include <QFileDialog>
 
+#include "filedialog.h"
 #include "qtftp.h"
 #include "qfonticon.h"
 #include "sessiontab.h"
@@ -420,7 +420,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         group->sessionTab->currentWidget()->setFocus();
     });
     for(int i=0;i<9;i++) {
-        shortcutTabSwitch[i] = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_1+i),this);
+        shortcutTabSwitch[i] = new QShortcut(QKeySequence(Qt::ALT|(Qt::Key_1+i)),this);
         connect(shortcutTabSwitch[i],&QShortcut::activated,this,[=](){
             MainWidgetGroup *group = findCurrentFocusGroup();
             group->sessionTab->setCurrentIndex(i);
@@ -587,7 +587,11 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     printScreenAction->setIcon(QFontIcon::icon(QChar(0xf02f)));
     printScreenAction->setStatusTip(tr("Print current screen"));
     screenShotAction->setText(tr("Screen Shot"));
-    screenShotAction->setStatusTip(tr("Screen shot current screen"));
+    screenShotAction->setStatusTip(tr("Screen shot current screen <Alt+P>"));
+    screenShotAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_P));
+    sessionExportAction->setText(tr("Session Export"));
+    sessionExportAction->setStatusTip(tr("Export current session to a file <Alt+O>"));
+    sessionExportAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_O));
     clearScrollbackAction->setText(tr("Clear Scrollback"));
     clearScrollbackAction->setStatusTip(tr("Clear the contents of the scrollback rows"));
     clearScreenAction->setText(tr("Clear Screen"));
@@ -826,6 +830,8 @@ void MainWindow::menuAndToolBarInit(void) {
     ui->toolBar->addAction(printScreenAction);
     screenShotAction = new QAction(this);
     editMenu->addAction(screenShotAction);
+    sessionExportAction = new QAction(this);
+    editMenu->addAction(sessionExportAction);
     editMenu->addSeparator();
     ui->toolBar->addSeparator();
     clearScrollbackAction = new QAction(this);
@@ -1050,6 +1056,7 @@ void MainWindow::setSessionClassActionEnable(bool enable)
     findAction->setEnabled(enable);
     printScreenAction->setEnabled(enable);
     screenShotAction->setEnabled(enable);
+    sessionExportAction->setEnabled(enable);
     clearScrollbackAction->setEnabled(enable);
     clearScreenAction->setEnabled(enable);
     clearScreenAndScrollbackAction->setEnabled(enable);
@@ -1271,11 +1278,42 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     connect(screenShotAction,&QAction::triggered,this,[=](){
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
-        QString fileName = QFileDialog::getSaveFileName(this,tr("Save Screenshot"),QDir::homePath(),tr("Image Files (*.jpg)"));
+        GlobalSetting settings;
+        QString screenShotPath = settings.value("Global/Options/ScreenShotPath",QDir::homePath()).toString();
+        QString willsaveName = screenShotPath + "/quartCRT-" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".jpg";
+        QString fileName = FileDialog::getSaveFileName(this,tr("Save Screenshot"),willsaveName,tr("Image Files (*.jpg)"));
         if(fileName.isEmpty()) return;
         if(!fileName.endsWith(".jpg")) fileName.append(".jpg");
         termWidget->screenShot(fileName);
+        settings.setValue("Global/Options/ScreenShotPath",QFileInfo(fileName).absolutePath());
         ui->statusBar->showMessage(tr("Screenshot saved to %1").arg(fileName),3000);
+    });
+    connect(sessionExportAction,&QAction::triggered,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        GlobalSetting settings;
+        QString screenShotPath = settings.value("Global/Options/SessionExportPath",QDir::homePath()).toString();
+        QString willsaveName = screenShotPath + "/quartCRT-" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+        QString selectedFilter;
+        QString fileName = FileDialog::getSaveFileName(this,tr("Save Session Export"),willsaveName,tr("Text Files (*.txt);;HTML Files (*.html)"),&selectedFilter);
+        if(fileName.isEmpty()) return;
+        int format = 0;
+        if(selectedFilter == "Text Files (*.txt)") {
+            format = 0;
+            if(!fileName.endsWith(".txt")) fileName.append(".txt");
+        } else if(selectedFilter == "HTML Files (*.html)") {
+            format = 1;
+            if(!fileName.endsWith(".html")) fileName.append(".html");
+        }
+        QFile file(fileName);
+        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            termWidget->saveHistory(&file,format);
+            file.close();
+            settings.setValue("Global/Options/SessionExportPath",QFileInfo(fileName).absolutePath());
+            ui->statusBar->showMessage(tr("Session Export saved to %1").arg(fileName),3000);
+        } else {
+            ui->statusBar->showMessage(tr("Session Export failed to save to %1").arg(fileName),3000);
+        }
     });
     connect(clearScrollbackAction,&QAction::triggered,this,[=](){
         QTermWidget *termWidget = findCurrentFocusTermWidget();
@@ -1383,7 +1421,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(addBookmarkAction, &QAction::triggered, this, [&]() {
-        QString path = QFileDialog::getExistingDirectory(this,tr("Select a directory"),QDir::homePath());
+        QString path = FileDialog::getExistingDirectory(this,tr("Select a directory"),QDir::homePath());
         if(path.isEmpty()) return;
         GlobalSetting settings;
         int size = settings.beginReadArray("Global/Bookmark");
