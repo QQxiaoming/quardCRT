@@ -30,7 +30,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v3.3.0
         with:
-          version: '6.2.0'
+          version: '6.5.3'
           modules: 'qt5compat qtwebsockets qtserialport'
           aqtversion: ==3.1.7
 
@@ -45,7 +45,7 @@ jobs:
           git fetch --tags --force
           git describe --always --long --dirty --abbrev=10 --tags | awk '{print "\""$0"\""}' > git_tag.inc
           sed -i'.original' -e 's/git_tag.inc/git_tag.ci.inc/g' quardCRT.pro
-          sed -i'.original' -e 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.2.0\/macos/g' build_dmg.sh
+          sed -i'.original' -e 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/macos/g' build_dmg.sh
           ./build_dmg.sh
 
       - name: Upload build asserts
