@@ -1299,10 +1299,10 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         QString fileName = FileDialog::getSaveFileName(this,tr("Save Session Export"),willsaveName,tr("Text Files (*.txt);;HTML Files (*.html)"),&selectedFilter);
         if(fileName.isEmpty()) return;
         int format = 0;
-        if(selectedFilter == "Text Files (*.txt)") {
+        if(selectedFilter == tr("Text Files (*.txt)")) {
             format = 0;
             if(!fileName.endsWith(".txt")) fileName.append(".txt");
-        } else if(selectedFilter == "HTML Files (*.html)") {
+        } else if(selectedFilter == tr("HTML Files (*.html)")) {
             format = 1;
             if(!fileName.endsWith(".html")) fileName.append(".html");
         }

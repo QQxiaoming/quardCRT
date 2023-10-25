@@ -1053,6 +1053,12 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent* event, bool fromPaste)
             entry = _keyTranslator->findEntry(Qt::Key_End, Qt::NoModifier, states);
             modifiers = Qt::NoModifier;
         } 
+      #if defined(Q_OS_MACOS)
+        if (( modifiers & Qt::ControlModifier ) && ( event->key() == Qt::Key_Backspace )) {
+            entry = _keyTranslator->findEntry(Qt::Key_Delete, Qt::NoModifier, states);
+            modifiers = Qt::NoModifier;
+        }
+      #endif
 
         // send result to terminal
         QByteArray textToSend;

@@ -114,7 +114,7 @@ macx:{
     ICON = "icons\ico.icns"
     LIBS += -lutil
 
-    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
+    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
 }
 
 git_tag.target = $$PWD/git_tag.inc

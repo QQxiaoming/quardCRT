@@ -66,7 +66,7 @@ GlobalOptions::GlobalOptions(QWidget *parent) :
   
     connect(ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
     connect(ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
-        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), QString(), tr("Image Files (*.png *.jpg *.bmp)"));
+        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.bmp)"));
         if (!imgPath.isEmpty()) {
             ui->lineEditBackgroundImage->setText(imgPath);
         }
