@@ -1927,8 +1927,13 @@ QString MainWindow::getDirAndcheckeSysName(const QString &title)
         QString sysUsername = qEnvironmentVariable("USER");
         QString sysHostname = QHostInfo::localHostName();
     #endif
-        if((username == sysUsername) && (hostname == sysHostname)) {
+        QFileInfo fileInfo(dir);
+        if((username == sysUsername) && (hostname == sysHostname) && (fileInfo.isDir())) {
+        #if defined(Q_OS_WIN)
+            return dir;
+        #else
             return dir.replace("~",QDir::homePath());
+        #endif
         }
     }
 

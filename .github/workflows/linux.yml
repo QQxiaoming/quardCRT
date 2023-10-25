@@ -37,7 +37,17 @@ jobs:
       - name: Install prerequisites
         run: |
           sudo apt update
-          sudo apt install -y make gcc patchelf chrpath qt5-default
+          sudo apt install -y make gcc patchelf chrpath qt5-default libxcb-cursor0
+      
+      - name: build depend
+        run: |
+          cd depend
+          sudo apt install fcitx-libs-dev qtbase5-private-dev libxkbcommon-dev extra-cmake-modules tree
+          export PATH=$Qt6_DIR/bin:$PATH
+          export PATH=$Qt6_DIR/../../Qt/Tools/CMake/bin:$PATH
+          export Qt6GuiTools_DIR=$Qt6_DIR
+          ./build_fcitx_qt6.sh
+          cp ./fcitx-qt5-1.2.7/build/qt6/platforminputcontext/libfcitxplatforminputcontextplugin-qt6.so ./
 
       - name: Build all
         run: |

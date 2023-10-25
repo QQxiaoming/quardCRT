@@ -14,6 +14,7 @@
 - 优化界面上下文菜单
 - 优化打开文件对话框UI
 - windows上渲染粗体字体导致光标异常，暂时不支持粗体渲染保证光标位置正确
+- 修复windows上执行命令后设置的工作路径不正确问题
 
 ## [[V0.2.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.1)] - 2023-10-19
 

@@ -11,5 +11,5 @@ tar -xzvf fcitx-qt5-1.2.7.tar.gz
 cd $SHELL_FOLDER/fcitx-qt5-1.2.7
 mkdir build
 cd build
-cmake ..
+cmake .. -DENABLE_QT5=OFF -DENABLE_QT6=ON
 make -j4
