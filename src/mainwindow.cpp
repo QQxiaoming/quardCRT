@@ -1927,8 +1927,7 @@ QString MainWindow::getDirAndcheckeSysName(const QString &title)
         QString sysUsername = qEnvironmentVariable("USER");
         QString sysHostname = QHostInfo::localHostName();
     #endif
-        QFileInfo fileInfo(dir);
-        if((username == sysUsername) && (hostname == sysHostname) && (fileInfo.isDir())) {
+        if((username == sysUsername) && (hostname == sysHostname)) {
         #if defined(Q_OS_WIN)
             return dir;
         #else
@@ -1966,7 +1965,10 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
             QString workDir = getDirAndcheckeSysName(newTitle);
             if(!workDir.isEmpty()) {
                 sessionsWindow->setShortTitle(workDir);
-                sessionsWindow->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
+                QFileInfo fileInfo(workDir);
+                if(fileInfo.isDir()) {
+                    sessionsWindow->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
+                }
             } else {
                 sessionsWindow->setShortTitle(newTitle);
             }
@@ -2056,7 +2058,10 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, bool saveSession, QS
                     QString workDir = getDirAndcheckeSysName(newTitle);
                     if(!workDir.isEmpty()) {
                         sessionsWindowClone->setShortTitle(workDir);
-                        sessionsWindowClone->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
+                        QFileInfo fileInfo(workDir);
+                        if(fileInfo.isDir()) {
+                            sessionsWindowClone->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
+                        }
                     } else {
                         sessionsWindowClone->setShortTitle(newTitle);
                     }
