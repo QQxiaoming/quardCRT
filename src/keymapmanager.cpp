@@ -39,7 +39,13 @@ void keyMapManager::setAvailableKeyBindings(QStringList keyBindings)
 {
     ui->comboBoxKeyBinding->clear();
     ui->comboBoxKeyBinding->addItems(keyBindings);
-    ui->comboBoxKeyBinding->setCurrentText("linux");
+#if defined(Q_OS_WIN)
+    ui->comboBoxKeyBinding->setCurrentText("default");
+#elif defined(Q_OS_LINUX)
+    ui->comboBoxKeyBinding->setCurrentText("default");
+#elif defined(Q_OS_MAC)
+    ui->comboBoxKeyBinding->setCurrentText("macbook");
+#endif
 }
 
 QString keyMapManager::getCurrentKeyBinding(void)

@@ -1046,6 +1046,14 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent* event, bool fromPaste)
                                                 modifiers,
                                                 states );
 
+        if ((modifiers & Qt::AltModifier) && (event->key() == Qt::Key_Left)) {
+            entry = _keyTranslator->findEntry(Qt::Key_Home, Qt::NoModifier, states);
+            modifiers = Qt::NoModifier;
+        } else if ((modifiers & Qt::AltModifier) && (event->key() == Qt::Key_Right)) {
+            entry = _keyTranslator->findEntry(Qt::Key_End, Qt::NoModifier, states);
+            modifiers = Qt::NoModifier;
+        } 
+
         // send result to terminal
         QByteArray textToSend;
 
@@ -1069,17 +1077,7 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent* event, bool fromPaste)
             textToSend.prepend("\030@s");
         }
 
-        if ((modifiers & Qt::AltModifier) && (event->key() == Qt::Key_Left)) {
-            for(int i = 0; i < _currentScreen->getCursorX(); ++i) {
-                textToSend += "\033[D";
-            }
-        }
-        else if ((modifiers & Qt::AltModifier) && (event->key() == Qt::Key_Right)) {
-            for(int i = 0; i < _currentScreen->getColumns() - _currentScreen->getCursorX() - 1; ++i) {
-                textToSend += "\033[C";
-            }
-        } 
-        else if ( entry.command() != KeyboardTranslator::NoCommand )
+        if ( entry.command() != KeyboardTranslator::NoCommand )
         {
             if (entry.command() & KeyboardTranslator::EraseCommand) {
                 textToSend += eraseChar();
