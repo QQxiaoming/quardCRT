@@ -7,7 +7,7 @@ QT_DIR=/opt/Qt6.2.0/6.2.0/gcc_64
 # 定义版本号
 QUARDCRT_MAJARVERSION="0"
 QUARDCRT_SUBVERSION="2"
-QUARDCRT_REVISION="1"
+QUARDCRT_REVISION="2"
 ###############################################################################
 
 

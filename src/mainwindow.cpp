@@ -1182,7 +1182,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         } else if(data.type == QuickConnectWindow::LocalShell) {
             QString name = "Local Shell";
             if(data.openInTab) {
-                name = startLocalShellSession(quickConnectMainWidgetGroup,data.LocalShellData.command,QDir::homePath());
+                name = startLocalShellSession(quickConnectMainWidgetGroup,data.LocalShellData.command,globalOptionsWindow->getNewTabWorkPath());
             }
             if(data.saveSession) {
                 addSessionToSessionManager(data,name, !data.openInTab);
@@ -1279,7 +1279,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         sessionManagerWidget->setVisible(true);
     });
     connect(connectLocalShellAction,&QAction::triggered,this,[=](){
-        startLocalShellSession(findCurrentFocusGroup());
+        startLocalShellSession(findCurrentFocusGroup(),QString(),globalOptionsWindow->getNewTabWorkPath());
     });
     connect(disconnectAction,&QAction::triggered,this,[=](){
         QTermWidget *termWidget = findCurrentFocusTermWidget();
@@ -1965,7 +1965,7 @@ void MainWindow::connectSessionFromSessionManager(QString name)
                 break;
             case QuickConnectWindow::LocalShell:
                 data.LocalShellData.command = settings.value("command").toString();
-                startLocalShellSession(findCurrentFocusGroup(),data.LocalShellData.command,QDir::homePath(),current_name);
+                startLocalShellSession(findCurrentFocusGroup(),data.LocalShellData.command,globalOptionsWindow->getNewTabWorkPath(),current_name);
                 break;
             case QuickConnectWindow::Raw:
                 data.RawData.hostname = settings.value("hostname").toString();
@@ -2112,7 +2112,8 @@ QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->setWorkingDirectory(workingDirectory);
+    QFileInfo workingDirectoryInfo(workingDirectory);
+    sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
     sessionsWindow->startLocalShellSession(command);
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){

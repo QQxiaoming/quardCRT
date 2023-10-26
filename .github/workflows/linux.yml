@@ -9,14 +9,17 @@ on:
       - 'README.md'
       - 'README_zh_CN.md'
       - 'DEVELOPNOTE.md'
+      - 'CHANGELOG.md'
       - '.readthedocs.yaml'
   pull_request:
     branches: [ main ]
     paths-ignore:
       - 'doc/**'
+      - 'docs/**'
       - 'README.md'
       - 'README_zh_CN.md'
       - 'DEVELOPNOTE.md'
+      - 'CHANGELOG.md'
       - '.readthedocs.yaml'
   workflow_dispatch:
 
@@ -31,7 +34,7 @@ jobs:
         uses: jurplel/install-qt-action@v3.3.0
         with:
           version: '6.5.3'
-          modules: 'qt5compat qtwebsockets qtserialport'
+          modules: 'qt5compat qtwebsockets qtserialport qtprintsupport'
           aqtversion: ==3.1.7
 
       - name: Install prerequisites

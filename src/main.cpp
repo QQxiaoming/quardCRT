@@ -180,6 +180,17 @@ int main(int argc, char *argv[])
     bool isMiniUI = false;
     QString dir;
 
+    settings.beginGroup("Version");
+    if(settings.contains("Version"))
+        if(debugMode) qDebug() << "Setting Version: " << settings.value("Version").toString();
+    if(debugMode) qDebug() << "Version: " << VERSION;
+    if(settings.contains("GitTag"))
+        if(debugMode) qDebug() << "Setting GitTag: " << settings.value("GitTag").toString();
+    if(debugMode) qDebug() << "GitTag: " << GIT_TAG;
+    settings.setValue("Version",VERSION);
+    settings.setValue("GitTag",GIT_TAG);
+    settings.endGroup();
+
     settings.beginGroup("Global/Startup");
     if(settings.contains("dark_theme"))
         dark_theme = settings.value("dark_theme").toString();

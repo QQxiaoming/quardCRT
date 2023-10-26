@@ -124,12 +124,17 @@
         <translation>背景图片透明度</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.cpp" line="69"/>
+        <location filename="../src/globaloptions.ui" line="155"/>
+        <source>New tab workpath</source>
+        <translation>新标签工作目录</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions.cpp" line="78"/>
         <source>Select Background Image</source>
         <translation>选择背景图片</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.cpp" line="69"/>
+        <location filename="../src/globaloptions.cpp" line="78"/>
         <source>Image Files (*.png *.jpg *.bmp)</source>
         <translation>图片文件 (*.png *.jpg *.bmp)</translation>
     </message>
@@ -326,7 +331,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="567"/>
         <location filename="../src/mainwindow.cpp" line="770"/>
-        <location filename="../src/mainwindow.cpp" line="2280"/>
+        <location filename="../src/mainwindow.cpp" line="2281"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
@@ -1126,7 +1131,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="773"/>
-        <location filename="../src/mainwindow.cpp" line="2263"/>
+        <location filename="../src/mainwindow.cpp" line="2264"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1212,12 +1217,12 @@
         <translation>本机终端</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2264"/>
+        <location filename="../src/mainwindow.cpp" line="2265"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;版本&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;提交&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;作者&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;主页&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2281"/>
+        <location filename="../src/mainwindow.cpp" line="2282"/>
         <source>Global Shortcuts:
 
   ALT+&quot;U&quot;		show/hide menu bar

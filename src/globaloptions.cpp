@@ -63,6 +63,15 @@ GlobalOptions::GlobalOptions(QWidget *parent) :
     if(settings.contains("backgroundImageOpacity"))
         ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
     settings.endGroup();
+
+    ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
+    int size = settings.beginReadArray("Global/Bookmark");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        ui->comboBoxNewTabWorkPath->addItem(settings.value("path").toString());
+    }
+    settings.endArray();
+    ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("Global/Options/NewTabWorkPath",QDir::homePath()).toString());
   
     connect(ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
     connect(ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
@@ -138,6 +147,11 @@ qreal GlobalOptions::getBackgroundImageOpacity(void)
     return ui->horizontalSliderBackgroundImageOpacity->value() / 100.0;
 }
 
+QString GlobalOptions::getNewTabWorkPath(void)
+{
+    return ui->comboBoxNewTabWorkPath->currentText();
+}
+
 void GlobalOptions::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -148,6 +162,7 @@ void GlobalOptions::buttonBoxAccepted(void)
     settings.setValue("backgroundImage", ui->lineEditBackgroundImage->text());
     settings.setValue("backgroundImageMode", ui->comboBoxBackgroundMode->currentIndex());
     settings.setValue("backgroundImageOpacity", ui->horizontalSliderBackgroundImageOpacity->value());
+    settings.setValue("NewTabWorkPath", ui->comboBoxNewTabWorkPath->currentText());
     settings.endGroup();
     emit colorSchemeChanged(ui->comBoxColorSchemes->currentText());
     emit this->accepted();

@@ -40,6 +40,7 @@ public:
     QString getBackgroundImage(void);
     int getBackgroundImageMode(void);
     qreal getBackgroundImageOpacity(void);
+    QString getNewTabWorkPath(void);
 
     const static QString defaultColorScheme;
 
