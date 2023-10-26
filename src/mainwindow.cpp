@@ -1160,49 +1160,48 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             } else if(data.TelnetData.webSocket == "Secure") {
                 type = QTelnet::SECUREWEBSOCKET;
             }
+            QString name = data.TelnetData.hostname;
             if(data.openInTab) {
-                startTelnetSession(quickConnectMainWidgetGroup,data.TelnetData.hostname,data.TelnetData.port,type,data.saveSession);
-            } else {
-                if(data.saveSession) {
-                    addSessionToSessionManager(data,data.TelnetData.hostname);
-                }
+                name = startTelnetSession(quickConnectMainWidgetGroup,name,data.TelnetData.port,type);
+            }
+            if(data.saveSession) {
+                addSessionToSessionManager(data,name, !data.openInTab);
             }
         } else if(data.type == QuickConnectWindow::Serial) {
+            QString name = data.SerialData.portName;
             if(data.openInTab) {
-                startSerialSession(quickConnectMainWidgetGroup,
-                            data.SerialData.portName,data.SerialData.baudRate,
+                name = startSerialSession(quickConnectMainWidgetGroup,
+                            name,data.SerialData.baudRate,
                             data.SerialData.dataBits,data.SerialData.parity,
                             data.SerialData.stopBits,data.SerialData.flowControl,
-                            data.SerialData.xEnable,data.saveSession);
-            } else {
-                if(data.saveSession) {
-                    addSessionToSessionManager(data,data.SerialData.portName);
-                }
+                            data.SerialData.xEnable);
+            }
+            if(data.saveSession) {
+                addSessionToSessionManager(data,name, !data.openInTab);
             }
         } else if(data.type == QuickConnectWindow::LocalShell) {
+            QString name = "Local Shell";
             if(data.openInTab) {
-                startLocalShellSession(quickConnectMainWidgetGroup,data.LocalShellData.command,QDir::homePath(),data.saveSession);
-            } else {
-                if(data.saveSession) {
-                    QString name = "Local Shell";
-                    addSessionToSessionManager(data,name);
-                }
+                name = startLocalShellSession(quickConnectMainWidgetGroup,data.LocalShellData.command,QDir::homePath());
+            }
+            if(data.saveSession) {
+                addSessionToSessionManager(data,name, !data.openInTab);
             }
         } else if(data.type == QuickConnectWindow::Raw) {
+            QString name = data.RawData.hostname;
             if(data.openInTab) {
-                startRawSocketSession(quickConnectMainWidgetGroup,data.RawData.hostname,data.RawData.port,data.saveSession);
-            } else {
-                if(data.saveSession) {
-                    addSessionToSessionManager(data,data.RawData.hostname);
-                }
+                name = startRawSocketSession(quickConnectMainWidgetGroup,name,data.RawData.port);
+            }
+            if(data.saveSession) {
+                addSessionToSessionManager(data,name, !data.openInTab);
             }
         } else if(data.type == QuickConnectWindow::SSH2) {
+            QString name = data.SSH2Data.hostname;
             if(data.openInTab) {
-                startSSH2Session(quickConnectMainWidgetGroup,data.SSH2Data.hostname,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password,data.saveSession);
-            } else {
-                if(data.saveSession) {
-                    addSessionToSessionManager(data,data.SSH2Data.hostname);
-                }
+                name = startSSH2Session(quickConnectMainWidgetGroup,data.SSH2Data.hostname,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password);
+            }
+            if(data.saveSession) {
+                addSessionToSessionManager(data,name, !data.openInTab);
             }
         }
     });
@@ -1803,9 +1802,9 @@ int MainWindow::addSessionToSessionManager(SessionsWindow *sessionsWindow, QStri
     return 0;
 }
 
-int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name)
+int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname)
 {
-    checkSessionName(name);
+    if(checkname) checkSessionName(name);
     sessionManagerWidget->addSession(name,data.type);
 
     GlobalSetting settings;
@@ -1949,7 +1948,7 @@ void MainWindow::connectSessionFromSessionManager(QString name)
                 startTelnetSession(findCurrentFocusGroup(),data.TelnetData.hostname,data.TelnetData.port,
                                    data.TelnetData.webSocket == "None"?QTelnet::TCP:
                                    data.TelnetData.webSocket == "Insecure"?QTelnet::WEBSOCKET:
-                                   QTelnet::SECUREWEBSOCKET, false, current_name);
+                                   QTelnet::SECUREWEBSOCKET, current_name);
                 break;
             case QuickConnectWindow::Serial:
                 data.SerialData.portName = settings.value("portName").toString();
@@ -1962,16 +1961,16 @@ void MainWindow::connectSessionFromSessionManager(QString name)
                 startSerialSession(findCurrentFocusGroup(),data.SerialData.portName,data.SerialData.baudRate,
                                    data.SerialData.dataBits,data.SerialData.parity,
                                    data.SerialData.stopBits,data.SerialData.flowControl,
-                                   data.SerialData.xEnable, false, current_name);
+                                   data.SerialData.xEnable, current_name);
                 break;
             case QuickConnectWindow::LocalShell:
                 data.LocalShellData.command = settings.value("command").toString();
-                startLocalShellSession(findCurrentFocusGroup(),data.LocalShellData.command,QDir::homePath(),false,current_name);
+                startLocalShellSession(findCurrentFocusGroup(),data.LocalShellData.command,QDir::homePath(),current_name);
                 break;
             case QuickConnectWindow::Raw:
                 data.RawData.hostname = settings.value("hostname").toString();
                 data.RawData.port = settings.value("port").toInt();
-                startRawSocketSession(findCurrentFocusGroup(),data.RawData.hostname,data.RawData.port, false, current_name);
+                startRawSocketSession(findCurrentFocusGroup(),data.RawData.hostname,data.RawData.port, current_name);
                 break;
             default:
                 break;
@@ -1981,7 +1980,7 @@ void MainWindow::connectSessionFromSessionManager(QString name)
     }
 }
 
-SessionsWindow *MainWindow::startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type, bool saveSession, QString name)
+QString MainWindow::startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Telnet,this);
     setGlobalOptions(sessionsWindow);
@@ -1990,8 +1989,7 @@ SessionsWindow *MainWindow::startTelnetSession(MainWidgetGroup *group, QString h
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     if(name.isEmpty()) {
         name = hostname;
-        if(saveSession) addSessionToSessionManager(sessionsWindow,name);
-        else checkSessionName(name);
+        checkSessionName(name);
     } 
     sessionsWindow->setName(name);
     sessionsWindow->startTelnetSession(hostname,port,type);
@@ -2004,11 +2002,11 @@ SessionsWindow *MainWindow::startTelnetSession(MainWidgetGroup *group, QString h
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
-    return sessionsWindow;
+    return name;
 }
 
-SessionsWindow *MainWindow::startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
-                int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, bool saveSession, QString name)
+QString MainWindow::startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
+                int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Serial,this);
     setGlobalOptions(sessionsWindow);
@@ -2017,8 +2015,7 @@ SessionsWindow *MainWindow::startSerialSession(MainWidgetGroup *group, QString p
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     if(name.isEmpty()) {
         name = portName;
-        if(saveSession) addSessionToSessionManager(sessionsWindow,name);
-        else checkSessionName(name);
+        checkSessionName(name);
     }
     sessionsWindow->setName(name);
     sessionsWindow->startSerialSession(portName,baudRate,dataBits,parity,stopBits,flowControl,xEnable);
@@ -2031,10 +2028,10 @@ SessionsWindow *MainWindow::startSerialSession(MainWidgetGroup *group, QString p
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
-    return sessionsWindow;
+    return name;
 }
 
-SessionsWindow *MainWindow::startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, bool saveSession, QString name)
+QString MainWindow::startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::RawSocket,this);
     setGlobalOptions(sessionsWindow);
@@ -2043,8 +2040,7 @@ SessionsWindow *MainWindow::startRawSocketSession(MainWidgetGroup *group, QStrin
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     if(name.isEmpty()) {
         name = hostname;
-        if(saveSession) addSessionToSessionManager(sessionsWindow,name);
-        else checkSessionName(name);
+        checkSessionName(name);
     }
     sessionsWindow->setName(name);
     sessionsWindow->startRawSocketSession(hostname,port);
@@ -2057,7 +2053,7 @@ SessionsWindow *MainWindow::startRawSocketSession(MainWidgetGroup *group, QStrin
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
-    return sessionsWindow;
+    return name;
 }
 
 QString MainWindow::getDirAndcheckeSysName(const QString &title)
@@ -2100,7 +2096,7 @@ QString MainWindow::getDirAndcheckeSysName(const QString &title)
     return QString();
 }
 
-SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString &command, const QString &workingDirectory, bool saveSession, QString name)
+QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString &command, const QString &workingDirectory, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
     setGlobalOptions(sessionsWindow);
@@ -2113,8 +2109,7 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     if(name.isEmpty()) {
         name = "Local Shell";
-        if(saveSession) addSessionToSessionManager(sessionsWindow,name);
-        else checkSessionName(name);
+        checkSessionName(name);
     }
     sessionsWindow->setName(name);
     sessionsWindow->setWorkingDirectory(workingDirectory);
@@ -2137,11 +2132,11 @@ SessionsWindow *MainWindow::startLocalShellSession(MainWidgetGroup *group, const
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
-    return sessionsWindow;
+    return name;
 }
 
-SessionsWindow *MainWindow::startSSH2Session(MainWidgetGroup *group, 
-        QString hostname, quint16 port, QString username, QString password, bool saveSession, QString name)
+QString MainWindow::startSSH2Session(MainWidgetGroup *group, 
+        QString hostname, quint16 port, QString username, QString password, QString name)
 {
     QString opensshCmd = "/usr/bin/sshpass -p "+ password + " /usr/bin/ssh "+username+"@"+hostname+" -p "+QString::number(port);
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
@@ -2151,8 +2146,7 @@ SessionsWindow *MainWindow::startSSH2Session(MainWidgetGroup *group,
     group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
     if(name.isEmpty()) {
         name = "SSH2";
-        if(saveSession) addSessionToSessionManager(sessionsWindow,name);
-        else checkSessionName(name);
+        checkSessionName(name);
     }
     sessionsWindow->setName(name);
     sessionsWindow->setWorkingDirectory(QDir::homePath());
@@ -2166,7 +2160,7 @@ SessionsWindow *MainWindow::startSSH2Session(MainWidgetGroup *group,
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
-    return sessionsWindow;
+    return name;
 }
 
 int MainWindow::stopSession(MainWidgetGroup *group, int index)
@@ -2195,7 +2189,7 @@ int MainWindow::stopAllSession(void)
     return 0;
 }
 
-int MainWindow::cloneCurrentSession(MainWidgetGroup *group, bool saveSession, QString name)
+int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
 {
     if(group->sessionTab->count() == 0) return -1;
     QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
@@ -2209,8 +2203,7 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, bool saveSession, QS
             group->sessionTab->addTab(sessionsWindowClone->getTermWidget(), group->sessionTab->tabText(group->sessionTab->indexOf(termWidget)));
             if(name.isEmpty()) {
                 name = sessionsWindow->getName();
-                if(saveSession) addSessionToSessionManager(sessionsWindow,name);
-                else checkSessionName(name);
+                checkSessionName(name);
             }
             sessionsWindowClone->setName(name);
             sessionsWindowClone->cloneSession(sessionsWindow);
