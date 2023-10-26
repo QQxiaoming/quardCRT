@@ -100,7 +100,6 @@ public:
             return dialog.selectedFiles().value(0);
         return QString();
     }
-
 };
 
 #endif // FILEDIALOG_H

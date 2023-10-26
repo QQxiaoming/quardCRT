@@ -414,6 +414,10 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
 
   setLayout( _gridLayout );
 
+  _isLocked = false;
+  _lockbackgroundImage = QPixmap(10,10);
+  _lockbackgroundImage.fill(Qt::gray);
+
   new AutoScrollHandler(this);
 }
 
@@ -1467,6 +1471,15 @@ void TerminalDisplay::paintEvent( QPaintEvent* pe )
     drawContents(paint, *rect);
   }
   drawInputMethodPreeditString(paint,preeditRect());
+
+  if(_isLocked) {
+    paint.save();
+    paint.setOpacity(0.3);
+    paint.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+    paint.drawPixmap(cr, _lockbackgroundImage, _lockbackgroundImage.rect());
+    paint.restore();
+  }
+
   paintFilters(paint);
 }
 

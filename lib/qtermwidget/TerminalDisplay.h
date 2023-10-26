@@ -530,6 +530,8 @@ public slots:
     void setColorTableColor(const int colorId, const QColor &color);
     void selectionChanged();
 
+    void setLocked(bool enabled) { _isLocked = enabled; }
+
 signals:
 
     /**
@@ -828,6 +830,8 @@ private:
     qreal _opacity;
 
     QPixmap _backgroundImage;
+    bool _isLocked;
+    QPixmap _lockbackgroundImage;
     BackgroundMode _backgroundMode;
 
     // list of filters currently applied to the display.  used for links and

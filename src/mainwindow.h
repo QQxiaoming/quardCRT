@@ -42,6 +42,7 @@
 #include "sessionmanagerwidget.h"
 #include "commandwindow.h"
 #include "starttftpseverwindow.h"
+#include "locksessionwindow.h"
 #include "qtftp.h"
 
 extern QString VERSION;
@@ -108,6 +109,7 @@ private:
     HexViewWindow *hexViewWindow;
     QPushButton *sessionManagerPushButton;
     StartTftpSeverWindow *startTftpSeverWindow;
+    LockSessionWindow *lockSessionWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;

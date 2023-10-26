@@ -88,9 +88,17 @@ void SessionTreeView::contextMenuEvent(QContextMenuEvent *event) {
                 emit sessionRemove(name);
             });
             contextMenu->addSeparator();
+
+            // TODO:Unimplemented functions are temporarily closed
+            connectInNewWindowAction->setEnabled(false);
+            connectInNewTabGroupAction->setEnabled(false);
         }
         QAction *propertiesAction = new QAction(tr("Properties"), contextMenu);
         contextMenu->addAction(propertiesAction);
+
+        // TODO:Unimplemented functions are temporarily closed
+        propertiesAction->setEnabled(false);
+
         if(!contextMenu->isEmpty()) {
             contextMenu->move(cursor().pos());
             contextMenu->show();

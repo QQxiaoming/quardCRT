@@ -69,6 +69,9 @@ public:
     void setShortTitle(const QString &title) { shortTitle = title; }
     void setName(const QString &name) { this->name = name; }
     QString getName() const { return name; }
+    void lockSession(QString password);
+    void unlockSession(QString password);
+    bool isLocked() const { return locked; }
 
 signals:
     void hexDataDup(const char *data, int size);
@@ -109,6 +112,8 @@ private:
     QFile *log_file = nullptr;
     QFile *raw_log_file = nullptr;
     bool fflush_file = true;
+    QByteArray password_hash;
+    bool locked = false;
 };
 
 #endif // SESSIONSWINDOW_H

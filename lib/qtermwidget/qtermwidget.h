@@ -234,6 +234,8 @@ public:
         emit sendData(data.data(), data.size());
     }
 
+    void setLocked(bool enabled);
+
     void reTranslateUi(void);
     static void setLangeuage(QLocale::Language lang);
 
@@ -309,6 +311,7 @@ public slots:
     void toggleShowSearchBar();
 
     void saveHistory(QIODevice *device, int format = 0);
+    void saveHistory(QTextStream *stream, int format = 0);
     void screenShot(const QString &fileName);
 
 protected:

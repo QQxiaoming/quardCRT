@@ -716,18 +716,23 @@ int QTermWidget::getMargin() const
     return m_impl->m_terminalDisplay->margin();
 }
 
-void QTermWidget::saveHistory(QIODevice *device, int format)
+void QTermWidget::saveHistory(QTextStream *stream, int format)
 {
-    QTextStream stream(device);
     TerminalCharacterDecoder *decoder;
     if(format == 0) {
         decoder = new PlainTextDecoder;
     } else {
         decoder = new HTMLDecoder;
     }
-    decoder->begin(&stream);
+    decoder->begin(stream);
     m_impl->m_session->emulation()->writeToStream(decoder, 0, m_impl->m_session->emulation()->lineCount());
     delete decoder;
+}
+
+void QTermWidget::saveHistory(QIODevice *device, int format)
+{
+    QTextStream stream(device);
+    saveHistory(&stream, format);
 }
 
 void QTermWidget::screenShot(const QString &fileName)
@@ -738,6 +743,12 @@ void QTermWidget::screenShot(const QString &fileName)
     pixmap.setDevicePixelRatio(deviceratio);
     m_impl->m_terminalDisplay->render(&pixmap);
     pixmap.save(fileName);
+}
+
+void QTermWidget::setLocked(bool enabled)
+{
+    this->setEnabled(!enabled);
+    m_impl->m_terminalDisplay->setLocked(enabled);
 }
 
 void QTermWidget::setDrawLineChars(bool drawLineChars)

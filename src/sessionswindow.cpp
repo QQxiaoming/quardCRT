@@ -26,6 +26,7 @@
 #include <QDir>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QCryptographicHash>
 
 #include "filedialog.h"
 #include "sessionswindow.h"
@@ -420,4 +421,19 @@ int SessionsWindow::saveRawLog(const char *data, int size) {
         }
     }
     return ret;
+}
+
+void SessionsWindow::lockSession(QString password) {
+    password_hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
+    locked = true;
+    term->setLocked(locked);
+}
+
+void SessionsWindow::unlockSession(QString password) {
+    QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
+    if(hash == password_hash) {
+        password_hash = QByteArray();
+        locked = false;
+        term->setLocked(locked);
+    }
 }

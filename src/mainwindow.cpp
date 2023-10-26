@@ -42,6 +42,8 @@
 #include <QDesktopServices>
 #include <QClipboard>
 #include <QInputDialog>
+#include <QPrinter>
+#include <QPrintDialog>
 
 #include "filedialog.h"
 #include "qtftp.h"
@@ -87,6 +89,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     
     quickConnectWindow = new QuickConnectWindow(this);
     quickConnectMainWidgetGroup = mainWidgetGroupList.at(0);
+
+    lockSessionWindow = new LockSessionWindow(this);
 
     startTftpSeverWindow = new StartTftpSeverWindow(this);
     tftpServer = new QTftp;
@@ -174,6 +178,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     if(sessionsWindow->getTermWidget() == termWidget) {
                         logSessionAction->setChecked(sessionsWindow->isLog());
                         rawLogSessionAction->setChecked(sessionsWindow->isRawLog());
+                        lockSessionAction->setChecked(sessionsWindow->isLocked());
                         if(hexViewAction->isChecked()) {
                             connect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
                                     hexViewWindow,SLOT(recvData(const char*,int)));
@@ -188,6 +193,16 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                 if(mainWidgetGroup->sessionTab->currentIndex() != index) {
                     delete menu;
                     return;
+                }
+                QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                foreach(SessionsWindow *sessionsWindow, sessionList) {
+                    if(sessionsWindow->getTermWidget() == termWidget) {
+                        if(sessionsWindow->isLocked()) {
+                            delete menu;
+                            return;
+                        }
+                        break;
+                    }
                 }
                 QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
                 menu->addAction(moveToAnotherTabAction);
@@ -292,6 +307,15 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
             } else if(index == -1) {
                 if(mainWidgetGroup->sessionTab->count() != 0) {
                     QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                    foreach(SessionsWindow *sessionsWindow, sessionList) {
+                        if(sessionsWindow->getTermWidget() == termWidget) {
+                            if(sessionsWindow->isLocked()) {
+                                delete menu;
+                                return;
+                            }
+                            break;
+                        }
+                    }
                     QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
                     QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
                     if(!ftActions.isEmpty()) {
@@ -331,6 +355,9 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
             QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->widget(index);
             foreach(SessionsWindow *sessionsWindow, sessionList) {
                 if(sessionsWindow->getTermWidget() == termWidget) {
+                    if(sessionsWindow->isLocked()) {
+                        return;
+                    }
                     sessionsWindow->setShowShortTitle(!sessionsWindow->getShowShortTitle());
                     mainWidgetGroup->sessionTab->setTabText(index,sessionsWindow->getTitle());
                     break;
@@ -340,6 +367,14 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         connect(mainWidgetGroup->commandWindow, &CommandWindow::sendData, this, [=](const QByteArray &data) {
             if(mainWidgetGroup->sessionTab->count() != 0) {
                 QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                foreach(SessionsWindow *sessionsWindow, sessionList) {
+                    if(sessionsWindow->getTermWidget() == termWidget) {
+                        if(sessionsWindow->isLocked()) {
+                            return;
+                        }
+                        break;
+                    }
+                }
                 termWidget->proxySendData(data);
             }
         });
@@ -448,6 +483,27 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     if(!dir.isEmpty()) {
         startLocalShellSession(mainWidgetGroupList.at(0),QString(),dir);
     }
+
+    // TODO:Unimplemented functions are temporarily closed
+    sessionOptionsAction->setEnabled(false);
+    sendASCIIAction->setEnabled(false);
+    receiveASCIIAction->setEnabled(false);
+    sendBinaryAction->setEnabled(false);
+    sendXmodemAction->setEnabled(false);
+    receiveXmodemAction->setEnabled(false);
+    sendYmodemAction->setEnabled(false);
+    receiveYmodemAction->setEnabled(false);
+    zmodemUploadListAction->setEnabled(false);
+    startZmodemUploadAction->setEnabled(false);
+    runAction->setEnabled(false);
+    cancelAction->setEnabled(false);
+    startRecordingScriptAction->setEnabled(false);
+    stopRecordingScriptAction->setEnabled(false);
+    canlcelRecordingScriptAction->setEnabled(false);
+    createPublicKeyAction->setEnabled(false);
+    publickeyManagerAction->setEnabled(false);
+    tileAction->setEnabled(false);
+    cascadeAction->setEnabled(false);
 }
 
 MainWindow::~MainWindow() {
@@ -546,7 +602,6 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     cloneSessionAction->setStatusTip(tr("Clone current session <Ctrl+Shift+T>"));
     cloneSessionAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_T));
     lockSessionAction->setText(tr("Lock Session"));
-    lockSessionAction->setIcon(QFontIcon::icon(QChar(0xf023)));
     lockSessionAction->setStatusTip(tr("Lock/Unlock current session"));
     logSessionAction->setText(tr("Log Session"));
     logSessionAction->setStatusTip(tr("Create a log file for current session"));
@@ -789,9 +844,9 @@ void MainWindow::menuAndToolBarInit(void) {
     fileMenu->addAction(cloneSessionAction);
     fileMenu->addSeparator();
     lockSessionAction = new QAction(this);
+    lockSessionAction->setCheckable(true);
     fileMenu->addAction(lockSessionAction);
     fileMenu->addSeparator();
-    sessionManagerWidget->addActionOnToolBar(lockSessionAction);
     logSessionAction = new QAction(this);
     logSessionAction->setCheckable(true);
     logSessionAction->setChecked(false);
@@ -1067,15 +1122,16 @@ void MainWindow::setSessionClassActionEnable(bool enable)
     zoomOutAction->setEnabled(enable);
     zoomResetAction->setEnabled(enable);
 
-    sendASCIIAction->setEnabled(enable);
-    receiveASCIIAction->setEnabled(enable);
-    sendBinaryAction->setEnabled(enable);
-    sendXmodemAction->setEnabled(enable);
-    receiveXmodemAction->setEnabled(enable);
-    sendYmodemAction->setEnabled(enable);
-    receiveYmodemAction->setEnabled(enable);
-    zmodemUploadListAction->setEnabled(enable);
-    startZmodemUploadAction->setEnabled(enable);
+    // TODO: these actions are not implemented yet
+    //sendASCIIAction->setEnabled(enable);
+    //receiveASCIIAction->setEnabled(enable);
+    //sendBinaryAction->setEnabled(enable);
+    //sendXmodemAction->setEnabled(enable);
+    //receiveXmodemAction->setEnabled(enable);
+    //sendYmodemAction->setEnabled(enable);
+    //receiveYmodemAction->setEnabled(enable);
+    //zmodemUploadListAction->setEnabled(enable);
+    //startZmodemUploadAction->setEnabled(enable);
 }
 
 void MainWindow::menuAndToolBarConnectSignals(void) {
@@ -1150,6 +1206,76 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             }
         }
     });
+    connect(lockSessionWindow,&LockSessionWindow::sendLockSessionData,this,
+        [=](QString password, bool lockAllSession, bool lockAllSessionGroup){
+        if(lockAllSession) {
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                if(!sessionsWindow->isLocked()) sessionsWindow->lockSession(password);
+            }
+        } else if(lockAllSessionGroup) {
+            SessionTab *sessionTab = findCurrentFocusGroup()->sessionTab;
+            if(sessionTab->count() == 0) return;
+            for(int i=0;i<sessionTab->count();i++) {
+                QTermWidget *termWidget = (QTermWidget *)sessionTab->widget(i);
+                foreach(SessionsWindow *sessionsWindow, sessionList) {
+                    if(sessionsWindow->getTermWidget() == termWidget) {
+                        if(!sessionsWindow->isLocked()) sessionsWindow->lockSession(password);
+                    }
+                }
+            }
+        } else {
+            QTermWidget *termWidget = findCurrentFocusTermWidget();
+            if(termWidget == nullptr) return;
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                if(sessionsWindow->getTermWidget() == termWidget) {
+                    if(!sessionsWindow->isLocked()) sessionsWindow->lockSession(password);
+                    break;
+                }
+            }
+        }
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(sessionsWindow->getTermWidget() == termWidget) {
+                if(sessionsWindow->isLocked()) {
+                    lockSessionAction->setChecked(true);
+                } else {
+                    lockSessionAction->setChecked(false);
+                }
+                break;
+            }
+        }
+    });
+    connect(lockSessionWindow,&LockSessionWindow::sendUnLockSessionData,this,
+        [=](QString password, bool unlockAllSession){
+        if(unlockAllSession) {
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                if(sessionsWindow->isLocked()) sessionsWindow->unlockSession(password);
+            }
+        } else {
+            QTermWidget *termWidget = findCurrentFocusTermWidget();
+            if(termWidget == nullptr) return;
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                if(sessionsWindow->getTermWidget() == termWidget) {
+                    if(sessionsWindow->isLocked()) sessionsWindow->unlockSession(password);
+                    break;
+                }
+            }
+        }
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(sessionsWindow->getTermWidget() == termWidget) {
+                if(sessionsWindow->isLocked()) {
+                    lockSessionAction->setChecked(true);
+                } else {
+                    lockSessionAction->setChecked(false);
+                }
+                break;
+            }
+        }
+    });
+
     connect(connectInTabAction,&QAction::triggered,this,[=](){
         sessionManagerWidget->setVisible(true);
     });
@@ -1166,6 +1292,15 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(cloneSessionAction,&QAction::triggered,this,[=](){
         cloneCurrentSession(findCurrentFocusGroup());
+    });
+    connect(lockSessionAction,&QAction::triggered,this,[=](){
+        if(lockSessionAction->isChecked()) {
+            lockSessionWindow->showLock();
+            lockSessionAction->setChecked(false);
+        } else {
+            lockSessionWindow->showUnlock();
+            lockSessionAction->setChecked(true);
+        }
     });
     connect(logSessionAction,&QAction::triggered,this,
         [&](void) {
@@ -1275,6 +1410,31 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
         termWidget->toggleShowSearchBar();
+    });
+    connect(printScreenAction,&QAction::triggered,this,[=](){
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+
+        GlobalSetting settings;
+        QString printerPDFPath = settings.value("Global/Options/PrinterPDFPath",QDir::homePath()).toString();
+        QString willsaveName = printerPDFPath + "/quartCRT-" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".pdf";
+        
+        QPrinter printer;
+        printer.setPrinterName("QuartCRT");
+        printer.setPageSize(QPageSize::A4);
+        printer.setOutputFileName(willsaveName);
+
+        QPrintDialog dlg(&printer, this);
+        if (dlg.exec() == QDialog::Accepted) {
+            QString buffer;
+            QTextStream out(&buffer);
+            termWidget->saveHistory(&out,1);
+            QTextDocument doc;
+            doc.setHtml(buffer);
+            doc.print(&printer);
+            settings.setValue("Global/Options/PrinterPDFPath",QFileInfo(willsaveName).absolutePath());
+            ui->statusBar->showMessage(tr("PrintScreen saved to %1").arg(willsaveName),3000);
+        }
     });
     connect(screenShotAction,&QAction::triggered,this,[=](){
         QTermWidget *termWidget = findCurrentFocusTermWidget();
@@ -2014,9 +2174,11 @@ int MainWindow::stopSession(MainWidgetGroup *group, int index)
     QTermWidget *termWidget = (QTermWidget *)group->sessionTab->widget(index);
     foreach(SessionsWindow *sessionsWindow, sessionList) {
         if(sessionsWindow->getTermWidget() == termWidget) {
-            sessionList.removeOne(sessionsWindow);
-            group->sessionTab->removeTab(index);
-            delete sessionsWindow;
+            if(!sessionsWindow->isLocked()) {
+                sessionList.removeOne(sessionsWindow);
+                group->sessionTab->removeTab(index);
+                delete sessionsWindow;
+            }
             return 0;
         }
     }

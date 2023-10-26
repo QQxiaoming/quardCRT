@@ -37,6 +37,9 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
     ui->comboBoxProtocol->setCurrentIndex(0);
     comboBoxProtocolChanged(0);
 
+    // TODO: remove SSH2 when the feature is implemented
+    ui->comboBoxProtocol->removeItem(4);
+
     connect(ui->comboBoxProtocol, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxProtocolChanged(int)));
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
