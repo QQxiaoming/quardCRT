@@ -2,6 +2,9 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.2.2](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.2)] - 2023-10-26
+
+- 修复会话信息保存错误导致右侧会话管理器内无法正确连接会话问题 [#I8AJN1](https://gitee.com/QQxiaoming/quardCRT/issues/I8AJN1)
 - 快速连接支持选择仅打开会话和仅保存会话
 - 改进书签管理功能
 - 实现保存设置和实时保存设置按钮功能
@@ -9,7 +12,7 @@
 - 增加ALT+'{num}'全局快捷键切换到指定标签
 - 增加ALT+LEFT、ALT+RIGHT全局快捷键映射到home和end按键（考虑macbook没有home和end按键）
 - 增加高清截图当前终端功能
-- 增加导出当前终端会话功能
+- 增加导出当前终端会话内容（pdf/txt）功能
 - 增加打印机打印当前终端会话功能
 - 增加锁定会话功能
 - 增加配置启动新的本地终端默认的工作路径
