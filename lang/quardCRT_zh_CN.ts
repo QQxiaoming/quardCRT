@@ -218,8 +218,8 @@
     <message>
         <location filename="../src/locksessionwindow.ui" line="20"/>
         <location filename="../src/locksessionwindow.cpp" line="65"/>
-        <source>Enter the password that will be used to unlock the session.</source>
-        <translation>输入将用于解锁会话的密码。</translation>
+        <source>Enter the password that will be used to unlock the session:</source>
+        <translation>输入将用于解锁会话的密码：</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow.ui" line="32"/>
@@ -262,8 +262,8 @@
     </message>
     <message>
         <location filename="../src/locksessionwindow.cpp" line="79"/>
-        <source>Enter the password that was used to lock the session.</source>
-        <translation>输入用于锁定会话的密码。</translation>
+        <source>Enter the password that was used to lock the session:</source>
+        <translation>输入用于锁定会话的密码：</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow.cpp" line="80"/>

@@ -229,7 +229,7 @@
     <message>
         <location filename="../../../src/locksessionwindow.ui" line="20"/>
         <location filename="../../../src/locksessionwindow.cpp" line="65"/>
-        <source>Enter the password that will be used to unlock the session.</source>
+        <source>Enter the password that will be used to unlock the session:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -273,7 +273,7 @@
     </message>
     <message>
         <location filename="../../../src/locksessionwindow.cpp" line="79"/>
-        <source>Enter the password that was used to lock the session.</source>
+        <source>Enter the password that was used to lock the session:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

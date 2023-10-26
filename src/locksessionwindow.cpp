@@ -62,7 +62,7 @@ void LockSessionWindow::buttonBoxRejected(void)
 
 void LockSessionWindow::showLock(void)
 {
-    ui->headerLabel->setText(tr("Enter the password that will be used to unlock the session."));
+    ui->headerLabel->setText(tr("Enter the password that will be used to unlock the session:"));
     ui->lockAllSessionCheckBox->setText(tr("Lock all sessions"));
     ui->lockAllSessionCheckBox->setVisible(true);
     ui->lockAllSessionGroupCheckBox->setVisible(true);
@@ -76,7 +76,7 @@ void LockSessionWindow::showLock(void)
 
 void LockSessionWindow::showUnlock(void)
 {
-    ui->headerLabel->setText(tr("Enter the password that was used to lock the session."));
+    ui->headerLabel->setText(tr("Enter the password that was used to lock the session:"));
     ui->lockAllSessionCheckBox->setText(tr("Unlock all sessions"));
     ui->lockAllSessionCheckBox->setVisible(true);
     ui->lockAllSessionGroupCheckBox->setVisible(false);
