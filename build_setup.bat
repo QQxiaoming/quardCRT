@@ -38,8 +38,6 @@ del /f /q /a .\sed*
 xcopy /y .\build_release\out\quardCRT.exe .\InnoSetup\build\
 :: 使用windeployqt拷贝依赖dll库到打包目录
 windeployqt --dir .\InnoSetup\build .\InnoSetup\build\quardCRT.exe
-xcopy /y "%QT_TOOLS_DIR%\..\bin\lib*.dll" ".\InnoSetup\build\"
-xcopy /y "%QT_TOOLS_DIR%\..\lib\lib*.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty-agent.exe" ".\InnoSetup\build\"
 xcopy /y .\scripts\Profile.ps1 .\InnoSetup\build\
