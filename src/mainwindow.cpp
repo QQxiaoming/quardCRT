@@ -427,7 +427,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         if(ui->toolBar->isVisible() == false) toolBarAction->trigger();
         if(ui->statusBar->isVisible() == false) statusBarAction->trigger();
         if(ui->sidewidget->isVisible() == false) sideWindowAction->trigger();
-
     });
     shortcutTabPlusSwitch = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_Equal),this);
     connect(shortcutTabPlusSwitch,&QShortcut::activated,this,[=](){

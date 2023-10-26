@@ -52,6 +52,10 @@ If you have suggestions or ideas for this project, please submit issues and pull
 
 The current project is recommended to use version Qt6.2.0 or higher.
 
+## Special
+
+The project is currently developed in my spare time. In order to improve the development efficiency, this project uses GitHub Copilot to assist in code writing. The readability of some code may not be very good, and the author will try to optimize it in subsequent versions.
+
 ## Thanks
 
 The code of this project references or partially refers to or depends on the following open source projects. The project fully respects the open source agreement of the original project and would like to express its gratitude.
