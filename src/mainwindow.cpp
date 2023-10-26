@@ -1413,14 +1413,15 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
 
+        QPrinter printer;
+    #if defined(Q_OS_LINUX)
         GlobalSetting settings;
         QString printerPDFPath = settings.value("Global/Options/PrinterPDFPath",QDir::homePath()).toString();
         QString willsaveName = printerPDFPath + "/quartCRT-" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".pdf";
-        
-        QPrinter printer;
         printer.setPrinterName("QuartCRT");
         printer.setPageSize(QPageSize::A4);
         printer.setOutputFileName(willsaveName);
+    #endif
 
         QPrintDialog dlg(&printer, this);
         if (dlg.exec() == QDialog::Accepted) {
@@ -1430,8 +1431,10 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             QTextDocument doc;
             doc.setHtml(buffer);
             doc.print(&printer);
+        #if defined(Q_OS_LINUX)
             settings.setValue("Global/Options/PrinterPDFPath",QFileInfo(willsaveName).absolutePath());
             ui->statusBar->showMessage(tr("PrintScreen saved to %1").arg(willsaveName),3000);
+        #endif
         }
     });
     connect(screenShotAction,&QAction::triggered,this,[=](){
