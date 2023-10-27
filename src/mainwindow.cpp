@@ -1726,6 +1726,7 @@ void MainWindow::setGlobalOptions(SessionsWindow *window) {
     window->getTermWidget()->setTerminalBackgroundImage(globalOptionsWindow->getBackgroundImage());
     window->getTermWidget()->setTerminalBackgroundMode(globalOptionsWindow->getBackgroundImageMode());
     window->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getBackgroundImageOpacity());
+    window->getTermWidget()->setHistorySize(globalOptionsWindow->getScrollbackLines());
 }
 
 void MainWindow::restoreSessionToSessionManager(void)

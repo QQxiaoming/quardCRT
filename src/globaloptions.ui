@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>570</height>
+    <height>622</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -158,6 +158,23 @@
    </item>
    <item>
     <widget class="QComboBox" name="comboBoxNewTabWorkPath"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Scrollback lines</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="spinBoxScrollbackLines">
+     <property name="maximum">
+      <number>10000</number>
+     </property>
+     <property name="value">
+      <number>1000</number>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">

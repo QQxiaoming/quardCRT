@@ -73,6 +73,8 @@ GlobalOptions::GlobalOptions(QWidget *parent) :
     settings.endArray();
     ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("Global/Options/NewTabWorkPath",QDir::homePath()).toString());
   
+    ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
+
     connect(ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
     connect(ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
         QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.bmp)"));
@@ -152,6 +154,11 @@ QString GlobalOptions::getNewTabWorkPath(void)
     return ui->comboBoxNewTabWorkPath->currentText();
 }
 
+uint32_t GlobalOptions::getScrollbackLines(void)
+{
+    return ui->spinBoxScrollbackLines->value();
+}
+
 void GlobalOptions::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -163,6 +170,7 @@ void GlobalOptions::buttonBoxAccepted(void)
     settings.setValue("backgroundImageMode", ui->comboBoxBackgroundMode->currentIndex());
     settings.setValue("backgroundImageOpacity", ui->horizontalSliderBackgroundImageOpacity->value());
     settings.setValue("NewTabWorkPath", ui->comboBoxNewTabWorkPath->currentText());
+    settings.setValue("scrollbackLines", ui->spinBoxScrollbackLines->value());
     settings.endGroup();
     emit colorSchemeChanged(ui->comBoxColorSchemes->currentText());
     emit this->accepted();

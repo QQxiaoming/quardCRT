@@ -41,6 +41,7 @@ public:
     int getBackgroundImageMode(void);
     qreal getBackgroundImageOpacity(void);
     QString getNewTabWorkPath(void);
+    uint32_t getScrollbackLines(void);
 
     const static QString defaultColorScheme;
 
