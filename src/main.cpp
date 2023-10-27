@@ -24,6 +24,7 @@
 #include <QStyleFactory>
 #include <QRegularExpression>
 #include <QFileInfo>
+#include <QSysInfo>
 
 #include "qfonticon.h"
 
@@ -189,6 +190,18 @@ int main(int argc, char *argv[])
     if(debugMode) qDebug() << "GitTag: " << GIT_TAG;
     settings.setValue("Version",VERSION);
     settings.setValue("GitTag",GIT_TAG);
+    settings.setValue("os",QSysInfo::prettyProductName());
+    settings.setValue("bootUniqueId",QSysInfo::bootUniqueId());
+    settings.setValue("buildAbi",QSysInfo::buildAbi());
+    settings.setValue("buildCpuArchitecture",QSysInfo::buildCpuArchitecture());
+    settings.setValue("currentCpuArchitecture",QSysInfo::currentCpuArchitecture());
+    settings.setValue("kernelType",QSysInfo::kernelType());
+    settings.setValue("kernelVersion",QSysInfo::kernelVersion());
+    settings.setValue("machineHostName",QSysInfo::machineHostName());
+    settings.setValue("machineUniqueId",QSysInfo::machineUniqueId());
+    settings.setValue("productType",QSysInfo::productType());
+    settings.setValue("productVersion",QSysInfo::productVersion());
+    settings.setValue("osVersion",QOperatingSystemVersion::current().name());
     settings.endGroup();
 
     settings.beginGroup("Global/Startup");

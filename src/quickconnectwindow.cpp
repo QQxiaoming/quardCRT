@@ -38,7 +38,7 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
     comboBoxProtocolChanged(0);
 
     // TODO: remove SSH2 when the feature is implemented
-    ui->comboBoxProtocol->removeItem(4);
+    ui->comboBoxProtocol->removeItem(5);
 
     connect(ui->comboBoxProtocol, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxProtocolChanged(int)));
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
@@ -187,6 +187,34 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->spinBoxPort->setValue(8080);
             break;
         }
+        case NamePipe:{
+            ui->labelHostname->setText(tr("Pipe Name"));
+            ui->comboBoxHostname->setVisible(false);
+            ui->lineEditHostname->setVisible(true);
+            ui->labelUsername->setVisible(false);
+            ui->lineEditUsername->setVisible(false);
+            ui->labelPassword->setVisible(false);
+            ui->lineEditPassword->setVisible(false);
+            ui->labelPort->setVisible(false);
+            ui->spinBoxPort->setVisible(false);
+            ui->labelWebSocket->setVisible(false);
+            ui->comboBoxWebSocket->setVisible(false);
+            ui->labelDataBits->setVisible(false);
+            ui->comboBoxDataBits->setVisible(false);
+            ui->labelParity->setVisible(false);
+            ui->comboBoxParity->setVisible(false);
+            ui->labelStopBits->setVisible(false);
+            ui->comboBoxStopBits->setVisible(false);
+            ui->checkBoxFlowCtrl->setVisible(false);
+            ui->checkBoxXEnable->setVisible(false);
+            ui->lineEditHostname->setText("");
+        #if defined(Q_OS_WIN)
+            ui->lineEditHostname->setPlaceholderText(tr("e.g. \\\\\\.\\pipe\\namedpipe"));
+        #else 
+            ui->lineEditHostname->setPlaceholderText(tr("e.g. /tmp/socket"));
+        #endif
+            break;
+        }
         case SSH2: {
             ui->labelHostname->setText(tr("Hostname"));
             ui->labelPort->setText(tr("Port"));
@@ -249,6 +277,10 @@ void QuickConnectWindow::buttonBoxAccepted(void)
         case Raw:
             data.RawData.hostname = ui->lineEditHostname->text();
             data.RawData.port = ui->spinBoxPort->value();
+            emit this->sendQuickConnectData(data);
+            break;
+        case NamePipe:
+            data.NamePipeData.pipeName = ui->lineEditHostname->text();
             emit this->sendQuickConnectData(data);
             break;
         case SSH2:

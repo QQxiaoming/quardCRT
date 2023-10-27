@@ -43,11 +43,15 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , serialPort(nullptr)
     , rawSocket(nullptr)
     , localShell(nullptr)
+    , namePipe(nullptr)
     , enableLog(false)
     , enableRawLog(false) {
     term = new QTermWidget(parent);
 
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);
+    term->setBlinkingCursor(true);
+    term->setMargin(0);
+    term->startTerminalTeletype();
 
     QStringList availableColorSchemes = term->availableColorSchemes();
     availableColorSchemes.sort();
@@ -68,9 +72,6 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             currentAvailableKeyBindings = "linux";
         }
     }
-    term->setBlinkingCursor(true);
-    term->startTerminalTeletype();
-    term->setMargin(0);
 
     switch (type) {
         case LocalShell: {
@@ -139,6 +140,23 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             break;
         }
+        case NamePipe: {
+            namePipe = new QLocalSocket(this);
+            connect(namePipe,&QLocalSocket::readyRead,this,
+                [=](){
+                QByteArray data = namePipe->readAll();
+                term->recvData(data.data(), data.size());
+                saveRawLog(data.data(), data.size());
+                emit hexDataDup(data.data(), data.size());
+            });
+            connect(term, &QTermWidget::sendData,this,
+                [=](const char *data, int size){
+                if(namePipe->state() == QLocalSocket::ConnectedState) {
+                    namePipe->write(data, size);
+                }
+            });
+            break;
+        }
     }
 
     connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
@@ -194,6 +212,10 @@ SessionsWindow::~SessionsWindow() {
         if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
         delete rawSocket;
     }
+    if(namePipe){
+        if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
+        delete namePipe;
+    }
 }
 
 void SessionsWindow::cloneSession(SessionsWindow *src) {
@@ -210,6 +232,9 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
             break;
         case RawSocket:
             startRawSocketSession(src->m_hostname, src->m_port);
+            break;
+        case NamePipe:
+            startNamePipeSession(src->m_name);
             break;
         }
     }  
@@ -313,6 +338,12 @@ int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port)
     rawSocket->connectToHost(hostname, port);
     m_hostname = hostname;
     m_port = port;
+    return 0;
+}
+
+int SessionsWindow::startNamePipeSession(const QString &name) {
+    namePipe->connectToServer(name);
+    m_name = name;
     return 0;
 }
 

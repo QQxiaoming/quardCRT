@@ -24,6 +24,7 @@
 #include <QWidget>
 #include <QTcpSocket>
 #include <QSerialPort>
+#include <QLocalSocket>
 #include <QMutex>
 
 #include "qtermwidget.h"
@@ -38,7 +39,8 @@ public:
         Telnet,
         Serial,
         LocalShell,
-        RawSocket
+        RawSocket,
+        NamePipe,
     };
     SessionsWindow(SessionType tp, QWidget *parent = nullptr);
     ~SessionsWindow();
@@ -49,6 +51,7 @@ public:
     int startSerialSession(const QString &portName, uint32_t baudRate,
                     int dataBits, int parity, int stopBits, bool flowControl, bool xEnable );
     int startRawSocketSession(const QString &hostname, quint16 port);
+    int startNamePipeSession(const QString &name);
 
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
@@ -92,6 +95,7 @@ public:
     bool m_flowControl;
     bool m_xEnable;
     QString m_command;
+    QString m_name;
 
 private:
     SessionType type;
@@ -105,6 +109,7 @@ private:
     QSerialPort *serialPort;
     QTcpSocket *rawSocket;
     IPtyProcess *localShell;
+    QLocalSocket *namePipe;
     bool enableLog;
     bool enableRawLog;
     QMutex log_file_mutex;

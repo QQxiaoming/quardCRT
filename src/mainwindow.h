@@ -76,6 +76,7 @@ private:
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, QString name = QString());
     QString startLocalShellSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
     QString startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, QString name = QString());
+    QString startNamePipeSession(MainWidgetGroup *group, QString namePipe, QString name = QString());
     QString startSSH2Session(MainWidgetGroup *group,
         QString hostname, quint16 port, QString username, QString password, QString name = QString());
     int stopSession(MainWidgetGroup *group, int index);

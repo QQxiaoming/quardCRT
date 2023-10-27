@@ -55,6 +55,11 @@
          </item>
          <item>
           <property name="text">
+           <string>Named Pipe</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string notr="true">SSH2</string>
           </property>
          </item>

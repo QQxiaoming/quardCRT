@@ -1194,10 +1194,18 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             if(data.saveSession) {
                 addSessionToSessionManager(data,name, !data.openInTab);
             }
+        } else if(data.type == QuickConnectWindow::NamePipe) {
+            QString name = data.NamePipeData.pipeName;
+            if(data.openInTab) {
+                name = startNamePipeSession(quickConnectMainWidgetGroup,name);
+            }
+            if(data.saveSession) {
+                addSessionToSessionManager(data,name, !data.openInTab);
+            } 
         } else if(data.type == QuickConnectWindow::SSH2) {
             QString name = data.SSH2Data.hostname;
             if(data.openInTab) {
-                name = startSSH2Session(quickConnectMainWidgetGroup,data.SSH2Data.hostname,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password);
+                name = startSSH2Session(quickConnectMainWidgetGroup,name,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password);
             }
             if(data.saveSession) {
                 addSessionToSessionManager(data,name, !data.openInTab);
@@ -1975,6 +1983,11 @@ void MainWindow::connectSessionFromSessionManager(QString name)
                 data.RawData.port = settings.value("port").toInt();
                 startRawSocketSession(findCurrentFocusGroup(),data.RawData.hostname,data.RawData.port, current_name);
                 break;
+            case QuickConnectWindow::NamePipe:
+                data.NamePipeData.pipeName = settings.value("pipeName").toString();
+                startNamePipeSession(findCurrentFocusGroup(),data.NamePipeData.pipeName, current_name);
+                break;
+            case QuickConnectWindow::SSH2:
             default:
                 break;
             }
@@ -2047,6 +2060,31 @@ QString MainWindow::startRawSocketSession(MainWidgetGroup *group, QString hostna
     }
     sessionsWindow->setName(name);
     sessionsWindow->startRawSocketSession(hostname,port);
+    sessionList.push_back(sessionsWindow);
+    connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
+        if(title == 0 || title == 2) {
+            sessionsWindow->setLongTitle(newTitle);
+            sessionsWindow->setShortTitle(newTitle);
+            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+        }
+    });
+    group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
+    return name;
+}
+
+QString MainWindow::startNamePipeSession(MainWidgetGroup *group, QString pipeName, QString name)
+{
+    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::NamePipe,this);
+    setGlobalOptions(sessionsWindow);
+    sessionsWindow->setLongTitle(tr("NamePipe - ")+pipeName);
+    sessionsWindow->setShortTitle(tr("NamePipe"));
+    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    if(name.isEmpty()) {
+        name = pipeName;
+        checkSessionName(name);
+    }
+    sessionsWindow->setName(name);
+    sessionsWindow->startNamePipeSession(pipeName);
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {

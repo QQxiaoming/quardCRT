@@ -40,6 +40,7 @@ public:
         Serial,
         LocalShell,
         Raw,
+        NamePipe,
         SSH2,
     };
     struct QuickConnectData {
@@ -65,6 +66,9 @@ public:
             QString hostname;
             int port;
         }RawData;
+        struct {
+            QString pipeName;
+        }NamePipeData;
         struct {
             QString hostname;
             int port;
