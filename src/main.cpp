@@ -30,6 +30,7 @@
 
 #include "mainwindow.h"
 #include "globalsetting.h"
+#include "logger.h"
 
 QString VERSION = APP_VERSION;
 QString GIT_TAG =
@@ -166,15 +167,19 @@ int main(int argc, char *argv[])
 
     AppComLineParser->process(application);
 
+
     GlobalSetting settings;
     bool debugMode = settings.value("Debug/DebugMode",false).toBool();
+    QString debugLogFile;
+    QtMsgType debugLevel = QtInfoMsg;
     if(debugMode) {
-        uint32_t debugLevel = settings.value("Debug/DebugLevel",0).toUInt();
-        QString debugLogFile = settings.value("Debug/DebugLogFile","").toString();
-        qDebug() << "DebugMode: " << debugMode;
-        qDebug() << "DebugLevel: " << debugLevel;
-        qDebug() << "DebugLogFile: " << debugLogFile;
+        debugLevel = settings.value("Debug/DebugLevel",QtInfoMsg).value<QtMsgType>();
+        debugLogFile = settings.value("Debug/DebugLogFile","").toString();
     }
+    Logger::Instance()->installMessageHandler(debugLogFile,debugLevel);
+    qDebug() << "DebugMode: " << debugMode;
+    qDebug() << "DebugLevel: " << debugLevel;
+    qDebug() << "DebugLogFile: " << debugLogFile;
 
     QString dark_theme = "true";
     QString app_lang;

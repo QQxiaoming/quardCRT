@@ -21,6 +21,7 @@ include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
 include(./lib/Qtftp/Qtftp.pri)
 
 SOURCES += \
+    src/logger.cpp \
     src/commandwindow.cpp \
     src/globaloptions.cpp \
     src/globalsetting.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/logger.h \
     src/argv_split.h \
     src/filedialog.h \
     src/commandwindow.h \

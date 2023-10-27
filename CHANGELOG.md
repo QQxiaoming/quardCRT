@@ -4,6 +4,7 @@
 
 - 修复windows上无法启动打印机服务问题
 - 增加设置终端滚动行数设置
+- 增加日志系统，用户默认上不打开的，必须手写config文件才会启动
 
 ## [[V0.2.3](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.3)] - 2023-10-26
 
