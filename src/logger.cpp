@@ -166,8 +166,11 @@ void Logger::installMessageHandler(QString logPath, QtMsgType lv, bool verboseLo
     this->outPutLv = QtInfoMsg;
     this->verboseLog = false;
     if(!logPath.isEmpty()) {
-        QDir ci_log_dir(logPath);
-        if(ci_log_dir.exists()) {
+        QDir log_dir(logPath);
+        if(!log_dir.exists()) {
+            log_dir.mkpath(".");
+        }
+        if(log_dir.exists()) {
             this->m_logPath = logPath;
             this->existsLog = true;
             this->outPutLv = lv;
