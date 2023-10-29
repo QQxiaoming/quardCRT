@@ -53,9 +53,11 @@
 #include "quickconnectwindow.h"
 #include "keymapmanager.h"
 #include "globaloptions.h"
-#include "commandwindow.h"
+#include "commandwidget.h"
 #include "mainwindow.h"
 #include "globalsetting.h"
+#include "optionswindow.h"
+
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, bool isDark, QWidget *parent)
@@ -100,6 +102,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
 
     globalOptionsWindow = new GlobalOptions(this);
     globalOptionsWindow->setAvailableColorSchemes(QTermWidget::availableColorSchemes());
+
+    sessionOptionsWindow = new OptionsWindow(this);
 
     hexViewWindow = new HexViewWindow(HexViewWindow::RECV);
     hexViewWindow->setFont(globalOptionsWindow->getCurrentFont());
@@ -364,7 +368,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                 }
             }
         });
-        connect(mainWidgetGroup->commandWindow, &CommandWindow::sendData, this, [=](const QByteArray &data) {
+        connect(mainWidgetGroup->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
             if(mainWidgetGroup->sessionTab->count() != 0) {
                 QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
                 foreach(SessionsWindow *sessionsWindow, sessionList) {
@@ -1548,7 +1552,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(cmdWindowAction,&QAction::triggered,this,[=](bool checked){
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-            mainWidgetGroup->commandWindow->setVisible(checked);
+            mainWidgetGroup->commandWidget->setVisible(checked);
         }
     });
     connect(connectBarAction,&QAction::triggered,this,[=](bool checked){
@@ -1661,6 +1665,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     connect(keymapManagerAction,&QAction::triggered,this,[=](){
         keyMapManagerWindow->show();
     });
+    connect(sessionOptionsAction,&QAction::triggered,this,[=](){
+        sessionOptionsWindow->show();
+    });
     connect(globalOptionsAction,&QAction::triggered,this,[=](){
         globalOptionsWindow->show();
     });
@@ -1678,7 +1685,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         startTftpSeverWindow->retranslateUi();
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
-            mainWidgetGroup->commandWindow->retranslateUi();
+            mainWidgetGroup->commandWidget->retranslateUi();
         }
         menuAndToolBarRetranslateUi();
         ui->statusBar->showMessage(tr("Ready"));

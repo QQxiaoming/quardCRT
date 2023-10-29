@@ -21,7 +21,7 @@
 #include <QIODevice>
 #include <QTreeView>
 #include <QDateTime>
-#include "treemodel.h"
+#include "sessionmanagertreemodel.h"
 #include "qfonticon.h"
 #include "sessionswindow.h"
 
@@ -83,23 +83,23 @@ private:
 	QList<TreeItem *>	m_children ;
 } ;
 
-TreeModel::TreeModel(QTreeView *parent) :
+SessionManagerTreeModel::SessionManagerTreeModel(QTreeView *parent) :
 	QAbstractItemModel(parent),m_roottimestamp(0),m_parent(parent)
 {
 	m_pRootItem = new TreeItem(" ", 0, NULL) ;
 }
 
-TreeModel::~TreeModel()
+SessionManagerTreeModel::~SessionManagerTreeModel()
 {
 	delete m_pRootItem ;
 }
 
-void TreeModel::set_root_timestamp(uint32_t timestamp)
+void SessionManagerTreeModel::set_root_timestamp(uint32_t timestamp)
 {
 	m_roottimestamp = timestamp;
 }
 
-QVariant TreeModel::data(const QModelIndex &index, int role) const
+QVariant SessionManagerTreeModel::data(const QModelIndex &index, int role) const
 {
     if ( role != Qt::DisplayRole && role != Qt::EditRole  && role != Qt::DecorationRole && role != (Qt::UserRole + 1)) { return QVariant() ; }
 	if ( !index.isValid() ) { return QVariant() ; }
@@ -146,7 +146,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 	return QVariant();
 }
 
-void TreeModel::info(const QModelIndex &index, int &type, QString &name)
+void SessionManagerTreeModel::info(const QModelIndex &index, int &type, QString &name)
 {
 	if ( !index.isValid() ) { return; }
 
@@ -156,7 +156,7 @@ void TreeModel::info(const QModelIndex &index, int &type, QString &name)
 	name = p->data();
 }
 
-int TreeModel::rowCount(const QModelIndex &parent) const
+int SessionManagerTreeModel::rowCount(const QModelIndex &parent) const
 {
 	TreeItem *p = m_pRootItem ;
 	if ( parent.isValid() ) {
@@ -166,13 +166,13 @@ int TreeModel::rowCount(const QModelIndex &parent) const
 	return p->childCount() ;
 }
 
-int TreeModel::columnCount(const QModelIndex &parent) const
+int SessionManagerTreeModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
 	return 2 ;	// カラムは常に4つ
 }
 
-Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
+Qt::ItemFlags SessionManagerTreeModel::flags(const QModelIndex &index) const
 {
 	if ( !index.isValid() ) {
 		return Qt::ItemIsEnabled ;
@@ -181,12 +181,12 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 		 | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled ;		// drag and drop処理入れる時は追加
 }
 
-bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool SessionManagerTreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     return setData(index, value.toList()[0].toString(),value.toList()[1].toInt(),role);
 }
 
-bool TreeModel::setData(const QModelIndex &index, QString data, int type, int role)
+bool SessionManagerTreeModel::setData(const QModelIndex &index, QString data, int type, int role)
 {
     if ( role != Qt::DisplayRole && role != Qt::EditRole ) {
 		return false ;
@@ -204,7 +204,7 @@ bool TreeModel::setData(const QModelIndex &index, QString data, int type, int ro
 	return true ;
 }
 
-bool TreeModel::insertRows(int row, int count, const QModelIndex &parent)
+bool SessionManagerTreeModel::insertRows(int row, int count, const QModelIndex &parent)
 {
 	beginInsertRows(parent, row, row+count-1) ;
 	TreeItem *p = m_pRootItem ;
@@ -217,7 +217,7 @@ bool TreeModel::insertRows(int row, int count, const QModelIndex &parent)
 	return true ;
 }
 
-bool TreeModel::removeRows(int row, int count, const QModelIndex &parent)
+bool SessionManagerTreeModel::removeRows(int row, int count, const QModelIndex &parent)
 {
 	beginRemoveRows(parent, row, row+count-1) ;
 	TreeItem *p = m_pRootItem ;
@@ -230,7 +230,7 @@ bool TreeModel::removeRows(int row, int count, const QModelIndex &parent)
 	return true ;
 }
 
-QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) const
+QModelIndex SessionManagerTreeModel::index(int row, int column, const QModelIndex &parent) const
 {
 	if ( !hasIndex(row, column, parent) ) { return QModelIndex() ; }
 
@@ -246,7 +246,7 @@ QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) con
 	return QModelIndex() ;
 }
 
-QModelIndex TreeModel::parent(const QModelIndex &child) const
+QModelIndex SessionManagerTreeModel::parent(const QModelIndex &child) const
 {
 	if ( !child.isValid() ) { return QModelIndex() ; }
 	TreeItem *c = static_cast<TreeItem *>(child.internalPointer()) ;
@@ -255,7 +255,7 @@ QModelIndex TreeModel::parent(const QModelIndex &child) const
 	return createIndex(p->row(), 0, p) ;
 }
 
-QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant SessionManagerTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	if ( orientation == Qt::Horizontal && role == Qt::DisplayRole ) {
         switch(section) {
@@ -269,19 +269,19 @@ QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int rol
 }
 
 // drag and drop 処理 ----------------------------------------
-Qt::DropActions TreeModel::supportedDropActions() const
+Qt::DropActions SessionManagerTreeModel::supportedDropActions() const
 {
 	return Qt::CopyAction | Qt::MoveAction ;
 }
 
-QStringList TreeModel::mimeTypes() const
+QStringList SessionManagerTreeModel::mimeTypes() const
 {
 	QStringList types ;
 	types << "application/tree.item.list" ;
 	return types ;
 }
 
-QMimeData *TreeModel::mimeData(const QModelIndexList &indexes) const
+QMimeData *SessionManagerTreeModel::mimeData(const QModelIndexList &indexes) const
 {
 	QMimeData *mimeData = new QMimeData() ;
 	QByteArray encodeData ;
@@ -296,7 +296,7 @@ QMimeData *TreeModel::mimeData(const QModelIndexList &indexes) const
 	return mimeData ;
 }
 
-bool TreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+bool SessionManagerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
     Q_UNUSED(row);
 
@@ -322,7 +322,7 @@ bool TreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int r
 }
 // drag and drop 処理 ここまで ----------------------------------
 
-QModelIndex TreeModel::addTree(QString str, int type, const QModelIndex &parent)
+QModelIndex SessionManagerTreeModel::addTree(QString str, int type, const QModelIndex &parent)
 {
 	TreeItem *p = m_pRootItem ;
 	if ( parent.isValid() ) {
@@ -337,14 +337,14 @@ QModelIndex TreeModel::addTree(QString str, int type, const QModelIndex &parent)
 	return index ;
 }
 
-void TreeModel::removeTree(QModelIndex &index)
+void SessionManagerTreeModel::removeTree(QModelIndex &index)
 {
 	if ( !index.isValid() ) { return ; }
 
 	removeRows(index.row(), 1, index.parent()) ;
 }
 
-QModelIndex TreeModel::findItems(QString str, QModelIndex &index)
+QModelIndex SessionManagerTreeModel::findItems(QString str, QModelIndex &index)
 {
 	TreeItem *p = m_pRootItem ;
 	if ( index.isValid() ) {
@@ -359,7 +359,7 @@ QModelIndex TreeModel::findItems(QString str, QModelIndex &index)
 	return QModelIndex();
 }
 
-void TreeModel::dumpTreeItems()
+void SessionManagerTreeModel::dumpTreeItems()
 {
 	TreeItem *p = m_pRootItem ;
 	int tab = 0 ;
@@ -370,7 +370,7 @@ void TreeModel::dumpTreeItems()
 	qDebug() << "dump end---------" ;
 }
 
-void TreeModel::_dump(TreeItem *p, int tab)
+void SessionManagerTreeModel::_dump(TreeItem *p, int tab)
 {
 	QString t ;
 	for ( int i = 0 ; i < tab ; i ++ ) {

@@ -10,41 +10,64 @@
     </message>
 </context>
 <context>
+    <name>CommandWidget</name>
+    <message>
+        <location filename="../src/commandwidget/commandwidget.ui" line="35"/>
+        <source>Send commands to active session</source>
+        <translation type="unfinished">アクティブなセッションにコマンドを送信</translation>
+    </message>
+    <message>
+        <location filename="../src/commandwidget/commandwidget.ui" line="71"/>
+        <source>ASCII</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/commandwidget/commandwidget.ui" line="84"/>
+        <source>HEX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/commandwidget/commandwidget.ui" line="104"/>
+        <source>time</source>
+        <translation type="unfinished">時間</translation>
+    </message>
+    <message>
+        <location filename="../src/commandwidget/commandwidget.ui" line="117"/>
+        <source>ms</source>
+        <translation type="unfinished">ミリ秒</translation>
+    </message>
+    <message>
+        <location filename="../src/commandwidget/commandwidget.ui" line="135"/>
+        <source>Auto Send</source>
+        <translation type="unfinished">自動送信</translation>
+    </message>
+    <message>
+        <location filename="../src/commandwidget/commandwidget.ui" line="142"/>
+        <source>Send</source>
+        <translation type="unfinished">送信</translation>
+    </message>
+</context>
+<context>
     <name>CommandWindow</name>
     <message>
-        <location filename="../src/commandwindow.ui" line="38"/>
         <source>Send commands to active session</source>
-        <translation>アクティブなセッションにコマンドを送信</translation>
+        <translation type="vanished">アクティブなセッションにコマンドを送信</translation>
     </message>
     <message>
-        <location filename="../src/commandwindow.ui" line="74"/>
-        <source>ASCII</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/commandwindow.ui" line="87"/>
-        <source>HEX</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/commandwindow.ui" line="107"/>
         <source>time</source>
-        <translation>時間</translation>
+        <translation type="vanished">時間</translation>
     </message>
     <message>
-        <location filename="../src/commandwindow.ui" line="120"/>
         <source>ms</source>
-        <translation>ミリ秒</translation>
+        <translation type="vanished">ミリ秒</translation>
     </message>
     <message>
-        <location filename="../src/commandwindow.ui" line="138"/>
         <source>Auto Send</source>
-        <translation>自動送信</translation>
+        <translation type="vanished">自動送信</translation>
     </message>
     <message>
-        <location filename="../src/commandwindow.ui" line="145"/>
         <source>Send</source>
-        <translation>送信</translation>
+        <translation type="vanished">送信</translation>
     </message>
 </context>
 <context>
@@ -58,88 +81,88 @@
 <context>
     <name>GlobalOptions</name>
     <message>
-        <location filename="../src/globaloptions.ui" line="14"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="14"/>
         <source>GlobalOptions</source>
         <translation>グローバルオプション</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="20"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="20"/>
         <source>Color Schemes</source>
         <translation>カラースキーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="30"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="30"/>
         <source>Font Size</source>
         <translation>フォントサイズ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="50"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="50"/>
         <source>Transparent window</source>
         <translation>ウィンドウの透明度</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="67"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="67"/>
         <source>Background image</source>
         <translation>背景画像</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="88"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="88"/>
         <source>Background mode</source>
         <translation>背景モード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="95"/>
-        <location filename="../src/globaloptions.ui" line="107"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="95"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="107"/>
         <source>Stretch</source>
         <translation>伸縮</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="102"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="102"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="112"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="112"/>
         <source>Zoom</source>
         <translation>ズーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="117"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="117"/>
         <source>Fit</source>
         <translation>フィット</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="122"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="122"/>
         <source>Center</source>
         <translation>中央</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="127"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="127"/>
         <source>Tile</source>
         <translation>タイル</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="135"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="135"/>
         <source>Background opacity</source>
         <translation>背景画像の透明度</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="155"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="155"/>
         <source>New tab workpath</source>
         <translation>新しいタブの作業フォルダー</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.ui" line="165"/>
+        <location filename="../src/globaloptions/globaloptions.ui" line="165"/>
         <source>Scrollback lines</source>
         <translation>スクロールバックの行数</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.cpp" line="80"/>
+        <location filename="../src/globaloptions/globaloptions.cpp" line="80"/>
         <source>Select Background Image</source>
         <translation>背景画像を選択</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions.cpp" line="80"/>
+        <location filename="../src/globaloptions/globaloptions.cpp" line="80"/>
         <source>Image Files (*.png *.jpg *.bmp)</source>
         <translation>画像ファイル (*.png *.jpg *.bmp)</translation>
     </message>
@@ -147,27 +170,27 @@
 <context>
     <name>HexViewWindow</name>
     <message>
-        <location filename="../src/hexviewwindow.ui" line="20"/>
+        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>ASCII Text...</source>
         <translation>ASCIIテキスト...</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow.ui" line="50"/>
+        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="50"/>
         <source>clear</source>
         <translation>クリア</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow.cpp" line="38"/>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="38"/>
         <source>Hex View</source>
         <translation>16進数ビュー</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow.cpp" line="83"/>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="83"/>
         <source>Information</source>
         <translation>情報</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow.cpp" line="83"/>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="83"/>
         <source>Will send Hex:
 </source>
         <translation>16進数を送信します:
@@ -221,62 +244,62 @@
 <context>
     <name>LockSessionWindow</name>
     <message>
-        <location filename="../src/locksessionwindow.ui" line="14"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="14"/>
         <source>Lock Session</source>
         <translation>セッションをロック</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.ui" line="20"/>
-        <location filename="../src/locksessionwindow.cpp" line="65"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="20"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="65"/>
         <source>Enter the password that will be used to unlock the session:</source>
         <translation>セッションをアンロックするためのパスワードを入力して下さい：</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.ui" line="32"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="32"/>
         <source>Password</source>
         <translation>パスワード</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.ui" line="50"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="50"/>
         <source>Reenter Password</source>
         <translation>パスワードを再入力</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.ui" line="68"/>
-        <location filename="../src/locksessionwindow.cpp" line="66"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="68"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="66"/>
         <source>Lock all sessions</source>
         <translation>全てのセッションをロック</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.ui" line="75"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="75"/>
         <source>Lock all sessions in tab group</source>
         <translation>タブグループの全てのセッションをロック</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.cpp" line="30"/>
-        <location filename="../src/locksessionwindow.cpp" line="36"/>
-        <location filename="../src/locksessionwindow.cpp" line="47"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="30"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="36"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="47"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.cpp" line="30"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="30"/>
         <source>Passwords do not match!</source>
         <translation>パスワードが一致しません！</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.cpp" line="36"/>
-        <location filename="../src/locksessionwindow.cpp" line="47"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="36"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="47"/>
         <source>Password cannot be empty!</source>
         <translation>パスワードは空にできません！</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.cpp" line="79"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="79"/>
         <source>Enter the password that was used to lock the session:</source>
         <translation>セッションをロックするためのパスワードを入力して下さい：</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow.cpp" line="80"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="80"/>
         <source>Unlock all sessions</source>
         <translation>全てのセッションをアンロック</translation>
     </message>
@@ -284,960 +307,960 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="555"/>
+        <location filename="../src/mainwindow.cpp" line="558"/>
         <source>File</source>
         <translation>ファイル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="556"/>
+        <location filename="../src/mainwindow.cpp" line="559"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="557"/>
+        <location filename="../src/mainwindow.cpp" line="560"/>
         <source>View</source>
         <translation>表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="558"/>
+        <location filename="../src/mainwindow.cpp" line="561"/>
         <source>Options</source>
         <translation>オプション</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="559"/>
+        <location filename="../src/mainwindow.cpp" line="562"/>
         <source>Transfer</source>
         <translation>転送</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="560"/>
+        <location filename="../src/mainwindow.cpp" line="563"/>
         <source>Script</source>
         <translation>スクリプト</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="562"/>
+        <location filename="../src/mainwindow.cpp" line="565"/>
         <source>Tools</source>
         <translation>ツール</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="563"/>
+        <location filename="../src/mainwindow.cpp" line="566"/>
         <source>Window</source>
         <translation>ウィンドウ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="564"/>
+        <location filename="../src/mainwindow.cpp" line="567"/>
         <source>Language</source>
         <translation>言語</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="565"/>
+        <location filename="../src/mainwindow.cpp" line="568"/>
         <source>Theme</source>
         <translation>テーマ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="566"/>
-        <location filename="../src/mainwindow.cpp" line="769"/>
-        <location filename="../src/mainwindow.cpp" line="2322"/>
+        <location filename="../src/mainwindow.cpp" line="569"/>
+        <location filename="../src/mainwindow.cpp" line="772"/>
+        <location filename="../src/mainwindow.cpp" line="2328"/>
         <source>Help</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="568"/>
+        <location filename="../src/mainwindow.cpp" line="571"/>
         <source>Connect...</source>
         <translation>接続...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="553"/>
-        <location filename="../src/mainwindow.cpp" line="572"/>
+        <location filename="../src/mainwindow.cpp" line="556"/>
+        <location filename="../src/mainwindow.cpp" line="575"/>
         <source>Session Manager</source>
         <translation>セッションマネージャー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="147"/>
-        <location filename="../src/mainwindow.cpp" line="150"/>
-        <location filename="../src/mainwindow.cpp" line="153"/>
-        <location filename="../src/mainwindow.cpp" line="242"/>
-        <location filename="../src/mainwindow.cpp" line="260"/>
-        <location filename="../src/mainwindow.cpp" line="278"/>
+        <location filename="../src/mainwindow.cpp" line="151"/>
+        <location filename="../src/mainwindow.cpp" line="154"/>
+        <location filename="../src/mainwindow.cpp" line="157"/>
+        <location filename="../src/mainwindow.cpp" line="246"/>
+        <location filename="../src/mainwindow.cpp" line="264"/>
+        <location filename="../src/mainwindow.cpp" line="282"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="147"/>
+        <location filename="../src/mainwindow.cpp" line="151"/>
         <source>TFTP server bind error!</source>
         <translation>TFTPサーバーのバインドエラー！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="150"/>
+        <location filename="../src/mainwindow.cpp" line="154"/>
         <source>TFTP server file error!</source>
         <translation>TFTPサーバーのファイルエラー！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="153"/>
+        <location filename="../src/mainwindow.cpp" line="157"/>
         <source>TFTP server network error!</source>
         <translation>TFTPサーバーのネットワークエラー！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="207"/>
+        <location filename="../src/mainwindow.cpp" line="211"/>
         <source>Move to another Tab</source>
         <translation>別のタブに移動</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="242"/>
-        <location filename="../src/mainwindow.cpp" line="260"/>
-        <location filename="../src/mainwindow.cpp" line="278"/>
+        <location filename="../src/mainwindow.cpp" line="246"/>
+        <location filename="../src/mainwindow.cpp" line="264"/>
+        <location filename="../src/mainwindow.cpp" line="282"/>
         <source>No working folder!</source>
         <translation>作業フォルダーがありません！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="244"/>
+        <location filename="../src/mainwindow.cpp" line="248"/>
         <source>Copy Path</source>
         <translation>パスをコピー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="262"/>
+        <location filename="../src/mainwindow.cpp" line="266"/>
         <source>Add Path to Bookmark</source>
         <translation>ブックマークにパスを追加</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="280"/>
+        <location filename="../src/mainwindow.cpp" line="284"/>
         <source>Save Session</source>
         <translation>セッションを保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="291"/>
+        <location filename="../src/mainwindow.cpp" line="295"/>
         <source>Enter Session Name</source>
         <translation>セッション名を入力</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="292"/>
+        <location filename="../src/mainwindow.cpp" line="296"/>
         <source>The session already exists, please rename the new session or cancel saving.</source>
         <translation>セッションは既に存在します。新しいセッション名を入力するか、保存をキャンセルして下さい。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="391"/>
-        <location filename="../src/mainwindow.cpp" line="466"/>
-        <location filename="../src/mainwindow.cpp" line="1684"/>
+        <location filename="../src/mainwindow.cpp" line="395"/>
+        <location filename="../src/mainwindow.cpp" line="470"/>
+        <location filename="../src/mainwindow.cpp" line="1690"/>
         <source>Ready</source>
         <translation>準備完了</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="561"/>
+        <location filename="../src/mainwindow.cpp" line="564"/>
         <source>Bookmark</source>
         <translation>ブックマーク</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="570"/>
+        <location filename="../src/mainwindow.cpp" line="573"/>
         <source>Connect to a host &lt;Alt+C&gt;</source>
         <translation>ホストに接続 &lt;Alt+C&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="574"/>
+        <location filename="../src/mainwindow.cpp" line="577"/>
         <source>Go to the Session Manager &lt;Alt+M&gt;</source>
         <translation>セッションマネージャーへ &lt;Alt+M&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="576"/>
+        <location filename="../src/mainwindow.cpp" line="579"/>
         <source>Quick Connect...</source>
         <translation>クイックコネクト...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="578"/>
+        <location filename="../src/mainwindow.cpp" line="581"/>
         <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
         <translation>ホストにクイックコネクト &lt;Alt+Q&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="580"/>
+        <location filename="../src/mainwindow.cpp" line="583"/>
         <source>Connect in Tab/Tile...</source>
         <translation>タブ/タイルで接続...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="581"/>
+        <location filename="../src/mainwindow.cpp" line="584"/>
         <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
         <translation>新しいタブでホストに接続 &lt;Alt+B&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="583"/>
+        <location filename="../src/mainwindow.cpp" line="586"/>
         <source>Connect Local Shell</source>
         <translation>ローカル端末で接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="585"/>
+        <location filename="../src/mainwindow.cpp" line="588"/>
         <source>Connect to a local shell &lt;Alt+T&gt;</source>
         <translation>ローカル端末に接続 &lt;Alt+T&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="587"/>
+        <location filename="../src/mainwindow.cpp" line="590"/>
         <source>Reconnect</source>
         <translation>再接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="589"/>
+        <location filename="../src/mainwindow.cpp" line="592"/>
         <source>Reconnect current session</source>
         <translation>現在のセッションを再接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="590"/>
+        <location filename="../src/mainwindow.cpp" line="593"/>
         <source>Reconnect All</source>
         <translation>全て再接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="591"/>
+        <location filename="../src/mainwindow.cpp" line="594"/>
         <source>Reconnect all sessions &lt;Alt+A&gt;</source>
         <translation>全てのセッションを再接続 &lt;Alt+A&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="593"/>
+        <location filename="../src/mainwindow.cpp" line="596"/>
         <source>Disconnect</source>
         <translation>切断</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="595"/>
+        <location filename="../src/mainwindow.cpp" line="598"/>
         <source>Disconnect current session</source>
         <translation>現在のセッションを切断</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="596"/>
-        <location filename="../src/mainwindow.cpp" line="597"/>
+        <location filename="../src/mainwindow.cpp" line="599"/>
+        <location filename="../src/mainwindow.cpp" line="600"/>
         <source>Enter host &lt;Alt+R&gt; to connect</source>
         <translation>接続するホストを入力 &lt;Alt+R&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="598"/>
+        <location filename="../src/mainwindow.cpp" line="601"/>
         <source>Disconnect All</source>
         <translation>全て切断</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="599"/>
+        <location filename="../src/mainwindow.cpp" line="602"/>
         <source>Disconnect all sessions</source>
         <translation>全てのセッションを切断</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="600"/>
+        <location filename="../src/mainwindow.cpp" line="603"/>
         <source>Clone Session</source>
         <translation>セッションを複製</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="601"/>
+        <location filename="../src/mainwindow.cpp" line="604"/>
         <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
         <translation>現在のセッションを複製 &lt;Ctrl+Shift+T&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="603"/>
+        <location filename="../src/mainwindow.cpp" line="606"/>
         <source>Lock Session</source>
         <translation>セッションをロック</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="604"/>
+        <location filename="../src/mainwindow.cpp" line="607"/>
         <source>Lock/Unlock current session</source>
         <translation>現在のセッションをロック/アンロック</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="605"/>
+        <location filename="../src/mainwindow.cpp" line="608"/>
         <source>Log Session</source>
         <translation>セッションを記録</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="606"/>
+        <location filename="../src/mainwindow.cpp" line="609"/>
         <source>Create a log file for current session</source>
         <translation>現在のセッションを記録</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="607"/>
+        <location filename="../src/mainwindow.cpp" line="610"/>
         <source>Raw Log Session</source>
         <translation>セッションを生記録</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="608"/>
+        <location filename="../src/mainwindow.cpp" line="611"/>
         <source>Create a raw log file for current session</source>
         <translation>現在のセッションを生記録</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="609"/>
+        <location filename="../src/mainwindow.cpp" line="612"/>
         <source>Hex View</source>
         <translation>16進数ビュー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="610"/>
+        <location filename="../src/mainwindow.cpp" line="613"/>
         <source>Show/Hide Hex View for current session</source>
         <translation>現在のセッションの16進数ビューを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="611"/>
+        <location filename="../src/mainwindow.cpp" line="614"/>
         <source>Exit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="612"/>
+        <location filename="../src/mainwindow.cpp" line="615"/>
         <source>Quit the application</source>
         <translation>アプリケーションを終了</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="614"/>
+        <location filename="../src/mainwindow.cpp" line="617"/>
         <source>Copy</source>
         <translation>コピー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="617"/>
+        <location filename="../src/mainwindow.cpp" line="620"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+C&gt;</source>
         <translation>選択したテキストをクリップボードにコピー &lt;Ctrl+C&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="620"/>
+        <location filename="../src/mainwindow.cpp" line="623"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
         <translation>選択したテキストをクリップボードにコピー &lt;Ctrl+Ins&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="623"/>
+        <location filename="../src/mainwindow.cpp" line="626"/>
         <source>Paste</source>
         <translation>貼り付け</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="626"/>
+        <location filename="../src/mainwindow.cpp" line="629"/>
         <source>Paste the clipboard text to the current session &lt;Ctrl+V&gt;</source>
         <translation>クリップボードのテキストを現在のセッションに貼り付け &lt;Ctrl+V&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="629"/>
+        <location filename="../src/mainwindow.cpp" line="632"/>
         <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
         <translation>クリップボードのテキストを現在のセッションに貼り付け &lt;Shift+Ins&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="632"/>
+        <location filename="../src/mainwindow.cpp" line="635"/>
         <source>Copy and Paste</source>
         <translation>コピーと貼り付け</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="636"/>
         <source>Copy the selected text to the clipboard and paste to the current session</source>
         <translation>選択したテキストをクリップボードにコピーして現在のセッションに貼り付け</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="634"/>
+        <location filename="../src/mainwindow.cpp" line="637"/>
         <source>Select All</source>
         <translation>全て選択</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="635"/>
+        <location filename="../src/mainwindow.cpp" line="638"/>
         <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
         <translation>現在のセッションの全てのテキストを選択 &lt;Ctrl+Shift+A&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="637"/>
+        <location filename="../src/mainwindow.cpp" line="640"/>
         <source>Find...</source>
         <translation>検索...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="641"/>
+        <location filename="../src/mainwindow.cpp" line="644"/>
         <source>Print Screen</source>
         <translation>プリントスクリーン</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="643"/>
+        <location filename="../src/mainwindow.cpp" line="646"/>
         <source>Print current screen</source>
         <translation>現在のスクリーンを印刷</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="644"/>
+        <location filename="../src/mainwindow.cpp" line="647"/>
         <source>Screen Shot</source>
         <translation>スクリーンショット</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="650"/>
+        <location filename="../src/mainwindow.cpp" line="653"/>
         <source>Clear Scrollback</source>
         <translation>スクロールバックをクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="654"/>
         <source>Clear the contents of the scrollback rows</source>
         <translation>スクロールバックの内容をクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="652"/>
+        <location filename="../src/mainwindow.cpp" line="655"/>
         <source>Clear Screen</source>
         <translation>画面をクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="653"/>
+        <location filename="../src/mainwindow.cpp" line="656"/>
         <source>Clear the contents of the current screen</source>
         <translation>現在の画面の内容をクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="654"/>
+        <location filename="../src/mainwindow.cpp" line="657"/>
         <source>Clear Screen and Scrollback</source>
         <translation>画面とスクロールバックをクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="655"/>
+        <location filename="../src/mainwindow.cpp" line="658"/>
         <source>Clear the contents of the screen and scrollback</source>
         <translation>画面とスクロールバックの内容をクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="656"/>
+        <location filename="../src/mainwindow.cpp" line="659"/>
         <source>Reset</source>
         <translation>リセット</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="657"/>
+        <location filename="../src/mainwindow.cpp" line="660"/>
         <source>Reset terminal emulator</source>
         <translation>端末エミュレータをリセット</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="659"/>
+        <location filename="../src/mainwindow.cpp" line="662"/>
         <source>Zoom In</source>
         <translation>拡大</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="661"/>
+        <location filename="../src/mainwindow.cpp" line="664"/>
         <source>Zoom In &lt;Ctrl+&quot;=&quot;&gt;</source>
         <translation>拡大 &lt;Ctrl+&quot;=&quot;&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="663"/>
+        <location filename="../src/mainwindow.cpp" line="666"/>
         <source>Zoom Out</source>
         <translation>縮小</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="665"/>
+        <location filename="../src/mainwindow.cpp" line="668"/>
         <source>Zoom Out &lt;Ctrl+&quot;-&quot;&gt;</source>
         <translation>縮小 &lt;Ctrl+&quot;-&quot;&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="667"/>
-        <location filename="../src/mainwindow.cpp" line="669"/>
+        <location filename="../src/mainwindow.cpp" line="670"/>
+        <location filename="../src/mainwindow.cpp" line="672"/>
         <source>Zoom Reset</source>
         <translation>ズームリセット</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="670"/>
+        <location filename="../src/mainwindow.cpp" line="673"/>
         <source>Menu Bar</source>
         <translation>メニューバー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="671"/>
+        <location filename="../src/mainwindow.cpp" line="674"/>
         <source>Show/Hide Menu Bar &lt;Alt+U&gt;</source>
         <translation>メニューバーを表示/非表示 &lt;Alt+U&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="674"/>
+        <location filename="../src/mainwindow.cpp" line="677"/>
         <source>Show/Hide Tool Bar</source>
         <translation>ツールバーを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="675"/>
+        <location filename="../src/mainwindow.cpp" line="678"/>
         <source>Status Bar</source>
         <translation>ステータスバー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="676"/>
+        <location filename="../src/mainwindow.cpp" line="679"/>
         <source>Show/Hide Status Bar</source>
         <translation>ステータスバーを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="677"/>
+        <location filename="../src/mainwindow.cpp" line="680"/>
         <source>Command Window</source>
         <translation>コマンドウィンドウ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="678"/>
+        <location filename="../src/mainwindow.cpp" line="681"/>
         <source>Show/Hide Command Window</source>
         <translation>コマンドウィンドウを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="679"/>
+        <location filename="../src/mainwindow.cpp" line="682"/>
         <source>Connect Bar</source>
         <translation>接続バー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="680"/>
+        <location filename="../src/mainwindow.cpp" line="683"/>
         <source>Show/Hide Connect Bar</source>
         <translation>接続バーを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="681"/>
+        <location filename="../src/mainwindow.cpp" line="684"/>
         <source>Side Window</source>
         <translation>サイドウィンドウ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="682"/>
+        <location filename="../src/mainwindow.cpp" line="685"/>
         <source>Show/Hide Side Window</source>
         <translation>サイドウィンドウを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="683"/>
+        <location filename="../src/mainwindow.cpp" line="686"/>
         <source>Windows Transparency</source>
         <translation>ウィンドウの透明度</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="684"/>
+        <location filename="../src/mainwindow.cpp" line="687"/>
         <source>Enable/Disable alpha transparency</source>
         <translation>アルファ透明度を有効/無効</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="685"/>
+        <location filename="../src/mainwindow.cpp" line="688"/>
         <source>Vertical Scroll Bar</source>
         <translation>垂直スクロールバー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="686"/>
+        <location filename="../src/mainwindow.cpp" line="689"/>
         <source>Show/Hide Vertical Scroll Bar</source>
         <translation>垂直スクロールバーを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="687"/>
+        <location filename="../src/mainwindow.cpp" line="690"/>
         <source>Allways On Top</source>
         <translation>常に最前面に表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="688"/>
+        <location filename="../src/mainwindow.cpp" line="691"/>
         <source>Show window always on top</source>
         <translation>ウィンドウを常に最前面に表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="689"/>
+        <location filename="../src/mainwindow.cpp" line="692"/>
         <source>Full Screen</source>
         <translation>全画面表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="693"/>
+        <location filename="../src/mainwindow.cpp" line="696"/>
         <source>Session Options...</source>
         <translation>セッションオプション...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="695"/>
+        <location filename="../src/mainwindow.cpp" line="698"/>
         <source>Configure session options</source>
         <translation>セッションオプションを設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="696"/>
+        <location filename="../src/mainwindow.cpp" line="699"/>
         <source>Global Options...</source>
         <translation>グローバルオプション...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="698"/>
+        <location filename="../src/mainwindow.cpp" line="701"/>
         <source>Configure global options</source>
         <translation>グローバルオプションを設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="647"/>
+        <location filename="../src/mainwindow.cpp" line="650"/>
         <source>Session Export</source>
         <translation>セッションをエクスポート</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="648"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
         <source>Export current session to a file &lt;Alt+O&gt;</source>
         <translation>現在のセッションをファイルにエクスポート &lt;Alt+O&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="701"/>
+        <location filename="../src/mainwindow.cpp" line="704"/>
         <source>Save Settings Now</source>
         <translation>設定を保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="702"/>
+        <location filename="../src/mainwindow.cpp" line="705"/>
         <source>Save options configuration now</source>
         <translation>オプション設定を保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="704"/>
+        <location filename="../src/mainwindow.cpp" line="707"/>
         <source>Send ASCII...</source>
         <translation>ASCII送信...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="705"/>
+        <location filename="../src/mainwindow.cpp" line="708"/>
         <source>Send ASCII file</source>
         <translation>ASCIIファイルを送信</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="706"/>
+        <location filename="../src/mainwindow.cpp" line="709"/>
         <source>Receive ASCII...</source>
         <translation>ASCII受信...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="707"/>
+        <location filename="../src/mainwindow.cpp" line="710"/>
         <source>Receive ASCII file</source>
         <translation>ASCIIファイルを受信</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="708"/>
+        <location filename="../src/mainwindow.cpp" line="711"/>
         <source>Send Binary...</source>
         <translation>バイナリ送信...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="709"/>
+        <location filename="../src/mainwindow.cpp" line="712"/>
         <source>Send Binary file</source>
         <translation>バイナリファイルを送信</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="710"/>
+        <location filename="../src/mainwindow.cpp" line="713"/>
         <source>Send Xmodem...</source>
         <translation>Xmodem送信...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="711"/>
+        <location filename="../src/mainwindow.cpp" line="714"/>
         <source>Send a file using Xmodem</source>
         <translation>Xmodemでファイルを送信</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="712"/>
+        <location filename="../src/mainwindow.cpp" line="715"/>
         <source>Receive Xmodem...</source>
         <translation>Xmodem受信...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="713"/>
+        <location filename="../src/mainwindow.cpp" line="716"/>
         <source>Receive a file using Xmodem</source>
         <translation>Xmodemでファイルを受信</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="714"/>
+        <location filename="../src/mainwindow.cpp" line="717"/>
         <source>Send Ymodem...</source>
         <translation>Ymodem送信...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="715"/>
+        <location filename="../src/mainwindow.cpp" line="718"/>
         <source>Send a file using Ymodem</source>
         <translation>Ymodemでファイルを送信</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="716"/>
+        <location filename="../src/mainwindow.cpp" line="719"/>
         <source>Receive Ymodem...</source>
         <translation>Ymodem受信...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="717"/>
+        <location filename="../src/mainwindow.cpp" line="720"/>
         <source>Receive a file using Ymodem</source>
         <translation>Ymodemでファイルを受信</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="718"/>
+        <location filename="../src/mainwindow.cpp" line="721"/>
         <source>Zmodem Upload List...</source>
         <translation>Zmodemアップロードリスト...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="719"/>
+        <location filename="../src/mainwindow.cpp" line="722"/>
         <source>Display Zmodem file upload list</source>
         <translation>Zmodemファイルアップロードリストを表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="720"/>
+        <location filename="../src/mainwindow.cpp" line="723"/>
         <source>Start Zmodem Upload</source>
         <translation>Zmodemアップロード開始</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="721"/>
+        <location filename="../src/mainwindow.cpp" line="724"/>
         <source>Start Zmodem file upload</source>
         <translation>Zmodemファイルアップロードを開始</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="722"/>
+        <location filename="../src/mainwindow.cpp" line="725"/>
         <source>Start TFTP Server</source>
         <translation>TFTPサーバー開始</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="723"/>
+        <location filename="../src/mainwindow.cpp" line="726"/>
         <source>Start/Stop the TFTP server</source>
         <translation>TFTPサーバーを開始/停止</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="725"/>
+        <location filename="../src/mainwindow.cpp" line="728"/>
         <source>Run...</source>
         <translation>実行...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="726"/>
+        <location filename="../src/mainwindow.cpp" line="729"/>
         <source>Run a script</source>
         <translation>スクリプトを実行</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="727"/>
+        <location filename="../src/mainwindow.cpp" line="730"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="728"/>
+        <location filename="../src/mainwindow.cpp" line="731"/>
         <source>Cancel script execution</source>
         <translation>スクリプト実行をキャンセル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="729"/>
+        <location filename="../src/mainwindow.cpp" line="732"/>
         <source>Start Recording Script</source>
         <translation>スクリプト記録開始</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="730"/>
+        <location filename="../src/mainwindow.cpp" line="733"/>
         <source>Start recording script</source>
         <translation>スクリプト記録を開始</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="731"/>
+        <location filename="../src/mainwindow.cpp" line="734"/>
         <source>Stop Recording Script...</source>
         <translation>スクリプト記録停止...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="732"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <source>Stop recording script</source>
         <translation>スクリプト記録を停止</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="733"/>
+        <location filename="../src/mainwindow.cpp" line="736"/>
         <source>Cancel Recording Script</source>
         <translation>スクリプト記録キャンセル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="734"/>
+        <location filename="../src/mainwindow.cpp" line="737"/>
         <source>Cancel recording script</source>
         <translation>スクリプト記録をキャンセル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="736"/>
+        <location filename="../src/mainwindow.cpp" line="739"/>
         <source>Add Bookmark</source>
         <translation>ブックマークを追加</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="737"/>
+        <location filename="../src/mainwindow.cpp" line="740"/>
         <source>Add a bookmark</source>
         <translation>ブックマークを追加</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="738"/>
-        <location filename="../src/mainwindow.cpp" line="1621"/>
+        <location filename="../src/mainwindow.cpp" line="741"/>
+        <location filename="../src/mainwindow.cpp" line="1624"/>
         <source>Remove Bookmark</source>
         <translation>ブックマークを削除</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="739"/>
+        <location filename="../src/mainwindow.cpp" line="742"/>
         <source>Remove a bookmark</source>
         <translation>ブックマークを削除</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="740"/>
-        <location filename="../src/mainwindow.cpp" line="1648"/>
+        <location filename="../src/mainwindow.cpp" line="743"/>
+        <location filename="../src/mainwindow.cpp" line="1651"/>
         <source>Clean All Bookmark</source>
         <translation>全てのブックマークをクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="741"/>
+        <location filename="../src/mainwindow.cpp" line="744"/>
         <source>Clean all bookmark</source>
         <translation>全てのブックマークをクリア</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="743"/>
+        <location filename="../src/mainwindow.cpp" line="746"/>
         <source>Keymap Manager</source>
         <translation>キーマップマネージャー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="744"/>
+        <location filename="../src/mainwindow.cpp" line="747"/>
         <source>Display keymap editor</source>
         <translation>キーマップエディターを表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="745"/>
+        <location filename="../src/mainwindow.cpp" line="748"/>
         <source>Create Public Key...</source>
         <translation>公開鍵を作成...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="746"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>Create a public key</source>
         <translation>公開鍵を作成</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="747"/>
+        <location filename="../src/mainwindow.cpp" line="750"/>
         <source>Publickey Manager</source>
         <translation>公開鍵マネージャー</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="748"/>
+        <location filename="../src/mainwindow.cpp" line="751"/>
         <source>Display publickey manager</source>
         <translation>公開鍵マネージャーを表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="750"/>
+        <location filename="../src/mainwindow.cpp" line="753"/>
         <source>Tab</source>
         <translation>タブ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="751"/>
+        <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Arrange sessions in tabs</source>
         <translation>セッションをタブで表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="752"/>
+        <location filename="../src/mainwindow.cpp" line="755"/>
         <source>Tile</source>
         <translation>タイル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="753"/>
+        <location filename="../src/mainwindow.cpp" line="756"/>
         <source>Arrange sessions in non-overlapping tiles</source>
         <translation>セッションを重ならないようにタイルで表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="754"/>
+        <location filename="../src/mainwindow.cpp" line="757"/>
         <source>Cascade</source>
         <translation>カスケード</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="755"/>
+        <location filename="../src/mainwindow.cpp" line="758"/>
         <source>Arrange sessions to overlap each other</source>
         <translation>セッションを重ねて表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="757"/>
+        <location filename="../src/mainwindow.cpp" line="760"/>
         <source>Chinese</source>
         <translation>中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="758"/>
+        <location filename="../src/mainwindow.cpp" line="761"/>
         <source>Switch to Chinese</source>
         <translation>切换到中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="759"/>
+        <location filename="../src/mainwindow.cpp" line="762"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="760"/>
+        <location filename="../src/mainwindow.cpp" line="763"/>
         <source>Switch to English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="761"/>
+        <location filename="../src/mainwindow.cpp" line="764"/>
         <source>Japanese</source>
         <translation>日本語</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="762"/>
+        <location filename="../src/mainwindow.cpp" line="765"/>
         <source>Switch to Japanese</source>
         <translation>日本語に切り替える</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="764"/>
+        <location filename="../src/mainwindow.cpp" line="767"/>
         <source>Light</source>
         <translation>明るい</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="765"/>
+        <location filename="../src/mainwindow.cpp" line="768"/>
         <source>Switch to light theme</source>
         <translation>明るいテーマに切り替える</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="766"/>
+        <location filename="../src/mainwindow.cpp" line="769"/>
         <source>Dark</source>
         <translation>暗い</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="767"/>
+        <location filename="../src/mainwindow.cpp" line="770"/>
         <source>Switch to dark theme</source>
         <translation>暗いテーマに切り替える</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="771"/>
+        <location filename="../src/mainwindow.cpp" line="774"/>
         <source>Display help</source>
         <translation>ヘルプを表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="772"/>
-        <location filename="../src/mainwindow.cpp" line="2305"/>
+        <location filename="../src/mainwindow.cpp" line="775"/>
+        <location filename="../src/mainwindow.cpp" line="2311"/>
         <source>About</source>
         <translation>について</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="774"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Display about dialog</source>
         <translation>についてのダイアログを表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="775"/>
+        <location filename="../src/mainwindow.cpp" line="778"/>
         <source>About Qt</source>
         <translation>Qtについて</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="777"/>
+        <location filename="../src/mainwindow.cpp" line="780"/>
         <source>Display about Qt dialog</source>
         <translation>Qtについてのダイアログを表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1444"/>
+        <location filename="../src/mainwindow.cpp" line="1447"/>
         <source>PrintScreen saved to %1</source>
         <translation>プリントスクリーンを %1 に保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1454"/>
+        <location filename="../src/mainwindow.cpp" line="1457"/>
         <source>Save Screenshot</source>
         <translation>スクリーンショットを保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1454"/>
+        <location filename="../src/mainwindow.cpp" line="1457"/>
         <source>Image Files (*.jpg)</source>
         <translation>画像ファイル (*.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1459"/>
+        <location filename="../src/mainwindow.cpp" line="1462"/>
         <source>Screenshot saved to %1</source>
         <translation>スクリーンショットを %1 に保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1471"/>
+        <location filename="../src/mainwindow.cpp" line="1474"/>
         <source>Text Files (*.txt)</source>
         <translation>テキストファイル (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1474"/>
+        <location filename="../src/mainwindow.cpp" line="1477"/>
         <source>HTML Files (*.html)</source>
         <translation>HTMLファイル (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1594"/>
+        <location filename="../src/mainwindow.cpp" line="1597"/>
         <source>Select a directory</source>
         <translation>ディレクトリを選択</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1621"/>
+        <location filename="../src/mainwindow.cpp" line="1624"/>
         <source>Select a bookmark</source>
         <translation>ブックマークを選択</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1648"/>
+        <location filename="../src/mainwindow.cpp" line="1651"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>全てのブックマークをクリアしてもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2004"/>
+        <location filename="../src/mainwindow.cpp" line="2010"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2030"/>
+        <location filename="../src/mainwindow.cpp" line="2036"/>
         <source>Serial</source>
         <translation>シリアル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2055"/>
+        <location filename="../src/mainwindow.cpp" line="2061"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2079"/>
+        <location filename="../src/mainwindow.cpp" line="2085"/>
         <source>NamePipe - </source>
         <translation>名前付きパイプ - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2080"/>
+        <location filename="../src/mainwindow.cpp" line="2086"/>
         <source>NamePipe</source>
         <translation>名前付きパイプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2145"/>
-        <location filename="../src/mainwindow.cpp" line="2149"/>
+        <location filename="../src/mainwindow.cpp" line="2151"/>
+        <location filename="../src/mainwindow.cpp" line="2155"/>
         <source>Local Shell</source>
         <translation>ローカル端末</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2306"/>
+        <location filename="../src/mainwindow.cpp" line="2312"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;バージョン&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;コミット&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;開発者&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;ウェブサイト&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2323"/>
+        <location filename="../src/mainwindow.cpp" line="2329"/>
         <source>Global Shortcuts:
 
   ALT+&quot;U&quot;		show/hide menu bar
@@ -1264,85 +1287,138 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2003"/>
+        <location filename="../src/mainwindow.cpp" line="2009"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="230"/>
         <source>Open Working Folder</source>
         <translation>作業フォルダを開く</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="639"/>
+        <location filename="../src/mainwindow.cpp" line="642"/>
         <source>Find text in the current session &lt;Ctrl+F&gt;</source>
         <translation>現在のセッションのテキストを検索 &lt;Ctrl+F&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="645"/>
+        <location filename="../src/mainwindow.cpp" line="648"/>
         <source>Screen shot current screen &lt;Alt+P&gt;</source>
         <translation>現在の画面をスクリーンショット &lt;Alt+P&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="690"/>
+        <location filename="../src/mainwindow.cpp" line="693"/>
         <source>Toggle between full screen and normal mode &lt;Alt+Enter&gt;</source>
         <translation>全画面表示と通常表示を切り替え &lt;Alt+Enter&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="699"/>
+        <location filename="../src/mainwindow.cpp" line="702"/>
         <source>Real-time Save Options</source>
         <translation>リアルタイム保存設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="700"/>
+        <location filename="../src/mainwindow.cpp" line="703"/>
         <source>Real-time save session options and global options</source>
         <translation>セッションオプションとグローバルオプションをリアルタイムで保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1468"/>
+        <location filename="../src/mainwindow.cpp" line="1471"/>
         <source>Save Session Export</source>
         <translation>セッションエクスポートを保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1468"/>
+        <location filename="../src/mainwindow.cpp" line="1471"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation>テキストファイル (*.txt);;HTMLファイル (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1483"/>
+        <location filename="../src/mainwindow.cpp" line="1486"/>
         <source>Session Export saved to %1</source>
         <translation>セッションエクスポートを %1 に保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1485"/>
+        <location filename="../src/mainwindow.cpp" line="1488"/>
         <source>Session Export failed to save to %1</source>
         <translation>セッションエクスポートを %1 に保存できませんでした</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2029"/>
+        <location filename="../src/mainwindow.cpp" line="2035"/>
         <source>Serial - </source>
         <translation>シリアル - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2147"/>
+        <location filename="../src/mainwindow.cpp" line="2153"/>
         <source>Local Shell - </source>
         <translation>ローカル端末 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2054"/>
+        <location filename="../src/mainwindow.cpp" line="2060"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="302"/>
+        <location filename="../src/mainwindow.cpp" line="306"/>
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="101"/>
-        <location filename="../src/mainwindow.cpp" line="673"/>
+        <location filename="../src/mainwindow.cpp" line="676"/>
         <source>Tool Bar</source>
         <translation>ツールバー</translation>
+    </message>
+</context>
+<context>
+    <name>OptionsWindow</name>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="22"/>
+        <source>Session Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="41"/>
+        <source>Color Schemes</source>
+        <translation type="unfinished">カラースキーム</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="45"/>
+        <source>Font Size</source>
+        <translation type="unfinished">フォントサイズ</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="49"/>
+        <source>Transparent Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="53"/>
+        <source>Background Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="65"/>
+        <source>Background Image Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="69"/>
+        <source>Background Image Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="73"/>
+        <source>New Tab Working Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/optionswindow.cpp" line="77"/>
+        <source>Scrollback Lines</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1403,151 +1479,151 @@
 <context>
     <name>QuickConnectWindow</name>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="30"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="30"/>
         <source>Protocol</source>
         <translation>プロトコル</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="58"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="58"/>
         <source>Named Pipe</source>
         <translation>名前付きパイプ</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="81"/>
-        <location filename="../src/quickconnectwindow.cpp" line="69"/>
-        <location filename="../src/quickconnectwindow.cpp" line="163"/>
-        <location filename="../src/quickconnectwindow.cpp" line="219"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Hostname</source>
         <translation>ホスト名</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="104"/>
-        <location filename="../src/quickconnectwindow.cpp" line="70"/>
-        <location filename="../src/quickconnectwindow.cpp" line="164"/>
-        <location filename="../src/quickconnectwindow.cpp" line="220"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="70"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="164"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="220"/>
         <source>Port</source>
         <translation>ポート</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="128"/>
-        <location filename="../src/quickconnectwindow.ui" line="235"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="133"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="133"/>
         <source>Insecure</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="138"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="138"/>
         <source>Secure</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="156"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="156"/>
         <source>Username</source>
         <translation>ユーザー名</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="166"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="166"/>
         <source>Password</source>
         <translation>パスワード</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="190"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
         <source>DataBits</source>
         <translation>データビット</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="227"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
         <source>Parity</source>
         <translation>パリティ</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="240"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
         <source>Odd</source>
         <translation>奇数</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="245"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
         <source>Even</source>
         <translation>偶数</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="263"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
         <source>StopBits</source>
         <translation>ストップビット</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="315"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
         <source>Save session</source>
         <translation>セッションを保存</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="325"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
         <source>Open in tab</source>
         <translation>タブで開く</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="120"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="120"/>
         <source>WebSocket</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="31"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
         <source>Quick Connect</source>
         <translation>クイックコネクト</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="43"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="43"/>
         <source>Serial</source>
         <translation>シリアル</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.ui" line="48"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="48"/>
         <source>Local Shell</source>
         <translation>ローカル端末</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="90"/>
-        <location filename="../src/quickconnectwindow.cpp" line="184"/>
-        <location filename="../src/quickconnectwindow.cpp" line="240"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="90"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="184"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="240"/>
         <source>e.g. 127.0.0.1</source>
         <translation>例えば 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="98"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Port Name</source>
         <translation>ポート名</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="99"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
         <source>Baud Rate</source>
         <translation>ボーレート</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="139"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="139"/>
         <source>Command</source>
         <translation>指令</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="159"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="159"/>
         <source>e.g. /bin/bash</source>
         <translation>例えば /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="191"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="191"/>
         <source>Pipe Name</source>
         <translation>パイプ名</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="212"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="212"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>例えば \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow.cpp" line="214"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="214"/>
         <source>e.g. /tmp/socket</source>
         <translation>例えば /tmp/socket</translation>
     </message>
@@ -1601,14 +1677,81 @@
     </message>
 </context>
 <context>
+    <name>SessionManagerTreeModel</name>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="133"/>
+        <source>Telnet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="135"/>
+        <source>Serial</source>
+        <translation type="unfinished">シリアル</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="137"/>
+        <source>Shell</source>
+        <translation type="unfinished">シェル</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="139"/>
+        <source>Raw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="263"/>
+        <source>Name</source>
+        <translation type="unfinished">名前</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
+        <source>Kind</source>
+        <translation type="unfinished">種類</translation>
+    </message>
+</context>
+<context>
+    <name>SessionManagerTreeView</name>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="39"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="65"/>
+        <source>Session</source>
+        <translation type="unfinished">セッション</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="75"/>
+        <source>Connect Terminal</source>
+        <translation type="unfinished">端末に接続</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="80"/>
+        <source>Connect in New Window</source>
+        <translation type="unfinished">新しいウィンドウで接続</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="82"/>
+        <source>Connect in New Tab Group</source>
+        <translation type="unfinished">新しいタブグループで接続</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="85"/>
+        <source>Delete</source>
+        <translation type="unfinished">削除</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="96"/>
+        <source>Properties</source>
+        <translation type="unfinished">プロパティ</translation>
+    </message>
+</context>
+<context>
     <name>SessionManagerWidget</name>
     <message>
-        <location filename="../src/sessionmanagerwidget.cpp" line="67"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="67"/>
         <source>Session Manager</source>
         <translation>セッションマネージャー</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget.cpp" line="68"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="68"/>
         <source>Filter by folder/session name</source>
         <translation>フォルダ/セッション名でフィルター</translation>
     </message>
@@ -1616,35 +1759,28 @@
 <context>
     <name>SessionTreeView</name>
     <message>
-        <location filename="../src/sessiontreeview.cpp" line="39"/>
-        <location filename="../src/sessiontreeview.cpp" line="65"/>
         <source>Session</source>
-        <translation>セッション</translation>
+        <translation type="vanished">セッション</translation>
     </message>
     <message>
-        <location filename="../src/sessiontreeview.cpp" line="75"/>
         <source>Connect Terminal</source>
-        <translation>端末に接続</translation>
+        <translation type="vanished">端末に接続</translation>
     </message>
     <message>
-        <location filename="../src/sessiontreeview.cpp" line="80"/>
         <source>Connect in New Window</source>
-        <translation>新しいウィンドウで接続</translation>
+        <translation type="vanished">新しいウィンドウで接続</translation>
     </message>
     <message>
-        <location filename="../src/sessiontreeview.cpp" line="82"/>
         <source>Connect in New Tab Group</source>
-        <translation>新しいタブグループで接続</translation>
+        <translation type="vanished">新しいタブグループで接続</translation>
     </message>
     <message>
-        <location filename="../src/sessiontreeview.cpp" line="85"/>
         <source>Delete</source>
-        <translation>削除</translation>
+        <translation type="vanished">削除</translation>
     </message>
     <message>
-        <location filename="../src/sessiontreeview.cpp" line="96"/>
         <source>Properties</source>
-        <translation>プロパティ</translation>
+        <translation type="vanished">プロパティ</translation>
     </message>
 </context>
 <context>
@@ -1715,43 +1851,43 @@
 <context>
     <name>StartTftpSeverWindow</name>
     <message>
-        <location filename="../src/starttftpseverwindow.ui" line="14"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="14"/>
         <source>Start TFTP Sever</source>
         <translation>TFTPサーバーを開始</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow.ui" line="32"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="32"/>
         <source>The TFTP server uses local directories for uploading and downloading files. Please enter this information below.</source>
         <translation>TFTPサーバーは、ファイルのアップロードとダウンロードにローカルディレクトリを使用します。以下にこの情報を入力してください。</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow.ui" line="65"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="65"/>
         <source>TFTP Port</source>
         <translation>TFTPポート</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow.ui" line="104"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="104"/>
         <source>Upload directory</source>
         <translation>アップロードディレクトリ</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow.ui" line="143"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="143"/>
         <source>Download directory</source>
         <translation>ダウンロードディレクトリ</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow.cpp" line="38"/>
-        <location filename="../src/starttftpseverwindow.cpp" line="45"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="38"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="45"/>
         <source>Open Directory</source>
         <translation>ディレクトリを開く</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow.cpp" line="77"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow.cpp" line="77"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Please select a valid directory!</source>
         <translation>有効なディレクトリを選択してください！</translation>
     </message>
@@ -1759,45 +1895,31 @@
 <context>
     <name>TreeModel</name>
     <message>
-        <location filename="../src/treemodel.cpp" line="133"/>
-        <source>Telnet</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/treemodel.cpp" line="135"/>
         <source>Serial</source>
-        <translation>シリアル</translation>
+        <translation type="vanished">シリアル</translation>
     </message>
     <message>
-        <location filename="../src/treemodel.cpp" line="137"/>
         <source>Shell</source>
-        <translation>シェル</translation>
+        <translation type="vanished">シェル</translation>
     </message>
     <message>
-        <location filename="../src/treemodel.cpp" line="139"/>
-        <source>Raw</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/treemodel.cpp" line="263"/>
         <source>Name</source>
-        <translation>名前</translation>
+        <translation type="vanished">名前</translation>
     </message>
     <message>
-        <location filename="../src/treemodel.cpp" line="265"/>
         <source>Kind</source>
-        <translation>種類</translation>
+        <translation type="vanished">種類</translation>
     </message>
 </context>
 <context>
     <name>keyMapManager</name>
     <message>
-        <location filename="../src/keymapmanager.ui" line="14"/>
+        <location filename="../src/keymapmanager/keymapmanager.ui" line="14"/>
         <source>keyMapManager</source>
         <translation>キーマップマネージャー</translation>
     </message>
     <message>
-        <location filename="../src/keymapmanager.ui" line="20"/>
+        <location filename="../src/keymapmanager/keymapmanager.ui" line="20"/>
         <source>KeyBinding</source>
         <translation>キーバインディング</translation>
     </message>

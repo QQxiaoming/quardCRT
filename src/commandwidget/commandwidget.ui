@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CommandWindow</class>
- <widget class="QWidget" name="CommandWindow">
+ <class>CommandWidget</class>
+ <widget class="QWidget" name="CommandWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,9 +9,6 @@
     <width>615</width>
     <height>142</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <property name="spacing">

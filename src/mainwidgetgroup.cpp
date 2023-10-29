@@ -17,6 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
+#include <QWidget>
+
 #include "mainwidgetgroup.h"
 #include "sessionswindow.h"
 
@@ -25,11 +27,15 @@ MainWidgetGroup::MainWidgetGroup(QWidget *parent)
 {
     splitter = new QSplitter(Qt::Vertical, parent);
     sessionTab = new SessionTab(parent);
-    commandWindow = new CommandWindow(parent);
+    QWidget *widget = new QWidget(parent);
+    widget->setLayout(new QVBoxLayout(widget));
+    commandWidget = new CommandWidget(parent);
+    widget->layout()->addWidget(commandWidget);
+    widget->layout()->setContentsMargins(0,0,0,0);
 
     splitter->setHandleWidth(1);
     splitter->addWidget(sessionTab);
-    splitter->addWidget(commandWindow);
+    splitter->addWidget(widget);
     splitter->setCollapsible(0,false);
     splitter->setCollapsible(1,true);
     splitter->setSizes(QList<int>() << 1 << 0);

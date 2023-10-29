@@ -22,11 +22,11 @@
 
 #include "qfonticon.h"
 
-#include "sessiontreeview.h"
+#include "sessionmanagertreeview.h"
 
-SessionTreeView::SessionTreeView(QWidget *parent) 
+SessionManagerTreeView::SessionManagerTreeView(QWidget *parent) 
         : QTreeView(parent) {
-    mode = new TreeModel(this);
+    mode = new SessionManagerTreeModel(this);
     setModel(mode);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
     setAnimated(true);
@@ -40,20 +40,20 @@ SessionTreeView::SessionTreeView(QWidget *parent)
     expand(rootIndex);
 }
 
-SessionTreeView::~SessionTreeView() {
+SessionManagerTreeView::~SessionManagerTreeView() {
     delete mode;
 }
 
-void SessionTreeView::addSession(QString str, int type) {
+void SessionManagerTreeView::addSession(QString str, int type) {
     mode->addTree(str, type, rootIndex);
 }
 
-void SessionTreeView::removeSession(QString str) {
+void SessionManagerTreeView::removeSession(QString str) {
     QModelIndex index = mode->findItems(str, rootIndex);
     mode->removeTree(index);
 }
 
-bool SessionTreeView::checkSession(QString str) {
+bool SessionManagerTreeView::checkSession(QString str) {
     QModelIndex index = mode->findItems(str, rootIndex);
     if (index.isValid()) {
         return true;
@@ -61,11 +61,11 @@ bool SessionTreeView::checkSession(QString str) {
     return false;
 }
 
-void SessionTreeView::retranslateUi() {
+void SessionManagerTreeView::retranslateUi() {
     mode->setData(rootIndex, tr("Session"), -1, Qt::DisplayRole);
 }
 
-void SessionTreeView::contextMenuEvent(QContextMenuEvent *event) {
+void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
     QModelIndex tIndex = indexAt(viewport()->mapFromGlobal(event->globalPos()));
     if (tIndex.isValid()) {
         int type; QString name;

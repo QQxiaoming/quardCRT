@@ -17,21 +17,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SESSIONTREEVIEW_H
-#define SESSIONTREEVIEW_H
+#ifndef SESSIONMANAGERTREEVIEW_H
+#define SESSIONMANAGERTREEVIEW_H
 
 #include <QStringList>
 #include <QTreeView>
 #include <QContextMenuEvent>
 
-#include "treemodel.h"
+#include "sessionmanagertreemodel.h"
 
-class SessionTreeView : public QTreeView
+class SessionManagerTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit SessionTreeView(QWidget *parent = 0);
-    ~SessionTreeView();
+    explicit SessionManagerTreeView(QWidget *parent = 0);
+    ~SessionManagerTreeView();
 
     void addSession(QString str, int type);
     void removeSession(QString str);
@@ -46,8 +46,8 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
-    TreeModel *mode;
+    SessionManagerTreeModel *mode;
     QModelIndex rootIndex;
 };
 
-#endif // SESSIONTREEVIEW_H
+#endif // SESSIONMANAGERTREEVIEW_H

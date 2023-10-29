@@ -17,12 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
-#include "commandwindow.h"
-#include "ui_commandwindow.h"
+#include "commandwidget.h"
+#include "ui_commandwidget.h"
 
-CommandWindow::CommandWindow(QWidget *parent) :
+CommandWidget::CommandWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::CommandWindow)
+    ui(new Ui::CommandWidget)
 {
     ui->setupUi(this);
 
@@ -56,16 +56,16 @@ CommandWindow::CommandWindow(QWidget *parent) :
     });
 }
 
-CommandWindow::~CommandWindow()
+CommandWidget::~CommandWidget()
 {
     delete ui;
 }
 
-void CommandWindow::setCmd(QString cmd) {
+void CommandWidget::setCmd(QString cmd) {
     ui->commandPlainEdit->setPlainText(cmd);
 }
 
-void CommandWindow::sendCurrentData(void) {
+void CommandWidget::sendCurrentData(void) {
     if(ui->asciiRadioButton->isChecked()) {
     #if defined(Q_OS_WIN)
         emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1());
@@ -81,6 +81,6 @@ void CommandWindow::sendCurrentData(void) {
     }
 }
 
-void CommandWindow::retranslateUi(void) {
+void CommandWidget::retranslateUi(void) {
     ui->retranslateUi(this);
 }

@@ -22,7 +22,7 @@
 
 #include <QObject>
 #include <QSplitter>
-#include "commandwindow.h"
+#include "commandwidget.h"
 #include "sessiontab.h"
 
 class MainWidgetGroup: public QObject
@@ -35,7 +35,7 @@ public:
 public:
     QSplitter *splitter;
     SessionTab *sessionTab;
-    CommandWindow *commandWindow;
+    CommandWidget *commandWidget;
 };
 
 #endif // MAINWIDGETGROUP_H

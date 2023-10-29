@@ -20,55 +20,71 @@ include(./lib/ptyqt/ptyqt.pri)
 include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
 include(./lib/Qtftp/Qtftp.pri)
 
+INCLUDEPATH += \
+    src/util \
+    src/sessionmanagerwidget \
+    src/globaloptions \
+    src/sessionoptions \
+    src/commandwidget \
+    src/keymapmanager \
+    src/locksessionwindow \
+    src/quickconnectwindow \
+    src/starttftpseverwindow \
+    src/hexviewwindow \
+    src
+
 SOURCES += \
-    src/logger.cpp \
-    src/commandwindow.cpp \
-    src/globaloptions.cpp \
-    src/globalsetting.cpp \
-    src/keymapmanager.cpp \
-    src/locksessionwindow.cpp \
-    src/quickconnectwindow.cpp \
-    src/sessionmanagerwidget.cpp \
+    src/util/logger.cpp \
+    src/util/globalsetting.cpp \
+    src/sessionmanagerwidget/sessionmanagerwidget.cpp \
+    src/sessionmanagerwidget/sessionmanagertreeview.cpp \
+    src/sessionmanagerwidget/sessionmanagertreemodel.cpp \
+    src/globaloptions/globaloptions.cpp \
+    src/sessionoptions/optionswindow.cpp \
+    src/commandwidget/commandwidget.cpp \
+    src/keymapmanager/keymapmanager.cpp \
+    src/locksessionwindow/locksessionwindow.cpp \
+    src/quickconnectwindow/quickconnectwindow.cpp \
+    src/starttftpseverwindow/starttftpseverwindow.cpp \
+    src/hexviewwindow/hexviewwindow.cpp \
     src/sessiontab.cpp \
     src/sessionswindow.cpp \
-    src/sessiontreeview.cpp \
-    src/hexviewwindow.cpp \
-    src/starttftpseverwindow.cpp \
-    src/treemodel.cpp \
     src/mainwidgetgroup.cpp \
     src/mainwindow.cpp \
     src/main.cpp
 
 HEADERS += \
-    src/logger.h \
-    src/argv_split.h \
-    src/filedialog.h \
-    src/commandwindow.h \
-    src/globaloptions.h \
-    src/globalsetting.h \
-    src/keymapmanager.h \
-    src/locksessionwindow.h \
-    src/quickconnectwindow.h \
-    src/sessionmanagerwidget.h \
+    src/util/logger.h \
+    src/util/argv_split.h \
+    src/util/filedialog.h \
+    src/util/globalsetting.h \
+    src/sessionmanagerwidget/sessionmanagerwidget.h \
+    src/sessionmanagerwidget/sessionmanagertreeview.h \
+    src/sessionmanagerwidget/sessionmanagertreemodel.h \
+    src/globaloptions/globaloptions.h \
+    src/sessionoptions/optionswindow.h \
+    src/commandwidget/commandwidget.h \
+    src/keymapmanager/keymapmanager.h \
+    src/locksessionwindow/locksessionwindow.h \
+    src/quickconnectwindow/quickconnectwindow.h \
+    src/hexviewwindow/hexviewwindow.h \
+    src/starttftpseverwindow/starttftpseverwindow.h \
     src/sessiontab.h \
     src/sessionswindow.h \
-    src/sessiontreeview.h \
-    src/hexviewwindow.h \
-    src/starttftpseverwindow.h \
-    src/treemodel.h \
     src/mainwidgetgroup.h \
     src/mainwindow.h
 
 FORMS += \
-    src/commandwindow.ui \
-    src/globaloptions.ui \
-    src/keymapmanager.ui \
-    src/locksessionwindow.ui \
-    src/quickconnectwindow.ui \
-    src/hexviewwindow.ui \
-    src/mainwindow.ui \
-    src/sessionmanagerwidget.ui \
-    src/starttftpseverwindow.ui
+    src/sessionmanagerwidget/sessionmanagerwidget.ui \
+    src/globaloptions/globaloptions.ui \
+    src/sessionoptions/optionswindow.ui \
+    src/commandwidget/commandwidget.ui \
+    src/keymapmanager/keymapmanager.ui \
+    src/locksessionwindow/locksessionwindow.ui \
+    src/quickconnectwindow/quickconnectwindow.ui \
+    src/hexviewwindow/hexviewwindow.ui \
+    src/starttftpseverwindow/starttftpseverwindow.ui \
+    src/mainwindow.ui
 
 RESOURCES += \
     res/resource.qrc \

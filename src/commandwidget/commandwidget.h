@@ -17,23 +17,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef COMMANDWINDOW_H
-#define COMMANDWINDOW_H
+#ifndef COMMANDWIDGET_H
+#define COMMANDWIDGET_H
 
 #include <QWidget>
 #include <QTimer>
 
 namespace Ui {
-class CommandWindow;
+class CommandWidget;
 }
 
-class CommandWindow : public QWidget
+class CommandWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit CommandWindow(QWidget *parent = nullptr);
-    ~CommandWindow();
+    explicit CommandWidget(QWidget *parent = nullptr);
+    ~CommandWidget();
     void setCmd(QString cmd);
     void sendCurrentData(void);
     void retranslateUi(void);
@@ -42,8 +42,8 @@ signals:
     void sendData(QByteArray data);
 
 private:
-    Ui::CommandWindow *ui;
+    Ui::CommandWidget *ui;
     QTimer *autoSendTimer;
 };
 
-#endif // COMMANDWINDOW_H
+#endif // COMMANDWIDGET_H

@@ -21,7 +21,7 @@
 #include <QLabel>
 
 #include "qfonticon.h"
-#include "treemodel.h"
+#include "sessionmanagertreemodel.h"
 
 #include "sessionmanagerwidget.h"
 #include "ui_sessionmanagerwidget.h"
@@ -43,11 +43,11 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     toolBar->setIconSize(QSize(16,16));
     toolBar->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
 
-    tree = new SessionTreeView(this);
+    tree = new SessionManagerTreeView(this);
     ui->verticalLayout->addWidget(tree);
 
-    connect(tree, &SessionTreeView::sessionConnect, this, &SessionManagerWidget::sessionConnect);
-    connect(tree, &SessionTreeView::sessionRemove, this, &SessionManagerWidget::sessionRemove);
+    connect(tree, &SessionManagerTreeView::sessionConnect, this, &SessionManagerWidget::sessionConnect);
+    connect(tree, &SessionManagerTreeView::sessionRemove, this, &SessionManagerWidget::sessionRemove);
 
     retranslateUi();
 }

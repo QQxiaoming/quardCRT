@@ -17,8 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef TREEMODEL_H
-#define TREEMODEL_H
+#ifndef SESSIONMANAGERTREEMODEL_H
+#define SESSIONMANAGERTREEMODEL_H
 
 #include <QAbstractItemModel>
 #include <QStringList>
@@ -27,12 +27,12 @@
 
 class TreeItem ;
 
-class TreeModel : public QAbstractItemModel
+class SessionManagerTreeModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit TreeModel(QTreeView *parent = 0);
-	~TreeModel() ;
+    explicit SessionManagerTreeModel(QTreeView *parent = 0);
+	~SessionManagerTreeModel() ;
 
 	void set_root_timestamp(uint32_t timestamp) ;
 	QVariant data(const QModelIndex &index, int role) const ;
@@ -74,4 +74,4 @@ private:
     QTreeView   *m_parent;
 };
 
-#endif // TREEMODEL_H
+#endif // SESSIONMANAGERTREEMODEL_H

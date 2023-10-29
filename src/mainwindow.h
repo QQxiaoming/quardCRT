@@ -40,9 +40,10 @@
 #include "globaloptions.h"
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
-#include "commandwindow.h"
+#include "commandwidget.h"
 #include "starttftpseverwindow.h"
 #include "locksessionwindow.h"
+#include "optionswindow.h"
 #include "qtftp.h"
 
 extern QString VERSION;
@@ -107,6 +108,7 @@ private:
     MainWidgetGroup *quickConnectMainWidgetGroup;
     keyMapManager *keyMapManagerWindow;
     GlobalOptions *globalOptionsWindow;
+    OptionsWindow *sessionOptionsWindow;
     HexViewWindow *hexViewWindow;
     QPushButton *sessionManagerPushButton;
     StartTftpSeverWindow *startTftpSeverWindow;
