@@ -30,7 +30,7 @@
 
 #include "filedialog.h"
 #include "sessionswindow.h"
-#include "globaloptions.h"
+#include "globaloptionswindow.h"
 #include "argv_split.h"
 
 SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
@@ -57,9 +57,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     availableColorSchemes.sort();
     QString currentColorScheme = availableColorSchemes.first();
     foreach(QString colorScheme, availableColorSchemes) {
-        if(colorScheme == GlobalOptions::defaultColorScheme) {
-            term->setColorScheme(GlobalOptions::defaultColorScheme);
-            currentColorScheme = GlobalOptions::defaultColorScheme;
+        if(colorScheme == GlobalOptionsWindow::defaultColorScheme) {
+            term->setColorScheme(GlobalOptionsWindow::defaultColorScheme);
+            currentColorScheme = GlobalOptionsWindow::defaultColorScheme;
         }
     }
 

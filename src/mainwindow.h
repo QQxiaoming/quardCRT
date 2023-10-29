@@ -37,7 +37,7 @@
 #include "sessionswindow.h"
 #include "quickconnectwindow.h"
 #include "keymapmanager.h"
-#include "globaloptions.h"
+#include "globaloptionswindow.h"
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
 #include "commandwidget.h"
@@ -107,7 +107,7 @@ private:
     QuickConnectWindow *quickConnectWindow;
     MainWidgetGroup *quickConnectMainWidgetGroup;
     keyMapManager *keyMapManagerWindow;
-    GlobalOptions *globalOptionsWindow;
+    GlobalOptionsWindow *globalOptionsWindow;
     OptionsWindow *sessionOptionsWindow;
     HexViewWindow *hexViewWindow;
     QPushButton *sessionManagerPushButton;

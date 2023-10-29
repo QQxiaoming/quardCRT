@@ -2,7 +2,7 @@
 #define OPTIONSWINDOW_H
 
 #include <QDialog>
-#include "globaloptions.h"
+#include "globaloptionswindow.h"
 
 namespace Ui {
 class OptionsWindow;

@@ -52,7 +52,7 @@
 #include "sessionswindow.h"
 #include "quickconnectwindow.h"
 #include "keymapmanager.h"
-#include "globaloptions.h"
+#include "globaloptionswindow.h"
 #include "commandwidget.h"
 #include "mainwindow.h"
 #include "globalsetting.h"
@@ -100,7 +100,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     keyMapManagerWindow = new keyMapManager(this);
     keyMapManagerWindow->setAvailableKeyBindings(QTermWidget::availableKeyBindings());
 
-    globalOptionsWindow = new GlobalOptions(this);
+    globalOptionsWindow = new GlobalOptionsWindow(this);
     globalOptionsWindow->setAvailableColorSchemes(QTermWidget::availableColorSchemes());
 
     sessionOptionsWindow = new OptionsWindow(this);
@@ -1370,12 +1370,12 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     connect(hexViewWindow,&HexViewWindow::hideOrClose,this,[=](){
         hexViewAction->setChecked(false);
     });
-    connect(globalOptionsWindow,&GlobalOptions::colorSchemeChanged,this,[=](QString colorScheme){
+    connect(globalOptionsWindow,&GlobalOptionsWindow::colorSchemeChanged,this,[=](QString colorScheme){
         foreach(SessionsWindow *sessionsWindow, sessionList) {
             sessionsWindow->getTermWidget()->setColorScheme(colorScheme);
         }
     });
-    connect(globalOptionsWindow,&GlobalOptions::transparencyChanged,this,[=](int transparency){
+    connect(globalOptionsWindow,&GlobalOptionsWindow::transparencyChanged,this,[=](int transparency){
         windowTransparency = (100-transparency)/100.0;
         setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
     });
