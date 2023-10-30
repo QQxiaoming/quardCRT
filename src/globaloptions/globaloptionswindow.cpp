@@ -6,6 +6,7 @@
 #include <QFontDatabase>
 #include <QFileInfo>
 #include <QComboBox>
+#include <QMessageBox>
 #include "filedialog.h"
 #include "globalsetting.h"
 
@@ -21,14 +22,16 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowModality(Qt::ApplicationModal);
+    setWindowFlags(Qt::Tool);
+
     QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
     splitter->setHandleWidth(1);
     ui->horizontalLayout->addWidget(splitter);
     QTreeView *treeView = new QTreeView(this);
     treeView->setHeaderHidden(true);
-    QStringListModel *model = new QStringListModel(treeView);
+    model = new QStringListModel(treeView);
     treeView->setModel(model);
-    model->setStringList(QStringList() << tr("General") << tr("Appearance") << tr("Terminal") << tr("Keyboard") << tr("Mouse") << tr("Window") << tr("Advanced"));
     treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     splitter->addWidget(treeView);
     QWidget *widget = new QWidget(this);
@@ -94,11 +97,28 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
+
+    connect(treeView, &QTreeView::clicked, [=](const QModelIndex &index) {
+        if (index.row() == 0) {
+            globalOptionsGeneralWidget->setVisible(true);
+        } else {
+            QMessageBox::warning(this, "Warning", "Not implemented yet!");
+        }
+    });
+
+    retranslateUi();
 }
 
 GlobalOptionsWindow::~GlobalOptionsWindow()
 {
     delete ui;
+}
+
+void GlobalOptionsWindow::retranslateUi()
+{
+    model->setStringList(QStringList() << tr("General") << tr("Appearance") << tr("Terminal") << tr("Keyboard") << tr("Mouse") << tr("Window") << tr("Advanced"));
+    ui->retranslateUi(this);
+    globalOptionsGeneralWidget->ui->retranslateUi(this);
 }
 
 void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
@@ -191,8 +211,8 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
 
 void GlobalOptionsWindow::showEvent(QShowEvent *event)
 {
+    retranslateUi();
     int index = globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->currentIndex();
-    globalOptionsGeneralWidget->ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->setCurrentIndex(index);
     QDialog::showEvent(event);
 }

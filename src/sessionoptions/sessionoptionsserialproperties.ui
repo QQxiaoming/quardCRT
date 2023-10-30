@@ -163,14 +163,14 @@
      <item>
       <widget class="QCheckBox" name="checkBoxFlowControl">
        <property name="text">
-        <string>RTS/CTS</string>
+        <string notr="true">RTS/CTS</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="checkBoxXEnable">
        <property name="text">
-        <string>XON/XOFF</string>
+        <string notr="true">XON/XOFF</string>
        </property>
       </widget>
      </item>

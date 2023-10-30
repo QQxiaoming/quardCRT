@@ -40,7 +40,7 @@
      <item>
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Websocket</string>
+        <string notr="true">Websocket</string>
        </property>
       </widget>
      </item>

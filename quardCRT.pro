@@ -35,6 +35,9 @@ INCLUDEPATH += \
 
 SOURCES += \
     src/sessionoptions/sessionoptionsgeneralwidget.cpp \
+    src/sessionoptions/sessionoptionslocalshellproperties.cpp \
+    src/sessionoptions/sessionoptionsnamepipeproperties.cpp \
+    src/sessionoptions/sessionoptionsrawproperties.cpp \
     src/sessionoptions/sessionoptionsserialproperties.cpp \
     src/sessionoptions/sessionoptionstelnetproperties.cpp \
     src/util/logger.cpp \
@@ -59,6 +62,9 @@ SOURCES += \
 
 HEADERS += \
     src/sessionoptions/sessionoptionsgeneralwidget.h \
+    src/sessionoptions/sessionoptionslocalshellproperties.h \
+    src/sessionoptions/sessionoptionsnamepipeproperties.h \
+    src/sessionoptions/sessionoptionsrawproperties.h \
     src/sessionoptions/sessionoptionsserialproperties.h \
     src/sessionoptions/sessionoptionstelnetproperties.h \
     src/util/logger.h \
@@ -87,6 +93,9 @@ FORMS += \
     src/globaloptions/globaloptionsgeneralwidget.ui \
     src/globaloptions/globaloptionswindow.ui \
     src/sessionoptions/sessionoptionsgeneralwidget.ui \
+    src/sessionoptions/sessionoptionslocalshellproperties.ui \
+    src/sessionoptions/sessionoptionsnamepipeproperties.ui \
+    src/sessionoptions/sessionoptionsrawproperties.ui \
     src/sessionoptions/sessionoptionsserialproperties.ui \
     src/sessionoptions/sessionoptionstelnetproperties.ui \
     src/sessionoptions/sessionoptionswindow.ui \

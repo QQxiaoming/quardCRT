@@ -9,6 +9,9 @@
 #include "ui_sessionoptionsgeneralwidget.h"
 #include "ui_sessionoptionstelnetproperties.h"
 #include "ui_sessionoptionsserialproperties.h"
+#include "ui_sessionoptionslocalshellproperties.h"
+#include "ui_sessionoptionsnamepipeproperties.h"
+#include "ui_sessionoptionsrawproperties.h"
 
 SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
     QDialog(parent),
@@ -16,53 +19,53 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowModality(Qt::ApplicationModal);
+    setWindowFlags(Qt::Tool);
+
     QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
     splitter->setHandleWidth(1);
     ui->horizontalLayout->addWidget(splitter);
     QTreeView *treeView = new QTreeView(this);
+    treeView->setMinimumWidth(140);
     treeView->setHeaderHidden(true);
-    QStringListModel *model = new QStringListModel(treeView);
+    model = new QStringListModel(treeView);
     treeView->setModel(model);
     splitter->addWidget(treeView);
     QWidget *widget = new QWidget(this);
     splitter->addWidget(widget);
     widget->setLayout(new QVBoxLayout(widget));
     widget->layout()->setContentsMargins(0,0,0,0);
-    splitter->setSizes(QList<int>() << 1 << 100);
+    splitter->setSizes(QList<int>() << 140 << 500);
     splitter->setCollapsible(0,false);
     splitter->setCollapsible(1,false);
 
-    model->setStringList(QStringList() << tr("General") << tr("Properties"));
     sessionOptionsGeneralWidget = new SessionOptionsGeneralWidget(widget);
     widget->layout()->addWidget(sessionOptionsGeneralWidget);
     sessionOptionsTelnetProperties = new SessionOptionsTelnetProperties(widget);
     widget->layout()->addWidget(sessionOptionsTelnetProperties);
     sessionOptionsSerialProperties = new SessionOptionsSerialProperties(widget);
     widget->layout()->addWidget(sessionOptionsSerialProperties);
+    sessionOptionsLocalShellProperties = new SessionOptionsLocalShellProperties(widget);
+    widget->layout()->addWidget(sessionOptionsLocalShellProperties);
+    sessionOptionsNamePipeProperties = new SessionOptionsNamePipeProperties(widget);
+    widget->layout()->addWidget(sessionOptionsNamePipeProperties);
+    sessionOptionsRawProperties = new SessionOptionsRawProperties(widget);
+    widget->layout()->addWidget(sessionOptionsRawProperties);
 
     sessionOptionsGeneralWidget->setVisible(true);
-    sessionOptionsTelnetProperties->setVisible(false);
-    sessionOptionsSerialProperties->setVisible(false);
+    setactiveProperties(-1);
 
     connect(treeView, &QTreeView::clicked, [=](const QModelIndex &index) {
         if (index.row() == 0) {
             sessionOptionsGeneralWidget->setVisible(true);
-            sessionOptionsTelnetProperties->setVisible(false);
-            sessionOptionsSerialProperties->setVisible(false);
+            setactiveProperties(-1);
         } else if (index.row() == 1) {
             sessionOptionsGeneralWidget->setVisible(false);
-            switch(sessionOptionsGeneralWidget->ui->comboBoxProtocol->currentIndex()) {
-            case 0:
-                sessionOptionsTelnetProperties->setVisible(true);
-                sessionOptionsSerialProperties->setVisible(false);
-                break;
-            case 1:
-                sessionOptionsTelnetProperties->setVisible(false);
-                sessionOptionsSerialProperties->setVisible(true);
-                break;
-            }
+            setactiveProperties(sessionOptionsGeneralWidget->ui->comboBoxProtocol->currentIndex());
         }
     });
+
+    retranslateUi();
 }
 
 SessionOptionsWindow::~SessionOptionsWindow()
@@ -70,16 +73,59 @@ SessionOptionsWindow::~SessionOptionsWindow()
     delete ui;
 }
 
+void SessionOptionsWindow::retranslateUi()
+{
+    model->setStringList(QStringList() << tr("General") << tr("Properties"));
+    ui->retranslateUi(this);
+    sessionOptionsGeneralWidget->ui->retranslateUi(this);
+    sessionOptionsTelnetProperties->ui->retranslateUi(this);
+    sessionOptionsSerialProperties->ui->retranslateUi(this);
+    sessionOptionsLocalShellProperties->ui->retranslateUi(this);
+    sessionOptionsNamePipeProperties->ui->retranslateUi(this);
+    sessionOptionsRawProperties->ui->retranslateUi(this);
+}
+
+void SessionOptionsWindow::setactiveProperties(int index)
+{
+    sessionOptionsTelnetProperties->setVisible(false);
+    sessionOptionsSerialProperties->setVisible(false);
+    sessionOptionsLocalShellProperties->setVisible(false);
+    sessionOptionsNamePipeProperties->setVisible(false);
+    sessionOptionsRawProperties->setVisible(false);
+
+    if(index == -1) {
+        return;
+    }
+    switch(index) {
+    case 0:
+        sessionOptionsTelnetProperties->setVisible(true);
+        break;
+    case 1:
+        sessionOptionsSerialProperties->setVisible(true);
+        break;
+    case 2:
+        sessionOptionsLocalShellProperties->setVisible(true);
+        break;
+    case 3:
+        sessionOptionsRawProperties->setVisible(true);
+        break;
+    case 4:
+        sessionOptionsNamePipeProperties->setVisible(true);
+        break;
+    }
+}
+
 void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data)
 {
     sessionOptionsGeneralWidget->ui->comboBoxProtocol->setCurrentIndex(data.type);
+    sessionOptionsGeneralWidget->ui->lineEditName->setText(name);
     switch(data.type) {
     case QuickConnectWindow::Telnet:
         sessionOptionsTelnetProperties->ui->lineEditHostname->setText(data.TelnetData.hostname);
         sessionOptionsTelnetProperties->ui->spinBoxPort->setValue(data.TelnetData.port);
         sessionOptionsTelnetProperties->ui->comboBoxWebSocket->setCurrentText(data.TelnetData.webSocket);
         break;
-    case QuickConnectWindow::Serial:
+    case QuickConnectWindow::Serial: {
         sessionOptionsSerialProperties->ui->comboBoxPortName->clear();
         QSerialPortInfo serialPortInfo;
         bool match = false;
@@ -106,4 +152,21 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
         sessionOptionsSerialProperties->ui->checkBoxXEnable->setChecked(data.SerialData.xEnable);
         break;
     }
+    case QuickConnectWindow::LocalShell:
+        sessionOptionsLocalShellProperties->ui->lineEditCommand->setText(data.LocalShellData.command);
+        break;
+    case QuickConnectWindow::Raw:
+        sessionOptionsRawProperties->ui->lineEditHostname->setText(data.RawData.hostname);
+        sessionOptionsRawProperties->ui->spinBoxPort->setValue(data.RawData.port);
+        break;
+    case QuickConnectWindow::NamePipe:
+        sessionOptionsNamePipeProperties->ui->lineEditPipeName->setText(data.NamePipeData.pipeName);
+        break;
+    }
+}
+
+void SessionOptionsWindow::showEvent(QShowEvent *event)
+{
+    retranslateUi();
+    QDialog::showEvent(event);
 }

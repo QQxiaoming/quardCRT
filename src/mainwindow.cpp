@@ -1720,7 +1720,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
                 name = sessionsWindow->getName();
                 data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
                 switch(data.type) {
-                    case QuickConnectWindow::QuickConnectType::Telnet:
+                    case QuickConnectWindow::Telnet:
                         data.TelnetData.hostname = sessionsWindow->m_hostname;
                         data.TelnetData.port = sessionsWindow->m_port;
                         if(sessionsWindow->m_type == QTelnet::TCP) {
@@ -1731,7 +1731,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
                             data.TelnetData.webSocket = "Secure";
                         }
                         break;
-                    case QuickConnectWindow::QuickConnectType::Serial:
+                    case QuickConnectWindow::Serial:
                         data.SerialData.portName = sessionsWindow->m_portName;
                         data.SerialData.baudRate = sessionsWindow->m_baudRate;
                         data.SerialData.dataBits = sessionsWindow->m_dataBits;
@@ -1740,14 +1740,14 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
                         data.SerialData.flowControl = sessionsWindow->m_flowControl;
                         data.SerialData.xEnable = sessionsWindow->m_xEnable;
                         break;
-                    case QuickConnectWindow::QuickConnectType::LocalShell:
+                    case QuickConnectWindow::LocalShell:
                         data.LocalShellData.command = sessionsWindow->m_command;
                         break;
-                    case QuickConnectWindow::QuickConnectType::Raw:
+                    case QuickConnectWindow::Raw:
                         data.RawData.hostname = sessionsWindow->m_hostname;
                         data.RawData.port = sessionsWindow->m_port;
                         break;
-                    case QuickConnectWindow::QuickConnectType::NamePipe:
+                    case QuickConnectWindow::NamePipe:
                         data.NamePipeData.pipeName = sessionsWindow->m_pipeName;
                         break;
                 }

@@ -2,6 +2,7 @@
 #define GLOBALOPTIONSWINDOW_H
 
 #include <QDialog>
+#include <QStringListModel>
 #include "globaloptionsgeneralwidget.h"
 
 namespace Ui {
@@ -16,6 +17,7 @@ public:
     explicit GlobalOptionsWindow(QWidget *parent = nullptr);
     ~GlobalOptionsWindow();
 
+    void retranslateUi();
     void setAvailableColorSchemes(QStringList colorSchemes);
     QString getCurrentColorScheme(void);
     QFont getCurrentFont(void);
@@ -43,6 +45,7 @@ protected:
 private:
     Ui::GlobalOptionsWindow *ui;
     GlobalOptionsGeneralWidget *globalOptionsGeneralWidget;
+    QStringListModel *model;
     QFont font;
 };
 
