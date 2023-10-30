@@ -1943,6 +1943,9 @@ int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnec
             settings.setValue("hostname",data.RawData.hostname);
             settings.setValue("port",data.RawData.port);
             break;
+        case QuickConnectWindow::NamePipe:
+            settings.setValue("pipeName",data.NamePipeData.pipeName);
+            break;
         default:
             break;
     }
@@ -1987,6 +1990,9 @@ void MainWindow::removeSessionFromSessionManager(QString name)
             data.RawData.hostname = settings.value("hostname").toString();
             data.RawData.port = settings.value("port").toInt();
             break;
+        case QuickConnectWindow::NamePipe:
+            data.NamePipeData.pipeName = settings.value("pipeName").toString();
+            break;
         default:
             break;
         }
@@ -2023,6 +2029,9 @@ void MainWindow::removeSessionFromSessionManager(QString name)
         case QuickConnectWindow::Raw:
             settings.setValue("hostname",infoMap[name].RawData.hostname);
             settings.setValue("port",infoMap[name].RawData.port);
+            break;
+        case QuickConnectWindow::NamePipe:
+            settings.setValue("pipeName",infoMap[name].NamePipeData.pipeName);
             break;
         default:
             break;

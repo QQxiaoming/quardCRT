@@ -44,6 +44,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     splitter->setCollapsible(0,false);
     splitter->setCollapsible(1,false);
 
+    retranslateUi();
+
     GlobalSetting settings;
     settings.beginGroup("Global/Options");
     
@@ -106,7 +108,6 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         }
     });
 
-    retranslateUi();
 }
 
 GlobalOptionsWindow::~GlobalOptionsWindow()
@@ -212,7 +213,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
 void GlobalOptionsWindow::showEvent(QShowEvent *event)
 {
     retranslateUi();
-    int index = globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->currentIndex();
-    globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->setCurrentIndex(index);
+    GlobalSetting settings;
+    globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->setCurrentIndex(settings.value("Global/Options/backgroundImageMode", 1).toInt());
     QDialog::showEvent(event);
 }
