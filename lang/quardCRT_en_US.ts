@@ -14,37 +14,37 @@
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="35"/>
         <source>Send commands to active session</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="71"/>
         <source>ASCII</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="84"/>
         <source>HEX</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="104"/>
         <source>time</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="117"/>
         <source>ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="135"/>
         <source>Auto Send</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="142"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -60,96 +60,126 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="17"/>
         <source>Color Schemes</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="27"/>
         <source>Font Size</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="47"/>
         <source>Transparent window</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="64"/>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="85"/>
         <source>Background mode</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="92"/>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="104"/>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="99"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="109"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="114"/>
         <source>Fit</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="119"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="124"/>
         <source>Tile</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="132"/>
         <source>Background opacity</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="152"/>
         <source>New tab workpath</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="162"/>
         <source>Scrollback lines</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
-        <source>GlobalOptions</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>General</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
-        <source>Global</source>
-        <translation type="unfinished"></translation>
+        <source>Appearance</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Terminal</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Keyboard</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Mouse</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Window</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Advanced</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="87"/>
         <source>Select Background Image</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="87"/>
         <source>Image Files (*.png *.jpg *.bmp)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
+        <source>Global Options</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -220,7 +250,7 @@
 <context>
     <name>Konsole::Vt102Emulation</name>
     <message>
-        <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1125"/>
+        <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1113"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1342,59 +1372,6 @@
     </message>
 </context>
 <context>
-    <name>OptionsWindow</name>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="22"/>
-        <source>Session Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="41"/>
-        <source>Color Schemes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="45"/>
-        <source>Font Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="49"/>
-        <source>Transparent Window</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="53"/>
-        <source>Background Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="65"/>
-        <source>Background Image Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="69"/>
-        <source>Background Image Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="73"/>
-        <source>New Tab Working Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="77"/>
-        <source>Scrollback Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>QMessageBox</name>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2826"/>
@@ -1654,32 +1631,32 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="133"/>
         <source>Telnet</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="135"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="137"/>
         <source>Shell</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="139"/>
         <source>Raw</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="263"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1688,32 +1665,32 @@
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="39"/>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="65"/>
         <source>Session</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="75"/>
         <source>Connect Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="80"/>
         <source>Connect in New Window</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="82"/>
         <source>Connect in New Tab Group</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="85"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="96"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1726,6 +1703,14 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="68"/>
         <source>Filter by folder/session name</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>SessionOptionsWindow</name>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionswindow.ui" line="14"/>
+        <source>Session Options</source>
         <translation></translation>
     </message>
 </context>

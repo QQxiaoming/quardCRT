@@ -345,9 +345,6 @@ int Emulation::lineCount() const
     return _currentScreen->getLines() + _currentScreen->getHistLines();
 }
 
-#define BULK_TIMEOUT1 10
-#define BULK_TIMEOUT2 40
-
 void Emulation::showBulk()
 {
     _bulkTimer1.stop();
@@ -361,13 +358,16 @@ void Emulation::showBulk()
 
 void Emulation::bufferedUpdate()
 {
-   _bulkTimer1.setSingleShot(true);
-   _bulkTimer1.start(BULK_TIMEOUT1);
-   if (!_bulkTimer2.isActive())
-   {
-      _bulkTimer2.setSingleShot(true);
-      _bulkTimer2.start(BULK_TIMEOUT2);
-   }
+    static const int BULK_TIMEOUT1 = 10;
+    static const int BULK_TIMEOUT2 = 40;
+
+    _bulkTimer1.setSingleShot(true);
+    _bulkTimer1.start(BULK_TIMEOUT1);
+    if (!_bulkTimer2.isActive())
+    {
+        _bulkTimer2.setSingleShot(true);
+        _bulkTimer2.start(BULK_TIMEOUT2);
+    }
 }
 
 char Emulation::eraseChar() const

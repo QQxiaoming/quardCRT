@@ -39,8 +39,9 @@ SOURCES += \
     src/sessionmanagerwidget/sessionmanagerwidget.cpp \
     src/sessionmanagerwidget/sessionmanagertreeview.cpp \
     src/sessionmanagerwidget/sessionmanagertreemodel.cpp \
-    src/globaloptions/globaloptions.cpp \
-    src/sessionoptions/optionswindow.cpp \
+    src/globaloptions/globaloptionswidget.cpp \
+    src/globaloptions/globaloptionswindow.cpp \
+    src/sessionoptions/sessionoptionswindow.cpp \
     src/commandwidget/commandwidget.cpp \
     src/keymapmanager/keymapmanager.cpp \
     src/locksessionwindow/locksessionwindow.cpp \
@@ -61,8 +62,9 @@ HEADERS += \
     src/sessionmanagerwidget/sessionmanagerwidget.h \
     src/sessionmanagerwidget/sessionmanagertreeview.h \
     src/sessionmanagerwidget/sessionmanagertreemodel.h \
-    src/globaloptions/globaloptions.h \
-    src/sessionoptions/optionswindow.h \
+    src/globaloptions/globaloptionswidget.h \
+    src/globaloptions/globaloptionswindow.h \
+    src/sessionoptions/sessionoptionswindow.h \
     src/commandwidget/commandwidget.h \
     src/keymapmanager/keymapmanager.h \
     src/locksessionwindow/locksessionwindow.h \
@@ -76,8 +78,9 @@ HEADERS += \
 
 FORMS += \
     src/sessionmanagerwidget/sessionmanagerwidget.ui \
-    src/globaloptions/globaloptions.ui \
-    src/sessionoptions/optionswindow.ui \
+    src/globaloptions/globaloptionswidget.ui \
+    src/globaloptions/globaloptionswindow.ui \
+    src/sessionoptions/sessionoptionswindow.ui \
     src/commandwidget/commandwidget.ui \
     src/keymapmanager/keymapmanager.ui \
     src/locksessionwindow/locksessionwindow.ui \

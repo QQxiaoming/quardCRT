@@ -56,7 +56,7 @@
 #include "commandwidget.h"
 #include "mainwindow.h"
 #include "globalsetting.h"
-#include "optionswindow.h"
+#include "sessionoptionswindow.h"
 
 #include "ui_mainwindow.h"
 
@@ -103,7 +103,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     globalOptionsWindow = new GlobalOptionsWindow(this);
     globalOptionsWindow->setAvailableColorSchemes(QTermWidget::availableColorSchemes());
 
-    sessionOptionsWindow = new OptionsWindow(this);
+    sessionOptionsWindow = new SessionOptionsWindow(this);
 
     hexViewWindow = new HexViewWindow(HexViewWindow::RECV);
     hexViewWindow->setFont(globalOptionsWindow->getCurrentFont());

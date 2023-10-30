@@ -14,60 +14,37 @@
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="35"/>
         <source>Send commands to active session</source>
-        <translation type="unfinished">アクティブなセッションにコマンドを送信</translation>
+        <translation>アクティブなセッションにコマンドを送信</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="71"/>
         <source>ASCII</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="84"/>
         <source>HEX</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="104"/>
         <source>time</source>
-        <translation type="unfinished">時間</translation>
+        <translation>時間</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="117"/>
         <source>ms</source>
-        <translation type="unfinished">ミリ秒</translation>
+        <translation>ミリ秒</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="135"/>
         <source>Auto Send</source>
-        <translation type="unfinished">自動送信</translation>
+        <translation>自動送信</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="142"/>
         <source>Send</source>
-        <translation type="unfinished">送信</translation>
-    </message>
-</context>
-<context>
-    <name>CommandWindow</name>
-    <message>
-        <source>Send commands to active session</source>
-        <translation type="vanished">アクティブなセッションにコマンドを送信</translation>
-    </message>
-    <message>
-        <source>time</source>
-        <translation type="vanished">時間</translation>
-    </message>
-    <message>
-        <source>ms</source>
-        <translation type="vanished">ミリ秒</translation>
-    </message>
-    <message>
-        <source>Auto Send</source>
-        <translation type="vanished">自動送信</translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <translation type="vanished">送信</translation>
+        <translation>送信</translation>
     </message>
 </context>
 <context>
@@ -79,171 +56,130 @@
     </message>
 </context>
 <context>
-    <name>GlobalOptions</name>
-    <message>
-        <source>GlobalOptions</source>
-        <translation type="vanished">グローバルオプション</translation>
-    </message>
-    <message>
-        <source>Color Schemes</source>
-        <translation type="vanished">カラースキーム</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">フォントサイズ</translation>
-    </message>
-    <message>
-        <source>Transparent window</source>
-        <translation type="vanished">ウィンドウの透明度</translation>
-    </message>
-    <message>
-        <source>Background image</source>
-        <translation type="vanished">背景画像</translation>
-    </message>
-    <message>
-        <source>Background mode</source>
-        <translation type="vanished">背景モード</translation>
-    </message>
-    <message>
-        <source>Stretch</source>
-        <translation type="vanished">伸縮</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="vanished">無し</translation>
-    </message>
-    <message>
-        <source>Zoom</source>
-        <translation type="vanished">ズーム</translation>
-    </message>
-    <message>
-        <source>Fit</source>
-        <translation type="vanished">フィット</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="vanished">中央</translation>
-    </message>
-    <message>
-        <source>Tile</source>
-        <translation type="vanished">タイル</translation>
-    </message>
-    <message>
-        <source>Background opacity</source>
-        <translation type="vanished">背景画像の透明度</translation>
-    </message>
-    <message>
-        <source>New tab workpath</source>
-        <translation type="vanished">新しいタブの作業フォルダー</translation>
-    </message>
-    <message>
-        <source>Scrollback lines</source>
-        <translation type="vanished">スクロールバックの行数</translation>
-    </message>
-    <message>
-        <source>Select Background Image</source>
-        <translation type="vanished">背景画像を選択</translation>
-    </message>
-    <message>
-        <source>Image Files (*.png *.jpg *.bmp)</source>
-        <translation type="vanished">画像ファイル (*.png *.jpg *.bmp)</translation>
-    </message>
-</context>
-<context>
     <name>GlobalOptionsWidget</name>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="17"/>
         <source>Color Schemes</source>
-        <translation type="unfinished">カラースキーム</translation>
+        <translation>カラースキーム</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="27"/>
         <source>Font Size</source>
-        <translation type="unfinished">フォントサイズ</translation>
+        <translation>フォントサイズ</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="47"/>
         <source>Transparent window</source>
-        <translation type="unfinished">ウィンドウの透明度</translation>
+        <translation>ウィンドウの透明度</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="64"/>
         <source>Background image</source>
-        <translation type="unfinished">背景画像</translation>
+        <translation>背景画像</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="85"/>
         <source>Background mode</source>
-        <translation type="unfinished">背景モード</translation>
+        <translation>背景モード</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="92"/>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="104"/>
         <source>Stretch</source>
-        <translation type="unfinished">伸縮</translation>
+        <translation>伸縮</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="99"/>
         <source>None</source>
-        <translation type="unfinished">無し</translation>
+        <translation>無し</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="109"/>
         <source>Zoom</source>
-        <translation type="unfinished">ズーム</translation>
+        <translation>ズーム</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="114"/>
         <source>Fit</source>
-        <translation type="unfinished">フィット</translation>
+        <translation>フィット</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="119"/>
         <source>Center</source>
-        <translation type="unfinished">中央</translation>
+        <translation>中央</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="124"/>
         <source>Tile</source>
-        <translation type="unfinished">タイル</translation>
+        <translation>タイル</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="132"/>
         <source>Background opacity</source>
-        <translation type="unfinished">背景画像の透明度</translation>
+        <translation>背景画像の透明度</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="152"/>
         <source>New tab workpath</source>
-        <translation type="unfinished">新しいタブの作業フォルダー</translation>
+        <translation>新しいタブの作業フォルダー</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswidget.ui" line="162"/>
         <source>Scrollback lines</source>
-        <translation type="unfinished">スクロールバックの行数</translation>
+        <translation>スクロールバックの行数</translation>
     </message>
 </context>
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
-        <source>GlobalOptions</source>
-        <translation type="unfinished">グローバルオプション</translation>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>General</source>
+        <translation>一般</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
-        <source>Global</source>
-        <translation type="unfinished"></translation>
+        <source>Appearance</source>
+        <translation>外観</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Terminal</source>
+        <translation>端末</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Keyboard</source>
+        <translation>キーボード</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Mouse</source>
+        <translation>マウス</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Window</source>
+        <translation>ウィンドウ</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="31"/>
+        <source>Advanced</source>
+        <translation>高度な設定</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="87"/>
         <source>Select Background Image</source>
-        <translation type="unfinished">背景画像を選択</translation>
+        <translation>背景画像を選択</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="87"/>
         <source>Image Files (*.png *.jpg *.bmp)</source>
-        <translation type="unfinished">画像ファイル (*.png *.jpg *.bmp)</translation>
+        <translation>画像ファイル (*.png *.jpg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
+        <source>Global Options</source>
+        <translation>グローバルオプション</translation>
     </message>
 </context>
 <context>
@@ -315,7 +251,7 @@
 <context>
     <name>Konsole::Vt102Emulation</name>
     <message>
-        <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1125"/>
+        <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1113"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1448,59 +1384,6 @@
     </message>
 </context>
 <context>
-    <name>OptionsWindow</name>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="22"/>
-        <source>Session Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="41"/>
-        <source>Color Schemes</source>
-        <translation type="unfinished">カラースキーム</translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="45"/>
-        <source>Font Size</source>
-        <translation type="unfinished">フォントサイズ</translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="49"/>
-        <source>Transparent Window</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="53"/>
-        <source>Background Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="65"/>
-        <source>Background Image Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="69"/>
-        <source>Background Image Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="73"/>
-        <source>New Tab Working Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/sessionoptions/optionswindow.cpp" line="77"/>
-        <source>Scrollback Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>QMessageBox</name>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2826"/>
@@ -1760,32 +1643,32 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="133"/>
         <source>Telnet</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="135"/>
         <source>Serial</source>
-        <translation type="unfinished">シリアル</translation>
+        <translation>シリアル</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="137"/>
         <source>Shell</source>
-        <translation type="unfinished">シェル</translation>
+        <translation>シェル</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="139"/>
         <source>Raw</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="263"/>
         <source>Name</source>
-        <translation type="unfinished">名前</translation>
+        <translation>名前</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
         <source>Kind</source>
-        <translation type="unfinished">種類</translation>
+        <translation>種類</translation>
     </message>
 </context>
 <context>
@@ -1794,32 +1677,32 @@
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="39"/>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="65"/>
         <source>Session</source>
-        <translation type="unfinished">セッション</translation>
+        <translation>セッション</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="75"/>
         <source>Connect Terminal</source>
-        <translation type="unfinished">端末に接続</translation>
+        <translation>端末に接続</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="80"/>
         <source>Connect in New Window</source>
-        <translation type="unfinished">新しいウィンドウで接続</translation>
+        <translation>新しいウィンドウで接続</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="82"/>
         <source>Connect in New Tab Group</source>
-        <translation type="unfinished">新しいタブグループで接続</translation>
+        <translation>新しいタブグループで接続</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="85"/>
         <source>Delete</source>
-        <translation type="unfinished">削除</translation>
+        <translation>削除</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="96"/>
         <source>Properties</source>
-        <translation type="unfinished">プロパティ</translation>
+        <translation>プロパティ</translation>
     </message>
 </context>
 <context>
@@ -1836,30 +1719,11 @@
     </message>
 </context>
 <context>
-    <name>SessionTreeView</name>
+    <name>SessionOptionsWindow</name>
     <message>
-        <source>Session</source>
-        <translation type="vanished">セッション</translation>
-    </message>
-    <message>
-        <source>Connect Terminal</source>
-        <translation type="vanished">端末に接続</translation>
-    </message>
-    <message>
-        <source>Connect in New Window</source>
-        <translation type="vanished">新しいウィンドウで接続</translation>
-    </message>
-    <message>
-        <source>Connect in New Tab Group</source>
-        <translation type="vanished">新しいタブグループで接続</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="vanished">削除</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation type="vanished">プロパティ</translation>
+        <location filename="../src/sessionoptions/sessionoptionswindow.ui" line="14"/>
+        <source>Session Options</source>
+        <translation>セッションオプション</translation>
     </message>
 </context>
 <context>
@@ -1969,25 +1833,6 @@
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Please select a valid directory!</source>
         <translation>有効なディレクトリを選択してください！</translation>
-    </message>
-</context>
-<context>
-    <name>TreeModel</name>
-    <message>
-        <source>Serial</source>
-        <translation type="vanished">シリアル</translation>
-    </message>
-    <message>
-        <source>Shell</source>
-        <translation type="vanished">シェル</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">名前</translation>
-    </message>
-    <message>
-        <source>Kind</source>
-        <translation type="vanished">種類</translation>
     </message>
 </context>
 <context>
