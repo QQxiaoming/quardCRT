@@ -11,7 +11,7 @@
 
 #include "globaloptionswindow.h"
 #include "ui_globaloptionswindow.h"
-#include "ui_globaloptionswidget.h"
+#include "ui_globaloptionsgeneralwidget.h"
 
 const QString GlobalOptionsWindow::defaultColorScheme = "QuardCRT";
 
@@ -34,8 +34,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     QWidget *widget = new QWidget(this);
     splitter->addWidget(widget);
     widget->setLayout(new QVBoxLayout(widget));
-    globalOptionsWidget = new GlobalOptionsWidget(widget);
-    widget->layout()->addWidget(globalOptionsWidget);
+    widget->layout()->setContentsMargins(0,0,0,0);
+    globalOptionsGeneralWidget = new GlobalOptionsGeneralWidget(widget);
+    widget->layout()->addWidget(globalOptionsGeneralWidget);
     splitter->setSizes(QList<int>() << 1 << 100);
     splitter->setCollapsible(0,false);
     splitter->setCollapsible(1,false);
@@ -56,40 +57,40 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         font.setPointSize(12);
         settings.setValue("fontPointSize", font.pointSize());
     }
-    globalOptionsWidget->ui->spinBoxFontSize->setValue(font.pointSize());
+    globalOptionsGeneralWidget->ui->spinBoxFontSize->setValue(font.pointSize());
 
-    globalOptionsWidget->ui->comBoxColorSchemes->setEditable(true);
-    globalOptionsWidget->ui->comBoxColorSchemes->setInsertPolicy(QComboBox::NoInsert);
+    globalOptionsGeneralWidget->ui->comBoxColorSchemes->setEditable(true);
+    globalOptionsGeneralWidget->ui->comBoxColorSchemes->setInsertPolicy(QComboBox::NoInsert);
 
     if(settings.contains("transparency"))
-        globalOptionsWidget->ui->horizontalSliderTransparent->setValue(settings.value("transparency").toInt());
+        globalOptionsGeneralWidget->ui->horizontalSliderTransparent->setValue(settings.value("transparency").toInt());
     if(settings.contains("backgroundImage"))
-        globalOptionsWidget->ui->lineEditBackgroundImage->setText(settings.value("backgroundImage").toString());
+        globalOptionsGeneralWidget->ui->lineEditBackgroundImage->setText(settings.value("backgroundImage").toString());
     if(settings.contains("backgroundImageMode"))
-        globalOptionsWidget->ui->comboBoxBackgroundMode->setCurrentIndex(settings.value("backgroundImageMode").toInt());
+        globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->setCurrentIndex(settings.value("backgroundImageMode").toInt());
     if(settings.contains("backgroundImageOpacity"))
-        globalOptionsWidget->ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
+        globalOptionsGeneralWidget->ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
     settings.endGroup();
 
-    globalOptionsWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
+    globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
     int size = settings.beginReadArray("Global/Bookmark");
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
-        globalOptionsWidget->ui->comboBoxNewTabWorkPath->addItem(settings.value("path").toString());
+        globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(settings.value("path").toString());
     }
     settings.endArray();
-    globalOptionsWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("Global/Options/NewTabWorkPath",QDir::homePath()).toString());
+    globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("Global/Options/NewTabWorkPath",QDir::homePath()).toString());
   
-    globalOptionsWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
+    globalOptionsGeneralWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
 
-    connect(globalOptionsWidget->ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
-    connect(globalOptionsWidget->ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
-        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.bmp)"));
+    connect(globalOptionsGeneralWidget->ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
+    connect(globalOptionsGeneralWidget->ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
+        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsGeneralWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.bmp)"));
         if (!imgPath.isEmpty()) {
-            globalOptionsWidget->ui->lineEditBackgroundImage->setText(imgPath);
+            globalOptionsGeneralWidget->ui->lineEditBackgroundImage->setText(imgPath);
         }
     });
-    connect(globalOptionsWidget->ui->horizontalSliderTransparent, SIGNAL(valueChanged(int)), this, SIGNAL(transparencyChanged(int)));
+    connect(globalOptionsGeneralWidget->ui->horizontalSliderTransparent, SIGNAL(valueChanged(int)), this, SIGNAL(transparencyChanged(int)));
     
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
@@ -103,14 +104,14 @@ GlobalOptionsWindow::~GlobalOptionsWindow()
 void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
 {
     colorSchemes.sort();
-    globalOptionsWidget->ui->comBoxColorSchemes->clear();
-    globalOptionsWidget->ui->comBoxColorSchemes->addItems(colorSchemes);
+    globalOptionsGeneralWidget->ui->comBoxColorSchemes->clear();
+    globalOptionsGeneralWidget->ui->comBoxColorSchemes->addItems(colorSchemes);
     GlobalSetting settings;
     settings.beginGroup("Global/Options");
     if((settings.contains("colorScheme")) &&(colorSchemes.contains(settings.value("colorScheme").toString()))) {
-        globalOptionsWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+        globalOptionsGeneralWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
     } else {
-        globalOptionsWidget->ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
+        globalOptionsGeneralWidget->ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
         settings.setValue("colorScheme", defaultColorScheme);
     }
     settings.endGroup();
@@ -118,7 +119,7 @@ void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
 
 QString GlobalOptionsWindow::getCurrentColorScheme(void)
 {
-    return globalOptionsWidget->ui->comBoxColorSchemes->currentText();
+    return globalOptionsGeneralWidget->ui->comBoxColorSchemes->currentText();
 }
 
 QFont GlobalOptionsWindow::getCurrentFont(void)
@@ -133,12 +134,12 @@ void GlobalOptionsWindow::fontSizeChanged(int size)
 
 int GlobalOptionsWindow::getTransparency(void)
 {
-    return globalOptionsWidget->ui->horizontalSliderTransparent->value();
+    return globalOptionsGeneralWidget->ui->horizontalSliderTransparent->value();
 }
 
 QString GlobalOptionsWindow::getBackgroundImage(void)
 {
-    QString imgPath = globalOptionsWidget->ui->lineEditBackgroundImage->text();
+    QString imgPath = globalOptionsGeneralWidget->ui->lineEditBackgroundImage->text();
     QFileInfo imgInfo(imgPath);
     if (imgInfo.exists() && imgInfo.isFile()) {
         return imgPath;
@@ -148,38 +149,38 @@ QString GlobalOptionsWindow::getBackgroundImage(void)
 
 int GlobalOptionsWindow::getBackgroundImageMode(void)
 {
-    return globalOptionsWidget->ui->comboBoxBackgroundMode->currentIndex();
+    return globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->currentIndex();
 }
 
 qreal GlobalOptionsWindow::getBackgroundImageOpacity(void)
 {
-    return globalOptionsWidget->ui->horizontalSliderBackgroundImageOpacity->value() / 100.0;
+    return globalOptionsGeneralWidget->ui->horizontalSliderBackgroundImageOpacity->value() / 100.0;
 }
 
 QString GlobalOptionsWindow::getNewTabWorkPath(void)
 {
-    return globalOptionsWidget->ui->comboBoxNewTabWorkPath->currentText();
+    return globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->currentText();
 }
 
 uint32_t GlobalOptionsWindow::getScrollbackLines(void)
 {
-    return globalOptionsWidget->ui->spinBoxScrollbackLines->value();
+    return globalOptionsGeneralWidget->ui->spinBoxScrollbackLines->value();
 }
 
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
     settings.beginGroup("Global/Options");
-    settings.setValue("colorScheme", globalOptionsWidget->ui->comBoxColorSchemes->currentText());
+    settings.setValue("colorScheme", globalOptionsGeneralWidget->ui->comBoxColorSchemes->currentText());
     settings.setValue("fontPointSize", font.pointSize());
-    settings.setValue("transparency", globalOptionsWidget->ui->horizontalSliderTransparent->value());
-    settings.setValue("backgroundImage", globalOptionsWidget->ui->lineEditBackgroundImage->text());
-    settings.setValue("backgroundImageMode", globalOptionsWidget->ui->comboBoxBackgroundMode->currentIndex());
-    settings.setValue("backgroundImageOpacity", globalOptionsWidget->ui->horizontalSliderBackgroundImageOpacity->value());
-    settings.setValue("NewTabWorkPath", globalOptionsWidget->ui->comboBoxNewTabWorkPath->currentText());
-    settings.setValue("scrollbackLines", globalOptionsWidget->ui->spinBoxScrollbackLines->value());
+    settings.setValue("transparency", globalOptionsGeneralWidget->ui->horizontalSliderTransparent->value());
+    settings.setValue("backgroundImage", globalOptionsGeneralWidget->ui->lineEditBackgroundImage->text());
+    settings.setValue("backgroundImageMode", globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->currentIndex());
+    settings.setValue("backgroundImageOpacity", globalOptionsGeneralWidget->ui->horizontalSliderBackgroundImageOpacity->value());
+    settings.setValue("NewTabWorkPath", globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->currentText());
+    settings.setValue("scrollbackLines", globalOptionsGeneralWidget->ui->spinBoxScrollbackLines->value());
     settings.endGroup();
-    emit colorSchemeChanged(globalOptionsWidget->ui->comBoxColorSchemes->currentText());
+    emit colorSchemeChanged(globalOptionsGeneralWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
 }
 
@@ -190,8 +191,8 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
 
 void GlobalOptionsWindow::showEvent(QShowEvent *event)
 {
-    int index = globalOptionsWidget->ui->comboBoxBackgroundMode->currentIndex();
-    globalOptionsWidget->ui->retranslateUi(this);
-    globalOptionsWidget->ui->comboBoxBackgroundMode->setCurrentIndex(index);
+    int index = globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->currentIndex();
+    globalOptionsGeneralWidget->ui->retranslateUi(this);
+    globalOptionsGeneralWidget->ui->comboBoxBackgroundMode->setCurrentIndex(index);
     QDialog::showEvent(event);
 }

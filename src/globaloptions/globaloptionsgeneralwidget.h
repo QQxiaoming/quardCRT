@@ -17,17 +17,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
-#include "globaloptionswidget.h"
-#include "ui_globaloptionswidget.h"
+#ifndef GLOBALOPTIONSWIDGET_H
+#define GLOBALOPTIONSWIDGET_H
 
-GlobalOptionsWidget::GlobalOptionsWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::GlobalOptionsWidget)
-{
-    ui->setupUi(this);
+#include <QWidget>
+
+namespace Ui {
+class GlobalOptionsGeneralWidget;
 }
 
-GlobalOptionsWidget::~GlobalOptionsWidget()
+class GlobalOptionsGeneralWidget : public QWidget
 {
-    delete ui;
-}
+    Q_OBJECT
+
+public:
+    explicit GlobalOptionsGeneralWidget(QWidget *parent = nullptr);
+    ~GlobalOptionsGeneralWidget();
+    
+    Ui::GlobalOptionsGeneralWidget *ui;
+};
+
+#endif // GLOBALOPTIONSWIDGET_H

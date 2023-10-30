@@ -41,6 +41,7 @@ public:
 signals:
     void sessionConnect(QString str);
     void sessionRemove(QString str);
+    void sessionShowProperties(QString str);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;

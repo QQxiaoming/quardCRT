@@ -34,12 +34,15 @@ INCLUDEPATH += \
     src
 
 SOURCES += \
+    src/sessionoptions/sessionoptionsgeneralwidget.cpp \
+    src/sessionoptions/sessionoptionsserialproperties.cpp \
+    src/sessionoptions/sessionoptionstelnetproperties.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
     src/sessionmanagerwidget/sessionmanagerwidget.cpp \
     src/sessionmanagerwidget/sessionmanagertreeview.cpp \
     src/sessionmanagerwidget/sessionmanagertreemodel.cpp \
-    src/globaloptions/globaloptionswidget.cpp \
+    src/globaloptions/globaloptionsgeneralwidget.cpp \
     src/globaloptions/globaloptionswindow.cpp \
     src/sessionoptions/sessionoptionswindow.cpp \
     src/commandwidget/commandwidget.cpp \
@@ -55,6 +58,9 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/sessionoptions/sessionoptionsgeneralwidget.h \
+    src/sessionoptions/sessionoptionsserialproperties.h \
+    src/sessionoptions/sessionoptionstelnetproperties.h \
     src/util/logger.h \
     src/util/argv_split.h \
     src/util/filedialog.h \
@@ -62,7 +68,7 @@ HEADERS += \
     src/sessionmanagerwidget/sessionmanagerwidget.h \
     src/sessionmanagerwidget/sessionmanagertreeview.h \
     src/sessionmanagerwidget/sessionmanagertreemodel.h \
-    src/globaloptions/globaloptionswidget.h \
+    src/globaloptions/globaloptionsgeneralwidget.h \
     src/globaloptions/globaloptionswindow.h \
     src/sessionoptions/sessionoptionswindow.h \
     src/commandwidget/commandwidget.h \
@@ -78,8 +84,11 @@ HEADERS += \
 
 FORMS += \
     src/sessionmanagerwidget/sessionmanagerwidget.ui \
-    src/globaloptions/globaloptionswidget.ui \
+    src/globaloptions/globaloptionsgeneralwidget.ui \
     src/globaloptions/globaloptionswindow.ui \
+    src/sessionoptions/sessionoptionsgeneralwidget.ui \
+    src/sessionoptions/sessionoptionsserialproperties.ui \
+    src/sessionoptions/sessionoptionstelnetproperties.ui \
     src/sessionoptions/sessionoptionswindow.ui \
     src/commandwidget/commandwidget.ui \
     src/keymapmanager/keymapmanager.ui \

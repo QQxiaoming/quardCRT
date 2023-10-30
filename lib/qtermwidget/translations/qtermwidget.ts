@@ -56,75 +56,75 @@
     </message>
 </context>
 <context>
-    <name>GlobalOptionsWidget</name>
+    <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="17"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>Color Schemes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="27"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
         <source>Font Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="47"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="47"/>
         <source>Transparent window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="64"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
         <source>Background image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="85"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="85"/>
         <source>Background mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="92"/>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="104"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="92"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="104"/>
         <source>Stretch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="99"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="109"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="109"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="114"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="114"/>
         <source>Fit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="119"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="119"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="124"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="124"/>
         <source>Tile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="132"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="132"/>
         <source>Background opacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="152"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="152"/>
         <source>New tab workpath</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswidget.ui" line="162"/>
+        <location filename="../../../src/globaloptions/globaloptionsgeneralwidget.ui" line="162"/>
         <source>Scrollback lines</source>
         <translation type="unfinished"></translation>
     </message>

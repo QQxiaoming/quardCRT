@@ -389,6 +389,50 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     connect(sessionManagerWidget,&SessionManagerWidget::sessionRemove,this,[=](QString str){
         removeSessionFromSessionManager(str);
     });
+    connect(sessionManagerWidget,&SessionManagerWidget::sessionShowProperties,this,[=](QString str){
+        QuickConnectWindow::QuickConnectData data;
+        GlobalSetting settings;
+        int size = settings.beginReadArray("Global/Session");
+        for(int i=0;i<size;i++) {
+            settings.setArrayIndex(i);
+            QString current_name = settings.value("name").toString();
+            if(current_name == str) {
+                data.type = (QuickConnectWindow::QuickConnectType)(settings.value("type").toInt());
+                switch(data.type) {
+                case QuickConnectWindow::Telnet:
+                    data.TelnetData.hostname = settings.value("hostname").toString();
+                    data.TelnetData.port = settings.value("port").toInt();
+                    data.TelnetData.webSocket = settings.value("socketType").toString();
+                    break;
+                case QuickConnectWindow::Serial:
+                    data.SerialData.portName = settings.value("portName").toString();
+                    data.SerialData.baudRate = settings.value("baudRate").toInt();
+                    data.SerialData.dataBits = settings.value("dataBits").toInt();
+                    data.SerialData.parity = settings.value("parity").toInt();
+                    data.SerialData.stopBits = settings.value("stopBits").toInt();
+                    data.SerialData.flowControl = settings.value("flowControl").toBool();
+                    data.SerialData.xEnable = settings.value("xEnable").toBool();
+                    break;
+                case QuickConnectWindow::LocalShell:
+                    data.LocalShellData.command = settings.value("command").toString();
+                    break;
+                case QuickConnectWindow::Raw:
+                    data.RawData.hostname = settings.value("hostname").toString();
+                    data.RawData.port = settings.value("port").toInt();
+                    break;
+                case QuickConnectWindow::NamePipe:
+                    data.NamePipeData.pipeName = settings.value("pipeName").toString();
+                    break;
+                case QuickConnectWindow::SSH2:
+                default:
+                    break;
+                }
+                sessionOptionsWindow->setSessionProperties(str,data);
+                sessionOptionsWindow->show();
+                break;
+            }
+        }
+    });
 
     connect(ui->statusBar,&QStatusBar::messageChanged,this,[&](const QString &message){
         if(message.isEmpty()) {
@@ -488,7 +532,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     }
 
     // TODO:Unimplemented functions are temporarily closed
-    sessionOptionsAction->setEnabled(false);
     sendASCIIAction->setEnabled(false);
     receiveASCIIAction->setEnabled(false);
     sendBinaryAction->setEnabled(false);
@@ -1125,6 +1168,8 @@ void MainWindow::setSessionClassActionEnable(bool enable)
     zoomOutAction->setEnabled(enable);
     zoomResetAction->setEnabled(enable);
 
+    sessionOptionsAction->setEnabled(enable);
+
     // TODO: these actions are not implemented yet
     //sendASCIIAction->setEnabled(enable);
     //receiveASCIIAction->setEnabled(enable);
@@ -1666,7 +1711,51 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         keyMapManagerWindow->show();
     });
     connect(sessionOptionsAction,&QAction::triggered,this,[=](){
-        sessionOptionsWindow->show();
+        QString name;
+        QuickConnectWindow::QuickConnectData data;
+        QTermWidget *termWidget = findCurrentFocusTermWidget();
+        if(termWidget == nullptr) return;
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(sessionsWindow->getTermWidget() == termWidget) {
+                name = sessionsWindow->getName();
+                data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
+                switch(data.type) {
+                    case QuickConnectWindow::QuickConnectType::Telnet:
+                        data.TelnetData.hostname = sessionsWindow->m_hostname;
+                        data.TelnetData.port = sessionsWindow->m_port;
+                        if(sessionsWindow->m_type == QTelnet::TCP) {
+                            data.TelnetData.webSocket = "None";
+                        } else if(sessionsWindow->m_type == QTelnet::WEBSOCKET) {
+                            data.TelnetData.webSocket = "Insecure";
+                        } else if(sessionsWindow->m_type == QTelnet::SECUREWEBSOCKET) {
+                            data.TelnetData.webSocket = "Secure";
+                        }
+                        break;
+                    case QuickConnectWindow::QuickConnectType::Serial:
+                        data.SerialData.portName = sessionsWindow->m_portName;
+                        data.SerialData.baudRate = sessionsWindow->m_baudRate;
+                        data.SerialData.dataBits = sessionsWindow->m_dataBits;
+                        data.SerialData.parity = sessionsWindow->m_parity;
+                        data.SerialData.stopBits = sessionsWindow->m_stopBits;
+                        data.SerialData.flowControl = sessionsWindow->m_flowControl;
+                        data.SerialData.xEnable = sessionsWindow->m_xEnable;
+                        break;
+                    case QuickConnectWindow::QuickConnectType::LocalShell:
+                        data.LocalShellData.command = sessionsWindow->m_command;
+                        break;
+                    case QuickConnectWindow::QuickConnectType::Raw:
+                        data.RawData.hostname = sessionsWindow->m_hostname;
+                        data.RawData.port = sessionsWindow->m_port;
+                        break;
+                    case QuickConnectWindow::QuickConnectType::NamePipe:
+                        data.NamePipeData.pipeName = sessionsWindow->m_pipeName;
+                        break;
+                }
+                sessionOptionsWindow->setSessionProperties(name,data);
+                sessionOptionsWindow->show();
+                break;
+            }
+        }
     });
     connect(globalOptionsAction,&QAction::triggered,this,[=](){
         globalOptionsWindow->show();

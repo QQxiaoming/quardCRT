@@ -2,7 +2,7 @@
 #define GLOBALOPTIONSWINDOW_H
 
 #include <QDialog>
-#include "globaloptionswidget.h"
+#include "globaloptionsgeneralwidget.h"
 
 namespace Ui {
 class GlobalOptionsWindow;
@@ -42,7 +42,7 @@ protected:
 
 private:
     Ui::GlobalOptionsWindow *ui;
-    GlobalOptionsWidget *globalOptionsWidget;
+    GlobalOptionsGeneralWidget *globalOptionsGeneralWidget;
     QFont font;
 };
 

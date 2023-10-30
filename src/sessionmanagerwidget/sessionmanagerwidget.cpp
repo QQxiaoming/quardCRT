@@ -48,6 +48,7 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
 
     connect(tree, &SessionManagerTreeView::sessionConnect, this, &SessionManagerWidget::sessionConnect);
     connect(tree, &SessionManagerTreeView::sessionRemove, this, &SessionManagerWidget::sessionRemove);
+    connect(tree, &SessionManagerTreeView::sessionShowProperties, this, &SessionManagerWidget::sessionShowProperties);
 
     retranslateUi();
 }

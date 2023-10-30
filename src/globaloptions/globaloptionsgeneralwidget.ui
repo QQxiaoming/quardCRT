@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GlobalOptionsWidget</class>
- <widget class="QWidget" name="GlobalOptionsWidget">
+ <class>GlobalOptionsGeneralWidget</class>
+ <widget class="QWidget" name="GlobalOptionsGeneralWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

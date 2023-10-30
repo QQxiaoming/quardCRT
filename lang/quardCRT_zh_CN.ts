@@ -56,75 +56,75 @@
     </message>
 </context>
 <context>
-    <name>GlobalOptionsWidget</name>
+    <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>Color Schemes</source>
         <translation>配色方案</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="27"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
         <source>Font Size</source>
         <translation>字体大小</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="47"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="47"/>
         <source>Transparent window</source>
         <translation>窗口透明度</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="64"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
         <source>Background image</source>
         <translation>背景图片</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="85"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="85"/>
         <source>Background mode</source>
         <translation>背景模式</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="92"/>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="104"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="92"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="104"/>
         <source>Stretch</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="99"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
         <source>None</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="109"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="109"/>
         <source>Zoom</source>
         <translation>缩放</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="114"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="114"/>
         <source>Fit</source>
         <translation>适应</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="119"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="119"/>
         <source>Center</source>
         <translation>居中</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="124"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="124"/>
         <source>Tile</source>
         <translation>平铺</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="132"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="132"/>
         <source>Background opacity</source>
         <translation>背景图片透明度</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="152"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="152"/>
         <source>New tab workpath</source>
         <translation>新标签工作目录</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswidget.ui" line="162"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="162"/>
         <source>Scrollback lines</source>
         <translation>滚动行数</translation>
     </message>

@@ -234,7 +234,7 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
             startRawSocketSession(src->m_hostname, src->m_port);
             break;
         case NamePipe:
-            startNamePipeSession(src->m_name);
+            startNamePipeSession(src->m_pipeName);
             break;
         }
     }  
@@ -343,7 +343,7 @@ int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port)
 
 int SessionsWindow::startNamePipeSession(const QString &name) {
     namePipe->connectToServer(name);
-    m_name = name;
+    m_pipeName = name;
     return 0;
 }
 

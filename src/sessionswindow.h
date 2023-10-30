@@ -95,7 +95,7 @@ public:
     bool m_flowControl;
     bool m_xEnable;
     QString m_command;
-    QString m_name;
+    QString m_pipeName;
 
 private:
     SessionType type;
