@@ -1834,16 +1834,25 @@ void MainWindow::setGlobalOptions(SessionsWindow *window) {
     window->getTermWidget()->setBlinkingCursor(globalOptionsWindow->getCursorBlink());
     window->getTermWidget()->setTerminalBackgroundImage("");
     window->getTermWidget()->setTerminalBackgroundMovie("");
+    window->getTermWidget()->setTerminalBackgroundVideo("");
     QString backgroundImage = globalOptionsWindow->getBackgroundImage();
     if(backgroundImage.endsWith(".png") || backgroundImage.endsWith(".jpg") ||
         backgroundImage.endsWith(".jpeg") || backgroundImage.endsWith(".bmp")
         ) {
         window->getTermWidget()->setTerminalBackgroundImage(backgroundImage);
     } else if (backgroundImage.endsWith(".gif")) {
-        if(globalOptionsWindow->getEnableGIFAnimation()) {
+        if(globalOptionsWindow->getEnableTerminalBackgroundAnimation()) {
             window->getTermWidget()->setTerminalBackgroundMovie(backgroundImage);
         } else {
             window->getTermWidget()->setTerminalBackgroundImage(backgroundImage);
+        }
+    } else if (backgroundImage.endsWith(".mp4") || backgroundImage.endsWith(".avi") ||
+        backgroundImage.endsWith(".mkv") || backgroundImage.endsWith(".mov")
+        ) {
+        if(globalOptionsWindow->getEnableTerminalBackgroundAnimation()) {
+            window->getTermWidget()->setTerminalBackgroundVideo(backgroundImage);
+        } else {
+            QMessageBox::warning(this,tr("Warning"),tr("Video background is enabled, please enable animation in global options (more memory usage) or change background image."),QMessageBox::Ok);
         }
     }
 }

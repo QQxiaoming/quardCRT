@@ -78,6 +78,7 @@ public:
     void setTerminalOpacity(qreal level);
     void setTerminalBackgroundImage(const QString& backgroundImage);
     void setTerminalBackgroundMovie(const QString& backgroundMovie);
+    void setTerminalBackgroundVideo(const QString& backgroundVideo);
     void setTerminalBackgroundMode(int mode);
 
     //Text codec, default is UTF-8

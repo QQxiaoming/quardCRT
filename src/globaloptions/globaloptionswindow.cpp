@@ -99,7 +99,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     if(settings.contains("backgroundImageOpacity"))
         globalOptionsAppearanceWidget->ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
     globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
-    globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->setChecked(settings.value("enableGIFAnimation", true).toBool());
+    globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->setChecked(settings.value("enableTerminalBackgroundAnimation", true).toBool());
     globalOptionsTerminalWidget->ui->comboBoxCursorShape->setCurrentIndex(settings.value("cursorShape", 0).toInt());
     globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
     settings.endGroup();
@@ -117,7 +117,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
 
     connect(globalOptionsAppearanceWidget->ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
     connect(globalOptionsAppearanceWidget->ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
-        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.jpeg *.bmp *.gif)"));
+        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)"));
         if (!imgPath.isEmpty()) {
             globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->setText(imgPath);
         }
@@ -264,9 +264,9 @@ uint32_t GlobalOptionsWindow::getScrollbackLines(void)
     return globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->value();
 }
 
-bool GlobalOptionsWindow::getEnableGIFAnimation(void)
+bool GlobalOptionsWindow::getEnableTerminalBackgroundAnimation(void)
 {
-    return globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->isChecked();
+    return globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->isChecked();
 }
 
 uint32_t GlobalOptionsWindow::getCursorShape(void)
@@ -292,7 +292,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("backgroundImageOpacity", globalOptionsAppearanceWidget->ui->horizontalSliderBackgroundImageOpacity->value());
     settings.setValue("NewTabWorkPath", globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->currentText());
     settings.setValue("scrollbackLines", globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->value());
-    settings.setValue("enableGIFAnimation", globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->isChecked());
+    settings.setValue("enableTerminalBackgroundAnimation", globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->isChecked());
     settings.setValue("cursorShape", globalOptionsTerminalWidget->ui->comboBoxCursorShape->currentIndex());
     settings.setValue("cursorBlink", globalOptionsTerminalWidget->ui->checkBoxCursorBlink->isChecked());
     settings.endGroup();
@@ -315,7 +315,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsAppearanceWidget->ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("NewTabWorkPath",QDir::homePath()).toString());
     globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
-    globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->setChecked(settings.value("enableGIFAnimation", true).toBool());
+    globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->setChecked(settings.value("enableTerminalBackgroundAnimation", true).toBool());
     globalOptionsTerminalWidget->ui->comboBoxCursorShape->setCurrentIndex(settings.value("cursorShape", 0).toInt());
     globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
     settings.endGroup();

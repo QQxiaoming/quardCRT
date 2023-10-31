@@ -35,7 +35,7 @@ jobs:
         with:
           arch: win64_mingw
           version: '6.5.3'
-          modules: 'qt5compat qtwebsockets qtserialport'
+          modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
           aqtversion: ==3.1.7
 
       - name: Install prerequisites

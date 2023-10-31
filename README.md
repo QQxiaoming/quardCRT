@@ -44,7 +44,8 @@ Other protocol selection interface:
 - Automated sending
 - HEX display
 - Session history management
-- Terminal style configuration (color scheme, font, background image/transparency)
+- Terminal style configuration (color scheme, font)
+- Terminal background image configuration (support transparency setting, support gif animation and video)
 - Terminal scroll line customization
 
 ## Contributing

@@ -47,6 +47,9 @@
 #include <QMimeData>
 #include <QDrag>
 #include <QMovie>
+#include <QMediaPlayer>
+#include <QVideoSink>
+#include <QVideoFrame>
 
 #include "Filter.h"
 #include "console_charwidth.h"
@@ -419,11 +422,25 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
   _lockbackgroundImage = QPixmap(10,10);
   _lockbackgroundImage.fill(Qt::gray);
 
+  _backgroundVideoPlayer = new QMediaPlayer;
+  _backgroundVideoSink = new QVideoSink;
+  _backgroundVideoPlayer->setLoops(QMediaPlayer::Infinite);
+  _backgroundVideoPlayer->setVideoOutput(_backgroundVideoSink);
+  connect(_backgroundVideoSink, &QVideoSink::videoFrameChanged, this, [=](const QVideoFrame &frame){
+    _backgroundVideoFrame = QPixmap::fromImage(frame.toImage());
+    update();
+  });
+
   new AutoScrollHandler(this);
 }
 
 TerminalDisplay::~TerminalDisplay()
 {
+  if(_backgroundVideoPlayer->isPlaying()) {
+    _backgroundVideoPlayer->stop();
+  }
+  delete _backgroundVideoSink;
+  delete _backgroundVideoPlayer;
   if(_backgroundMovie != nullptr) {
     _backgroundMovie->stop();
     QObject::disconnect(_backgroundMovie, nullptr, this, nullptr);
@@ -709,7 +726,7 @@ void TerminalDisplay::setBackgroundImage(const QString& backgroundImage)
     else
     {
         _backgroundImage = QPixmap();
-        if(_backgroundMovie == nullptr)
+        if(_backgroundMovie == nullptr && (!_backgroundVideoPlayer->isPlaying()))
           setAttribute(Qt::WA_OpaquePaintEvent, true);
     }
 }
@@ -737,9 +754,27 @@ void TerminalDisplay::setBackgroundMovie(const QString& backgroundImage)
           delete _backgroundMovie;
         }
         _backgroundMovie = nullptr;
-        if(_backgroundImage.isNull())
+        if(_backgroundImage.isNull() && (!_backgroundVideoPlayer->isPlaying()))
           setAttribute(Qt::WA_OpaquePaintEvent, true);
         delete movie;
+    }
+}
+
+void TerminalDisplay::setBackgroundVideo(const QString& backgroundVideo)
+{
+    if (!backgroundVideo.isEmpty())
+    {
+        _backgroundVideoPlayer->setSource(QUrl::fromLocalFile(backgroundVideo));
+        _backgroundVideoPlayer->play();
+        setAttribute(Qt::WA_OpaquePaintEvent, false);
+    }
+    else
+    {
+        _backgroundVideoPlayer->stop();
+        _backgroundVideoPlayer->setSource(QUrl());
+        _backgroundVideoFrame = QPixmap();
+        if(_backgroundMovie == nullptr && _backgroundImage.isNull())
+          setAttribute(Qt::WA_OpaquePaintEvent, true);
     }
 }
 
@@ -753,6 +788,9 @@ void TerminalDisplay::drawBackground(QPainter& painter, const QRect& rect, const
     QPixmap currentBackgroundImage = _backgroundImage;
     if(_backgroundMovie != nullptr) {
         currentBackgroundImage = _backgroundMovie->currentPixmap();
+    }
+    if(_backgroundVideoPlayer->isPlaying()) {
+        currentBackgroundImage = _backgroundVideoFrame;
     }
     // The whole widget rectangle is filled by the background color from
     // the color scheme set in setColorTable(), while the scrollbar is
@@ -1394,6 +1432,9 @@ void TerminalDisplay::paintEvent( QPaintEvent* pe )
   QPixmap currentBackgroundImage = _backgroundImage;
   if(_backgroundMovie != nullptr) {
     currentBackgroundImage = _backgroundMovie->currentPixmap();
+  }
+  if(_backgroundVideoPlayer->isPlaying()) {
+    currentBackgroundImage = _backgroundVideoFrame;
   }
 
   if ( !currentBackgroundImage.isNull() )

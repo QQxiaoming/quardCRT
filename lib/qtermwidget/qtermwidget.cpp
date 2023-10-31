@@ -324,6 +324,11 @@ void QTermWidget::setTerminalBackgroundMovie(const QString& backgroundMovie)
     m_impl->m_terminalDisplay->setBackgroundMovie(backgroundMovie);
 }
 
+void QTermWidget::setTerminalBackgroundVideo(const QString& backgroundVideo)
+{
+    m_impl->m_terminalDisplay->setBackgroundVideo(backgroundVideo);
+}
+
 void QTermWidget::setTerminalBackgroundMode(int mode)
 {
     m_impl->m_terminalDisplay->setBackgroundMode((Konsole::BackgroundMode)mode);

@@ -12,9 +12,9 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-    <widget class="QCheckBox" name="checkBoxGIFAnimation">
+    <widget class="QCheckBox" name="checkBoxTerminalBackgroundAnimation">
         <property name="text">
-        <string>GIF Animation</string>
+        <string>Terminal background support animation</string>
         </property>
     </widget>
     </item>

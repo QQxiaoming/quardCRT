@@ -25,6 +25,9 @@
 #include <QPointer>
 #include <QWidget>
 #include <QMovie>
+#include <QMediaPlayer>
+#include <QVideoSink>
+#include <QVideoFrame>
 
 #include "Filter.h"
 #include "Character.h"
@@ -111,6 +114,7 @@ public:
     /** Sets the background image of the terminal display. */
     void setBackgroundImage(const QString& backgroundImage);
     void setBackgroundMovie(const QString& backgroundImage);
+    void setBackgroundVideo(const QString& backgroundImage);
 
     /** Sets the background image mode of the terminal display. */
     void setBackgroundMode(BackgroundMode mode);
@@ -833,6 +837,9 @@ private:
 
     QPixmap _backgroundImage;
     QMovie *_backgroundMovie = nullptr;
+    QMediaPlayer* _backgroundVideoPlayer;
+    QVideoSink* _backgroundVideoSink;
+    QPixmap _backgroundVideoFrame;
     bool _isLocked;
     QPixmap _lockbackgroundImage;
     BackgroundMode _backgroundMode;

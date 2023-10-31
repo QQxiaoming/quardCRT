@@ -31,7 +31,7 @@ public:
     qreal getBackgroundImageOpacity(void);
     QString getNewTabWorkPath(void);
     uint32_t getScrollbackLines(void);
-    bool getEnableGIFAnimation(void);
+    bool getEnableTerminalBackgroundAnimation(void);
     uint32_t getCursorShape(void);
     bool getCursorBlink(void);
 
