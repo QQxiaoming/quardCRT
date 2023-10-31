@@ -186,27 +186,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="155"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="160"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="155"/>
+        <source>This feature needs more system resources, please use it carefully!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="160"/>
+        <source>This feature is not implemented yet!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Terminal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1298,11 +1314,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="1855"/>
-        <source>Video background is enabled, please enable animation in global options (more memory usage) or change background image.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../src/mainwindow.cpp" line="2133"/>
         <source>Telnet</source>
         <translation type="unfinished"></translation>
@@ -1407,6 +1418,11 @@
     <message>
         <location filename="../../../src/mainwindow.cpp" line="1534"/>
         <source>Session Export failed to save to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/mainwindow.cpp" line="1855"/>
+        <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1925,61 +1941,61 @@
 <context>
     <name>SessionsWindow</name>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="278"/>
+        <location filename="../../../src/sessionswindow.cpp" line="279"/>
         <source>Start Local Shell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="278"/>
+        <location filename="../../../src/sessionswindow.cpp" line="279"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="324"/>
+        <location filename="../../../src/sessionswindow.cpp" line="325"/>
         <source>Start Serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="324"/>
+        <location filename="../../../src/sessionswindow.cpp" line="325"/>
         <source>Cannot open serial port:
 %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="360"/>
+        <location filename="../../../src/sessionswindow.cpp" line="361"/>
         <source>Save log...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="361"/>
+        <location filename="../../../src/sessionswindow.cpp" line="362"/>
         <source>log files (*.log)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="365"/>
+        <location filename="../../../src/sessionswindow.cpp" line="366"/>
         <source>Save log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="365"/>
-        <location filename="../../../src/sessionswindow.cpp" line="400"/>
+        <location filename="../../../src/sessionswindow.cpp" line="366"/>
+        <location filename="../../../src/sessionswindow.cpp" line="401"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="395"/>
+        <location filename="../../../src/sessionswindow.cpp" line="396"/>
         <source>Save Raw log...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="396"/>
+        <location filename="../../../src/sessionswindow.cpp" line="397"/>
         <source>binary files (*.bin)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/sessionswindow.cpp" line="400"/>
+        <location filename="../../../src/sessionswindow.cpp" line="401"/>
         <source>Save Raw log</source>
         <translation type="unfinished"></translation>
     </message>

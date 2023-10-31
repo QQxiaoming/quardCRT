@@ -76,10 +76,6 @@
         <translation>カラースキーム</translation>
     </message>
     <message>
-        <source>Font Size</source>
-        <translation type="vanished">フォントサイズ</translation>
-    </message>
-    <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
         <source>Font</source>
         <translation>フォント</translation>
@@ -190,27 +186,43 @@
         <translation>画像ファイル (*.png *.jpg *.jpeg *.bmp *.gif);;ビデオファイル (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="155"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="160"/>
+        <source>Information</source>
+        <translation>情報</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="155"/>
+        <source>This feature needs more system resources, please use it carefully!</source>
+        <translation>この機能はより多くのシステムリソースを必要とします。注意して使用して下さい！</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="160"/>
+        <source>This feature is not implemented yet!</source>
+        <translation>この機能はまだ実装されていません！</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>General</source>
         <translation>一般</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Appearance</source>
         <translation>外観</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Terminal</source>
         <translation>端末</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Window</source>
         <translation>ウィンドウ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Advanced</source>
         <translation>高度な設定</translation>
     </message>
@@ -1291,11 +1303,6 @@
         <translation>全てのブックマークをクリアしてもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1855"/>
-        <source>Video background is enabled, please enable animation in global options (more memory usage) or change background image.</source>
-        <translation>ビデオ背景が有効になっています。グローバルオプションでアニメーションを有効にするか、背景画像を変更してください（メモリ使用量が増えます）。</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="2133"/>
         <source>Telnet</source>
         <translation></translation>
@@ -1412,6 +1419,11 @@
         <location filename="../src/mainwindow.cpp" line="1534"/>
         <source>Session Export failed to save to %1</source>
         <translation>セッションエクスポートを %1 に保存できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1855"/>
+        <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
+        <translation>ビデオ背景が有効になっています。グローバルオプションでアニメーションを有効にするか、背景画像を変更してください（システムリソースが増えます）。</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2158"/>
@@ -1929,64 +1941,64 @@
 <context>
     <name>SessionsWindow</name>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="278"/>
+        <location filename="../src/sessionswindow.cpp" line="279"/>
         <source>Start Local Shell</source>
         <translation>ローカル端末を開始</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="278"/>
+        <location filename="../src/sessionswindow.cpp" line="279"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>ローカル端末を開始できません:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="324"/>
+        <location filename="../src/sessionswindow.cpp" line="325"/>
         <source>Start Serial</source>
         <translation>シリアルを開始</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="324"/>
+        <location filename="../src/sessionswindow.cpp" line="325"/>
         <source>Cannot open serial port:
 %1.</source>
         <translation>シリアルポートを開けません:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="360"/>
+        <location filename="../src/sessionswindow.cpp" line="361"/>
         <source>Save log...</source>
         <translation>ログを保存...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="361"/>
+        <location filename="../src/sessionswindow.cpp" line="362"/>
         <source>log files (*.log)</source>
         <translation>ログファイル (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="365"/>
+        <location filename="../src/sessionswindow.cpp" line="366"/>
         <source>Save log</source>
         <translation>ログを保存</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="365"/>
-        <location filename="../src/sessionswindow.cpp" line="400"/>
+        <location filename="../src/sessionswindow.cpp" line="366"/>
+        <location filename="../src/sessionswindow.cpp" line="401"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>ファイル %1 に書き込めません:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="395"/>
+        <location filename="../src/sessionswindow.cpp" line="396"/>
         <source>Save Raw log...</source>
         <translation>生ログを保存...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="396"/>
+        <location filename="../src/sessionswindow.cpp" line="397"/>
         <source>binary files (*.bin)</source>
         <translation>バイナリファイル (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="400"/>
+        <location filename="../src/sessionswindow.cpp" line="401"/>
         <source>Save Raw log</source>
         <translation>生ログを保存</translation>
     </message>

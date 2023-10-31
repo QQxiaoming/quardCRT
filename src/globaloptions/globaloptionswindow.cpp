@@ -150,7 +150,17 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         }
     });
     connect(globalOptionsWindowWidget->ui->horizontalSliderTransparent, SIGNAL(valueChanged(int)), this, SIGNAL(transparencyChanged(int)));
-    
+    connect(globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation, &QCheckBox::toggled, this, [&](){
+        if (globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->isChecked()) {
+            QMessageBox::information(this, tr("Information"), tr("This feature needs more system resources, please use it carefully!"));
+        }
+    });
+    connect(globalOptionsAdvancedWidget->ui->checkBoxGithubCopilot, &QCheckBox::toggled, this, [&](){
+        if (globalOptionsAdvancedWidget->ui->checkBoxGithubCopilot->isChecked()) {
+            QMessageBox::information(this, tr("Information"), tr("This feature is not implemented yet!"));
+            globalOptionsAdvancedWidget->ui->checkBoxGithubCopilot->setChecked(false);
+        }
+    });
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
 

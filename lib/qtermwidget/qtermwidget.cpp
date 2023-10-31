@@ -228,7 +228,7 @@ void QTermWidget::setLangeuage(QLocale::Language lang)
 
 void QTermWidget::init(void)
 {
-    m_layout = new QVBoxLayout();
+    m_layout = new QVBoxLayout(this);
     m_layout->setContentsMargins(0, 0, 0, 0);
     setLayout(m_layout);
 

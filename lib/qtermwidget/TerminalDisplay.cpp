@@ -439,8 +439,8 @@ TerminalDisplay::~TerminalDisplay()
   if(_backgroundVideoPlayer->isPlaying()) {
     _backgroundVideoPlayer->stop();
   }
-  delete _backgroundVideoSink;
   delete _backgroundVideoPlayer;
+  delete _backgroundVideoSink;
   if(_backgroundMovie != nullptr) {
     _backgroundMovie->stop();
     QObject::disconnect(_backgroundMovie, nullptr, this, nullptr);

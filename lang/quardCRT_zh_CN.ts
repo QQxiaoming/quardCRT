@@ -76,10 +76,6 @@
         <translation>配色方案</translation>
     </message>
     <message>
-        <source>Font Size</source>
-        <translation type="vanished">字体大小</translation>
-    </message>
-    <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
         <source>Font</source>
         <translation>字体</translation>
@@ -190,27 +186,43 @@
         <translation>图像文件 (*.png *.jpg *.jpeg *.bmp *.gif);;视频文件 (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="155"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="160"/>
+        <source>Information</source>
+        <translation>信息</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="155"/>
+        <source>This feature needs more system resources, please use it carefully!</source>
+        <translation>此功能需要更多系统资源，请谨慎使用！</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="160"/>
+        <source>This feature is not implemented yet!</source>
+        <translation>此功能尚未实现！</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>General</source>
         <translation>常规</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Appearance</source>
         <translation>外观</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Terminal</source>
         <translation>终端</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Window</source>
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="169"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="179"/>
         <source>Advanced</source>
         <translation>高级</translation>
     </message>
@@ -1291,11 +1303,6 @@
         <translation>您确定要清除所有书签吗？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1855"/>
-        <source>Video background is enabled, please enable animation in global options (more memory usage) or change background image.</source>
-        <translation>视频背景已启用，请在全局选项中启用动画（更多内存使用）或更改背景图像。</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="2133"/>
         <source>Telnet</source>
         <translation></translation>
@@ -1412,6 +1419,11 @@
         <location filename="../src/mainwindow.cpp" line="1534"/>
         <source>Session Export failed to save to %1</source>
         <translation>会话导出保存到 %1 失败</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1855"/>
+        <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
+        <translation>视频背景已启用，请在全局选项中启用动画（更多系统资源）或更改背景图像。</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2158"/>
@@ -1929,64 +1941,64 @@
 <context>
     <name>SessionsWindow</name>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="278"/>
+        <location filename="../src/sessionswindow.cpp" line="279"/>
         <source>Start Local Shell</source>
         <translation>启动本机终端</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="278"/>
+        <location filename="../src/sessionswindow.cpp" line="279"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>无法启动本机终端:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="324"/>
+        <location filename="../src/sessionswindow.cpp" line="325"/>
         <source>Start Serial</source>
         <translation>启动串行通讯</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="324"/>
+        <location filename="../src/sessionswindow.cpp" line="325"/>
         <source>Cannot open serial port:
 %1.</source>
         <translation>无法打开串行端口:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="360"/>
+        <location filename="../src/sessionswindow.cpp" line="361"/>
         <source>Save log...</source>
         <translation>保存日志...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="361"/>
+        <location filename="../src/sessionswindow.cpp" line="362"/>
         <source>log files (*.log)</source>
         <translation>日志文件 (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="365"/>
+        <location filename="../src/sessionswindow.cpp" line="366"/>
         <source>Save log</source>
         <translation>保存日志</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="365"/>
-        <location filename="../src/sessionswindow.cpp" line="400"/>
+        <location filename="../src/sessionswindow.cpp" line="366"/>
+        <location filename="../src/sessionswindow.cpp" line="401"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>无法写入文件 %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="395"/>
+        <location filename="../src/sessionswindow.cpp" line="396"/>
         <source>Save Raw log...</source>
         <translation>保存原始日志...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="396"/>
+        <location filename="../src/sessionswindow.cpp" line="397"/>
         <source>binary files (*.bin)</source>
         <translation>二进制文件 (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="400"/>
+        <location filename="../src/sessionswindow.cpp" line="401"/>
         <source>Save Raw log</source>
         <translation>保存原始日志</translation>
     </message>

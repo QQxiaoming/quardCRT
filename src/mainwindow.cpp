@@ -1852,7 +1852,7 @@ void MainWindow::setGlobalOptions(SessionsWindow *window) {
         if(globalOptionsWindow->getEnableTerminalBackgroundAnimation()) {
             window->getTermWidget()->setTerminalBackgroundVideo(backgroundImage);
         } else {
-            QMessageBox::warning(this,tr("Warning"),tr("Video background is enabled, please enable animation in global options (more memory usage) or change background image."),QMessageBox::Ok);
+            QMessageBox::warning(this,tr("Warning"),tr("Video background is enabled, please enable animation in global options (more system resources) or change background image."),QMessageBox::Ok);
         }
     }
 }

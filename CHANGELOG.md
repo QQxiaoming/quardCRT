@@ -4,6 +4,7 @@
 
 - 增加windows上NamedPipe协议支持（linux/macos上对应unix domain socket）
 - 修复windows上无法启动打印机服务问题
+- 修复关闭标签页部份内存未释放问题
 - 增加设置终端字体功能
 - 增加设置终端滚动行数设置
 - 增加设置光标形状和闪烁功能

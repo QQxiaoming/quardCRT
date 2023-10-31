@@ -216,6 +216,7 @@ SessionsWindow::~SessionsWindow() {
         if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
         delete namePipe;
     }
+    delete term;
 }
 
 void SessionsWindow::cloneSession(SessionsWindow *src) {
