@@ -1827,10 +1827,23 @@ void MainWindow::setGlobalOptions(SessionsWindow *window) {
     window->getTermWidget()->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     window->getTermWidget()->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     window->getTermWidget()->setTerminalFont(globalOptionsWindow->getCurrentFont());
-    window->getTermWidget()->setTerminalBackgroundImage(globalOptionsWindow->getBackgroundImage());
     window->getTermWidget()->setTerminalBackgroundMode(globalOptionsWindow->getBackgroundImageMode());
     window->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getBackgroundImageOpacity());
     window->getTermWidget()->setHistorySize(globalOptionsWindow->getScrollbackLines());
+    window->getTermWidget()->setTerminalBackgroundImage("");
+    window->getTermWidget()->setTerminalBackgroundMovie("");
+    QString backgroundImage = globalOptionsWindow->getBackgroundImage();
+    if(backgroundImage.endsWith(".png") || backgroundImage.endsWith(".jpg") ||
+        backgroundImage.endsWith(".jpeg") || backgroundImage.endsWith(".bmp")
+        ) {
+        window->getTermWidget()->setTerminalBackgroundImage(backgroundImage);
+    } else if (backgroundImage.endsWith(".gif")) {
+        if(globalOptionsWindow->getEnableGIFAnimation()) {
+            window->getTermWidget()->setTerminalBackgroundMovie(backgroundImage);
+        } else {
+            window->getTermWidget()->setTerminalBackgroundImage(backgroundImage);
+        }
+    }
 }
 
 void MainWindow::restoreSessionToSessionManager(void)

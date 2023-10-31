@@ -34,6 +34,8 @@ INCLUDEPATH += \
     src
 
 SOURCES += \
+    src/util/logger.cpp \
+    src/util/globalsetting.cpp \
     src/globaloptions/globaloptionsadvancedwidget.cpp \
     src/globaloptions/globaloptionsappearancewidget.cpp \
     src/globaloptions/globaloptionsterminalwidget.cpp \
@@ -44,8 +46,6 @@ SOURCES += \
     src/sessionoptions/sessionoptionsrawproperties.cpp \
     src/sessionoptions/sessionoptionsserialproperties.cpp \
     src/sessionoptions/sessionoptionstelnetproperties.cpp \
-    src/util/logger.cpp \
-    src/util/globalsetting.cpp \
     src/sessionmanagerwidget/sessionmanagerwidget.cpp \
     src/sessionmanagerwidget/sessionmanagertreeview.cpp \
     src/sessionmanagerwidget/sessionmanagertreemodel.cpp \
@@ -65,6 +65,10 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/util/logger.h \
+    src/util/argv_split.h \
+    src/util/filedialog.h \
+    src/util/globalsetting.h \
     src/globaloptions/globaloptionsadvancedwidget.h \
     src/globaloptions/globaloptionsappearancewidget.h \
     src/globaloptions/globaloptionsterminalwidget.h \
@@ -75,10 +79,6 @@ HEADERS += \
     src/sessionoptions/sessionoptionsrawproperties.h \
     src/sessionoptions/sessionoptionsserialproperties.h \
     src/sessionoptions/sessionoptionstelnetproperties.h \
-    src/util/logger.h \
-    src/util/argv_split.h \
-    src/util/filedialog.h \
-    src/util/globalsetting.h \
     src/sessionmanagerwidget/sessionmanagerwidget.h \
     src/sessionmanagerwidget/sessionmanagertreeview.h \
     src/sessionmanagerwidget/sessionmanagertreemodel.h \
@@ -143,8 +143,6 @@ MOC_DIR     = $$build_type/moc
 RCC_DIR     = $$build_type/rcc
 UI_DIR      = $$build_type/ui
 
-
-# 平台配置
 win32:{
     VERSION = $${BUILD_VERSION}.000
     RC_ICONS = "icons\ico.ico"

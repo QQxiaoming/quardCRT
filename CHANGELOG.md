@@ -5,9 +5,10 @@
 - 增加windows上NamedPipe协议支持（linux/macos上对应unix domain socket）
 - 修复windows上无法启动打印机服务问题
 - 增加设置终端滚动行数设置
-- 增加日志系统，用户默认上不打开的，必须手写config文件才会启动
+- 终端背景支持Gif动画格式文件
 - 更新全局设置界面，分类显示设置项
 - 增加会话设置界面
+- 增加软件自身调试信息日志系统，用户默认上不打开的，必须手写config文件才会启动
 
 ## [[V0.2.3](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.3)] - 2023-10-26
 

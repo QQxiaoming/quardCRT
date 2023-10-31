@@ -31,6 +31,7 @@ public:
     qreal getBackgroundImageOpacity(void);
     QString getNewTabWorkPath(void);
     uint32_t getScrollbackLines(void);
+    bool getEnableGIFAnimation(void);
 
     const static QString defaultColorScheme;
 

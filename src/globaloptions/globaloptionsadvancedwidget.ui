@@ -11,6 +11,20 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+    <widget class="QCheckBox" name="checkBoxGIFAnimation">
+        <property name="text">
+        <string>GIF Animation</string>
+        </property>
+    </widget>
+    </item>
+   <item>
+    <widget class="QCheckBox" name="checkBoxGithubCopilot">
+     <property name="text">
+      <string>Github Copilot</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">

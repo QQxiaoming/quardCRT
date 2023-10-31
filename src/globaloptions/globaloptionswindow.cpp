@@ -90,6 +90,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         globalOptionsAppearanceWidget->ui->comboBoxBackgroundMode->setCurrentIndex(settings.value("backgroundImageMode").toInt());
     if(settings.contains("backgroundImageOpacity"))
         globalOptionsAppearanceWidget->ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
+    globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
+    globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->setChecked(settings.value("enableGIFAnimation", true).toBool());
     settings.endGroup();
 
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
@@ -100,12 +102,10 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     }
     settings.endArray();
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("Global/Options/NewTabWorkPath",QDir::homePath()).toString());
-  
-    globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
 
     connect(globalOptionsAppearanceWidget->ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
     connect(globalOptionsAppearanceWidget->ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
-        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.bmp)"));
+        QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.jpeg *.bmp *.gif)"));
         if (!imgPath.isEmpty()) {
             globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->setText(imgPath);
         }
@@ -225,6 +225,11 @@ uint32_t GlobalOptionsWindow::getScrollbackLines(void)
     return globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->value();
 }
 
+bool GlobalOptionsWindow::getEnableGIFAnimation(void)
+{
+    return globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->isChecked();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -237,6 +242,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("backgroundImageOpacity", globalOptionsAppearanceWidget->ui->horizontalSliderBackgroundImageOpacity->value());
     settings.setValue("NewTabWorkPath", globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->currentText());
     settings.setValue("scrollbackLines", globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->value());
+    settings.setValue("enableGIFAnimation", globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->isChecked());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();

@@ -24,6 +24,7 @@
 #include <QColor>
 #include <QPointer>
 #include <QWidget>
+#include <QMovie>
 
 #include "Filter.h"
 #include "Character.h"
@@ -109,6 +110,7 @@ public:
 
     /** Sets the background image of the terminal display. */
     void setBackgroundImage(const QString& backgroundImage);
+    void setBackgroundMovie(const QString& backgroundImage);
 
     /** Sets the background image mode of the terminal display. */
     void setBackgroundMode(BackgroundMode mode);
@@ -830,6 +832,7 @@ private:
     qreal _opacity;
 
     QPixmap _backgroundImage;
+    QMovie *_backgroundMovie = nullptr;
     bool _isLocked;
     QPixmap _lockbackgroundImage;
     BackgroundMode _backgroundMode;

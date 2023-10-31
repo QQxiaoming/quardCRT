@@ -44,8 +44,9 @@ Other protocol selection interface:
 - Automated sending
 - HEX display
 - Session history management
-- Terminal style configuration
+- Terminal style configuration (color scheme, background image/transparency)
 - Custom font (in progress)
+- Terminal scroll line customization
 
 ## Contributing
 
