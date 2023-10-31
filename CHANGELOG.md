@@ -2,6 +2,7 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 增加windows上NamedPipe协议支持（linux/macos上对应unix domain socket）
 - 修复windows上无法启动打印机服务问题
 - 增加设置终端滚动行数设置
 - 增加日志系统，用户默认上不打开的，必须手写config文件才会启动

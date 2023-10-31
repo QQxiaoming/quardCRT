@@ -137,6 +137,8 @@ QVariant SessionManagerTreeModel::data(const QModelIndex &index, int role) const
 				return tr("Shell");
 			case SessionsWindow::RawSocket:
 				return tr("Raw");
+            case SessionsWindow::NamePipe:
+				return tr("NamePipe");
 			default:
 				break;
 			}

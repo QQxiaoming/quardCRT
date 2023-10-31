@@ -56,75 +56,76 @@
     </message>
 </context>
 <context>
-    <name>GlobalOptionsGeneralWidget</name>
+    <name>GlobalOptionsAppearanceWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="17"/>
         <source>Color Schemes</source>
         <translation>配色方案</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
         <source>Font Size</source>
         <translation>字体大小</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="47"/>
-        <source>Transparent window</source>
-        <translation>窗口透明度</translation>
-    </message>
-    <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="47"/>
         <source>Background image</source>
         <translation>背景图片</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="85"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="68"/>
         <source>Background mode</source>
         <translation>背景模式</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="92"/>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="104"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="75"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="87"/>
         <source>Stretch</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="82"/>
         <source>None</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="109"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="92"/>
         <source>Zoom</source>
         <translation>缩放</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="114"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="97"/>
         <source>Fit</source>
         <translation>适应</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="119"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="102"/>
         <source>Center</source>
         <translation>居中</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="124"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="107"/>
         <source>Tile</source>
         <translation>平铺</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="132"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="115"/>
         <source>Background opacity</source>
         <translation>背景图片透明度</translation>
     </message>
+</context>
+<context>
+    <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="152"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>New tab workpath</source>
         <translation>新标签工作目录</translation>
     </message>
+</context>
+<context>
+    <name>GlobalOptionsTerminalWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="162"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="17"/>
         <source>Scrollback lines</source>
         <translation>滚动行数</translation>
     </message>
@@ -132,47 +133,37 @@
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>General</source>
         <translation>常规</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Appearance</source>
         <translation>外观</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Terminal</source>
         <translation>终端</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
-        <source>Keyboard</source>
-        <translation>键盘</translation>
-    </message>
-    <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
-        <source>Mouse</source>
-        <translation>鼠标</translation>
-    </message>
-    <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Window</source>
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Advanced</source>
         <translation>高级</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="90"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="108"/>
         <source>Select Background Image</source>
         <translation>选择背景图片</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="90"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="108"/>
         <source>Image Files (*.png *.jpg *.bmp)</source>
         <translation>图片文件 (*.png *.jpg *.bmp)</translation>
     </message>
@@ -180,6 +171,14 @@
         <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
         <source>Global Options</source>
         <translation>全局选项</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalOptionsWindowWidget</name>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="17"/>
+        <source>Transparent window</source>
+        <translation>窗口透明度</translation>
     </message>
 </context>
 <context>
@@ -374,7 +373,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="613"/>
         <location filename="../src/mainwindow.cpp" line="816"/>
-        <location filename="../src/mainwindow.cpp" line="2418"/>
+        <location filename="../src/mainwindow.cpp" line="2427"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
@@ -1174,7 +1173,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="819"/>
-        <location filename="../src/mainwindow.cpp" line="2401"/>
+        <location filename="../src/mainwindow.cpp" line="2410"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1239,43 +1238,43 @@
         <translation>您确定要清除所有书签吗？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2100"/>
+        <location filename="../src/mainwindow.cpp" line="2109"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2126"/>
+        <location filename="../src/mainwindow.cpp" line="2135"/>
         <source>Serial</source>
         <translation>串行通讯</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2151"/>
+        <location filename="../src/mainwindow.cpp" line="2160"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2175"/>
+        <location filename="../src/mainwindow.cpp" line="2184"/>
         <source>NamePipe - </source>
         <translation>命名管道 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2176"/>
+        <location filename="../src/mainwindow.cpp" line="2185"/>
         <source>NamePipe</source>
         <translation>命名管道</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2241"/>
-        <location filename="../src/mainwindow.cpp" line="2245"/>
+        <location filename="../src/mainwindow.cpp" line="2250"/>
+        <location filename="../src/mainwindow.cpp" line="2254"/>
         <source>Local Shell</source>
         <translation>本机终端</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2402"/>
+        <location filename="../src/mainwindow.cpp" line="2411"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;版本&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;提交&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;作者&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;主页&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2419"/>
+        <location filename="../src/mainwindow.cpp" line="2428"/>
         <source>Global Shortcuts:
 
   ALT+&quot;U&quot;		show/hide menu bar
@@ -1302,7 +1301,7 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2099"/>
+        <location filename="../src/mainwindow.cpp" line="2108"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
@@ -1357,17 +1356,17 @@
         <translation>会话导出保存到 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2125"/>
+        <location filename="../src/mainwindow.cpp" line="2134"/>
         <source>Serial - </source>
         <translation>串行通讯 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2243"/>
+        <location filename="../src/mainwindow.cpp" line="2252"/>
         <source>Local Shell - </source>
         <translation>本机终端 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2150"/>
+        <location filename="../src/mainwindow.cpp" line="2159"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
@@ -1661,12 +1660,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="263"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="141"/>
+        <source>NamePipe</source>
+        <translation>命名管道</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="267"/>
         <source>Kind</source>
         <translation>类型</translation>
     </message>

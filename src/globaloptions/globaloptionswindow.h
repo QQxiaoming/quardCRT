@@ -4,6 +4,10 @@
 #include <QDialog>
 #include <QStringListModel>
 #include "globaloptionsgeneralwidget.h"
+#include "globaloptionsappearancewidget.h"
+#include "globaloptionsterminalwidget.h"
+#include "globaloptionswindowwidget.h"
+#include "globaloptionsadvancedwidget.h"
 
 namespace Ui {
 class GlobalOptionsWindow;
@@ -30,6 +34,9 @@ public:
 
     const static QString defaultColorScheme;
 
+private:
+    void setActiveWidget(int index);
+
 signals:
     void colorSchemeChanged(QString colorScheme);
     void transparencyChanged(int transparency);
@@ -45,6 +52,10 @@ protected:
 private:
     Ui::GlobalOptionsWindow *ui;
     GlobalOptionsGeneralWidget *globalOptionsGeneralWidget;
+    GlobalOptionsAppearanceWidget *globalOptionsAppearanceWidget;
+    GlobalOptionsTerminalWidget *globalOptionsTerminalWidget;
+    GlobalOptionsWindowWidget *globalOptionsWindowWidget;
+    GlobalOptionsAdvancedWidget *globalOptionsAdvancedWidget;
     QStringListModel *model;
     QFont font;
 };

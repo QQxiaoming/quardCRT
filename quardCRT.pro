@@ -34,6 +34,10 @@ INCLUDEPATH += \
     src
 
 SOURCES += \
+    src/globaloptions/globaloptionsadvancedwidget.cpp \
+    src/globaloptions/globaloptionsappearancewidget.cpp \
+    src/globaloptions/globaloptionsterminalwidget.cpp \
+    src/globaloptions/globaloptionswindowwidget.cpp \
     src/sessionoptions/sessionoptionsgeneralwidget.cpp \
     src/sessionoptions/sessionoptionslocalshellproperties.cpp \
     src/sessionoptions/sessionoptionsnamepipeproperties.cpp \
@@ -61,6 +65,10 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/globaloptions/globaloptionsadvancedwidget.h \
+    src/globaloptions/globaloptionsappearancewidget.h \
+    src/globaloptions/globaloptionsterminalwidget.h \
+    src/globaloptions/globaloptionswindowwidget.h \
     src/sessionoptions/sessionoptionsgeneralwidget.h \
     src/sessionoptions/sessionoptionslocalshellproperties.h \
     src/sessionoptions/sessionoptionsnamepipeproperties.h \
@@ -89,6 +97,10 @@ HEADERS += \
     src/mainwindow.h
 
 FORMS += \
+    src/globaloptions/globaloptionsadvancedwidget.ui \
+    src/globaloptions/globaloptionsappearancewidget.ui \
+    src/globaloptions/globaloptionsterminalwidget.ui \
+    src/globaloptions/globaloptionswindowwidget.ui \
     src/sessionmanagerwidget/sessionmanagerwidget.ui \
     src/globaloptions/globaloptionsgeneralwidget.ui \
     src/globaloptions/globaloptionswindow.ui \

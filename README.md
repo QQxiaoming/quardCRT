@@ -36,6 +36,7 @@ Other protocol selection interface:
     - serial
     - loaclshell
     - rawsocket
+    - windows:NamedPipe（linux/macos:unix domain socket）
 
 - Multi-tab management, tab cloning, tab drag-and-drop sorting
 - Dual column split screen

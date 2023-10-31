@@ -37,6 +37,7 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
     - serial
     - loaclshell
     - rawsocket
+    - windows:NamedPipe（linux/macos:unix domain socket）
 
 - 多标签页管理，标签页克隆，标签页拖拽排序
 - 双列分屏

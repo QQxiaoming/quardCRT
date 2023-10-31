@@ -56,75 +56,76 @@
     </message>
 </context>
 <context>
-    <name>GlobalOptionsGeneralWidget</name>
+    <name>GlobalOptionsAppearanceWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="17"/>
         <source>Color Schemes</source>
         <translation>カラースキーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
         <source>Font Size</source>
         <translation>フォントサイズ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="47"/>
-        <source>Transparent window</source>
-        <translation>ウィンドウの透明度</translation>
-    </message>
-    <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="47"/>
         <source>Background image</source>
         <translation>背景画像</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="85"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="68"/>
         <source>Background mode</source>
         <translation>背景モード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="92"/>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="104"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="75"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="87"/>
         <source>Stretch</source>
         <translation>伸縮</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="82"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="109"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="92"/>
         <source>Zoom</source>
         <translation>ズーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="114"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="97"/>
         <source>Fit</source>
         <translation>フィット</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="119"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="102"/>
         <source>Center</source>
         <translation>中央</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="124"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="107"/>
         <source>Tile</source>
         <translation>タイル</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="132"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="115"/>
         <source>Background opacity</source>
         <translation>背景画像の透明度</translation>
     </message>
+</context>
+<context>
+    <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="152"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>New tab workpath</source>
         <translation>新しいタブの作業フォルダー</translation>
     </message>
+</context>
+<context>
+    <name>GlobalOptionsTerminalWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="162"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="17"/>
         <source>Scrollback lines</source>
         <translation>スクロールバックの行数</translation>
     </message>
@@ -132,47 +133,37 @@
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>General</source>
         <translation>一般</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Appearance</source>
         <translation>外観</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Terminal</source>
         <translation>端末</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
-        <source>Keyboard</source>
-        <translation>キーボード</translation>
-    </message>
-    <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
-        <source>Mouse</source>
-        <translation>マウス</translation>
-    </message>
-    <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Window</source>
         <translation>ウィンドウ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="110"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
         <source>Advanced</source>
         <translation>高度な設定</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="90"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="108"/>
         <source>Select Background Image</source>
         <translation>背景画像を選択</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="90"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="108"/>
         <source>Image Files (*.png *.jpg *.bmp)</source>
         <translation>画像ファイル (*.png *.jpg *.bmp)</translation>
     </message>
@@ -180,6 +171,14 @@
         <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
         <source>Global Options</source>
         <translation>グローバルオプション</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalOptionsWindowWidget</name>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="17"/>
+        <source>Transparent window</source>
+        <translation>ウィンドウの透明度</translation>
     </message>
 </context>
 <context>
@@ -374,7 +373,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="613"/>
         <location filename="../src/mainwindow.cpp" line="816"/>
-        <location filename="../src/mainwindow.cpp" line="2418"/>
+        <location filename="../src/mainwindow.cpp" line="2427"/>
         <source>Help</source>
         <translation>ヘルプ</translation>
     </message>
@@ -1174,7 +1173,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="819"/>
-        <location filename="../src/mainwindow.cpp" line="2401"/>
+        <location filename="../src/mainwindow.cpp" line="2410"/>
         <source>About</source>
         <translation>について</translation>
     </message>
@@ -1239,43 +1238,43 @@
         <translation>全てのブックマークをクリアしてもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2100"/>
+        <location filename="../src/mainwindow.cpp" line="2109"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2126"/>
+        <location filename="../src/mainwindow.cpp" line="2135"/>
         <source>Serial</source>
         <translation>シリアル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2151"/>
+        <location filename="../src/mainwindow.cpp" line="2160"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2175"/>
+        <location filename="../src/mainwindow.cpp" line="2184"/>
         <source>NamePipe - </source>
         <translation>名前付きパイプ - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2176"/>
+        <location filename="../src/mainwindow.cpp" line="2185"/>
         <source>NamePipe</source>
         <translation>名前付きパイプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2241"/>
-        <location filename="../src/mainwindow.cpp" line="2245"/>
+        <location filename="../src/mainwindow.cpp" line="2250"/>
+        <location filename="../src/mainwindow.cpp" line="2254"/>
         <source>Local Shell</source>
         <translation>ローカル端末</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2402"/>
+        <location filename="../src/mainwindow.cpp" line="2411"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;バージョン&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;コミット&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;開発者&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;ウェブサイト&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2419"/>
+        <location filename="../src/mainwindow.cpp" line="2428"/>
         <source>Global Shortcuts:
 
   ALT+&quot;U&quot;		show/hide menu bar
@@ -1302,7 +1301,7 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2099"/>
+        <location filename="../src/mainwindow.cpp" line="2108"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
@@ -1357,17 +1356,17 @@
         <translation>セッションエクスポートを %1 に保存できませんでした</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2125"/>
+        <location filename="../src/mainwindow.cpp" line="2134"/>
         <source>Serial - </source>
         <translation>シリアル - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2243"/>
+        <location filename="../src/mainwindow.cpp" line="2252"/>
         <source>Local Shell - </source>
         <translation>ローカル端末 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2150"/>
+        <location filename="../src/mainwindow.cpp" line="2159"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
@@ -1661,12 +1660,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="263"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="141"/>
+        <source>NamePipe</source>
+        <translation>名前付きパイプ</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="267"/>
         <source>Kind</source>
         <translation>種類</translation>
     </message>
