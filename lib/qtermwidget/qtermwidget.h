@@ -199,6 +199,7 @@ public:
      * at the position in the terminal where keyboard input will appear.
      */
     void setKeyboardCursorShape(KeyboardCursorShape shape);
+    void setKeyboardCursorShape(uint32_t shape);
 
     void setBlinkingCursor(bool blink);
 

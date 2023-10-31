@@ -38,8 +38,4 @@
  </widget>
  <resources/>
  <connections/>
- <slots>
-  <slot>accept()</slot>
-  <slot>reject()</slot>
- </slots>
 </ui>

@@ -1830,6 +1830,8 @@ void MainWindow::setGlobalOptions(SessionsWindow *window) {
     window->getTermWidget()->setTerminalBackgroundMode(globalOptionsWindow->getBackgroundImageMode());
     window->getTermWidget()->setTerminalOpacity(globalOptionsWindow->getBackgroundImageOpacity());
     window->getTermWidget()->setHistorySize(globalOptionsWindow->getScrollbackLines());
+    window->getTermWidget()->setKeyboardCursorShape(globalOptionsWindow->getCursorShape());
+    window->getTermWidget()->setBlinkingCursor(globalOptionsWindow->getCursorBlink());
     window->getTermWidget()->setTerminalBackgroundImage("");
     window->getTermWidget()->setTerminalBackgroundMovie("");
     QString backgroundImage = globalOptionsWindow->getBackgroundImage();

@@ -29,6 +29,42 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Cursor Shape</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="comboBoxCursorShape">
+     <item>
+      <property name="text">
+       <string>Block</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Underline</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>IBeam</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBoxCursorBlink">
+     <property name="text">
+      <string>Cursor Blink</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

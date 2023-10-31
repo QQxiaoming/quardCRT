@@ -32,6 +32,8 @@ public:
     QString getNewTabWorkPath(void);
     uint32_t getScrollbackLines(void);
     bool getEnableGIFAnimation(void);
+    uint32_t getCursorShape(void);
+    bool getCursorBlink(void);
 
     const static QString defaultColorScheme;
 

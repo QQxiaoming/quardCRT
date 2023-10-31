@@ -100,6 +100,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         globalOptionsAppearanceWidget->ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
     globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
     globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->setChecked(settings.value("enableGIFAnimation", true).toBool());
+    globalOptionsTerminalWidget->ui->comboBoxCursorShape->setCurrentIndex(settings.value("cursorShape", 0).toInt());
+    globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
     settings.endGroup();
 
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
@@ -267,6 +269,16 @@ bool GlobalOptionsWindow::getEnableGIFAnimation(void)
     return globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->isChecked();
 }
 
+uint32_t GlobalOptionsWindow::getCursorShape(void)
+{
+    return globalOptionsTerminalWidget->ui->comboBoxCursorShape->currentIndex();
+}
+
+bool GlobalOptionsWindow::getCursorBlink(void)
+{
+    return globalOptionsTerminalWidget->ui->checkBoxCursorBlink->isChecked();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -281,6 +293,8 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("NewTabWorkPath", globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->currentText());
     settings.setValue("scrollbackLines", globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->value());
     settings.setValue("enableGIFAnimation", globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->isChecked());
+    settings.setValue("cursorShape", globalOptionsTerminalWidget->ui->comboBoxCursorShape->currentIndex());
+    settings.setValue("cursorBlink", globalOptionsTerminalWidget->ui->checkBoxCursorBlink->isChecked());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -302,6 +316,8 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("NewTabWorkPath",QDir::homePath()).toString());
     globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
     globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->setChecked(settings.value("enableGIFAnimation", true).toBool());
+    globalOptionsTerminalWidget->ui->comboBoxCursorShape->setCurrentIndex(settings.value("cursorShape", 0).toInt());
+    globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
     settings.endGroup();
     emit this->rejected();
 }

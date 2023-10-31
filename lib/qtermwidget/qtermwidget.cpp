@@ -668,6 +668,11 @@ void QTermWidget::setKeyboardCursorShape(KeyboardCursorShape shape)
     m_impl->m_terminalDisplay->setKeyboardCursorShape(shape);
 }
 
+void QTermWidget::setKeyboardCursorShape(uint32_t shape)
+{
+    m_impl->m_terminalDisplay->setKeyboardCursorShape((KeyboardCursorShape)shape);
+}
+
 void QTermWidget::setBlinkingCursor(bool blink)
 {
     m_impl->m_terminalDisplay->setBlinkingCursor(blink);
