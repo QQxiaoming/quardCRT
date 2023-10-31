@@ -56,6 +56,19 @@
     </message>
 </context>
 <context>
+    <name>GlobalOptionsAdvancedWidget</name>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionsadvancedwidget.ui" line="17"/>
+        <source>GIF Animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionsadvancedwidget.ui" line="24"/>
+        <source>Github Copilot</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GlobalOptionsAppearanceWidget</name>
     <message>
         <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="17"/>
@@ -64,52 +77,62 @@
     </message>
     <message>
         <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
-        <source>Font Size</source>
+        <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="47"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="45"/>
+        <source>Series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="65"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="93"/>
         <source>Background image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="68"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="117"/>
         <source>Background mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="75"/>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="87"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="124"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="136"/>
         <source>Stretch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="82"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="131"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="92"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="141"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="97"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="146"/>
         <source>Fit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="102"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="151"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="107"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="156"/>
         <source>Tile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="115"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="164"/>
         <source>Background opacity</source>
         <translation type="unfinished"></translation>
     </message>
@@ -133,38 +156,38 @@
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="118"/>
+        <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Terminal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="108"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="118"/>
         <source>Select Background Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="108"/>
-        <source>Image Files (*.png *.jpg *.bmp)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -233,27 +256,27 @@
 <context>
     <name>Konsole::TerminalDisplay</name>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="1270"/>
+        <location filename="../TerminalDisplay.cpp" line="1310"/>
         <source>Size: XXX x XXX</source>
         <translation>Dydis: XXX x XXX</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="1282"/>
+        <location filename="../TerminalDisplay.cpp" line="1322"/>
         <source>Size: %1 x %2</source>
         <translation>Dydis: %1 x %2</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2819"/>
+        <location filename="../TerminalDisplay.cpp" line="2864"/>
         <source>Paste multiline text</source>
         <translation>Įdėti kelių eilučių tekstą</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2820"/>
+        <location filename="../TerminalDisplay.cpp" line="2865"/>
         <source>Are you sure you want to paste this text?</source>
         <translation>Ar tikrai norite įdėti šį tekstą?</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="3303"/>
+        <location filename="../TerminalDisplay.cpp" line="3348"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Išvestis buvo &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;pristabdyta,&lt;/a&gt; paspaudžiant Ctrl+S.  Paspauskite &lt;b&gt;Ctrl+Q&lt;/b&gt;, norėdami pratęsti.&lt;/qt&gt;</translation>
     </message>
@@ -384,7 +407,7 @@
     <message>
         <location filename="../../../src/mainwindow.cpp" line="613"/>
         <location filename="../../../src/mainwindow.cpp" line="816"/>
-        <location filename="../../../src/mainwindow.cpp" line="2427"/>
+        <location filename="../../../src/mainwindow.cpp" line="2440"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1184,7 +1207,7 @@
     </message>
     <message>
         <location filename="../../../src/mainwindow.cpp" line="819"/>
-        <location filename="../../../src/mainwindow.cpp" line="2410"/>
+        <location filename="../../../src/mainwindow.cpp" line="2423"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1249,43 +1272,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2109"/>
+        <location filename="../../../src/mainwindow.cpp" line="2122"/>
         <source>Telnet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2135"/>
+        <location filename="../../../src/mainwindow.cpp" line="2148"/>
         <source>Serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2160"/>
+        <location filename="../../../src/mainwindow.cpp" line="2173"/>
         <source>Raw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2184"/>
+        <location filename="../../../src/mainwindow.cpp" line="2197"/>
         <source>NamePipe - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2185"/>
+        <location filename="../../../src/mainwindow.cpp" line="2198"/>
         <source>NamePipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2250"/>
-        <location filename="../../../src/mainwindow.cpp" line="2254"/>
+        <location filename="../../../src/mainwindow.cpp" line="2263"/>
+        <location filename="../../../src/mainwindow.cpp" line="2267"/>
         <source>Local Shell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2411"/>
+        <location filename="../../../src/mainwindow.cpp" line="2424"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2428"/>
+        <location filename="../../../src/mainwindow.cpp" line="2441"/>
         <source>Global Shortcuts:
 
   ALT+&quot;U&quot;		show/hide menu bar
@@ -1301,7 +1324,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2108"/>
+        <location filename="../../../src/mainwindow.cpp" line="2121"/>
         <source>Telnet - </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1356,17 +1379,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2134"/>
+        <location filename="../../../src/mainwindow.cpp" line="2147"/>
         <source>Serial - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2252"/>
+        <location filename="../../../src/mainwindow.cpp" line="2265"/>
         <source>Local Shell - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/mainwindow.cpp" line="2159"/>
+        <location filename="../../../src/mainwindow.cpp" line="2172"/>
         <source>Raw - </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1385,7 +1408,7 @@
 <context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2826"/>
+        <location filename="../TerminalDisplay.cpp" line="2871"/>
         <source>Show Details...</source>
         <translation>Rodyti išsamiau...</translation>
     </message>
@@ -1427,12 +1450,12 @@
 <context>
     <name>QTermWidget</name>
     <message>
-        <location filename="../qtermwidget.cpp" line="365"/>
+        <location filename="../qtermwidget.cpp" line="370"/>
         <source>Color Scheme Error</source>
         <translation>Spalvų rinkinio klaida</translation>
     </message>
     <message>
-        <location filename="../qtermwidget.cpp" line="366"/>
+        <location filename="../qtermwidget.cpp" line="371"/>
         <source>Cannot load color scheme: %1</source>
         <translation>Nepavyksta įkelti spalvų rinkinio: %1</translation>
     </message>

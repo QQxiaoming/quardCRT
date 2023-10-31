@@ -56,6 +56,19 @@
     </message>
 </context>
 <context>
+    <name>GlobalOptionsAdvancedWidget</name>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="17"/>
+        <source>GIF Animation</source>
+        <translation>GIFアニメーション</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="24"/>
+        <source>Github Copilot</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>GlobalOptionsAppearanceWidget</name>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="17"/>
@@ -63,53 +76,67 @@
         <translation>カラースキーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
         <source>Font Size</source>
-        <translation>フォントサイズ</translation>
+        <translation type="vanished">フォントサイズ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="47"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
+        <source>Font</source>
+        <translation>フォント</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="45"/>
+        <source>Series</source>
+        <translation>シリーズ</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="65"/>
+        <source>Size</source>
+        <translation>サイズ</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="93"/>
         <source>Background image</source>
         <translation>背景画像</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="68"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="117"/>
         <source>Background mode</source>
         <translation>背景モード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="75"/>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="87"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="124"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="136"/>
         <source>Stretch</source>
         <translation>伸縮</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="82"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="131"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="92"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="141"/>
         <source>Zoom</source>
         <translation>ズーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="97"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="146"/>
         <source>Fit</source>
         <translation>フィット</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="102"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="151"/>
         <source>Center</source>
         <translation>中央</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="107"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="156"/>
         <source>Tile</source>
         <translation>タイル</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="115"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="164"/>
         <source>Background opacity</source>
         <translation>背景画像の透明度</translation>
     </message>
@@ -133,39 +160,39 @@
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="118"/>
+        <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif)</source>
+        <translation>画像ファイル (*.png *.jpg *.jpeg *.bmp *.gif)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>General</source>
         <translation>一般</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Appearance</source>
         <translation>外観</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Terminal</source>
         <translation>端末</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Window</source>
         <translation>ウィンドウ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="130"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="167"/>
         <source>Advanced</source>
         <translation>高度な設定</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="108"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="118"/>
         <source>Select Background Image</source>
         <translation>背景画像を選択</translation>
-    </message>
-    <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="108"/>
-        <source>Image Files (*.png *.jpg *.bmp)</source>
-        <translation>画像ファイル (*.png *.jpg *.bmp)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
@@ -222,27 +249,27 @@
 <context>
     <name>Konsole::TerminalDisplay</name>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1270"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1310"/>
         <source>Size: XXX x XXX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1282"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1322"/>
         <source>Size: %1 x %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2819"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2864"/>
         <source>Paste multiline text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2820"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2865"/>
         <source>Are you sure you want to paste this text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3303"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3348"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -373,7 +400,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="613"/>
         <location filename="../src/mainwindow.cpp" line="816"/>
-        <location filename="../src/mainwindow.cpp" line="2427"/>
+        <location filename="../src/mainwindow.cpp" line="2440"/>
         <source>Help</source>
         <translation>ヘルプ</translation>
     </message>
@@ -1173,7 +1200,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="819"/>
-        <location filename="../src/mainwindow.cpp" line="2410"/>
+        <location filename="../src/mainwindow.cpp" line="2423"/>
         <source>About</source>
         <translation>について</translation>
     </message>
@@ -1238,43 +1265,43 @@
         <translation>全てのブックマークをクリアしてもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2109"/>
+        <location filename="../src/mainwindow.cpp" line="2122"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2135"/>
+        <location filename="../src/mainwindow.cpp" line="2148"/>
         <source>Serial</source>
         <translation>シリアル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2160"/>
+        <location filename="../src/mainwindow.cpp" line="2173"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2184"/>
+        <location filename="../src/mainwindow.cpp" line="2197"/>
         <source>NamePipe - </source>
         <translation>名前付きパイプ - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2185"/>
+        <location filename="../src/mainwindow.cpp" line="2198"/>
         <source>NamePipe</source>
         <translation>名前付きパイプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2250"/>
-        <location filename="../src/mainwindow.cpp" line="2254"/>
+        <location filename="../src/mainwindow.cpp" line="2263"/>
+        <location filename="../src/mainwindow.cpp" line="2267"/>
         <source>Local Shell</source>
         <translation>ローカル端末</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2411"/>
+        <location filename="../src/mainwindow.cpp" line="2424"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;バージョン&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;コミット&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;開発者&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;ウェブサイト&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2428"/>
+        <location filename="../src/mainwindow.cpp" line="2441"/>
         <source>Global Shortcuts:
 
   ALT+&quot;U&quot;		show/hide menu bar
@@ -1301,7 +1328,7 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2108"/>
+        <location filename="../src/mainwindow.cpp" line="2121"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
@@ -1356,17 +1383,17 @@
         <translation>セッションエクスポートを %1 に保存できませんでした</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2134"/>
+        <location filename="../src/mainwindow.cpp" line="2147"/>
         <source>Serial - </source>
         <translation>シリアル - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2252"/>
+        <location filename="../src/mainwindow.cpp" line="2265"/>
         <source>Local Shell - </source>
         <translation>ローカル端末 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2159"/>
+        <location filename="../src/mainwindow.cpp" line="2172"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
@@ -1385,7 +1412,7 @@
 <context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2826"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2871"/>
         <source>Show Details...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1427,12 +1454,12 @@
 <context>
     <name>QTermWidget</name>
     <message>
-        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="365"/>
+        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="370"/>
         <source>Color Scheme Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="366"/>
+        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="371"/>
         <source>Cannot load color scheme: %1</source>
         <translation type="unfinished"></translation>
     </message>

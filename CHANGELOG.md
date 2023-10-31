@@ -4,6 +4,7 @@
 
 - 增加windows上NamedPipe协议支持（linux/macos上对应unix domain socket）
 - 修复windows上无法启动打印机服务问题
+- 增加设置终端字体功能
 - 增加设置终端滚动行数设置
 - 终端背景支持Gif动画格式文件
 - 更新全局设置界面，分类显示设置项

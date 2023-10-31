@@ -7,6 +7,7 @@
 #include <QFileInfo>
 #include <QComboBox>
 #include <QMessageBox>
+#include <QFontDialog>
 #include "filedialog.h"
 #include "globalsetting.h"
 
@@ -69,6 +70,13 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
     if (fontFamilies.size() > 0) {
         font.setFamily(fontFamilies[0]);
+        globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText("Built-in");
+    }
+    if(settings.contains("fontFamily")) {
+        if(settings.value("fontFamily").toString() != "Built-in") {
+            font = QFont(settings.value("fontFamily").toString());
+            globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText(font.family());
+        }
     }
     font.setFixedPitch(true);
     if(settings.contains("fontPointSize")) {
@@ -103,11 +111,40 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     settings.endArray();
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("Global/Options/NewTabWorkPath",QDir::homePath()).toString());
 
+    buttonBoxAccepted();
+
     connect(globalOptionsAppearanceWidget->ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
     connect(globalOptionsAppearanceWidget->ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
         QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.jpeg *.bmp *.gif)"));
         if (!imgPath.isEmpty()) {
             globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->setText(imgPath);
+        }
+    });
+    connect(globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont, &QPushButton::clicked, this, [=](){
+        bool ok;
+        QFont sfont = QFontDialog::getFont(&ok, this->font, this);
+        if (ok) {
+            sfont.setPointSize((sfont.pointSize()/3)*3);
+            this->font = sfont;
+            font.setFixedPitch(true);
+            globalOptionsAppearanceWidget->ui->spinBoxFontSize->setValue(font.pointSize());
+            globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText(font.family());
+        } else {
+            font = QApplication::font();
+            QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
+            if (fontFamilies.size() > 0) {
+                font.setFamily(fontFamilies[0]);
+            }
+            GlobalSetting settings;
+            if(settings.contains("fontPointSize")) {
+                font.setPointSize(settings.value("fontPointSize").toInt());
+            } else {
+                font.setPointSize(12);
+                settings.setValue("fontPointSize", font.pointSize());
+            }
+            font.setFixedPitch(true);
+            globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText("Built-in");
+            globalOptionsAppearanceWidget->ui->spinBoxFontSize->setValue(font.pointSize());
         }
     });
     connect(globalOptionsWindowWidget->ui->horizontalSliderTransparent, SIGNAL(valueChanged(int)), this, SIGNAL(transparencyChanged(int)));
@@ -235,6 +272,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     GlobalSetting settings;
     settings.beginGroup("Global/Options");
     settings.setValue("colorScheme", globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
+    settings.setValue("fontFamily", globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->text());
     settings.setValue("fontPointSize", font.pointSize());
     settings.setValue("transparency", globalOptionsWindowWidget->ui->horizontalSliderTransparent->value());
     settings.setValue("backgroundImage", globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text());
@@ -250,6 +288,21 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
 
 void GlobalOptionsWindow::buttonBoxRejected(void)
 {
+    GlobalSetting settings;
+    settings.beginGroup("Global/Options");
+    globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+    globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText(settings.value("fontFamily").toString());
+    font.setFamily(settings.value("fontFamily").toString());
+    font.setPointSize(settings.value("fontPointSize").toInt());
+    globalOptionsAppearanceWidget->ui->spinBoxFontSize->setValue(font.pointSize());
+    globalOptionsWindowWidget->ui->horizontalSliderTransparent->setValue(settings.value("transparency").toInt());
+    globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->setText(settings.value("backgroundImage").toString());
+    globalOptionsAppearanceWidget->ui->comboBoxBackgroundMode->setCurrentIndex(settings.value("backgroundImageMode").toInt());
+    globalOptionsAppearanceWidget->ui->horizontalSliderBackgroundImageOpacity->setValue(settings.value("backgroundImageOpacity").toInt());
+    globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("NewTabWorkPath",QDir::homePath()).toString());
+    globalOptionsTerminalWidget->ui->spinBoxScrollbackLines->setValue(settings.value("scrollbackLines", 1000).toInt());
+    globalOptionsAdvancedWidget->ui->checkBoxGIFAnimation->setChecked(settings.value("enableGIFAnimation", true).toBool());
+    settings.endGroup();
     emit this->rejected();
 }
 
