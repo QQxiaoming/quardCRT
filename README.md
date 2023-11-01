@@ -26,7 +26,7 @@ quardCRT is a terminal emulation software that supports multiple backend protoco
 
 Other protocol selection interface:
 
-![img4](./docs/img4.png)
+![img](./docs/img.png)
 
 ## Feature
 

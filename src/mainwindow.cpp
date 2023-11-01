@@ -553,6 +553,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
 }
 
 MainWindow::~MainWindow() {
+    stopAllSession();
     saveSettings();
     if(tftpServer->isRunning()) {
         tftpServer->stopServer();
@@ -2449,16 +2450,19 @@ void MainWindow::appAbout(QWidget *parent)
 void MainWindow::appHelp(QWidget *parent)
 {
     QMessageBox::about(parent, tr("Help"), 
-        tr("Global Shortcuts:\n\n"
-        "  ALT+\"U\"\t\tshow/hide menu bar\n"
-        "  ALT+\"T\"\t\tconnect to LocalShell\n"
-        "  CTRL+SHIFT+\"T\"\tclone current session\n"
-        "  ALT+\"N\"\t\tswitch ui to STD mode\n"
-        "  ALT+\"J\"\t\tswitch ui to MINI mode\n"
-        "  ALT+\"-\"\t\tswitch to previous session\n"
-        "  ALT+\"=\"\t\tswitch to next session\n"
-        "  ALT+LEFT\tGo to line start\n"
-        "  ALT+RIGHT\tGo to line end\n")
+        QString() + "<table border='0' width='100%'>" + 
+        "<tr><td width='30%'>" + tr("Global Shortcuts:") + "</td><td width='50%'></td></tr>" + 
+        "<tr><td>ALT+\"U\"</td><td>" + tr("show/hide menu bar") + "</td></tr>" +
+        "<tr><td>ALT+\"T\"</td><td>" + tr("connect to LocalShell") + "</td></tr>" +
+        "<tr><td>CTRL+SHIFT+\"T\"</td><td>" + tr("clone current session") + "</td></tr>" +
+        "<tr><td>ALT+\"N\"</td><td>" + tr("switch ui to STD mode") + "</td></tr>" +
+        "<tr><td>ALT+\"J\"</td><td>" + tr("switch ui to MINI mode") + "</td></tr>" +
+        "<tr><td>ALT+\"-\"</td><td>" + tr("switch to previous session") + "</td></tr>" +
+        "<tr><td>ALT+\"=\"</td><td>" + tr("switch to next session") + "</td></tr>" +
+        "<tr><td>ALT+[num]</td><td>" + tr("switch to session [num]") + "</td></tr>" +
+        "<tr><td>ALT+LEFT</td><td>" + tr("Go to line start") + "</td></tr>" +
+        "<tr><td>ALT+RIGHT</td><td>" + tr("Go to line end") + "</td></tr>" +
+        "</table>"
     );
 }
 

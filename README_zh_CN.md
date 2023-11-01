@@ -27,7 +27,7 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 
 其他协议选择界面：
 
-![img4](./docs/img4.png)
+![img](./docs/img.png)
 
 ## 功能描述
 
