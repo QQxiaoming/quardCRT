@@ -46,13 +46,15 @@ Other protocol selection interface:
 - Session history management
 - Terminal style configuration (color scheme, font)
 - Terminal background image configuration (support transparency setting, support gif animation and video)
-- Terminal scroll line customization
+- Terminal scroll line configuration
+- Support dark/light theme
+- Support multiple languages (Chinese/English/Japanese)
 
 ## Contributing
 
 If you have suggestions or ideas for this project, please submit issues and pull requests on GitHub or Gitee.
 
-The current project is recommended to use version Qt6.2.0 or higher.
+The current project is recommended to use version Qt6.2.0 and above.
 
 ## Special
 
