@@ -126,6 +126,7 @@ private:
     QMenu *languageMenu;
     QMenu *themeMenu;
     QMenu *helpMenu;
+    QAction *newWindowAction;
     QAction *connectAction;
     QAction *sessionManagerAction;
     QAction *quickConnectAction;

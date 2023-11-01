@@ -40,6 +40,8 @@
 #include <QPlainTextEdit>
 #include <QHostInfo>
 #include <QDesktopServices>
+#include <QUrl>
+#include <QProcess>
 #include <QClipboard>
 #include <QInputDialog>
 #include <QPrinter>
@@ -613,6 +615,9 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     themeMenu->setTitle(tr("Theme"));
     helpMenu->setTitle(tr("Help"));
 
+    newWindowAction->setText(tr("New Window"));
+    newWindowAction->setStatusTip(tr("Open a new window <Ctrl+Shift+N>"));
+    newWindowAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_N));
     connectAction->setText(tr("Connect..."));
     connectAction->setIcon(QFontIcon::icon(QChar(0xf0c1)));
     connectAction->setStatusTip(tr("Connect to a host <Alt+C>"));
@@ -856,6 +861,9 @@ void MainWindow::menuAndToolBarInit(void) {
     helpMenu = new QMenu(this);
     ui->menuBar->addMenu(helpMenu);
 
+    newWindowAction = new QAction(this);
+    fileMenu->addAction(newWindowAction);
+    fileMenu->addSeparator();
     connectAction = new QAction(this);
     fileMenu->addAction(connectAction);
     sessionManagerWidget->addActionOnToolBar(connectAction);
@@ -1184,6 +1192,9 @@ void MainWindow::setSessionClassActionEnable(bool enable)
 }
 
 void MainWindow::menuAndToolBarConnectSignals(void) {
+    connect(newWindowAction,&QAction::triggered,this,[=](){
+        QProcess::startDetached(QApplication::applicationFilePath(),QApplication::arguments().mid(1));
+    });
     connect(connectAction,&QAction::triggered,this,[=](){
         sessionManagerWidget->setVisible(true);
     });
