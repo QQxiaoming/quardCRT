@@ -31,8 +31,8 @@
 #else
 #include <sys/mman.h>
 #include <sys/types.h>
-#endif
 #include <unistd.h>
+#endif
 #include <cerrno>
 
 #include <QtDebug>
@@ -113,14 +113,8 @@ void HistoryFile::map()
     Q_ASSERT( fileMap == nullptr );
 
 #if defined(Q_OS_WIN)
-    fileMap = (char*) VirtualAlloc(NULL, length, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-
-    //if mmap'ing fails, fall back to the read-lseek combination
-    if ( fileMap == NULL )
-    {
-            readWriteBalance = 0;
-            fileMap = nullptr;
-    }
+    readWriteBalance = 0;
+    fileMap = nullptr;
 #else
     fileMap = (char*)mmap( nullptr , length , PROT_READ , MAP_PRIVATE , ion , 0 );
 
@@ -136,7 +130,7 @@ void HistoryFile::map()
 void HistoryFile::unmap()
 {
 #if defined(Q_OS_WIN)
-    VirtualFree((VOID *) fileMap, 0, MEM_RELEASE );
+    fileMap = nullptr;
 #else
     int result = munmap( fileMap , length );
     Q_ASSERT( result == 0 ); Q_UNUSED( result );
@@ -159,8 +153,13 @@ void HistoryFile::add(const unsigned char* bytes, int len)
 
   int rc = 0;
 
+#if defined(Q_OS_WIN)
+  tmpFile.seek(length);
+  rc = tmpFile.write((const char*)bytes,len);
+#else
   rc = lseek(ion,length,SEEK_SET); if (rc < 0) { perror("HistoryFile::add.seek"); return; }
   rc = write(ion,bytes,len);       if (rc < 0) { perror("HistoryFile::add.write"); return; }
+#endif
   length += rc;
 }
 
@@ -185,8 +184,13 @@ void HistoryFile::get(unsigned char* bytes, int len, int loc)
 
       if (loc < 0 || len < 0 || loc + len > length)
         fprintf(stderr,"getHist(...,%d,%d): invalid args.\n",len,loc);
+#if defined(Q_OS_WIN)
+      tmpFile.seek(loc);
+      rc = tmpFile.read((char*)bytes,len);
+#else
       rc = lseek(ion,loc,SEEK_SET); if (rc < 0) { perror("HistoryFile::get.seek"); return; }
       rc = read(ion,bytes,len);     if (rc < 0) { perror("HistoryFile::get.read"); return; }
+#endif
   }
 }
 

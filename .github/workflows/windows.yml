@@ -83,3 +83,57 @@ jobs:
       - name: Run tests
         run: |
           ./InnoSetup/build/quardCRT.exe --version
+
+  windows_msvc2019:
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@v4
+    
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          arch: 'win64_msvc2019_64'
+          version: '6.5.3'
+          modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
+          aqtversion: '==3.1.7'
+
+      - name: Install prerequisites
+        run: |
+          Choco-Install -PackageName innosetup --force
+          Choco-Install -PackageName cmake --force
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+          toolset: 14.29
+
+      - name: Install depend
+        run: |
+          cd D:/
+          curl -L https://github.com/rprichard/winpty/releases/download/0.4.3/winpty-0.4.3-msys2-2.7.0-x64.tar.gz -o winpty-0.4.3-msys2-2.7.0-x64.tar.gz
+          tar -xvf winpty-0.4.3-msys2-2.7.0-x64.tar.gz
+          mv winpty-0.4.3-msys2-2.7.0-x64 winpty
+    
+      - name: Build all
+        run: |
+          git fetch --tags --force
+          git describe --always --long --abbrev=10 --tags | ./tools/awk/awk.exe '{print \"\\\"\"$0\"\\\"\"}'  > git_tag.inc
+          ./tools/sed/sed.exe -i "s/git_tag.inc/git_tag.ci.inc/g" quardCRT.pro
+          ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/msvc64\/bin/QT_DIR=%Qt6_DIR%/g" ./build_setup_msvc.bat
+          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/msvc64\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/msvc64\/bin/g" ./build_setup_msvc.bat
+          ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
+          ./build_setup_msvc.bat
+          cp ./InnoSetup/quardCRT_setup.exe ./InnoSetup/quardCRT_setup_msvc.exe
+
+      - name: Upload build asserts
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: quardCRT_windows_msvc2019
+          path: |
+            ./InnoSetup/quardCRT_setup_msvc.exe
+
+      - name: Run tests
+        run: |
+          ./InnoSetup/build/quardCRT.exe --version

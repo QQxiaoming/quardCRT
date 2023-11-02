@@ -24,7 +24,6 @@
 #include "tools.h"
 #include <string>
 #include <cstdio>
-#include <unistd.h>
 
 #include <QEvent>
 #include <QKeyEvent>

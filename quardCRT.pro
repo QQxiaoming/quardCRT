@@ -10,7 +10,6 @@ TARGET_ARCH=$${QT_ARCH}
 CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += APP_VERSION="\\\"V$${BUILD_VERSION}\\\""
-QMAKE_CXXFLAGS += -Wno-deprecated-copy
 
 include(./lib/QFontIcon/QFontIcon.pri)
 include(./lib/qtermwidget/qtermwidget.pro)
@@ -144,6 +143,11 @@ RCC_DIR     = $$build_type/rcc
 UI_DIR      = $$build_type/ui
 
 win32:{
+    win32-g++ {
+        QMAKE_CXXFLAGS += -Wno-deprecated-copy
+    }
+    win32-msvc*{
+    }
     VERSION = $${BUILD_VERSION}.000
     RC_ICONS = "icons\ico.ico"
     QMAKE_TARGET_PRODUCT = "quardCRT"
@@ -154,6 +158,7 @@ win32:{
 }
 
 unix:!macx:{
+    QMAKE_CXXFLAGS += -Wno-deprecated-copy
     QMAKE_RPATHDIR=$ORIGIN
     QMAKE_LFLAGS += -no-pie 
     LIBS += -lutil
@@ -162,6 +167,7 @@ unix:!macx:{
 }
 
 macx:{
+    QMAKE_CXXFLAGS += -Wno-deprecated-copy
     QMAKE_RPATHDIR=$ORIGIN
     ICON = "icons\ico.icns"
     LIBS += -lutil

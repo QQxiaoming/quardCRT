@@ -26,7 +26,6 @@
 // Standard
 #include <cstdio>
 #include <cstdlib>
-#include <unistd.h>
 #include <cstring>
 #include <cctype>
 

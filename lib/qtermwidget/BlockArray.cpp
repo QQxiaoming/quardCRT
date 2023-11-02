@@ -29,11 +29,23 @@
 // System
 #if defined(Q_OS_WIN)
 #include <windows.h>
+#if defined(Q_CC_GNU)
+#include <unistd.h>
+#else if defined(Q_CC_MSVC)
+#include <io.h>
+#define dup _dup
+#define fileno _fileno
+#define write _write
+#define read _read
+#define close _close
+#define lseek _lseek
+#define ftruncate _chsize
+#endif
 #else
 #include <sys/mman.h>
 #include <sys/param.h>
-#endif
 #include <unistd.h>
+#endif
 #include <cstdio>
 
 

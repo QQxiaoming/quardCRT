@@ -79,3 +79,7 @@ CMakeLists.txt.user*
 git_tag.inc
 build_*
 .vscode
+!build_setup_msvc.bat
+!build_setup.bat
+!build_deb.sh
+!build_dmg.sh

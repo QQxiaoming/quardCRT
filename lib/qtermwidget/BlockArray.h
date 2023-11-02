@@ -23,7 +23,6 @@
 #ifndef BLOCKARRAY_H
 #define BLOCKARRAY_H
 
-#include <unistd.h>
 
 //#error Do not use in KDE 2.1
 
