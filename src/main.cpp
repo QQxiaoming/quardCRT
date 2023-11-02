@@ -207,6 +207,15 @@ int main(int argc, char *argv[])
     settings.setValue("productType",QSysInfo::productType());
     settings.setValue("productVersion",QSysInfo::productVersion());
     settings.setValue("osVersion",QOperatingSystemVersion::current().name());
+#if defined(Q_CC_MSVC)
+    settings.setValue("compiler",QString("MSVC %1").arg(Q_CC_MSVC));
+#elif defined(Q_CC_CLANG)
+    settings.setValue("compiler",QString("CLANG %1").arg(Q_CC_CLANG));
+#elif defined(Q_CC_GNU)
+    settings.setValue("compiler",QString("GCC %1").arg(Q_CC_GNU));
+#else
+    settings.setValue("compiler","unknown");
+#endif
     settings.endGroup();
 
     settings.beginGroup("Global/Startup");
