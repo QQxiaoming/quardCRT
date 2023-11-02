@@ -759,7 +759,7 @@ void TerminalDisplay::setBackgroundMovie(const QString& backgroundImage)
         _backgroundMovie = nullptr;
         if(_backgroundImage.isNull() && (!_backgroundVideoPlayer->isPlaying()))
           setAttribute(Qt::WA_OpaquePaintEvent, true);
-        if(movie) movie;
+        if(movie) delete movie;
     }
 }
 
