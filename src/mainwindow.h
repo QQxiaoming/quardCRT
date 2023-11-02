@@ -93,7 +93,7 @@ private:
     bool checkSessionName(QString &name);
     int addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name);
     int addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname = true);
-    void removeSessionFromSessionManager(QString name);
+    bool removeSessionFromSessionManager(QString name);
     void connectSessionFromSessionManager(QString name);
     void restoreSessionToSessionManager(void);
     void saveSettings(void);

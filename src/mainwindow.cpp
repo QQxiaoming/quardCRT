@@ -1436,6 +1436,12 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         windowTransparency = (100-transparency)/100.0;
         setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
     });
+    connect(sessionOptionsWindow,&SessionOptionsWindow::sessionPropertiesChanged,this,
+        [=](QString name, QuickConnectWindow::QuickConnectData data, QString newName) {
+        if(removeSessionFromSessionManager(name)) {
+            addSessionToSessionManager(data,newName);
+        }
+    });
     connect(realTimeSaveOptionsAction,&QAction::triggered,this,[=](bool checked){
         GlobalSetting settings;
         settings.setValue("Global/Options/RealtimeSaveOptions",checked);
@@ -1990,8 +1996,9 @@ int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnec
     return 0;
 }
 
-void MainWindow::removeSessionFromSessionManager(QString name)
+bool MainWindow::removeSessionFromSessionManager(QString name)
 {
+    bool matched = false;
     sessionManagerWidget->removeSession(name);
     GlobalSetting settings;
     QMap<QString,QuickConnectWindow::QuickConnectData> infoMap;
@@ -2000,6 +2007,7 @@ void MainWindow::removeSessionFromSessionManager(QString name)
         settings.setArrayIndex(i);
         QString current_name = settings.value("name").toString();
         if(current_name == name) {
+            matched = true;
             continue;
         }
         QuickConnectWindow::QuickConnectData data;
@@ -2074,6 +2082,8 @@ void MainWindow::removeSessionFromSessionManager(QString name)
         }
     }
     settings.endArray();
+
+    return matched;
 }
 
 void MainWindow::connectSessionFromSessionManager(QString name)

@@ -27,11 +27,18 @@ public:
     void setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data);
     void retranslateUi();
 
-private:
-    void setactiveProperties(int index);
+signals:
+    void sessionPropertiesChanged(QString name, QuickConnectWindow::QuickConnectData data, QString newName);
+
+private slots:
+    void buttonBoxAccepted(void);
+    void buttonBoxRejected(void);
 
 protected:
     void showEvent(QShowEvent *event);
+
+private:
+    void setactiveProperties(int index);
 
 private:
     Ui::SessionOptionsWindow *ui;
@@ -42,6 +49,7 @@ private:
     SessionOptionsNamePipeProperties *sessionOptionsNamePipeProperties;
     SessionOptionsRawProperties *sessionOptionsRawProperties;
     QStringListModel *model;
+    QString currentSessionName;
 };
 
 #endif // OPTIONSWINDOW_H

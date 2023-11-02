@@ -55,6 +55,8 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
     sessionOptionsGeneralWidget->setVisible(true);
     setactiveProperties(-1);
 
+    retranslateUi();
+
     connect(treeView, &QTreeView::clicked, [=](const QModelIndex &index) {
         if (index.row() == 0) {
             sessionOptionsGeneralWidget->setVisible(true);
@@ -65,7 +67,8 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
         }
     });
 
-    retranslateUi();
+    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
+    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
 }
 
 SessionOptionsWindow::~SessionOptionsWindow()
@@ -117,6 +120,7 @@ void SessionOptionsWindow::setactiveProperties(int index)
 
 void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data)
 {
+    currentSessionName = name;
     sessionOptionsGeneralWidget->ui->comboBoxProtocol->setCurrentIndex(data.type);
     sessionOptionsGeneralWidget->ui->lineEditName->setText(name);
     switch(data.type) {
@@ -163,6 +167,48 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
         sessionOptionsNamePipeProperties->ui->lineEditPipeName->setText(data.NamePipeData.pipeName);
         break;
     }
+}
+
+void SessionOptionsWindow::buttonBoxAccepted(void)
+{
+    if(currentSessionName.isEmpty()) {
+        return;
+    }
+    QuickConnectWindow::QuickConnectData data;
+    data.type = (QuickConnectWindow::QuickConnectType)sessionOptionsGeneralWidget->ui->comboBoxProtocol->currentIndex();
+    switch(data.type) {
+    case QuickConnectWindow::Telnet:
+        data.TelnetData.hostname = sessionOptionsTelnetProperties->ui->lineEditHostname->text();
+        data.TelnetData.port = sessionOptionsTelnetProperties->ui->spinBoxPort->value();
+        data.TelnetData.webSocket = sessionOptionsTelnetProperties->ui->comboBoxWebSocket->currentText();
+        break;
+    case QuickConnectWindow::Serial:
+        data.SerialData.portName = sessionOptionsSerialProperties->ui->comboBoxPortName->currentText();
+        data.SerialData.baudRate = sessionOptionsSerialProperties->ui->spinBoxBaudRate->value();
+        data.SerialData.dataBits = sessionOptionsSerialProperties->ui->comboBoxDataBits->currentText().toInt();
+        data.SerialData.parity = sessionOptionsSerialProperties->ui->comboBoxParity->currentText().toInt();
+        data.SerialData.stopBits = sessionOptionsSerialProperties->ui->comboBoxStopBits->currentText().toInt();
+        data.SerialData.flowControl = sessionOptionsSerialProperties->ui->checkBoxFlowControl->isChecked();
+        data.SerialData.xEnable = sessionOptionsSerialProperties->ui->checkBoxXEnable->isChecked();
+        break;
+    case QuickConnectWindow::LocalShell:
+        data.LocalShellData.command = sessionOptionsLocalShellProperties->ui->lineEditCommand->text();
+        break;
+    case QuickConnectWindow::Raw:
+        data.RawData.hostname = sessionOptionsRawProperties->ui->lineEditHostname->text();
+        data.RawData.port = sessionOptionsRawProperties->ui->spinBoxPort->value();
+        break;
+    case QuickConnectWindow::NamePipe:
+        data.NamePipeData.pipeName = sessionOptionsNamePipeProperties->ui->lineEditPipeName->text();
+        break;
+    }
+    emit sessionPropertiesChanged(currentSessionName, data, sessionOptionsGeneralWidget->ui->lineEditName->text());
+    emit this->accepted();
+}
+
+void SessionOptionsWindow::buttonBoxRejected(void)
+{
+    emit this->rejected();
 }
 
 void SessionOptionsWindow::showEvent(QShowEvent *event)
