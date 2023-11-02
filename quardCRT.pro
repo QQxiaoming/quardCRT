@@ -120,7 +120,6 @@ FORMS += \
 
 RESOURCES += \
     res/resource.qrc \
-    res/terminalfont.qrc \
     theme/dark/darkstyle.qrc \
     theme/light/lightstyle.qrc
 
@@ -145,6 +144,7 @@ UI_DIR      = $$build_type/ui
 win32:{
     win32-g++ {
         QMAKE_CXXFLAGS += -Wno-deprecated-copy
+        RESOURCES += res/terminalfont.qrc
     }
     win32-msvc*{
     }
@@ -158,6 +158,7 @@ win32:{
 }
 
 unix:!macx:{
+    RESOURCES += res/terminalfont.qrc
     QMAKE_CXXFLAGS += -Wno-deprecated-copy
     QMAKE_RPATHDIR=$ORIGIN
     QMAKE_LFLAGS += -no-pie 
@@ -167,6 +168,7 @@ unix:!macx:{
 }
 
 macx:{
+    RESOURCES += res/terminalfont.qrc
     QMAKE_CXXFLAGS += -Wno-deprecated-copy
     QMAKE_RPATHDIR=$ORIGIN
     ICON = "icons\ico.icns"

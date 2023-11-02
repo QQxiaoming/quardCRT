@@ -42,7 +42,11 @@ EmptyTabWidget::EmptyTabWidget(QWidget *parent)
     easterEggs->setVisible(false);
     easterEggs->setEnabled(false);
     QFont font = QApplication::font();
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+#else
     int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
+#endif
     QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
     if (fontFamilies.size() > 0) {
         font.setFamily(fontFamilies[0]);

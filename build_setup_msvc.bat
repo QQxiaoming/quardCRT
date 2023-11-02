@@ -41,6 +41,7 @@ windeployqt --dir .\InnoSetup\build .\InnoSetup\build\quardCRT.exe
 xcopy /y "D:\winpty\bin\winpty.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty-agent.exe" ".\InnoSetup\build\"
 xcopy /y .\scripts\Profile.ps1 .\InnoSetup\build\
+xcopy /y .\font\inziu-iosevkaCC-SC-regular.ttf .\InnoSetup\build\
 :: 打包
 echo "wait inno build setup..."
 iscc /q ".\InnoSetup\build_temp_setup.iss"
