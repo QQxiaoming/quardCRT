@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.2.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.3)] - 2023-11-03
+
 - 增加windows上NamedPipe协议支持（linux/macos上对应unix domain socket）
 - 修复windows上无法启动打印机服务问题
 - 修复关闭标签页部份内存未释放问题
