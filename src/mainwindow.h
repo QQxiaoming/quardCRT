@@ -80,8 +80,8 @@ private:
     QString startNamePipeSession(MainWidgetGroup *group, QString namePipe, QString name = QString());
     QString startSSH2Session(MainWidgetGroup *group,
         QString hostname, quint16 port, QString username, QString password, QString name = QString());
-    int stopSession(MainWidgetGroup *group, int index);
-    int stopAllSession(void);
+    int stopSession(MainWidgetGroup *group, int index, bool force = false);
+    int stopAllSession(bool force = false);
     int cloneCurrentSession(MainWidgetGroup *group, QString name = QString());
     MainWidgetGroup *findCurrentFocusGroup(void);
     QTermWidget *findCurrentFocusTermWidget(void);
@@ -99,6 +99,9 @@ private:
     void saveSettings(void);
     void restoreSettings(void);
     void connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow);
+
+protected:
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::MainWindow *ui;

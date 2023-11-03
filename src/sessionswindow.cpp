@@ -525,5 +525,7 @@ void SessionsWindow::unlockSession(QString password) {
         locked = false;
         term->setLocked(locked);
         emit stateChanged(Locked);
+    } else {
+        QMessageBox::warning(term, tr("Unlock Session"), tr("Wrong password!"));
     }
 }

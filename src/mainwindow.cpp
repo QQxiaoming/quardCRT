@@ -572,7 +572,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
 }
 
 MainWindow::~MainWindow() {
-    stopAllSession();
+    stopAllSession(true);
     saveSettings();
     if(tftpServer->isRunning()) {
         tftpServer->stopServer();
@@ -2378,25 +2378,38 @@ QString MainWindow::startSSH2Session(MainWidgetGroup *group,
     return name;
 }
 
-int MainWindow::stopSession(MainWidgetGroup *group, int index)
+int MainWindow::stopSession(MainWidgetGroup *group, int index, bool force)
 {
     if(index <= 0) return -1;
     if(group->sessionTab->count() == 0) return -1;
     QTermWidget *termWidget = (QTermWidget *)group->sessionTab->widget(index);
     SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
     if(!sessionsWindow->isLocked()) {
-        sessionList.removeOne(sessionsWindow);
-        group->sessionTab->removeTab(index);
-        delete sessionsWindow;
+        if(force) {
+            sessionList.removeOne(sessionsWindow);
+            group->sessionTab->removeTab(index);
+            delete sessionsWindow;
+        } else {
+            if(sessionsWindow->getState() == SessionsWindow::Connected) {
+                QMessageBox::StandardButton reply;
+                reply = QMessageBox::question(this, tr("Warning"), tr("Are you sure to disconnect this session?"),
+                                            QMessageBox::Yes|QMessageBox::No);
+                if (reply == QMessageBox::Yes) {
+                    sessionList.removeOne(sessionsWindow);
+                    group->sessionTab->removeTab(index);
+                    delete sessionsWindow;
+                }
+            }
+        }
     }
     return 0;
 }
 
-int MainWindow::stopAllSession(void)
+int MainWindow::stopAllSession(bool force)
 {
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         while(mainWidgetGroup->sessionTab->count() > 0) {
-            stopSession(mainWidgetGroup,mainWidgetGroup->sessionTab->count());
+            stopSession(mainWidgetGroup,mainWidgetGroup->sessionTab->count(), force);
         }
     }
     return 0;
@@ -2502,6 +2515,37 @@ void MainWindow::appHelp(QWidget *parent)
         "<tr><td>ALT+RIGHT</td><td>" + tr("Go to line end") + "</td></tr>" +
         "</table>"
     );
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    int activeSessionCount = 0;
+    int lockedSessionCount = 0;
+    foreach(SessionsWindow *sessionsWindow, sessionList) {
+        if(sessionsWindow->getState() == SessionsWindow::Connected) {
+            activeSessionCount++;
+        }
+        if(sessionsWindow->isLocked()) {
+            lockedSessionCount++;
+        }
+    }
+    if(lockedSessionCount) {
+        QMessageBox::warning(this,tr("Warning"),tr("There are sessions that have not yet been unlocked, please unlock them first."),QMessageBox::Ok);
+        event->ignore();
+        return;
+    }
+    if(activeSessionCount) {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Warning"), tr("Are you sure to quit?"),
+                                            QMessageBox::Yes|QMessageBox::No);
+        if(reply == QMessageBox::Yes) {
+            stopAllSession(true);
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        event->accept();
+    }
 }
 
 void MainWindow::setAppLangeuage(QLocale::Language lang) {
