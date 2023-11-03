@@ -210,6 +210,7 @@ private:
     QAction *lightThemeAction;
     QAction *darkThemeAction;
     QAction *helpAction;
+    QAction *checkUpdateAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
 

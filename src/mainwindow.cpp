@@ -839,6 +839,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     helpAction->setText(tr("Help"));
     helpAction->setIcon(QFontIcon::icon(QChar(0xf128)));
     helpAction->setStatusTip(tr("Display help"));
+    checkUpdateAction->setText(tr("Check Update"));
+    checkUpdateAction->setStatusTip(tr("Check for updates"));
     aboutAction->setText(tr("About"));
     aboutAction->setIcon(QIcon(":/icons/icons/about.png"));
     aboutAction->setStatusTip(tr("Display about dialog"));
@@ -1155,6 +1157,8 @@ void MainWindow::menuAndToolBarInit(void) {
     helpMenu->addAction(helpAction);
     ui->toolBar->addAction(helpAction);
     sessionManagerWidget->addActionOnToolBar(helpAction);
+    checkUpdateAction = new QAction(this);
+    helpMenu->addAction(checkUpdateAction);
     helpMenu->addSeparator();
     aboutAction = new QAction(this);
     helpMenu->addAction(aboutAction);
@@ -1820,6 +1824,15 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(helpAction, &QAction::triggered, this, [&]() {
         MainWindow::appHelp(this);
+    });
+    connect(checkUpdateAction, &QAction::triggered, this, [&]() {
+        QLocale locale;
+        QLocale::Language lang = locale.language();
+        if(lang == QLocale::Chinese && language == QLocale::Chinese) {
+            QDesktopServices::openUrl(QUrl("https://gitee.com/QQxiaoming/quardCRT/releases"));
+        } else {
+            QDesktopServices::openUrl(QUrl("https://github.com/QQxiaoming/quardCRT/releases"));
+        }
     });
     connect(aboutAction, &QAction::triggered, this, [&]() {
         MainWindow::appAbout(this);
