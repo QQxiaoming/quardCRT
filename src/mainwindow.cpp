@@ -201,126 +201,156 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     return;
                 }
                 QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                foreach(SessionsWindow *sessionsWindow, sessionList) {
-                    if(sessionsWindow->getTermWidget() == termWidget) {
+                SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                if(sessionsWindow->isLocked()) {
+                    QAction *unlockAction = new QAction(tr("Unlock Session"),this);
+                    menu->addAction(unlockAction);
+                    connect(unlockAction,&QAction::triggered,this,[=](){
+                        lockSessionWindow->showUnlock();
+                    });
+                } else {
+                    QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
+                    menu->addAction(moveToAnotherTabAction);
+                    connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
+                        auto moveToAnotherTab = [&](int src,int dst, int index) {
+                            mainWidgetGroupList.at(dst)->sessionTab->addTab(
+                                mainWidgetGroupList.at(src)->sessionTab->widget(index),
+                                mainWidgetGroupList.at(src)->sessionTab->tabText(index));
+                            mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
+                            mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
+                                mainWidgetGroupList.at(dst)->sessionTab->count()-1);
+                            mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
+                                mainWidgetGroupList.at(src)->sessionTab->count()-1);
+                        };
+                        if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
+                            moveToAnotherTab(0,1,index);
+                        } else {
+                            moveToAnotherTab(1,0,index);
+                        }
+                    });
+                    QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
+                    menu->addAction(openWorkingFolderAction);
+                    connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
+                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                        QString dir = sessionsWindow->getWorkingDirectory();
+                        if(!dir.isEmpty()) {
+                            QFileInfo fileInfo(dir);
+                            if(fileInfo.isDir()) {
+                                QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
+                                return;
+                            }
+                        }
+                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                    });
+                    QAction *copyPathAction = new QAction(tr("Copy Path"),this);
+                    menu->addAction(copyPathAction);
+                    connect(copyPathAction,&QAction::triggered,this,[=](){
+                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                        QString dir = sessionsWindow->getWorkingDirectory();
+                        if(!dir.isEmpty()) {
+                            QFileInfo fileInfo(dir);
+                            if(fileInfo.isDir()) {
+                                QApplication::clipboard()->setText(dir);
+                                return;
+                            }
+                        }
+                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                    });
+                    QAction *addPathToBookmarkAction = new QAction(tr("Add Path to Bookmark"),this);
+                    menu->addAction(addPathToBookmarkAction);
+                    connect(addPathToBookmarkAction,&QAction::triggered,this,[=](){
+                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                        QString dir = sessionsWindow->getWorkingDirectory();
+                        if(!dir.isEmpty()) {
+                            QFileInfo fileInfo(dir);
+                            if(fileInfo.isDir()) {
+                                addBookmark(dir);
+                                return;
+                            }
+                        }
+                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                    });
+                    QAction *saveSessionAction = new QAction(tr("Save Session"),this);
+                    menu->addAction(saveSessionAction);
+                    connect(saveSessionAction,&QAction::triggered,this,[=](){
+                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                        QString name = sessionsWindow->getName();
+                        if(checkSessionName(name)) {
+                            addSessionToSessionManager(sessionsWindow,name);
+                        } else {
+                            bool isOK = false;
+                            QString getName = QInputDialog::getText(this, tr("Enter Session Name"),
+                                    tr("The session already exists, please rename the new session or cancel saving."), QLineEdit::Normal, name, &isOK);
+                            if(isOK && !getName.isEmpty()) {
+                                addSessionToSessionManager(sessionsWindow,getName);
+                            }
+                        }
+                    });
+                    menu->addSeparator();
+                    QAction *propertiesAction = new QAction(tr("Properties"),this);
+                    menu->addAction(propertiesAction);
+                    connect(propertiesAction,&QAction::triggered,this,[=](){
+                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
                         if(sessionsWindow->isLocked()) {
-                            delete menu;
                             return;
                         }
-                        break;
-                    }
-                }
-                QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
-                menu->addAction(moveToAnotherTabAction);
-                connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
-                    auto moveToAnotherTab = [&](int src,int dst, int index) {
-                        mainWidgetGroupList.at(dst)->sessionTab->addTab(
-                            mainWidgetGroupList.at(src)->sessionTab->widget(index),
-                            mainWidgetGroupList.at(src)->sessionTab->tabText(index));
-                        mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
-                        mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
-                            mainWidgetGroupList.at(dst)->sessionTab->count()-1);
-                        mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
-                            mainWidgetGroupList.at(src)->sessionTab->count()-1);
-                    };
-                    if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
-                        moveToAnotherTab(0,1,index);
-                    } else {
-                        moveToAnotherTab(1,0,index);
-                    }
-                });
-                QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
-                menu->addAction(openWorkingFolderAction);
-                connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
-                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                    foreach(SessionsWindow *sessionsWindow, sessionList) {
-                        if(sessionsWindow->getTermWidget() == termWidget) {
-                            QString dir = sessionsWindow->getWorkingDirectory();
-                            if(!dir.isEmpty()) {
-                                QFileInfo fileInfo(dir);
-                                if(fileInfo.isDir()) {
-                                    QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
-                });
-                QAction *copyPathAction = new QAction(tr("Copy Path"),this);
-                menu->addAction(copyPathAction);
-                connect(copyPathAction,&QAction::triggered,this,[=](){
-                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                    foreach(SessionsWindow *sessionsWindow, sessionList) {
-                        if(sessionsWindow->getTermWidget() == termWidget) {
-                            QString dir = sessionsWindow->getWorkingDirectory();
-                            if(!dir.isEmpty()) {
-                                QFileInfo fileInfo(dir);
-                                if(fileInfo.isDir()) {
-                                    QApplication::clipboard()->setText(dir);
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
-                });
-                QAction *addPathToBookmarkAction = new QAction(tr("Add Path to Bookmark"),this);
-                menu->addAction(addPathToBookmarkAction);
-                connect(addPathToBookmarkAction,&QAction::triggered,this,[=](){
-                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                    foreach(SessionsWindow *sessionsWindow, sessionList) {
-                        if(sessionsWindow->getTermWidget() == termWidget) {
-                            QString dir = sessionsWindow->getWorkingDirectory();
-                            if(!dir.isEmpty()) {
-                                QFileInfo fileInfo(dir);
-                                if(fileInfo.isDir()) {
-                                    addBookmark(dir);
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
-                });
-                QAction *saveSessionAction = new QAction(tr("Save Session"),this);
-                menu->addAction(saveSessionAction);
-                connect(saveSessionAction,&QAction::triggered,this,[=](){
-                    QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                    foreach(SessionsWindow *sessionsWindow, sessionList) {
-                        if(sessionsWindow->getTermWidget() == termWidget) {
-                            QString name = sessionsWindow->getName();
-                            if(checkSessionName(name)) {
-                                addSessionToSessionManager(sessionsWindow,name);
-                            } else {
-                                bool isOK = false;
-                                QString getName = QInputDialog::getText(this, tr("Enter Session Name"),
-                                     tr("The session already exists, please rename the new session or cancel saving."), QLineEdit::Normal, name, &isOK);
-                                if(isOK && !getName.isEmpty()) {
-                                    addSessionToSessionManager(sessionsWindow,getName);
-                                }
+                        QuickConnectWindow::QuickConnectData data;
+                        data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
+                        switch(data.type) {
+                        case QuickConnectWindow::Telnet:
+                            data.TelnetData.hostname = sessionsWindow->getHostname();
+                            data.TelnetData.port = sessionsWindow->getPort();
+                            if(sessionsWindow->getSocketType() == QTelnet::TCP) {
+                                data.TelnetData.webSocket = "None";
+                            } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
+                                data.TelnetData.webSocket = "Insecure";
+                            } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
+                                data.TelnetData.webSocket = "Secure";
                             }
                             break;
+                        case QuickConnectWindow::Serial:
+                            data.SerialData.portName = sessionsWindow->getPortName();
+                            data.SerialData.baudRate = sessionsWindow->getBaudRate();
+                            data.SerialData.dataBits = sessionsWindow->getDataBits();
+                            data.SerialData.parity = sessionsWindow->getParity();
+                            data.SerialData.stopBits = sessionsWindow->getStopBits();
+                            data.SerialData.flowControl = sessionsWindow->getFlowControl();
+                            data.SerialData.xEnable = sessionsWindow->getXEnable();
+                            break;
+                        case QuickConnectWindow::LocalShell:
+                            data.LocalShellData.command = sessionsWindow->getCommand();
+                            break;
+                        case QuickConnectWindow::Raw:
+                            data.RawData.hostname = sessionsWindow->getHostname();
+                            data.RawData.port = sessionsWindow->getPort();
+                            break;
+                        case QuickConnectWindow::NamePipe:
+                            data.NamePipeData.pipeName = sessionsWindow->getPipeName();
+                            break;
+                        default:
+                            break;
                         }
-                    }
-                });
-                menu->addSeparator();
-                QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
-                menu->addAction(closeAction);
-                connect(closeAction,&QAction::triggered,this,[=](){
-                    stopSession(mainWidgetGroup,index);
-                });
+                        sessionOptionsWindow->setSessionProperties(sessionsWindow->getName(),data);
+                        sessionOptionsWindow->show();
+                    });
+                    QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
+                    menu->addAction(closeAction);
+                    connect(closeAction,&QAction::triggered,this,[=](){
+                        stopSession(mainWidgetGroup,index);
+                    });
+                }
             } else if(index == -1) {
                 if(mainWidgetGroup->sessionTab->count() != 0) {
                     QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                    foreach(SessionsWindow *sessionsWindow, sessionList) {
-                        if(sessionsWindow->getTermWidget() == termWidget) {
-                            if(sessionsWindow->isLocked()) {
-                                delete menu;
-                                return;
-                            }
-                            break;
-                        }
+                    SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                    if(sessionsWindow->isLocked()) {
+                        delete menu;
+                        return;
                     }
                     QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
                     QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
@@ -359,28 +389,16 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::tabBarDoubleClicked,this,[=](int index){
             QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->widget(index);
-            foreach(SessionsWindow *sessionsWindow, sessionList) {
-                if(sessionsWindow->getTermWidget() == termWidget) {
-                    if(sessionsWindow->isLocked()) {
-                        return;
-                    }
-                    sessionsWindow->setShowShortTitle(!sessionsWindow->getShowShortTitle());
-                    mainWidgetGroup->sessionTab->setTabText(index,sessionsWindow->getTitle());
-                    break;
-                }
-            }
+            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+            if(sessionsWindow->isLocked()) return;
+            sessionsWindow->setShowShortTitle(!sessionsWindow->getShowShortTitle());
+            mainWidgetGroup->sessionTab->setTabText(index,sessionsWindow->getTitle());
         });
         connect(mainWidgetGroup->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
             if(mainWidgetGroup->sessionTab->count() != 0) {
                 QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                foreach(SessionsWindow *sessionsWindow, sessionList) {
-                    if(sessionsWindow->getTermWidget() == termWidget) {
-                        if(sessionsWindow->isLocked()) {
-                            return;
-                        }
-                        break;
-                    }
-                }
+                SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                if(sessionsWindow->isLocked()) return;
                 termWidget->proxySendData(data);
             }
         });
@@ -425,7 +443,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                 case QuickConnectWindow::NamePipe:
                     data.NamePipeData.pipeName = settings.value("pipeName").toString();
                     break;
-                case QuickConnectWindow::SSH2:
                 default:
                     break;
                 }
@@ -1283,34 +1300,23 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             SessionTab *sessionTab = findCurrentFocusGroup()->sessionTab;
             if(sessionTab->count() == 0) return;
             for(int i=0;i<sessionTab->count();i++) {
-                QTermWidget *termWidget = (QTermWidget *)sessionTab->widget(i);
-                foreach(SessionsWindow *sessionsWindow, sessionList) {
-                    if(sessionsWindow->getTermWidget() == termWidget) {
-                        if(!sessionsWindow->isLocked()) sessionsWindow->lockSession(password);
-                    }
-                }
+                QTermWidget *termWidget = (QTermWidget *)sessionTab->widget(i+1);
+                SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                if(!sessionsWindow->isLocked()) sessionsWindow->lockSession(password);
             }
         } else {
             QTermWidget *termWidget = findCurrentFocusTermWidget();
             if(termWidget == nullptr) return;
-            foreach(SessionsWindow *sessionsWindow, sessionList) {
-                if(sessionsWindow->getTermWidget() == termWidget) {
-                    if(!sessionsWindow->isLocked()) sessionsWindow->lockSession(password);
-                    break;
-                }
-            }
+            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+            if(!sessionsWindow->isLocked()) sessionsWindow->lockSession(password);
         }
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
-        foreach(SessionsWindow *sessionsWindow, sessionList) {
-            if(sessionsWindow->getTermWidget() == termWidget) {
-                if(sessionsWindow->isLocked()) {
-                    lockSessionAction->setChecked(true);
-                } else {
-                    lockSessionAction->setChecked(false);
-                }
-                break;
-            }
+        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+        if(sessionsWindow->isLocked()) {
+            lockSessionAction->setChecked(true);
+        } else {
+            lockSessionAction->setChecked(false);
         }
     });
     connect(lockSessionWindow,&LockSessionWindow::sendUnLockSessionData,this,
@@ -1322,24 +1328,16 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         } else {
             QTermWidget *termWidget = findCurrentFocusTermWidget();
             if(termWidget == nullptr) return;
-            foreach(SessionsWindow *sessionsWindow, sessionList) {
-                if(sessionsWindow->getTermWidget() == termWidget) {
-                    if(sessionsWindow->isLocked()) sessionsWindow->unlockSession(password);
-                    break;
-                }
-            }
+            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+            if(sessionsWindow->isLocked()) sessionsWindow->unlockSession(password);
         }
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
-        foreach(SessionsWindow *sessionsWindow, sessionList) {
-            if(sessionsWindow->getTermWidget() == termWidget) {
-                if(sessionsWindow->isLocked()) {
-                    lockSessionAction->setChecked(true);
-                } else {
-                    lockSessionAction->setChecked(false);
-                }
-                break;
-            }
+        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+        if(sessionsWindow->isLocked()) {
+            lockSessionAction->setChecked(true);
+        } else {
+            lockSessionAction->setChecked(false);
         }
     });
 
@@ -1376,15 +1374,11 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
                 logSessionAction->setChecked(false);
                 return;
             }
-            foreach(SessionsWindow *sessionsWindow, sessionList) {
-                if(sessionsWindow->getTermWidget() == termWidget) {
-                    if(!sessionsWindow->isLog()) {
-                        logSessionAction->setChecked(sessionsWindow->setLog(true) == 0);
-                    } else {
-                        logSessionAction->setChecked(sessionsWindow->setLog(false) != 0);
-                    }
-                    break;
-                }
+            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+            if(!sessionsWindow->isLog()) {
+                logSessionAction->setChecked(sessionsWindow->setLog(true) == 0);
+            } else {
+                logSessionAction->setChecked(sessionsWindow->setLog(false) != 0);
             }
         }
     );
@@ -1395,15 +1389,11 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
                 rawLogSessionAction->setChecked(false);
                 return;
             }
-            foreach(SessionsWindow *sessionsWindow, sessionList) {
-                if(sessionsWindow->getTermWidget() == termWidget) {
-                    if(!sessionsWindow->isRawLog()) {
-                        rawLogSessionAction->setChecked(sessionsWindow->setRawLog(true) == 0);
-                    } else {
-                        rawLogSessionAction->setChecked(sessionsWindow->setRawLog(false) != 0);
-                    }
-                    break;
-                }
+            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+            if(!sessionsWindow->isRawLog()) {
+                rawLogSessionAction->setChecked(sessionsWindow->setRawLog(true) == 0);
+            } else {
+                rawLogSessionAction->setChecked(sessionsWindow->setRawLog(false) != 0);
             }
         }
     );
@@ -1733,47 +1723,45 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         QuickConnectWindow::QuickConnectData data;
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
-        foreach(SessionsWindow *sessionsWindow, sessionList) {
-            if(sessionsWindow->getTermWidget() == termWidget) {
-                name = sessionsWindow->getName();
-                data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
-                switch(data.type) {
-                    case QuickConnectWindow::Telnet:
-                        data.TelnetData.hostname = sessionsWindow->m_hostname;
-                        data.TelnetData.port = sessionsWindow->m_port;
-                        if(sessionsWindow->m_type == QTelnet::TCP) {
-                            data.TelnetData.webSocket = "None";
-                        } else if(sessionsWindow->m_type == QTelnet::WEBSOCKET) {
-                            data.TelnetData.webSocket = "Insecure";
-                        } else if(sessionsWindow->m_type == QTelnet::SECUREWEBSOCKET) {
-                            data.TelnetData.webSocket = "Secure";
-                        }
-                        break;
-                    case QuickConnectWindow::Serial:
-                        data.SerialData.portName = sessionsWindow->m_portName;
-                        data.SerialData.baudRate = sessionsWindow->m_baudRate;
-                        data.SerialData.dataBits = sessionsWindow->m_dataBits;
-                        data.SerialData.parity = sessionsWindow->m_parity;
-                        data.SerialData.stopBits = sessionsWindow->m_stopBits;
-                        data.SerialData.flowControl = sessionsWindow->m_flowControl;
-                        data.SerialData.xEnable = sessionsWindow->m_xEnable;
-                        break;
-                    case QuickConnectWindow::LocalShell:
-                        data.LocalShellData.command = sessionsWindow->m_command;
-                        break;
-                    case QuickConnectWindow::Raw:
-                        data.RawData.hostname = sessionsWindow->m_hostname;
-                        data.RawData.port = sessionsWindow->m_port;
-                        break;
-                    case QuickConnectWindow::NamePipe:
-                        data.NamePipeData.pipeName = sessionsWindow->m_pipeName;
-                        break;
+        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+        name = sessionsWindow->getName();
+        data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
+        switch(data.type) {
+            case QuickConnectWindow::Telnet:
+                data.TelnetData.hostname = sessionsWindow->getHostname();
+                data.TelnetData.port = sessionsWindow->getPort();
+                if(sessionsWindow->getSocketType() == QTelnet::TCP) {
+                    data.TelnetData.webSocket = "None";
+                } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
+                    data.TelnetData.webSocket = "Insecure";
+                } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
+                    data.TelnetData.webSocket = "Secure";
                 }
-                sessionOptionsWindow->setSessionProperties(name,data);
-                sessionOptionsWindow->show();
                 break;
-            }
+            case QuickConnectWindow::Serial:
+                data.SerialData.portName = sessionsWindow->getPortName();
+                data.SerialData.baudRate = sessionsWindow->getBaudRate();
+                data.SerialData.dataBits = sessionsWindow->getDataBits();
+                data.SerialData.parity = sessionsWindow->getParity();
+                data.SerialData.stopBits = sessionsWindow->getStopBits();
+                data.SerialData.flowControl = sessionsWindow->getFlowControl();
+                data.SerialData.xEnable = sessionsWindow->getXEnable();
+                break;
+            case QuickConnectWindow::LocalShell:
+                data.LocalShellData.command = sessionsWindow->getCommand();
+                break;
+            case QuickConnectWindow::Raw:
+                data.RawData.hostname = sessionsWindow->getHostname();
+                data.RawData.port = sessionsWindow->getPort();
+                break;
+            case QuickConnectWindow::NamePipe:
+                data.NamePipeData.pipeName = sessionsWindow->getPipeName();
+                break;
+            default:
+                break;
         }
+        sessionOptionsWindow->setSessionProperties(name,data);
+        sessionOptionsWindow->show();
     });
     connect(globalOptionsAction,&QAction::triggered,this,[=](){
         globalOptionsWindow->show();
@@ -1914,35 +1902,37 @@ int MainWindow::addSessionToSessionManager(SessionsWindow *sessionsWindow, QStri
     settings.setValue("type",sessionsWindow->getSessionType());
     switch(sessionsWindow->getSessionType()) {
     case SessionsWindow::Telnet:
-        settings.setValue("hostname",sessionsWindow->m_hostname);
-        settings.setValue("port",sessionsWindow->m_port);
+        settings.setValue("hostname",sessionsWindow->getHostname());
+        settings.setValue("port",sessionsWindow->getPort());
         settings.setValue("socketType",[&]() {
-            if(sessionsWindow->m_type == QTelnet::TCP) {
+            if(sessionsWindow->getSocketType() == QTelnet::TCP) {
                 return QString("None");
-            } else if(sessionsWindow->m_type == QTelnet::WEBSOCKET) {
+            } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
                 return QString("Insecure");
-            } else if(sessionsWindow->m_type == QTelnet::SECUREWEBSOCKET) {
+            } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
                 return QString("Secure");
             }
             return QString("None");
         }());
         break;
     case SessionsWindow::Serial:
-        settings.setValue("portName",sessionsWindow->m_portName);
-        settings.setValue("baudRate",sessionsWindow->m_baudRate);
-        settings.setValue("dataBits",sessionsWindow->m_dataBits);
-        settings.setValue("parity",sessionsWindow->m_parity);
-        settings.setValue("stopBits",sessionsWindow->m_stopBits);
-        settings.setValue("flowControl",sessionsWindow->m_flowControl);
-        settings.setValue("xEnable",sessionsWindow->m_xEnable);
+        settings.setValue("portName",sessionsWindow->getPortName());
+        settings.setValue("baudRate",sessionsWindow->getBaudRate());
+        settings.setValue("dataBits",sessionsWindow->getDataBits());
+        settings.setValue("parity",sessionsWindow->getParity());
+        settings.setValue("stopBits",sessionsWindow->getStopBits());
+        settings.setValue("flowControl",sessionsWindow->getFlowControl());
+        settings.setValue("xEnable",sessionsWindow->getXEnable());
         break;
     case SessionsWindow::LocalShell:
-        settings.setValue("command",sessionsWindow->m_command);
+        settings.setValue("command",sessionsWindow->getCommand());
         break;
     case SessionsWindow::RawSocket:
-        settings.setValue("hostname",sessionsWindow->m_hostname);
-        settings.setValue("port",sessionsWindow->m_port);
+        settings.setValue("hostname",sessionsWindow->getHostname());
+        settings.setValue("port",sessionsWindow->getPort());
         break;
+    case SessionsWindow::NamePipe:
+        settings.setValue("pipeName",sessionsWindow->getPipeName());
     default:
         break;
     }
@@ -2138,7 +2128,6 @@ void MainWindow::connectSessionFromSessionManager(QString name)
                 data.NamePipeData.pipeName = settings.value("pipeName").toString();
                 startNamePipeSession(findCurrentFocusGroup(),data.NamePipeData.pipeName, current_name);
                 break;
-            case QuickConnectWindow::SSH2:
             default:
                 break;
             }
@@ -2147,13 +2136,41 @@ void MainWindow::connectSessionFromSessionManager(QString name)
     }
 }
 
+void MainWindow::connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow)
+{
+    tab->setTabIcon(index,QFontIcon::icon(QChar(0xf09e), Qt::gray));
+    connect(sessionsWindow, &SessionsWindow::stateChanged, this, [=](SessionsWindow::SessionsState state){
+        switch(state) {
+            case SessionsWindow::Connected:
+                tab->setTabIcon(index,QFontIcon::icon(QChar(0xf0c1), Qt::green));
+                break;
+            case SessionsWindow::Error:
+            case SessionsWindow::Disconnected:
+                tab->setTabIcon(index,QFontIcon::icon(QChar(0xf127), Qt::red));
+                break;
+            case SessionsWindow::Locked:
+                if(sessionsWindow->isLocked())
+                    tab->setTabIcon(index,QFontIcon::icon(QChar(0xf084), Qt::yellow));
+                else if(sessionsWindow->getState() == SessionsWindow::Connected) {
+                    tab->setTabIcon(index,QFontIcon::icon(QChar(0xf0c1), Qt::green));
+                } else {
+                    tab->setTabIcon(index,QFontIcon::icon(QChar(0xf127), Qt::red));
+                }
+                break;
+            default:
+                break;
+        }
+    });
+}
+
 QString MainWindow::startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Telnet,this);
     setGlobalOptions(sessionsWindow);
     sessionsWindow->setLongTitle(tr("Telnet - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Telnet"));
-    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    int index = group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
         name = hostname;
         checkSessionName(name);
@@ -2179,7 +2196,8 @@ QString MainWindow::startSerialSession(MainWidgetGroup *group, QString portName,
     setGlobalOptions(sessionsWindow);
     sessionsWindow->setLongTitle(tr("Serial - ")+portName);
     sessionsWindow->setShortTitle(tr("Serial"));
-    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    int index = group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
         name = portName;
         checkSessionName(name);
@@ -2204,7 +2222,8 @@ QString MainWindow::startRawSocketSession(MainWidgetGroup *group, QString hostna
     setGlobalOptions(sessionsWindow);
     sessionsWindow->setLongTitle(tr("Raw - ")+hostname+":"+QString::number(port));
     sessionsWindow->setShortTitle(tr("Raw"));
-    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    int index = group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
         name = hostname;
         checkSessionName(name);
@@ -2229,7 +2248,8 @@ QString MainWindow::startNamePipeSession(MainWidgetGroup *group, QString pipeNam
     setGlobalOptions(sessionsWindow);
     sessionsWindow->setLongTitle(tr("NamePipe - ")+pipeName);
     sessionsWindow->setShortTitle(tr("NamePipe"));
-    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    int index = group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
         name = pipeName;
         checkSessionName(name);
@@ -2298,7 +2318,8 @@ QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString
         sessionsWindow->setLongTitle(tr("Local Shell - ")+command);
     }
     sessionsWindow->setShortTitle(tr("Local Shell"));
-    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    int index = group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
         name = "Local Shell";
         checkSessionName(name);
@@ -2336,7 +2357,8 @@ QString MainWindow::startSSH2Session(MainWidgetGroup *group,
     setGlobalOptions(sessionsWindow);
     sessionsWindow->setLongTitle("SSH2 - "+username+"@"+hostname);
     sessionsWindow->setShortTitle("SSH2");
-    group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    int index = group->sessionTab->addTab(sessionsWindow->getTermWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
         name = "SSH2";
         checkSessionName(name);
@@ -2358,18 +2380,16 @@ QString MainWindow::startSSH2Session(MainWidgetGroup *group,
 
 int MainWindow::stopSession(MainWidgetGroup *group, int index)
 {
+    if(index <= 0) return -1;
+    if(group->sessionTab->count() == 0) return -1;
     QTermWidget *termWidget = (QTermWidget *)group->sessionTab->widget(index);
-    foreach(SessionsWindow *sessionsWindow, sessionList) {
-        if(sessionsWindow->getTermWidget() == termWidget) {
-            if(!sessionsWindow->isLocked()) {
-                sessionList.removeOne(sessionsWindow);
-                group->sessionTab->removeTab(index);
-                delete sessionsWindow;
-            }
-            return 0;
-        }
+    SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+    if(!sessionsWindow->isLocked()) {
+        sessionList.removeOne(sessionsWindow);
+        group->sessionTab->removeTab(index);
+        delete sessionsWindow;
     }
-    return -1;
+    return 0;
 }
 
 int MainWindow::stopAllSession(void)
@@ -2386,42 +2406,39 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
 {
     if(group->sessionTab->count() == 0) return -1;
     QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
-    foreach(SessionsWindow *sessionsWindow, sessionList) {
-        if(sessionsWindow->getTermWidget() == termWidget) {
-            SessionsWindow *sessionsWindowClone = new SessionsWindow(sessionsWindow->getSessionType(),this);
-            setGlobalOptions(sessionsWindowClone);
-            sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
-            sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
-            sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
-            group->sessionTab->addTab(sessionsWindowClone->getTermWidget(), group->sessionTab->tabText(group->sessionTab->indexOf(termWidget)));
-            if(name.isEmpty()) {
-                name = sessionsWindow->getName();
-                checkSessionName(name);
-            }
-            sessionsWindowClone->setName(name);
-            sessionsWindowClone->cloneSession(sessionsWindow);
-            sessionList.push_back(sessionsWindowClone);
-            connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
-                if(title == 0 || title == 2) {
-                    sessionsWindowClone->setLongTitle(newTitle);
-                    QString workDir = getDirAndcheckeSysName(newTitle);
-                    if(!workDir.isEmpty()) {
-                        sessionsWindowClone->setShortTitle(workDir);
-                        QFileInfo fileInfo(workDir);
-                        if(fileInfo.isDir()) {
-                            sessionsWindowClone->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
-                        }
-                    } else {
-                        sessionsWindowClone->setShortTitle(newTitle);
-                    }
-                    group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindowClone->getTermWidget()), sessionsWindowClone->getTitle());
-                }
-            });
-            group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
-            return 0;
-        }
+    SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+    SessionsWindow *sessionsWindowClone = new SessionsWindow(sessionsWindow->getSessionType(),this);
+    setGlobalOptions(sessionsWindowClone);
+    sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
+    sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
+    sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
+    int index = group->sessionTab->addTab(sessionsWindowClone->getTermWidget(), group->sessionTab->tabText(group->sessionTab->indexOf(termWidget)));
+    connectSessionStateChange(group->sessionTab,index,sessionsWindowClone);
+    if(name.isEmpty()) {
+        name = sessionsWindow->getName();
+        checkSessionName(name);
     }
-    return -1;
+    sessionsWindowClone->setName(name);
+    sessionsWindowClone->cloneSession(sessionsWindow);
+    sessionList.push_back(sessionsWindowClone);
+    connect(sessionsWindowClone->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
+        if(title == 0 || title == 2) {
+            sessionsWindowClone->setLongTitle(newTitle);
+            QString workDir = getDirAndcheckeSysName(newTitle);
+            if(!workDir.isEmpty()) {
+                sessionsWindowClone->setShortTitle(workDir);
+                QFileInfo fileInfo(workDir);
+                if(fileInfo.isDir()) {
+                    sessionsWindowClone->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
+                }
+            } else {
+                sessionsWindowClone->setShortTitle(newTitle);
+            }
+            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindowClone->getTermWidget()), sessionsWindowClone->getTitle());
+        }
+    });
+    group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
+    return 0;
 }
 
 void MainWindow::addBookmark(const QString &path)

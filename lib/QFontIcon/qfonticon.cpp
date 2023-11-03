@@ -49,7 +49,7 @@ QFontIcon *QFontIcon::instance()
     return mInstance;
 }
 
-QIcon QFontIcon::icon(const QChar &code, const QString &family)
+QIcon QFontIcon::icon(const QChar &code, const QString &family, const QColor &color)
 {
     if (instance()->families().isEmpty())
     {
@@ -65,10 +65,14 @@ QIcon QFontIcon::icon(const QChar &code, const QString &family)
     QFontIconEngine * engine = new QFontIconEngine;
     engine->setFontFamily(useFamily);
     engine->setLetter(code);
-    engine->setBaseColor(instance()->baseColor);
+    engine->setBaseColor(color);
     return QIcon(engine);
 }
 
+QIcon QFontIcon::icon(const QChar &code, const QColor &color)
+{
+    return icon(code, QString(), color);
+}
 
 const QStringList &QFontIcon::families() const
 {

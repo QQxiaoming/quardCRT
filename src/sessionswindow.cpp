@@ -47,6 +47,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , enableLog(false)
     , enableRawLog(false) {
     term = new QTermWidget(parent);
+    term->setUserdata(this);
 
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);
     term->setBlinkingCursor(true);
@@ -104,6 +105,20 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(telnet->isConnected())
                     telnet->sendData(data, size);
             });
+            connect(telnet, &QTelnet::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
+                if(socketState == QAbstractSocket::ConnectedState) {
+                    state = Connected;
+                    emit stateChanged(state);
+                } else if(socketState == QAbstractSocket::UnconnectedState) {
+                    state = Disconnected;
+                    emit stateChanged(state);
+                }
+            });
+            connect(telnet, &QTelnet::error, this, [=](QAbstractSocket::SocketError socketError){
+                QMessageBox::warning(term, tr("Telnet Error"), tr("Telnet error:\n%1.").arg(telnet->errorString()));
+                state = Error;
+                emit stateChanged(state);
+            });
             break;
         }
         case Serial: {
@@ -120,6 +135,11 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(serialPort->isOpen()) {
                     serialPort->write(data, size);
                 }
+            });
+            connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
+                QMessageBox::warning(term, tr("Serial Error"), tr("Serial error:\n%1.").arg(serialPort->errorString()));
+                state = Error;
+                emit stateChanged(state);
             });
             break;
         }
@@ -138,6 +158,20 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     rawSocket->write(data, size);
                 }
             });
+            connect(rawSocket, &QTcpSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
+                if(socketState == QAbstractSocket::ConnectedState) {
+                    state = Connected;
+                    emit stateChanged(state);
+                } else if(socketState == QAbstractSocket::UnconnectedState) {
+                    state = Disconnected;
+                    emit stateChanged(state);
+                }
+            });
+            connect(rawSocket, &QTcpSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError){
+                QMessageBox::warning(term, tr("Raw Socket Error"), tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
+                state = Error;
+                emit stateChanged(state);
+            });
             break;
         }
         case NamePipe: {
@@ -154,6 +188,20 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(namePipe->state() == QLocalSocket::ConnectedState) {
                     namePipe->write(data, size);
                 }
+            });
+            connect(namePipe, &QLocalSocket::stateChanged, this, [=](QLocalSocket::LocalSocketState socketState){
+                if(socketState == QLocalSocket::ConnectedState) {
+                    state = Connected;
+                    emit stateChanged(state);
+                } else if(socketState == QLocalSocket::UnconnectedState) {
+                    state = Disconnected;
+                    emit stateChanged(state);
+                }
+            });
+            connect(namePipe, &QLocalSocket::errorOccurred, this, [=](QLocalSocket::LocalSocketError socketError){
+                QMessageBox::warning(term, tr("Name Pipe Error"), tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
+                state = Error;
+                emit stateChanged(state);
             });
             break;
         }
@@ -276,6 +324,8 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     }
     bool ret = localShell->startProcess(shellPath, args, QProcessEnvironment::systemEnvironment().toStringList(), workingDirectory, term->screenColumnsCount(), term->screenLinesCount());
     if(!ret) {
+        state = Error;
+        emit stateChanged(state);
         QMessageBox::warning(term, tr("Start Local Shell"), tr("Cannot start local shell:\n%1.").arg(localShell->lastError()));
         return -1;
     }
@@ -289,6 +339,8 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         localShell->write(QByteArray(data, size));
     });
     m_command = command;
+    state = Connected;
+    emit stateChanged(state);
     return 0;
 }
 
@@ -322,6 +374,8 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     serialPort->setStopBits(static_cast<QSerialPort::StopBits>(stopBits));
     serialPort->setFlowControl(flowControl?QSerialPort::HardwareControl:QSerialPort::NoFlowControl);
     if(!serialPort->open(QIODevice::ReadWrite)) {
+        state = Error;
+        emit stateChanged(state);
         QMessageBox::warning(term, tr("Start Serial"), tr("Cannot open serial port:\n%1.").arg(serialPort->errorString()));
     }
     serialPort->setBreakEnabled(xEnable);
@@ -332,6 +386,8 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     m_stopBits = stopBits;
     m_flowControl = flowControl;
     m_xEnable = xEnable;
+    state = Connected;
+    emit stateChanged(state);
     return 0;
 }
 
@@ -459,6 +515,7 @@ void SessionsWindow::lockSession(QString password) {
     password_hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
     locked = true;
     term->setLocked(locked);
+    emit stateChanged(Locked);
 }
 
 void SessionsWindow::unlockSession(QString password) {
@@ -467,5 +524,6 @@ void SessionsWindow::unlockSession(QString password) {
         password_hash = QByteArray();
         locked = false;
         term->setLocked(locked);
+        emit stateChanged(Locked);
     }
 }

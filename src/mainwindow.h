@@ -98,6 +98,7 @@ private:
     void restoreSessionToSessionManager(void);
     void saveSettings(void);
     void restoreSettings(void);
+    void connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow);
 
 private:
     Ui::MainWindow *ui;

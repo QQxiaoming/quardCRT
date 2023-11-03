@@ -239,6 +239,14 @@ public:
 
     void setLocked(bool enabled);
 
+    // FIXME: this is a hack operation, should be removed
+    void setUserdata(void *data) {
+        this->userData = data;
+    }
+    void *getUserdata() const {
+        return this->userData;
+    }
+
     void reTranslateUi(void);
     static void setLangeuage(QLocale::Language lang);
 
@@ -346,6 +354,7 @@ private:
     TermWidgetImpl * m_impl;
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;
+    void *userData = nullptr;
 };
 
 #endif

@@ -141,7 +141,17 @@ void QTelnet::sendData(const char *data, int len)
 void QTelnet::socketError(QAbstractSocket::SocketError err)
 {
     disconnectFromHost();
-    Q_UNUSED(err);
+    emit error(err);
+}
+
+QString QTelnet::errorString()
+{
+    if(m_socketType == TCP)
+        return m_tcpSocket.errorString();
+    else if(m_socketType == WEBSOCKET || m_socketType == SECUREWEBSOCKET)
+        return m_webSocket.errorString();
+
+    return QString();
 }
 
 void QTelnet::setCustomCR(char cr, char cr2)

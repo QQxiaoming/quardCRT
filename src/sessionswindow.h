@@ -42,6 +42,12 @@ public:
         RawSocket,
         NamePipe,
     };
+    enum SessionsState {
+        Connected,
+        Disconnected,
+        Locked,
+        Error,
+    };
     SessionsWindow(SessionType tp, QWidget *parent = nullptr);
     ~SessionsWindow();
 
@@ -75,27 +81,28 @@ public:
     void lockSession(QString password);
     void unlockSession(QString password);
     bool isLocked() const { return locked; }
+    SessionsState getState() const { return state; }
+
+    QString getHostname() const { return m_hostname; }
+    quint16 getPort() const { return m_port; }
+    QString getPortName() const { return m_portName; }
+    QTelnet::SocketType getSocketType() const { return m_type; }
+    uint32_t getBaudRate() const { return m_baudRate; }
+    int getDataBits() const { return m_dataBits; }
+    int getParity() const { return m_parity; }
+    int getStopBits() const { return m_stopBits; }
+    bool getFlowControl() const { return m_flowControl; }
+    bool getXEnable() const { return m_xEnable; }
+    QString getCommand() const { return m_command; }
+    QString getPipeName() const { return m_pipeName; }
 
 signals:
     void hexDataDup(const char *data, int size);
+    void stateChanged(SessionsState state);
 
 private:
     int saveLog(const char *data, int size);
     int saveRawLog(const char *data, int size);
-
-public:
-    QString m_hostname;
-    quint16 m_port;
-    QTelnet::SocketType m_type;
-    QString m_portName;
-    uint32_t m_baudRate;
-    int m_dataBits;
-    int m_parity;
-    int m_stopBits;
-    bool m_flowControl;
-    bool m_xEnable;
-    QString m_command;
-    QString m_pipeName;
 
 private:
     SessionType type;
@@ -119,6 +126,20 @@ private:
     bool fflush_file = true;
     QByteArray password_hash;
     bool locked = false;
+    SessionsState state = Disconnected;
+
+    QString m_hostname;
+    quint16 m_port;
+    QTelnet::SocketType m_type;
+    QString m_portName;
+    uint32_t m_baudRate;
+    int m_dataBits;
+    int m_parity;
+    int m_stopBits;
+    bool m_flowControl;
+    bool m_xEnable;
+    QString m_command;
+    QString m_pipeName;
 };
 
 #endif // SESSIONSWINDOW_H

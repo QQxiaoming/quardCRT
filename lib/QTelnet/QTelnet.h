@@ -139,11 +139,14 @@ public:
     QString peerInfo()const;
     QString peerName()const;
 
+    QString errorString();
+
 signals:
     void newData(const char *buff, int len);
     void endOfRecord();
     void echoLocal(bool echo);
 	void stateChanged(QAbstractSocket::SocketState s);
+    void error(QAbstractSocket::SocketError err);
 
 private slots:
     void socketError(QAbstractSocket::SocketError err);
