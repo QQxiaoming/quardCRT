@@ -64,6 +64,11 @@
     </message>
     <message>
         <location filename="../../../src/globaloptions/globaloptionsadvancedwidget.ui" line="24"/>
+        <source>NativeUI(Effective after restart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionsadvancedwidget.ui" line="31"/>
         <source>Github Copilot</source>
         <translation type="unfinished"></translation>
     </message>
@@ -96,43 +101,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="117"/>
-        <source>Background mode</source>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="115"/>
+        <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="124"/>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="136"/>
-        <source>Stretch</source>
+        <source>Background mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="131"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="143"/>
+        <source>Stretch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="138"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="141"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="148"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="146"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="153"/>
         <source>Fit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="151"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="158"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="156"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="163"/>
         <source>Tile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="164"/>
+        <location filename="../../../src/globaloptions/globaloptionsappearancewidget.ui" line="171"/>
         <source>Background opacity</source>
         <translation type="unfinished"></translation>
     </message>
@@ -181,53 +191,53 @@
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="124"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="125"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="159"/>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="164"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="163"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="168"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="159"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="163"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="164"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="168"/>
         <source>This feature is not implemented yet!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="183"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="187"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="183"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="187"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="183"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="187"/>
         <source>Terminal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="183"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="187"/>
         <source>Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="183"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="187"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="124"/>
+        <location filename="../../../src/globaloptions/globaloptionswindow.cpp" line="125"/>
         <source>Select Background Image</source>
         <translation type="unfinished"></translation>
     </message>

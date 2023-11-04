@@ -11,13 +11,20 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
+   <item>
     <widget class="QCheckBox" name="checkBoxTerminalBackgroundAnimation">
-        <property name="text">
-        <string>Terminal background support animation</string>
-        </property>
+     <property name="text">
+      <string>Terminal background support animation</string>
+     </property>
     </widget>
-    </item>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBoxNativeUI">
+     <property name="text">
+      <string>NativeUI(Effective after restart)</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QCheckBox" name="checkBoxGithubCopilot">
      <property name="text">

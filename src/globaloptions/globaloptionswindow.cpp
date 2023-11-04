@@ -106,6 +106,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->setChecked(settings.value("enableTerminalBackgroundAnimation", true).toBool());
     globalOptionsTerminalWidget->ui->comboBoxCursorShape->setCurrentIndex(settings.value("cursorShape", 0).toInt());
     globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
+    globalOptionsAdvancedWidget->ui->checkBoxNativeUI->setChecked(settings.value("enableNativeUI", false).toBool());
     settings.endGroup();
 
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
@@ -125,6 +126,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         if (!imgPath.isEmpty()) {
             globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->setText(imgPath);
         }
+    });
+    connect(globalOptionsAppearanceWidget->ui->toolButtonClearBackgroundImage, &QToolButton::clicked, this, [&](){
+        globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->setText("");
     });
     connect(globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont, &QPushButton::clicked, this, [=](){
         bool ok;
@@ -309,6 +313,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("enableTerminalBackgroundAnimation", globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->isChecked());
     settings.setValue("cursorShape", globalOptionsTerminalWidget->ui->comboBoxCursorShape->currentIndex());
     settings.setValue("cursorBlink", globalOptionsTerminalWidget->ui->checkBoxCursorBlink->isChecked());
+    settings.setValue("enableNativeUI", globalOptionsAdvancedWidget->ui->checkBoxNativeUI->isChecked());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -332,6 +337,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->setChecked(settings.value("enableTerminalBackgroundAnimation", true).toBool());
     globalOptionsTerminalWidget->ui->comboBoxCursorShape->setCurrentIndex(settings.value("cursorShape", 0).toInt());
     globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
+    globalOptionsAdvancedWidget->ui->checkBoxNativeUI->setChecked(settings.value("enableNativeUI", false).toBool());
     settings.endGroup();
     emit this->rejected();
 }

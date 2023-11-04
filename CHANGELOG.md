@@ -2,6 +2,9 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 增加高级设置选择UI样式为原生风格（单平台用户可能希望使用原生风格，多平台用户可能希望使用统一风格）
+- 增加设置中一键清理选择的背景图片功能
+
 ## [[V0.2.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.3)] - 2023-11-03
 
 - 增加windows上NamedPipe协议支持（linux/macos上对应unix domain socket）

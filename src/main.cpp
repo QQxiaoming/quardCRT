@@ -167,7 +167,6 @@ int main(int argc, char *argv[])
 
     AppComLineParser->process(application);
 
-
     GlobalSetting settings;
     bool debugMode = settings.value("Debug/DebugMode",false).toBool();
     QString debugLogFile;
@@ -180,6 +179,12 @@ int main(int argc, char *argv[])
     qDebug() << "DebugMode: " << debugMode;
     qDebug() << "DebugLevel: " << debugLevel;
     qDebug() << "DebugLogFile: " << debugLogFile;
+    
+    if(settings.value("Global/Options/enableNativeUI",false).toBool()) {
+        QApplication::setAttribute(Qt::AA_DontUseNativeDialogs,false);
+        QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar,false);
+        QApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings,false);
+    }
 
     QString dark_theme = "true";
     QString app_lang;

@@ -109,6 +109,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QToolButton" name="toolButtonClearBackgroundImage">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
