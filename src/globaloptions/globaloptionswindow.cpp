@@ -187,6 +187,11 @@ void GlobalOptionsWindow::retranslateUi()
     model->setStringList(QStringList() << tr("General") << tr("Appearance") << tr("Terminal") << tr("Window") << tr("Advanced"));
     ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
+    globalOptionsGeneralWidget->ui->retranslateUi(this);
+    globalOptionsAppearanceWidget->ui->retranslateUi(this);
+    globalOptionsTerminalWidget->ui->retranslateUi(this);
+    globalOptionsWindowWidget->ui->retranslateUi(this);
+    globalOptionsAdvancedWidget->ui->retranslateUi(this);
 }
 
 void GlobalOptionsWindow::setActiveWidget(int index)
