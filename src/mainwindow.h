@@ -101,7 +101,7 @@ private:
     void connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow);
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
 private:
     Ui::MainWindow *ui;
@@ -222,6 +222,7 @@ private:
     QShortcut *shortcutTabPlusSwitch;
     QShortcut *shortcutTabMinusSwitch;
     QShortcut *shortcutTabSwitch[9];
+    QShortcut *shortcutConnectAddressEdit;
 
     QList<SessionsWindow *> sessionList;
     QTftp *tftpServer;

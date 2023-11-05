@@ -529,6 +529,27 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
             group->sessionTab->currentWidget()->setFocus();
         });
     }
+    shortcutConnectAddressEdit = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_R),this);
+    connect(shortcutConnectAddressEdit,&QShortcut::activated,this,[=](){
+        if(connectAddressEdit->hasFocus() == true) {
+            QString str = connectAddressEdit->text();
+            static QRegularExpression connectAddressFormat("^(\\w+):\\/\\/([\\w\\.]+)(\\:(\\d+))?$");
+            if(connectAddressFormat.match(str).hasMatch()) {
+                QString type = connectAddressFormat.match(str).captured(1);
+                QString hostname = connectAddressFormat.match(str).captured(2);
+                QString port = connectAddressFormat.match(str).captured(4);
+                if(type == "telnet") {
+                    startTelnetSession(findCurrentFocusGroup(),hostname,port.toInt(),QTelnet::TCP);
+                } else if(type == "localshell") {
+                    startLocalShellSession(findCurrentFocusGroup());
+                } else if(type == "raw") {
+                    startRawSocketSession(findCurrentFocusGroup(),hostname,port.toInt());
+                } else if(type == "namepipe") {
+                    startNamePipeSession(findCurrentFocusGroup(),hostname);
+                }
+            }
+        }
+    });
 
     ui->statusBar->showMessage(tr("Ready"));
 
@@ -633,6 +654,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     helpMenu->setTitle(tr("Help"));
 
     newWindowAction->setText(tr("New Window"));
+    newWindowAction->setIcon(QFontIcon::icon(QChar(0xf09d)));
     newWindowAction->setStatusTip(tr("Open a new window <Ctrl+Shift+N>"));
     newWindowAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_N));
     connectAction->setText(tr("Connect..."));
@@ -702,6 +724,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     copyAndPasteAction->setText(tr("Copy and Paste"));
     copyAndPasteAction->setStatusTip(tr("Copy the selected text to the clipboard and paste to the current session"));
     selectAllAction->setText(tr("Select All"));
+    selectAllAction->setIcon(QFontIcon::icon(QChar(0xf046)));
     selectAllAction->setStatusTip(tr("Select all text in the current session <Ctrl+Shift+A>"));
     selectAllAction->setShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_A));
     findAction->setText(tr("Find..."));
@@ -712,9 +735,11 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     printScreenAction->setIcon(QFontIcon::icon(QChar(0xf02f)));
     printScreenAction->setStatusTip(tr("Print current screen"));
     screenShotAction->setText(tr("Screen Shot"));
+    screenShotAction->setIcon(QFontIcon::icon(QChar(0xf03e)));
     screenShotAction->setStatusTip(tr("Screen shot current screen <Alt+P>"));
     screenShotAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_P));
     sessionExportAction->setText(tr("Session Export"));
+    sessionExportAction->setIcon(QFontIcon::icon(QChar(0xf093)));
     sessionExportAction->setStatusTip(tr("Export current session to a file <Alt+O>"));
     sessionExportAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_O));
     clearScrollbackAction->setText(tr("Clear Scrollback"));
@@ -840,6 +865,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     helpAction->setIcon(QFontIcon::icon(QChar(0xf128)));
     helpAction->setStatusTip(tr("Display help"));
     checkUpdateAction->setText(tr("Check Update"));
+    checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf09b)));
     checkUpdateAction->setStatusTip(tr("Check for updates"));
     aboutAction->setText(tr("About"));
     aboutAction->setIcon(QIcon(":/icons/icons/about.png"));

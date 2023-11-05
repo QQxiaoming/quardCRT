@@ -36,7 +36,7 @@ void outputMessage(QtMsgType type, const QMessageLogContext &context, const QStr
     if(instance->logPath().isEmpty()) {
         /* debug时，若不输出日志，则输出打印，release则什么都不输出*/
         #if !defined(QT_NO_DEBUG)
-        if(type == QtDebugMsg) {return;}      //根据需要选择，屏蔽debug信息
+        //if(type == QtDebugMsg) {return;}     //根据需要选择，屏蔽debug信息
         //if(type == QtInfoMsg) {return;}      //根据需要选择，屏蔽info信息
         //if(type == QtWarningMsg) {return;}   //根据需要选择，屏蔽warning信息
         //if(type == QtCriticalMsg) {return;}  //根据需要选择，屏蔽critical信息
