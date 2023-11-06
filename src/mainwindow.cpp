@@ -300,42 +300,9 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                             return;
                         }
                         QuickConnectWindow::QuickConnectData data;
-                        data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
-                        switch(data.type) {
-                        case QuickConnectWindow::Telnet:
-                            data.TelnetData.hostname = sessionsWindow->getHostname();
-                            data.TelnetData.port = sessionsWindow->getPort();
-                            if(sessionsWindow->getSocketType() == QTelnet::TCP) {
-                                data.TelnetData.webSocket = "None";
-                            } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
-                                data.TelnetData.webSocket = "Insecure";
-                            } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
-                                data.TelnetData.webSocket = "Secure";
-                            }
-                            break;
-                        case QuickConnectWindow::Serial:
-                            data.SerialData.portName = sessionsWindow->getPortName();
-                            data.SerialData.baudRate = sessionsWindow->getBaudRate();
-                            data.SerialData.dataBits = sessionsWindow->getDataBits();
-                            data.SerialData.parity = sessionsWindow->getParity();
-                            data.SerialData.stopBits = sessionsWindow->getStopBits();
-                            data.SerialData.flowControl = sessionsWindow->getFlowControl();
-                            data.SerialData.xEnable = sessionsWindow->getXEnable();
-                            break;
-                        case QuickConnectWindow::LocalShell:
-                            data.LocalShellData.command = sessionsWindow->getCommand();
-                            break;
-                        case QuickConnectWindow::Raw:
-                            data.RawData.hostname = sessionsWindow->getHostname();
-                            data.RawData.port = sessionsWindow->getPort();
-                            break;
-                        case QuickConnectWindow::NamePipe:
-                            data.NamePipeData.pipeName = sessionsWindow->getPipeName();
-                            break;
-                        default:
-                            break;
-                        }
-                        sessionOptionsWindow->setSessionProperties(sessionsWindow->getName(),data);
+                        QString name;
+                        sessionWindow2InfoData(sessionsWindow,data,name);
+                        sessionOptionsWindow->setSessionProperties(name,data);
                         sessionOptionsWindow->show();
                     });
                     QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
@@ -410,42 +377,14 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         removeSessionFromSessionManager(str);
     });
     connect(sessionManagerWidget,&SessionManagerWidget::sessionShowProperties,this,[=](QString str){
-        QuickConnectWindow::QuickConnectData data;
         GlobalSetting settings;
         int size = settings.beginReadArray("Global/Session");
         for(int i=0;i<size;i++) {
             settings.setArrayIndex(i);
-            QString current_name = settings.value("name").toString();
+            QuickConnectWindow::QuickConnectData data;
+            QString current_name;
+            setting2InfoData(&settings, data, current_name);
             if(current_name == str) {
-                data.type = (QuickConnectWindow::QuickConnectType)(settings.value("type").toInt());
-                switch(data.type) {
-                case QuickConnectWindow::Telnet:
-                    data.TelnetData.hostname = settings.value("hostname").toString();
-                    data.TelnetData.port = settings.value("port").toInt();
-                    data.TelnetData.webSocket = settings.value("socketType").toString();
-                    break;
-                case QuickConnectWindow::Serial:
-                    data.SerialData.portName = settings.value("portName").toString();
-                    data.SerialData.baudRate = settings.value("baudRate").toInt();
-                    data.SerialData.dataBits = settings.value("dataBits").toInt();
-                    data.SerialData.parity = settings.value("parity").toInt();
-                    data.SerialData.stopBits = settings.value("stopBits").toInt();
-                    data.SerialData.flowControl = settings.value("flowControl").toBool();
-                    data.SerialData.xEnable = settings.value("xEnable").toBool();
-                    break;
-                case QuickConnectWindow::LocalShell:
-                    data.LocalShellData.command = settings.value("command").toString();
-                    break;
-                case QuickConnectWindow::Raw:
-                    data.RawData.hostname = settings.value("hostname").toString();
-                    data.RawData.port = settings.value("port").toInt();
-                    break;
-                case QuickConnectWindow::NamePipe:
-                    data.NamePipeData.pipeName = settings.value("pipeName").toString();
-                    break;
-                default:
-                    break;
-                }
                 sessionOptionsWindow->setSessionProperties(str,data);
                 sessionOptionsWindow->show();
                 break;
@@ -1754,42 +1693,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         QTermWidget *termWidget = findCurrentFocusTermWidget();
         if(termWidget == nullptr) return;
         SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
-        name = sessionsWindow->getName();
-        data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
-        switch(data.type) {
-            case QuickConnectWindow::Telnet:
-                data.TelnetData.hostname = sessionsWindow->getHostname();
-                data.TelnetData.port = sessionsWindow->getPort();
-                if(sessionsWindow->getSocketType() == QTelnet::TCP) {
-                    data.TelnetData.webSocket = "None";
-                } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
-                    data.TelnetData.webSocket = "Insecure";
-                } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
-                    data.TelnetData.webSocket = "Secure";
-                }
-                break;
-            case QuickConnectWindow::Serial:
-                data.SerialData.portName = sessionsWindow->getPortName();
-                data.SerialData.baudRate = sessionsWindow->getBaudRate();
-                data.SerialData.dataBits = sessionsWindow->getDataBits();
-                data.SerialData.parity = sessionsWindow->getParity();
-                data.SerialData.stopBits = sessionsWindow->getStopBits();
-                data.SerialData.flowControl = sessionsWindow->getFlowControl();
-                data.SerialData.xEnable = sessionsWindow->getXEnable();
-                break;
-            case QuickConnectWindow::LocalShell:
-                data.LocalShellData.command = sessionsWindow->getCommand();
-                break;
-            case QuickConnectWindow::Raw:
-                data.RawData.hostname = sessionsWindow->getHostname();
-                data.RawData.port = sessionsWindow->getPort();
-                break;
-            case QuickConnectWindow::NamePipe:
-                data.NamePipeData.pipeName = sessionsWindow->getPipeName();
-                break;
-            default:
-                break;
-        }
+        sessionWindow2InfoData(sessionsWindow, data, name);
         sessionOptionsWindow->setSessionProperties(name,data);
         sessionOptionsWindow->show();
     });
@@ -2034,42 +1938,15 @@ bool MainWindow::removeSessionFromSessionManager(QString name)
     int size = settings.beginReadArray("Global/Session");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
-        QString current_name = settings.value("name").toString();
+        QuickConnectWindow::QuickConnectData data;
+        QString current_name;
+        setting2InfoData(&settings, data, current_name);
         if(current_name == name) {
             matched = true;
             continue;
+        } else {
+            infoMap.insert(current_name,data);
         }
-        QuickConnectWindow::QuickConnectData data;
-        data.type = (QuickConnectWindow::QuickConnectType)(settings.value("type").toInt());
-        switch(data.type) {
-        case QuickConnectWindow::Telnet:
-            data.TelnetData.hostname = settings.value("hostname").toString();
-            data.TelnetData.port = settings.value("port").toInt();
-            data.TelnetData.webSocket = settings.value("socketType").toString();
-            break;
-        case QuickConnectWindow::Serial:
-            data.SerialData.portName = settings.value("portName").toString();
-            data.SerialData.baudRate = settings.value("baudRate").toInt();
-            data.SerialData.dataBits = settings.value("dataBits").toInt();
-            data.SerialData.parity = settings.value("parity").toInt();
-            data.SerialData.stopBits = settings.value("stopBits").toInt();
-            data.SerialData.flowControl = settings.value("flowControl").toBool();
-            data.SerialData.xEnable = settings.value("xEnable").toBool();
-            break;
-        case QuickConnectWindow::LocalShell:
-            data.LocalShellData.command = settings.value("command").toString();
-            break;
-        case QuickConnectWindow::Raw:
-            data.RawData.hostname = settings.value("hostname").toString();
-            data.RawData.port = settings.value("port").toInt();
-            break;
-        case QuickConnectWindow::NamePipe:
-            data.NamePipeData.pipeName = settings.value("pipeName").toString();
-            break;
-        default:
-            break;
-        }
-        infoMap.insert(current_name,data);
     }
     settings.endArray();
     settings.beginWriteArray("Global/Session");
@@ -2127,44 +2004,30 @@ void MainWindow::connectSessionFromSessionManager(QString name)
     int size = settings.beginReadArray("Global/Session");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
-        QString current_name = settings.value("name").toString();
+        QuickConnectWindow::QuickConnectData data;
+        QString current_name;
+        setting2InfoData(&settings,data,current_name);
         if(current_name == name) {
-            QuickConnectWindow::QuickConnectData data;
-            data.type = (QuickConnectWindow::QuickConnectType)(settings.value("type").toInt());
             switch(data.type) {
             case QuickConnectWindow::Telnet:
-                data.TelnetData.hostname = settings.value("hostname").toString();
-                data.TelnetData.port = settings.value("port").toInt();
-                data.TelnetData.webSocket = settings.value("socketType").toString();
                 startTelnetSession(findCurrentFocusGroup(),data.TelnetData.hostname,data.TelnetData.port,
                                    data.TelnetData.webSocket == "None"?QTelnet::TCP:
                                    data.TelnetData.webSocket == "Insecure"?QTelnet::WEBSOCKET:
                                    QTelnet::SECUREWEBSOCKET, current_name);
                 break;
             case QuickConnectWindow::Serial:
-                data.SerialData.portName = settings.value("portName").toString();
-                data.SerialData.baudRate = settings.value("baudRate").toInt();
-                data.SerialData.dataBits = settings.value("dataBits").toInt();
-                data.SerialData.parity = settings.value("parity").toInt();
-                data.SerialData.stopBits = settings.value("stopBits").toInt();
-                data.SerialData.flowControl = settings.value("flowControl").toBool();
-                data.SerialData.xEnable = settings.value("xEnable").toBool();
                 startSerialSession(findCurrentFocusGroup(),data.SerialData.portName,data.SerialData.baudRate,
                                    data.SerialData.dataBits,data.SerialData.parity,
                                    data.SerialData.stopBits,data.SerialData.flowControl,
                                    data.SerialData.xEnable, current_name);
                 break;
             case QuickConnectWindow::LocalShell:
-                data.LocalShellData.command = settings.value("command").toString();
                 startLocalShellSession(findCurrentFocusGroup(),data.LocalShellData.command,globalOptionsWindow->getNewTabWorkPath(),current_name);
                 break;
             case QuickConnectWindow::Raw:
-                data.RawData.hostname = settings.value("hostname").toString();
-                data.RawData.port = settings.value("port").toInt();
                 startRawSocketSession(findCurrentFocusGroup(),data.RawData.hostname,data.RawData.port, current_name);
                 break;
             case QuickConnectWindow::NamePipe:
-                data.NamePipeData.pipeName = settings.value("pipeName").toString();
                 startNamePipeSession(findCurrentFocusGroup(),data.NamePipeData.pipeName, current_name);
                 break;
             default:
@@ -2491,6 +2354,80 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
     return 0;
+}
+
+void MainWindow::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name)
+{
+    name = sessionsWindow->getName();
+    data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
+    switch(data.type) {
+        case QuickConnectWindow::Telnet:
+            data.TelnetData.hostname = sessionsWindow->getHostname();
+            data.TelnetData.port = sessionsWindow->getPort();
+            if(sessionsWindow->getSocketType() == QTelnet::TCP) {
+                data.TelnetData.webSocket = "None";
+            } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
+                data.TelnetData.webSocket = "Insecure";
+            } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
+                data.TelnetData.webSocket = "Secure";
+            }
+            break;
+        case QuickConnectWindow::Serial:
+            data.SerialData.portName = sessionsWindow->getPortName();
+            data.SerialData.baudRate = sessionsWindow->getBaudRate();
+            data.SerialData.dataBits = sessionsWindow->getDataBits();
+            data.SerialData.parity = sessionsWindow->getParity();
+            data.SerialData.stopBits = sessionsWindow->getStopBits();
+            data.SerialData.flowControl = sessionsWindow->getFlowControl();
+            data.SerialData.xEnable = sessionsWindow->getXEnable();
+            break;
+        case QuickConnectWindow::LocalShell:
+            data.LocalShellData.command = sessionsWindow->getCommand();
+            break;
+        case QuickConnectWindow::Raw:
+            data.RawData.hostname = sessionsWindow->getHostname();
+            data.RawData.port = sessionsWindow->getPort();
+            break;
+        case QuickConnectWindow::NamePipe:
+            data.NamePipeData.pipeName = sessionsWindow->getPipeName();
+            break;
+        default:
+            break;
+    }
+}
+
+void MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name)
+{
+    name = settings->value("name").toString();
+    data.type = (QuickConnectWindow::QuickConnectType)(settings->value("type").toInt());
+    switch(data.type) {
+    case QuickConnectWindow::Telnet:
+        data.TelnetData.hostname = settings->value("hostname").toString();
+        data.TelnetData.port = settings->value("port").toInt();
+        data.TelnetData.webSocket = settings->value("socketType").toString();
+        break;
+    case QuickConnectWindow::Serial:
+        data.SerialData.portName = settings->value("portName").toString();
+        data.SerialData.baudRate = settings->value("baudRate").toInt();
+        data.SerialData.dataBits = settings->value("dataBits").toInt();
+        data.SerialData.parity = settings->value("parity").toInt();
+        data.SerialData.stopBits = settings->value("stopBits").toInt();
+        data.SerialData.flowControl = settings->value("flowControl").toBool();
+        data.SerialData.xEnable = settings->value("xEnable").toBool();
+        break;
+    case QuickConnectWindow::LocalShell:
+        data.LocalShellData.command = settings->value("command").toString();
+        break;
+    case QuickConnectWindow::Raw:
+        data.RawData.hostname = settings->value("hostname").toString();
+        data.RawData.port = settings->value("port").toInt();
+        break;
+    case QuickConnectWindow::NamePipe:
+        data.NamePipeData.pipeName = settings->value("pipeName").toString();
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::addBookmark(const QString &path)

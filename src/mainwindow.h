@@ -44,6 +44,7 @@
 #include "starttftpseverwindow.h"
 #include "locksessionwindow.h"
 #include "sessionoptionswindow.h"
+#include "globalsetting.h"
 #include "qtftp.h"
 
 extern QString VERSION;
@@ -99,6 +100,8 @@ private:
     void saveSettings(void);
     void restoreSettings(void);
     void connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow);
+    void sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name);
+    void setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name);
 
 protected:
     void closeEvent(QCloseEvent *event) override;
