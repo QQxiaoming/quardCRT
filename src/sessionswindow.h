@@ -82,6 +82,7 @@ public:
     void unlockSession(QString password);
     bool isLocked() const { return locked; }
     SessionsState getState() const { return state; }
+    bool hasChildProcess();
 
     QString getHostname() const { return m_hostname; }
     quint16 getPort() const { return m_port; }

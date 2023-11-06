@@ -20,6 +20,7 @@ public:
     QByteArray readAll();
     qint64 write(const QByteArray &byteArray);
     QString currentDir();
+    virtual bool hasChildProcess();
     bool isAvailable();
     void moveToThread(QThread *targetThread);
 

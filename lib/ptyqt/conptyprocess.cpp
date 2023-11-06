@@ -301,6 +301,11 @@ QString ConPtyProcess::currentDir()
     return QDir::currentPath();
 }
 
+bool ConPtyProcess::hasChildProcess()
+{
+    return true;
+}
+
 bool ConPtyProcess::isAvailable()
 {
 #ifdef TOO_OLD_WINSDK

@@ -1,4 +1,6 @@
 #include "winptyprocess.h"
+#include <windows.h> 
+#include <tlhelp32.h>
 #include <QFile>
 #include <QFileInfo>
 #include <sstream>
@@ -237,6 +239,29 @@ qint64 WinPtyProcess::write(const QByteArray &byteArray)
 QString WinPtyProcess::currentDir()
 {
     return QDir::currentPath();
+}
+
+bool WinPtyProcess::hasChildProcess()
+{
+    HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0); 
+
+    if (snapshot == INVALID_HANDLE_VALUE) 
+        return false;
+
+    PROCESSENTRY32 pe;
+    pe.dwSize = sizeof(PROCESSENTRY32);
+
+    if (Process32First(snapshot, &pe)) {
+        do {
+            if (pe.th32ParentProcessID == m_pid) {
+                CloseHandle(snapshot);
+                return true;
+            }
+        } while (Process32Next(snapshot, &pe));
+    }
+
+    CloseHandle(snapshot);
+    return false;
 }
 
 bool WinPtyProcess::isAvailable()

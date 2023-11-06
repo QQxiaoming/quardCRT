@@ -2295,6 +2295,14 @@ int MainWindow::stopSession(MainWidgetGroup *group, int index, bool force)
             delete sessionsWindow;
         } else {
             if(sessionsWindow->getState() == SessionsWindow::Connected) {
+                if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
+                    if(!sessionsWindow->hasChildProcess()) {
+                        sessionList.removeOne(sessionsWindow);
+                        group->sessionTab->removeTab(index);
+                        delete sessionsWindow;
+                        return 0;
+                    }
+                }
                 QMessageBox::StandardButton reply;
                 reply = QMessageBox::question(this, tr("Warning"), tr("Are you sure to disconnect this session?"),
                                             QMessageBox::Yes|QMessageBox::No);
@@ -2501,7 +2509,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
     int lockedSessionCount = 0;
     foreach(SessionsWindow *sessionsWindow, sessionList) {
         if(sessionsWindow->getState() == SessionsWindow::Connected) {
-            activeSessionCount++;
+            if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
+                if(sessionsWindow->hasChildProcess()) {
+                    activeSessionCount++;
+                }
+            } else {
+                activeSessionCount++;
+            }
         }
         if(sessionsWindow->isLocked()) {
             lockedSessionCount++;

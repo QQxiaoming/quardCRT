@@ -312,6 +312,17 @@ QString UnixPtyProcess::currentDir()
     return QDir::currentPath();
 }
 
+bool UnixPtyProcess::hasChildProcess()
+{
+    int pid = tcgetpgrp(m_shellProcess.m_handleMaster);
+    if ( pid != -1 ) {
+        if(m_pid != pid) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool UnixPtyProcess::isAvailable()
 {
 	//todo check something more if required

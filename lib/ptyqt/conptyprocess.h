@@ -138,8 +138,9 @@ public:
     QString dumpDebugInfo();
     virtual QIODevice *notifier();
     virtual QByteArray readAll();
-    virtual QString currentDir();
     virtual qint64 write(const QByteArray &byteArray);
+    virtual QString currentDir();
+    virtual bool hasChildProcess();
     bool isAvailable();
     void moveToThread(QThread *targetThread);
 

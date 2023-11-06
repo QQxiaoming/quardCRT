@@ -106,6 +106,7 @@ public:
     virtual QByteArray readAll();
     virtual qint64 write(const QByteArray &byteArray);
     virtual QString currentDir();
+    virtual bool hasChildProcess();
     virtual bool isAvailable();
     void moveToThread(QThread *targetThread);
 

@@ -533,3 +533,12 @@ void SessionsWindow::unlockSession(QString password) {
         QMessageBox::warning(term, tr("Unlock Session"), tr("Wrong password!"));
     }
 }
+
+bool SessionsWindow::hasChildProcess() {
+    if(type == LocalShell) {
+        return localShell->hasChildProcess();
+    } else {
+        return false;
+    }
+}
+

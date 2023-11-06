@@ -40,6 +40,7 @@ public:
     virtual qint64 write(const QByteArray &byteArray) = 0;
     virtual bool isAvailable() = 0;
     virtual void moveToThread(QThread *targetThread) = 0;
+    virtual bool hasChildProcess() = 0;
     qint64 pid() { return m_pid; }
     QPair<qint16, qint16> size() { return m_size; }
     const QString lastError() { return m_lastError; }
