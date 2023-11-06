@@ -68,6 +68,28 @@ public:
         return QString();
     }
 
+    static QStringList getOpenFileNames(QWidget *parent = nullptr,
+                                    const QString &caption = QString(),
+                                    const QString &dir = QString(),
+                                    const QString &filter = QString(),
+                                    QString *selectedFilter = nullptr,
+                                    QFileDialog::Options options = QFileDialog::Options()) {
+        QFileDialog dialog(parent, caption, dir, filter);
+        dialog.setFileMode(QFileDialog::ExistingFiles);
+        dialog.setAcceptMode(QFileDialog::AcceptOpen);
+        dialog.setDefaultSuffix("txt");
+        dialog.setSidebarUrls(FileDialog::getSiderbarUrls());
+        dialog.setOptions(options);
+        if (selectedFilter && !selectedFilter->isEmpty())
+            dialog.selectNameFilter(*selectedFilter);
+        if (dialog.exec() == QDialog::Accepted) {
+            if (selectedFilter)
+                *selectedFilter = dialog.selectedNameFilter();
+            return dialog.selectedFiles();
+        }
+        return QStringList();
+    }
+
     static QString getSaveFileName(QWidget *parent = nullptr,
                                    const QString &caption = QString(),
                                    const QString &dir = QString(),

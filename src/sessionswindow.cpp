@@ -118,6 +118,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 QMessageBox::warning(term, tr("Telnet Error"), tr("Telnet error:\n%1.").arg(telnet->errorString()));
                 state = Error;
                 emit stateChanged(state);
+                Q_UNUSED(socketError);
             });
             break;
         }
@@ -140,6 +141,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 QMessageBox::warning(term, tr("Serial Error"), tr("Serial error:\n%1.").arg(serialPort->errorString()));
                 state = Error;
                 emit stateChanged(state);
+                Q_UNUSED(serialPortError);
             });
             break;
         }
@@ -171,6 +173,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 QMessageBox::warning(term, tr("Raw Socket Error"), tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
                 state = Error;
                 emit stateChanged(state);
+                Q_UNUSED(socketError);
             });
             break;
         }
@@ -202,6 +205,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 QMessageBox::warning(term, tr("Name Pipe Error"), tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
                 state = Error;
                 emit stateChanged(state);
+                Q_UNUSED(socketError);
             });
             break;
         }
