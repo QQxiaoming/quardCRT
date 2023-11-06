@@ -211,6 +211,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                 } else {
                     QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
                     menu->addAction(moveToAnotherTabAction);
+                    menu->addSeparator();
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
                         auto moveToAnotherTab = [&](int src,int dst, int index) {
                             mainWidgetGroupList.at(dst)->sessionTab->addTab(
@@ -227,21 +228,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         } else {
                             moveToAnotherTab(1,0,index);
                         }
-                    });
-                    QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
-                    menu->addAction(openWorkingFolderAction);
-                    connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
-                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
-                        QString dir = sessionsWindow->getWorkingDirectory();
-                        if(!dir.isEmpty()) {
-                            QFileInfo fileInfo(dir);
-                            if(fileInfo.isDir()) {
-                                QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
-                                return;
-                            }
-                        }
-                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                     });
                     QAction *copyPathAction = new QAction(tr("Copy Path"),this);
                     menu->addAction(copyPathAction);
@@ -273,6 +259,22 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         }
                         QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                     });
+                    QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
+                    menu->addAction(openWorkingFolderAction);
+                    menu->addSeparator();
+                    connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
+                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                        QString dir = sessionsWindow->getWorkingDirectory();
+                        if(!dir.isEmpty()) {
+                            QFileInfo fileInfo(dir);
+                            if(fileInfo.isDir()) {
+                                QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
+                                return;
+                            }
+                        }
+                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                    });
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
                     menu->addAction(saveSessionAction);
                     connect(saveSessionAction,&QAction::triggered,this,[=](){
@@ -290,9 +292,9 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                             }
                         }
                     });
-                    menu->addSeparator();
                     QAction *propertiesAction = new QAction(tr("Properties"),this);
                     menu->addAction(propertiesAction);
+                    menu->addSeparator();
                     connect(propertiesAction,&QAction::triggered,this,[=](){
                         QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
                         SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();

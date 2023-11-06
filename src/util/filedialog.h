@@ -36,7 +36,7 @@ private:
         sidebarUrls.append(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::MusicLocation)));
         sidebarUrls.append(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)));
         sidebarUrls.append(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation)));
-    #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+    #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
         sidebarUrls.append(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::PublicShareLocation)));
     #endif
         QFileInfoList drivesList = QDir::drives();
