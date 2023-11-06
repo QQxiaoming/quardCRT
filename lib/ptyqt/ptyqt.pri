@@ -17,7 +17,7 @@ win32:{
         $$PWD/conptyprocess.cpp \
         $$PWD/winptyprocess.cpp
 
-    WINPTY_DIR=D:\winpty
+    WINPTY_DIR=D:\quardCRT\depend\winpty
     INCLUDEPATH += $${WINPTY_DIR}\include\winpty
     LIBS += $${WINPTY_DIR}\lib\winpty.lib
 
