@@ -303,7 +303,7 @@ QString ConPtyProcess::currentDir()
     return QDir::currentPath();
 }
 
-bool WinPtyProcess::hasChildProcess()
+bool ConPtyProcess::hasChildProcess()
 {
     HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0); 
 
