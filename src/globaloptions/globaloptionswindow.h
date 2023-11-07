@@ -53,6 +53,7 @@ public:
     bool getEnableTerminalBackgroundAnimation(void);
     uint32_t getCursorShape(void);
     bool getCursorBlink(void);
+    int getTabTitleMode(void);
 
     const static QString defaultColorScheme;
 

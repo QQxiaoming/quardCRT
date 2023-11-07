@@ -22,6 +22,32 @@
     <widget class="QComboBox" name="comboBoxNewTabWorkPath"/>
    </item>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Tab title mode</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="comboBoxTabTitleMode">
+     <item>
+      <property name="text">
+       <string>Brief</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Full</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Scroll</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

@@ -55,14 +55,16 @@ public:
     int addTab(QWidget *widget, const QString &text);
     void setTabText(int index, const QString &text);
     void removeTab(int index);
-    void setScrollTitle(bool scroll);
+    void setScrollTitleMode(int mode);
+    int getScrollTitleMode(void) { return scrollTitleMode; }
 
 signals:
     void showContextMenu(int index, const QPoint& position);
 
 private:
-    void refreshTabText(void);
     int stringWidth(const QString &string);
+    void refreshTabText(void);
+    void setTabStaticText(int mode, int index, QString title);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
@@ -72,6 +74,7 @@ private:
     QStringList tabTexts;
     QList<int> titleScrollPos;
     QTimer *titleScrollTimer;
+    int scrollTitleMode = 0;
 };
 
 #endif // SESSIONTAB_H
