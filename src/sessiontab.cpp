@@ -25,7 +25,9 @@
 #include <QApplication>
 #include <QFont>
 #include <QFontDatabase>
+#include <QTimer>
 #include "sessiontab.h"
+#include "utf8proc.h"
 
 EmptyTabWidget::EmptyTabWidget(QWidget *parent) 
     : QWidget(parent) {
@@ -106,6 +108,13 @@ SessionTab::SessionTab(QWidget *parent)
     setTabTextEditable(false);
     setAddTabButtonVisible(false);
 
+    titleScrollTimer = new QTimer(this);
+    titleScrollTimer->setInterval(500);
+    titleScrollTimer->setSingleShot(false);
+    connect(titleScrollTimer,&QTimer::timeout,this,[&]() {
+        refreshTabText();
+    });
+
     emptyTab = new EmptyTabWidget(this);
     retranslateUi();
     addTab(emptyTab,"");
@@ -146,4 +155,97 @@ void SessionTab::contextMenuEvent(QContextMenuEvent *event) {
 
 void SessionTab::retranslateUi(void) {
     emptyTab->retranslateUi();
+}
+
+int SessionTab::addTab(QWidget *widget, const QString &text) {
+    int index = FancyTabWidget::addTab(widget,QString(20,' '));
+    tabTexts.insert(index,text);
+    titleScrollPos.insert(index,0);
+    setTabText(index,text);
+    return index;
+}
+
+void SessionTab::removeTab(int index) {
+    FancyTabWidget::removeTab(index);
+    tabTexts.removeAt(index);
+    titleScrollPos.removeAt(index);
+}
+
+int SessionTab::stringWidth( const QString &string)
+{
+    auto wcharwidth = [](wchar_t ucs) {
+        utf8proc_category_t cat = utf8proc_category( ucs );
+        if (cat == UTF8PROC_CATEGORY_CO) {
+            // Co: Private use area. libutf8proc makes them zero width, while tmux
+            // assumes them to be width 1, and glibc's default width is also 1
+            return 1;
+        }
+        return utf8proc_charwidth( ucs );
+    };
+    std::wstring wstr = string.toStdWString();
+    int w = 0;
+    for ( size_t i = 0; i < wstr.length(); ++i ) {
+        w += wcharwidth( wstr[ i ] );
+    }
+    return w;
+}
+
+void SessionTab::refreshTabText(void) {
+    for(int i = 1; i < FancyTabWidget::count(); i++) {
+        QString title = tabTexts.at(i);
+        if(stringWidth(title) > 20) {
+            titleScrollPos[i] = (titleScrollPos.at(i) + 2) % (stringWidth(title) - 20 + 2);
+            QString txt;
+            for(int j = 0; j < title.length()-titleScrollPos[i]; j++) {
+                if(stringWidth(txt) + stringWidth(QString(title.at(titleScrollPos[i]+j))) <= 20) {
+                    txt = txt + title.at(titleScrollPos[i]+j);
+                } else {
+                    break;
+                }
+            }
+            title = txt + QString(20 - stringWidth(txt),' ');
+        } else {
+            titleScrollPos[i] = 0;
+            title = title + QString(20 - stringWidth(title),' ');
+        }
+        FancyTabWidget::setTabText(i,title);
+    }
+}
+
+void SessionTab::setTabText(int index, const QString &text) {
+    QString title = text;
+    tabTexts.replace(index,text);
+    titleScrollPos.replace(index,0);
+    FancyTabWidget::setTabToolTip(index,text);
+    if(titleScrollTimer->isActive()) {
+        refreshTabText();
+    } else {
+        if(stringWidth(title) > 20) {
+            QString txt;
+            for(int j = 0; j < title.length(); j++) {
+                if(stringWidth(txt) + stringWidth(QString(title.at(j))) <= 17) {
+                    txt = txt + title.at(j);
+                } else {
+                    break;
+                }
+            }
+            txt = txt + "...";
+            title = txt + QString(20 - stringWidth(txt),' ');
+        } else {
+            title = title + QString(20 - stringWidth(title),' ');
+        }
+        FancyTabWidget::setTabText(index,title);
+    }
+}
+
+void SessionTab::setScrollTitle(bool scroll) {
+    if(scroll) {
+        titleScrollTimer->start();
+    } else {
+        titleScrollTimer->stop();
+        foreach(int i, titleScrollPos) {
+            i = 0;
+        }
+        refreshTabText();
+    }
 }

@@ -25,6 +25,8 @@
 #include <QPaintEvent>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QTimer>
+#include <QList>
 #include "fancytabwidget.h"
 
 class EmptyTabWidget : public QWidget {
@@ -50,15 +52,26 @@ public:
     int count(void);
     void setCurrentIndex(int index);
     void retranslateUi(void);
+    int addTab(QWidget *widget, const QString &text);
+    void setTabText(int index, const QString &text);
+    void removeTab(int index);
+    void setScrollTitle(bool scroll);
 
 signals:
     void showContextMenu(int index, const QPoint& position);
+
+private:
+    void refreshTabText(void);
+    int stringWidth(const QString &string);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
     EmptyTabWidget *emptyTab;
+    QStringList tabTexts;
+    QList<int> titleScrollPos;
+    QTimer *titleScrollTimer;
 };
 
 #endif // SESSIONTAB_H

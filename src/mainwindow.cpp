@@ -2201,11 +2201,7 @@ QString MainWindow::getDirAndcheckeSysName(const QString &title)
         QString sysHostname = QHostInfo::localHostName();
     #endif
         if((username == sysUsername) && (hostname == sysHostname)) {
-        #if defined(Q_OS_WIN)
             return dir;
-        #else
-            return dir.replace("~",QDir::homePath());
-        #endif
         }
     }
 
