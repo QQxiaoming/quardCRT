@@ -265,6 +265,28 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         connect(group->sessionTab,&SessionTab::tabTextSet,this,[=](int index, const QString &text){
                             if(index) dialog->setWindowTitle(text);
                         });
+                        connect(group->sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
+                            if(index != -1) return;
+                            QMenu *menu = new QMenu(this);
+                            QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
+                            QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
+                            QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
+                            if(!ftActions.isEmpty()) {
+                                menu->addActions(ftActions);
+                                menu->addSeparator();
+                            }
+                            menu->addAction(copyAction);
+                            menu->addAction(pasteAction);
+                            menu->addSeparator();
+                            menu->addAction(selectAllAction);
+                            menu->addAction(findAction);
+                            menu->move(cursor().pos());
+                            menu->show();
+                        });
+                        connect(group->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
+                            QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
+                            termWidget->proxySendData(data);
+                        });
                         connect(dialog, &QDialog::finished, this, [=](int result){
                             MainWidgetGroup *group = mainWidgetGroupList.at(newGroup);
                             stopSession(group,1,true);
