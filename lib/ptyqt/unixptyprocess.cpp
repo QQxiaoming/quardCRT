@@ -198,10 +198,15 @@ bool UnixPtyProcess::startProcess(const QString &shellPath, QStringList args,
             environment.append(defVar);
     }
 
-    QProcessEnvironment envFormat;
+    QProcessEnvironment envFormat = QProcessEnvironment::systemEnvironment();
     foreach (QString line, environment)
     {
-        envFormat.insert(line.split("=").first(), line.split("=").last());
+        if(envFormat.contains(line.split("=").first())) {
+            envFormat.remove(line.split("=").first());
+            envFormat.insert(line.split("=").first(), line.split("=").last());
+        } else {
+            envFormat.insert(line.split("=").first(), line.split("=").last());
+        }
     }
     m_shellProcess.setWorkingDirectory(workDir);
     m_shellProcess.setProcessEnvironment(envFormat);
