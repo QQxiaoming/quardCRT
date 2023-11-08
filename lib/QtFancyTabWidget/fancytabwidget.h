@@ -34,6 +34,9 @@ public:
     void       setAddTabButtonVisible(bool visible) {
         addButton->setVisible(visible);
     }
+    void      setAddTabButtonHidden(bool hidden) {
+        addButton->setHidden(hidden);
+    }
 
 signals:
     void        tabAddRequested();

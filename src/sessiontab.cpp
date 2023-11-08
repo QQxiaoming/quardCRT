@@ -248,6 +248,7 @@ void SessionTab::setTabText(int index, const QString &text) {
     tabTexts.replace(index,text);
     titleScrollPos.replace(index,0);
     FancyTabWidget::setTabToolTip(index,text);
+    emit tabTextSet(index, title);
     if(titleScrollTimer->isActive()) {
         refreshTabText();
     } else {

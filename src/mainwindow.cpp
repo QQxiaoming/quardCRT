@@ -216,7 +216,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                 } else {
                     QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
                     menu->addAction(moveToAnotherTabAction);
-                    menu->addSeparator();
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
                         auto moveToAnotherTab = [&](int src,int dst, int index) {
                             mainWidgetGroupList.at(dst)->sessionTab->addTab(
@@ -233,6 +232,46 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         } else {
                             moveToAnotherTab(1,0,index);
                         }
+                    });
+                    QAction *floatAction = new QAction(tr("Floating Window"),this);
+                    menu->addAction(floatAction);
+                    menu->addSeparator();
+                    connect(floatAction,&QAction::triggered,this,[=](){
+                        auto moveToAnotherTab = [&](int src,int dst, int index) {
+                            mainWidgetGroupList.at(dst)->sessionTab->addTab(
+                                mainWidgetGroupList.at(src)->sessionTab->widget(index),
+                                mainWidgetGroupList.at(src)->sessionTab->tabText(index));
+                            mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
+                            mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
+                                mainWidgetGroupList.at(dst)->sessionTab->count()-1);
+                            mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
+                                mainWidgetGroupList.at(src)->sessionTab->count()-1);
+                        };
+                        QDialog *dialog = new QDialog(this);
+                        dialog->setWindowFlags(Qt::Tool);
+                        dialog->setLayout(new QVBoxLayout);
+                        MainWidgetGroup *group = new MainWidgetGroup(dialog);
+                        mainWidgetGroupList.append(group);
+                        int newGroup = mainWidgetGroupList.count()-1;
+                        if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
+                            moveToAnotherTab(0,newGroup,index);
+                        } else {
+                            moveToAnotherTab(1,newGroup,index);
+                        }
+                        dialog->layout()->addWidget(group->splitter);
+                        group->sessionTab->setTabBarHidden(true);
+                        group->sessionTab->setAddTabButtonHidden(true);
+                        dialog->setWindowTitle(group->sessionTab->tabTitle(1));
+                        connect(group->sessionTab,&SessionTab::tabTextSet,this,[=](int index, const QString &text){
+                            if(index) dialog->setWindowTitle(text);
+                        });
+                        connect(dialog, &QDialog::finished, this, [=](int result){
+                            MainWidgetGroup *group = mainWidgetGroupList.at(newGroup);
+                            stopSession(group,1,true);
+                            mainWidgetGroupList.removeAt(newGroup);
+                            delete dialog;
+                        });
+                        dialog->show();
                     });
                     QAction *copyPathAction = new QAction(tr("Copy Path"),this);
                     menu->addAction(copyPathAction);
@@ -2097,7 +2136,13 @@ QString MainWindow::startTelnetSession(MainWidgetGroup *group, QString hostname,
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
             sessionsWindow->setShortTitle(newTitle);
-            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getTermWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                    break;
+                }
+            }
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
@@ -2124,7 +2169,13 @@ QString MainWindow::startSerialSession(MainWidgetGroup *group, QString portName,
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
             sessionsWindow->setShortTitle(newTitle);
-            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getTermWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                    break;
+                }
+            }
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
@@ -2150,7 +2201,13 @@ QString MainWindow::startRawSocketSession(MainWidgetGroup *group, QString hostna
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
             sessionsWindow->setShortTitle(newTitle);
-            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getTermWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                    break;
+                }
+            }
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
@@ -2176,7 +2233,13 @@ QString MainWindow::startNamePipeSession(MainWidgetGroup *group, QString pipeNam
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
             sessionsWindow->setShortTitle(newTitle);
-            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getTermWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                    break;
+                }
+            }
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
@@ -2253,7 +2316,13 @@ QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString
             } else {
                 sessionsWindow->setShortTitle(newTitle);
             }
-            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getTermWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                    break;
+                }
+            }
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
@@ -2282,7 +2351,13 @@ QString MainWindow::startSSH2Session(MainWidgetGroup *group,
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
             sessionsWindow->setShortTitle(newTitle);
-            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindow->getTermWidget()), sessionsWindow->getTitle());
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getTermWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                    break;
+                }
+            }
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
@@ -2366,7 +2441,13 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
             } else {
                 sessionsWindowClone->setShortTitle(newTitle);
             }
-            group->sessionTab->setTabText(group->sessionTab->indexOf(sessionsWindowClone->getTermWidget()), sessionsWindowClone->getTitle());
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindowClone->getTermWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindowClone->getTitle());
+                    break;
+                }
+            }
         }
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);

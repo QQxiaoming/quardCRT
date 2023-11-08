@@ -27,6 +27,7 @@
 #include <QVBoxLayout>
 #include <QTimer>
 #include <QList>
+#include <QTabBar>
 #include "fancytabwidget.h"
 
 class EmptyTabWidget : public QWidget {
@@ -64,9 +65,12 @@ public:
     int getScrollTitleMode(void) { return scrollTitleMode; }
     void setTitleWidth(int width) { titleWidth = width; setScrollTitleMode(scrollTitleMode); }
     int getTitleWidth(void) { return titleWidth; }
+    void setTabBarHidden(bool hide) { tabBar()->setHidden(hide); }
+    QString tabTitle(int index) { return tabTexts[index]; }
 
 signals:
     void showContextMenu(int index, const QPoint& position);
+    void tabTextSet(int index, const QString &text);
 
 private:
     int stringWidth(const QString &string);
