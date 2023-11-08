@@ -214,21 +214,20 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         lockSessionWindow->showUnlock();
                     });
                 } else {
+                    auto moveToAnotherTab = [&](int src,int dst, int index) {
+                        QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
+                        int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
+                            mainWidgetGroupList.at(src)->sessionTab->widget(index),
+                            mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
+                        mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
+                        mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
+                            mainWidgetGroupList.at(dst)->sessionTab->count()-1);
+                        mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
+                            mainWidgetGroupList.at(src)->sessionTab->count()-1);
+                    };
                     QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
                     menu->addAction(moveToAnotherTabAction);
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
-                        auto moveToAnotherTab = [&](int src,int dst, int index) {
-                            QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
-                            int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
-                                mainWidgetGroupList.at(src)->sessionTab->widget(index),
-                                mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
-                            mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
-                            mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
-                            mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
-                                mainWidgetGroupList.at(dst)->sessionTab->count()-1);
-                            mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
-                                mainWidgetGroupList.at(src)->sessionTab->count()-1);
-                        };
                         if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
                             moveToAnotherTab(0,1,index);
                         } else {
@@ -239,20 +238,9 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     menu->addAction(floatAction);
                     menu->addSeparator();
                     connect(floatAction,&QAction::triggered,this,[=](){
-                        auto moveToAnotherTab = [&](int src,int dst, int index) {
-                            QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
-                            int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
-                                mainWidgetGroupList.at(src)->sessionTab->widget(index),
-                                mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
-                            mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
-                            mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
-                            mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
-                                mainWidgetGroupList.at(dst)->sessionTab->count()-1);
-                            mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
-                                mainWidgetGroupList.at(src)->sessionTab->count()-1);
-                        };
                         QDialog *dialog = new QDialog(this);
                         dialog->setWindowFlags(Qt::Window);
+                        dialog->resize(800,480);
                         dialog->setLayout(new QVBoxLayout);
                         MainWidgetGroup *group = new MainWidgetGroup(dialog);
                         mainWidgetGroupList.append(group);
