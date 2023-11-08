@@ -2310,9 +2310,12 @@ QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString
             QString workDir = getDirAndcheckeSysName(newTitle);
             if(!workDir.isEmpty()) {
                 sessionsWindow->setShortTitle(workDir);
-                QFileInfo fileInfo(workDir.replace("~",QDir::homePath()));
+                if(workDir.startsWith("~/")) {
+                    workDir = workDir.replace(0,1,QDir::homePath());
+                }
+                QFileInfo fileInfo(workDir);
                 if(fileInfo.isDir()) {
-                    sessionsWindow->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
+                    sessionsWindow->setWorkingDirectory(workDir);
                 }
             } else {
                 sessionsWindow->setShortTitle(newTitle);
@@ -2435,9 +2438,12 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
             QString workDir = getDirAndcheckeSysName(newTitle);
             if(!workDir.isEmpty()) {
                 sessionsWindowClone->setShortTitle(workDir);
-                QFileInfo fileInfo(workDir.replace("~",QDir::homePath()));
+                if(workDir.startsWith("~/")) {
+                    workDir = workDir.replace(0,1,QDir::homePath());
+                }
+                QFileInfo fileInfo(workDir);
                 if(fileInfo.isDir()) {
-                    sessionsWindowClone->setWorkingDirectory(workDir.replace("~",QDir::homePath()));
+                    sessionsWindowClone->setWorkingDirectory(workDir);
                 }
             } else {
                 sessionsWindowClone->setShortTitle(newTitle);
