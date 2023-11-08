@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>221</height>
+    <height>278</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -45,6 +45,23 @@
        <string>Scroll</string>
       </property>
      </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Tab Title Width</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="spinBoxTabTitleWidth">
+     <property name="minimum">
+      <number>20</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
     </widget>
    </item>
    <item>

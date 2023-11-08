@@ -109,7 +109,7 @@ SessionTab::SessionTab(QWidget *parent)
     setAddTabButtonVisible(false);
 
     titleScrollTimer = new QTimer(this);
-    titleScrollTimer->setInterval(500);
+    titleScrollTimer->setInterval(750);
     titleScrollTimer->setSingleShot(false);
     connect(titleScrollTimer,&QTimer::timeout,this,[&]() {
         refreshTabText();
@@ -202,43 +202,43 @@ int SessionTab::stringWidth( const QString &string)
 void SessionTab::refreshTabText(void) {
     for(int i = 1; i < FancyTabWidget::count(); i++) {
         QString title = tabTexts.at(i);
-        if(stringWidth(title) > 20) {
-            titleScrollPos[i] = (titleScrollPos.at(i) + 2) % (stringWidth(title) - 20 + 2);
+        if(stringWidth(title) > titleWidth) {
+            titleScrollPos[i] = (titleScrollPos.at(i) + 2) % (stringWidth(title) - titleWidth + 2);
             QString txt;
             for(int j = 0; j < title.length()-titleScrollPos[i]; j++) {
-                if(stringWidth(txt) + stringWidth(QString(title.at(titleScrollPos[i]+j))) <= 20) {
+                if(stringWidth(txt) + stringWidth(QString(title.at(titleScrollPos[i]+j))) <= titleWidth) {
                     txt = txt + title.at(titleScrollPos[i]+j);
                 } else {
                     break;
                 }
             }
-            title = txt + QString(20 - stringWidth(txt),' ');
+            title = txt + QString(titleWidth - stringWidth(txt),' ');
         } else {
             titleScrollPos[i] = 0;
-            title = title + QString(20 - stringWidth(title),' ');
+            title = title + QString(titleWidth - stringWidth(title),' ');
         }
         FancyTabWidget::setTabText(i,title);
     }
 }
 
-void SessionTab::setTabStaticText(int mode, int index, QString title) {
-    if(mode == 1) {
+void SessionTab::setTabStaticText(TitleScrollMode mode, int index, QString title) {
+    if(mode == TITLE_FULL) {
         FancyTabWidget::setTabText(index,title);
         return;
     }
-    if(stringWidth(title) > 20) {
+    if(stringWidth(title) > titleWidth) {
         QString txt;
         for(int j = 0; j < title.length(); j++) {
-            if(stringWidth(txt) + stringWidth(QString(title.at(j))) <= 17) {
+            if(stringWidth(txt) + stringWidth(QString(title.at(j))) <= (titleWidth-3)) {
                 txt = txt + title.at(j);
             } else {
                 break;
             }
         }
         txt = txt + "...";
-        title = txt + QString(20 - stringWidth(txt),' ');
+        title = txt + QString(titleWidth - stringWidth(txt),' ');
     } else {
-        title = title + QString(20 - stringWidth(title),' ');
+        title = title + QString(titleWidth - stringWidth(title),' ');
     }
     FancyTabWidget::setTabText(index,title);
 }
@@ -255,17 +255,17 @@ void SessionTab::setTabText(int index, const QString &text) {
     }
 }
 
-void SessionTab::setScrollTitleMode(int mode) {
+void SessionTab::setScrollTitleMode(TitleScrollMode mode) {
     scrollTitleMode = mode;
     switch(mode) {
-    case 0:
-    case 1:
+    case TITLE_BRIEF:
+    case TITLE_FULL:
         titleScrollTimer->stop();
         for(int i = 1; i < FancyTabWidget::count(); i++) {
             setTabStaticText(mode,i,tabTexts.at(i));
         }
         break;
-    case 2:
+    case TITLE_SCROLL:
         titleScrollTimer->start();
         break;
     }

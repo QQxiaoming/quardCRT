@@ -47,6 +47,11 @@ private:
 class SessionTab : public FancyTabWidget {
     Q_OBJECT
 public:
+    enum TitleScrollMode{
+        TITLE_BRIEF = 0,
+        TITLE_FULL = 1,
+        TITLE_SCROLL = 2
+    };
     explicit SessionTab(QWidget *parent = nullptr);
     ~SessionTab();
     int count(void);
@@ -55,8 +60,10 @@ public:
     int addTab(QWidget *widget, const QString &text);
     void setTabText(int index, const QString &text);
     void removeTab(int index);
-    void setScrollTitleMode(int mode);
+    void setScrollTitleMode(TitleScrollMode mode);
     int getScrollTitleMode(void) { return scrollTitleMode; }
+    void setTitleWidth(int width) { titleWidth = width; setScrollTitleMode(scrollTitleMode); }
+    int getTitleWidth(void) { return titleWidth; }
 
 signals:
     void showContextMenu(int index, const QPoint& position);
@@ -64,7 +71,7 @@ signals:
 private:
     int stringWidth(const QString &string);
     void refreshTabText(void);
-    void setTabStaticText(int mode, int index, QString title);
+    void setTabStaticText(TitleScrollMode mode, int index, QString title);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
@@ -74,7 +81,8 @@ private:
     QStringList tabTexts;
     QList<int> titleScrollPos;
     QTimer *titleScrollTimer;
-    int scrollTitleMode = 0;
+    TitleScrollMode scrollTitleMode = TITLE_BRIEF;
+    int titleWidth = 20;
 };
 
 #endif // SESSIONTAB_H

@@ -124,7 +124,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     ui->sidewidget->setFixedWidth(30);
 
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-        mainWidgetGroup->sessionTab->setScrollTitleMode(globalOptionsWindow->getTabTitleMode());
+        mainWidgetGroup->sessionTab->setScrollTitleMode((SessionTab::TitleScrollMode)globalOptionsWindow->getTabTitleMode());
+        mainWidgetGroup->sessionTab->setTitleWidth(globalOptionsWindow->getTabTitleWidth());
     }
 
     menuAndToolBarInit();
@@ -399,7 +400,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     });
     connect(globalOptionsWindow, &QDialog::accepted, this,[&](){
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-            mainWidgetGroup->sessionTab->setScrollTitleMode(globalOptionsWindow->getTabTitleMode());
+            mainWidgetGroup->sessionTab->setScrollTitleMode((SessionTab::TitleScrollMode)globalOptionsWindow->getTabTitleMode());
+            mainWidgetGroup->sessionTab->setTitleWidth(globalOptionsWindow->getTabTitleWidth());
         }
     });
 

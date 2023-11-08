@@ -54,6 +54,7 @@ public:
     uint32_t getCursorShape(void);
     bool getCursorBlink(void);
     int getTabTitleMode(void);
+    int getTabTitleWidth(void);
 
     const static QString defaultColorScheme;
 

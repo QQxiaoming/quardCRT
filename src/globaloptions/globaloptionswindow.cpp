@@ -127,6 +127,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
     globalOptionsAdvancedWidget->ui->checkBoxNativeUI->setChecked(settings.value("enableNativeUI", false).toBool());
     globalOptionsGeneralWidget->ui->comboBoxTabTitleMode->setCurrentIndex(settings.value("tabTitleMode", 0).toInt());
+    globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->setValue(settings.value("tabTitleWidth", 20).toInt());
     settings.endGroup();
 
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
@@ -327,6 +328,11 @@ int GlobalOptionsWindow::getTabTitleMode(void)
     return globalOptionsGeneralWidget->ui->comboBoxTabTitleMode->currentIndex();
 }
 
+int GlobalOptionsWindow::getTabTitleWidth(void) 
+{
+    return globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->value();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -345,6 +351,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("cursorBlink", globalOptionsTerminalWidget->ui->checkBoxCursorBlink->isChecked());
     settings.setValue("enableNativeUI", globalOptionsAdvancedWidget->ui->checkBoxNativeUI->isChecked());
     settings.setValue("tabTitleMode", globalOptionsGeneralWidget->ui->comboBoxTabTitleMode->currentIndex());
+    settings.setValue("tabTitleWidth", globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->value());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -370,6 +377,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTerminalWidget->ui->checkBoxCursorBlink->setChecked(settings.value("cursorBlink", true).toBool());
     globalOptionsAdvancedWidget->ui->checkBoxNativeUI->setChecked(settings.value("enableNativeUI", false).toBool());
     globalOptionsGeneralWidget->ui->comboBoxTabTitleMode->setCurrentIndex(settings.value("tabTitleMode", 0).toInt());
+    globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->setValue(settings.value("tabTitleWidth", 20).toInt());
     settings.endGroup();
     emit this->rejected();
 }
