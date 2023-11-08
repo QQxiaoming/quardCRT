@@ -218,9 +218,11 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     menu->addAction(moveToAnotherTabAction);
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
                         auto moveToAnotherTab = [&](int src,int dst, int index) {
-                            mainWidgetGroupList.at(dst)->sessionTab->addTab(
+                            QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
+                            int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
                                 mainWidgetGroupList.at(src)->sessionTab->widget(index),
                                 mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
+                            mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
                             mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
                             mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
                                 mainWidgetGroupList.at(dst)->sessionTab->count()-1);
@@ -238,9 +240,11 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     menu->addSeparator();
                     connect(floatAction,&QAction::triggered,this,[=](){
                         auto moveToAnotherTab = [&](int src,int dst, int index) {
-                            mainWidgetGroupList.at(dst)->sessionTab->addTab(
+                            QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
+                            int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
                                 mainWidgetGroupList.at(src)->sessionTab->widget(index),
                                 mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
+                            mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
                             mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
                             mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
                                 mainWidgetGroupList.at(dst)->sessionTab->count()-1);
@@ -280,6 +284,13 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                             menu->addSeparator();
                             menu->addAction(selectAllAction);
                             menu->addAction(findAction);
+                            menu->addSeparator();
+                            QAction *floatBackAction = new QAction(tr("Back to Main Window"),this);
+                            menu->addAction(floatBackAction);
+                            connect(floatBackAction,&QAction::triggered,this,[=](){
+                                moveToAnotherTab(newGroup,0,1);
+                                dialog->close();
+                            });
                             menu->move(cursor().pos());
                             menu->show();
                         });
@@ -2117,25 +2128,37 @@ void MainWindow::connectSessionStateChange(SessionTab *tab, int index, SessionsW
 {
     tab->setTabIcon(index,QFontIcon::icon(QChar(0xf09e), Qt::gray));
     connect(sessionsWindow, &SessionsWindow::stateChanged, this, [=](SessionsWindow::SessionsState state){
-        switch(state) {
-            case SessionsWindow::Connected:
-                tab->setTabIcon(index,QFontIcon::icon(QChar(0xf0c1), Qt::green));
+        SessionTab *targetTab = nullptr;
+        int targetIndex = -1;
+        foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+            int findIndex = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getTermWidget());
+            if(findIndex >= 0) {
+                targetTab = mainWidgetGroup->sessionTab;
+                targetIndex = findIndex;
                 break;
-            case SessionsWindow::Error:
-            case SessionsWindow::Disconnected:
-                tab->setTabIcon(index,QFontIcon::icon(QChar(0xf127), Qt::red));
-                break;
-            case SessionsWindow::Locked:
-                if(sessionsWindow->isLocked())
-                    tab->setTabIcon(index,QFontIcon::icon(QChar(0xf084), Qt::yellow));
-                else if(sessionsWindow->getState() == SessionsWindow::Connected) {
-                    tab->setTabIcon(index,QFontIcon::icon(QChar(0xf0c1), Qt::green));
-                } else {
-                    tab->setTabIcon(index,QFontIcon::icon(QChar(0xf127), Qt::red));
-                }
-                break;
-            default:
-                break;
+            }
+        }
+        if(targetTab && targetIndex != -1) {
+            switch(state) {
+                case SessionsWindow::Connected:
+                    targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf0c1), Qt::green));
+                    break;
+                case SessionsWindow::Error:
+                case SessionsWindow::Disconnected:
+                    targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf127), Qt::red));
+                    break;
+                case SessionsWindow::Locked:
+                    if(sessionsWindow->isLocked())
+                        targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf084), Qt::yellow));
+                    else if(sessionsWindow->getState() == SessionsWindow::Connected) {
+                        targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf0c1), Qt::green));
+                    } else {
+                        targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf127), Qt::red));
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     });
 }
