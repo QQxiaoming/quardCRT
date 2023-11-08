@@ -220,7 +220,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         auto moveToAnotherTab = [&](int src,int dst, int index) {
                             mainWidgetGroupList.at(dst)->sessionTab->addTab(
                                 mainWidgetGroupList.at(src)->sessionTab->widget(index),
-                                mainWidgetGroupList.at(src)->sessionTab->tabText(index));
+                                mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
                             mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
                             mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
                                 mainWidgetGroupList.at(dst)->sessionTab->count()-1);
@@ -240,7 +240,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         auto moveToAnotherTab = [&](int src,int dst, int index) {
                             mainWidgetGroupList.at(dst)->sessionTab->addTab(
                                 mainWidgetGroupList.at(src)->sessionTab->widget(index),
-                                mainWidgetGroupList.at(src)->sessionTab->tabText(index));
+                                mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
                             mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
                             mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
                                 mainWidgetGroupList.at(dst)->sessionTab->count()-1);
@@ -248,7 +248,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                                 mainWidgetGroupList.at(src)->sessionTab->count()-1);
                         };
                         QDialog *dialog = new QDialog(this);
-                        dialog->setWindowFlags(Qt::Tool);
+                        dialog->setWindowFlags(Qt::Window);
                         dialog->setLayout(new QVBoxLayout);
                         MainWidgetGroup *group = new MainWidgetGroup(dialog);
                         mainWidgetGroupList.append(group);
@@ -270,6 +270,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                             stopSession(group,1,true);
                             mainWidgetGroupList.removeAt(newGroup);
                             delete dialog;
+                            Q_UNUSED(result);
                         });
                         dialog->show();
                     });
@@ -2419,7 +2420,7 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
     sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
     sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
     sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
-    int index = group->sessionTab->addTab(sessionsWindowClone->getTermWidget(), group->sessionTab->tabText(group->sessionTab->indexOf(termWidget)));
+    int index = group->sessionTab->addTab(sessionsWindowClone->getTermWidget(), group->sessionTab->tabTitle(group->sessionTab->indexOf(termWidget)));
     connectSessionStateChange(group->sessionTab,index,sessionsWindowClone);
     if(name.isEmpty()) {
         name = sessionsWindow->getName();
