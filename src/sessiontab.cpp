@@ -165,7 +165,7 @@ void SessionTabBar::mouseReleaseEvent(QMouseEvent* event) {
                 bool match = false;
                 foreach(SessionTabBar *bar, tabBarInstances) {
                     if(bar != this) {
-                        QPoint pos = bar->mapFromGlobal(event->globalPos());
+                        QPoint pos = bar->mapFromGlobal(event->globalPosition().toPoint());
                         int index = bar->tabAt(pos);
                         if(index > 0) {
                             emit dragTabMoved(dragTabindex,index,bar);
@@ -173,7 +173,7 @@ void SessionTabBar::mouseReleaseEvent(QMouseEvent* event) {
                         } else {
                             SessionTab *tab = (SessionTab *)bar->parentWidget();
                             if(tab->count() == 0) {
-                                QPoint pos = tab->mapFromGlobal(event->globalPos());
+                                QPoint pos = tab->mapFromGlobal(event->globalPosition().toPoint());
                                 if(pos.x() < tab->width() && pos.y() < tab->height()
                                     && pos.x() > 0 && pos.y() > 0) {
                                     emit dragTabMoved(dragTabindex,-2,bar);
