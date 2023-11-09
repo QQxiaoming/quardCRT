@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.2.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.5)] - 2023-11-09
+
 - 增加浮动窗口模式，且支持移回主窗口
 - 增加标签页自由拖拽（拖拽成浮动窗口或拖拽至分屏）
 - 修复移动标签后可能导致的严重崩溃问题/标签标题显示错误问题
@@ -10,7 +12,7 @@
 - 优化退出应用/关闭会话时的二次确认功能，现在本地Shell会话根据是否有子进程决定是否需要二次确认，其他会话类型不变
 - 增加设置标签标题模式，可以选择以简要/完整/滚动，三种方式显示会话标题
 
-## [[V0.2.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.3)] - 2023-11-03
+## [[V0.2.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.4)] - 2023-11-03
 
 - 增加windows上NamedPipe协议支持（linux/macos上对应unix domain socket）
 - 修复windows上无法启动打印机服务问题
