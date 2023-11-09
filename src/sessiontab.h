@@ -63,10 +63,10 @@ protected:
 
 private:
     QPoint dragStartPosition;
-    QLabel *label = nullptr;
-    
+    QLabel *dragLabel = nullptr;
     bool initializing_drag = false;
     int dragTabindex = -1;
+    QWidget *dragTabWidget = nullptr;
     SessionTabBar* dragTabFrom = nullptr;
     static QList<SessionTabBar*> tabBarInstances;
 };

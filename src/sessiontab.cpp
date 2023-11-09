@@ -116,9 +116,11 @@ void SessionTabBar::mousePressEvent(QMouseEvent *event) {
         if(index > 0) {
             QPixmap pixmap(tabRect(tabAt(event->pos())).size());
             render(&pixmap, QPoint(), QRegion(tabRect(tabAt(event->pos()))));
-            label = new QLabel(this);
-            label->setPixmap(pixmap);
+            dragLabel = new QLabel(this);
+            dragLabel->setPixmap(pixmap);
             dragTabindex = tabAt(event->pos());
+            SessionTab *tab = (SessionTab *)parentWidget();
+            dragTabWidget = tab->widget(dragTabindex);
             dragTabFrom = this;
             dragStartPosition = event->pos();
             grabMouse();
@@ -132,31 +134,34 @@ void SessionTabBar::mouseMoveEvent(QMouseEvent *event) {
     if (event->buttons() & Qt::LeftButton) {
         bool moved_length = (event->pos() - dragStartPosition).manhattanLength() > qApp->startDragDistance();
         if(moved_length) {
-            if (label) {
+            if (dragLabel) {
                 if(!initializing_drag) {
-                    label->setParent(nullptr);
-                    label->setWindowFlags(Qt::FramelessWindowHint);
-                    label->window()->raise();
+                    dragLabel->setParent(nullptr);
+                    dragLabel->setWindowFlags(Qt::FramelessWindowHint);
+                    dragLabel->window()->raise();
                     initializing_drag = true;
                 }
             }
         }
     }
-    if (label) {
-        label->move(event->globalPosition().toPoint() + QPoint(3, 3));
-        label->show();
+    if (dragLabel) {
+        dragLabel->move(event->globalPosition().toPoint() + QPoint(3, 3));
+        dragLabel->show();
     }
     QTabBar::mouseMoveEvent(event);
 }
 
 void SessionTabBar::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
-        if (label) {
-            label->hide();
-            label->deleteLater();
-            label = nullptr;
+        if (dragLabel) {
+            dragLabel->hide();
+            dragLabel->deleteLater();
+            dragLabel = nullptr;
             initializing_drag = false;
             if(dragTabindex != -1) {
+                SessionTab *tab = (SessionTab *)parentWidget();
+                int realIndex = tab->indexOf(dragTabWidget);
+                dragTabindex = realIndex == -1 ? dragTabindex : realIndex;
                 bool match = false;
                 foreach(SessionTabBar *bar, tabBarInstances) {
                     if(bar != this) {

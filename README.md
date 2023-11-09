@@ -39,7 +39,8 @@ Other protocol selection interface:
     - windows:NamedPipe（linux/macos:unix domain socket）
 
 - Multi-tab management, tab cloning, tab drag-and-drop sorting
-- Dual column split screen
+- Dual column split screen, tab drag-and-drop to split column
+- Floating window support, tab drag-and-drop to floating window
 - Working directory bookmark
 - Automated sending
 - HEX display

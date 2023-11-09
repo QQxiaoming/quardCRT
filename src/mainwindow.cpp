@@ -572,9 +572,10 @@ MainWindow::~MainWindow() {
 
 void MainWindow::moveToAnotherTab(int src,int dst, int index) {
     QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
-    int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
-        mainWidgetGroupList.at(src)->sessionTab->widget(index),
-        mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
+    QString text = mainWidgetGroupList.at(src)->sessionTab->tabTitle(index);
+    QWidget *widget = mainWidgetGroupList.at(src)->sessionTab->widget(index);
+    mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
+    int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(widget, text);
     mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
     mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
         mainWidgetGroupList.at(dst)->sessionTab->count()-1);
