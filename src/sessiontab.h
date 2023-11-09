@@ -28,6 +28,8 @@
 #include <QTimer>
 #include <QList>
 #include <QTabBar>
+#include <QMouseEvent>
+#include <QPoint>
 #include "fancytabwidget.h"
 
 class EmptyTabWidget : public QWidget {
@@ -43,6 +45,30 @@ protected:
 private:
     QLabel *label;
     QLabel *easterEggs;
+};
+
+class SessionTabBar : public QTabBar {
+    Q_OBJECT
+public:
+    explicit SessionTabBar(QWidget *parent = nullptr);
+    ~SessionTabBar();
+
+signals:
+    void dragTabMoved(int from, int to, SessionTabBar* toBar);
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+
+private:
+    QPoint dragStartPosition;
+    QLabel *label = nullptr;
+    
+    bool initializing_drag = false;
+    int dragTabindex = -1;
+    SessionTabBar* dragTabFrom = nullptr;
+    static QList<SessionTabBar*> tabBarInstances;
 };
 
 class SessionTab : public FancyTabWidget {
@@ -71,6 +97,7 @@ public:
 signals:
     void showContextMenu(int index, const QPoint& position);
     void tabTextSet(int index, const QString &text);
+    void dragTabMoved(int from, int to, SessionTab *toTab);
 
 private:
     int stringWidth(const QString &string);

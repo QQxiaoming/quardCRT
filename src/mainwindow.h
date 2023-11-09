@@ -102,6 +102,8 @@ private:
     void connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow);
     void sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name);
     void setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name);
+    void moveToAnotherTab(int src,int dst, int index);
+    void floatingWindow(MainWidgetGroup *g, int index);
 
 protected:
     void closeEvent(QCloseEvent *event) override;

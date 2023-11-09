@@ -214,17 +214,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         lockSessionWindow->showUnlock();
                     });
                 } else {
-                    auto moveToAnotherTab = [&](int src,int dst, int index) {
-                        QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
-                        int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
-                            mainWidgetGroupList.at(src)->sessionTab->widget(index),
-                            mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
-                        mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
-                        mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
-                            mainWidgetGroupList.at(dst)->sessionTab->count()-1);
-                        mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
-                            mainWidgetGroupList.at(src)->sessionTab->count()-1);
-                    };
+                    
                     QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
                     menu->addAction(moveToAnotherTabAction);
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
@@ -238,62 +228,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     menu->addAction(floatAction);
                     menu->addSeparator();
                     connect(floatAction,&QAction::triggered,this,[=](){
-                        QDialog *dialog = new QDialog(this);
-                        dialog->setWindowFlags(Qt::Window);
-                        dialog->resize(800,480);
-                        dialog->setLayout(new QVBoxLayout);
-                        MainWidgetGroup *group = new MainWidgetGroup(dialog);
-                        mainWidgetGroupList.append(group);
-                        int newGroup = mainWidgetGroupList.count()-1;
-                        if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
-                            moveToAnotherTab(0,newGroup,index);
-                        } else {
-                            moveToAnotherTab(1,newGroup,index);
-                        }
-                        dialog->layout()->addWidget(group->splitter);
-                        group->sessionTab->setTabBarHidden(true);
-                        group->sessionTab->setAddTabButtonHidden(true);
-                        dialog->setWindowTitle(group->sessionTab->tabTitle(1));
-                        connect(group->sessionTab,&SessionTab::tabTextSet,this,[=](int index, const QString &text){
-                            if(index) dialog->setWindowTitle(text);
-                        });
-                        connect(group->sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
-                            if(index != -1) return;
-                            QMenu *menu = new QMenu(this);
-                            QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
-                            QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
-                            QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
-                            if(!ftActions.isEmpty()) {
-                                menu->addActions(ftActions);
-                                menu->addSeparator();
-                            }
-                            menu->addAction(copyAction);
-                            menu->addAction(pasteAction);
-                            menu->addSeparator();
-                            menu->addAction(selectAllAction);
-                            menu->addAction(findAction);
-                            menu->addSeparator();
-                            QAction *floatBackAction = new QAction(tr("Back to Main Window"),this);
-                            menu->addAction(floatBackAction);
-                            connect(floatBackAction,&QAction::triggered,this,[=](){
-                                moveToAnotherTab(newGroup,0,1);
-                                dialog->close();
-                            });
-                            menu->move(cursor().pos());
-                            menu->show();
-                        });
-                        connect(group->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
-                            QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
-                            termWidget->proxySendData(data);
-                        });
-                        connect(dialog, &QDialog::finished, this, [=](int result){
-                            MainWidgetGroup *group = mainWidgetGroupList.at(newGroup);
-                            stopSession(group,1,true);
-                            mainWidgetGroupList.removeAt(newGroup);
-                            delete dialog;
-                            Q_UNUSED(result);
-                        });
-                        dialog->show();
+                        floatingWindow(mainWidgetGroup,index);
                     });
                     QAction *copyPathAction = new QAction(tr("Copy Path"),this);
                     menu->addAction(copyPathAction);
@@ -421,6 +356,24 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
             }
             menu->move(cursor().pos());
             menu->show();
+        });
+        connect(mainWidgetGroup->sessionTab,&SessionTab::dragTabMoved,this,[=](int from, int to, SessionTab *toTab){
+            if(from <= 0) return;
+            if(toTab == mainWidgetGroup->sessionTab) {
+                if(from == to) return;
+                if(from > 0) {
+                    if(to == -1) {
+                        floatingWindow(mainWidgetGroup,from);
+                    }
+                }
+            } else {
+                if(mainWidgetGroupList[0]->sessionTab == toTab) {
+                    moveToAnotherTab(1,0,from);    
+                } else if(mainWidgetGroupList[1]->sessionTab == toTab) {
+                    moveToAnotherTab(0,1,from);
+                }
+            }
+            
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::tabBarDoubleClicked,this,[=](int index){
             QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->widget(index);
@@ -615,6 +568,77 @@ MainWindow::~MainWindow() {
     delete sessionManagerPushButton;
     delete hexViewWindow;
     delete ui;
+}
+
+void MainWindow::moveToAnotherTab(int src,int dst, int index) {
+    QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
+    int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(
+        mainWidgetGroupList.at(src)->sessionTab->widget(index),
+        mainWidgetGroupList.at(src)->sessionTab->tabTitle(index));
+    mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
+    mainWidgetGroupList.at(dst)->sessionTab->setCurrentIndex(
+        mainWidgetGroupList.at(dst)->sessionTab->count()-1);
+    mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
+        mainWidgetGroupList.at(src)->sessionTab->count()-1);
+};
+
+void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowFlags(Qt::Window);
+    dialog->resize(800,480);
+    dialog->setLayout(new QVBoxLayout);
+    MainWidgetGroup *group = new MainWidgetGroup(dialog);
+    mainWidgetGroupList.append(group);
+    int newGroup = mainWidgetGroupList.count()-1;
+    if(g == mainWidgetGroupList.at(0)) {
+        moveToAnotherTab(0,newGroup,index);
+    } else {
+        moveToAnotherTab(1,newGroup,index);
+    }
+    dialog->layout()->addWidget(group->splitter);
+    group->sessionTab->setTabBarHidden(true);
+    group->sessionTab->setAddTabButtonHidden(true);
+    dialog->setWindowTitle(group->sessionTab->tabTitle(1));
+    connect(group->sessionTab,&SessionTab::tabTextSet,this,[=](int index, const QString &text){
+        if(index) dialog->setWindowTitle(text);
+    });
+    connect(group->sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
+        if(index != -1) return;
+        QMenu *menu = new QMenu(this);
+        QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
+        QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
+        QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
+        if(!ftActions.isEmpty()) {
+            menu->addActions(ftActions);
+            menu->addSeparator();
+        }
+        menu->addAction(copyAction);
+        menu->addAction(pasteAction);
+        menu->addSeparator();
+        menu->addAction(selectAllAction);
+        menu->addAction(findAction);
+        menu->addSeparator();
+        QAction *floatBackAction = new QAction(tr("Back to Main Window"),this);
+        menu->addAction(floatBackAction);
+        connect(floatBackAction,&QAction::triggered,this,[=](){
+            moveToAnotherTab(newGroup,0,1);
+            dialog->close();
+        });
+        menu->move(cursor().pos());
+        menu->show();
+    });
+    connect(group->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
+        QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
+        termWidget->proxySendData(data);
+    });
+    connect(dialog, &QDialog::finished, this, [=](int result){
+        MainWidgetGroup *group = mainWidgetGroupList.at(newGroup);
+        stopSession(group,1,true);
+        mainWidgetGroupList.removeAt(newGroup);
+        delete dialog;
+        Q_UNUSED(result);
+    });
+    dialog->show();
 }
 
 void MainWindow::saveSettings(void) {

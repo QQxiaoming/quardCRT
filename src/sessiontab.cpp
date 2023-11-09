@@ -26,6 +26,8 @@
 #include <QFont>
 #include <QFontDatabase>
 #include <QTimer>
+#include <QDrag>
+#include <QMimeData>
 #include "sessiontab.h"
 #include "utf8proc.h"
 
@@ -97,16 +99,121 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
     }
 }
 
+QList<SessionTabBar*> SessionTabBar::tabBarInstances;
+
+SessionTabBar::SessionTabBar(QWidget *parent) 
+    : QTabBar(parent) {
+    tabBarInstances << this;
+}
+
+SessionTabBar::~SessionTabBar() {
+    tabBarInstances.removeOne(this);
+}
+
+void SessionTabBar::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        int index = tabAt(event->pos());
+        if(index > 0) {
+            QPixmap pixmap(tabRect(tabAt(event->pos())).size());
+            render(&pixmap, QPoint(), QRegion(tabRect(tabAt(event->pos()))));
+            label = new QLabel(this);
+            label->setPixmap(pixmap);
+            dragTabindex = tabAt(event->pos());
+            dragTabFrom = this;
+            dragStartPosition = event->pos();
+            grabMouse();
+        }
+    }
+
+    QTabBar::mousePressEvent(event);
+}
+
+void SessionTabBar::mouseMoveEvent(QMouseEvent *event) {
+    if (event->buttons() & Qt::LeftButton) {
+        bool moved_length = (event->pos() - dragStartPosition).manhattanLength() > qApp->startDragDistance();
+        if(moved_length) {
+            if (label) {
+                if(!initializing_drag) {
+                    label->setParent(nullptr);
+                    label->setWindowFlags(Qt::FramelessWindowHint);
+                    label->window()->raise();
+                    initializing_drag = true;
+                }
+            }
+        }
+    }
+    if (label) {
+        label->move(event->globalPosition().toPoint() + QPoint(3, 3));
+        label->show();
+    }
+    QTabBar::mouseMoveEvent(event);
+}
+
+void SessionTabBar::mouseReleaseEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) {
+        if (label) {
+            label->hide();
+            label->deleteLater();
+            label = nullptr;
+            initializing_drag = false;
+            if(dragTabindex != -1) {
+                bool match = false;
+                foreach(SessionTabBar *bar, tabBarInstances) {
+                    if(bar != this) {
+                        QPoint pos = bar->mapFromGlobal(event->globalPos());
+                        int index = bar->tabAt(pos);
+                        if(index > 0) {
+                            emit dragTabMoved(dragTabindex,index,bar);
+                            match = true;
+                        } else {
+                            SessionTab *tab = (SessionTab *)bar->parentWidget();
+                            if(tab->count() == 0) {
+                                QPoint pos = tab->mapFromGlobal(event->globalPos());
+                                if(pos.x() < tab->width() && pos.y() < tab->height()
+                                    && pos.x() > 0 && pos.y() > 0) {
+                                    emit dragTabMoved(dragTabindex,-2,bar);
+                                    match = true;
+                                }
+                            } else {
+                                if(pos.x() > bar->width() && pos.x() < bar->parentWidget()->width() &&
+                                    pos.y() < bar->height() && pos.y() > 0) {
+                                    emit dragTabMoved(dragTabindex,-2,bar);
+                                    match = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(!match) {
+                    int index = tabAt(event->pos());
+                    index = index == 0 ? -1 : index;
+                    if(index == -1) {
+                        if(event->pos().x() > width() && event->pos().x() < parentWidget()->width() &&
+                            event->pos().y() < height() && event->pos().y() > 0) {
+                            index = -2;
+                        }
+                    }
+                    emit dragTabMoved(dragTabindex,index,this);
+                }
+            }
+            dragTabindex = -1;
+        }
+        releaseMouse();
+    }
+    QTabBar::mouseReleaseEvent(event);
+}
 
 SessionTab::SessionTab(QWidget *parent) 
     : FancyTabWidget(parent) {
-
+    SessionTabBar *sTabBar = new SessionTabBar(this);
+    setTabBar(sTabBar);
     setTabsClosable(true);
     setMovable(true);
     setUsesScrollButtons(true);
     setTabBarAutoHide(true);
     setTabTextEditable(false);
     setAddTabButtonVisible(false);
+    setAcceptDrops(true);
 
     titleScrollTimer = new QTimer(this);
     titleScrollTimer->setInterval(750);
@@ -127,13 +234,21 @@ SessionTab::SessionTab(QWidget *parent)
         if(w) w->setFocus();
     });
 
-    connect(tabBar(),&QTabBar::tabMoved,this,[&](int from, int to) {
+    connect(sTabBar,&SessionTabBar::tabMoved,this,[&](int from, int to) {
         QString text = tabTexts.at(from);
         int pos = titleScrollPos.at(from);
         tabTexts.replace(from,tabTexts.at(to));
         titleScrollPos.replace(from,titleScrollPos.at(to));
         tabTexts.replace(to,text);
         titleScrollPos.replace(to,pos);
+    });
+
+    connect(sTabBar,&SessionTabBar::dragTabMoved,this,[&](int from, int to, SessionTabBar* toBar) {
+        if(toBar == tabBar()) {
+            emit dragTabMoved(from,to,this);
+        } else {
+            emit dragTabMoved(from,to,(SessionTab *)toBar->parentWidget());
+        }
     });
 }
 
