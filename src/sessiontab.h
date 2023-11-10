@@ -30,6 +30,7 @@
 #include <QTabBar>
 #include <QMouseEvent>
 #include <QPoint>
+#include <QPainter>
 #include "fancytabwidget.h"
 
 class EmptyTabWidget : public QWidget {
@@ -47,6 +48,21 @@ private:
     QLabel *easterEggs;
 };
 
+class SessionTabBarPreviewWidget : public QWidget {
+    Q_OBJECT
+public:
+    explicit SessionTabBarPreviewWidget(QWidget *parent = nullptr);
+    ~SessionTabBarPreviewWidget();
+
+    QPixmap *getViewPixmap(void);
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
+
+private:
+    QPixmap viewPixmap;
+};
+
 class SessionTabBar : public QTabBar {
     Q_OBJECT
 public:
@@ -60,6 +76,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
+    bool event(QEvent * event) override;
 
 private:
     QPoint dragStartPosition;
@@ -68,6 +85,8 @@ private:
     int dragTabindex = -1;
     QWidget *dragTabWidget = nullptr;
     SessionTabBar* dragTabFrom = nullptr;
+    SessionTabBarPreviewWidget *preview;
+    int previewIndex = -1;
     static QList<SessionTabBar*> tabBarInstances;
 };
 

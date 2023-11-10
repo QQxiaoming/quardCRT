@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 增加标签卡悬浮预览功能
+
 ## [[V0.2.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.5)] - 2023-11-09
 
 - 增加浮动窗口模式，且支持移回主窗口

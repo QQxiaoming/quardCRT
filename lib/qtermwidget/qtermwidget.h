@@ -323,6 +323,7 @@ public slots:
 
     void saveHistory(QIODevice *device, int format = 0);
     void saveHistory(QTextStream *stream, int format = 0);
+    void screenShot(QPixmap *pixmap);
     void screenShot(const QString &fileName);
 
 protected:

@@ -750,6 +750,13 @@ void QTermWidget::saveHistory(QIODevice *device, int format)
     saveHistory(&stream, format);
 }
 
+void QTermWidget::screenShot(QPixmap *pixmap)
+{
+    QPixmap currPixmap(m_impl->m_terminalDisplay->size());
+    m_impl->m_terminalDisplay->render(&currPixmap);
+    *pixmap = currPixmap.scaled(pixmap->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+}
+
 void QTermWidget::screenShot(const QString &fileName)
 {
     qreal deviceratio = m_impl->m_terminalDisplay->devicePixelRatio();

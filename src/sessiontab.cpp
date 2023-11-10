@@ -30,6 +30,7 @@
 #include <QMimeData>
 #include "sessiontab.h"
 #include "utf8proc.h"
+#include "qtermwidget.h"
 
 EmptyTabWidget::EmptyTabWidget(QWidget *parent) 
     : QWidget(parent) {
@@ -99,15 +100,70 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
     }
 }
 
+SessionTabBarPreviewWidget::SessionTabBarPreviewWidget(QWidget *parent) 
+    : QWidget(parent) {
+    viewPixmap = QPixmap(200,200);
+    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowOpacity(0.8);
+}
+
+SessionTabBarPreviewWidget::~SessionTabBarPreviewWidget() {
+}
+
+QPixmap *SessionTabBarPreviewWidget::getViewPixmap(void) {
+    viewPixmap = QPixmap(200,200);
+    return &viewPixmap; 
+}
+
+void SessionTabBarPreviewWidget::paintEvent(QPaintEvent *event) {
+    QPainter painter(this);
+    painter.drawPixmap(0, 0, viewPixmap);
+    setFixedSize(viewPixmap.size());
+    QPen pen;
+    pen.setColor(QColor(255, 255, 255, 255));
+    pen.setWidth(1);
+    painter.setPen(pen);
+    painter.drawLine(0, 0, width(), 0);
+    painter.drawLine(0, 0, 0, height());
+    painter.drawLine(width(), 0, width(), height());
+    painter.drawLine(0, height(), width(), height());
+    Q_UNUSED(event);
+}
+
 QList<SessionTabBar*> SessionTabBar::tabBarInstances;
 
 SessionTabBar::SessionTabBar(QWidget *parent) 
     : QTabBar(parent) {
     tabBarInstances << this;
+    setAttribute(Qt::WA_Hover, true);
+    preview = new SessionTabBarPreviewWidget();
 }
 
 SessionTabBar::~SessionTabBar() {
+    delete preview;
     tabBarInstances.removeOne(this);
+}
+
+bool SessionTabBar::event(QEvent * event) {
+    if(event->type() == QEvent::HoverMove) {
+        QPoint pos = mapFromGlobal(QCursor::pos());
+        int index = tabAt(pos);
+        if(index > 0) {
+            SessionTab *tab = (SessionTab *)parentWidget();
+            QTermWidget *term = (QTermWidget *)tab->widget(index);
+            term->screenShot(preview->getViewPixmap());
+            previewIndex = index;
+            QPoint viewPos = QPoint(tabRect(index).center().x(),
+                tabRect(index).center().y() + tabRect(index).height()/2);
+            preview->move(mapToGlobal(viewPos) - QPoint(preview->width()/2,0));
+            preview->show();
+        } else {
+            preview->hide();
+        }
+    } else if(event->type() == QEvent::HoverLeave) {
+        preview->hide();
+    }
+    return QTabBar::event(event);
 }
 
 void SessionTabBar::mousePressEvent(QMouseEvent *event) {
