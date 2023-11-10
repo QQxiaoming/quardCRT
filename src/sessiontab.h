@@ -69,6 +69,9 @@ public:
     explicit SessionTabBar(QWidget *parent = nullptr);
     ~SessionTabBar();
 
+    void setPreviewEnabled(bool enabled) { previewEnabled = enabled; }
+    bool getPreviewEnabled(void) { return previewEnabled; }
+
 signals:
     void dragTabMoved(int from, int to, SessionTabBar* toBar);
 
@@ -86,6 +89,7 @@ private:
     QWidget *dragTabWidget = nullptr;
     SessionTabBar* dragTabFrom = nullptr;
     SessionTabBarPreviewWidget *preview;
+    bool previewEnabled = true;
     int previewIndex = -1;
     static QList<SessionTabBar*> tabBarInstances;
 };
@@ -112,6 +116,8 @@ public:
     int getTitleWidth(void) { return titleWidth; }
     void setTabBarHidden(bool hide) { tabBar()->setHidden(hide); }
     QString tabTitle(int index) { return tabTexts[index]; }
+    void setPreviewEnabled(bool enabled) { ((SessionTabBar*)tabBar())->setPreviewEnabled(enabled); }
+    bool getPreviewEnabled(void) { return ((SessionTabBar*)tabBar())->getPreviewEnabled(); }
 
 signals:
     void showContextMenu(int index, const QPoint& position);

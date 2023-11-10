@@ -55,6 +55,7 @@ public:
     bool getCursorBlink(void);
     int getTabTitleMode(void);
     int getTabTitleWidth(void);
+    bool getEnableTabPreview(void);
 
     const static QString defaultColorScheme;
 

@@ -126,6 +126,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         mainWidgetGroup->sessionTab->setScrollTitleMode((SessionTab::TitleScrollMode)globalOptionsWindow->getTabTitleMode());
         mainWidgetGroup->sessionTab->setTitleWidth(globalOptionsWindow->getTabTitleWidth());
+        mainWidgetGroup->sessionTab->setPreviewEnabled(globalOptionsWindow->getEnableTabPreview());
     }
 
     menuAndToolBarInit();
@@ -416,6 +417,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->setScrollTitleMode((SessionTab::TitleScrollMode)globalOptionsWindow->getTabTitleMode());
             mainWidgetGroup->sessionTab->setTitleWidth(globalOptionsWindow->getTabTitleWidth());
+            mainWidgetGroup->sessionTab->setPreviewEnabled(globalOptionsWindow->getEnableTabPreview());
         }
     });
 

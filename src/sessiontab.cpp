@@ -26,8 +26,8 @@
 #include <QFont>
 #include <QFontDatabase>
 #include <QTimer>
-#include <QDrag>
-#include <QMimeData>
+#include <QToolTip>
+
 #include "sessiontab.h"
 #include "utf8proc.h"
 #include "qtermwidget.h"
@@ -136,7 +136,8 @@ SessionTabBar::SessionTabBar(QWidget *parent)
     : QTabBar(parent) {
     tabBarInstances << this;
     setAttribute(Qt::WA_Hover, true);
-    preview = new SessionTabBarPreviewWidget();
+    preview = new SessionTabBarPreviewWidget(this);
+    preview->hide();
 }
 
 SessionTabBar::~SessionTabBar() {
@@ -150,18 +151,29 @@ bool SessionTabBar::event(QEvent * event) {
         int index = tabAt(pos);
         if(index > 0) {
             SessionTab *tab = (SessionTab *)parentWidget();
-            QTermWidget *term = (QTermWidget *)tab->widget(index);
-            term->screenShot(preview->getViewPixmap());
-            previewIndex = index;
-            QPoint viewPos = QPoint(tabRect(index).center().x(),
-                tabRect(index).center().y() + tabRect(index).height()/2);
-            preview->move(mapToGlobal(viewPos) - QPoint(preview->width()/2,0));
-            preview->show();
+            QPoint toolTipPos = mapToGlobal(QPoint(tabRect(index).bottomLeft().x(), tabRect(index).bottomLeft().y() + 5));
+            if(previewEnabled) {
+                QTermWidget *term = (QTermWidget *)tab->widget(index);
+                term->screenShot(preview->getViewPixmap());
+                QPoint viewPos = mapToGlobal(QPoint(tabRect(index).center().x(),
+                    tabRect(index).center().y() + tabRect(index).height()/2 + 5) - QPoint(preview->width()/2,0));
+                preview->move(viewPos);
+                preview->setParent(nullptr);
+                if(previewIndex != index) {
+                    previewIndex = index;
+                    preview->update();
+                }
+                preview->show();
+                toolTipPos = viewPos + QPoint(0,preview->height()+2);
+            }
+            QToolTip::showText(toolTipPos,tab->tabToolTip(index));
         } else {
             preview->hide();
         }
     } else if(event->type() == QEvent::HoverLeave) {
         preview->hide();
+    } else if(event->type() == QEvent::ToolTip) {
+        return true;
     }
     return QTabBar::event(event);
 }
