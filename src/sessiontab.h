@@ -55,12 +55,15 @@ public:
     ~SessionTabBarPreviewWidget();
 
     QPixmap *getViewPixmap(void);
+    void setViewPixmap(QPixmap *pixmap);
+    void setViewWidth(int width) { viewWidth = width; }
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
     QPixmap viewPixmap;
+    int viewWidth;
 };
 
 class SessionTabBar : public QTabBar {
@@ -71,6 +74,8 @@ public:
 
     void setPreviewEnabled(bool enabled) { previewEnabled = enabled; }
     bool getPreviewEnabled(void) { return previewEnabled; }
+    void setPreviewWidth(int width) { preview->setViewWidth(width); }
+    int getPreviewWidth(void) { return preview->width(); }
 
 signals:
     void dragTabMoved(int from, int to, SessionTabBar* toBar);
@@ -79,6 +84,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
+    void changeEvent(QEvent* event) override;
     bool event(QEvent * event) override;
 
 private:
@@ -118,6 +124,8 @@ public:
     QString tabTitle(int index) { return tabTexts[index]; }
     void setPreviewEnabled(bool enabled) { ((SessionTabBar*)tabBar())->setPreviewEnabled(enabled); }
     bool getPreviewEnabled(void) { return ((SessionTabBar*)tabBar())->getPreviewEnabled(); }
+    void setPreviewWidth(int width) { ((SessionTabBar*)tabBar())->setPreviewWidth(width); }
+    int getPreviewWidth(void) { return ((SessionTabBar*)tabBar())->getPreviewWidth(); }
 
 signals:
     void showContextMenu(int index, const QPoint& position);

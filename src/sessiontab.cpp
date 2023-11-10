@@ -103,16 +103,17 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
 SessionTabBarPreviewWidget::SessionTabBarPreviewWidget(QWidget *parent) 
     : QWidget(parent) {
     viewPixmap = QPixmap(2,2);
-    setWindowFlags(Qt::FramelessWindowHint|Qt::Tool|Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint|Qt::ToolTip|Qt::WindowStaysOnTopHint);
     setWindowModality(Qt::NonModal);
     setWindowOpacity(0.8);
+    viewWidth = 200;
 }
 
 SessionTabBarPreviewWidget::~SessionTabBarPreviewWidget() {
 }
 
 QPixmap *SessionTabBarPreviewWidget::getViewPixmap(void) {
-    viewPixmap = QPixmap(200,200);
+    viewPixmap = QPixmap(viewWidth,viewWidth);
     return &viewPixmap; 
 }
 
@@ -181,6 +182,15 @@ bool SessionTabBar::event(QEvent * event) {
     return QTabBar::event(event);
 }
 
+void SessionTabBar::changeEvent(QEvent* event) {
+    if(event->type() == QEvent::ActivationChange) {
+        if(!this->isActiveWindow()) {
+            preview->hide();
+        }
+    }
+    QTabBar::changeEvent(event);
+}
+
 void SessionTabBar::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         int index = tabAt(event->pos());
@@ -208,7 +218,7 @@ void SessionTabBar::mouseMoveEvent(QMouseEvent *event) {
             if (dragLabel) {
                 if(!initializing_drag) {
                     dragLabel->setParent(nullptr);
-                    dragLabel->setWindowFlags(Qt::FramelessWindowHint|Qt::Tool|Qt::WindowStaysOnTopHint);
+                    dragLabel->setWindowFlags(Qt::FramelessWindowHint|Qt::ToolTip|Qt::WindowStaysOnTopHint);
                     dragLabel->setWindowModality(Qt::NonModal);
                     dragLabel->window()->raise();
                     initializing_drag = true;

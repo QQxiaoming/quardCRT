@@ -129,6 +129,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsGeneralWidget->ui->comboBoxTabTitleMode->setCurrentIndex(settings.value("tabTitleMode", 0).toInt());
     globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->setValue(settings.value("tabTitleWidth", 20).toInt());
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
+    globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 200).toInt());
     settings.endGroup();
 
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
@@ -339,6 +340,11 @@ bool GlobalOptionsWindow::getEnableTabPreview(void)
     return globalOptionsGeneralWidget->ui->checkBoxTabPreview->isChecked();
 }
 
+int GlobalOptionsWindow::getTabPreviewWidth(void) 
+{
+    return globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->value();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -359,6 +365,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("tabTitleMode", globalOptionsGeneralWidget->ui->comboBoxTabTitleMode->currentIndex());
     settings.setValue("tabTitleWidth", globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->value());
     settings.setValue("enableTabPreview", globalOptionsGeneralWidget->ui->checkBoxTabPreview->isChecked());
+    settings.setValue("tabPreviewWidth", globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->value());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -386,6 +393,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsGeneralWidget->ui->comboBoxTabTitleMode->setCurrentIndex(settings.value("tabTitleMode", 0).toInt());
     globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->setValue(settings.value("tabTitleWidth", 20).toInt());
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
+    globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 200).toInt());
     settings.endGroup();
     emit this->rejected();
 }
