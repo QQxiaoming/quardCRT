@@ -100,7 +100,7 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
         }
 
         if(!contextMenu->isEmpty()) {
-            contextMenu->move(cursor().pos());
+            contextMenu->move(cursor().pos()+QPoint(5,5));
             contextMenu->show();
         }
     }

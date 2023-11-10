@@ -355,7 +355,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                 delete menu;
                 return;
             }
-            menu->move(cursor().pos());
+            menu->move(cursor().pos()+QPoint(5,5));
             menu->show();
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::dragTabMoved,this,[=](int from, int to, SessionTab *toTab){
@@ -627,7 +627,7 @@ void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
             moveToAnotherTab(newGroup,0,1);
             dialog->close();
         });
-        menu->move(cursor().pos());
+        menu->move(cursor().pos()+QPoint(5,5));
         menu->show();
     });
     connect(group->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
