@@ -102,34 +102,31 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
 
 SessionTabBarPreviewWidget::SessionTabBarPreviewWidget(QWidget *parent) 
     : QWidget(parent) {
-    viewPixmap = QPixmap(2,2);
+    viewWidth = 200;
     setWindowFlags(Qt::FramelessWindowHint|Qt::ToolTip|Qt::WindowStaysOnTopHint);
     setWindowModality(Qt::NonModal);
-    setWindowOpacity(0.8);
-    viewWidth = 200;
+
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(1,1,1,1);
+    layout->setSpacing(0);
+    setLayout(layout);
+    viewLabel = new QLabel(this);
+    viewLabel->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Expanding);
+    layout->addWidget(viewLabel);
+    tipLabel = new QLabel(this);
+    tipLabel->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Expanding);
+    tipLabel->setWordWrap(true);
+    layout->addWidget(tipLabel);
 }
 
 SessionTabBarPreviewWidget::~SessionTabBarPreviewWidget() {
 }
 
-QPixmap *SessionTabBarPreviewWidget::getViewPixmap(void) {
-    viewPixmap = QPixmap(viewWidth,viewWidth);
-    return &viewPixmap; 
-}
-
-void SessionTabBarPreviewWidget::paintEvent(QPaintEvent *event) {
-    QPainter painter(this);
-    painter.drawPixmap(0, 0, viewPixmap);
-    setFixedSize(viewPixmap.size());
-    QPen pen;
-    pen.setColor(QColor(255, 255, 255, 255));
-    pen.setWidth(1);
-    painter.setPen(pen);
-    painter.drawLine(0, 0, width(), 0);
-    painter.drawLine(0, 0, 0, height());
-    painter.drawLine(width(), 0, width(), height());
-    painter.drawLine(0, height(), width(), height());
-    Q_UNUSED(event);
+void SessionTabBarPreviewWidget::updateInfo(const QPixmap &view, const QString &tip) {
+    viewLabel->setPixmap(view);
+    tipLabel->setText(tip);
+    setFixedWidth(view.width());
+    setFixedHeight(view.height() + tipLabel->height());
 }
 
 QList<SessionTabBar*> SessionTabBar::tabBarInstances;
@@ -153,11 +150,12 @@ bool SessionTabBar::event(QEvent * event) {
         QPoint pos = mapFromGlobal(QCursor::pos());
         int index = tabAt(pos);
         if(index > 0) {
-            SessionTab *tab = (SessionTab *)parentWidget();
-            QPoint toolTipPos = mapToGlobal(QPoint(tabRect(index).bottomLeft().x(), tabRect(index).bottomLeft().y() + 5));
             if(previewEnabled) {
+                SessionTab *tab = (SessionTab *)parentWidget();
                 QTermWidget *term = (QTermWidget *)tab->widget(index);
-                term->screenShot(preview->getViewPixmap());
+                QPixmap viewPixmap(preview->getViewWidth(),preview->getViewWidth());
+                term->screenShot(&viewPixmap);
+                preview->updateInfo(viewPixmap,tab->tabToolTip(index));
                 QPoint viewPos = mapToGlobal(QPoint(tabRect(index).center().x(),
                     tabRect(index).center().y() + tabRect(index).height()/2 + 5) - QPoint(preview->width()/2,0));
                 preview->move(viewPos);
@@ -168,16 +166,16 @@ bool SessionTabBar::event(QEvent * event) {
                 }
                 preview->show();
                 preview->window()->lower();
-                toolTipPos = viewPos + QPoint(0,preview->height()+2);
             }
-            QToolTip::showText(toolTipPos,tab->tabToolTip(index));
         } else {
             preview->hide();
         }
     } else if(event->type() == QEvent::HoverLeave) {
         preview->hide();
     } else if(event->type() == QEvent::ToolTip) {
-        return true;
+        if(previewEnabled) {
+            return true;
+        }
     }
     return QTabBar::event(event);
 }

@@ -55,14 +55,13 @@ public:
     ~SessionTabBarPreviewWidget();
 
     QPixmap *getViewPixmap(void);
-    void setViewPixmap(QPixmap *pixmap);
+    void updateInfo(const QPixmap &view, const QString &tip);
     void setViewWidth(int width) { viewWidth = width; }
-
-protected:
-    void paintEvent(QPaintEvent *event) override;
+    int getViewWidth(void) { return viewWidth; }
 
 private:
-    QPixmap viewPixmap;
+    QLabel *viewLabel;
+    QLabel *tipLabel;
     int viewWidth;
 };
 
