@@ -125,6 +125,7 @@ SessionTabBarPreviewWidget::~SessionTabBarPreviewWidget() {
 void SessionTabBarPreviewWidget::updateInfo(const QPixmap &view, const QString &tip) {
     viewLabel->setPixmap(view);
     tipLabel->setText(tip);
+    tipLabel->setFixedWidth(view.width());
     setFixedWidth(view.width());
     setFixedHeight(view.height() + tipLabel->height());
 }
