@@ -21,6 +21,7 @@ public:
     qint64 write(const QByteArray &byteArray);
     QString currentDir();
     virtual bool hasChildProcess();
+    virtual QList<QPair<int, QString>> childProcessInfoList();
     bool isAvailable();
     void moveToThread(QThread *targetThread);
 

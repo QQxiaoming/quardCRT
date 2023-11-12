@@ -319,13 +319,59 @@ QString UnixPtyProcess::currentDir()
 
 bool UnixPtyProcess::hasChildProcess()
 {
-    int pid = tcgetpgrp(m_shellProcess.m_handleMaster);
-    if ( pid != -1 ) {
-        if(m_pid != pid) {
-            return true;
+    QList<QPair<int, QString>> childList = childProcessInfoList();
+    return (childList.size() > 0);
+}
+
+QList<QPair<int, QString>> UnixPtyProcess::childProcessInfoList()
+{
+    QList<QPair<int, QString>> result;
+    QString cmd = QString("ps");
+    QStringList args = { "-o", "pid,ppid,pgid,command", "-ax" };
+    QProcess ps;
+    ps.start(cmd, args);
+    ps.waitForFinished(-1);
+    QString psResult = ps.readAllStandardOutput();
+    QStringList psLines = psResult.split("\n");
+    foreach (QString line, psLines)
+    {
+        if (line.contains("PID"))
+            continue;
+
+        QStringList lineParts = line.split(" ");
+        QStringList linePartsFiltered;
+        foreach (QString part, lineParts)
+        {
+            if (!part.isEmpty())
+                linePartsFiltered.append(part);
+        }
+        if (linePartsFiltered.size() < 4)
+            continue;
+
+        QString pid = linePartsFiltered.at(0);
+        QString ppid = linePartsFiltered.at(1);
+        QString pgid = linePartsFiltered.at(2);
+        QString command = linePartsFiltered.at(3);
+        QStringList arg = linePartsFiltered.mid(4);
+
+        if (pid == QString::number(m_pid))
+            continue;
+
+        if (ppid == QString::number(m_pid))
+        {
+            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command+" "+arg.join(" "));
+            result.push_back(pair);
+            continue;
+        }
+
+        if (pgid == QString::number(m_pid))
+        {
+            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command+" "+arg.join(" "));
+            result.push_back(pair);
+            continue;
         }
     }
-    return false;
+    return result;
 }
 
 bool UnixPtyProcess::isAvailable()

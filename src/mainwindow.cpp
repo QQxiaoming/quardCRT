@@ -748,8 +748,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     copyAction->setText(tr("Copy"));
     copyAction->setIcon(QFontIcon::icon(QChar(0xf0c5)));
 #if defined(Q_OS_MACOS)
-    copyAction->setStatusTip(tr("Copy the selected text to the clipboard <Ctrl+C>"));
-    copyAction->setShortcut(QKeySequence(Qt::META|Qt::Key_C));
+    copyAction->setStatusTip(tr("Copy the selected text to the clipboard <Command+C>"));
+    copyAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_C));
 #else
     copyAction->setStatusTip(tr("Copy the selected text to the clipboard <Ctrl+Ins>"));
     copyAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_Insert));
@@ -757,8 +757,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     pasteAction->setText(tr("Paste"));
     pasteAction->setIcon(QFontIcon::icon(QChar(0xf0ea)));
 #if defined(Q_OS_MACOS)
-    pasteAction->setStatusTip(tr("Paste the clipboard text to the current session <Ctrl+V>"));
-    pasteAction->setShortcut(QKeySequence(Qt::META|Qt::Key_V));
+    pasteAction->setStatusTip(tr("Paste the clipboard text to the current session <Command+V>"));
+    pasteAction->setShortcut(QKeySequence(Qt::CTRL|Qt::Key_V));
 #else
     pasteAction->setStatusTip(tr("Paste the clipboard text to the current session <Shift+Ins>"));
     pasteAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::Key_Insert));

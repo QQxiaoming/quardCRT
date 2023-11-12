@@ -141,6 +141,7 @@ public:
     virtual qint64 write(const QByteArray &byteArray);
     virtual QString currentDir();
     virtual bool hasChildProcess();
+    virtual QList<QPair<int, QString>> childProcessInfoList();
     bool isAvailable();
     void moveToThread(QThread *targetThread);
 

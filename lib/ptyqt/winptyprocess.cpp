@@ -1,6 +1,7 @@
 #include "winptyprocess.h"
 #include <windows.h> 
 #include <tlhelp32.h>
+#include <psapi.h>
 #include <QFile>
 #include <QFileInfo>
 #include <sstream>
@@ -262,6 +263,41 @@ bool WinPtyProcess::hasChildProcess()
 
     CloseHandle(snapshot);
     return false;
+}
+
+QList<QPair<int, QString>> WinPtyProcess::childProcessInfoList()
+{
+    QList<QPair<int, QString>> result;
+
+    HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0); 
+
+    if (snapshot == INVALID_HANDLE_VALUE) 
+        return result;
+
+    PROCESSENTRY32 pe;
+    pe.dwSize = sizeof(PROCESSENTRY32);
+
+    if (Process32First(snapshot, &pe)) {
+        do {
+            if (pe.th32ParentProcessID == m_pid) {
+                // get full path
+                HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pe.th32ProcessID);
+                if (hProcess != NULL)
+                {
+                    TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
+                    if (GetModuleFileNameExW(hProcess, NULL, szProcessName, MAX_PATH) != 0)
+                    {
+                        QPair<int, QString> pair = QPair<int, QString>(pe.th32ProcessID, QString::fromWCharArray(szProcessName));
+                        result.append(pair);
+                    }
+                    CloseHandle(hProcess);
+                }
+            }
+        } while (Process32Next(snapshot, &pe));
+    }
+
+    CloseHandle(snapshot);
+    return result;
 }
 
 bool WinPtyProcess::isAvailable()
