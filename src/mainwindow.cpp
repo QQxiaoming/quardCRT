@@ -216,7 +216,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         lockSessionWindow->showUnlock();
                     });
                 } else {
-                    
                     QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
                     menu->addAction(moveToAnotherTabAction);
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
@@ -375,7 +374,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                     moveToAnotherTab(0,1,from);
                 }
             }
-            
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::tabBarDoubleClicked,this,[=](int index){
             QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->widget(index);

@@ -33,7 +33,8 @@
 #include <QPainter>
 #include "fancytabwidget.h"
 
-class EmptyTabWidget : public QWidget {
+class EmptyTabWidget : public QWidget 
+{
     Q_OBJECT
 public:
     explicit EmptyTabWidget(QWidget *parent = nullptr);
@@ -48,7 +49,8 @@ private:
     QLabel *easterEggs;
 };
 
-class SessionTabBarPreviewWidget : public QWidget {
+class SessionTabBarPreviewWidget : public QWidget 
+{
     Q_OBJECT
 public:
     explicit SessionTabBarPreviewWidget(QWidget *parent = nullptr);
@@ -65,7 +67,8 @@ private:
     int viewWidth;
 };
 
-class SessionTabBar : public QTabBar {
+class SessionTabBar : public QTabBar 
+{
     Q_OBJECT
 public:
     explicit SessionTabBar(QWidget *parent = nullptr);
@@ -100,7 +103,8 @@ private:
     static QList<SessionTabBar*> tabBarInstances;
 };
 
-class SessionTab : public FancyTabWidget {
+class SessionTab : public FancyTabWidget 
+{
     Q_OBJECT
 public:
     enum TitleScrollMode{
