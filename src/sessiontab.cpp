@@ -359,6 +359,7 @@ void SessionTab::contextMenuEvent(QContextMenuEvent *event) {
             index = -2;
         }
     }
+    ((SessionTabBar*)tabBar())->setPreviewHide();
     emit showContextMenu(index,event->globalPos());
     Q_UNUSED(event);
 }

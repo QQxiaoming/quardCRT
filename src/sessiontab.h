@@ -75,6 +75,7 @@ public:
     bool getPreviewEnabled(void) { return previewEnabled; }
     void setPreviewWidth(int width) { preview->setViewWidth(width); }
     int getPreviewWidth(void) { return preview->width(); }
+    void setPreviewHide(void) { preview->hide(); }
 
 signals:
     void dragTabMoved(int from, int to, SessionTabBar* toBar);
