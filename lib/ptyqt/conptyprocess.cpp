@@ -362,6 +362,11 @@ QList<QPair<int, QString>> ConPtyProcess::childProcessInfoList()
     return result;
 }
 
+QPair<int, QString> ConPtyProcess::processInfo()
+{
+    return QPair<int, QString>(m_pid, m_shellPath);
+}
+
 bool ConPtyProcess::isAvailable()
 {
 #ifdef TOO_OLD_WINSDK

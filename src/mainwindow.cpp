@@ -307,6 +307,9 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         QString name;
                         sessionWindow2InfoData(sessionsWindow,data,name);
                         sessionOptionsWindow->setSessionProperties(name,data);
+                        if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
+                            sessionOptionsWindow->setSessionLocalShellState(sessionsWindow->getLocalShellState());
+                        }
                         sessionOptionsWindow->show();
                     });
                     QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
@@ -1796,6 +1799,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
         sessionWindow2InfoData(sessionsWindow, data, name);
         sessionOptionsWindow->setSessionProperties(name,data);
+        if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
+            sessionOptionsWindow->setSessionLocalShellState(sessionsWindow->getLocalShellState());
+        }
         sessionOptionsWindow->show();
     });
     connect(globalOptionsAction,&QAction::triggered,this,[=](){

@@ -23,13 +23,18 @@
 #include <QDialog>
 #include <QShowEvent>
 #include <QStringListModel>
+
 #include "quickconnectwindow.h"
+
 #include "sessionoptionsgeneralwidget.h"
+
 #include "sessionoptionstelnetproperties.h"
 #include "sessionoptionsserialproperties.h"
 #include "sessionoptionslocalshellproperties.h"
 #include "sessionoptionsnamepipeproperties.h"
 #include "sessionoptionsrawproperties.h"
+
+#include "sessionoptionslocalshellstate.h"
 
 namespace Ui {
 class SessionOptionsWindow;
@@ -44,6 +49,8 @@ public:
     ~SessionOptionsWindow();
 
     void setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data);
+    void setSessionLocalShellState(QList<QPair<int, QString>> state);
+
     void retranslateUi();
 
 signals:
@@ -58,6 +65,7 @@ protected:
 
 private:
     void setactiveProperties(int index);
+    void setactiveState(int index);
 
 private:
     Ui::SessionOptionsWindow *ui;
@@ -67,6 +75,7 @@ private:
     SessionOptionsLocalShellProperties *sessionOptionsLocalShellProperties;
     SessionOptionsNamePipeProperties *sessionOptionsNamePipeProperties;
     SessionOptionsRawProperties *sessionOptionsRawProperties;
+    SessionOptionsLocalShellState *sessionOptionsLocalShellState;
     QStringListModel *model;
     QString currentSessionName;
 };

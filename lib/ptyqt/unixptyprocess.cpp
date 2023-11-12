@@ -359,19 +359,24 @@ QList<QPair<int, QString>> UnixPtyProcess::childProcessInfoList()
 
         if (ppid == QString::number(m_pid))
         {
-            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command+" "+arg.join(" "));
+            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command);
             result.push_back(pair);
             continue;
         }
 
         if (pgid == QString::number(m_pid))
         {
-            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command+" "+arg.join(" "));
+            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command);
             result.push_back(pair);
             continue;
         }
     }
     return result;
+}
+
+QPair<int, QString> UnixPtyProcess::processInfo()
+{
+    return QPair<int, QString>(m_pid, m_shellPath);
 }
 
 bool UnixPtyProcess::isAvailable()

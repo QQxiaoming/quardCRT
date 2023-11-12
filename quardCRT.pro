@@ -45,6 +45,7 @@ SOURCES += \
     src/sessionoptions/sessionoptionsrawproperties.cpp \
     src/sessionoptions/sessionoptionsserialproperties.cpp \
     src/sessionoptions/sessionoptionstelnetproperties.cpp \
+    src/sessionoptions/sessionoptionslocalshellstate.cpp \
     src/sessionmanagerwidget/sessionmanagerwidget.cpp \
     src/sessionmanagerwidget/sessionmanagertreeview.cpp \
     src/sessionmanagerwidget/sessionmanagertreemodel.cpp \
@@ -78,6 +79,7 @@ HEADERS += \
     src/sessionoptions/sessionoptionsrawproperties.h \
     src/sessionoptions/sessionoptionsserialproperties.h \
     src/sessionoptions/sessionoptionstelnetproperties.h \
+    src/sessionoptions/sessionoptionslocalshellstate.h \
     src/sessionmanagerwidget/sessionmanagerwidget.h \
     src/sessionmanagerwidget/sessionmanagertreeview.h \
     src/sessionmanagerwidget/sessionmanagertreemodel.h \
@@ -105,6 +107,7 @@ FORMS += \
     src/globaloptions/globaloptionswindow.ui \
     src/sessionoptions/sessionoptionsgeneralwidget.ui \
     src/sessionoptions/sessionoptionslocalshellproperties.ui \
+    src/sessionoptions/sessionoptionslocalshellstate.ui \
     src/sessionoptions/sessionoptionsnamepipeproperties.ui \
     src/sessionoptions/sessionoptionsrawproperties.ui \
     src/sessionoptions/sessionoptionsserialproperties.ui \

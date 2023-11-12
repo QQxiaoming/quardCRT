@@ -108,6 +108,7 @@ public:
     virtual QString currentDir();
     virtual bool hasChildProcess();
     virtual QList<QPair<int, QString>> childProcessInfoList();
+    virtual QPair<int, QString> processInfo();
     virtual bool isAvailable();
     void moveToThread(QThread *targetThread);
 

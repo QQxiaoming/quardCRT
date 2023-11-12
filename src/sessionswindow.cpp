@@ -542,30 +542,12 @@ bool SessionsWindow::hasChildProcess() {
     }
 }
 
-QString SessionsWindow::getStateInfo() {
-    switch(type) {
-        case LocalShell:{
-            QList<QPair<int, QString>> list = localShell->childProcessInfoList();
-            if(list.isEmpty()) return tr("No child process.");
-            QString ret = "<table border='0' width='100%'>";
-            ret += "<tr><th width='30%'>PID</th><th width='70%'>Command</th></tr>";
-            foreach(auto info, list) {
-                ret += "<tr><td width='30%'>" 
-                    + QString::number(info.first)
-                    + "</td><td width='70%'>"
-                    + info.second
-                    + "</td></tr>";
-            }
-            ret += "</table>";
-            return ret;
-        }
-        case Telnet:
-            return tr("Telnet %1:%2").arg(m_hostname).arg(m_port);
-        case Serial:
-            return tr("Serial %1 %2 %3 %4 %5 %6 %7").arg(m_portName).arg(m_baudRate).arg(m_dataBits).arg(m_parity).arg(m_stopBits).arg(m_flowControl).arg(m_xEnable);
-        case RawSocket:
-            return tr("Raw Socket %1:%2").arg(m_hostname).arg(m_port);
-        case NamePipe:
-            return tr("Name Pipe %1").arg(m_pipeName);
+QList<QPair<int, QString>> SessionsWindow::getLocalShellState(void) {
+    if(type == LocalShell) {
+        QList<QPair<int, QString>> ret;
+        ret.append(localShell->processInfo());
+        ret.append(localShell->childProcessInfoList());
+        return ret;
     }
+    return QList<QPair<int, QString>>();
 }

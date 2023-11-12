@@ -22,15 +22,20 @@
 #include <QLabel>
 #include <QStringListModel>
 #include <QSerialPortInfo>
+#include <QFileInfo>
 
 #include "sessionoptionswindow.h"
+
 #include "ui_sessionoptionswindow.h"
 #include "ui_sessionoptionsgeneralwidget.h"
+
 #include "ui_sessionoptionstelnetproperties.h"
 #include "ui_sessionoptionsserialproperties.h"
 #include "ui_sessionoptionslocalshellproperties.h"
 #include "ui_sessionoptionsnamepipeproperties.h"
 #include "ui_sessionoptionsrawproperties.h"
+
+#include "ui_sessionoptionslocalshellstate.h"
 
 SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
     QDialog(parent),
@@ -70,9 +75,12 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
     widget->layout()->addWidget(sessionOptionsNamePipeProperties);
     sessionOptionsRawProperties = new SessionOptionsRawProperties(widget);
     widget->layout()->addWidget(sessionOptionsRawProperties);
+    sessionOptionsLocalShellState = new SessionOptionsLocalShellState(widget);
+    widget->layout()->addWidget(sessionOptionsLocalShellState);
 
     sessionOptionsGeneralWidget->setVisible(true);
     setactiveProperties(-1);
+    setactiveState(-1);
 
     retranslateUi();
 
@@ -82,7 +90,12 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
             setactiveProperties(-1);
         } else if (index.row() == 1) {
             sessionOptionsGeneralWidget->setVisible(false);
+            setactiveState(-1);
             setactiveProperties(sessionOptionsGeneralWidget->ui->comboBoxProtocol->currentIndex());
+        } else if (index.row() == 2) {
+            sessionOptionsGeneralWidget->setVisible(false);
+            setactiveProperties(-1);
+            setactiveState(sessionOptionsGeneralWidget->ui->comboBoxProtocol->currentIndex());
         }
     });
 
@@ -97,7 +110,7 @@ SessionOptionsWindow::~SessionOptionsWindow()
 
 void SessionOptionsWindow::retranslateUi()
 {
-    model->setStringList(QStringList() << tr("General") << tr("Properties"));
+    model->setStringList(QStringList() << tr("General") << tr("Properties") << tr("State"));
     ui->retranslateUi(this);
     sessionOptionsGeneralWidget->ui->retranslateUi(this);
     sessionOptionsTelnetProperties->ui->retranslateUi(this);
@@ -105,6 +118,7 @@ void SessionOptionsWindow::retranslateUi()
     sessionOptionsLocalShellProperties->ui->retranslateUi(this);
     sessionOptionsNamePipeProperties->ui->retranslateUi(this);
     sessionOptionsRawProperties->ui->retranslateUi(this);
+    sessionOptionsLocalShellState->ui->retranslateUi(this);
 }
 
 void SessionOptionsWindow::setactiveProperties(int index)
@@ -137,9 +151,24 @@ void SessionOptionsWindow::setactiveProperties(int index)
     }
 }
 
+void SessionOptionsWindow::setactiveState(int index)
+{
+    sessionOptionsLocalShellState->setVisible(false);
+
+    if(index == -1) {
+        return;
+    }
+    switch(index) {
+    case 2:
+        sessionOptionsLocalShellState->setVisible(true);
+        break;
+    }
+}
+
 void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data)
 {
     currentSessionName = name;
+    sessionOptionsLocalShellState->ui->tableViewInfo->model()->removeRows(0, sessionOptionsLocalShellState->ui->tableViewInfo->model()->rowCount());
     sessionOptionsGeneralWidget->ui->comboBoxProtocol->setCurrentIndex(data.type);
     sessionOptionsGeneralWidget->ui->lineEditName->setText(name);
     switch(data.type) {
@@ -185,6 +214,20 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
     case QuickConnectWindow::NamePipe:
         sessionOptionsNamePipeProperties->ui->lineEditPipeName->setText(data.NamePipeData.pipeName);
         break;
+    }
+}
+
+void SessionOptionsWindow::setSessionLocalShellState(QList<QPair<int, QString>> state)
+{
+    foreach(auto pair, state) {
+        int pid = pair.first;
+        QString path = pair.second;
+        QFileInfo fileInfo(path);
+        QString name = fileInfo.fileName();
+        sessionOptionsLocalShellState->ui->tableViewInfo->model()->insertRow(0);
+        sessionOptionsLocalShellState->ui->tableViewInfo->model()->setData(sessionOptionsLocalShellState->ui->tableViewInfo->model()->index(0, 0), pid);
+        sessionOptionsLocalShellState->ui->tableViewInfo->model()->setData(sessionOptionsLocalShellState->ui->tableViewInfo->model()->index(0, 1), name);
+        sessionOptionsLocalShellState->ui->tableViewInfo->model()->setData(sessionOptionsLocalShellState->ui->tableViewInfo->model()->index(0, 1), path, Qt::ToolTipRole);
     }
 }
 

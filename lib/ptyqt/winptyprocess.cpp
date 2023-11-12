@@ -300,6 +300,11 @@ QList<QPair<int, QString>> WinPtyProcess::childProcessInfoList()
     return result;
 }
 
+QPair<int, QString> WinPtyProcess::processInfo()
+{
+    return QPair<int, QString>(m_pid, m_shellPath);
+}
+
 bool WinPtyProcess::isAvailable()
 {
     return QFile::exists(QCoreApplication::applicationDirPath() + "/" + WINPTY_AGENT_NAME)
