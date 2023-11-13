@@ -319,15 +319,15 @@ QString UnixPtyProcess::currentDir()
 
 bool UnixPtyProcess::hasChildProcess()
 {
-    QList<QPair<int, QString>> childList = childProcessInfoList();
-    return (childList.size() > 0);
+    pidTree_t pidTree = processInfoTree();
+    return (pidTree.children.size() > 0);
 }
 
-QList<QPair<int, QString>> UnixPtyProcess::childProcessInfoList()
+UnixPtyProcess::pidTree_t UnixPtyProcess::processInfoTree()
 {
-    QList<QPair<int, QString>> result;
+    QList<psInfo_t> psInfoList;
     QString cmd = QString("ps");
-    QStringList args = { "-o", "pid,ppid,pgid,command", "-ax" };
+    QStringList args = { "-o", "pid,ppid,command", "-ax" };
     QProcess ps;
     ps.start(cmd, args);
     ps.waitForFinished(-1);
@@ -345,38 +345,33 @@ QList<QPair<int, QString>> UnixPtyProcess::childProcessInfoList()
             if (!part.isEmpty())
                 linePartsFiltered.append(part);
         }
-        if (linePartsFiltered.size() < 4)
+        if (linePartsFiltered.size() < 3)
             continue;
 
-        QString pid = linePartsFiltered.at(0);
-        QString ppid = linePartsFiltered.at(1);
-        QString pgid = linePartsFiltered.at(2);
-        QString command = linePartsFiltered.at(3);
-        QStringList arg = linePartsFiltered.mid(4);
-
-        if (pid == QString::number(m_pid))
-            continue;
-
-        if (ppid == QString::number(m_pid))
-        {
-            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command);
-            result.push_back(pair);
-            continue;
-        }
-
-        if (pgid == QString::number(m_pid))
-        {
-            QPair<int, QString> pair = QPair<int, QString>(pid.toInt(), command);
-            result.push_back(pair);
-            continue;
-        }
+        struct psInfo_t info;
+        info.pid = linePartsFiltered.at(0).toInt();
+        info.ppid = linePartsFiltered.at(1).toInt();
+        info.command = linePartsFiltered.at(2);
+        info.args = linePartsFiltered.mid(3);
+        psInfoList.append(info);
     }
-    return result;
-}
 
-QPair<int, QString> UnixPtyProcess::processInfo()
-{
-    return QPair<int, QString>(m_pid, m_shellPath);
+    std::function<QList<pidTree_t>(int)> findChild = [&](int pid) -> QList<pidTree_t> {
+            QList<pidTree_t> result;
+            foreach (psInfo_t info, psInfoList)
+            {
+                if (info.ppid == pid)
+                {
+                    pidTree_t tree;
+                    tree.pidInfo = info;
+                    tree.children = findChild(info.pid);
+                    result.append(tree);
+                }
+            }
+            return result;
+        };
+    pidTree_t tree = { { m_pid, 0, m_shellPath, QStringList() }, findChild(m_pid) };
+    return tree;
 }
 
 bool UnixPtyProcess::isAvailable()

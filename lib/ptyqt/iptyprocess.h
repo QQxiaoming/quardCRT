@@ -21,6 +21,16 @@ public:
         ConPty = 2,
         AutoPty = 3
     };
+    struct psInfo_t{
+        int pid;
+        int ppid;
+        QString command;
+        QStringList args;
+    };
+    struct pidTree_t {
+        struct psInfo_t pidInfo;
+        QList<pidTree_t> children;
+    };
 
     IPtyProcess()
         : m_pid(0)
@@ -41,8 +51,7 @@ public:
     virtual bool isAvailable() = 0;
     virtual void moveToThread(QThread *targetThread) = 0;
     virtual bool hasChildProcess() = 0;
-    virtual QList<QPair<int, QString>> childProcessInfoList() = 0;
-    virtual QPair<int, QString> processInfo() = 0;
+    virtual pidTree_t processInfoTree() = 0;
     qint64 pid() { return m_pid; }
     QPair<qint16, qint16> size() { return m_size; }
     const QString lastError() { return m_lastError; }

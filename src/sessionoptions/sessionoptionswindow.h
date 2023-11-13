@@ -24,6 +24,7 @@
 #include <QShowEvent>
 #include <QStringListModel>
 
+#include "ptyqt.h"
 #include "quickconnectwindow.h"
 
 #include "sessionoptionsgeneralwidget.h"
@@ -49,7 +50,7 @@ public:
     ~SessionOptionsWindow();
 
     void setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data);
-    void setSessionLocalShellState(QList<QPair<int, QString>> state);
+    void setSessionLocalShellState(IPtyProcess::pidTree_t state);
 
     void retranslateUi();
 

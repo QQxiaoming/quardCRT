@@ -306,65 +306,62 @@ QString ConPtyProcess::currentDir()
 
 bool ConPtyProcess::hasChildProcess()
 {
+    pidTree_t pidTree = processInfoTree();
+    return (pidTree.children.size() > 0);
+}
+
+ConPtyProcess::pidTree_t ConPtyProcess::processInfoTree()
+{
+    QList<psInfo_t> psInfoList;
+
     HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0); 
 
-    if (snapshot == INVALID_HANDLE_VALUE) 
-        return false;
+    if (snapshot == INVALID_HANDLE_VALUE)  {
+        pidTree_t tree = { { m_pid, 0, m_shellPath, QStringList() }, QList<pidTree_t>() };
+        return tree;
+    }
 
     PROCESSENTRY32 pe;
     pe.dwSize = sizeof(PROCESSENTRY32);
 
     if (Process32First(snapshot, &pe)) {
         do {
-            if (pe.th32ParentProcessID == m_pid) {
-                CloseHandle(snapshot);
-                return true;
+            // get full path
+            HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pe.th32ProcessID);
+            if (hProcess != NULL)
+            {
+                TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
+                if (GetModuleFileNameExW(hProcess, NULL, szProcessName, MAX_PATH) != 0)
+                {
+                    struct psInfo_t info;
+                    info.pid = pe.th32ProcessID;
+                    info.ppid = pe.th32ParentProcessID;
+                    info.name = QString::fromWCharArray(szProcessName);
+                    psInfoList.append(info);
+                }
+                CloseHandle(hProcess);
             }
         } while (Process32Next(snapshot, &pe));
     }
 
     CloseHandle(snapshot);
-    return false;
-}
 
-QList<QPair<int, QString>> ConPtyProcess::childProcessInfoList()
-{
-    QList<QPair<int, QString>> result;
-
-    HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0); 
-
-    if (snapshot == INVALID_HANDLE_VALUE) 
-        return result;
-
-    PROCESSENTRY32 pe;
-    pe.dwSize = sizeof(PROCESSENTRY32);
-
-    if (Process32First(snapshot, &pe)) {
-        do {
-            if (pe.th32ParentProcessID == m_pid) {
-                // get full path
-                HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pe.th32ProcessID);
-                if (hProcess != NULL)
+    std::function<QList<pidTree_t>(int)> findChild = [&](int pid) -> QList<pidTree_t> {
+            QList<pidTree_t> result;
+            foreach (psInfo_t info, psInfoList)
+            {
+                if (info.ppid == pid)
                 {
-                    TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
-                    if (GetModuleFileNameExW(hProcess, NULL, szProcessName, MAX_PATH) != 0)
-                    {
-                        QPair<int, QString> pair = QPair<int, QString>(pe.th32ProcessID, QString::fromWCharArray(szProcessName));
-                        result.append(pair);
-                    }
-                    CloseHandle(hProcess);
+                    pidTree_t tree;
+                    tree.pidInfo = info;
+                    tree.children = findChild(info.pid);
+                    result.append(tree);
                 }
             }
-        } while (Process32Next(snapshot, &pe));
-    }
-
-    CloseHandle(snapshot);
-    return result;
-}
-
-QPair<int, QString> ConPtyProcess::processInfo()
-{
-    return QPair<int, QString>(m_pid, m_shellPath);
+            return result;
+        };
+    pidTree_t tree = { { m_pid, 0, m_shellPath, QStringList() }, findChild(m_pid) };
+    return tree;
 }
 
 bool ConPtyProcess::isAvailable()

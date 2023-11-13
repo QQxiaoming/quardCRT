@@ -12,7 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTableView" name="tableViewInfo"></widget>
+    <widget class="QTreeView" name="treeViewInfo"/>
    </item>
   </layout>
  </widget>

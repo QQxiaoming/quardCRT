@@ -542,12 +542,9 @@ bool SessionsWindow::hasChildProcess() {
     }
 }
 
-QList<QPair<int, QString>> SessionsWindow::getLocalShellState(void) {
+IPtyProcess::pidTree_t SessionsWindow::getLocalShellState(void) {
     if(type == LocalShell) {
-        QList<QPair<int, QString>> ret;
-        ret.append(localShell->processInfo());
-        ret.append(localShell->childProcessInfoList());
-        return ret;
+        return localShell->processInfoTree();
     }
-    return QList<QPair<int, QString>>();
+    return IPtyProcess::pidTree_t();
 }

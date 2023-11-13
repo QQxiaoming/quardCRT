@@ -23,6 +23,7 @@
 #include <QStringListModel>
 #include <QSerialPortInfo>
 #include <QFileInfo>
+#include <QStandardItemModel>
 
 #include "sessionoptionswindow.h"
 
@@ -168,7 +169,7 @@ void SessionOptionsWindow::setactiveState(int index)
 void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data)
 {
     currentSessionName = name;
-    sessionOptionsLocalShellState->ui->tableViewInfo->model()->removeRows(0, sessionOptionsLocalShellState->ui->tableViewInfo->model()->rowCount());
+    sessionOptionsLocalShellState->ui->treeViewInfo->model()->removeRows(0, sessionOptionsLocalShellState->ui->treeViewInfo->model()->rowCount());
     sessionOptionsGeneralWidget->ui->comboBoxProtocol->setCurrentIndex(data.type);
     sessionOptionsGeneralWidget->ui->lineEditName->setText(name);
     switch(data.type) {
@@ -217,18 +218,26 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
     }
 }
 
-void SessionOptionsWindow::setSessionLocalShellState(QList<QPair<int, QString>> state)
+void SessionOptionsWindow::setSessionLocalShellState(IPtyProcess::pidTree_t state)
 {
-    foreach(auto pair, state) {
-        int pid = pair.first;
-        QString path = pair.second;
+    QStandardItemModel *model = (QStandardItemModel *)sessionOptionsLocalShellState->ui->treeViewInfo->model();
+    
+    std::function<void(IPtyProcess::pidTree_t, QStandardItem *)> addNode = [&](IPtyProcess::pidTree_t state, QStandardItem *parent) {
+        int pid = state.pidInfo.pid;
+        QString path = state.pidInfo.command;
         QFileInfo fileInfo(path);
         QString name = fileInfo.fileName();
-        sessionOptionsLocalShellState->ui->tableViewInfo->model()->insertRow(0);
-        sessionOptionsLocalShellState->ui->tableViewInfo->model()->setData(sessionOptionsLocalShellState->ui->tableViewInfo->model()->index(0, 0), pid);
-        sessionOptionsLocalShellState->ui->tableViewInfo->model()->setData(sessionOptionsLocalShellState->ui->tableViewInfo->model()->index(0, 1), name);
-        sessionOptionsLocalShellState->ui->tableViewInfo->model()->setData(sessionOptionsLocalShellState->ui->tableViewInfo->model()->index(0, 1), path, Qt::ToolTipRole);
-    }
+        QList<QStandardItem *> items = { new QStandardItem(), new QStandardItem() };
+        items[0]->setData(pid, Qt::DisplayRole);
+        items[1]->setData(name, Qt::DisplayRole);
+        items[1]->setData(path, Qt::ToolTipRole);
+        parent->appendRow(items);
+        foreach(IPtyProcess::pidTree_t child, state.children) {
+            addNode(child, items[0]);
+        }
+    };
+    addNode(state, model->invisibleRootItem());
+    sessionOptionsLocalShellState->ui->treeViewInfo->expandToDepth(2);
 }
 
 void SessionOptionsWindow::buttonBoxAccepted(void)
