@@ -253,11 +253,15 @@ int main(int argc, char *argv[])
     settings.endGroup();
 
     QLocale locale;
-    QLocale::Language lang = locale.language();
-    if(app_lang == "zh_CN") lang = QLocale::Chinese;
-    if(app_lang == "ja_JP") lang = QLocale::Japanese;
-    if(app_lang == "en_US") lang = QLocale::English;
-    MainWindow::setAppLangeuage(lang);
+    if(app_lang == "zh_CN") locale = QLocale(QLocale::Chinese, QLocale::SimplifiedChineseScript);
+    if(app_lang == "zh_HK") locale = QLocale(QLocale::Chinese, QLocale::TraditionalChineseScript);
+    if(app_lang == "ru_RU") locale = QLocale::Russian;
+    if(app_lang == "ko_KR") locale = QLocale::Korean;
+    if(app_lang == "ja_JP") locale = QLocale::Japanese;
+    if(app_lang == "fr_FR") locale = QLocale::French;
+    if(app_lang == "es_ES") locale = QLocale::Spanish;
+    if(app_lang == "en_US") locale = QLocale::English;
+    MainWindow::setAppLangeuage(locale);
 
 #if 0 // Now we always use the dark theme, Because the dark theme is more beautiful
     int text_hsv_value = QPalette().color(QPalette::WindowText).value();
@@ -287,7 +291,7 @@ int main(int argc, char *argv[])
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    MainWindow window(dir,isMiniUI?MainWindow::MINIUI_MODE:MainWindow::STDUI_MODE,lang,isDarkTheme);
+    MainWindow window(dir,isMiniUI?MainWindow::MINIUI_MODE:MainWindow::STDUI_MODE,locale,isDarkTheme);
     window.show();
 
     return application.exec();

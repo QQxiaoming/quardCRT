@@ -62,7 +62,7 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, bool isDark, QWidget *parent)
+MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDark, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , windowTransparency(1.0)
@@ -312,10 +312,35 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale::Language lang, 
                         }
                         sessionOptionsWindow->show();
                     });
-                    QAction *closeAction = new QAction(QFontIcon::icon(QChar(0xf00d)),tr("Close"),this);
+                    QAction *closeAction = new QAction(tr("Close"),this);
                     menu->addAction(closeAction);
                     connect(closeAction,&QAction::triggered,this,[=](){
                         stopSession(mainWidgetGroup,index);
+                    });
+                    QAction *closeOthersAction = new QAction(tr("Close Others"),this);
+                    menu->addAction(closeOthersAction);
+                    connect(closeOthersAction,&QAction::triggered,this,[=](){
+                        int count = mainWidgetGroup->sessionTab->count();
+                        for(int i=count;i>0;i--) {
+                            if(i != index) {
+                                stopSession(mainWidgetGroup,i);
+                            }
+                        }
+                    });
+                    QAction *closeToTheRightAction = new QAction(tr("Close to the Right"),this);
+                    menu->addAction(closeToTheRightAction);
+                    connect(closeToTheRightAction,&QAction::triggered,this,[=](){
+                        int count = mainWidgetGroup->sessionTab->count();
+                        for(int i=count;i>index;i--) {
+                            stopSession(mainWidgetGroup,i);
+                        }
+                    });
+                    QAction *closeAllAction = new QAction(tr("Close All"),this);
+                    menu->addAction(closeAllAction);
+                    connect(closeAllAction,&QAction::triggered,this,[=](){
+                        while(mainWidgetGroup->sessionTab->count() > 0) {
+                            stopSession(mainWidgetGroup,mainWidgetGroup->sessionTab->count());
+                        }
                     });
                 }
             } else if(index == -1) {
@@ -892,12 +917,22 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     cascadeAction->setText(tr("Cascade"));
     cascadeAction->setStatusTip(tr("Arrange sessions to overlap each other"));
 
-    chineseAction->setText(tr("Chinese"));
-    chineseAction->setStatusTip(tr("Switch to Chinese"));
-    englishAction->setText(tr("English"));
-    englishAction->setStatusTip(tr("Switch to English"));
+    chineseAction->setText(tr("Simplified Chinese"));
+    chineseAction->setStatusTip(tr("Switch to Simplified Chinese"));
+    chineseHKAction->setText(tr("Traditional Chinese"));
+    chineseHKAction->setStatusTip(tr("Switch to Traditional Chinese"));
+    russianAction->setText(tr("Russian"));
+    russianAction->setStatusTip(tr("Switch to Russian"));
+    koreanAction->setText(tr("Korean"));
+    koreanAction->setStatusTip(tr("Switch to Korean"));
     japaneseAction->setText(tr("Japanese"));
     japaneseAction->setStatusTip(tr("Switch to Japanese"));
+    frenchAction->setText(tr("French"));
+    frenchAction->setStatusTip(tr("Switch to French"));
+    spanishAction->setText(tr("Spanish"));
+    spanishAction->setStatusTip(tr("Switch to Spanish"));
+    englishAction->setText(tr("English"));
+    englishAction->setStatusTip(tr("Switch to English"));
 
     lightThemeAction->setText(tr("Light"));
     lightThemeAction->setStatusTip(tr("Switch to light theme"));
@@ -1197,18 +1232,43 @@ void MainWindow::menuAndToolBarInit(void) {
     chineseAction = new QAction(this);
     chineseAction->setActionGroup(languageActionGroup);
     chineseAction->setCheckable(true);
-    chineseAction->setChecked(language == QLocale::Chinese);
+    chineseAction->setChecked(language == QLocale(QLocale::Chinese, QLocale::SimplifiedChineseScript));
     languageMenu->addAction(chineseAction);
-    englishAction = new QAction(this);
-    englishAction->setActionGroup(languageActionGroup);
-    englishAction->setCheckable(true);
-    englishAction->setChecked(language == QLocale::English);
-    languageMenu->addAction(englishAction);
+    chineseHKAction = new QAction(this);
+    chineseHKAction->setActionGroup(languageActionGroup);
+    chineseHKAction->setCheckable(true);
+    chineseHKAction->setChecked(language == QLocale(QLocale::Chinese, QLocale::TraditionalChineseScript));
+    languageMenu->addAction(chineseHKAction);
+    russianAction = new QAction(this);
+    russianAction->setActionGroup(languageActionGroup);
+    russianAction->setCheckable(true);
+    russianAction->setChecked(language == QLocale::Russian);
+    languageMenu->addAction(russianAction);
+    koreanAction = new QAction(this);
+    koreanAction->setActionGroup(languageActionGroup);
+    koreanAction->setCheckable(true);
+    koreanAction->setChecked(language == QLocale::Korean);
+    languageMenu->addAction(koreanAction);
     japaneseAction = new QAction(this);
     japaneseAction->setActionGroup(languageActionGroup);
     japaneseAction->setCheckable(true);
     japaneseAction->setChecked(language == QLocale::Japanese);
     languageMenu->addAction(japaneseAction);
+    frenchAction = new QAction(this);
+    frenchAction->setActionGroup(languageActionGroup);
+    frenchAction->setCheckable(true);
+    frenchAction->setChecked(language == QLocale::French);
+    languageMenu->addAction(frenchAction);
+    spanishAction = new QAction(this);
+    spanishAction->setActionGroup(languageActionGroup);
+    spanishAction->setCheckable(true);
+    spanishAction->setChecked(language == QLocale::Spanish);
+    languageMenu->addAction(spanishAction);
+    englishAction = new QAction(this);
+    englishAction->setActionGroup(languageActionGroup);
+    englishAction->setCheckable(true);
+    englishAction->setChecked(language == QLocale::English);
+    languageMenu->addAction(englishAction);
 
     themeActionGroup = new QActionGroup(this);
     lightThemeAction = new QAction(this);
@@ -1809,12 +1869,23 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(languageActionGroup,&QActionGroup::triggered,this,[=](QAction *action){
         if(action == chineseAction) {
-            this->language = QLocale::Chinese;
-        } else if(action == englishAction) {
-            this->language = QLocale::English;
+            this->language = QLocale(QLocale::Chinese, QLocale::SimplifiedChineseScript);
+        } else if(action == chineseHKAction) {
+            this->language = QLocale(QLocale::Chinese, QLocale::TraditionalChineseScript);
+        } else if(action == russianAction) {
+            this->language = QLocale::Russian;
+        } else if(action == koreanAction) {
+            this->language = QLocale::Korean;
         } else if(action == japaneseAction) {
             this->language = QLocale::Japanese;
+        } else if(action == frenchAction) {
+            this->language = QLocale::French;
+        } else if(action == spanishAction) {
+            this->language = QLocale::Spanish;
+        } else if(action == englishAction) {
+            this->language = QLocale::English;
         }
+
         setAppLangeuage(this->language);
         ui->retranslateUi(this);
         sessionManagerWidget->retranslateUi();
@@ -2701,7 +2772,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::setAppLangeuage(QLocale::Language lang) {
+void MainWindow::setAppLangeuage(QLocale lang) {
     GlobalSetting settings;
     static QTranslator *qtTranslator = nullptr;
     static QTranslator *qtbaseTranslator = nullptr;
@@ -2728,15 +2799,43 @@ void MainWindow::setAppLangeuage(QLocale::Language lang) {
         delete appTranslator;
         appTranslator = new QTranslator(qApp);
     }
-    switch(lang) {
+    switch(lang.language()) {
     case QLocale::Chinese:
-        if(qtTranslator->load("qt_zh_CN.qm",qlibpath))
+        if(lang.script() == QLocale::SimplifiedChineseScript) {
+            if(qtTranslator->load("qt_zh_CN.qm",qlibpath))
+                qApp->installTranslator(qtTranslator);
+            if(qtbaseTranslator->load("qtbase_zh_CN.qm",qlibpath))
+                qApp->installTranslator(qtbaseTranslator);
+            if(appTranslator->load(":/lang/lang/quardCRT_zh_CN.qm"))
+                qApp->installTranslator(appTranslator);
+            settings.setValue("Global/Startup/language","zh_CN");
+        } else if (lang.script() == QLocale::TraditionalHanScript) {
+            if(qtTranslator->load("qt_zh_TW.qm",qlibpath))
+                qApp->installTranslator(qtTranslator);
+            if(qtbaseTranslator->load("qtbase_zh_TW.qm",qlibpath))
+                qApp->installTranslator(qtbaseTranslator);
+            if(appTranslator->load(":/lang/lang/quardCRT_zh_HK.qm"))
+                qApp->installTranslator(appTranslator);
+            settings.setValue("Global/Startup/language","zh_HK");
+        }
+        break;
+    case QLocale::Russian:
+        if(qtTranslator->load("qt_ru.qm",qlibpath))
             qApp->installTranslator(qtTranslator);
-        if(qtbaseTranslator->load("qtbase_zh_CN.qm",qlibpath))
+        if(qtbaseTranslator->load("qtbase_ru.qm",qlibpath))
             qApp->installTranslator(qtbaseTranslator);
-        if(appTranslator->load(":/lang/lang/quardCRT_zh_CN.qm"))
+        if(appTranslator->load(":/lang/lang/quardCRT_ru_RU.qm"))
             qApp->installTranslator(appTranslator);
-        settings.setValue("Global/Startup/language","zh_CN");
+        settings.setValue("Global/Startup/language","ru_RU");
+        break;
+    case QLocale::Korean:
+        if(qtTranslator->load("qt_ko.qm",qlibpath))
+            qApp->installTranslator(qtTranslator);
+        if(qtbaseTranslator->load("qtbase_ko.qm",qlibpath))
+            qApp->installTranslator(qtbaseTranslator);
+        if(appTranslator->load(":/lang/lang/quardCRT_ko_KR.qm"))
+            qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","ko_KR");
         break;
     case QLocale::Japanese:
         if(qtTranslator->load("qt_ja.qm",qlibpath))
@@ -2746,6 +2845,24 @@ void MainWindow::setAppLangeuage(QLocale::Language lang) {
         if(appTranslator->load(":/lang/lang/quardCRT_ja_JP.qm"))
             qApp->installTranslator(appTranslator);
         settings.setValue("Global/Startup/language","ja_JP");
+        break;
+    case QLocale::French:
+        if(qtTranslator->load("qt_fr.qm",qlibpath))
+            qApp->installTranslator(qtTranslator);
+        if(qtbaseTranslator->load("qtbase_fr.qm",qlibpath))
+            qApp->installTranslator(qtbaseTranslator);
+        if(appTranslator->load(":/lang/lang/quardCRT_fr_FR.qm"))
+            qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","fr_FR");
+        break;
+    case QLocale::Spanish:
+        if(qtTranslator->load("qt_es.qm",qlibpath))
+            qApp->installTranslator(qtTranslator);
+        if(qtbaseTranslator->load("qtbase_es.qm",qlibpath))
+            qApp->installTranslator(qtbaseTranslator);
+        if(appTranslator->load(":/lang/lang/quardCRT_es_ES.qm"))
+            qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","es_ES");
         break;
     default:
     case QLocale::English:

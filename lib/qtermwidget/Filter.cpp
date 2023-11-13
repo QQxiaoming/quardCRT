@@ -34,6 +34,7 @@
 #include <QFile>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QDir>
 
 #include "TerminalCharacterDecoder.h"
 #include "console_charwidth.h"
@@ -416,6 +417,8 @@ UrlFilter::HotSpot::UrlType UrlFilter::HotSpot::urlType() const
         return StandardUrl;
     else if ( EmailAddressRegExp.exactMatch(url) )
         return Email;
+    else if ( FilePathRegExp.exactMatch(url) )
+        return FilePath;
     else
         return Unknown;
 }
@@ -447,6 +450,12 @@ void UrlFilter::HotSpot::activate(const QString& actionName)
         {
             url.prepend(QLatin1String("mailto:"));
         }
+        else if ( kind == FilePath )
+        {
+            url.replace(QLatin1Char('\\'),QLatin1Char('/'));
+            url.replace(QLatin1Char('~'),QDir::homePath());
+            url.prepend(QLatin1String("file://"));
+        }
 
         _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), actionName != QLatin1String("click-action"));
     }
@@ -464,10 +473,21 @@ const QRegExp UrlFilter::FullUrlRegExp(QLatin1String("(www\\.(?!\\.)|[a-z][a-z0-
 // email address:
 // [word chars, dots or dashes]@[word chars, dots or dashes].[word chars]
 const QRegExp UrlFilter::EmailAddressRegExp(QLatin1String("\\b(\\w|\\.|-)+@(\\w|\\.|-)+\\.\\w+\\b"));
-
+// file path:
+// [drive letter]:\ or \\ followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
+const QRegExp UrlFilter::WindowsFilePathRegExp(QLatin1String("([a-zA-Z]:|\\\\)[^\\s<>'\"]+[^!,\\.\\s<>'\"\\]]"));
+// / ~  . or .. followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
+const QRegExp UrlFilter::UnixFilePathRegExp(QLatin1String("(/|~|\\.\\.?)[^\\s<>'\"]+[^!,\\.\\s<>'\"\\]]"));
+const QRegExp UrlFilter::FilePathRegExp(QLatin1String("(")+
+                                            WindowsFilePathRegExp.pattern()+QLatin1Char('|')+
+                                            UnixFilePathRegExp.pattern()+
+                                           QLatin1Char(')'));
 // matches full url or email address
-const QRegExp UrlFilter::CompleteUrlRegExp(QLatin1Char('(')+FullUrlRegExp.pattern()+QLatin1Char('|')+
-                                            EmailAddressRegExp.pattern()+QLatin1Char(')'));
+const QRegExp UrlFilter::CompleteUrlRegExp(QLatin1Char('(')+
+                                            FullUrlRegExp.pattern()+QLatin1Char('|')+
+                                            EmailAddressRegExp.pattern()+QLatin1Char('|')+
+                                            FilePathRegExp.pattern()+
+                                           QLatin1Char(')'));
 
 UrlFilter::UrlFilter()
 {
@@ -503,7 +523,7 @@ QList<QAction*> UrlFilter::HotSpot::actions()
     QAction* openAction = new QAction(_urlObject);
     QAction* copyAction = new QAction(_urlObject);;
 
-    Q_ASSERT( kind == StandardUrl || kind == Email );
+    Q_ASSERT( kind == StandardUrl || kind == Email || kind == FilePath );
 
     if ( kind == StandardUrl )
     {
@@ -514,6 +534,11 @@ QList<QAction*> UrlFilter::HotSpot::actions()
     {
         openAction->setText(QObject::tr("Send Email To..."));
         copyAction->setText(QObject::tr("Copy Email Address"));
+    }
+    else if ( kind == FilePath )
+    {
+        openAction->setText(QObject::tr("Open Path"));
+        copyAction->setText(QObject::tr("Copy Path"));
     }
 
     // object names are set here so that the hotspot performs the

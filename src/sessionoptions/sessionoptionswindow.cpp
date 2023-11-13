@@ -89,6 +89,7 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
         if (index.row() == 0) {
             sessionOptionsGeneralWidget->setVisible(true);
             setactiveProperties(-1);
+            setactiveState(-1);
         } else if (index.row() == 1) {
             sessionOptionsGeneralWidget->setVisible(false);
             setactiveState(-1);

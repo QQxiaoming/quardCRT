@@ -63,11 +63,11 @@ public:
         STDUI_MODE = 0,
         MINIUI_MODE,
     };
-    MainWindow(QString dir = QString(), StartupUIMode mode = STDUI_MODE, QLocale::Language lang = QLocale::English, bool isDark = true, QWidget *parent = nullptr);
+    MainWindow(QString dir = QString(), StartupUIMode mode = STDUI_MODE, QLocale lang = QLocale(QLocale::English), bool isDark = true, QWidget *parent = nullptr);
     ~MainWindow();
     static void appAbout(QWidget *parent = nullptr);
     static void appHelp(QWidget *parent = nullptr);
-    static void setAppLangeuage(QLocale::Language lang);
+    static void setAppLangeuage(QLocale lang);
 
 private:
     void menuAndToolBarInit(void);
@@ -209,8 +209,13 @@ private:
     QAction *cascadeAction;
     QActionGroup *languageActionGroup;
     QAction *chineseAction;
-    QAction *englishAction;
+    QAction *chineseHKAction;
+    QAction *russianAction;
+    QAction *koreanAction;
     QAction *japaneseAction;
+    QAction *frenchAction;
+    QAction *spanishAction;
+    QAction *englishAction;
     QActionGroup *themeActionGroup;
     QAction *lightThemeAction;
     QAction *darkThemeAction;
@@ -234,7 +239,7 @@ private:
     qreal windowTransparency;
     bool windowTransparencyEnabled;
 
-    QLocale::Language language;
+    QLocale language;
     bool isDarkTheme;
 };
 #endif // MAINWINDOW_H

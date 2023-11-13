@@ -128,7 +128,12 @@ RESOURCES += \
 
 TRANSLATIONS += \
     lang/quardCRT_zh_CN.ts \
+    lang/quardCRT_zh_HK.ts \
+    lang/quardCRT_ru_RU.ts \
+    lang/quardCRT_ko_KR.ts \
     lang/quardCRT_ja_JP.ts \
+    lang/quardCRT_fr_FR.ts \
+    lang/quardCRT_es_ES.ts \
     lang/quardCRT_en_US.ts
 
 build_type =

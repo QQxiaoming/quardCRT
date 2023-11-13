@@ -200,7 +200,7 @@ void QTermWidget::startTerminalTeletype()
              this, SIGNAL(dupDisplayOutput(const char *,int)) );
 }
 
-void QTermWidget::setLangeuage(QLocale::Language lang)
+void QTermWidget::setLangeuage(QLocale lang)
 {
     static QTranslator *translator = nullptr;
 
@@ -216,7 +216,7 @@ void QTermWidget::setLangeuage(QLocale::Language lang)
     dirs.append(QFile::decodeName(":/lib/qtermwidget/translations"));
 
     for (const QString& dir : std::as_const(dirs)) {
-        if (translator->load(QLocale(lang), QLatin1String("qtermwidget"), QLatin1String(QLatin1String("_")), dir)) {
+        if (translator->load(lang, QLatin1String("qtermwidget"), QLatin1String(QLatin1String("_")), dir)) {
             qApp->installTranslator(translator);
             return;
         }

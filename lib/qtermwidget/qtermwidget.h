@@ -248,7 +248,7 @@ public:
     }
 
     void reTranslateUi(void);
-    static void setLangeuage(QLocale::Language lang);
+    static void setLangeuage(QLocale lang);
 
 signals:
     void finished();

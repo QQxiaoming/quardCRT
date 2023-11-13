@@ -6,7 +6,12 @@
     </qresource>
     <qresource prefix="/lang">
         <file>../lang/quardCRT_zh_CN.qm</file>
+        <file>../lang/quardCRT_zh_HK.qm</file>
+        <file>../lang/quardCRT_ru_RU.qm</file>
+        <file>../lang/quardCRT_ko_KR.qm</file>
         <file>../lang/quardCRT_ja_JP.qm</file>
+        <file>../lang/quardCRT_fr_FR.qm</file>
+        <file>../lang/quardCRT_es_ES.qm</file>
         <file>../lang/quardCRT_en_US.qm</file>
     </qresource>
 </RCC>

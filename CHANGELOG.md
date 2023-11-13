@@ -6,6 +6,7 @@
 - windows终端增强，现在可以像linux一样使用Tab键选择补全命令
 - 修复macOS错误绑定了复制粘贴快捷键导致无法kill终端内进程问题
 - 增加会话状态查询，通过会话设置/属性-状态查看会话状态
+- 增加更多语言支持
 
 ## [[V0.2.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.5)] - 2023-11-09
 

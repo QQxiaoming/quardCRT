@@ -266,6 +266,7 @@ public:
         {
             StandardUrl,
             Email,
+            FilePath,
             Unknown
         };
         UrlType urlType() const;
@@ -284,8 +285,11 @@ protected:
 private:
     static const QRegExp FullUrlRegExp;
     static const QRegExp EmailAddressRegExp;
+    static const QRegExp WindowsFilePathRegExp;
+    static const QRegExp UnixFilePathRegExp;
+    static const QRegExp FilePathRegExp;
 
-    // combined OR of FullUrlRegExp and EmailAddressRegExp
+    // combined OR of FullUrlRegExp and EmailAddressRegExp and FilePathRegExp
     static const QRegExp CompleteUrlRegExp;
 
 signals:
