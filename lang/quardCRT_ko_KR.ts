@@ -52,7 +52,7 @@
     <message>
         <location filename="../src/sessiontab.cpp" line="68"/>
         <source>No session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 없음</translation>
     </message>
 </context>
 <context>

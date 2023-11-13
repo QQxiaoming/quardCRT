@@ -214,8 +214,19 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
         saveLog(data, size);
     });
-    connect(term, &QTermWidget::urlActivated, this, [](const QUrl& url, bool fromContextMenu){
-        QDesktopServices::openUrl(url);
+    connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, bool fromContextMenu){
+        QUrl u = url;
+        QString path = u.toString();
+        if(path.startsWith("relative:") ) {
+            if(getSessionType() == LocalShell) {
+                path.remove("relative:");
+                path = getWorkingDirectory() + "/" + path;
+                u = QUrl::fromLocalFile(path);
+            } else {
+                return;
+            }
+        }
+        QDesktopServices::openUrl(u);
         Q_UNUSED(fromContextMenu);
     });
     connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event){

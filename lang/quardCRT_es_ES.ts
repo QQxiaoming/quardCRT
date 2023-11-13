@@ -52,7 +52,7 @@
     <message>
         <location filename="../src/sessiontab.cpp" line="68"/>
         <source>No session</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay sesión</translation>
     </message>
 </context>
 <context>
@@ -556,69 +556,69 @@
         <location filename="../src/mainwindow.cpp" line="709"/>
         <location filename="../src/mainwindow.cpp" line="732"/>
         <source>Session Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Administrador de sesiones</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="711"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="712"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="713"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="714"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="715"/>
         <source>Transfer</source>
-        <translation type="unfinished"></translation>
+        <translation>Transferir</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="716"/>
         <source>Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Script</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="717"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcador</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="718"/>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Herramientas</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="719"/>
         <source>Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="720"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Idioma</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="721"/>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="722"/>
         <location filename="../src/mainwindow.cpp" line="942"/>
         <location filename="../src/mainwindow.cpp" line="2721"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayuda</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="724"/>

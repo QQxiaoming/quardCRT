@@ -454,7 +454,15 @@ void UrlFilter::HotSpot::activate(const QString& actionName)
         {
             url.replace(QLatin1Char('\\'),QLatin1Char('/'));
             url.replace(QLatin1Char('~'),QDir::homePath());
-            url.prepend(QLatin1String("file://"));
+            if(url.startsWith(QLatin1String("/"))) {
+                url.prepend(QLatin1String("file://"));
+            } else if(url.startsWith(QLatin1String("."))) {
+                url.prepend(QLatin1String("relative:"));
+            } else if(url.startsWith(QLatin1String(".."))) {
+                url.prepend(QLatin1String("relative:"));
+            } else {
+                url.prepend(QLatin1String("file:///"));
+            }
         }
 
         _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), actionName != QLatin1String("click-action"));

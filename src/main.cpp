@@ -34,7 +34,7 @@
 
 QString VERSION = APP_VERSION;
 QString GIT_TAG =
-#include <git_tag.inc>
+#include "git_tag.inc"
 ;
 
 class CommandLineParser
