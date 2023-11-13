@@ -484,8 +484,8 @@ const QRegExp UrlFilter::EmailAddressRegExp(QLatin1String("\\b(\\w|\\.|-)+@(\\w|
 // file path:
 // [drive letter]:\ or \\ followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
 const QRegExp UrlFilter::WindowsFilePathRegExp(QLatin1String("([a-zA-Z]:|\\\\)[^\\s<>'\"]+[^!,\\.\\s<>'\"\\]]"));
-// / ~  . or .. followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
-const QRegExp UrlFilter::UnixFilePathRegExp(QLatin1String("(/|~|\\.\\.?)[^\\s<>'\"]+[^!,\\.\\s<>'\"\\]]"));
+// '/' '~/'  './' or '../' followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
+const QRegExp UrlFilter::UnixFilePathRegExp(QLatin1String("((\\./|~/|\\.\\./)[^\\s<>'\"]+|/[^\\s<>'\"]+)[^!,\\.\\s<>'\"\\]]"));
 const QRegExp UrlFilter::FilePathRegExp(QLatin1String("(")+
                                             WindowsFilePathRegExp.pattern()+QLatin1Char('|')+
                                             UnixFilePathRegExp.pattern()+
