@@ -22,8 +22,8 @@ public:
         AutoPty = 3
     };
     struct psInfo_t{
-        int pid;
-        int ppid;
+        qint64 pid;
+        qint64 ppid;
         QString command;
         QStringList args;
     };

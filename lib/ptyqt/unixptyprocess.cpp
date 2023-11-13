@@ -349,21 +349,23 @@ UnixPtyProcess::pidTree_t UnixPtyProcess::processInfoTree()
             continue;
 
         struct psInfo_t info;
-        info.pid = linePartsFiltered.at(0).toInt();
-        info.ppid = linePartsFiltered.at(1).toInt();
+        info.pid = linePartsFiltered.at(0).toLongLong();
+        info.ppid = linePartsFiltered.at(1).toLongLong();
         info.command = linePartsFiltered.at(2);
         info.args = linePartsFiltered.mid(3);
         psInfoList.append(info);
     }
 
-    std::function<QList<pidTree_t>(int)> findChild = [&](int pid) -> QList<pidTree_t> {
+    std::function<QList<pidTree_t>(qint64)> findChild = [&](qint64 pid) -> QList<pidTree_t> {
             QList<pidTree_t> result;
             foreach (psInfo_t info, psInfoList)
             {
                 if (info.ppid == pid)
                 {
                     pidTree_t tree;
-                    tree.pidInfo = info;
+                    tree.pidInfo.pid = info.pid;
+                    tree.pidInfo.ppid = info.ppid;
+                    tree.pidInfo.command = info.command;
                     tree.children = findChild(info.pid);
                     result.append(tree);
                 }

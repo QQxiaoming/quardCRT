@@ -223,7 +223,7 @@ void SessionOptionsWindow::setSessionLocalShellState(IPtyProcess::pidTree_t stat
     QStandardItemModel *model = (QStandardItemModel *)sessionOptionsLocalShellState->ui->treeViewInfo->model();
     
     std::function<void(IPtyProcess::pidTree_t, QStandardItem *)> addNode = [&](IPtyProcess::pidTree_t state, QStandardItem *parent) {
-        int pid = state.pidInfo.pid;
+        qint64 pid = state.pidInfo.pid;
         QString path = state.pidInfo.command;
         QFileInfo fileInfo(path);
         QString name = fileInfo.fileName();

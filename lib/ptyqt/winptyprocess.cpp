@@ -274,7 +274,7 @@ WinPtyProcess::pidTree_t WinPtyProcess::processInfoTree()
                     struct psInfo_t info;
                     info.pid = pe.th32ProcessID;
                     info.ppid = pe.th32ParentProcessID;
-                    info.name = QString::fromWCharArray(szProcessName);
+                    info.command = QString::fromWCharArray(szProcessName);
                     psInfoList.append(info);
                 }
                 CloseHandle(hProcess);
@@ -284,14 +284,16 @@ WinPtyProcess::pidTree_t WinPtyProcess::processInfoTree()
 
     CloseHandle(snapshot);
 
-    std::function<QList<pidTree_t>(int)> findChild = [&](int pid) -> QList<pidTree_t> {
+    std::function<QList<pidTree_t>(qint64)> findChild = [&](qint64 pid) -> QList<pidTree_t> {
             QList<pidTree_t> result;
             foreach (psInfo_t info, psInfoList)
             {
                 if (info.ppid == pid)
                 {
                     pidTree_t tree;
-                    tree.pidInfo = info;
+                    tree.pidInfo.pid = info.pid;
+                    tree.pidInfo.ppid = info.ppid;
+                    tree.pidInfo.command = info.command;
                     tree.children = findChild(info.pid);
                     result.append(tree);
                 }
