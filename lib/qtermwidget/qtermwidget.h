@@ -240,7 +240,9 @@ public:
     void setLocked(bool enabled);
 
     void addHighLightText(const QString &text, const QColor &color);
+    bool isContainHighLightText(const QString &text);
     void removeHighLightText(const QString &text);
+    void clearHighLightTexts(void);
 
     // FIXME: this is a hack operation, should be removed
     void setUserdata(void *data) {

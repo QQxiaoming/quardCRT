@@ -294,6 +294,7 @@ void QTermWidget::init(void)
 
 QTermWidget::~QTermWidget()
 {
+    clearHighLightTexts();
     delete m_impl;
     emit destroyed();
 }
@@ -801,6 +802,17 @@ void QTermWidget::addHighLightText(const QString &text, const QColor &color)
     HighLightText *highLightText = new HighLightText(text,color);
     m_highLightTexts.append(highLightText);
     m_impl->m_terminalDisplay->filterChain()->addFilter(highLightText->regExpFilter);
+    m_impl->m_terminalDisplay->updateFilters();
+}
+
+bool QTermWidget::isContainHighLightText(const QString &text)
+{
+    for (int i = 0; i < m_highLightTexts.size(); i++) {
+        if (m_highLightTexts.at(i)->text == text) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void QTermWidget::removeHighLightText(const QString &text)
@@ -810,9 +822,20 @@ void QTermWidget::removeHighLightText(const QString &text)
             m_impl->m_terminalDisplay->filterChain()->removeFilter(m_highLightTexts.at(i)->regExpFilter);
             delete m_highLightTexts.at(i);
             m_highLightTexts.removeAt(i);
+            m_impl->m_terminalDisplay->updateFilters();
             break;
         }
     }
+}
+
+void QTermWidget::clearHighLightTexts(void)
+{
+    for (int i = 0; i < m_highLightTexts.size(); i++) {
+        m_impl->m_terminalDisplay->filterChain()->removeFilter(m_highLightTexts.at(i)->regExpFilter);
+        delete m_highLightTexts.at(i);
+    }
+    m_impl->m_terminalDisplay->updateFilters();
+    m_highLightTexts.clear();
 }
 
 void QTermWidget::reTranslateUi(void) {

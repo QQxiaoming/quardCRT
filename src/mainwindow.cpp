@@ -362,6 +362,19 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                     menu->addSeparator();
                     menu->addAction(selectAllAction);
                     menu->addAction(findAction);
+                    QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
+                    menu->addAction(highlightAction);
+                    connect(highlightAction,&QAction::triggered,this,[=](){
+                        QString text = termWidget->selectedText();
+                        if(text.isEmpty()) {
+                            return;
+                        }
+                        if(termWidget->isContainHighLightText(text)) {
+                            termWidget->removeHighLightText(text);
+                        } else {
+                            termWidget->addHighLightText(text, Qt::white);
+                        }
+                    });
                     if(!ui->menuBar->isVisible()) {
                         menu->addSeparator();
                         menu->addAction(menuBarAction);
