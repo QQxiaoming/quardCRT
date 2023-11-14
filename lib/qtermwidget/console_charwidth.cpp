@@ -8,18 +8,49 @@
  */
 
 #include <QString>
+#include <QDebug>
+
 #include "utf8proc.h"
 #include "console_charwidth.h"
 
+#include <QFont>
+#include <QFontMetrics>
+#include <QFontDatabase>
+#include <QApplication>
+
+static QFontMetrics *get_font(void)
+{
+    static QFontMetrics *fm = nullptr;
+    if(!fm) {
+        QFont font = QApplication::font();
+    #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+        int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+    #else
+        int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
+    #endif
+        QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
+        if (fontFamilies.size() > 0) {
+            font.setFamily(fontFamilies[0]);
+        }
+        fm = new QFontMetrics(font);
+    } 
+    return fm;
+}
+
 int wcharwidth(wchar_t ucs)
 {
-    utf8proc_category_t cat = utf8proc_category( ucs );
-    if (cat == UTF8PROC_CATEGORY_CO) {
-        // Co: Private use area. libutf8proc makes them zero width, while tmux
-        // assumes them to be width 1, and glibc's default width is also 1
-        return 1;
+    int width = get_font()->horizontalAdvance(QString(QChar(ucs)))/8;
+    if(width == 0) {
+        utf8proc_category_t cat = utf8proc_category( ucs );
+        if (cat == UTF8PROC_CATEGORY_CO) {
+            // Co: Private use area. libutf8proc makes them zero width, while tmux
+            // assumes them to be width 1, and glibc's default width is also 1
+            return 1;
+        }
+        return utf8proc_charwidth( ucs );
+    } else {
+        return width;
     }
-    return utf8proc_charwidth( ucs );
 }
 
 // single byte char: +1, multi byte char: +2
