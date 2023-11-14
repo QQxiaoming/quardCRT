@@ -18,6 +18,9 @@
 #include <QFontDatabase>
 #include <QApplication>
 
+//FIXME: Quard: we should refactor this code by using a class 
+//       to manage font width info
+
 static QFontMetrics *get_font(void)
 {
     static QFontMetrics *fm = nullptr;
@@ -32,28 +35,41 @@ static QFontMetrics *get_font(void)
         if (fontFamilies.size() > 0) {
             font.setFamily(fontFamilies[0]);
         }
+        font.setPixelSize(12);
+        font.setStyleHint(QFont::Monospace);
         fm = new QFontMetrics(font);
     } 
     return fm;
 }
 
-int wcharwidth(wchar_t ucs)
+int font_width(wchar_t ucs)
 {
-    int width = get_font()->horizontalAdvance(QString(QChar(ucs)))/8;
-    if(width == 0) {
-        utf8proc_category_t cat = utf8proc_category( ucs );
-        if (cat == UTF8PROC_CATEGORY_CO) {
-            // Co: Private use area. libutf8proc makes them zero width, while tmux
-            // assumes them to be width 1, and glibc's default width is also 1
-            return 1;
-        }
-        return utf8proc_charwidth( ucs );
-    } else {
-        return width;
-    }
+    return get_font()->horizontalAdvance(QString(QChar(ucs)),1)/get_font()->horizontalAdvance("0",1);
 }
 
-// single byte char: +1, multi byte char: +2
+int unicode_width(wchar_t ucs) {
+    utf8proc_category_t cat = utf8proc_category( ucs );
+    if (cat == UTF8PROC_CATEGORY_CO) {
+        // Co: Private use area. libutf8proc makes them zero width, while tmux
+        // assumes them to be width 1, and glibc's default width is also 1
+        return 1;
+    }
+    return utf8proc_charwidth( ucs );
+}
+
+int wcharwidth(wchar_t ucs)
+{
+#if 0
+    int width = font_width(ucs);
+    if(width == 0) {
+        width = unicode_width(ucs);
+    }
+    return width;
+#else
+    return unicode_width(ucs);
+#endif
+}
+
 int string_width( const std::wstring & wstr )
 {
     int w = 0;

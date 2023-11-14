@@ -12,6 +12,8 @@
 
 #include <string>
 
+int font_width(wchar_t ucs);
+int unicode_width(wchar_t ucs);
 int wcharwidth(wchar_t ucs);
 
 int string_width( const std::wstring & wstr );

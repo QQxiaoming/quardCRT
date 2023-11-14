@@ -49,7 +49,25 @@ Other protocol selection interface:
 - Terminal background image configuration (support transparency setting, support gif animation and video)
 - Terminal scroll line configuration
 - Support dark/light theme
-- Support multiple languages (Chinese/English/Japanese)
+- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese)
+
+## Planned features
+
+- [ ] Support SSH protocol
+- [ ] Support SFTP protocol
+- [ ] Support xyzmodem protocol
+- [ ] Support operation script recording/loading
+- [ ] Support screen recording/loading
+- [x] Tab floating preview
+- [x] windows local terminal enhancement (Tab key selects completion command, etc.)
+- [ ] Session status query
+- [x] Terminal keyword highlight matching
+- [ ] Terminal style customization
+- [ ] Independent session set terminal appearance
+- [ ] GitHub Copilot plugin support
+- [ ] CI support Appimage package
+- [ ] CI support windows on arm64
+- [ ] Add more language support (Spanish/French/Russian/Korean)
 
 ## Contributing
 
