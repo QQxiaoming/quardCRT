@@ -550,7 +550,7 @@
         <location filename="../src/mainwindow.cpp" line="563"/>
         <location filename="../src/mainwindow.cpp" line="1911"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Preparado</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="665"/>
