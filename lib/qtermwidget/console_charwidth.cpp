@@ -78,3 +78,12 @@ int string_width( const std::wstring & wstr )
     }
     return w;
 }
+
+int string_font_width( const std::wstring & wstr )
+{
+    int w = 0;
+    for ( size_t i = 0; i < wstr.length(); ++i ) {
+        w += font_width( wstr[ i ] );
+    }
+    return w;
+}

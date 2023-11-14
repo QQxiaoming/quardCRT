@@ -913,11 +913,33 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
         painter.setPen(color);
     }
 
-    // draw text
-    if ( isLineCharString(text) )
+    // FIXME: Here is a hack to solve the East Asian language symbol "“‘"　rendering issue.
+    //        But it is not a good solution. We should find a better way to solve this issue.
+    int font_width = string_font_width(text);
+    int width = string_width(text);
+    if(font_width != width) {
+      int single_rect_width = rect.width() / width;
+        for (size_t i=0 ; i < text.length(); i++) {
+          std::wstring line_char_string = text.substr(i, 1);
+          int offset = 0;
+          if(string_font_width(line_char_string) != string_width(line_char_string)) {
+            if(line_char_string == L"“" || line_char_string == L"‘") {
+              offset = single_rect_width*(string_font_width(line_char_string)-string_width(line_char_string));
+            } else if( line_char_string == L"”" || line_char_string == L"’") {
+              // do nothing
+            }
+          }
+          if ( isLineCharString(text) ) {
+            drawLineCharString(painter, rect.x() + single_rect_width * i - offset, rect.y(), line_char_string, style);
+          } else {
+            painter.drawText(rect.x() + single_rect_width * i - offset, rect.y() + _fontAscent + _lineSpacing, QString::fromStdWString(line_char_string));
+          }
+        }
+    } else {
+      // draw text
+      if ( isLineCharString(text) ) {
         drawLineCharString(painter,rect.x(),rect.y(),text,style);
-    else
-    {
+      } else {
         // Force using LTR as the document layout for the terminal area, because
         // there is no use cases for RTL emulator and RTL terminal application.
         //
@@ -925,14 +947,13 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
         painter.setLayoutDirection(Qt::LeftToRight);
 
         if (_bidiEnabled) {
-            painter.drawText(rect.x(), rect.y() + _fontAscent + _lineSpacing, QString::fromStdWString(text));
+          painter.drawText(rect.x(), rect.y() + _fontAscent + _lineSpacing, QString::fromStdWString(text));
         } else {
-         {
-            QRect drawRect(rect.topLeft(), rect.size());
-            drawRect.setHeight(rect.height() + _drawTextAdditionHeight);
-            painter.drawText(drawRect, Qt::AlignBottom, LTR_OVERRIDE_CHAR + QString::fromStdWString(text));
-         }
+          QRect drawRect(rect.topLeft(), rect.size());
+          drawRect.setHeight(rect.height() + _drawTextAdditionHeight);
+          painter.drawText(drawRect, Qt::AlignBottom, LTR_OVERRIDE_CHAR + QString::fromStdWString(text));
         }
+      }
     }
 }
 
