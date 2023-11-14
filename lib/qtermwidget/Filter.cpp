@@ -280,6 +280,7 @@ Filter::HotSpot::HotSpot(int startLine , int startColumn , int endLine , int end
     , _endLine(endLine)
     , _endColumn(endColumn)
     , _type(NotSpecified)
+    , _color(Qt::red)
 {
 }
 QList<QAction*> Filter::HotSpot::actions()
@@ -306,9 +307,17 @@ Filter::HotSpot::Type Filter::HotSpot::type() const
 {
     return _type;
 }
+QColor Filter::HotSpot::color() const
+{
+    return _color;
+}
 void Filter::HotSpot::setType(Type type)
 {
     _type = type;
+}
+void Filter::HotSpot::setColor(const QColor& color)
+{
+    _color = color;
 }
 
 RegExpFilter::RegExpFilter()
@@ -390,8 +399,10 @@ void RegExpFilter::process()
 RegExpFilter::HotSpot* RegExpFilter::newHotSpot(int startLine,int startColumn,
                                                 int endLine,int endColumn)
 {
-    return new RegExpFilter::HotSpot(startLine,startColumn,
+    HotSpot *spot = new RegExpFilter::HotSpot(startLine,startColumn,
                                                   endLine,endColumn);
+    spot->setColor(color());                                      
+    return spot;
 }
 RegExpFilter::HotSpot* UrlFilter::newHotSpot(int startLine,int startColumn,int endLine,
                                                     int endColumn)
@@ -482,8 +493,8 @@ const QRegExp UrlFilter::FullUrlRegExp(QLatin1String("(www\\.(?!\\.)|[a-z][a-z0-
 // [word chars, dots or dashes]@[word chars, dots or dashes].[word chars]
 const QRegExp UrlFilter::EmailAddressRegExp(QLatin1String("\\b(\\w|\\.|-)+@(\\w|\\.|-)+\\.\\w+\\b"));
 // file path:
-// [drive letter]:\ or \\ followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
-const QRegExp UrlFilter::WindowsFilePathRegExp(QLatin1String("([a-zA-Z]:|\\\\)[^\\s<>'\"]+[^!,\\.\\s<>'\"\\]]"));
+// '[drive letter]:\' or '\\' followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
+const QRegExp UrlFilter::WindowsFilePathRegExp(QLatin1String("([a-zA-Z]:\\\\|\\\\\\\\)[^\\s<>'\"]+[^!,\\.\\s<>'\"\\]]"));
 // '/' '~/'  './' or '../' followed by anything other than whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
 const QRegExp UrlFilter::UnixFilePathRegExp(QLatin1String("((\\./|~/|\\.\\./)[^\\s<>'\"]+|/[^\\s<>'\"]+)[^!,\\.\\s<>'\"\\]]"));
 const QRegExp UrlFilter::FilePathRegExp(QLatin1String("(")+

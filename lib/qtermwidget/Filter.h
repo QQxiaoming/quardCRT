@@ -27,6 +27,7 @@
 #include <QStringList>
 #include <QHash>
 #include <QRegExp>
+#include <QColor>
 
 namespace Konsole
 {
@@ -100,6 +101,8 @@ public:
         * the hotspot graphically.  eg.  Link hotspots are typically underlined when the user mouses over them
         */
        Type type() const;
+       QColor color() const;
+       void setColor(const QColor& color);
        /**
         * Causes the an action associated with a hotspot to be triggered.
         *
@@ -124,7 +127,8 @@ public:
        int    _startColumn;
        int    _endLine;
        int    _endColumn;
-       Type _type;
+       Type   _type;
+       QColor _color;
     };
 
     /** Constructs a new filter. */
@@ -214,6 +218,11 @@ public:
     /** Returns the regular expression which the filter searches for in blocks of text */
     QRegExp regExp() const;
 
+    /** Sets the color used to highlight text which matches the filter's regular expression */
+    void setColor(const QColor& color) { _color = color;}
+    /** Returns the color used to highlight text which matches the filter's regular expression */
+    QColor color() const { return _color;}
+
     /**
      * Reimplemented to search the filter's text buffer for text matching regExp()
      *
@@ -232,6 +241,7 @@ protected:
 
 private:
     QRegExp _searchText;
+    QColor _color;
 };
 
 class FilterObject;

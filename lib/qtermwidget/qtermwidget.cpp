@@ -791,6 +791,30 @@ void QTermWidget::setTrimPastedTrailingNewlines(bool trimPastedTrailingNewlines)
     m_impl->m_terminalDisplay->setTrimPastedTrailingNewlines(trimPastedTrailingNewlines);
 }
 
+void QTermWidget::addHighLightText(const QString &text, const QColor &color)
+{
+    for (int i = 0; i < m_highLightTexts.size(); i++) {
+        if (m_highLightTexts.at(i)->text == text) {
+            return;
+        }
+    }
+    HighLightText *highLightText = new HighLightText(text,color);
+    m_highLightTexts.append(highLightText);
+    m_impl->m_terminalDisplay->filterChain()->addFilter(highLightText->regExpFilter);
+}
+
+void QTermWidget::removeHighLightText(const QString &text)
+{
+    for (int i = 0; i < m_highLightTexts.size(); i++) {
+        if (m_highLightTexts.at(i)->text == text) {
+            m_impl->m_terminalDisplay->filterChain()->removeFilter(m_highLightTexts.at(i)->regExpFilter);
+            delete m_highLightTexts.at(i);
+            m_highLightTexts.removeAt(i);
+            break;
+        }
+    }
+}
+
 void QTermWidget::reTranslateUi(void) {
     m_searchBar->retranslateUi();
 }

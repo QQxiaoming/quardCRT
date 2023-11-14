@@ -239,6 +239,9 @@ public:
 
     void setLocked(bool enabled);
 
+    void addHighLightText(const QString &text, const QColor &color);
+    void removeHighLightText(const QString &text);
+
     // FIXME: this is a hack operation, should be removed
     void setUserdata(void *data) {
         this->userData = data;
@@ -349,12 +352,27 @@ private slots:
     }
 
 private:
+    class HighLightText {
+    public:
+        HighLightText(const QString& text, const QColor& color) : text(text), color(color) {
+            regExpFilter = new Konsole::RegExpFilter();
+            regExpFilter->setRegExp(QRegExp(text));
+            regExpFilter->setColor(color);
+        }
+        ~HighLightText() {
+            delete regExpFilter;
+        }
+        QString text;
+        QColor color;
+        Konsole::RegExpFilter *regExpFilter;
+    };
     void search(bool forwards, bool next);
     void setZoom(int step);
     void init(void);
     TermWidgetImpl * m_impl;
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;
+    QList<HighLightText*> m_highLightTexts;
     void *userData = nullptr;
 };
 

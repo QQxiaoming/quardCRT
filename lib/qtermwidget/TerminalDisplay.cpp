@@ -1726,8 +1726,9 @@ void TerminalDisplay::paintFilters(QPainter& painter)
             // drawn on top of them
             else if ( spot->type() == Filter::HotSpot::Marker )
             {
-            //TODO - Do not use a hardcoded colour for this
-                painter.fillRect(r,QBrush(QColor(255,0,0,120)));
+                QColor markerColor = spot->color();
+                markerColor.setAlpha(120);
+                painter.fillRect( r , markerColor );
             }
         }
     }
