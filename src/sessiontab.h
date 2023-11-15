@@ -137,7 +137,6 @@ signals:
     void dragTabMoved(int from, int to, SessionTab *toTab);
 
 private:
-    int stringWidth(const QString &string);
     void refreshTabText(void);
     void setTabStaticText(TitleScrollMode mode, int index, QString title);
 

@@ -21,7 +21,7 @@
 
 #include "TerminalCharacterDecoder.h"
 #include <QTextStream>
-#include "console_charwidth.h"
+#include "CharWidth.h"
 #include <cwctype>
 
 using namespace Konsole;
@@ -105,7 +105,7 @@ void PlainTextDecoder::decodeLine(const Character* const characters, int count, 
     for (int i=0;i<outputCount;)
     {
         plainText.push_back( characters[i].character );
-        i += qMax(1,wcharwidth(characters[i].character));
+        i += qMax(1,CharWidth::unicode_width(characters[i].character));
     }
     *_output << QString::fromStdWString(plainText);
 }

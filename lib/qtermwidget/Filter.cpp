@@ -37,7 +37,7 @@
 #include <QDir>
 
 #include "TerminalCharacterDecoder.h"
-#include "console_charwidth.h"
+#include "CharWidth.h"
 
 using namespace Konsole;
 
@@ -217,7 +217,7 @@ void Filter::getLineColumn(int position , int& startLine , int& startColumn)
         if ( _linePositions->value(i) <= position && position < nextLine )
         {
             startLine = i;
-            startColumn = string_width(buffer()->mid(_linePositions->value(i),position - _linePositions->value(i)).toStdWString());
+            startColumn = CharWidth::string_unicode_width(buffer()->mid(_linePositions->value(i),position - _linePositions->value(i)));
             return;
         }
     }

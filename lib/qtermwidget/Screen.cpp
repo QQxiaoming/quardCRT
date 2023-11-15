@@ -33,7 +33,7 @@
 #include <QTextStream>
 #include <QDate>
 
-#include "console_charwidth.h"
+#include "CharWidth.h"
 #include "TerminalCharacterDecoder.h"
 
 using namespace Konsole;
@@ -667,7 +667,7 @@ void Screen::displayCharacter(wchar_t c)
     // We indicate the fact that a newline has to be triggered by
     // putting the cursor one right to the last column of the screen.
 
-    int w = wcharwidth(c);
+    int w = CharWidth::unicode_width(c);
     if (w <= 0)
         return;
 

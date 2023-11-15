@@ -12,7 +12,7 @@ SOURCES += \
     $$PWD/History.cpp \
     $$PWD/HistorySearch.cpp \
     $$PWD/KeyboardTranslator.cpp \
-    $$PWD/console_charwidth.cpp \
+    $$PWD/CharWidth.cpp \
     $$PWD/qtermwidget.cpp \
     $$PWD/Screen.cpp \
     $$PWD/ScreenWindow.cpp \
@@ -38,7 +38,7 @@ HEADERS += \
     $$PWD/History.h \
     $$PWD/HistorySearch.h \
     $$PWD/KeyboardTranslator.h \
-    $$PWD/console_charwidth.h \
+    $$PWD/CharWidth.h \
     $$PWD/LineFont.h \
     $$PWD/qtermwidget.h \
     $$PWD/qtermwidget_version.h \

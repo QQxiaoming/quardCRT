@@ -714,7 +714,7 @@
         <location filename="../src/mainwindow.cpp" line="769"/>
         <location filename="../src/mainwindow.cpp" line="770"/>
         <source>Enter host &lt;Alt+R&gt; to connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите хост &lt;Alt+R&gt; для подключения</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="771"/>

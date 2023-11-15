@@ -29,8 +29,8 @@
 #include <QToolTip>
 
 #include "sessiontab.h"
-#include "utf8proc.h"
 #include "qtermwidget.h"
+#include "CharWidth.h"
 
 EmptyTabWidget::EmptyTabWidget(QWidget *parent) 
     : QWidget(parent) {
@@ -382,42 +382,23 @@ void SessionTab::removeTab(int index) {
     titleScrollPos.removeAt(index);
 }
 
-int SessionTab::stringWidth( const QString &string)
-{
-    auto wcharwidth = [](wchar_t ucs) {
-        utf8proc_category_t cat = utf8proc_category( ucs );
-        if (cat == UTF8PROC_CATEGORY_CO) {
-            // Co: Private use area. libutf8proc makes them zero width, while tmux
-            // assumes them to be width 1, and glibc's default width is also 1
-            return 1;
-        }
-        return utf8proc_charwidth( ucs );
-    };
-    std::wstring wstr = string.toStdWString();
-    int w = 0;
-    for ( size_t i = 0; i < wstr.length(); ++i ) {
-        w += wcharwidth( wstr[ i ] );
-    }
-    return w;
-}
-
 void SessionTab::refreshTabText(void) {
     for(int i = 1; i < FancyTabWidget::count(); i++) {
         QString title = tabTexts.at(i);
-        if(stringWidth(title) > titleWidth) {
-            titleScrollPos[i] = (titleScrollPos.at(i) + 2) % (stringWidth(title) - titleWidth + 2);
+        if(CharWidth::string_unicode_width(title) > titleWidth) {
+            titleScrollPos[i] = (titleScrollPos.at(i) + 2) % (CharWidth::string_unicode_width(title) - titleWidth + 2);
             QString txt;
             for(int j = 0; j < title.length()-titleScrollPos[i]; j++) {
-                if(stringWidth(txt) + stringWidth(QString(title.at(titleScrollPos[i]+j))) <= titleWidth) {
+                if(CharWidth::string_unicode_width(txt) + CharWidth::string_unicode_width(QString(title.at(titleScrollPos[i]+j))) <= titleWidth) {
                     txt = txt + title.at(titleScrollPos[i]+j);
                 } else {
                     break;
                 }
             }
-            title = txt + QString(titleWidth - stringWidth(txt),' ');
+            title = txt + QString(titleWidth - CharWidth::string_unicode_width(txt),' ');
         } else {
             titleScrollPos[i] = 0;
-            title = title + QString(titleWidth - stringWidth(title),' ');
+            title = title + QString(titleWidth - CharWidth::string_unicode_width(title),' ');
         }
         FancyTabWidget::setTabText(i,title);
     }
@@ -428,19 +409,19 @@ void SessionTab::setTabStaticText(TitleScrollMode mode, int index, QString title
         FancyTabWidget::setTabText(index,title);
         return;
     }
-    if(stringWidth(title) > titleWidth) {
+    if(CharWidth::string_unicode_width(title) > titleWidth) {
         QString txt;
         for(int j = 0; j < title.length(); j++) {
-            if(stringWidth(txt) + stringWidth(QString(title.at(j))) <= (titleWidth-3)) {
+            if(CharWidth::string_unicode_width(txt) + CharWidth::string_unicode_width(QString(title.at(j))) <= (titleWidth-3)) {
                 txt = txt + title.at(j);
             } else {
                 break;
             }
         }
         txt = txt + "...";
-        title = txt + QString(titleWidth - stringWidth(txt),' ');
+        title = txt + QString(titleWidth - CharWidth::string_unicode_width(txt),' ');
     } else {
-        title = title + QString(titleWidth - stringWidth(title),' ');
+        title = title + QString(titleWidth - CharWidth::string_unicode_width(title),' ');
     }
     FancyTabWidget::setTabText(index,title);
 }

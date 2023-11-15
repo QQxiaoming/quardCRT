@@ -31,6 +31,7 @@
 
 #include "Filter.h"
 #include "Character.h"
+#include "CharWidth.h"
 #include "qtermwidget.h"
 
 class QDrag;
@@ -743,6 +744,7 @@ private:
 
     QGridLayout* _gridLayout;
 
+    CharWidth *_charWidth;
     bool _fixedFont; // has fixed pitch
     int  _fontHeight;     // height
     int  _fontWidth;     // width

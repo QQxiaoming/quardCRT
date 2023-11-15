@@ -52,7 +52,6 @@
 #include <QVideoFrame>
 
 #include "Filter.h"
-#include "console_charwidth.h"
 #include "ScreenWindow.h"
 #include "TerminalCharacterDecoder.h"
 
@@ -288,6 +287,7 @@ void TerminalDisplay::setVTFont(const QFont& f)
   font.setKerning(false);
 
   QWidget::setFont(font);
+  _charWidth->setFont(font);
   fontChange(font);
 }
 
@@ -418,6 +418,8 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
 
   setLayout( _gridLayout );
 
+  _charWidth = new CharWidth(font());
+
   _isLocked = false;
   _lockbackgroundImage = QPixmap(10,10);
   _lockbackgroundImage.fill(Qt::gray);
@@ -452,6 +454,7 @@ TerminalDisplay::~TerminalDisplay()
 
   delete[] _image;
 
+  delete _charWidth;
   delete _gridLayout;
   delete _outputSuspendedLabel;
   delete _filterChain;
@@ -915,16 +918,16 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
 
     // FIXME: Here is a hack to solve the East Asian language symbol "“‘"　rendering issue.
     //        But it is not a good solution. We should find a better way to solve this issue.
-    int font_width = string_font_width(text);
-    int width = string_width(text);
+    int font_width = _charWidth->string_font_width(text);
+    int width = CharWidth::string_unicode_width(text);
     if(font_width != width) {
       int single_rect_width = rect.width() / width;
         for (size_t i=0 ; i < text.length(); i++) {
           std::wstring line_char_string = text.substr(i, 1);
           int offset = 0;
-          if(string_font_width(line_char_string) != string_width(line_char_string)) {
+          if(_charWidth->string_font_width(line_char_string) != CharWidth::string_unicode_width(line_char_string)) {
             if(line_char_string == L"“" || line_char_string == L"‘") {
-              offset = single_rect_width*(string_font_width(line_char_string)-string_width(line_char_string));
+              offset = single_rect_width*(_charWidth->string_font_width(line_char_string)-CharWidth::string_unicode_width(line_char_string));
             } else if( line_char_string == L"”" || line_char_string == L"’") {
               // do nothing
             }
@@ -1603,7 +1606,7 @@ QPoint TerminalDisplay::cursorPosition() const
 
 QRect TerminalDisplay::preeditRect() const
 {
-    const int preeditLength = string_width(_inputMethodData.preeditString);
+    const int preeditLength = CharWidth::string_unicode_width(_inputMethodData.preeditString);
 
     if ( preeditLength == 0 )
         return {};
