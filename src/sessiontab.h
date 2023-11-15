@@ -67,7 +67,11 @@ private:
     QLabel *viewLabel;
     QLabel *tipLabel;
     int viewWidth;
+#if defined(Q_OS_WIN)
+    const int previewHighDpi = 1; // Windows can't handle high dpi pixmap
+#else
     const int previewHighDpi = 4;
+#endif
 };
 
 class SessionTabBar : public QTabBar 
