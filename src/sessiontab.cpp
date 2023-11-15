@@ -112,6 +112,7 @@ SessionTabBarPreviewWidget::SessionTabBarPreviewWidget(QWidget *parent)
     setLayout(layout);
     viewLabel = new QLabel(this);
     viewLabel->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Expanding);
+    viewLabel->setScaledContents(true);
     layout->addWidget(viewLabel);
     tipLabel = new QLabel(this);
     tipLabel->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Expanding);
@@ -125,9 +126,9 @@ SessionTabBarPreviewWidget::~SessionTabBarPreviewWidget() {
 void SessionTabBarPreviewWidget::updateInfo(const QPixmap &view, const QString &tip) {
     viewLabel->setPixmap(view);
     tipLabel->setText(tip);
-    tipLabel->setFixedWidth(view.width());
-    setFixedWidth(view.width());
-    setFixedHeight(view.height() + tipLabel->height());
+    tipLabel->setFixedWidth(view.width()/previewHighDpi);
+    setFixedWidth(view.width()/previewHighDpi);
+    setFixedHeight(view.height()/previewHighDpi + tipLabel->height());
 }
 
 QList<SessionTabBar*> SessionTabBar::tabBarInstances;
@@ -154,7 +155,7 @@ bool SessionTabBar::event(QEvent * event) {
             if(previewEnabled) {
                 SessionTab *tab = (SessionTab *)parentWidget();
                 QTermWidget *term = (QTermWidget *)tab->widget(index);
-                QPixmap viewPixmap(preview->getViewWidth(),preview->getViewWidth());
+                QPixmap viewPixmap(preview->viewWidthHighDpi(),preview->viewWidthHighDpi());
                 term->screenShot(&viewPixmap);
                 preview->updateInfo(viewPixmap,tab->tabToolTip(index));
                 QPoint viewPos = mapToGlobal(QPoint(tabRect(index).center().x(),

@@ -61,10 +61,13 @@ public:
     void setViewWidth(int width) { viewWidth = width; }
     int getViewWidth(void) { return viewWidth; }
 
+    int viewWidthHighDpi(void) { return viewWidth*previewHighDpi; }
+
 private:
     QLabel *viewLabel;
     QLabel *tipLabel;
     int viewWidth;
+    const int previewHighDpi = 4;
 };
 
 class SessionTabBar : public QTabBar 
@@ -79,7 +82,7 @@ public:
     void setPreviewWidth(int width) { preview->setViewWidth(width); }
     int getPreviewWidth(void) { return preview->width(); }
     void setPreviewHide(void) { preview->hide(); }
-
+    
 signals:
     void dragTabMoved(int from, int to, SessionTabBar* toBar);
 
