@@ -757,10 +757,6 @@
         <translation>コピー</translation>
     </message>
     <message>
-        <source>Copy the selected text to the clipboard &lt;Ctrl+C&gt;</source>
-        <translation type="vanished">選択したテキストをクリップボードにコピー &lt;Ctrl+C&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="793"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
         <translation>選択したテキストをクリップボードにコピー &lt;Ctrl+Ins&gt;</translation>
@@ -769,10 +765,6 @@
         <location filename="../src/mainwindow.cpp" line="796"/>
         <source>Paste</source>
         <translation>貼り付け</translation>
-    </message>
-    <message>
-        <source>Paste the clipboard text to the current session &lt;Ctrl+V&gt;</source>
-        <translation type="vanished">クリップボードのテキストを現在のセッションに貼り付け &lt;Ctrl+V&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="802"/>

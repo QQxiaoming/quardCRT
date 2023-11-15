@@ -69,6 +69,18 @@ Other protocol selection interface:
 - [ ] CI support windows on arm64
 - [ ] Add more language support (Spanish/French/Russian/Korean)
 
+## Translation
+
+| English  | ![en_US](./docs/en_US.svg) |
+| :------: | :------------------------: |
+| 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
+| 繁體中文 | ![zh_HK](./docs/zh_HK.svg) |
+| 日本語   | ![ja_JP](./docs/ja_JP.svg) |
+| 한국어   | ![ko_KR](./docs/ko_KR.svg) |
+| Español   | ![es_ES](./docs/es_ES.svg) |
+| Français   | ![fr_FR](./docs/fr_FR.svg) |
+| Русский   | ![ru_RU](./docs/ru_RU.svg) |
+ 
 ## Contributing
 
 If you have suggestions or ideas for this project, please submit issues and pull requests on GitHub or Gitee.

@@ -757,10 +757,6 @@
         <translation>复制</translation>
     </message>
     <message>
-        <source>Copy the selected text to the clipboard &lt;Ctrl+C&gt;</source>
-        <translation type="vanished">复制选中的文本到剪贴板 &lt;Ctrl+C&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="793"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
         <translation>复制选中的文本到剪贴板 &lt;Ctrl+Ins&gt;</translation>
@@ -769,10 +765,6 @@
         <location filename="../src/mainwindow.cpp" line="796"/>
         <source>Paste</source>
         <translation>粘贴</translation>
-    </message>
-    <message>
-        <source>Paste the clipboard text to the current session &lt;Ctrl+V&gt;</source>
-        <translation type="vanished">粘贴剪贴板文本到当前会话 &lt;Ctrl+V&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="802"/>
