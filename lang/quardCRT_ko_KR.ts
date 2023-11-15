@@ -1529,32 +1529,32 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="2275"/>
         <source>Telnet - </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2276"/>
         <source>Telnet</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2308"/>
         <source>Serial - </source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼 - </translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2309"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2340"/>
         <source>Raw - </source>
-        <translation type="unfinished"></translation>
+        <translation>Raw - </translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2341"/>
         <source>Raw</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2372"/>
@@ -1625,32 +1625,32 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="2743"/>
         <source>switch to next session</source>
-        <translation type="unfinished"></translation>
+        <translation>다음 세션으로 전환</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2744"/>
         <source>switch to session [num]</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 [num]으로 전환</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2745"/>
         <source>Go to line start</source>
-        <translation type="unfinished"></translation>
+        <translation>줄 시작으로 이동</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2746"/>
         <source>Go to line end</source>
-        <translation type="unfinished"></translation>
+        <translation>줄 끝으로 이동</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2770"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
-        <translation type="unfinished"></translation>
+        <translation>아직 잠금 해제되지 않은 세션이 있습니다. 먼저 잠금을 해제하십시오.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2775"/>
         <source>Are you sure to quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>종료하시겠습니까?</translation>
     </message>
 </context>
 <context>
@@ -1723,22 +1723,22 @@
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="30"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>프로토콜</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="43"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="48"/>
         <source>Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 쉘</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="58"/>
         <source>Named Pipe</source>
-        <translation type="unfinished"></translation>
+        <translation>네임 파이프</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
@@ -1746,7 +1746,7 @@
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>호스트 이름</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
@@ -1754,120 +1754,120 @@
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="164"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="220"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>포트</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="120"/>
         <source>WebSocket</source>
-        <translation type="unfinished"></translation>
+        <translation>웹 소켓</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>없음</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="133"/>
         <source>Insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>보안되지 않음</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="138"/>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation>보안됨</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="156"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>사용자 이름</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="166"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>비밀번호</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
         <source>DataBits</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터 비트</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>패리티</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>홀수</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>짝수</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
         <source>StopBits</source>
-        <translation type="unfinished"></translation>
+        <translation>정지 비트</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
         <source>Save session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 저장</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
         <source>Open in tab</source>
-        <translation type="unfinished"></translation>
+        <translation>탭에서 열기</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
         <source>Quick Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>빠른 연결</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="90"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="184"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="240"/>
         <source>e.g. 127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>예: 127.0.0.1</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Port Name</source>
-        <translation type="unfinished"></translation>
+        <translation>포트 이름</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
         <source>Baud Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>전송 속도</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="139"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>명령</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="159"/>
         <source>e.g. /bin/bash</source>
-        <translation type="unfinished"></translation>
+        <translation>예: /bin/bash</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="191"/>
         <source>Pipe Name</source>
-        <translation type="unfinished"></translation>
+        <translation>파이프 이름</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="212"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
-        <translation type="unfinished"></translation>
+        <translation>예: \\\.\pipe\namedpipe</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="214"/>
         <source>e.g. /tmp/socket</source>
-        <translation type="unfinished"></translation>
+        <translation>예: /tmp/socket</translation>
     </message>
 </context>
 <context>
@@ -1923,37 +1923,37 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="133"/>
         <source>Telnet</source>
-        <translation type="unfinished"></translation>
+        <translation>텔넷</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="135"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="137"/>
         <source>Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>쉘</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="139"/>
         <source>Raw</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="141"/>
         <source>NamePipe</source>
-        <translation type="unfinished"></translation>
+        <translation>네임 파이프</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>이름</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="267"/>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>종류</translation>
     </message>
 </context>
 <context>
@@ -1962,32 +1962,32 @@
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="39"/>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="65"/>
         <source>Session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="75"/>
         <source>Connect Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>터미널 연결</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="80"/>
         <source>Connect in New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>새 창에서 연결</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="82"/>
         <source>Connect in New Tab Group</source>
-        <translation type="unfinished"></translation>
+        <translation>새 탭 그룹에서 연결</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="85"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>삭제</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="91"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>속성</translation>
     </message>
 </context>
 <context>
@@ -1995,12 +1995,12 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="68"/>
         <source>Session Manager</source>
-        <translation type="unfinished">세션 관리자</translation>
+        <translation>세션 관리자</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="69"/>
         <source>Filter by folder/session name</source>
-        <translation type="unfinished"></translation>
+        <translation>폴더/세션 이름으로 필터링</translation>
     </message>
 </context>
 <context>
@@ -2008,27 +2008,27 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="25"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>이름</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="45"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>프로토콜</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="58"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="63"/>
         <source>Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 쉘</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="73"/>
         <source>Named Pipe</source>
-        <translation type="unfinished"></translation>
+        <translation>네임 파이프</translation>
     </message>
 </context>
 <context>
@@ -2036,7 +2036,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionslocalshellproperties.ui" line="19"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>명령</translation>
     </message>
 </context>
 <context>
@@ -2044,7 +2044,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionslocalshellstate.cpp" line="33"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>이름</translation>
     </message>
 </context>
 <context>
@@ -2052,7 +2052,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsnamepipeproperties.ui" line="25"/>
         <source>PipeName</source>
-        <translation type="unfinished"></translation>
+        <translation>파이프 이름</translation>
     </message>
 </context>
 <context>
@@ -2060,12 +2060,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="25"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>호스트 이름</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="45"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>포트</translation>
     </message>
 </context>
 <context>
@@ -2073,42 +2073,42 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="25"/>
         <source>Port Name</source>
-        <translation type="unfinished"></translation>
+        <translation>포트 이름</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="45"/>
         <source>Baud Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>전송 속도</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="72"/>
         <source>DataBits</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터 비트</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="109"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>패리티</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="117"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>없음</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="122"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>홀수</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="127"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>짝수</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="145"/>
         <source>StopBits</source>
-        <translation type="unfinished"></translation>
+        <translation>정지 비트</translation>
     </message>
 </context>
 <context>
@@ -2116,27 +2116,27 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="19"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>호스트 이름</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="33"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>포트</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="51"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>없음</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="56"/>
         <source>Insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>보안되지 않음</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="61"/>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation>보안됨</translation>
     </message>
 </context>
 <context>
@@ -2144,22 +2144,22 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.ui" line="14"/>
         <source>Session Options</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 옵션</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>일반</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>속성</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>상태</translation>
     </message>
 </context>
 <context>
@@ -2167,105 +2167,112 @@
     <message>
         <location filename="../src/sessionswindow.cpp" line="118"/>
         <source>Telnet Error</source>
-        <translation type="unfinished"></translation>
+        <translation>텔넷 오류</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="118"/>
         <source>Telnet error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>텔넷 오류:
+%1.</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="141"/>
         <source>Serial Error</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼 오류</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="141"/>
         <source>Serial error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼 오류:
+%1.</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="173"/>
         <source>Raw Socket Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw 소켓 오류</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="173"/>
         <source>Raw Socket error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw 소켓 오류:
+%1.</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="205"/>
         <source>Name Pipe Error</source>
-        <translation type="unfinished"></translation>
+        <translation>네임 파이프 오류</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="205"/>
         <source>Name Pipe error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>네임 파이프 오류:
+%1.</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="344"/>
         <source>Start Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 쉘 시작</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="344"/>
         <source>Cannot start local shell:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 쉘을 시작할 수 없습니다:
+%1.</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="394"/>
         <source>Start Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼 시작</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="394"/>
         <source>Cannot open serial port:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>시리얼 포트를 열 수 없습니다:
+%1.</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="432"/>
         <source>Save log...</source>
-        <translation type="unfinished"></translation>
+        <translation>로그 저장...</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="433"/>
         <source>log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>로그 파일 (*.log)</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="437"/>
         <source>Save log</source>
-        <translation type="unfinished"></translation>
+        <translation>로그 저장</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="437"/>
         <location filename="../src/sessionswindow.cpp" line="472"/>
         <source>Cannot write file %1:
 %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 파일을 쓸 수 없습니다:
+%2.</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="467"/>
         <source>Save Raw log...</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw 로그 저장...</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="468"/>
         <source>binary files (*.bin)</source>
-        <translation type="unfinished"></translation>
+        <translation>바이너리 파일 (*.bin)</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="472"/>
         <source>Save Raw log</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw 로그 저장</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="544"/>
