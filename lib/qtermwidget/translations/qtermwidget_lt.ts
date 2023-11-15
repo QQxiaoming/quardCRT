@@ -342,27 +342,27 @@
 <context>
     <name>Konsole::TerminalDisplay</name>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="1351"/>
+        <location filename="../TerminalDisplay.cpp" line="1375"/>
         <source>Size: XXX x XXX</source>
         <translation>Dydis: XXX x XXX</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="1363"/>
+        <location filename="../TerminalDisplay.cpp" line="1387"/>
         <source>Size: %1 x %2</source>
         <translation>Dydis: %1 x %2</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2909"/>
+        <location filename="../TerminalDisplay.cpp" line="2933"/>
         <source>Paste multiline text</source>
         <translation>Įdėti kelių eilučių tekstą</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2910"/>
+        <location filename="../TerminalDisplay.cpp" line="2934"/>
         <source>Are you sure you want to paste this text?</source>
         <translation>Ar tikrai norite įdėti šį tekstą?</translation>
     </message>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="3393"/>
+        <location filename="../TerminalDisplay.cpp" line="3417"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Išvestis buvo &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;pristabdyta,&lt;/a&gt; paspaudžiant Ctrl+S.  Paspauskite &lt;b&gt;Ctrl+Q&lt;/b&gt;, norėdami pratęsti.&lt;/qt&gt;</translation>
     </message>
@@ -1667,7 +1667,7 @@
 <context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../TerminalDisplay.cpp" line="2916"/>
+        <location filename="../TerminalDisplay.cpp" line="2940"/>
         <source>Show Details...</source>
         <translation>Rodyti išsamiau...</translation>
     </message>

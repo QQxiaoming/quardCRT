@@ -6,7 +6,7 @@
     <message>
         <location filename="../lib/QtFancyTabWidget/addtabbutton.cpp" line="29"/>
         <source>New tab</source>
-        <translation type="unfinished"></translation>
+        <translation>새 탭</translation>
     </message>
 </context>
 <context>
@@ -14,37 +14,37 @@
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="35"/>
         <source>Send commands to active session</source>
-        <translation type="unfinished"></translation>
+        <translation>활성 세션에 명령 보내기</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="71"/>
         <source>ASCII</source>
-        <translation type="unfinished"></translation>
+        <translation>ASCII</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="84"/>
         <source>HEX</source>
-        <translation type="unfinished"></translation>
+        <translation>HEX</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="104"/>
         <source>time</source>
-        <translation type="unfinished"></translation>
+        <translation>시간</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="117"/>
         <source>ms</source>
-        <translation type="unfinished"></translation>
+        <translation>밀리초</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="135"/>
         <source>Auto Send</source>
-        <translation type="unfinished"></translation>
+        <translation>자동 전송</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="142"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>보내기</translation>
     </message>
 </context>
 <context>
@@ -60,17 +60,17 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="17"/>
         <source>Terminal background support animation</source>
-        <translation type="unfinished"></translation>
+        <translation>터미널 배경 지원 애니메이션</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="24"/>
         <source>NativeUI(Effective after restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>NativeUI(재시작 후 적용)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="31"/>
         <source>Github Copilot</source>
-        <translation type="unfinished"></translation>
+        <translation>Github Copilot</translation>
     </message>
 </context>
 <context>
@@ -78,73 +78,73 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="17"/>
         <source>Color Schemes</source>
-        <translation type="unfinished"></translation>
+        <translation>색상 테마</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>글꼴</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="45"/>
         <source>Series</source>
-        <translation type="unfinished"></translation>
+        <translation>시리즈</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="65"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>크기</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="93"/>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 이미지</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="115"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>지우기</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="124"/>
         <source>Background mode</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 모드</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="131"/>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="143"/>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>늘리기</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="138"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>없음</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="148"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>확대</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="153"/>
         <source>Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>맞춤</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="158"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>가운데</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="163"/>
         <source>Tile</source>
-        <translation type="unfinished"></translation>
+        <translation>타일</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="171"/>
         <source>Background opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 불투명도</translation>
     </message>
 </context>
 <context>
@@ -152,42 +152,42 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>New tab workpath</source>
-        <translation type="unfinished"></translation>
+        <translation>새 탭 작업 경로</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
         <source>Tab title mode</source>
-        <translation type="unfinished"></translation>
+        <translation>탭 제목 모드</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="35"/>
         <source>Brief</source>
-        <translation type="unfinished"></translation>
+        <translation>간략히</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="40"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>전체</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="45"/>
         <source>Scroll</source>
-        <translation type="unfinished"></translation>
+        <translation>스크롤</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="53"/>
         <source>Tab Title Width</source>
-        <translation type="unfinished"></translation>
+        <translation>탭 제목 너비</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="78"/>
         <source>Tab Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>탭 미리보기</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="94"/>
         <source>Preview Width</source>
-        <translation type="unfinished"></translation>
+        <translation>미리보기 너비</translation>
     </message>
 </context>
 <context>
@@ -195,32 +195,32 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="17"/>
         <source>Scrollback lines</source>
-        <translation type="unfinished"></translation>
+        <translation>스크롤백 라인 수</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="34"/>
         <source>Cursor Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>커서 모양</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="42"/>
         <source>Block</source>
-        <translation type="unfinished"></translation>
+        <translation>블록</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="47"/>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>밑줄</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="52"/>
         <source>IBeam</source>
-        <translation type="unfinished"></translation>
+        <translation>I 빔</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="60"/>
         <source>Cursor Blink</source>
-        <translation type="unfinished"></translation>
+        <translation>커서 깜빡임</translation>
     </message>
 </context>
 <context>
@@ -228,58 +228,58 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
         <source>Global Options</source>
-        <translation type="unfinished"></translation>
+        <translation>전역 옵션</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="148"/>
         <source>Select Background Image</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 이미지 선택</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="148"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
-        <translation type="unfinished"></translation>
+        <translation>이미지 파일 (*.png *.jpg *.jpeg *.bmp *.gif);;비디오 파일 (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="186"/>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="191"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>정보</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="186"/>
         <source>This feature needs more system resources, please use it carefully!</source>
-        <translation type="unfinished"></translation>
+        <translation>이 기능은 더 많은 시스템 리소스가 필요합니다. 주의해서 사용하십시오!</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="191"/>
         <source>This feature is not implemented yet!</source>
-        <translation type="unfinished"></translation>
+        <translation>이 기능은 아직 구현되지 않았습니다!</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>일반</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>외관</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>터미널</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Window</source>
-        <translation type="unfinished">창</translation>
+        <translation>창</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>고급</translation>
     </message>
 </context>
 <context>
@@ -287,7 +287,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="17"/>
         <source>Transparent window</source>
-        <translation type="unfinished"></translation>
+        <translation>투명 창</translation>
     </message>
 </context>
 <context>
@@ -295,28 +295,29 @@
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>ASCII Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>ASCII 텍스트...</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.ui" line="50"/>
         <source>clear</source>
-        <translation type="unfinished"></translation>
+        <translation>지우기</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="38"/>
         <source>Hex View</source>
-        <translation type="unfinished"></translation>
+        <translation>16진수 보기</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="83"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>정보</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="83"/>
         <source>Will send Hex:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>16진수를 보냅니다:
+</translation>
     </message>
 </context>
 <context>
@@ -330,27 +331,27 @@
 <context>
     <name>Konsole::TerminalDisplay</name>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1351"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1375"/>
         <source>Size: XXX x XXX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1363"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1387"/>
         <source>Size: %1 x %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2909"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2933"/>
         <source>Paste multiline text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2910"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2934"/>
         <source>Are you sure you want to paste this text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3393"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3417"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -368,62 +369,62 @@
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="14"/>
         <source>Lock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 잠금</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="20"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="84"/>
         <source>Enter the password that will be used to unlock the session:</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 잠금을 해제할 비밀번호를 입력하십시오:</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="32"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>비밀번호</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="50"/>
         <source>Reenter Password</source>
-        <translation type="unfinished"></translation>
+        <translation>비밀번호 재입력</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="68"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="85"/>
         <source>Lock all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 세션 잠금</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="75"/>
         <source>Lock all sessions in tab group</source>
-        <translation type="unfinished"></translation>
+        <translation>탭 그룹의 모든 세션 잠금</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="49"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="55"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="66"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>오류</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="49"/>
         <source>Passwords do not match!</source>
-        <translation type="unfinished"></translation>
+        <translation>비밀번호가 일치하지 않습니다!</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="55"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="66"/>
         <source>Password cannot be empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>비밀번호를 비워 둘 수 없습니다!</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="98"/>
         <source>Enter the password that was used to lock the session:</source>
-        <translation type="unfinished"></translation>
+        <translation>세션을 잠그는 데 사용된 비밀번호를 입력하십시오:</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="99"/>
         <source>Unlock all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 세션 잠금 해제</translation>
     </message>
 </context>
 <context>
@@ -498,52 +499,52 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="264"/>
         <source>Open Working Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>작업 폴더 열기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="280"/>
         <source>Save Session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 저장</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="290"/>
         <source>Enter Session Name</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 이름 입력</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="291"/>
         <source>The session already exists, please rename the new session or cancel saving.</source>
-        <translation type="unfinished"></translation>
+        <translation>세션이 이미 있습니다. 새 세션의 이름을 바꾸거나 저장을 취소하십시오.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="297"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>속성</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="315"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>닫기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="320"/>
         <source>Close Others</source>
-        <translation type="unfinished"></translation>
+        <translation>다른 탭 닫기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="330"/>
         <source>Close to the Right</source>
-        <translation type="unfinished"></translation>
+        <translation>오른쪽 탭 닫기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="338"/>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 탭 닫기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="365"/>
         <source>Highlight/Unhighlight</source>
-        <translation type="unfinished"></translation>
+        <translation>강조/강조 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="467"/>
@@ -648,67 +649,67 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="747"/>
         <source>Go to the Session Manager &lt;Alt+M&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 관리자로 이동 &lt;Alt+M&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="749"/>
         <source>Quick Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>빠른 연결...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="751"/>
         <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>호스트에 빠르게 연결 &lt;Alt+Q&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="753"/>
         <source>Connect in Tab/Tile...</source>
-        <translation type="unfinished"></translation>
+        <translation>탭/타일에 연결...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>새 탭에 호스트에 연결 &lt;Alt+B&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="756"/>
         <source>Connect Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 쉘 연결</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="758"/>
         <source>Connect to a local shell &lt;Alt+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>로컬 쉘에 연결 &lt;Alt+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="760"/>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>재연결</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Reconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션 재연결</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="763"/>
         <source>Reconnect All</source>
-        <translation type="unfinished"></translation>
+        <translation>모두 재연결</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="764"/>
         <source>Reconnect all sessions &lt;Alt+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 세션 재연결 &lt;Alt+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="766"/>
         <source>Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>연결 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="768"/>
         <source>Disconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션 연결 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="769"/>
@@ -719,202 +720,202 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="771"/>
         <source>Disconnect All</source>
-        <translation type="unfinished"></translation>
+        <translation>모두 연결 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="772"/>
         <source>Disconnect all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 세션 연결 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="773"/>
         <source>Clone Session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 복제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="774"/>
         <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션 복제 &lt;Ctrl+Shift+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="776"/>
         <source>Lock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 잠금</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Lock/Unlock current session</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션 잠금/잠금 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Log Session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 로그</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="779"/>
         <source>Create a log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션의 로그 파일 생성</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="780"/>
         <source>Raw Log Session</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 로그(원본)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="781"/>
         <source>Create a raw log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션의 원본 로그 파일 생성</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="782"/>
         <source>Hex View</source>
-        <translation type="unfinished"></translation>
+        <translation>16진수 보기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="783"/>
         <source>Show/Hide Hex View for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션의 16진수 보기 표시/숨기기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="784"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>종료</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="785"/>
         <source>Quit the application</source>
-        <translation type="unfinished"></translation>
+        <translation>애플리케이션 종료</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="787"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>복사</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="790"/>
         <source>Copy the selected text to the clipboard &lt;Command+C&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>선택한 텍스트를 클립보드에 복사 &lt;Command+C&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="793"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>선택한 텍스트를 클립보드에 복사 &lt;Ctrl+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="796"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>붙여넣기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="799"/>
         <source>Paste the clipboard text to the current session &lt;Command+V&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>클립보드 텍스트를 현재 세션에 붙여넣기 &lt;Command+V&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="802"/>
         <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>클립보드 텍스트를 현재 세션에 붙여넣기 &lt;Shift+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="805"/>
         <source>Copy and Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>복사 및 붙여넣기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="806"/>
         <source>Copy the selected text to the clipboard and paste to the current session</source>
-        <translation type="unfinished"></translation>
+        <translation>선택한 텍스트를 클립보드에 복사하고 현재 세션에 붙여넣기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="807"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>모두 선택</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="809"/>
         <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션의 모든 텍스트 선택 &lt;Ctrl+Shift+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="811"/>
         <source>Find...</source>
-        <translation type="unfinished"></translation>
+        <translation>찾기...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="813"/>
         <source>Find text in the current session &lt;Ctrl+F&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션에서 텍스트 찾기 &lt;Ctrl+F&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="815"/>
         <source>Print Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>스크린 샷</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="817"/>
         <source>Print current screen</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 화면 인쇄</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="818"/>
         <source>Screen Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>스크린 샷</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="820"/>
         <source>Screen shot current screen &lt;Alt+P&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 화면 스크린 샷 &lt;Alt+P&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="822"/>
         <source>Session Export</source>
-        <translation type="unfinished"></translation>
+        <translation>세션 내보내기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="824"/>
         <source>Export current session to a file &lt;Alt+O&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 세션을 파일로 내보내기 &lt;Alt+O&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="826"/>
         <source>Clear Scrollback</source>
-        <translation type="unfinished"></translation>
+        <translation>스크롤백 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="827"/>
         <source>Clear the contents of the scrollback rows</source>
-        <translation type="unfinished"></translation>
+        <translation>스크롤백 행의 내용 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="828"/>
         <source>Clear Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>화면 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="829"/>
         <source>Clear the contents of the current screen</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 화면의 내용 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="830"/>
         <source>Clear Screen and Scrollback</source>
-        <translation type="unfinished"></translation>
+        <translation>화면과 스크롤백 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="831"/>
         <source>Clear the contents of the screen and scrollback</source>
-        <translation type="unfinished"></translation>
+        <translation>화면과 스크롤백의 내용 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="832"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>재설정</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="833"/>
         <source>Reset terminal emulator</source>
-        <translation type="unfinished"></translation>
+        <translation>터미널 에뮬레이터 재설정</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="835"/>
@@ -1655,7 +1656,7 @@
 <context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2916"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2940"/>
         <source>Show Details...</source>
         <translation type="unfinished"></translation>
     </message>

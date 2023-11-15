@@ -6,7 +6,7 @@
     <message>
         <location filename="../lib/QtFancyTabWidget/addtabbutton.cpp" line="29"/>
         <source>New tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva pestaña</translation>
     </message>
 </context>
 <context>
@@ -14,37 +14,37 @@
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="35"/>
         <source>Send commands to active session</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar comandos a la sesión activa</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="71"/>
         <source>ASCII</source>
-        <translation type="unfinished"></translation>
+        <translation>ASCII</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="84"/>
         <source>HEX</source>
-        <translation type="unfinished"></translation>
+        <translation>HEX</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="104"/>
         <source>time</source>
-        <translation type="unfinished"></translation>
+        <translation>tiempo</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="117"/>
         <source>ms</source>
-        <translation type="unfinished"></translation>
+        <translation>ms</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="135"/>
         <source>Auto Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Autoenviar</translation>
     </message>
     <message>
         <location filename="../src/commandwidget/commandwidget.ui" line="142"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar</translation>
     </message>
 </context>
 <context>
@@ -60,17 +60,17 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="17"/>
         <source>Terminal background support animation</source>
-        <translation type="unfinished"></translation>
+        <translation>El fondo de la terminal admite animación</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="24"/>
         <source>NativeUI(Effective after restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz nativa (efectivo después de reiniciar)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="31"/>
         <source>Github Copilot</source>
-        <translation type="unfinished"></translation>
+        <translation>Github Copilot</translation>
     </message>
 </context>
 <context>
@@ -78,43 +78,43 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="17"/>
         <source>Color Schemes</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquemas de color</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuente</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="45"/>
         <source>Series</source>
-        <translation type="unfinished"></translation>
+        <translation>Serie</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="65"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="93"/>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen de fondo</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="115"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="124"/>
         <source>Background mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de fondo</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="131"/>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="143"/>
         <source>Stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>Estirar</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="138"/>
@@ -124,27 +124,27 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="148"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="153"/>
         <source>Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="158"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Centrar</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="163"/>
         <source>Tile</source>
-        <translation type="unfinished"></translation>
+        <translation>Mosaico</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="171"/>
         <source>Background opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacidad de fondo</translation>
     </message>
 </context>
 <context>
@@ -152,42 +152,42 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>New tab workpath</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva pestaña de trabajo</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
         <source>Tab title mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de título de pestaña</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="35"/>
         <source>Brief</source>
-        <translation type="unfinished"></translation>
+        <translation>Breve</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="40"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Completo</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="45"/>
         <source>Scroll</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplazamiento</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="53"/>
         <source>Tab Title Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho del título de la pestaña</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="78"/>
         <source>Tab Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista previa de la pestaña</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="94"/>
         <source>Preview Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho de la vista previa</translation>
     </message>
 </context>
 <context>
@@ -195,32 +195,32 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="17"/>
         <source>Scrollback lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Líneas de desplazamiento</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="34"/>
         <source>Cursor Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma del cursor</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="42"/>
         <source>Block</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="47"/>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>Subrayar</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="52"/>
         <source>IBeam</source>
-        <translation type="unfinished"></translation>
+        <translation>IBeam</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="60"/>
         <source>Cursor Blink</source>
-        <translation type="unfinished"></translation>
+        <translation>Parpadeo del cursor</translation>
     </message>
 </context>
 <context>
@@ -228,58 +228,58 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
         <source>Global Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones globales</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="148"/>
         <source>Select Background Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar imagen de fondo</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="148"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos de imagen (*.png *.jpg *.jpeg *.bmp *.gif);;Archivos de vídeo (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="186"/>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="191"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="186"/>
         <source>This feature needs more system resources, please use it carefully!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Esta función necesita más recursos del sistema, úsela con cuidado!</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="191"/>
         <source>This feature is not implemented yet!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Esta función aún no está implementada!</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Apariencia</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>Terminal</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Window</source>
-        <translation type="unfinished">Ventana</translation>
+        <translation>Ventana</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="210"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Avanzado</translation>
     </message>
 </context>
 <context>
@@ -287,7 +287,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="17"/>
         <source>Transparent window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana transparente</translation>
     </message>
 </context>
 <context>
@@ -295,28 +295,29 @@
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>ASCII Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto ASCII...</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.ui" line="50"/>
         <source>clear</source>
-        <translation type="unfinished"></translation>
+        <translation>borrar</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="38"/>
         <source>Hex View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista hexadecimal</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="83"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="83"/>
         <source>Will send Hex:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Se enviará Hex:
+</translation>
     </message>
 </context>
 <context>
@@ -330,27 +331,27 @@
 <context>
     <name>Konsole::TerminalDisplay</name>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1351"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1375"/>
         <source>Size: XXX x XXX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1363"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1387"/>
         <source>Size: %1 x %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2909"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2933"/>
         <source>Paste multiline text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2910"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2934"/>
         <source>Are you sure you want to paste this text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3393"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3417"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -368,62 +369,62 @@
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="14"/>
         <source>Lock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear sesión</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="20"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="84"/>
         <source>Enter the password that will be used to unlock the session:</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca la contraseña que se utilizará para desbloquear la sesión:</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="32"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="50"/>
         <source>Reenter Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelva a introducir la contraseña</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="68"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="85"/>
         <source>Lock all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear todas las sesiones</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="75"/>
         <source>Lock all sessions in tab group</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear todas las sesiones en el grupo de pestañas</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="49"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="55"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="66"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="49"/>
         <source>Passwords do not match!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Las contraseñas no coinciden!</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="55"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="66"/>
         <source>Password cannot be empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La contraseña no puede estar vacía!</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="98"/>
         <source>Enter the password that was used to lock the session:</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca la contraseña que se utilizó para bloquear la sesión:</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="99"/>
         <source>Unlock all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquear todas las sesiones</translation>
     </message>
 </context>
 <context>
@@ -432,7 +433,7 @@
         <location filename="../src/mainwindow.ui" line="101"/>
         <location filename="../src/mainwindow.cpp" line="849"/>
         <source>Tool Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="160"/>
@@ -446,104 +447,104 @@
         <location filename="../src/mainwindow.cpp" line="2770"/>
         <location filename="../src/mainwindow.cpp" line="2775"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="160"/>
         <source>TFTP server bind error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de enlace del servidor TFTP!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="163"/>
         <source>TFTP server file error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de archivo del servidor TFTP!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="166"/>
         <source>TFTP server network error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de red del servidor TFTP!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="213"/>
         <source>Unlock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquear sesión</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="219"/>
         <source>Move to another Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover a otra pestaña</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="228"/>
         <source>Floating Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana flotante</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="234"/>
         <source>Copy Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar ruta</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="247"/>
         <location filename="../src/mainwindow.cpp" line="262"/>
         <location filename="../src/mainwindow.cpp" line="278"/>
         <source>No working folder!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No hay carpeta de trabajo!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="249"/>
         <source>Add Path to Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir ruta a marcador</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="264"/>
         <source>Open Working Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir carpeta de trabajo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="280"/>
         <source>Save Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar sesión</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="290"/>
         <source>Enter Session Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca el nombre de la sesión</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="291"/>
         <source>The session already exists, please rename the new session or cancel saving.</source>
-        <translation type="unfinished"></translation>
+        <translation>La sesión ya existe, por favor cambie el nombre de la nueva sesión o cancele el guardado.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="297"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="315"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="320"/>
         <source>Close Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar otros</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="330"/>
         <source>Close to the Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar a la derecha</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="338"/>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar todo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="365"/>
         <source>Highlight/Unhighlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Resaltar/Desresaltar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="467"/>
@@ -555,7 +556,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="665"/>
         <source>Back to Main Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Volver a la ventana principal</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="722"/>
@@ -628,87 +629,87 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="737"/>
         <source>New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva ventana</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="739"/>
         <source>Open a new window &lt;Ctrl+Shift+N&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir una nueva ventana &lt;Ctrl+Shift+N&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="741"/>
         <source>Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="743"/>
         <source>Connect to a host &lt;Alt+C&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar a un host &lt;Alt+C&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="747"/>
         <source>Go to the Session Manager &lt;Alt+M&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir al administrador de sesiones &lt;Alt+M&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="749"/>
         <source>Quick Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión rápida...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="751"/>
         <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión rápida a un host &lt;Alt+Q&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="753"/>
         <source>Connect in Tab/Tile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar en pestaña/mosaico...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar a un host en una nueva pestaña &lt;Alt+B&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="756"/>
         <source>Connect Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar a shell local</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="758"/>
         <source>Connect to a local shell &lt;Alt+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar a un shell local &lt;Alt+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="760"/>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Reconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectar sesión actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="763"/>
         <source>Reconnect All</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectar todo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="764"/>
         <source>Reconnect all sessions &lt;Alt+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectar todas las sesiones &lt;Alt+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="766"/>
         <source>Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="768"/>
         <source>Disconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectar sesión actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="769"/>
@@ -719,172 +720,172 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="771"/>
         <source>Disconnect All</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectar todo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="772"/>
         <source>Disconnect all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectar todas las sesiones</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="773"/>
         <source>Clone Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Clonar sesión</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="774"/>
         <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Clonar sesión actual &lt;Ctrl+Shift+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="776"/>
         <source>Lock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear sesión</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Lock/Unlock current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear/Desbloquear sesión actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Log Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Registro de sesión</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="779"/>
         <source>Create a log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear un archivo de registro para la sesión actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="780"/>
         <source>Raw Log Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Registro de sesión en bruto</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="781"/>
         <source>Create a raw log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear un archivo de registro en bruto para la sesión actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="782"/>
         <source>Hex View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista hexadecimal</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="783"/>
         <source>Show/Hide Hex View for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar/Ocultar vista hexadecimal para la sesión actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="784"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="785"/>
         <source>Quit the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir de la aplicación</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="787"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="790"/>
         <source>Copy the selected text to the clipboard &lt;Command+C&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar el texto seleccionado al portapapeles &lt;Command+C&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="793"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar el texto seleccionado al portapapeles &lt;Ctrl+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="796"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="799"/>
         <source>Paste the clipboard text to the current session &lt;Command+V&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar el texto del portapapeles a la sesión actual &lt;Command+V&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="802"/>
         <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar el texto del portapapeles a la sesión actual &lt;Shift+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="805"/>
         <source>Copy and Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar y pegar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="806"/>
         <source>Copy the selected text to the clipboard and paste to the current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar el texto seleccionado al portapapeles y pegar a la sesión actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="807"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar todo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="809"/>
         <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar todo el texto en la sesión actual &lt;Ctrl+Shift+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="811"/>
         <source>Find...</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="813"/>
         <source>Find text in the current session &lt;Ctrl+F&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar texto en la sesión actual &lt;Ctrl+F&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="815"/>
         <source>Print Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimir pantalla</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="817"/>
         <source>Print current screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimir pantalla actual</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="818"/>
         <source>Screen Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Captura de pantalla</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="820"/>
         <source>Screen shot current screen &lt;Alt+P&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Captura de pantalla de la pantalla actual &lt;Alt+P&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="822"/>
         <source>Session Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar sesión</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="824"/>
         <source>Export current session to a file &lt;Alt+O&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar sesión actual a un archivo &lt;Alt+O&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="826"/>
         <source>Clear Scrollback</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar desplazamiento</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="827"/>
         <source>Clear the contents of the scrollback rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar el contenido de las filas de desplazamiento</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="828"/>
@@ -1302,7 +1303,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="928"/>
         <source>Tile</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mosaico</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="929"/>
@@ -1655,7 +1656,7 @@
 <context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2916"/>
+        <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2940"/>
         <source>Show Details...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1701,7 +1702,7 @@
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="560"/>
         <source>Copy Path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copiar ruta</translation>
     </message>
 </context>
 <context>
@@ -1784,7 +1785,7 @@
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="166"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Contraseña</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
@@ -1986,7 +1987,7 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="91"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Propiedades</translation>
     </message>
 </context>
 <context>
@@ -2148,12 +2149,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">General</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Propiedades</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
@@ -2269,7 +2270,7 @@
     <message>
         <location filename="../src/sessionswindow.cpp" line="544"/>
         <source>Unlock Session</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desbloquear sesión</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="544"/>
@@ -2313,7 +2314,7 @@
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Advertencia</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
