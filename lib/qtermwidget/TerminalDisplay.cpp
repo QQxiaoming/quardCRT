@@ -129,10 +129,10 @@ void TerminalDisplay::setScreenWindow(ScreenWindow* window)
     {
 // TODO: Determine if this is an issue.
 //#warning "The order here is not specified - does it matter whether updateImage or updateLineProperties comes first?"
-        connect( _screenWindow , SIGNAL(outputChanged()) , this , SLOT(updateLineProperties()) );
-        connect( _screenWindow , SIGNAL(outputChanged()) , this , SLOT(updateImage()) );
-        connect( _screenWindow , SIGNAL(outputChanged()) , this , SLOT(updateFilters()) );
-        connect( _screenWindow , SIGNAL(scrolled(int)) , this , SLOT(updateFilters()) );
+        connect( _screenWindow , &ScreenWindow::outputChanged , this , &TerminalDisplay::updateLineProperties );
+        connect( _screenWindow , &ScreenWindow::outputChanged , this , &TerminalDisplay::updateImage );
+        connect( _screenWindow , &ScreenWindow::outputChanged , this , &TerminalDisplay::updateFilters );
+        connect( _screenWindow , &ScreenWindow::scrolled , this , &TerminalDisplay::updateFilters );
         connect( _screenWindow , &ScreenWindow::scrollToEnd , this , &TerminalDisplay::scrollToEnd );
         window->setWindowLines(_lines);
     }
@@ -380,17 +380,16 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
     _scrollBar->setAutoFillBackground(true);
   setScroll(0,0);
   _scrollBar->setCursor( Qt::ArrowCursor );
-  connect(_scrollBar, SIGNAL(valueChanged(int)), this,
-                        SLOT(scrollBarPositionChanged(int)));
+  connect(_scrollBar, &QScrollBar::valueChanged, this, &TerminalDisplay::scrollBarPositionChanged);
   // qtermwidget: we have to hide it here due the _scrollbarLocation==NoScrollBar
   // check in TerminalDisplay::setScrollBarPosition(ScrollBarPosition position)
   _scrollBar->hide();
 
   // setup timers for blinking cursor and text
   _blinkTimer   = new QTimer(this);
-  connect(_blinkTimer, SIGNAL(timeout()), this, SLOT(blinkEvent()));
+  connect(_blinkTimer, &QTimer::timeout, this, &TerminalDisplay::blinkEvent);
   _blinkCursorTimer   = new QTimer(this);
-  connect(_blinkCursorTimer, SIGNAL(timeout()), this, SLOT(blinkCursorEvent()));
+  connect(_blinkCursorTimer, &QTimer::timeout, this, &TerminalDisplay::blinkCursorEvent);
 
 //  KCursor::setAutoHideCursor( this, true );
 
@@ -1382,7 +1381,7 @@ void TerminalDisplay::showResizeNotification()
 
         _resizeTimer = new QTimer(this);
         _resizeTimer->setSingleShot(true);
-        connect(_resizeTimer, SIGNAL(timeout()), _resizeWidget, SLOT(hide()));
+        connect(_resizeTimer, &QTimer::timeout, _resizeWidget, &QLabel::hide);
      }
      _resizeWidget->setText(tr("Size: %1 x %2").arg(_columns).arg(_lines));
      _resizeWidget->move((width()-_resizeWidget->width())/2,
@@ -2061,19 +2060,19 @@ void TerminalDisplay::setScroll(int cursor, int slines)
         return;
   }
 
-  disconnect(_scrollBar, SIGNAL(valueChanged(int)), this, SLOT(scrollBarPositionChanged(int)));
+  disconnect(_scrollBar, &QScrollBar::valueChanged, this, &TerminalDisplay::scrollBarPositionChanged);
   _scrollBar->setRange(0,slines - _lines);
   _scrollBar->setSingleStep(1);
   _scrollBar->setPageStep(_lines);
   _scrollBar->setValue(cursor);
-  connect(_scrollBar, SIGNAL(valueChanged(int)), this, SLOT(scrollBarPositionChanged(int)));
+  connect(_scrollBar, &QScrollBar::valueChanged, this, &TerminalDisplay::scrollBarPositionChanged);
 }
 
 void TerminalDisplay::scrollToEnd()
 {
-  disconnect(_scrollBar, SIGNAL(valueChanged(int)), this, SLOT(scrollBarPositionChanged(int)));
+  disconnect(_scrollBar, &QScrollBar::valueChanged, this, &TerminalDisplay::scrollBarPositionChanged);
   _scrollBar->setValue( _scrollBar->maximum() );
-  connect(_scrollBar, SIGNAL(valueChanged(int)), this, SLOT(scrollBarPositionChanged(int)));
+  connect(_scrollBar, &QScrollBar::valueChanged, this, &TerminalDisplay::scrollBarPositionChanged);
 
   _screenWindow->scrollTo( _scrollBar->value() + 1 );
   _screenWindow->setTrackOutput( _screenWindow->atEndOfOutput() );

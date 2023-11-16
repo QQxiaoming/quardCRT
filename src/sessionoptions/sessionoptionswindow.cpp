@@ -101,8 +101,8 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
         }
     });
 
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
-    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &SessionOptionsWindow::buttonBoxAccepted);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &SessionOptionsWindow::buttonBoxRejected);
 }
 
 SessionOptionsWindow::~SessionOptionsWindow()
@@ -121,6 +121,7 @@ void SessionOptionsWindow::retranslateUi()
     sessionOptionsNamePipeProperties->ui->retranslateUi(this);
     sessionOptionsRawProperties->ui->retranslateUi(this);
     sessionOptionsLocalShellState->ui->retranslateUi(this);
+    sessionOptionsLocalShellState->ui->treeViewInfo->model()->setHeaderData(1, Qt::Horizontal, tr("Name"));
 }
 
 void SessionOptionsWindow::setactiveProperties(int index)

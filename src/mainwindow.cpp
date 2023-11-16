@@ -186,15 +186,16 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                 QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->widget(index);
                 foreach(SessionsWindow *sessionsWindow, sessionList) {
                     sessionsWindow->getTermWidget()->setScrollBarPosition(verticalScrollBarAction->isChecked()?QTermWidget::ScrollBarRight:QTermWidget::NoScrollBar);
-                    disconnect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
-                                hexViewWindow,SLOT(recvData(const char*,int)));
+                    // use new style disconnect
+                    disconnect(sessionsWindow,&SessionsWindow::hexDataDup,
+                                hexViewWindow,&HexViewWindow::recvData);
                     if(sessionsWindow->getTermWidget() == termWidget) {
                         logSessionAction->setChecked(sessionsWindow->isLog());
                         rawLogSessionAction->setChecked(sessionsWindow->isRawLog());
                         lockSessionAction->setChecked(sessionsWindow->isLocked());
                         if(hexViewAction->isChecked()) {
-                            connect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
-                                    hexViewWindow,SLOT(recvData(const char*,int)));
+                            connect(sessionsWindow,&SessionsWindow::hexDataDup,
+                                        hexViewWindow,&HexViewWindow::recvData);
                         }
                     }
                 }
@@ -351,30 +352,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                         delete menu;
                         return;
                     }
-                    QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
-                    QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
-                    if(!ftActions.isEmpty()) {
-                        menu->addActions(ftActions);
-                        menu->addSeparator();
-                    }
-                    menu->addAction(copyAction);
-                    menu->addAction(pasteAction);
-                    menu->addSeparator();
-                    menu->addAction(selectAllAction);
-                    menu->addAction(findAction);
-                    QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
-                    menu->addAction(highlightAction);
-                    connect(highlightAction,&QAction::triggered,this,[=](){
-                        QString text = termWidget->selectedText();
-                        if(text.isEmpty()) {
-                            return;
-                        }
-                        if(termWidget->isContainHighLightText(text)) {
-                            termWidget->removeHighLightText(text);
-                        } else {
-                            termWidget->addHighLightText(text, Qt::white);
-                        }
-                    });
+                    terminalWidgetContextMenuBase(menu,termWidget,position);
                     if(!ui->menuBar->isVisible()) {
                         menu->addSeparator();
                         menu->addAction(menuBarAction);
@@ -626,6 +604,34 @@ void MainWindow::moveToAnotherTab(int src,int dst, int index) {
         mainWidgetGroupList.at(src)->sessionTab->count()-1);
 };
 
+void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidget,const QPoint& position)
+{
+    QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
+    QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
+    if(!ftActions.isEmpty()) {
+        menu->addActions(ftActions);
+        menu->addSeparator();
+    }
+    menu->addAction(copyAction);
+    menu->addAction(pasteAction);
+    menu->addSeparator();
+    menu->addAction(selectAllAction);
+    menu->addAction(findAction);
+    QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
+    menu->addAction(highlightAction);
+    connect(highlightAction,&QAction::triggered,this,[=](){
+        QString text = termWidget->selectedText();
+        if(text.isEmpty()) {
+            return;
+        }
+        if(termWidget->isContainHighLightText(text)) {
+            termWidget->removeHighLightText(text);
+        } else {
+            termWidget->addHighLightText(text, Qt::white);
+        }
+    });
+}
+
 void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
     QDialog *dialog = new QDialog(this);
     dialog->setWindowFlags(Qt::Window);
@@ -650,17 +656,7 @@ void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
         if(index != -1) return;
         QMenu *menu = new QMenu(this);
         QTermWidget *termWidget = (QTermWidget *)group->sessionTab->currentWidget();
-        QPoint maptermWidgetPos = termWidget->mapFromGlobal(position);
-        QList<QAction*> ftActions = termWidget->filterActions(maptermWidgetPos);
-        if(!ftActions.isEmpty()) {
-            menu->addActions(ftActions);
-            menu->addSeparator();
-        }
-        menu->addAction(copyAction);
-        menu->addAction(pasteAction);
-        menu->addSeparator();
-        menu->addAction(selectAllAction);
-        menu->addAction(findAction);
+        terminalWidgetContextMenuBase(menu,termWidget,position);
         menu->addSeparator();
         QAction *floatBackAction = new QAction(tr("Back to Main Window"),this);
         menu->addAction(floatBackAction);
@@ -1549,11 +1545,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
             QTermWidget *termWidget = findCurrentFocusTermWidget();
             if(termWidget == nullptr) return;
             foreach(SessionsWindow *sessionsWindow, sessionList) {
-                disconnect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
-                            hexViewWindow,SLOT(recvData(const char*,int)));
+                disconnect(sessionsWindow,&SessionsWindow::hexDataDup,hexViewWindow,&HexViewWindow::recvData);
                 if(sessionsWindow->getTermWidget() == termWidget) {
-                    connect(sessionsWindow,SIGNAL(hexDataDup(const char*,int)),
-                            hexViewWindow,SLOT(recvData(const char*,int)));
+                    connect(sessionsWindow,&SessionsWindow::hexDataDup,hexViewWindow,&HexViewWindow::recvData);
                 }
             }
         }
@@ -1906,6 +1900,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
             mainWidgetGroup->commandWidget->retranslateUi();
+        }
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            sessionsWindow->getTermWidget()->reTranslateUi();
         }
         menuAndToolBarRetranslateUi();
         ui->statusBar->showMessage(tr("Ready"));

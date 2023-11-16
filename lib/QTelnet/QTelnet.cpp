@@ -15,16 +15,13 @@ char QTelnet::_arrCR[2]           = { 13, 0 };
 QTelnet::QTelnet(SocketType type, QObject *parent) :
     QObject(parent),  m_socketType(type), m_actualSB(0)
 {
-    connect(&m_tcpSocket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)),
-            this, SLOT(socketError(QAbstractSocket::SocketError)) );
-    connect(&m_tcpSocket, SIGNAL(readyRead()),	this, SLOT(onTcpReadyRead()) );
-    connect(&m_tcpSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(onStateChanged(QAbstractSocket::SocketState)) );
+    connect(&m_tcpSocket, &QTcpSocket::errorOccurred, this, &QTelnet::socketError);
+    connect(&m_tcpSocket, &QTcpSocket::readyRead, this, &QTelnet::onTcpReadyRead);
+    connect(&m_tcpSocket, &QTcpSocket::stateChanged, this, &QTelnet::onStateChanged);
 
-    connect(&m_webSocket, SIGNAL(error(QAbstractSocket::SocketError)),
-            this, SLOT(socketError(QAbstractSocket::SocketError)) );
-    connect(&m_webSocket, SIGNAL(binaryMessageReceived(QByteArray)),
-            this, SLOT(binaryMessageReceived(QByteArray)) );
-    connect(&m_webSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(onStateChanged(QAbstractSocket::SocketState)) );
+    connect(&m_webSocket, &QWebSocket::errorOccurred, this, &QTelnet::socketError);
+    connect(&m_webSocket, &QWebSocket::binaryMessageReceived, this, &QTelnet::binaryMessageReceived);
+    connect(&m_webSocket, &QWebSocket::stateChanged, this, &QTelnet::onStateChanged);
 }
 
 void QTelnet::setType(SocketType type)

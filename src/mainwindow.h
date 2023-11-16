@@ -104,6 +104,7 @@ private:
     void setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name);
     void moveToAnotherTab(int src,int dst, int index);
     void floatingWindow(MainWidgetGroup *g, int index);
+    void terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidget,const QPoint& position);
 
 protected:
     void closeEvent(QCloseEvent *event) override;

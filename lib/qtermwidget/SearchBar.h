@@ -35,9 +35,7 @@ public:
     bool useRegularExpression();
     bool matchCase();
     bool highlightAllMatches();
-    void retranslateUi(void) {
-        widget.retranslateUi(this);
-    }
+    void retranslateUi(void);
 
 public slots:
     void noMatchFound();

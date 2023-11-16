@@ -59,8 +59,9 @@ HexViewWindow::HexViewWindow(int type, QWidget *parent) :
 
     connect(ui->textEditHEX->verticalScrollBar(), &QScrollBar::valueChanged, ui->textEditASCII->verticalScrollBar(), &QScrollBar::setValue);
     connect(ui->textEditASCII->verticalScrollBar(), &QScrollBar::valueChanged, ui->textEditHEX->verticalScrollBar(), &QScrollBar::setValue);
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
-    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
+    
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &HexViewWindow::buttonBoxAccepted);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &HexViewWindow::buttonBoxRejected);
 }
 
 HexViewWindow::~HexViewWindow()

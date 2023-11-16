@@ -442,10 +442,10 @@
         <location filename="../src/mainwindow.cpp" line="247"/>
         <location filename="../src/mainwindow.cpp" line="262"/>
         <location filename="../src/mainwindow.cpp" line="278"/>
-        <location filename="../src/mainwindow.cpp" line="1995"/>
-        <location filename="../src/mainwindow.cpp" line="2543"/>
-        <location filename="../src/mainwindow.cpp" line="2770"/>
-        <location filename="../src/mainwindow.cpp" line="2775"/>
+        <location filename="../src/mainwindow.cpp" line="1998"/>
+        <location filename="../src/mainwindow.cpp" line="2546"/>
+        <location filename="../src/mainwindow.cpp" line="2773"/>
+        <location filename="../src/mainwindow.cpp" line="2778"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
     </message>
@@ -549,7 +549,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="467"/>
         <location filename="../src/mainwindow.cpp" line="563"/>
-        <location filename="../src/mainwindow.cpp" line="1911"/>
+        <location filename="../src/mainwindow.cpp" line="1914"/>
         <source>Ready</source>
         <translation>Preparado</translation>
     </message>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="735"/>
         <location filename="../src/mainwindow.cpp" line="955"/>
-        <location filename="../src/mainwindow.cpp" line="2734"/>
+        <location filename="../src/mainwindow.cpp" line="2737"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
@@ -1437,7 +1437,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="961"/>
-        <location filename="../src/mainwindow.cpp" line="2717"/>
+        <location filename="../src/mainwindow.cpp" line="2720"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
@@ -1522,135 +1522,135 @@
         <translation>¿Está seguro de limpiar todos los marcadores?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1995"/>
+        <location filename="../src/mainwindow.cpp" line="1998"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>El fondo de video está habilitado, habilite la animación en las opciones globales (más recursos del sistema) o cambie la imagen de fondo.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2275"/>
+        <location filename="../src/mainwindow.cpp" line="2278"/>
         <source>Telnet - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2276"/>
+        <location filename="../src/mainwindow.cpp" line="2279"/>
         <source>Telnet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2308"/>
+        <location filename="../src/mainwindow.cpp" line="2311"/>
         <source>Serial - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2309"/>
+        <location filename="../src/mainwindow.cpp" line="2312"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Serie</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2340"/>
+        <location filename="../src/mainwindow.cpp" line="2343"/>
         <source>Raw - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2341"/>
+        <location filename="../src/mainwindow.cpp" line="2344"/>
         <source>Raw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2372"/>
+        <location filename="../src/mainwindow.cpp" line="2375"/>
         <source>NamePipe - </source>
         <translation>Nombre de tubería - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2373"/>
+        <location filename="../src/mainwindow.cpp" line="2376"/>
         <source>NamePipe</source>
         <translation>Nombre de tubería</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2441"/>
-        <location filename="../src/mainwindow.cpp" line="2445"/>
+        <location filename="../src/mainwindow.cpp" line="2444"/>
+        <location filename="../src/mainwindow.cpp" line="2448"/>
         <source>Local Shell</source>
         <translation>Shell local</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2443"/>
+        <location filename="../src/mainwindow.cpp" line="2446"/>
         <source>Local Shell - </source>
         <translation>Shell local - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2543"/>
+        <location filename="../src/mainwindow.cpp" line="2546"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>¿Está seguro de desconectar esta sesión?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2718"/>
+        <location filename="../src/mainwindow.cpp" line="2721"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2736"/>
+        <location filename="../src/mainwindow.cpp" line="2739"/>
         <source>Global Shortcuts:</source>
         <translation>Atajos globales:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2737"/>
+        <location filename="../src/mainwindow.cpp" line="2740"/>
         <source>show/hide menu bar</source>
         <translation>mostrar/ocultar barra de menús</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2738"/>
+        <location filename="../src/mainwindow.cpp" line="2741"/>
         <source>connect to LocalShell</source>
         <translation>conectar a Shell local</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2739"/>
+        <location filename="../src/mainwindow.cpp" line="2742"/>
         <source>clone current session</source>
         <translation>clonar sesión actual</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2740"/>
+        <location filename="../src/mainwindow.cpp" line="2743"/>
         <source>switch ui to STD mode</source>
         <translation>cambiar la interfaz de usuario al modo STD</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2741"/>
+        <location filename="../src/mainwindow.cpp" line="2744"/>
         <source>switch ui to MINI mode</source>
         <translation>cambiar la interfaz de usuario al modo MINI</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2742"/>
+        <location filename="../src/mainwindow.cpp" line="2745"/>
         <source>switch to previous session</source>
         <translation>cambiar a la sesión anterior</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2743"/>
+        <location filename="../src/mainwindow.cpp" line="2746"/>
         <source>switch to next session</source>
         <translation>cambiar a la siguiente sesión</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2744"/>
+        <location filename="../src/mainwindow.cpp" line="2747"/>
         <source>switch to session [num]</source>
-        <translation type="unfinished"></translation>
+        <translation>cambiar a la sesión [num]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2745"/>
+        <location filename="../src/mainwindow.cpp" line="2748"/>
         <source>Go to line start</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir al inicio de la línea</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2746"/>
+        <location filename="../src/mainwindow.cpp" line="2749"/>
         <source>Go to line end</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir al final de la línea</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2770"/>
+        <location filename="../src/mainwindow.cpp" line="2773"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hay sesiones que aún no se han desbloqueado, desbloquéelas primero.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2775"/>
+        <location filename="../src/mainwindow.cpp" line="2778"/>
         <source>Are you sure to quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de salir?</translation>
     </message>
 </context>
 <context>
@@ -1723,22 +1723,22 @@
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="30"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Protocolo</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="43"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serie</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="48"/>
         <source>Local Shell</source>
-        <translation type="unfinished">Shell local</translation>
+        <translation>Shell local</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="58"/>
         <source>Named Pipe</source>
-        <translation type="unfinished"></translation>
+        <translation>Tubería con nombre</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
@@ -1746,7 +1746,7 @@
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de host</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
@@ -1754,120 +1754,120 @@
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="164"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="220"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="120"/>
         <source>WebSocket</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="133"/>
         <source>Insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>Inseguro</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="138"/>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation>Seguro</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="156"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="166"/>
         <source>Password</source>
-        <translation type="unfinished">Contraseña</translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
         <source>DataBits</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Paridad</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Impar</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Par</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
         <source>StopBits</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
         <source>Save session</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar sesión</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
         <source>Open in tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir en pestaña</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
         <source>Quick Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión rápida</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="90"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="184"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="240"/>
         <source>e.g. 127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>ej. 127.0.0.1</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Port Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de puerto</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
         <source>Baud Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa de baudios</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="139"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Comando</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="159"/>
         <source>e.g. /bin/bash</source>
-        <translation type="unfinished"></translation>
+        <translation>ej. /bin/bash</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="191"/>
         <source>Pipe Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de tubería</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="212"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
-        <translation type="unfinished"></translation>
+        <translation>ej. \\\.\pipe\namedpipe</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="214"/>
         <source>e.g. /tmp/socket</source>
-        <translation type="unfinished"></translation>
+        <translation>ej. /tmp/socket</translation>
     </message>
 </context>
 <context>
@@ -1904,16 +1904,19 @@
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="40"/>
+        <location filename="../lib/qtermwidget/SearchBar.cpp" line="130"/>
         <source>Match case</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="46"/>
+        <location filename="../lib/qtermwidget/SearchBar.cpp" line="131"/>
         <source>Regular expression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="50"/>
+        <location filename="../lib/qtermwidget/SearchBar.cpp" line="132"/>
         <source>Highlight all matches</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1928,7 +1931,7 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="135"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Serie</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="137"/>
@@ -1948,7 +1951,7 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="267"/>
@@ -2008,17 +2011,17 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="25"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="45"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Protocolo</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="58"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Serie</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="63"/>
@@ -2028,7 +2031,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="73"/>
         <source>Named Pipe</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tubería con nombre</translation>
     </message>
 </context>
 <context>
@@ -2036,7 +2039,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionslocalshellproperties.ui" line="19"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Comando</translation>
     </message>
 </context>
 <context>
@@ -2044,7 +2047,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionslocalshellstate.cpp" line="33"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre</translation>
     </message>
 </context>
 <context>
@@ -2060,12 +2063,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="25"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de host</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="45"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Puerto</translation>
     </message>
 </context>
 <context>
@@ -2073,12 +2076,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="25"/>
         <source>Port Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de puerto</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="45"/>
         <source>Baud Rate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tasa de baudios</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="72"/>
@@ -2088,7 +2091,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="109"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paridad</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="117"/>
@@ -2098,12 +2101,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="122"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impar</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="127"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Par</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="145"/>
@@ -2116,12 +2119,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="19"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de host</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="33"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Puerto</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="51"/>
@@ -2131,12 +2134,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="56"/>
         <source>Insecure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inseguro</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="61"/>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seguro</translation>
     </message>
 </context>
 <context>
@@ -2160,6 +2163,11 @@
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>State</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="124"/>
+        <source>Name</source>
+        <translation>Nombre</translation>
     </message>
 </context>
 <context>

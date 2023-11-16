@@ -49,8 +49,8 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
         ui->downloadLineEdit->setText(dir);
     });
 
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
-    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &StartTftpSeverWindow::buttonBoxAccepted);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &StartTftpSeverWindow::buttonBoxRejected);
 }
 
 StartTftpSeverWindow::~StartTftpSeverWindow()

@@ -143,7 +143,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
 
     buttonBoxAccepted();
 
-    connect(globalOptionsAppearanceWidget->ui->spinBoxFontSize, SIGNAL(valueChanged(int)), this, SLOT(fontSizeChanged(int)));
+    connect(globalOptionsAppearanceWidget->ui->spinBoxFontSize, &QSpinBox::valueChanged, this, &GlobalOptionsWindow::fontSizeChanged);
     connect(globalOptionsAppearanceWidget->ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
         QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)"));
         if (!imgPath.isEmpty()) {
@@ -180,7 +180,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
             globalOptionsAppearanceWidget->ui->spinBoxFontSize->setValue(font.pointSize());
         }
     });
-    connect(globalOptionsWindowWidget->ui->horizontalSliderTransparent, SIGNAL(valueChanged(int)), this, SIGNAL(transparencyChanged(int)));
+    connect(globalOptionsWindowWidget->ui->horizontalSliderTransparent, &QSlider::valueChanged, this, &GlobalOptionsWindow::transparencyChanged);
     connect(globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation, &QCheckBox::toggled, this, [&](){
         if (globalOptionsAdvancedWidget->ui->checkBoxTerminalBackgroundAnimation->isChecked()) {
             QMessageBox::information(this, tr("Information"), tr("This feature needs more system resources, please use it carefully!"));
@@ -192,8 +192,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
             globalOptionsAdvancedWidget->ui->checkBoxGithubCopilot->setChecked(false);
         }
     });
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
-    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
+
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
 
     connect(treeView, &QTreeView::clicked, [=](const QModelIndex &index) {
         setActiveWidget(index.row());

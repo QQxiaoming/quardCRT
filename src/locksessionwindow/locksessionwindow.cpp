@@ -30,8 +30,8 @@ LockSessionWindow::LockSessionWindow(QWidget *parent) :
     setWindowModality(Qt::ApplicationModal);
     setWindowFlags(Qt::Tool);
 
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonBoxAccepted()));
-    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonBoxRejected()));
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &LockSessionWindow::buttonBoxAccepted);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &LockSessionWindow::buttonBoxRejected);
 }
 
 LockSessionWindow::~LockSessionWindow()
