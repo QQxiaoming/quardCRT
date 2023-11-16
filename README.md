@@ -38,7 +38,7 @@ Other protocol selection interface:
     - rawsocket
     - windows:NamedPipe（linux/macos:unix domain socket）
 
-- Multi-tab management, tab cloning, tab drag-and-drop sorting
+- Multi-tab management, tab cloning, tab drag-and-drop sorting, tab floating preview
 - Dual column split screen, tab drag-and-drop to split column
 - Floating window support, tab drag-and-drop to floating window
 - Working directory bookmark
@@ -48,8 +48,10 @@ Other protocol selection interface:
 - Terminal style configuration (color scheme, font)
 - Terminal background image configuration (support transparency setting, support gif animation and video)
 - Terminal scroll line configuration
+- Terminal keyword highlight matching
+- windows local terminal enhancement (Tab key selects completion command, etc.)
 - Support dark/light theme
-- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese)
+- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean)
 
 ## Planned features
 
@@ -57,11 +59,8 @@ Other protocol selection interface:
 - [ ] Support SFTP protocol
 - [ ] Support xyzmodem protocol
 - [ ] Support operation script recording/loading
-- [ ] Support screen recording/loading
-- [x] Tab floating preview
-- [x] windows local terminal enhancement (Tab key selects completion command, etc.)
-- [ ] Session status query
-- [x] Terminal keyword highlight matching
+- [ ] Support screen recording
+- [ ] session status query
 - [ ] Terminal style customization
 - [ ] Independent session set terminal appearance
 - [ ] GitHub Copilot plugin support
