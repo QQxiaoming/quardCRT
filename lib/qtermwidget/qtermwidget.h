@@ -244,6 +244,9 @@ public:
     void removeHighLightText(const QString &text);
     void clearHighLightTexts(void);
 
+    void setWordCharacters(const QString &wordCharacters);
+    QString wordCharacters(void);
+
     // FIXME: this is a hack operation, should be removed
     void setUserdata(void *data) {
         this->userData = data;

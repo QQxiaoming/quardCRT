@@ -1969,6 +1969,7 @@ void MainWindow::setGlobalOptions(SessionsWindow *window) {
     window->getTermWidget()->setHistorySize(globalOptionsWindow->getScrollbackLines());
     window->getTermWidget()->setKeyboardCursorShape(globalOptionsWindow->getCursorShape());
     window->getTermWidget()->setBlinkingCursor(globalOptionsWindow->getCursorBlink());
+    window->getTermWidget()->setWordCharacters(globalOptionsWindow->getWordCharacters());
     window->getTermWidget()->setTerminalBackgroundImage("");
     window->getTermWidget()->setTerminalBackgroundMovie("");
     window->getTermWidget()->setTerminalBackgroundVideo("");

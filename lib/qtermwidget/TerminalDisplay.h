@@ -113,6 +113,8 @@ public:
     void setOpacity(qreal opacity);
 
     /** Sets the background image of the terminal display. */
+    void setBackgroundPixmap(QPixmap *backgroundImage);
+    void reloadBackgroundPixmap(void);
     void setBackgroundImage(const QString& backgroundImage);
     void setBackgroundMovie(const QString& backgroundImage);
     void setBackgroundVideo(const QString& backgroundImage);
@@ -837,6 +839,7 @@ private:
 
     qreal _opacity;
 
+    QPixmap *_backgroundPixmapRef = nullptr;
     QPixmap _backgroundImage;
     QMovie *_backgroundMovie = nullptr;
     QMediaPlayer* _backgroundVideoPlayer;

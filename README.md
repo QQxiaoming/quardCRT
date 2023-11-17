@@ -66,7 +66,7 @@ Other protocol selection interface:
 - [ ] GitHub Copilot plugin support
 - [ ] CI support Appimage package
 - [ ] CI support windows on arm64
-- [ ] Add more language support (Spanish/French/Russian/Korean)
+- [ ] Add more language support (Spanish/French/Russian)
 
 ## Translation
 

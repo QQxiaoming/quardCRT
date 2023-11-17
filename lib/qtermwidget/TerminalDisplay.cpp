@@ -718,68 +718,76 @@ void TerminalDisplay::setOpacity(qreal opacity)
     _opacity = qBound(static_cast<qreal>(0), opacity, static_cast<qreal>(1));
 }
 
-void TerminalDisplay::setBackgroundImage(const QString& backgroundImage)
-{
-    if (!backgroundImage.isEmpty())
-    {
-        _backgroundImage.load(backgroundImage);
+void TerminalDisplay::setBackgroundPixmap(QPixmap *backgroundImage) {
+    _backgroundPixmapRef = backgroundImage;
+    if (backgroundImage != nullptr) {
         setAttribute(Qt::WA_OpaquePaintEvent, false);
-    }
-    else
-    {
-        _backgroundImage = QPixmap();
-        if(_backgroundMovie == nullptr && (!_backgroundVideoPlayer->isPlaying()))
-          setAttribute(Qt::WA_OpaquePaintEvent, true);
+    } else {
+        if (_backgroundMovie == nullptr && (!_backgroundVideoPlayer->isPlaying()) &&
+                _backgroundImage.isNull())
+            setAttribute(Qt::WA_OpaquePaintEvent, true);
     }
 }
 
-void TerminalDisplay::setBackgroundMovie(const QString& backgroundImage)
-{
-    QMovie* movie = nullptr;
+void TerminalDisplay::reloadBackgroundPixmap(void) { 
+    update(); 
+}
+
+void TerminalDisplay::setBackgroundImage(const QString &backgroundImage) {
+    if (!backgroundImage.isEmpty()) {
+        _backgroundImage.load(backgroundImage);
+        setAttribute(Qt::WA_OpaquePaintEvent, false);
+    } else {
+        _backgroundImage = QPixmap();
+        if (_backgroundMovie == nullptr && (!_backgroundVideoPlayer->isPlaying()) &&
+                !_backgroundPixmapRef)
+            setAttribute(Qt::WA_OpaquePaintEvent, true);
+    }
+}
+
+void TerminalDisplay::setBackgroundMovie(const QString &backgroundImage) {
+    QMovie *movie = nullptr;
     if (!backgroundImage.isEmpty()) {
         movie = new QMovie(backgroundImage);
     }
-    if (movie && movie->isValid())
-    {
-        if(_backgroundMovie != nullptr) {
-          _backgroundMovie->stop();
-          QObject::disconnect(_backgroundMovie, nullptr, this, nullptr);
-          delete _backgroundMovie;
+    if (movie && movie->isValid()) {
+        if (_backgroundMovie != nullptr) {
+            _backgroundMovie->stop();
+            QObject::disconnect(_backgroundMovie, nullptr, this, nullptr);
+            delete _backgroundMovie;
         }
         _backgroundMovie = movie;
-        QObject::connect(_backgroundMovie, &QMovie::frameChanged, this, [=]{ update();});
+        QObject::connect(_backgroundMovie, &QMovie::frameChanged, this,
+                                         [=] { update(); });
         setAttribute(Qt::WA_OpaquePaintEvent, false);
         _backgroundMovie->start();
-    }
-    else
-    {
-        if(_backgroundMovie != nullptr) {
-          _backgroundMovie->stop();
-          QObject::disconnect(_backgroundMovie, nullptr, this, nullptr);
-          delete _backgroundMovie;
+    } else {
+        if (_backgroundMovie != nullptr) {
+            _backgroundMovie->stop();
+            QObject::disconnect(_backgroundMovie, nullptr, this, nullptr);
+            delete _backgroundMovie;
         }
         _backgroundMovie = nullptr;
-        if(_backgroundImage.isNull() && (!_backgroundVideoPlayer->isPlaying()))
-          setAttribute(Qt::WA_OpaquePaintEvent, true);
-        if(movie) delete movie;
+        if (_backgroundImage.isNull() && (!_backgroundVideoPlayer->isPlaying()) &&
+                !_backgroundPixmapRef)
+            setAttribute(Qt::WA_OpaquePaintEvent, true);
+        if (movie)
+            delete movie;
     }
 }
 
-void TerminalDisplay::setBackgroundVideo(const QString& backgroundVideo)
-{
-    if (!backgroundVideo.isEmpty())
-    {
+void TerminalDisplay::setBackgroundVideo(const QString &backgroundVideo) {
+    if (!backgroundVideo.isEmpty()) {
         _backgroundVideoPlayer->setSource(QUrl::fromLocalFile(backgroundVideo));
         _backgroundVideoPlayer->play();
         setAttribute(Qt::WA_OpaquePaintEvent, false);
-    }
-    else
-    {
+    } else {
         _backgroundVideoPlayer->stop();
         _backgroundVideoPlayer->setSource(QUrl());
         _backgroundVideoFrame = QPixmap();
-        if(_backgroundMovie == nullptr && _backgroundImage.isNull())
-          setAttribute(Qt::WA_OpaquePaintEvent, true);
+        if (_backgroundMovie == nullptr && _backgroundImage.isNull() &&
+                !_backgroundPixmapRef)
+            setAttribute(Qt::WA_OpaquePaintEvent, true);
     }
 }
 
@@ -2827,7 +2835,7 @@ QChar TerminalDisplay::charClass(QChar qch) const
 
 void TerminalDisplay::setWordCharacters(const QString& wc)
 {
-    _wordCharacters = wc;
+    _wordCharacters = wc.toLatin1();
 }
 
 void TerminalDisplay::setUsesMouse(bool on)

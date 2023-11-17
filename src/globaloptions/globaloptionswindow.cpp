@@ -130,6 +130,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->setValue(settings.value("tabTitleWidth", 20).toInt());
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
+    globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
     settings.endGroup();
 
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
@@ -346,6 +347,11 @@ int GlobalOptionsWindow::getTabPreviewWidth(void)
     return globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->value();
 }
 
+QString GlobalOptionsWindow::getWordCharacters(void) 
+{
+    return globalOptionsTerminalWidget->ui->lineEditWordCharacters->text();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -367,6 +373,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("tabTitleWidth", globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->value());
     settings.setValue("enableTabPreview", globalOptionsGeneralWidget->ui->checkBoxTabPreview->isChecked());
     settings.setValue("tabPreviewWidth", globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->value());
+    settings.setValue("wordCharacters", globalOptionsTerminalWidget->ui->lineEditWordCharacters->text());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -395,6 +402,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsGeneralWidget->ui->spinBoxTabTitleWidth->setValue(settings.value("tabTitleWidth", 20).toInt());
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
+    globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
     settings.endGroup();
     emit this->rejected();
 }

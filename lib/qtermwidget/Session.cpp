@@ -38,7 +38,6 @@
 #include <QtDebug>
 
 #include "TerminalDisplay.h"
-#include "ShellCommand.h"
 #include "Vt102Emulation.h"
 
 using namespace Konsole;

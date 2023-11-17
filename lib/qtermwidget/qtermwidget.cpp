@@ -838,6 +838,15 @@ void QTermWidget::clearHighLightTexts(void)
     m_highLightTexts.clear();
 }
 
+void QTermWidget::setWordCharacters(const QString &wordCharacters)
+{
+    m_impl->m_terminalDisplay->setWordCharacters(wordCharacters);
+}
+
+QString QTermWidget::wordCharacters(void) {
+    return m_impl->m_terminalDisplay->wordCharacters();
+}
+
 void QTermWidget::reTranslateUi(void) {
     m_searchBar->retranslateUi();
 }

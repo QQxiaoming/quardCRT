@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>271</height>
+    <height>314</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -63,6 +63,16 @@
       <bool>true</bool>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Word Characters</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lineEditWordCharacters"/>
    </item>
    <item>
     <spacer name="verticalSpacer">

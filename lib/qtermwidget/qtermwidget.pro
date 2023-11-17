@@ -18,7 +18,6 @@ SOURCES += \
     $$PWD/ScreenWindow.cpp \
     $$PWD/SearchBar.cpp \
     $$PWD/Session.cpp \
-    $$PWD/ShellCommand.cpp \
     $$PWD/TerminalCharacterDecoder.cpp \
     $$PWD/TerminalDisplay.cpp \
     $$PWD/tools.cpp \
@@ -46,7 +45,6 @@ HEADERS += \
     $$PWD/ScreenWindow.h \
     $$PWD/SearchBar.h \
     $$PWD/Session.h \
-    $$PWD/ShellCommand.h \
     $$PWD/TerminalCharacterDecoder.h \
     $$PWD/TerminalDisplay.h \
     $$PWD/tools.h \
