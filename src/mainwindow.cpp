@@ -1141,6 +1141,7 @@ void MainWindow::menuAndToolBarInit(void) {
     ui->toolBar->addAction(sessionOptionsAction);
     sessionManagerWidget->addActionOnToolBar(sessionOptionsAction);
     globalOptionsAction = new QAction(this);
+    globalOptionsAction->setMenuRole(QAction::PreferencesRole);
     optionsMenu->addAction(globalOptionsAction);
     optionsMenu->addSeparator();
     sessionManagerWidget->addActionOnToolBar(globalOptionsAction);

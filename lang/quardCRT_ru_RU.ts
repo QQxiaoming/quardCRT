@@ -152,42 +152,42 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>New tab workpath</source>
-        <translation type="unfinished"></translation>
+        <translation>Рабочий каталог новой вкладки</translation>       
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
         <source>Tab title mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим заголовка вкладки</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="35"/>
         <source>Brief</source>
-        <translation type="unfinished"></translation>
+        <translation>Краткий</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="40"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Полный</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="45"/>
         <source>Scroll</source>
-        <translation type="unfinished"></translation>
+        <translation>Прокрутка</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="53"/>
         <source>Tab Title Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина заголовка вкладки</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="78"/>
         <source>Tab Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Предпросмотр вкладки</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="94"/>
         <source>Preview Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина предпросмотра</translation>
     </message>
 </context>
 <context>
@@ -195,37 +195,37 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="17"/>
         <source>Scrollback lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Количество строк прокрутки</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="34"/>
         <source>Cursor Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Форма курсора</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="42"/>
         <source>Block</source>
-        <translation type="unfinished"></translation>
+        <translation>Блок</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="47"/>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>Подчеркивание</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="52"/>
         <source>IBeam</source>
-        <translation type="unfinished"></translation>
+        <translation>IBeam</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="60"/>
         <source>Cursor Blink</source>
-        <translation type="unfinished"></translation>
+        <translation>Мигание курсора</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="70"/>
         <source>Word Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Символы слова</translation>
     </message>
 </context>
 <context>
@@ -233,58 +233,58 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
         <source>Global Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Глобальные настройки</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="149"/>
         <source>Select Background Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите фоновое изображение</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="149"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы изображений (*.png *.jpg *.jpeg *.bmp *.gif);;Файлы видео (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="187"/>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="192"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="187"/>
         <source>This feature needs more system resources, please use it carefully!</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта функция требует больше системных ресурсов, используйте ее осторожно!</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="192"/>
         <source>This feature is not implemented yet!</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта функция еще не реализована!</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="212"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Общие</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="212"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Внешний вид</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="212"/>
         <source>Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>Терминал</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="212"/>
         <source>Window</source>
-        <translation type="unfinished">Окно</translation>
+        <translation>Окно</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.cpp" line="212"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительно</translation>
     </message>
 </context>
 <context>
@@ -292,7 +292,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="17"/>
         <source>Transparent window</source>
-        <translation type="unfinished"></translation>
+        <translation>Прозрачное окно</translation>
     </message>
 </context>
 <context>
@@ -300,28 +300,29 @@
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>ASCII Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>ASCII текст...</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.ui" line="50"/>
         <source>clear</source>
-        <translation type="unfinished"></translation>
+        <translation>очистить</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="38"/>
         <source>Hex View</source>
-        <translation type="unfinished"></translation>
+        <translation>Шестнадцатеричный просмотр</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="84"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="84"/>
         <source>Will send Hex:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Будет отправлено Hex:
+</translation>
     </message>
 </context>
 <context>
@@ -373,62 +374,62 @@
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="14"/>
         <source>Lock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Блокировка сессии</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="20"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="84"/>
         <source>Enter the password that will be used to unlock the session:</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите пароль, который будет использоваться для разблокировки сессии:</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="32"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="50"/>
         <source>Reenter Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторите пароль</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="68"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="85"/>
         <source>Lock all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокировать все сессии</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.ui" line="75"/>
         <source>Lock all sessions in tab group</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокировать все сессии в группе вкладок</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="49"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="55"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="66"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="49"/>
         <source>Passwords do not match!</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароли не совпадают!</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="55"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="66"/>
         <source>Password cannot be empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль не может быть пустым!</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="98"/>
         <source>Enter the password that was used to lock the session:</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите пароль, который использовался для блокировки сессии:</translation>
     </message>
     <message>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="99"/>
         <source>Unlock all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Разблокировать все сессии</translation>
     </message>
 </context>
 <context>
@@ -437,7 +438,7 @@
         <location filename="../src/mainwindow.ui" line="101"/>
         <location filename="../src/mainwindow.cpp" line="845"/>
         <source>Tool Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Панель инструментов</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="160"/>
@@ -451,104 +452,104 @@
         <location filename="../src/mainwindow.cpp" line="2768"/>
         <location filename="../src/mainwindow.cpp" line="2773"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Предупреждение</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="160"/>
         <source>TFTP server bind error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка привязки TFTP сервера!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="163"/>
         <source>TFTP server file error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка файла TFTP сервера!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="166"/>
         <source>TFTP server network error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка сети TFTP сервера!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="214"/>
         <source>Unlock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Разблокировать сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="220"/>
         <source>Move to another Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Переместить в другую вкладку</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="229"/>
         <source>Floating Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Плавающее окно</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="235"/>
         <source>Copy Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать путь</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="248"/>
         <location filename="../src/mainwindow.cpp" line="263"/>
         <location filename="../src/mainwindow.cpp" line="279"/>
         <source>No working folder!</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет рабочего каталога!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="250"/>
         <source>Add Path to Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить путь в закладки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="265"/>
         <source>Open Working Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть рабочий каталог</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="281"/>
         <source>Save Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="291"/>
         <source>Enter Session Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите имя сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="292"/>
         <source>The session already exists, please rename the new session or cancel saving.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сессия уже существует, переименуйте новую сессию или отмените сохранение.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="298"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Свойства</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="316"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="321"/>
         <source>Close Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть другие</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="331"/>
         <source>Close to the Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть справа</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="339"/>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть все</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="620"/>
         <source>Highlight/Unhighlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделить/Снять выделение</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="445"/>
@@ -560,7 +561,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="661"/>
         <source>Back to Main Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Вернуться в главное окно</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="718"/>
@@ -633,87 +634,87 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="733"/>
         <source>New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Новое окно</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="735"/>
         <source>Open a new window &lt;Ctrl+Shift+N&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть новое окно &lt;Ctrl+Shift+N&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="737"/>
         <source>Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="739"/>
         <source>Connect to a host &lt;Alt+C&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться к хосту &lt;Alt+C&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="743"/>
         <source>Go to the Session Manager &lt;Alt+M&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти в менеджер сессий &lt;Alt+M&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="745"/>
         <source>Quick Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>Быстрое подключение...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="747"/>
         <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Быстрое подключение к хосту &lt;Alt+Q&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="749"/>
         <source>Connect in Tab/Tile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться во вкладке/плитке...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="750"/>
         <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться к хосту в новой вкладке &lt;Alt+B&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="752"/>
         <source>Connect Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться к локальному shell</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Connect to a local shell &lt;Alt+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться к локальному shell &lt;Alt+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="756"/>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключиться</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="758"/>
         <source>Reconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключить текущую сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="759"/>
         <source>Reconnect All</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключить все</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="760"/>
         <source>Reconnect all sessions &lt;Alt+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключить все сессии &lt;Alt+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключиться</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="764"/>
         <source>Disconnect current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключить текущую сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="765"/>
@@ -724,605 +725,605 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="767"/>
         <source>Disconnect All</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключить все</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="768"/>
         <source>Disconnect all sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключить все сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="769"/>
         <source>Clone Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Клонировать сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="770"/>
         <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Клонировать текущую сессию &lt;Ctrl+Shift+T&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="772"/>
         <source>Lock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Блокировка сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="773"/>
         <source>Lock/Unlock current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Блокировать/Разблокировать текущую сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="774"/>
         <source>Log Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="775"/>
         <source>Create a log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать файл журнала для текущей сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="776"/>
         <source>Raw Log Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Сырой журнал сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Create a raw log file for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать сырой файл журнала для текущей сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Hex View</source>
-        <translation type="unfinished"></translation>
+        <translation>Шестнадцатеричный просмотр</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="779"/>
         <source>Show/Hide Hex View for current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть шестнадцатеричный просмотр для текущей сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="780"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="781"/>
         <source>Quit the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Выйти из приложения</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="783"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="786"/>
         <source>Copy the selected text to the clipboard &lt;Command+C&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать выделенный текст в буфер обмена &lt;Command+C&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="789"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать выделенный текст в буфер обмена &lt;Ctrl+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="792"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставить</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="795"/>
         <source>Paste the clipboard text to the current session &lt;Command+V&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставить текст из буфера обмена в текущую сессию &lt;Command+V&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="798"/>
         <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставить текст из буфера обмена в текущую сессию &lt;Shift+Ins&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="801"/>
         <source>Copy and Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать и вставить</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="802"/>
         <source>Copy the selected text to the clipboard and paste to the current session</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать выделенный текст в буфер обмена и вставить в текущую сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="803"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделить все</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="805"/>
         <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделить весь текст в текущей сессии &lt;Ctrl+Shift+A&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="807"/>
         <source>Find...</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="809"/>
         <source>Find text in the current session &lt;Ctrl+F&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти текст в текущей сессии &lt;Ctrl+F&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="811"/>
         <source>Print Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Печать экрана</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="813"/>
         <source>Print current screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Печать текущего экрана</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="814"/>
         <source>Screen Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Снимок экрана</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="816"/>
         <source>Screen shot current screen &lt;Alt+P&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Снимок текущего экрана &lt;Alt+P&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="818"/>
         <source>Session Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="820"/>
         <source>Export current session to a file &lt;Alt+O&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортировать текущую сессию в файл &lt;Alt+O&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="822"/>
         <source>Clear Scrollback</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить буфер прокрутки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="823"/>
         <source>Clear the contents of the scrollback rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить содержимое строк буфера прокрутки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="824"/>
         <source>Clear Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить экран</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="825"/>
         <source>Clear the contents of the current screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить содержимое текущего экрана</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="826"/>
         <source>Clear Screen and Scrollback</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить экран и буфер прокрутки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="827"/>
         <source>Clear the contents of the screen and scrollback</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить содержимое экрана и буфера прокрутки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="828"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="829"/>
         <source>Reset terminal emulator</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить эмулятор терминала</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="831"/>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Увеличить</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="833"/>
         <source>Zoom In &lt;Ctrl+&quot;=&quot;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Увеличить &lt;Ctrl+&quot;=&quot;&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="835"/>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Уменьшить</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="837"/>
         <source>Zoom Out &lt;Ctrl+&quot;-&quot;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Уменьшить &lt;Ctrl+&quot;-&quot;&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="839"/>
         <location filename="../src/mainwindow.cpp" line="841"/>
         <source>Zoom Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить масштаб</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="842"/>
         <source>Menu Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Меню</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="843"/>
         <source>Show/Hide Menu Bar &lt;Alt+U&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть меню &lt;Alt+U&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="846"/>
         <source>Show/Hide Tool Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть панель инструментов</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="847"/>
         <source>Status Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Строка состояния</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="848"/>
         <source>Show/Hide Status Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть строку состояния</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="849"/>
         <source>Command Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Окно команд</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="850"/>
         <source>Show/Hide Command Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть окно команд</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="851"/>
         <source>Connect Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Панель подключения</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="852"/>
         <source>Show/Hide Connect Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть панель подключения</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="853"/>
         <source>Side Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Боковое окно</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="854"/>
         <source>Show/Hide Side Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть боковое окно</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="855"/>
         <source>Windows Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Прозрачность окон</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="856"/>
         <source>Enable/Disable alpha transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить/Выключить альфа прозрачность</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="857"/>
         <source>Vertical Scroll Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Вертикальная полоса прокрутки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="858"/>
         <source>Show/Hide Vertical Scroll Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать/Скрыть вертикальную полосу прокрутки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="859"/>
         <source>Allways On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Поверх всех окон</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="860"/>
         <source>Show window always on top</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать окно поверх всех окон</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="861"/>
         <source>Full Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Полный экран</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="862"/>
         <source>Toggle between full screen and normal mode &lt;Alt+Enter&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключиться между полноэкранным и нормальным режимом &lt;Alt+Enter&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="865"/>
         <source>Session Options...</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки сессии...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="867"/>
         <source>Configure session options</source>
-        <translation type="unfinished"></translation>
+        <translation>Настроить параметры сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="868"/>
         <source>Global Options...</source>
-        <translation type="unfinished"></translation>
+        <translation>Глобальные настройки...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="870"/>
         <source>Configure global options</source>
-        <translation type="unfinished"></translation>
+        <translation>Настроить глобальные параметры</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="871"/>
         <source>Real-time Save Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки сохранения в реальном времени</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="872"/>
         <source>Real-time save session options and global options</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки сохранения сессии и глобальные настройки в реальном времени</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="873"/>
         <source>Save Settings Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить настройки сейчас</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="874"/>
         <source>Save options configuration now</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить конфигурацию настроек сейчас</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="876"/>
         <source>Send ASCII...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить ASCII...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="877"/>
         <source>Send ASCII file</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить файл ASCII</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="878"/>
         <source>Receive ASCII...</source>
-        <translation type="unfinished"></translation>
+        <translation>Принять ASCII...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="879"/>
         <source>Receive ASCII file</source>
-        <translation type="unfinished"></translation>
+        <translation>Принять файл ASCII</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="880"/>
         <source>Send Binary...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить бинарный файл...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="881"/>
         <source>Send Binary file</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить бинарный файл</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="882"/>
         <source>Send Xmodem...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить Xmodem...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="883"/>
         <source>Send a file using Xmodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить файл, используя Xmodem</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="884"/>
         <source>Receive Xmodem...</source>
-        <translation type="unfinished"></translation>
+        <translation>Принять Xmodem...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="885"/>
         <source>Receive a file using Xmodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Принять файл, используя Xmodem</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="886"/>
         <source>Send Ymodem...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить Ymodem...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="887"/>
         <source>Send a file using Ymodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить файл, используя Ymodem</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="888"/>
         <source>Receive Ymodem...</source>
-        <translation type="unfinished"></translation>
+        <translation>Принять Ymodem...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="889"/>
         <source>Receive a file using Ymodem</source>
-        <translation type="unfinished"></translation>
+        <translation>Принять файл, используя Ymodem</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="890"/>
         <source>Zmodem Upload List...</source>
-        <translation type="unfinished"></translation>
+        <translation>Список загрузки Zmodem...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="891"/>
         <source>Display Zmodem file upload list</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать список загрузки файлов Zmodem</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="892"/>
         <source>Start Zmodem Upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Начать загрузку Zmodem</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="893"/>
         <source>Start Zmodem file upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Начать загрузку файла Zmodem</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="894"/>
         <source>Start TFTP Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустить TFTP сервер</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="895"/>
         <source>Start/Stop the TFTP server</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустить/Остановить TFTP сервер</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="897"/>
         <source>Run...</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустить...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="898"/>
         <source>Run a script</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустить скрипт</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="899"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="900"/>
         <source>Cancel script execution</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить выполнение скрипта</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="901"/>
         <source>Start Recording Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Начать запись скрипта</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="902"/>
         <source>Start recording script</source>
-        <translation type="unfinished"></translation>
+        <translation>Начать запись скрипта</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="903"/>
         <source>Stop Recording Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>Остановить запись скрипта...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="904"/>
         <source>Stop recording script</source>
-        <translation type="unfinished"></translation>
+        <translation>Остановить запись скрипта</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="905"/>
         <source>Cancel Recording Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить запись скрипта</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="906"/>
         <source>Cancel recording script</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить запись скрипта</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="908"/>
         <source>Add Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить закладку</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="909"/>
         <source>Add a bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить закладку</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="910"/>
         <location filename="../src/mainwindow.cpp" line="1818"/>
         <source>Remove Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить закладку</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="911"/>
         <source>Remove a bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить закладку</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="912"/>
         <location filename="../src/mainwindow.cpp" line="1845"/>
         <source>Clean All Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить все закладки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="913"/>
         <source>Clean all bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить все закладки</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="915"/>
         <source>Keymap Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Менеджер клавиатурных схем</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="916"/>
         <source>Display keymap editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать редактор клавиатурных схем</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="917"/>
         <source>Create Public Key...</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать публичный ключ...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="918"/>
         <source>Create a public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать публичный ключ</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="919"/>
         <source>Publickey Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Менеджер публичных ключей</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="920"/>
         <source>Display publickey manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать менеджер публичных ключей</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="922"/>
         <source>Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Вкладка</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="923"/>
         <source>Arrange sessions in tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Расположить сессии во вкладках</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="924"/>
         <source>Tile</source>
-        <translation type="unfinished"></translation>
+        <translation>Плитка</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="925"/>
         <source>Arrange sessions in non-overlapping tiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Расположить сессии в неперекрывающихся плитках</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="926"/>
         <source>Cascade</source>
-        <translation type="unfinished"></translation>
+        <translation>Каскад</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="927"/>
         <source>Arrange sessions to overlap each other</source>
-        <translation type="unfinished"></translation>
+        <translation>Расположить сессии так, чтобы они перекрывали друг друга</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="943"/>
@@ -1407,68 +1408,68 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="946"/>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Светлая</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="947"/>
         <source>Switch to light theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключиться на светлую тему</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="948"/>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Темная</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="949"/>
         <source>Switch to dark theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключиться на темную тему</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="953"/>
         <source>Display help</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать справку</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="954"/>
         <source>Check Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверить обновления</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="956"/>
         <source>Check for updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверить наличие обновлений</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="957"/>
         <location filename="../src/mainwindow.cpp" line="2715"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="959"/>
         <source>Display about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать диалоговое окно &quot;О программе&quot;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="960"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>О Qt</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="962"/>
         <source>Display about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать диалоговое окно &quot;О Qt&quot;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1641"/>
         <source>PrintScreen saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Снимок экрана сохранен в %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1651"/>
         <source>Save Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить снимок экрана</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1651"/>
