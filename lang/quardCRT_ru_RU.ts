@@ -1474,62 +1474,62 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="1651"/>
         <source>Image Files (*.jpg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы изображений (*.jpg)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1656"/>
         <source>Screenshot saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Снимок экрана сохранен в %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1665"/>
         <source>Save Session Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить экспорт сессии</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1665"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстовые файлы (*.txt);;HTML файлы (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1668"/>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстовые файлы (*.txt)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1671"/>
         <source>HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML файлы (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1680"/>
         <source>Session Export saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт сессии сохранен в %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1682"/>
         <source>Session Export failed to save to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт сессии не удалось сохранить в %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1791"/>
         <source>Select a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите каталог</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1818"/>
         <source>Select a bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите закладку</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1845"/>
         <source>Are you sure to clean all bookmark?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы уверены, что хотите очистить все закладки?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1993"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Включен видеофон, пожалуйста, включите анимацию в глобальных настройках (больше системных ресурсов) или измените фоновое изображение.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2273"/>
