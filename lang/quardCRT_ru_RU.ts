@@ -152,7 +152,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
         <source>New tab workpath</source>
-        <translation>Рабочий каталог новой вкладки</translation>       
+        <translation>Рабочий каталог новой вкладки</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="27"/>
@@ -447,10 +447,10 @@
         <location filename="../src/mainwindow.cpp" line="248"/>
         <location filename="../src/mainwindow.cpp" line="263"/>
         <location filename="../src/mainwindow.cpp" line="279"/>
-        <location filename="../src/mainwindow.cpp" line="1993"/>
-        <location filename="../src/mainwindow.cpp" line="2541"/>
-        <location filename="../src/mainwindow.cpp" line="2768"/>
-        <location filename="../src/mainwindow.cpp" line="2773"/>
+        <location filename="../src/mainwindow.cpp" line="1994"/>
+        <location filename="../src/mainwindow.cpp" line="2542"/>
+        <location filename="../src/mainwindow.cpp" line="2769"/>
+        <location filename="../src/mainwindow.cpp" line="2774"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
@@ -554,7 +554,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="445"/>
         <location filename="../src/mainwindow.cpp" line="541"/>
-        <location filename="../src/mainwindow.cpp" line="1908"/>
+        <location filename="../src/mainwindow.cpp" line="1909"/>
         <source>Ready</source>
         <translation>Готово</translation>
     </message>
@@ -627,7 +627,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="731"/>
         <location filename="../src/mainwindow.cpp" line="951"/>
-        <location filename="../src/mainwindow.cpp" line="2732"/>
+        <location filename="../src/mainwindow.cpp" line="2733"/>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
@@ -1245,7 +1245,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="910"/>
-        <location filename="../src/mainwindow.cpp" line="1818"/>
+        <location filename="../src/mainwindow.cpp" line="1819"/>
         <source>Remove Bookmark</source>
         <translation>Удалить закладку</translation>
     </message>
@@ -1256,7 +1256,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="912"/>
-        <location filename="../src/mainwindow.cpp" line="1845"/>
+        <location filename="../src/mainwindow.cpp" line="1846"/>
         <source>Clean All Bookmark</source>
         <translation>Очистить все закладки</translation>
     </message>
@@ -1442,7 +1442,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="957"/>
-        <location filename="../src/mainwindow.cpp" line="2715"/>
+        <location filename="../src/mainwindow.cpp" line="2716"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
@@ -1462,200 +1462,200 @@
         <translation>Показать диалоговое окно &quot;О Qt&quot;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1641"/>
+        <location filename="../src/mainwindow.cpp" line="1642"/>
         <source>PrintScreen saved to %1</source>
         <translation>Снимок экрана сохранен в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1651"/>
+        <location filename="../src/mainwindow.cpp" line="1652"/>
         <source>Save Screenshot</source>
         <translation>Сохранить снимок экрана</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1651"/>
+        <location filename="../src/mainwindow.cpp" line="1652"/>
         <source>Image Files (*.jpg)</source>
         <translation>Файлы изображений (*.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1656"/>
+        <location filename="../src/mainwindow.cpp" line="1657"/>
         <source>Screenshot saved to %1</source>
         <translation>Снимок экрана сохранен в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1665"/>
+        <location filename="../src/mainwindow.cpp" line="1666"/>
         <source>Save Session Export</source>
         <translation>Сохранить экспорт сессии</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1665"/>
+        <location filename="../src/mainwindow.cpp" line="1666"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation>Текстовые файлы (*.txt);;HTML файлы (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1668"/>
+        <location filename="../src/mainwindow.cpp" line="1669"/>
         <source>Text Files (*.txt)</source>
         <translation>Текстовые файлы (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1671"/>
+        <location filename="../src/mainwindow.cpp" line="1672"/>
         <source>HTML Files (*.html)</source>
         <translation>HTML файлы (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1680"/>
+        <location filename="../src/mainwindow.cpp" line="1681"/>
         <source>Session Export saved to %1</source>
         <translation>Экспорт сессии сохранен в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1682"/>
+        <location filename="../src/mainwindow.cpp" line="1683"/>
         <source>Session Export failed to save to %1</source>
         <translation>Экспорт сессии не удалось сохранить в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1791"/>
+        <location filename="../src/mainwindow.cpp" line="1792"/>
         <source>Select a directory</source>
         <translation>Выберите каталог</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1818"/>
+        <location filename="../src/mainwindow.cpp" line="1819"/>
         <source>Select a bookmark</source>
         <translation>Выберите закладку</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1845"/>
+        <location filename="../src/mainwindow.cpp" line="1846"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>Вы уверены, что хотите очистить все закладки?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1993"/>
+        <location filename="../src/mainwindow.cpp" line="1994"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>Включен видеофон, пожалуйста, включите анимацию в глобальных настройках (больше системных ресурсов) или измените фоновое изображение.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2273"/>
-        <source>Telnet - </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="2274"/>
-        <source>Telnet</source>
-        <translation type="unfinished"></translation>
+        <source>Telnet - </source>
+        <translation>Телнет - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2306"/>
-        <source>Serial - </source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/mainwindow.cpp" line="2275"/>
+        <source>Telnet</source>
+        <translation>Телнет</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2307"/>
-        <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <source>Serial - </source>
+        <translation>Серийный порт - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2338"/>
-        <source>Raw - </source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/mainwindow.cpp" line="2308"/>
+        <source>Serial</source>
+        <translation>Серийный порт</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2339"/>
-        <source>Raw</source>
-        <translation type="unfinished"></translation>
+        <source>Raw - </source>
+        <translation>Raw - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2370"/>
-        <source>NamePipe - </source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/mainwindow.cpp" line="2340"/>
+        <source>Raw</source>
+        <translation>Raw</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2371"/>
+        <source>NamePipe - </source>
+        <translation>Именованный канал - </translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2372"/>
         <source>NamePipe</source>
-        <translation type="unfinished"></translation>
+        <translation>Именованный канал</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2439"/>
-        <location filename="../src/mainwindow.cpp" line="2443"/>
+        <location filename="../src/mainwindow.cpp" line="2440"/>
+        <location filename="../src/mainwindow.cpp" line="2444"/>
         <source>Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальная оболочка</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2441"/>
+        <location filename="../src/mainwindow.cpp" line="2442"/>
         <source>Local Shell - </source>
-        <translation type="unfinished"></translation>
+        <translation>Локальная оболочка - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2541"/>
+        <location filename="../src/mainwindow.cpp" line="2542"/>
         <source>Are you sure to disconnect this session?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы уверены, что хотите отключить эту сессию?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2716"/>
+        <location filename="../src/mainwindow.cpp" line="2717"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="2734"/>
-        <source>Global Shortcuts:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Версия&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;представлять на рассмотрение&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;автор&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Веб-сайт&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2735"/>
-        <source>show/hide menu bar</source>
-        <translation type="unfinished"></translation>
+        <source>Global Shortcuts:</source>
+        <translation>Глобальные ярлыки:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2736"/>
-        <source>connect to LocalShell</source>
-        <translation type="unfinished"></translation>
+        <source>show/hide menu bar</source>
+        <translation>показать/скрыть меню</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2737"/>
-        <source>clone current session</source>
-        <translation type="unfinished"></translation>
+        <source>connect to LocalShell</source>
+        <translation>подключиться к локальной оболочке</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2738"/>
-        <source>switch ui to STD mode</source>
-        <translation type="unfinished"></translation>
+        <source>clone current session</source>
+        <translation>клонировать текущую сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2739"/>
-        <source>switch ui to MINI mode</source>
-        <translation type="unfinished"></translation>
+        <source>switch ui to STD mode</source>
+        <translation>переключить интерфейс в режим STD</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2740"/>
-        <source>switch to previous session</source>
-        <translation type="unfinished"></translation>
+        <source>switch ui to MINI mode</source>
+        <translation>переключить интерфейс в режим MINI</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2741"/>
-        <source>switch to next session</source>
-        <translation type="unfinished"></translation>
+        <source>switch to previous session</source>
+        <translation>переключиться на предыдущую сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2742"/>
-        <source>switch to session [num]</source>
-        <translation type="unfinished"></translation>
+        <source>switch to next session</source>
+        <translation>переключиться на следующую сессию</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2743"/>
-        <source>Go to line start</source>
-        <translation type="unfinished"></translation>
+        <source>switch to session [num]</source>
+        <translation>переключиться на сессию [num]</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2744"/>
+        <source>Go to line start</source>
+        <translation>Перейти в начало строки</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2745"/>
         <source>Go to line end</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти в конец строки</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2768"/>
+        <location filename="../src/mainwindow.cpp" line="2769"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Есть сессии, которые еще не были разблокированы, пожалуйста, сначала разблокируйте их.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2773"/>
+        <location filename="../src/mainwindow.cpp" line="2774"/>
         <source>Are you sure to quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы уверены, что хотите выйти?</translation>
     </message>
 </context>
 <context>
@@ -1707,7 +1707,7 @@
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="560"/>
         <source>Copy Path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Копировать путь</translation>
     </message>
 </context>
 <context>
@@ -1728,22 +1728,22 @@
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="30"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Протокол</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="43"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Серийный порт</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="48"/>
         <source>Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальная оболочка</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="58"/>
         <source>Named Pipe</source>
-        <translation type="unfinished"></translation>
+        <translation>Именованный канал</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
@@ -1751,7 +1751,7 @@
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя хоста</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
@@ -1759,120 +1759,120 @@
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="164"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="220"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="120"/>
         <source>WebSocket</source>
-        <translation type="unfinished"></translation>
+        <translation>WebSocket</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="133"/>
         <source>Insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>Небезопасный</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="138"/>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation>Безопасный</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="156"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="166"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
         <source>DataBits</source>
-        <translation type="unfinished"></translation>
+        <translation>Биты данных</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Четность</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Нечетный</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Четный</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
         <source>StopBits</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоповые биты</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
         <source>Save session</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить сессию</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
         <source>Open in tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть во вкладке</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
         <source>Quick Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Быстрое подключение</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="90"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="184"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="240"/>
         <source>e.g. 127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>например, 127.0.0.1</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Port Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя порта</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
         <source>Baud Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость передачи</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="139"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Команда</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="159"/>
         <source>e.g. /bin/bash</source>
-        <translation type="unfinished"></translation>
+        <translation>например, /bin/bash</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="191"/>
         <source>Pipe Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя канала</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="212"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
-        <translation type="unfinished"></translation>
+        <translation>например, \\\.\pipe\namedpipe</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="214"/>
         <source>e.g. /tmp/socket</source>
-        <translation type="unfinished"></translation>
+        <translation>например, /tmp/socket</translation>
     </message>
 </context>
 <context>
@@ -1931,37 +1931,37 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="133"/>
         <source>Telnet</source>
-        <translation type="unfinished"></translation>
+        <translation>Телнет</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="135"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Серийный порт</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="137"/>
         <source>Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Оболочка</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="139"/>
         <source>Raw</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="141"/>
         <source>NamePipe</source>
-        <translation type="unfinished"></translation>
+        <translation>Именованный канал</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="265"/>
         <source>Name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="267"/>
         <source>Kind</source>
-        <translation type="unfinished"></translation>
+        <translation>Вид</translation>
     </message>
 </context>
 <context>
@@ -1970,32 +1970,32 @@
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="39"/>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="65"/>
         <source>Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Сессия</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="75"/>
         <source>Connect Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключить терминал</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="80"/>
         <source>Connect in New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключить в новом окне</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="82"/>
         <source>Connect in New Tab Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключить в новой группе вкладок</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="85"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="91"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Свойства</translation>
     </message>
 </context>
 <context>
@@ -2003,12 +2003,12 @@
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="68"/>
         <source>Session Manager</source>
-        <translation type="unfinished">Менеджер сессий</translation>
+        <translation>Менеджер сессий</translation>
     </message>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="69"/>
         <source>Filter by folder/session name</source>
-        <translation type="unfinished"></translation>
+        <translation>Фильтровать по имени папки/сессии</translation>
     </message>
 </context>
 <context>
@@ -2016,27 +2016,27 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="25"/>
         <source>Name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="45"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Протокол</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="58"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Серийный порт</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="63"/>
         <source>Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальная оболочка</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="73"/>
         <source>Named Pipe</source>
-        <translation type="unfinished"></translation>
+        <translation>Именованный канал</translation>
     </message>
 </context>
 <context>
@@ -2044,7 +2044,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionslocalshellproperties.ui" line="19"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Команда</translation>
     </message>
 </context>
 <context>
@@ -2052,7 +2052,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionslocalshellstate.cpp" line="33"/>
         <source>Name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
     </message>
 </context>
 <context>
@@ -2060,7 +2060,7 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsnamepipeproperties.ui" line="25"/>
         <source>PipeName</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя канала</translation>
     </message>
 </context>
 <context>
@@ -2068,12 +2068,12 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="25"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя хоста</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="45"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт</translation>
     </message>
 </context>
 <context>
@@ -2081,42 +2081,42 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="25"/>
         <source>Port Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя порта</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="45"/>
         <source>Baud Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорость передачи</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="72"/>
         <source>DataBits</source>
-        <translation type="unfinished"></translation>
+        <translation>Биты данных</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="109"/>
         <source>Parity</source>
-        <translation type="unfinished"></translation>
+        <translation>Четность</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="117"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="122"/>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Нечетный</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="127"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Четный</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="145"/>
         <source>StopBits</source>
-        <translation type="unfinished"></translation>
+        <translation>Стоповые биты</translation>
     </message>
 </context>
 <context>
@@ -2124,27 +2124,27 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="19"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя хоста</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="33"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="51"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="56"/>
         <source>Insecure</source>
-        <translation type="unfinished"></translation>
+        <translation>Небезопасный</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="61"/>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation>Безопасный</translation>
     </message>
 </context>
 <context>
@@ -2152,22 +2152,22 @@
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.ui" line="14"/>
         <source>Session Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки сессии</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Общие</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Свойства</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="115"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Состояние</translation>
     </message>
     <message>
         <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="124"/>
@@ -2180,115 +2180,122 @@
     <message>
         <location filename="../src/sessionswindow.cpp" line="118"/>
         <source>Telnet Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка Telnet</translation>
     </message>
     <message>
         <location filename="../src/sessionswindow.cpp" line="118"/>
         <source>Telnet error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка Telnet:
+%1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="141"/>
+        <location filename="../src/sessionswindow.cpp" line="143"/>
         <source>Serial Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка серийного порта</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="141"/>
+        <location filename="../src/sessionswindow.cpp" line="143"/>
         <source>Serial error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка серийного порта:
+%1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="173"/>
+        <location filename="../src/sessionswindow.cpp" line="175"/>
         <source>Raw Socket Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка Raw Socket</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="173"/>
+        <location filename="../src/sessionswindow.cpp" line="175"/>
         <source>Raw Socket error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка Raw Socket:
+%1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="205"/>
+        <location filename="../src/sessionswindow.cpp" line="207"/>
         <source>Name Pipe Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка именованного канала</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="205"/>
+        <location filename="../src/sessionswindow.cpp" line="207"/>
         <source>Name Pipe error:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка именованного канала:
+%1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="344"/>
+        <location filename="../src/sessionswindow.cpp" line="346"/>
         <source>Start Local Shell</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустить локальную оболочку</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="344"/>
+        <location filename="../src/sessionswindow.cpp" line="346"/>
         <source>Cannot start local shell:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось запустить локальную оболочку:
+%1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="394"/>
+        <location filename="../src/sessionswindow.cpp" line="396"/>
         <source>Start Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустить серийный порт</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="394"/>
+        <location filename="../src/sessionswindow.cpp" line="396"/>
         <source>Cannot open serial port:
 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть серийный порт:
+%1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="432"/>
+        <location filename="../src/sessionswindow.cpp" line="434"/>
         <source>Save log...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить журнал...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="433"/>
+        <location filename="../src/sessionswindow.cpp" line="435"/>
         <source>log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>файлы журналов (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="437"/>
+        <location filename="../src/sessionswindow.cpp" line="439"/>
         <source>Save log</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить журнал</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="437"/>
-        <location filename="../src/sessionswindow.cpp" line="472"/>
+        <location filename="../src/sessionswindow.cpp" line="439"/>
+        <location filename="../src/sessionswindow.cpp" line="474"/>
         <source>Cannot write file %1:
 %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось записать файл %1:
+%2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="467"/>
+        <location filename="../src/sessionswindow.cpp" line="469"/>
         <source>Save Raw log...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить Raw журнал...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="468"/>
+        <location filename="../src/sessionswindow.cpp" line="470"/>
         <source>binary files (*.bin)</source>
-        <translation type="unfinished"></translation>
+        <translation>бинарные файлы (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="472"/>
+        <location filename="../src/sessionswindow.cpp" line="474"/>
         <source>Save Raw log</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить Raw журнал</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="544"/>
+        <location filename="../src/sessionswindow.cpp" line="546"/>
         <source>Unlock Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Разблокировать сессию</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="544"/>
+        <location filename="../src/sessionswindow.cpp" line="546"/>
         <source>Wrong password!</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверный пароль!</translation>
     </message>
 </context>
 <context>
@@ -2296,43 +2303,43 @@
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="14"/>
         <source>Start TFTP Sever</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустить TFTP сервер</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="32"/>
         <source>The TFTP server uses local directories for uploading and downloading files. Please enter this information below.</source>
-        <translation type="unfinished"></translation>
+        <translation>TFTP сервер использует локальные каталоги для загрузки и скачивания файлов. Пожалуйста, введите эту информацию ниже.</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="65"/>
         <source>TFTP Port</source>
-        <translation type="unfinished"></translation>
+        <translation>TFTP порт</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="104"/>
         <source>Upload directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог загрузки</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="143"/>
         <source>Download directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог скачивания</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="38"/>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="45"/>
         <source>Open Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть каталог</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Предупреждение</translation>
     </message>
     <message>
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Please select a valid directory!</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, выберите действительный каталог!</translation>
     </message>
 </context>
 <context>
@@ -2340,12 +2347,12 @@
     <message>
         <location filename="../src/keymapmanager/keymapmanager.ui" line="14"/>
         <source>keyMapManager</source>
-        <translation type="unfinished"></translation>
+        <translation>Менеджер карты клавиш</translation>
     </message>
     <message>
         <location filename="../src/keymapmanager/keymapmanager.ui" line="20"/>
         <source>KeyBinding</source>
-        <translation type="unfinished"></translation>
+        <translation>Привязка клавиш</translation>
     </message>
 </context>
 </TS>
