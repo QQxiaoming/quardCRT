@@ -139,6 +139,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
                 if(serialPort->error() == QSerialPort::NoError) return;
+                if(state == Error) return;
                 QMessageBox::warning(term, tr("Serial Error"), tr("Serial error:\n%1.").arg(serialPort->errorString()));
                 state = Error;
                 emit stateChanged(state);
