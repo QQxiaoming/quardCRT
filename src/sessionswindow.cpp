@@ -393,7 +393,9 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     if(!serialPort->open(QIODevice::ReadWrite)) {
         state = Error;
         emit stateChanged(state);
-        QMessageBox::warning(term, tr("Start Serial"), tr("Cannot open serial port:\n%1.").arg(serialPort->errorString()));
+    } else {
+        state = Connected;
+        emit stateChanged(state);
     }
     serialPort->setBreakEnabled(xEnable);
     m_portName = portName;
@@ -403,8 +405,6 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     m_stopBits = stopBits;
     m_flowControl = flowControl;
     m_xEnable = xEnable;
-    state = Connected;
-    emit stateChanged(state);
     return 0;
 }
 

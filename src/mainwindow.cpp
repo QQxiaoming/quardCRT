@@ -2546,6 +2546,10 @@ int MainWindow::stopSession(MainWidgetGroup *group, int index, bool force)
                     group->sessionTab->removeTab(index);
                     delete sessionsWindow;
                 }
+            } else {
+                sessionList.removeOne(sessionsWindow);
+                group->sessionTab->removeTab(index);
+                delete sessionsWindow;
             }
         }
     }

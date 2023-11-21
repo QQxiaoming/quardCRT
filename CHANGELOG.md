@@ -4,6 +4,7 @@
 
 - 增加自定义设置单词字符（Word Characters）功能，可以设置哪些字符为视为单词字符，方便快速选中单词
 - 修复串口连接正常但弹出错误提示“No Error”问题
+- 修复连接失败的会话无法关闭问题
 
 ## [[V0.2.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.6)] - 2023-11-15
 
