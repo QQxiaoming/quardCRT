@@ -181,8 +181,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         }
         case NamePipe: {
             namePipe = new QLocalSocket(this);
-            connect(namePipe,&QLocalSocket::readyRead,this,
-                [=](){
+            connect(namePipe,&QLocalSocket::readyRead,this,[=](){
                 QByteArray data = namePipe->readAll();
                 term->recvData(data.data(), data.size());
                 saveRawLog(data.data(), data.size());
@@ -209,6 +208,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 emit stateChanged(state);
                 Q_UNUSED(socketError);
             });
+            break;
+        }
+        case SSH2: {
             break;
         }
     }
@@ -301,6 +303,9 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
             break;
         case NamePipe:
             startNamePipeSession(src->m_pipeName);
+            break;
+        case SSH2:
+            startSSH2Session(src->m_hostname, src->m_port, src->m_username, src->m_password);
             break;
         }
     }  
@@ -418,6 +423,10 @@ int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port)
 int SessionsWindow::startNamePipeSession(const QString &name) {
     namePipe->connectToServer(name);
     m_pipeName = name;
+    return 0;
+}
+
+int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password) {
     return 0;
 }
 

@@ -41,6 +41,7 @@ public:
         LocalShell,
         RawSocket,
         NamePipe,
+        SSH2,
     };
     enum SessionsState {
         Connected,
@@ -58,6 +59,7 @@ public:
                     int dataBits, int parity, int stopBits, bool flowControl, bool xEnable );
     int startRawSocketSession(const QString &hostname, quint16 port);
     int startNamePipeSession(const QString &name);
+    int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password);
 
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
@@ -97,6 +99,8 @@ public:
     bool getXEnable() const { return m_xEnable; }
     QString getCommand() const { return m_command; }
     QString getPipeName() const { return m_pipeName; }
+    QString getUserName() const { return m_username; }
+    QString getPassWord() const { return m_password; }
 
 signals:
     void hexDataDup(const char *data, int size);
@@ -142,6 +146,8 @@ private:
     bool m_xEnable;
     QString m_command;
     QString m_pipeName;
+    QString m_username;
+    QString m_password;
 };
 
 #endif // SESSIONSWINDOW_H

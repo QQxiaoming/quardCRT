@@ -35,6 +35,7 @@
 #include "ui_sessionoptionslocalshellproperties.h"
 #include "ui_sessionoptionsnamepipeproperties.h"
 #include "ui_sessionoptionsrawproperties.h"
+#include "ui_sessionoptionsssh2properties.h"
 
 #include "ui_sessionoptionslocalshellstate.h"
 
@@ -76,6 +77,9 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
     widget->layout()->addWidget(sessionOptionsNamePipeProperties);
     sessionOptionsRawProperties = new SessionOptionsRawProperties(widget);
     widget->layout()->addWidget(sessionOptionsRawProperties);
+    sessionOptionsSSH2Properties = new SessionOptionsSsh2Properties(widget);
+    widget->layout()->addWidget(sessionOptionsSSH2Properties);
+
     sessionOptionsLocalShellState = new SessionOptionsLocalShellState(widget);
     widget->layout()->addWidget(sessionOptionsLocalShellState);
 
@@ -120,6 +124,7 @@ void SessionOptionsWindow::retranslateUi()
     sessionOptionsLocalShellProperties->ui->retranslateUi(this);
     sessionOptionsNamePipeProperties->ui->retranslateUi(this);
     sessionOptionsRawProperties->ui->retranslateUi(this);
+    sessionOptionsSSH2Properties->ui->retranslateUi(this);
     sessionOptionsLocalShellState->ui->retranslateUi(this);
     sessionOptionsLocalShellState->ui->treeViewInfo->model()->setHeaderData(1, Qt::Horizontal, tr("Name"));
 }
@@ -131,6 +136,7 @@ void SessionOptionsWindow::setactiveProperties(int index)
     sessionOptionsLocalShellProperties->setVisible(false);
     sessionOptionsNamePipeProperties->setVisible(false);
     sessionOptionsRawProperties->setVisible(false);
+    sessionOptionsSSH2Properties->setVisible(false);
 
     if(index == -1) {
         return;
@@ -150,6 +156,9 @@ void SessionOptionsWindow::setactiveProperties(int index)
         break;
     case 4:
         sessionOptionsNamePipeProperties->setVisible(true);
+        break;
+    case 5:
+        sessionOptionsSSH2Properties->setVisible(true);
         break;
     }
 }
@@ -217,6 +226,12 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
     case QuickConnectWindow::NamePipe:
         sessionOptionsNamePipeProperties->ui->lineEditPipeName->setText(data.NamePipeData.pipeName);
         break;
+    case QuickConnectWindow::SSH2:
+        sessionOptionsSSH2Properties->ui->lineEditHostname->setText(data.SSH2Data.hostname);
+        sessionOptionsSSH2Properties->ui->spinBoxPort->setValue(data.SSH2Data.port);
+        sessionOptionsSSH2Properties->ui->lineEditUserName->setText(data.SSH2Data.username);
+        sessionOptionsSSH2Properties->ui->lineEditPassword->setText(data.SSH2Data.password);
+        break;
     }
 }
 
@@ -273,6 +288,12 @@ void SessionOptionsWindow::buttonBoxAccepted(void)
         break;
     case QuickConnectWindow::NamePipe:
         data.NamePipeData.pipeName = sessionOptionsNamePipeProperties->ui->lineEditPipeName->text();
+        break;
+    case QuickConnectWindow::SSH2:
+        data.SSH2Data.hostname = sessionOptionsSSH2Properties->ui->lineEditHostname->text();
+        data.SSH2Data.port = sessionOptionsSSH2Properties->ui->spinBoxPort->value();
+        data.SSH2Data.username = sessionOptionsSSH2Properties->ui->lineEditUserName->text();
+        data.SSH2Data.password = sessionOptionsSSH2Properties->ui->lineEditPassword->text();
         break;
     }
     emit sessionPropertiesChanged(currentSessionName, data, sessionOptionsGeneralWidget->ui->lineEditName->text());

@@ -533,6 +533,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                     startRawSocketSession(findCurrentFocusGroup(),hostname,port.toInt());
                 } else if(type == "namepipe") {
                     startNamePipeSession(findCurrentFocusGroup(),hostname);
+                } else if(type == "ssh") {
+                    //startSSHSession(findCurrentFocusGroup(),hostname,port.toInt());
                 }
             }
         }
@@ -2066,6 +2068,13 @@ int MainWindow::addSessionToSessionManager(SessionsWindow *sessionsWindow, QStri
         break;
     case SessionsWindow::NamePipe:
         settings.setValue("pipeName",sessionsWindow->getPipeName());
+        break;
+    case SessionsWindow::SSH2:
+        settings.setValue("hostname",sessionsWindow->getHostname());
+        settings.setValue("port",sessionsWindow->getPort());
+        settings.setValue("username",sessionsWindow->getUserName());
+        settings.setValue("password",sessionsWindow->getPassWord());
+        break;
     default:
         break;
     }
@@ -2110,6 +2119,12 @@ int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnec
             break;
         case QuickConnectWindow::NamePipe:
             settings.setValue("pipeName",data.NamePipeData.pipeName);
+            break;
+        case QuickConnectWindow::SSH2:
+            settings.setValue("hostname",data.SSH2Data.hostname);
+            settings.setValue("port",data.SSH2Data.port);
+            settings.setValue("username",data.SSH2Data.username);
+            settings.setValue("password",data.SSH2Data.password);
             break;
         default:
             break;
@@ -2173,6 +2188,12 @@ bool MainWindow::removeSessionFromSessionManager(QString name)
         case QuickConnectWindow::NamePipe:
             settings.setValue("pipeName",infoMap[name].NamePipeData.pipeName);
             break;
+        case QuickConnectWindow::SSH2:
+            settings.setValue("hostname",infoMap[name].SSH2Data.hostname);
+            settings.setValue("port",infoMap[name].SSH2Data.port);
+            settings.setValue("username",infoMap[name].SSH2Data.username);
+            settings.setValue("password",infoMap[name].SSH2Data.password);
+            break;
         default:
             break;
         }
@@ -2219,6 +2240,10 @@ void MainWindow::connectSessionFromSessionManager(QString name)
                 break;
             case QuickConnectWindow::NamePipe:
                 startNamePipeSession(findCurrentFocusGroup(),data.NamePipeData.pipeName, current_name);
+                break;
+            case QuickConnectWindow::SSH2:
+                startSSH2Session(findCurrentFocusGroup(),data.SSH2Data.hostname,data.SSH2Data.port,
+                                 data.SSH2Data.username,data.SSH2Data.password, current_name);
                 break;
             default:
                 break;
@@ -2485,8 +2510,7 @@ QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString
 QString MainWindow::startSSH2Session(MainWidgetGroup *group, 
         QString hostname, quint16 port, QString username, QString password, QString name)
 {
-    QString opensshCmd = "/usr/bin/sshpass -p "+ password + " /usr/bin/ssh "+username+"@"+hostname+" -p "+QString::number(port);
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
+    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::SSH2,this);
     setGlobalOptions(sessionsWindow);
     sessionsWindow->setLongTitle("SSH2 - "+username+"@"+hostname);
     sessionsWindow->setShortTitle("SSH2");
@@ -2497,8 +2521,7 @@ QString MainWindow::startSSH2Session(MainWidgetGroup *group,
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->setWorkingDirectory(QDir::homePath());
-    sessionsWindow->startLocalShellSession(opensshCmd);
+    sessionsWindow->startSSH2Session(hostname,port,username,password);
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow->getTermWidget(), &QTermWidget::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -2649,6 +2672,12 @@ void MainWindow::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickCon
         case QuickConnectWindow::NamePipe:
             data.NamePipeData.pipeName = sessionsWindow->getPipeName();
             break;
+        case QuickConnectWindow::SSH2:
+            data.SSH2Data.hostname = sessionsWindow->getHostname();
+            data.SSH2Data.port = sessionsWindow->getPort();
+            data.SSH2Data.username = sessionsWindow->getUserName();
+            data.SSH2Data.password = sessionsWindow->getPassWord();
+            break;
         default:
             break;
     }
@@ -2682,6 +2711,12 @@ void MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::Q
         break;
     case QuickConnectWindow::NamePipe:
         data.NamePipeData.pipeName = settings->value("pipeName").toString();
+        break;
+    case QuickConnectWindow::SSH2:
+        data.SSH2Data.hostname = settings->value("hostname").toString();
+        data.SSH2Data.port = settings->value("port").toInt();
+        data.SSH2Data.username = settings->value("username").toString();
+        data.SSH2Data.password = settings->value("password").toString();
         break;
     default:
         break;

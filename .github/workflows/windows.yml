@@ -47,15 +47,15 @@ jobs:
       #  with:
       #    msystem: mingw64
 
-      #- name: Build depend
+      #- name: Build winpty
       #  shell: msys2 {0}
       #  run: |
       #    pacman --noconfirm -S make gcc
       #    cd depend
       #    export PATH=/c/ProgramData/Chocolatey/lib/mingw/tools/install/mingw64/bin:$PATH
-      #    ./build_ms.sh
+      #    ./build_winpty_ms.sh
 
-      - name: Install depend
+      - name: Install winpty
         run: |
           cd D:/
           curl -L https://github.com/rprichard/winpty/releases/download/0.4.3/winpty-0.4.3-msys2-2.7.0-x64.tar.gz -o winpty-0.4.3-msys2-2.7.0-x64.tar.gz
