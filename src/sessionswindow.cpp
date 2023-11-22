@@ -28,6 +28,7 @@
 #include <QUrl>
 #include <QCryptographicHash>
 
+#include "sshshell.h"
 #include "filedialog.h"
 #include "sessionswindow.h"
 #include "globaloptionswindow.h"
@@ -211,7 +212,33 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             break;
         }
         case SSH2: {
-            break;
+            ssh2Client = new SshClient("ssh2", this);
+            connect(ssh2Client, &SshClient::sshReady, this, [=](){
+                SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT");
+                if(shell == nullptr) {
+                    QMessageBox::warning(term, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
+                    state = Error;
+                    emit stateChanged(state);
+                    return;
+                }
+                connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
+                    shell->resize(columns,lines);
+                });
+                connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
+                    term->recvData(data, size);
+                    saveRawLog(data, size);
+                    emit hexDataDup(data, size);
+                });
+                connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+                    shell->sendData(data, size);
+                });
+                state = Connected;
+                emit stateChanged(state);
+            });
+            connect(ssh2Client, &SshClient::sshDisconnected, this, [=](){
+                state = Disconnected;
+                emit stateChanged(state);
+            });
         }
     }
 
@@ -427,6 +454,14 @@ int SessionsWindow::startNamePipeSession(const QString &name) {
 }
 
 int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password) {
+    QByteArrayList methodes;
+    methodes.append("password");
+    ssh2Client->setPassphrase(password);
+    ssh2Client->connectToHost(username, hostname, port, methodes);
+    m_hostname = hostname;
+    m_port = port;
+    m_username = username;
+    m_password = password;
     return 0;
 }
 

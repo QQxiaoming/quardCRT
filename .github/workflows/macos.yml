@@ -2,7 +2,7 @@ name: macos
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev-ssh2 ]
     paths-ignore:
       - 'doc/**'
       - 'docs/**'
@@ -43,12 +43,20 @@ jobs:
           brew install --build-from-source cmake
           brew install create-dmg
 
+      - name: build libssh2
+        run: |
+          cd depend
+          export PATH=$Qt6_DIR/bin:$PATH
+          ./build_libssh2.sh
+          sudo cp -R ./output /usr/local/
+
       - name: Build all
         run: |
           git fetch --tags --force
           git describe --always --long --dirty --abbrev=10 --tags | awk '{print "\""$0"\""}' > git_tag.inc
           sed -i'.original' -e 's/git_tag.inc/git_tag.ci.inc/g' quardCRT.pro
           sed -i'.original' -e 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/macos/g' build_dmg.sh
+          sed -i'.original' -e 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
           ./build_dmg.sh
 
       - name: Upload build asserts

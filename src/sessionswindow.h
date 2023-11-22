@@ -27,6 +27,8 @@
 #include <QLocalSocket>
 #include <QMutex>
 
+#include "sshclient.h"
+#include "sshtunnelout.h"
 #include "qtermwidget.h"
 #include "QTelnet.h"
 #include "ptyqt.h"
@@ -123,6 +125,7 @@ private:
     QTcpSocket *rawSocket;
     IPtyProcess *localShell;
     QLocalSocket *namePipe;
+    SshClient *ssh2Client;
     bool enableLog;
     bool enableRawLog;
     QMutex log_file_mutex;

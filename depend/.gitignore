@@ -1,2 +1,6 @@
 !build_fcitx_qt6_linux.sh
 !build_winpty_ms.sh
+!build_libssh2.sh
+!build_libssh2_ms.sh
+!build_libssh2_mingw.sh
+output
