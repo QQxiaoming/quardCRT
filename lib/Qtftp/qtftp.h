@@ -57,7 +57,7 @@ private:
 		WRQ	= 2,	// write request
 		DATA	= 3,	// data packet
 		ACK	= 4,	// acknowledgement
-		ERROR	= 5,	// error code
+		ERR	= 5,	// error code
 		OPTACK	= 6	// option acknowledgement
 	};
 

@@ -27,7 +27,6 @@
 #include <QSysInfo>
 
 #include "qfonticon.h"
-
 #include "mainwindow.h"
 #include "globalsetting.h"
 #include "logger.h"

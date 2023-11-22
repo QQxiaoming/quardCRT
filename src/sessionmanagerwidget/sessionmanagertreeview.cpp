@@ -38,6 +38,14 @@ SessionManagerTreeView::SessionManagerTreeView(QWidget *parent)
     setColumnWidth(1,60);
     rootIndex = mode->addTree(tr("Session"), -1, QModelIndex());
     expand(rootIndex);
+
+    connect(this, &SessionManagerTreeView::doubleClicked, this, [=](const QModelIndex &index){
+        int type; QString name;
+        mode->info(index, type, name);
+        if(type != -1) {
+            emit sessionConnect(name);
+        }
+    });
 }
 
 SessionManagerTreeView::~SessionManagerTreeView() {

@@ -352,7 +352,7 @@ void QTftp::sendAck(quint16 block)
 void QTftp::nak(TftpError error)
 {
 	struct tftp_header *th = (struct tftp_header *)buffer;
-	th->opcode = qToBigEndian((quint16)ERROR);
+	th->opcode = qToBigEndian((quint16)ERR);
 	th->data.block = qToBigEndian((quint16)error);
 
 	struct errmsg *pe;
