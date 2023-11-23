@@ -1746,17 +1746,17 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="66"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="160"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="216"/>
         <source>Hostname</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="70"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="164"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="220"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="67"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="161"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="217"/>
         <source>Port</source>
         <translation></translation>
     </message>
@@ -1832,44 +1832,44 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="90"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="184"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="240"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="87"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="181"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="237"/>
         <source>e.g. 127.0.0.1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="95"/>
         <source>Port Name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="96"/>
         <source>Baud Rate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="139"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="136"/>
         <source>Command</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="159"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="156"/>
         <source>e.g. /bin/bash</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="191"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="188"/>
         <source>Pipe Name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="212"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="209"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="214"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
         <source>e.g. /tmp/socket</source>
         <translation></translation>
     </message>
@@ -1967,32 +1967,32 @@
     <name>SessionManagerTreeView</name>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="39"/>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="65"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="73"/>
         <source>Session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="75"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="83"/>
         <source>Connect Terminal</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="80"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="88"/>
         <source>Connect in New Window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="82"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="90"/>
         <source>Connect in New Tab Group</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="85"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="93"/>
         <source>Delete</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="91"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="99"/>
         <source>Properties</source>
         <translation></translation>
     </message>
@@ -2200,104 +2200,117 @@
 <context>
     <name>SessionsWindow</name>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="118"/>
+        <location filename="../src/sessionswindow.cpp" line="119"/>
         <source>Telnet Error</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="118"/>
+        <location filename="../src/sessionswindow.cpp" line="119"/>
         <source>Telnet error:
 %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="143"/>
+        <location filename="../src/sessionswindow.cpp" line="144"/>
         <source>Serial Error</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="143"/>
+        <location filename="../src/sessionswindow.cpp" line="144"/>
         <source>Serial error:
 %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="175"/>
+        <location filename="../src/sessionswindow.cpp" line="176"/>
         <source>Raw Socket Error</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="175"/>
+        <location filename="../src/sessionswindow.cpp" line="176"/>
         <source>Raw Socket error:
 %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="206"/>
+        <location filename="../src/sessionswindow.cpp" line="207"/>
         <source>Name Pipe Error</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="206"/>
+        <location filename="../src/sessionswindow.cpp" line="207"/>
         <source>Name Pipe error:
 %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="351"/>
+        <location filename="../src/sessionswindow.cpp" line="219"/>
+        <location filename="../src/sessionswindow.cpp" line="243"/>
+        <source>SSH2 Error</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionswindow.cpp" line="219"/>
+        <location filename="../src/sessionswindow.cpp" line="243"/>
+        <source>SSH2 error:
+%1.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/sessionswindow.cpp" line="383"/>
         <source>Start Local Shell</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="351"/>
+        <location filename="../src/sessionswindow.cpp" line="383"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="443"/>
+        <location filename="../src/sessionswindow.cpp" line="483"/>
         <source>Save log...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="444"/>
+        <location filename="../src/sessionswindow.cpp" line="484"/>
         <source>log files (*.log)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="448"/>
+        <location filename="../src/sessionswindow.cpp" line="488"/>
         <source>Save log</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="448"/>
-        <location filename="../src/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow.cpp" line="488"/>
+        <location filename="../src/sessionswindow.cpp" line="523"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="478"/>
+        <location filename="../src/sessionswindow.cpp" line="518"/>
         <source>Save Raw log...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="479"/>
+        <location filename="../src/sessionswindow.cpp" line="519"/>
         <source>binary files (*.bin)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow.cpp" line="523"/>
         <source>Save Raw log</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="555"/>
+        <location filename="../src/sessionswindow.cpp" line="595"/>
         <source>Unlock Session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="555"/>
+        <location filename="../src/sessionswindow.cpp" line="595"/>
         <source>Wrong password!</source>
         <translation></translation>
     </message>

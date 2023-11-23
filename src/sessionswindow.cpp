@@ -239,6 +239,11 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 state = Disconnected;
                 emit stateChanged(state);
             });
+            connect(ssh2Client, &SshClient::sshError, this, [=](){
+                QMessageBox::warning(term, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
+                state = Error;
+                emit stateChanged(state);
+            });
         }
     }
 
