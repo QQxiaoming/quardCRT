@@ -32,6 +32,7 @@
 #include "qtermwidget.h"
 #include "QTelnet.h"
 #include "ptyqt.h"
+#include "sshsftp.h"
 
 class SessionsWindow : public QObject
 {
@@ -88,6 +89,7 @@ public:
     SessionsState getState() const { return state; }
     bool hasChildProcess();
     IPtyProcess::pidTree_t getLocalShellState(void);
+    SshSFtp *getSshSFtpChannel(void);
 
     QString getHostname() const { return m_hostname; }
     quint16 getPort() const { return m_port; }
