@@ -45,8 +45,23 @@ SOURCES += \
 INCLUDEPATH += \
     $$PWD
 
-LIBSSH2_DIR=/libssh2
+LIBSSH2_DIR=/home/qqm/Downloads/work/quardCRT/quardCRT/depend/output
 
-INCLUDEPATH += $${LIBSSH2_DIR}/include
-LIBS += -L$${LIBSSH2_DIR}/lib -lssh2
 
+
+
+win32:{
+    win32-g++ {
+        INCLUDEPATH += $${LIBSSH2_DIR}/include
+        LIBS += -L$${LIBSSH2_DIR}/lib -lssh2
+    }
+    win32-msvc*{
+        INCLUDEPATH += $${LIBSSH2_DIR}/include
+        LIBS += $${LIBSSH2_DIR}\lib\libssh2.lib
+    }
+}
+
+unix:{
+    INCLUDEPATH += $${LIBSSH2_DIR}/include
+    LIBS += -L$${LIBSSH2_DIR}/lib -lssh2
+}
