@@ -107,3 +107,5 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 - [qtftp](https://github.com/teknoraver/qtftp)
 - [utf8proc](https://github.com/JuliaStrings/utf8proc)
 - [fcitx-qt5](https://github.com/fcitx/fcitx-qt5)
+- [libssh2](https://github.com/libssh2/libssh2)
+- [QtSsh](https://github.com/condo4/QtSsh)
