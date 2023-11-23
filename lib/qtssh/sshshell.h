@@ -15,7 +15,7 @@ protected:
     friend class SshClient;
 
 public:
-    virtual ~SshShell() override;
+    ~SshShell() override;
     void close() override;
     QStringList errMsg();
     bool isError();

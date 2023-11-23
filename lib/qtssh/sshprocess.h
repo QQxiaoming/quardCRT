@@ -15,7 +15,7 @@ protected:
     friend class SshClient;
 
 public:
-    virtual ~SshProcess() override;
+    ~SshProcess() override;
     void close() override;
     QByteArray result();
     QStringList errMsg();

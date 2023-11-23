@@ -14,7 +14,7 @@ protected:
     friend class SshClient;
 
 public:
-    virtual ~SshScpGet() override;
+    ~SshScpGet() override;
     void close() override;
 
 

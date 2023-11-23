@@ -3,5 +3,4 @@
 SshKey::SshKey(QObject *parent)
     : QObject(parent)
 {
-
 }
