@@ -43,9 +43,25 @@ jobs:
           Choco-Install -PackageName innosetup --force
           Choco-Install -PackageName cmake --force
 
-      #- uses: msys2/setup-msys2@v2
-      #  with:
-      #    msystem: mingw64
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: mingw64
+
+      - name: build libssh2
+        shell: msys2 {0}
+        run: |
+          pacman --noconfirm -S make cmake autoconf automake bison diffutils libtool texinfo xmlto
+          pacman --noconfirm -S base-devel msys2-devel mingw-w64-{x86_64,i686}-toolchain 
+          cd depend
+          export PATH=/c/ProgramData/Chocolatey/lib/mingw/tools/install/mingw64/bin:$PATH
+          ./build_libssh2_mingw.sh
+          mkdir /d/libssh2
+          mkdir /d/libssh2/include
+          mkdir /d/libssh2/lib
+          mkdir /d/libssh2/bin
+          cp -r ./output/include/* /d/libssh2/include/
+          cp -r ./output/lib/* /d/libssh2/lib/
+          cp -r ./output/bin/* /d/libssh2/bin/
 
       #- name: Build winpty
       #  shell: msys2 {0}
@@ -71,6 +87,7 @@ jobs:
           ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/mingw810_32\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/mingw64\/bin/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/mingw32-make -j8/mingw32-make -j1/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
+          ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
           ./build_setup.bat
 
       - name: Upload build asserts
@@ -109,7 +126,19 @@ jobs:
           arch: x64
           toolset: 14.29
 
-      - name: Install depend
+      - name: Install libssh2
+        run: |
+          cd depend
+          ./build_libssh2_msvc.bat
+          mkdir D:\\libssh2
+          mkdir D:\\libssh2\\include
+          mkdir D:\\libssh2\\lib
+          mkdir D:\\libssh2\\bin
+          cp -r ./output/include/* D:\\libssh2\\include/
+          cp -r ./output/lib/* D:\\libssh2\\lib/
+          cp -r ./output/bin/* D:\\libssh2\\bin/
+
+      - name: Install winpty
         run: |
           cd D:/
           curl -L https://github.com/rprichard/winpty/releases/download/0.4.3/winpty-0.4.3-msys2-2.7.0-x64.tar.gz -o winpty-0.4.3-msys2-2.7.0-x64.tar.gz
@@ -124,6 +153,7 @@ jobs:
           ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/msvc64\/bin/QT_DIR=%Qt6_DIR%/g" ./build_setup_msvc.bat
           ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/msvc64\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/msvc64\/bin/g" ./build_setup_msvc.bat
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
+          ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
           ./build_setup_msvc.bat
           cp ./InnoSetup/quardCRT_setup.exe ./InnoSetup/quardCRT_setup_msvc.exe
 
