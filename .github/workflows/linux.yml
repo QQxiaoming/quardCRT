@@ -2,7 +2,7 @@ name: linux
 
 on:
   push:
-    branches: [ main, dev-ssh2 ]
+    branches: [ main ]
     paths-ignore:
       - 'doc/**'
       - 'docs/**'
