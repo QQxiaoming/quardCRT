@@ -15,7 +15,6 @@ Q_LOGGING_CATEGORY(logsshtunnelin, "ssh.tunnelin", QtWarningMsg)
 SshTunnelIn::SshTunnelIn(const QString &name, SshClient *client)
     : SshChannel(name, client)
 {
-
 }
 
 SshTunnelIn::~SshTunnelIn()

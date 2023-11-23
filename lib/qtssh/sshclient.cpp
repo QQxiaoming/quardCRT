@@ -667,7 +667,6 @@ void SshClient::_channel_free()
 
             if(sshState() == SshState::DisconnectingChannel && m_channels.size() == 0)
             {
-
                 qCDebug(sshclient) << m_name << ": no more channel registered";
 
                 /* Stop keepalive */

@@ -18,7 +18,7 @@ protected:
     friend class SshClient;
 
 public:
-    virtual ~SshScpSend() override;
+    ~SshScpSend() override;
     void close() override;
 
 public slots:

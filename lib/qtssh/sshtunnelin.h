@@ -29,7 +29,7 @@ protected:
     friend class SshClient;
 
 public:
-    virtual ~SshTunnelIn() override;
+    ~SshTunnelIn() override;
     void listen(QString host, quint16 localPort, quint16 remotePort, QString listenHost = "127.0.0.1", int queueSize = 16);
     void close() override;
     quint16 localPort();

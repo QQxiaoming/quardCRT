@@ -16,7 +16,7 @@ protected:
     friend class SshClient;
 
 public:
-    virtual ~SshTunnelOut() override;
+    ~SshTunnelOut() override;
     void close() override;
     quint16 localPort();
     quint16 port() const;

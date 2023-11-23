@@ -18,7 +18,7 @@ protected:
 
 public:
     void configure(QTcpServer *server, quint16 remotePort, QString target = "127.0.0.1");
-    virtual ~SshTunnelOutConnection() override;
+    ~SshTunnelOutConnection() override;
     void close() override;
 
 private:

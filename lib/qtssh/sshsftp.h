@@ -34,7 +34,7 @@ protected:
     friend class SshClient;
 
 public:
-    virtual ~SshSFtp() override;
+    ~SshSFtp() override;
     void close() override;
 
     QString send(const QString &source, QString dest);

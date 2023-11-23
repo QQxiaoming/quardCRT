@@ -19,7 +19,7 @@ protected:
 
 public:
     void configure(LIBSSH2_CHANNEL* channel, quint16 port, QString hostname);
-    virtual ~SshTunnelInConnection() override;
+    ~SshTunnelInConnection() override;
     void close() override;
 
 private:
