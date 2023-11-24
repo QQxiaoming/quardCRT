@@ -1,6 +1,7 @@
 #include <QSplitter>
 #include <QDir>
 #include <QMenu>
+#include <QMessageBox>
 
 #include "filedialog.h"
 #include "sftpwindow.h"
@@ -38,7 +39,14 @@ SftpWindow::SftpWindow(QWidget *parent) :
             menu->addAction(tr("Upload"), [=](){
                 QString path = fileSystemModel->filePath(index);
                 if (!path.isEmpty()) {
-                    // TODO: Upload file to remote
+                    QFileInfo fileInfo(path);
+                    if (fileInfo.isDir()) {
+                        //TODO: Upload directory to remote
+                        QMessageBox::information(this, tr("Not implemented"), tr("Upload directory to remote is not implemented yet."));
+                    } else {
+                        QString dstPath = ui->lineEditPathRemote->text() + "/" + fileInfo.fileName();
+                        sftp->send(path, dstPath);
+                    }
                 }
             });
             // open
@@ -84,17 +92,28 @@ SftpWindow::SftpWindow(QWidget *parent) :
             QModelIndex index = ui->treeViewRemote->indexAt(pos);
             if (index.isValid()) {
                 QMenu *menu = new QMenu(this);
-                // download
                 menu->addAction(tr("Download"), [=](){
                     QString path = sshFileSystemModel->filePath(index);
                     if (!path.isEmpty()) {
-                        // TODO: Download file from remote
+                        if(sshFileSystemModel->isDir(index)) {
+                            //TODO: Download directory from remote
+                            QMessageBox::information(this, tr("Not implemented"), tr("Download directory from remote is not implemented yet."));
+                        } else {
+                            QString dstPath = ui->lineEditPathLocal->text() + QDir::separator() + QFileInfo(path).fileName();
+                            QFileInfo fileInfo(dstPath);
+                            if (fileInfo.exists()) {
+                                bool ok = QMessageBox::question(this, tr("File exists"), tr("File %1 already exists. Do you want to overwrite it?").arg(dstPath)) == QMessageBox::Yes;
+                                if (!ok) {
+                                    return;
+                                }
+                            }
+                            sftp->get(path, dstPath, true);
+                        }
                     }
                 });
-                // open
                 QString path = sshFileSystemModel->filePath(index);
                 if (!path.isEmpty()) {
-                    if(sftp->isDir(path)) {
+                    if(sshFileSystemModel->isDir(index)) {
                         menu->addAction(tr("Open"), [=](){
                             ui->lineEditPathRemote->setText(path);
                             ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(path));

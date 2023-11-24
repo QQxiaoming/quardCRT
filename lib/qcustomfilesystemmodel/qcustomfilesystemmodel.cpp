@@ -216,9 +216,11 @@ bool QCustomFileSystemModel::canFetchMore(const QModelIndex &parent) const {
     if (!parent.isValid())
         return false;
     QCustomFileSystemItem *parentItem = static_cast<QCustomFileSystemItem*>(parent.internalPointer());
-    QDir parentDir(parentItem->data().toString());
-    QStringList entries = parentDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries | QDir::Hidden);
-    return entries.count() > 0;
+    if(parentItem->childCount() != 1)
+        return false;
+    if(parentItem->child(0)->data().toString() != "")
+        return false;
+    return true;
 }
 
 QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
@@ -230,7 +232,9 @@ QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
     QList<QCustomFileSystemItem*> dirItems;
     QList<QCustomFileSystemItem*> fileItems;
     for (int i = 0; i < rootEntries.count(); ++i) {
-        QString childPath = path + separator() + rootEntries.at(i);
+        QString childPath = separator() + rootEntries.at(i);
+        if(path != separator())
+            childPath = path + childPath;
         QCustomFileSystemItem *childItem = new QCustomFileSystemItem(childPath, m_rootItem);
         bool isDir = false;
         uint64_t size = 0;

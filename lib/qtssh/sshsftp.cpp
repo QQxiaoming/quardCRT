@@ -52,10 +52,7 @@ QString SshSFtp::send(const QString &source, QString dest)
         dest += src.fileName();
     }
 
-    QString s(source);
-    s.replace("qrc:/", ":/");
-
-    SshSftpCommandSend cmd(s,dest,*this);
+    SshSftpCommandSend cmd(source,dest,*this);
     if(processCmd(&cmd))
     {
         return dest;

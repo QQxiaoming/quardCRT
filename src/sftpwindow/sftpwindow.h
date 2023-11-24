@@ -52,6 +52,13 @@ public:
         }
     }
 
+    bool isDir(const QModelIndex &index) {
+        if (!index.isValid())
+            return "";
+        QCustomFileSystemItem *item = static_cast<QCustomFileSystemItem*>(index.internalPointer());
+        return item->isDir();
+    }
+
     void setSftpChannel(SshSFtp *sftp) { 
         this->sftp = sftp; 
     }
