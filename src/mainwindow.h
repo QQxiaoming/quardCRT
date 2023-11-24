@@ -46,6 +46,7 @@
 #include "sessionoptionswindow.h"
 #include "globalsetting.h"
 #include "qtftp.h"
+#include "sftpwindow.h"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -123,6 +124,7 @@ private:
     QPushButton *sessionManagerPushButton;
     StartTftpSeverWindow *startTftpSeverWindow;
     LockSessionWindow *lockSessionWindow;
+    SftpWindow *sftpWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;

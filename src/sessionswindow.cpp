@@ -214,7 +214,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         case SSH2: {
             ssh2Client = new SshClient("ssh2", this);
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
-                SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT");
+                SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
                 if(shell == nullptr) {
                     QMessageBox::warning(term, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
                     state = Error;
@@ -594,6 +594,13 @@ void SessionsWindow::unlockSession(QString password) {
     } else {
         QMessageBox::warning(term, tr("Unlock Session"), tr("Wrong password!"));
     }
+}
+
+SshSFtp *SessionsWindow::getSshSFtpChannel(void) {
+    if(type == SSH2) {
+        return ssh2Client->getChannel<SshSFtp>("quardCRT.sftp");
+    }
+    return nullptr;
 }
 
 bool SessionsWindow::hasChildProcess() {

@@ -59,6 +59,7 @@
 #include "mainwindow.h"
 #include "globalsetting.h"
 #include "sessionoptionswindow.h"
+#include "sshsftp.h"
 
 #include "ui_mainwindow.h"
 
@@ -95,6 +96,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
     quickConnectMainWidgetGroup = mainWidgetGroupList.at(0);
 
     lockSessionWindow = new LockSessionWindow(this);
+
+    sftpWindow = new SftpWindow(this);
 
     startTftpSeverWindow = new StartTftpSeverWindow(this);
     tftpServer = new QTftp;
@@ -278,6 +281,22 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                         }
                         QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                     });
+                    if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
+                        QAction *openSFtpAction = new QAction(tr("Open SFTP"),this);
+                        menu->addAction(openSFtpAction);
+                        menu->addSeparator();
+                        connect(openSFtpAction,&QAction::triggered,this,[=](){
+                            QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                            SshSFtp *sftp = sessionsWindow->getSshSFtpChannel();
+                            if(sftp == nullptr) {
+                                QMessageBox::warning(this, tr("Warning"), tr("No SFTP channel!"));
+                                return;
+                            }
+                            sftpWindow->setSftpChannel(sftp);
+                            sftpWindow->show();
+                        });
+                    }
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
                     menu->addAction(saveSessionAction);
                     connect(saveSessionAction,&QAction::triggered,this,[=](){

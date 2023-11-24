@@ -19,6 +19,7 @@ include(./lib/ptyqt/ptyqt.pri)
 include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
 include(./lib/Qtftp/Qtftp.pri)
 include(./lib/qtssh/qtssh.pri)
+include(./lib/qcustomfilesystemmodel/qcustomfilesystemmodel.pri)
 
 INCLUDEPATH += \
     src/util \
@@ -31,9 +32,11 @@ INCLUDEPATH += \
     src/quickconnectwindow \
     src/starttftpseverwindow \
     src/hexviewwindow \
+    src/sftpwindow \
     src
 
 SOURCES += \
+    src/sftpwindow/sftpwindow.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
     src/globaloptions/globaloptionsadvancedwidget.cpp \
@@ -67,6 +70,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/sftpwindow/sftpwindow.h \
     src/util/logger.h \
     src/util/argv_split.h \
     src/util/filedialog.h \
@@ -122,6 +126,7 @@ FORMS += \
     src/locksessionwindow/locksessionwindow.ui \
     src/quickconnectwindow/quickconnectwindow.ui \
     src/hexviewwindow/hexviewwindow.ui \
+    src/sftpwindow/sftpwindow.ui \
     src/starttftpseverwindow/starttftpseverwindow.ui \
     src/mainwindow.ui
 

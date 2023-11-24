@@ -108,3 +108,4 @@ The code of this project references or partially refers to or depends on the fol
 - [fcitx-qt5](https://github.com/fcitx/fcitx-qt5)
 - [libssh2](https://github.com/libssh2/libssh2)
 - [QtSsh](https://github.com/condo4/QtSsh)
+- [QCustomFileSystemModel](https://github.com/QQxiaoming/QCustomFileSystemModel)
