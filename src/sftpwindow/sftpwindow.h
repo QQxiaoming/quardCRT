@@ -3,38 +3,107 @@
 
 #include <QDialog>
 #include <QAbstractItemModel>
-#include <QFileSystemModel>
 
+#include "qcustomfilesystemmodel.h"
 #include "sshsftp.h"
+#include "qfonticon.h"
 
 namespace Ui {
 class SftpWindow;
 }
 
-class QSshFileSystemModel : public QAbstractItemModel
+class QSshFileSystemModel : public QCustomFileSystemModel
 {
     Q_OBJECT
 public:
-    explicit QSshFileSystemModel(QObject *parent = nullptr);
-    ~QSshFileSystemModel();
+    explicit QSshFileSystemModel(QObject *parent = 0) 
+        : QCustomFileSystemModel(parent) {
+    }
+    ~QSshFileSystemModel() {
+    }
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-    QModelIndex parent(const QModelIndex &child) const;
+    QStringList pathEntryList(const QString &path) override {
+        if(sftp) {
+            QStringList list = sftp->readdir(path);
+            list.removeOne(".");
+            list.removeOne("..");
+            return list;
+        } else {
+            return QStringList();
+        }
+    }
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    int columnCount(const QModelIndex &parent) const;
+    bool isDir(const QString &path) override {
+        if(sftp) {
+            return sftp->isDir(path);
+        } else {
+            return false;
+        }
+    }
 
-    QVariant data(const QModelIndex &index, int role) const;
+    QString separator() override {
+        return "/";
+    }
 
-    QModelIndex setRootPath(const QString &path);
-    QModelIndex setRootPath(const char *path) { return setRootPath(QString::fromUtf8(path)); }
-    QString rootPath();
+    QVariant pathInfo(QString path, int type) const override {
+        if(sftp) {
+            LIBSSH2_SFTP_ATTRIBUTES fileinfo = sftp->getFileInfo(path);
+            switch (type) {
+                case 0:
+                    return QFileInfo(path).fileName();
+                case 1:
+                    if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                        if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                            return tr("Directory");
+                        } else {
+                            return tr("File");
+                        }
+                    }
+                    return QVariant();
+                case 2:
+                    if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                        if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                            //QStringList list = sftp->readdir(path);
+                            //return list.count()-2;
+                            return QVariant();
+                        } else {
+                            if( fileinfo.filesize <= 1024) {
+                                return QString("%1 B").arg(fileinfo.filesize);
+                            } else if ( fileinfo.filesize <= 1024 * 1024 ) {
+                                return QString::number(fileinfo.filesize / 1024.0, 'f', 2) + QString(" KB");
+                            } else if ( fileinfo.filesize <= 1024 * 1024 * 1024 ) {
+                                return QString::number(fileinfo.filesize / (1024.0 * 1024.0), 'f', 2) + QString(" MB");
+                            } else {
+                                return QString::number(fileinfo.filesize / (1024.0 * 1024.0 * 1024.0), 'f', 2) + QString(" GB");
+                            }
+                        }
+                    }
+                    return QVariant();
+                case 3:
+                    return QDateTime::fromSecsSinceEpoch(fileinfo.mtime);
+                case 4:
+                    if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                        if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                            return QFontIcon::icon(QChar(0xf07b));
+                        } else {
+                            return QFontIcon::icon(QChar(0xf15b));
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return QVariant();
+        } else {
+            return QVariant();
+        }
+    }
 
-    QString filePath(const QModelIndex &index);
-    void setSftpChannel(SshSFtp *sftp) { this->sftp = sftp; }
+    void setSftpChannel(SshSFtp *sftp) { 
+        this->sftp = sftp; 
+    }
 
 private:
-    QString m_rootPath;
     SshSFtp *sftp = nullptr;
 };
 
@@ -51,7 +120,7 @@ private:
     Ui::SftpWindow *ui;
     SshSFtp *sftp = nullptr;
     QSshFileSystemModel *sshFileSystemModel;
-    QFileSystemModel *fileSystemModel;
+    QNativeFileSystemModel *fileSystemModel;
 };
 
 #endif // SFTPWINDOW_H

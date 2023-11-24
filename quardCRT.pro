@@ -19,6 +19,7 @@ include(./lib/ptyqt/ptyqt.pri)
 include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
 include(./lib/Qtftp/Qtftp.pri)
 include(./lib/qtssh/qtssh.pri)
+include(./lib/qcustomfilesystemmodel/qcustomfilesystemmodel.pri)
 
 INCLUDEPATH += \
     src/util \

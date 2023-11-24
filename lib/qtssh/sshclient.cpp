@@ -586,28 +586,33 @@ void SshClient::_ssh_processEvent()
 
         case SshState::DisconnectingSession:
         {
-            int ret = libssh2_session_disconnect_ex(m_session, SSH_DISCONNECT_BY_APPLICATION, "good bye!", "");
-            if(ret == LIBSSH2_ERROR_EAGAIN)
-            {
-                return;
-            }
-            if(m_socket.state() == QAbstractSocket::ConnectedState)
-            {
-                qCDebug(sshclient) << m_name << ": Ask for main socket disconnection";
+            if(!m_session) {
                 m_socket.disconnectFromHost();
-                return;
-            }
-            else
-            {
-                qCDebug(sshclient) << m_name << ": Socket state is " << m_socket.state();
-                if(m_socket.state() == QAbstractSocket::UnconnectedState)
+                setSshState(FreeSession);
+            } else {
+                int ret = libssh2_session_disconnect_ex(m_session, SSH_DISCONNECT_BY_APPLICATION, "good bye!", "");
+                if(ret == LIBSSH2_ERROR_EAGAIN)
                 {
-                    qCDebug(sshclient) << m_name << ": Socket state is " << m_socket.state();
-                    setSshState(FreeSession);
+                    return;
+                }
+                if(m_socket.state() == QAbstractSocket::ConnectedState)
+                {
+                    qCDebug(sshclient) << m_name << ": Ask for main socket disconnection";
+                    m_socket.disconnectFromHost();
+                    return;
                 }
                 else
                 {
-                    return;
+                    qCDebug(sshclient) << m_name << ": Socket state is " << m_socket.state();
+                    if(m_socket.state() == QAbstractSocket::UnconnectedState)
+                    {
+                        qCDebug(sshclient) << m_name << ": Socket state is " << m_socket.state();
+                        setSshState(FreeSession);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
         }

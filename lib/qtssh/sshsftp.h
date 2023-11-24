@@ -27,7 +27,6 @@ private:
     SshSftpCommand *m_currentCmd {nullptr};
 
     QHash<QString,  LIBSSH2_SFTP_ATTRIBUTES> m_fileinfo;
-    LIBSSH2_SFTP_ATTRIBUTES getFileInfo(const QString &path);
 
 protected:
     SshSFtp(const QString &name, SshClient * client);
@@ -46,6 +45,7 @@ public:
     int mkpath(const QString &dest);
     bool unlink(const QString &d);
     quint64 filesize(const QString &d);
+    LIBSSH2_SFTP_ATTRIBUTES getFileInfo(const QString &path);
 
     LIBSSH2_SFTP *getSftpSession() const;
     bool processCmd(SshSftpCommand *cmd);

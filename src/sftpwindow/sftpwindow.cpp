@@ -3,132 +3,16 @@
 #include <QMenu>
 
 #include "filedialog.h"
-#include "qfonticon.h"
 #include "sftpwindow.h"
-#include "sshsftpcommandmkdir.h"
-#include "sshsftpcommandget.h"
-#include "sshsftpcommandsend.h"
-#include "sshsftpcommandreaddir.h"
-#include "sshsftpcommandfileinfo.h"
 #include "ui_sftpwindow.h"
 
-QSshFileSystemModel::QSshFileSystemModel(QObject *parent) 
-    : QAbstractItemModel(parent) {
-}
-
-QSshFileSystemModel::~QSshFileSystemModel() {
-}
-
-QModelIndex QSshFileSystemModel::index(int row, int column, const QModelIndex &parent) const {
-    if (!hasIndex(row, column, parent))
-        return QModelIndex();
-
-    if (!parent.isValid()) {
-        return createIndex(row, column, (void *)m_rootPath.toUtf8().data());
-    }
-
-    QString parentPath = (const char *)parent.internalPointer();
-    QString path = QDir(parentPath).entryList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot).at(row);
-    return createIndex(row, column, (void *)path.toUtf8().data());
-}
-
-QModelIndex QSshFileSystemModel::parent(const QModelIndex &child) const {
-    if (!child.isValid())
-        return QModelIndex();
-
-    QString childPath = (const char *)child.internalPointer();
-    QString parentPath = QDir(childPath).absolutePath();
-    if (parentPath == m_rootPath) {
-        return QModelIndex();
-    }
-    return createIndex(0, 0, (void *)parentPath.toUtf8().data());
-}
-
-int QSshFileSystemModel::rowCount(const QModelIndex &parent) const {
-    if (parent.column() > 0)
-        return 0;
-
-    QString parentPath = (const char *)parent.internalPointer();
-    QDir parentDir(parentPath);
-    return parentDir.entryList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot).count();
-}
-
-int QSshFileSystemModel::columnCount(const QModelIndex &parent) const {
-    Q_UNUSED(parent);
-    return 4;
-}
-
-QVariant QSshFileSystemModel::data(const QModelIndex &index, int role) const {
-    if (!sftp) {
-        return QVariant();
-    }
-    if (!index.isValid())
-        return QVariant();
-
-    QString path = (const char *)index.internalPointer();
-    SshSftpCommandFileInfo fileInfo(path,*sftp);
-    fileInfo.process();
-    if (fileInfo.error()) {
-        return QVariant();
-    }
-    switch (role) {
-    case Qt::DisplayRole:
-        switch (index.column()) {
-        case 0:
-            return QFileInfo(path).fileName();
-        case 1:
-            if (fileInfo.fileinfo().flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
-                if (fileInfo.fileinfo().permissions & LIBSSH2_SFTP_S_IFDIR) {
-                    return tr("Directory");
-                } else {
-                    return tr("File");
-                }
-            }
-        case 2:
-            return fileInfo.fileinfo().filesize;
-        case 3:
-            return qint64(fileInfo.fileinfo().mtime);
-        }
-        break;
-    case Qt::DecorationRole:
-        switch (index.column()) {
-        case 0:
-            if (fileInfo.fileinfo().flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
-                if (fileInfo.fileinfo().permissions & LIBSSH2_SFTP_S_IFDIR) {
-                    return QFontIcon::icon(QChar(0xf07b));
-                } else {
-                    return QFontIcon::icon(QChar(0xf15b));
-                }
-            }
-            break;
-        }
-    }
-    return QVariant();
-}
-
-QModelIndex QSshFileSystemModel::setRootPath(const QString &path) {
-    m_rootPath = path;
-    return createIndex(0, 0, (void *)m_rootPath.toUtf8().data());
-}
-
-QString QSshFileSystemModel::rootPath() {
-    return m_rootPath;
-}
-
-QString QSshFileSystemModel::filePath(const QModelIndex &index) {
-    if (!index.isValid())
-        return QString();
-
-    QString path = (const char *)index.internalPointer();
-    return path;
-}
 
 SftpWindow::SftpWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SftpWindow)
 {
     ui->setupUi(this);
-    fileSystemModel = new QFileSystemModel(this);
+    fileSystemModel = new QNativeFileSystemModel(this);
     ui->treeViewLocal->setModel(fileSystemModel);
     ui->treeViewLocal->setColumnWidth(0, 200);
     ui->treeViewLocal->setColumnWidth(1, 60);
@@ -210,18 +94,11 @@ SftpWindow::SftpWindow(QWidget *parent) :
                 // open
                 QString path = sshFileSystemModel->filePath(index);
                 if (!path.isEmpty()) {
-                    SshSftpCommandFileInfo fileInfo(path,*sftp);
-                    fileInfo.process();
-                    if (fileInfo.error()) {
-                        return;
-                    }
-                    if (fileInfo.fileinfo().flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
-                        if (fileInfo.fileinfo().permissions & LIBSSH2_SFTP_S_IFDIR) {
-                            menu->addAction(tr("Open"), [=](){
-                                ui->lineEditPathRemote->setText(path);
-                                ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(path));
-                            });
-                        }
+                    if(sftp->isDir(path)) {
+                        menu->addAction(tr("Open"), [=](){
+                            ui->lineEditPathRemote->setText(path);
+                            ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(path));
+                        });
                     }
                 }
                 menu->move(cursor().pos()+QPoint(5,5));
