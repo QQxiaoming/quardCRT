@@ -22,6 +22,10 @@ public:
     ~QSshFileSystemModel() {
     }
 
+    QString separator() const override {
+        return "/";
+    }
+
     QStringList pathEntryList(const QString &path) override {
         if(sftp) {
             QStringList list = sftp->readdir(path);
@@ -33,69 +37,18 @@ public:
         }
     }
 
-    bool isDir(const QString &path) override {
-        if(sftp) {
-            return sftp->isDir(path);
-        } else {
-            return false;
-        }
-    }
-
-    QString separator() override {
-        return "/";
-    }
-
-    QVariant pathInfo(QString path, int type) const override {
+    void pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) override {
         if(sftp) {
             LIBSSH2_SFTP_ATTRIBUTES fileinfo = sftp->getFileInfo(path);
-            switch (type) {
-                case 0:
-                    return QFileInfo(path).fileName();
-                case 1:
-                    if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
-                        if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
-                            return tr("Directory");
-                        } else {
-                            return tr("File");
-                        }
-                    }
-                    return QVariant();
-                case 2:
-                    if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
-                        if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
-                            //QStringList list = sftp->readdir(path);
-                            //return list.count()-2;
-                            return QVariant();
-                        } else {
-                            if( fileinfo.filesize <= 1024) {
-                                return QString("%1 B").arg(fileinfo.filesize);
-                            } else if ( fileinfo.filesize <= 1024 * 1024 ) {
-                                return QString::number(fileinfo.filesize / 1024.0, 'f', 2) + QString(" KB");
-                            } else if ( fileinfo.filesize <= 1024 * 1024 * 1024 ) {
-                                return QString::number(fileinfo.filesize / (1024.0 * 1024.0), 'f', 2) + QString(" MB");
-                            } else {
-                                return QString::number(fileinfo.filesize / (1024.0 * 1024.0 * 1024.0), 'f', 2) + QString(" GB");
-                            }
-                        }
-                    }
-                    return QVariant();
-                case 3:
-                    return QDateTime::fromSecsSinceEpoch(fileinfo.mtime);
-                case 4:
-                    if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
-                        if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
-                            return QFontIcon::icon(QChar(0xf07b));
-                        } else {
-                            return QFontIcon::icon(QChar(0xf15b));
-                        }
-                    }
-                    break;
-                default:
-                    break;
+            if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                    isDir = true;
+                } else {
+                    isDir = false;
+                }
+                size = fileinfo.filesize;
+                lastModified = QDateTime::fromSecsSinceEpoch(fileinfo.mtime);
             }
-            return QVariant();
-        } else {
-            return QVariant();
         }
     }
 

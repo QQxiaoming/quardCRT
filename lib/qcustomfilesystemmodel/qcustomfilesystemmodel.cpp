@@ -1,7 +1,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QIcon>
-#include <QDateTime>
 
 #include "qfonticon.h"
 #include "qcustomfilesystemmodel.h"
@@ -117,10 +116,38 @@ QVariant QCustomFileSystemModel::data(const QModelIndex &index, int role) const 
     if(item->data().toString() == "")
         return QVariant();
     if (role == Qt::DecorationRole && index.column() == 0) {
-        return pathInfo(item->data().toString(), 4);
+        if(item->isDir())
+            return QFontIcon::icon(QChar(0xf07b));
+        else
+            return QFontIcon::icon(QChar(0xf15b));
     }
     if (role == Qt::DisplayRole) {
-        return pathInfo(item->data().toString(), index.column());
+        switch (index.column())
+        {
+        case 0:
+            return item->data().toString().split(separator()).last();
+        case 1:
+            return item->isDir() ? tr("Directory") : tr("File");
+        case 2:
+            if(item->isDir()) {
+                if(item->childCount() == 1 && item->child(0)->data().toString() == "")
+                    return tr("Loading...");
+                else
+                    return QString::number(item->childCount());
+            } else {
+                if( item->size() <= 1024) {
+                    return QString("%1 B").arg(item->size());
+                } else if ( item->size() <= 1024 * 1024 ) {
+                    return QString::number(item->size() / 1024.0, 'f', 2) + QString(" KB");
+                } else if ( item->size() <= 1024 * 1024 * 1024 ) {
+                    return QString::number(item->size() / (1024.0 * 1024.0), 'f', 2) + QString(" MB");
+                } else {
+                    return QString::number(item->size() / (1024.0 * 1024.0 * 1024.0), 'f', 2) + QString(" GB");
+                }
+            }
+        case 3:
+            return item->lastModified();
+        }
     }
     return QVariant();
 }
@@ -159,12 +186,21 @@ void QCustomFileSystemModel::fetchMore(const QModelIndex &parent) {
     for (int i = 0; i < entries.count(); ++i) {
         QString childPath = parentItem->data().toString() + separator() + entries.at(i);
         QCustomFileSystemItem *childItem = new QCustomFileSystemItem(childPath, parentItem);
-        if (isDir(childPath)) {
+        bool isDir = false;
+        uint64_t size = 0;
+        QDateTime lastModified = QDateTime();
+        pathInfo(childPath, isDir, size, lastModified);
+        childItem->setIsDir(isDir);
+        childItem->setLastModified(lastModified);
+        if (isDir) {
+            //QStringList childEntries = pathEntryList(childPath);
+            //childItem->setSize(childEntries.count());
             dirItems.append(childItem);
             //add dummy item
             QCustomFileSystemItem *dummyItem = new QCustomFileSystemItem("", childItem);
             childItem->appendChild(dummyItem);
         } else {
+            childItem->setSize(size);
             fileItems.append(childItem);
         }
     }
@@ -196,12 +232,21 @@ QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
     for (int i = 0; i < rootEntries.count(); ++i) {
         QString childPath = path + separator() + rootEntries.at(i);
         QCustomFileSystemItem *childItem = new QCustomFileSystemItem(childPath, m_rootItem);
-        if (isDir(childPath)) {
+        bool isDir = false;
+        uint64_t size = 0;
+        QDateTime lastModified = QDateTime();
+        pathInfo(childPath, isDir, size, lastModified);
+        childItem->setIsDir(isDir);
+        childItem->setLastModified(lastModified);
+        if (isDir) {
+            //QStringList childEntries = pathEntryList(childPath);
+            //childItem->setSize(childEntries.count());
             dirItems.append(childItem);
             //add dummy item
             QCustomFileSystemItem *dummyItem = new QCustomFileSystemItem("", childItem);
             childItem->appendChild(dummyItem);
         } else {
+            childItem->setSize(size);
             fileItems.append(childItem);
         }
     }
@@ -233,49 +278,18 @@ QNativeFileSystemModel::QNativeFileSystemModel(QObject *parent)
 QNativeFileSystemModel::~QNativeFileSystemModel() {
 }
 
+QString QNativeFileSystemModel::separator() const {
+    return QDir::separator();
+}
+
 QStringList QNativeFileSystemModel::pathEntryList(const QString &path) {
     QDir dir(path);
     return dir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries | QDir::Hidden);
 }
 
-bool QNativeFileSystemModel::isDir(const QString &path) {
+void QNativeFileSystemModel::pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) {
     QFileInfo info(path);
-    return info.isDir();
-}
-
-QString QNativeFileSystemModel::separator() {
-    return QDir::separator();
-}
-
-QVariant QNativeFileSystemModel::pathInfo(QString path, int type) const {
-    QFileInfo info(path);
-    switch (type) {
-    case 0:
-        return info.fileName();
-    case 1:
-        return info.isDir() ? "Directory" : "File";
-    case 2:
-        if(info.isDir()) {
-            QDir dir(path);
-            return dir.count();
-        } else {
-            if( info.size() <= 1024) {
-                return QString("%1 B").arg(info.size());
-            } else if ( info.size() <= 1024 * 1024 ) {
-                return QString::number(info.size() / 1024.0, 'f', 2) + QString(" KB");
-            } else if ( info.size() <= 1024 * 1024 * 1024 ) {
-                return QString::number(info.size() / (1024.0 * 1024.0), 'f', 2) + QString(" MB");
-            } else {
-                return QString::number(info.size() / (1024.0 * 1024.0 * 1024.0), 'f', 2) + QString(" GB");
-            }
-        }
-    case 3:
-        return info.lastModified();
-    case 4:
-        if(info.isDir())
-            return QFontIcon::icon(QChar(0xf07b));
-        else
-            return QFontIcon::icon(QChar(0xf15b));
-    }
-    return QVariant();
+    isDir = info.isDir();
+    size = info.size();
+    lastModified = info.lastModified();
 }

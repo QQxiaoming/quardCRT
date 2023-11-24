@@ -2,6 +2,7 @@
 #define QCUSTOMFILESYSTEMMODEL_H
 
 #include <QAbstractItemModel>
+#include <QDateTime>
 
 class QCustomFileSystemItem {
 public:
@@ -17,10 +18,19 @@ public:
     QVariant data() const;
     int row() const;
     QCustomFileSystemItem *parent();
+    void setSize(uint64_t size) { m_size = size; }
+    uint64_t size() const { return m_size; }
+    void setLastModified(QDateTime lastModified) { m_lastModified = lastModified; }
+    QDateTime lastModified() const { return m_lastModified; }
+    void setIsDir(bool isDir) { m_isDir = isDir; }
+    bool isDir() const { return m_isDir; }
 
 private:
     QList<QCustomFileSystemItem*> m_childItems;
     QString m_path;
+    uint64_t m_size;
+    bool m_isDir;
+    QDateTime m_lastModified;
     QCustomFileSystemItem *m_parentItem;
 };
 
@@ -50,10 +60,9 @@ public:
 
     QString filePath(const QModelIndex &index);
 
+    virtual QString separator() const = 0;
     virtual QStringList pathEntryList(const QString &path) = 0;
-    virtual bool isDir(const QString &path) = 0;
-    virtual QString separator() = 0;
-    virtual QVariant pathInfo(QString path, int type) const = 0;
+    virtual void pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) = 0;
 
 private:
     QString m_rootPath;
@@ -67,10 +76,9 @@ public:
     explicit QNativeFileSystemModel(QObject *parent = 0);
     ~QNativeFileSystemModel();
 
-    QStringList pathEntryList(const QString &path);
-    bool isDir(const QString &path);
-    QString separator();
-    QVariant pathInfo(QString path, int type) const;
+    QString separator() const override;
+    QStringList pathEntryList(const QString &path) override;
+    void pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) override;
 };
 
 
