@@ -41,8 +41,36 @@ SftpWindow::SftpWindow(QWidget *parent) :
                 if (!path.isEmpty()) {
                     QFileInfo fileInfo(path);
                     if (fileInfo.isDir()) {
-                        //TODO: Upload directory to remote
-                        QMessageBox::information(this, tr("Not implemented"), tr("Upload directory to remote is not implemented yet."));
+                        //1 check if directory exists
+                        QStringList list = sftp->readdir(ui->lineEditPathRemote->text());
+                        bool exists = false;
+                        foreach (QString name, list) {
+                            if (name == fileInfo.fileName()) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        //2 create directory
+                        if (!exists)
+                            sftp->mkdir(ui->lineEditPathRemote->text() + "/" + fileInfo.fileName());
+                        //3 upload files
+                        QStringList files = QDir(path).entryList(QDir::Files);
+                        foreach (QString file, files) {
+                            sftp->send(path + "/" + file, ui->lineEditPathRemote->text() + "/" + fileInfo.fileName() + "/" + file);
+                        }
+                        //4 upload subdirectories
+                        std::function<void(const QString &, const QString &)> uploadDir = 
+                        [&](const QString &path, const QString &dstPath) {
+                            QStringList dirs = QDir(path).entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+                            QStringList sublist = sftp->readdir(dstPath);
+                            foreach (QString dir, dirs) {
+                                if (!sublist.contains(dir)) {
+                                    sftp->mkdir(dstPath + "/" + dir);
+                                }
+                                uploadDir(path + "/" + dir, dstPath + "/" + dir);
+                            }
+                        };
+                        uploadDir(path, ui->lineEditPathRemote->text() + "/" + fileInfo.fileName());
                     } else {
                         QString dstPath = ui->lineEditPathRemote->text() + "/" + fileInfo.fileName();
                         sftp->send(path, dstPath);
@@ -78,10 +106,12 @@ SftpWindow::SftpWindow(QWidget *parent) :
     }
     connect(ui->toolButtonPathRemote, &QToolButton::clicked, [=](){
         if(sftp) {
-            QString path = FileDialog::getExistingDirectory(this, tr("Open Directory"), ui->lineEditPathRemote->text());
-            if (!path.isEmpty()) {
-                ui->lineEditPathRemote->setText(path);
-                ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(path));
+            QString path = ui->lineEditPathRemote->text();
+            LIBSSH2_SFTP_ATTRIBUTES fileinfo = sftp->getFileInfo(path);
+            if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                    ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(path));
+                }
             }
         }
     });
@@ -96,8 +126,30 @@ SftpWindow::SftpWindow(QWidget *parent) :
                     QString path = sshFileSystemModel->filePath(index);
                     if (!path.isEmpty()) {
                         if(sshFileSystemModel->isDir(index)) {
-                            //TODO: Download directory from remote
-                            QMessageBox::information(this, tr("Not implemented"), tr("Download directory from remote is not implemented yet."));
+                            // Download directory
+                            QString dstPath = ui->lineEditPathLocal->text() + QDir::separator() + QFileInfo(path).fileName();
+                            QDir dir(dstPath);
+                            if (!dir.exists()) {
+                                dir.mkpath(dstPath);
+                            }
+                            std::function<void(const QString &, const QString &)> downloadDir = 
+                            [&](const QString &path, const QString &dstPath) {
+                                QStringList dirs = sftp->readdir(path);
+                                foreach (QString dir, dirs) {
+                                    if (dir == "." || dir == "..")
+                                        continue;
+                                    if (sftp->isDir(path + "/" + dir)) {
+                                        QDir dir(dstPath);
+                                        if (!dir.exists()) {
+                                            dir.mkpath(dstPath);
+                                        }
+                                        downloadDir(path + "/" + dir.dirName(), dstPath + "/" + dir.dirName());
+                                    } else {
+                                        sftp->get(path + "/" + dir, dstPath + "/" + dir, true);
+                                    }
+                                }
+                            };
+                            downloadDir(path, dstPath);
                         } else {
                             QString dstPath = ui->lineEditPathLocal->text() + QDir::separator() + QFileInfo(path).fileName();
                             QFileInfo fileInfo(dstPath);
