@@ -55,8 +55,8 @@ Other protocol selection interface:
 
 ## Planned features
 
-- [ ] Support SSH protocol
-- [ ] Support SFTP protocol
+- [x] Support SSH protocol
+- [x] Support SFTP protocol
 - [ ] Support xyzmodem protocol
 - [ ] Support operation script recording/loading
 - [ ] Support screen recording
@@ -66,7 +66,7 @@ Other protocol selection interface:
 - [ ] GitHub Copilot plugin support
 - [ ] CI support Appimage package
 - [ ] CI support windows on arm64
-- [ ] Add more language support (Spanish/French/Russian)
+- [x] Add more language support (Spanish/French/Russian)
 
 ## Translation
 

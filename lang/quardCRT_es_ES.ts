@@ -1672,37 +1672,37 @@
 <context>
     <name>QCustomFileSystemModel</name>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="130"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="155"/>
         <source>Directory</source>
         <translation>Directorio</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="130"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="155"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="134"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="159"/>
         <source>Loading...</source>
         <translation>Cargando...</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="159"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="184"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="161"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="186"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="163"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="188"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="165"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="190"/>
         <source>Last Modified</source>
         <translation>Última modificación</translation>
     </message>
@@ -2050,12 +2050,12 @@
 <context>
     <name>SessionManagerWidget</name>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="68"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.ui" line="43"/>
         <source>Session Manager</source>
         <translation>Administrador de sesiones</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="69"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="66"/>
         <source>Filter by folder/session name</source>
         <translation>Filtrar por carpeta/nombre de sesión</translation>
     </message>
@@ -2390,26 +2390,41 @@
         <translation>rremoto</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="25"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="73"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
         <source>Open Directory</source>
         <translation>Abrir directorio</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="38"/>
-        <source>remote</source>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="57"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="138"/>
+        <source>Show/Hide Files</source>
+        <translation>Mostrar/Ocultar archivos</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="61"/>
+        <source>Upload</source>
         <translation>Cargar</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="49"/>
         <location filename="../src/sftpwindow/sftpwindow.cpp" line="98"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="188"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="88"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="142"/>
         <source>Download</source>
         <translation>Descargar</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <source>File exists</source>
+        <translation>El archivo existe</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <source>File %1 already exists. Do you want to overwrite it?</source>
+        <translation>El archivo %1 ya existe. ¿Quieres sobrescribirlo?</translation>
     </message>
 </context>
 <context>

@@ -1672,37 +1672,37 @@
 <context>
     <name>QCustomFileSystemModel</name>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="130"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="155"/>
         <source>Directory</source>
         <translation>디렉터리</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="130"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="155"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="134"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="159"/>
         <source>Loading...</source>
         <translation>로딩 중...</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="159"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="184"/>
         <source>Name</source>
         <translation>이름</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="161"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="186"/>
         <source>Type</source>
         <translation>종류</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="163"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="188"/>
         <source>Size</source>
         <translation>크기</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="165"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="190"/>
         <source>Last Modified</source>
         <translation>마지막 수정</translation>
     </message>
@@ -2050,12 +2050,12 @@
 <context>
     <name>SessionManagerWidget</name>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="68"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.ui" line="43"/>
         <source>Session Manager</source>
         <translation>세션 관리자</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="69"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="66"/>
         <source>Filter by folder/session name</source>
         <translation>폴더/세션 이름으로 필터링</translation>
     </message>
@@ -2390,26 +2390,41 @@
         <translation>원격</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="25"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="73"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
         <source>Open Directory</source>
         <translation>디렉터리 열기</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="38"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="57"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="138"/>
+        <source>Show/Hide Files</source>
+        <translation>파일 표시/숨기기</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="61"/>
         <source>Upload</source>
         <translation>업로드</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="49"/>
         <location filename="../src/sftpwindow/sftpwindow.cpp" line="98"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="188"/>
         <source>Open</source>
         <translation>열기</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="88"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="142"/>
         <source>Download</source>
         <translation>다운로드</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <source>File exists</source>
+        <translation>파일이 존재합니다</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <source>File %1 already exists. Do you want to overwrite it?</source>
+        <translation>%1 파일이 이미 존재합니다. 덮어쓰시겠습니까?</translation>
     </message>
 </context>
 <context>

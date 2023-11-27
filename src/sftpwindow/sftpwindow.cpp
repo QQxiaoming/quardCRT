@@ -78,7 +78,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
                                 if (fileInfo.isDir()) {
                                     uploadDir(srcPath, dstPath);
                                 } else {
-                                    sftp->send(srcPath, dstPath);
+                                    sftp->send(srcPath, dstPath + "/" + file);
                                 }
                             }
                         };
@@ -87,6 +87,8 @@ SftpWindow::SftpWindow(QWidget *parent) :
                         QString dstPath = ui->lineEditPathRemote->text() + "/" + fileInfo.fileName();
                         sftp->send(path, dstPath);
                     }
+                    // FIXME: refresh remote file list
+                    ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(sshFileSystemModel->rootPath()));
                 }
             });
             QString path = fileSystemModel->filePath(index);
@@ -149,6 +151,8 @@ SftpWindow::SftpWindow(QWidget *parent) :
                                     dir.mkdir(dirName);
                                 }
                                 QStringList filelist = sftp->readdir(path);
+                                filelist.removeOne(".");
+                                filelist.removeOne("..");
                                 foreach (QString file, filelist) {
                                     QString srcPath = path + "/" + file;
                                     QString dstPath = dstPathR + "/" + dirName;
@@ -157,7 +161,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
                                         if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
                                             downloadDir(srcPath, dstPath);
                                         } else {
-                                            sftp->get(srcPath, dstPath, true);
+                                            sftp->get(srcPath, dstPath + "/" + file, true);
                                         }
                                     }
                                 }
@@ -175,6 +179,8 @@ SftpWindow::SftpWindow(QWidget *parent) :
                             sftp->get(path, dstPath, true);
                         }
                     }
+                    // FIXME: refresh local file list
+                    ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(fileSystemModel->rootPath()));
                 });
                 QString path = sshFileSystemModel->filePath(index);
                 if (!path.isEmpty()) {

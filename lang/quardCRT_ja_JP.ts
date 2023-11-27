@@ -1672,37 +1672,37 @@
 <context>
     <name>QCustomFileSystemModel</name>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="130"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="155"/>
         <source>Directory</source>
         <translation>ディレクトリ</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="130"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="155"/>
         <source>File</source>
         <translation>ファイル</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="134"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="159"/>
         <source>Loading...</source>
         <translation>読み込み中...</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="159"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="184"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="161"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="186"/>
         <source>Type</source>
         <translation>種類</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="163"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="188"/>
         <source>Size</source>
         <translation>サイズ</translation>
     </message>
     <message>
-        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="165"/>
+        <location filename="../lib/qcustomfilesystemmodel/qcustomfilesystemmodel.cpp" line="190"/>
         <source>Last Modified</source>
         <translation>最終更新日時</translation>
     </message>
@@ -2050,12 +2050,12 @@
 <context>
     <name>SessionManagerWidget</name>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="68"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.ui" line="43"/>
         <source>Session Manager</source>
         <translation>セッションマネージャー</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="69"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.cpp" line="66"/>
         <source>Filter by folder/session name</source>
         <translation>フォルダ/セッション名でフィルター</translation>
     </message>
@@ -2390,26 +2390,41 @@
         <translation>リモート</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="25"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="73"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
         <source>Open Directory</source>
         <translation>ディレクトリを開く</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="38"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="57"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="138"/>
+        <source>Show/Hide Files</source>
+        <translation>ファイルを表示/非表示</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="61"/>
         <source>Upload</source>
         <translation>アップロード</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="49"/>
         <location filename="../src/sftpwindow/sftpwindow.cpp" line="98"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="188"/>
         <source>Open</source>
         <translation>開く</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="88"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="142"/>
         <source>Download</source>
         <translation>ダウンロード</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <source>File exists</source>
+        <translation>ファイルが存在します</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <source>File %1 already exists. Do you want to overwrite it?</source>
+        <translation>ファイル %1 は既に存在します。上書きしますか？</translation>
     </message>
 </context>
 <context>
