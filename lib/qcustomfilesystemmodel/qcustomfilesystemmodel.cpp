@@ -1,3 +1,22 @@
+/*
+ * This file is part of the https://github.com/QQxiaoming/QCustomFileSystemModel.git
+ * project.
+ *
+ * Copyright (C) 2023 Quard <2014500726@smail.xtu.edu.cn>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */ 
 #include <QDir>
 #include <QFileInfo>
 #include <QIcon>
@@ -62,7 +81,7 @@ QModelIndex QCustomFileSystemModel::index(int row, int column, const QModelIndex
     if (!hasIndex(row, column, parent))
         return QModelIndex();
     QCustomFileSystemItem *parentItem;
-    if (!parent.isValid())
+    if (!parent.isValid() || !indexValid(parent))
         parentItem = m_rootItem;
     else
         parentItem = static_cast<QCustomFileSystemItem*>(parent.internalPointer());
@@ -76,7 +95,11 @@ QModelIndex QCustomFileSystemModel::index(int row, int column, const QModelIndex
 }
 
 QModelIndex QCustomFileSystemModel::parent(const QModelIndex &child) const {
+    if(m_rootItem == nullptr)
+        return QModelIndex();
     if (!child.isValid())
+        return QModelIndex();
+    if(!indexValid(child))
         return QModelIndex();
     QCustomFileSystemItem *childItem = static_cast<QCustomFileSystemItem*>(child.internalPointer());
     QCustomFileSystemItem *parentItem = childItem->parent();
@@ -91,7 +114,7 @@ int QCustomFileSystemModel::rowCount(const QModelIndex &parent) const {
     QCustomFileSystemItem *parentItem;
     if (parent.column() > 0)
         return 0;
-    if (!parent.isValid())
+    if (!parent.isValid() || !indexValid(parent))
         parentItem = m_rootItem;
     else
         parentItem = static_cast<QCustomFileSystemItem*>(parent.internalPointer());
@@ -101,7 +124,7 @@ int QCustomFileSystemModel::rowCount(const QModelIndex &parent) const {
 }
 
 int QCustomFileSystemModel::columnCount(const QModelIndex &parent) const {
-    if (parent.isValid())
+    if (parent.isValid() && indexValid(parent))
         return static_cast<QCustomFileSystemItem*>(parent.internalPointer())->columnCount();
     else
         return m_rootItem->columnCount();
@@ -109,6 +132,8 @@ int QCustomFileSystemModel::columnCount(const QModelIndex &parent) const {
 
 QVariant QCustomFileSystemModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid())
+        return QVariant();
+    if (!indexValid(index))
         return QVariant();
     if (role != Qt::DisplayRole && role != Qt::DecorationRole)
         return QVariant();
@@ -171,6 +196,8 @@ QVariant QCustomFileSystemModel::headerData(int section, Qt::Orientation orienta
 void QCustomFileSystemModel::fetchMore(const QModelIndex &parent) {
     if (!parent.isValid())
         return;
+    if (!indexValid(parent))
+        return;
     QCustomFileSystemItem *parentItem = static_cast<QCustomFileSystemItem*>(parent.internalPointer());
     if(parentItem->childCount() != 1)
         return;
@@ -215,6 +242,8 @@ void QCustomFileSystemModel::fetchMore(const QModelIndex &parent) {
 bool QCustomFileSystemModel::canFetchMore(const QModelIndex &parent) const {
     if (!parent.isValid())
         return false;
+    if (!indexValid(parent))
+        return false;
     QCustomFileSystemItem *parentItem = static_cast<QCustomFileSystemItem*>(parent.internalPointer());
     if(parentItem->childCount() != 1)
         return false;
@@ -226,7 +255,8 @@ bool QCustomFileSystemModel::canFetchMore(const QModelIndex &parent) const {
 QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
     beginResetModel();
     delete m_rootItem;
-    m_rootItem = new QCustomFileSystemItem(path);
+    m_rootItem = nullptr;
+    QCustomFileSystemItem *rootItem = new QCustomFileSystemItem(path);
     m_rootPath = path;
     QStringList rootEntries = pathEntryList(m_rootPath);
     QList<QCustomFileSystemItem*> dirItems;
@@ -235,7 +265,7 @@ QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
         QString childPath = separator() + rootEntries.at(i);
         if(path != separator())
             childPath = path + childPath;
-        QCustomFileSystemItem *childItem = new QCustomFileSystemItem(childPath, m_rootItem);
+        QCustomFileSystemItem *childItem = new QCustomFileSystemItem(childPath, rootItem);
         bool isDir = false;
         uint64_t size = 0;
         QDateTime lastModified = QDateTime();
@@ -255,13 +285,15 @@ QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
         }
     }
     foreach(QCustomFileSystemItem *item, dirItems) {
-        m_rootItem->appendChild(item);
+        rootItem->appendChild(item);
     }
     foreach(QCustomFileSystemItem *item, fileItems) {
-        m_rootItem->appendChild(item);
+        rootItem->appendChild(item);
     }
+    QModelIndex index = createIndex(0, 0, rootItem);
+    m_rootItem = rootItem;
     endResetModel();
-    return createIndex(0, 0, m_rootItem);
+    return index;
 }
 
 QString QCustomFileSystemModel::rootPath() {
@@ -270,6 +302,8 @@ QString QCustomFileSystemModel::rootPath() {
 
 QString QCustomFileSystemModel::filePath(const QModelIndex &index) {
     if (!index.isValid())
+        return "";
+    if (!indexValid(index))
         return "";
     QCustomFileSystemItem *item = static_cast<QCustomFileSystemItem*>(index.internalPointer());
     return item->data().toString();
@@ -288,7 +322,10 @@ QString QNativeFileSystemModel::separator() const {
 
 QStringList QNativeFileSystemModel::pathEntryList(const QString &path) {
     QDir dir(path);
-    return dir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries | QDir::Hidden);
+    if(m_hideFiles)
+        return dir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries | QDir::Hidden);
+    else
+        return dir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries);
 }
 
 void QNativeFileSystemModel::pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) {

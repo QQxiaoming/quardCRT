@@ -1,3 +1,22 @@
+/*
+ * This file is part of the https://github.com/QQxiaoming/quardCRT.git
+ * project.
+ *
+ * Copyright (C) 2021 Quard <2014500726@smail.xtu.edu.cn>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef SFTPWINDOW_H
 #define SFTPWINDOW_H
 
@@ -31,7 +50,18 @@ public:
             QStringList list = sftp->readdir(path);
             list.removeOne(".");
             list.removeOne("..");
-            return list;
+            if (!m_hideFiles) {
+                QStringList result;
+                foreach (QString name, list) {
+                    if (name.startsWith(".")) {
+                        continue;
+                    }
+                    result.append(name);
+                }
+                return result;
+            } else {
+                return list;
+            }
         } else {
             return QStringList();
         }
@@ -54,7 +84,9 @@ public:
 
     bool isDir(const QModelIndex &index) {
         if (!index.isValid())
-            return "";
+            return false;
+        if (!indexValid(index))
+            return false;
         QCustomFileSystemItem *item = static_cast<QCustomFileSystemItem*>(index.internalPointer());
         return item->isDir();
     }
@@ -63,8 +95,12 @@ public:
         this->sftp = sftp; 
     }
 
+    void setHideFiles(bool hideFiles) { m_hideFiles = hideFiles; }
+    bool hideFiles() const { return m_hideFiles; }
+
 private:
     SshSFtp *sftp = nullptr;
+    bool m_hideFiles = false;
 };
 
 class SftpWindow : public QDialog

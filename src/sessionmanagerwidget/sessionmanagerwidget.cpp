@@ -32,9 +32,6 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    label = new QLabel(this);
-    ui->verticalLayout->insertWidget(0,label);
-
     toolBar = new QToolBar(this);
     ui->verticalLayout->insertWidget(1,toolBar);
     toolBar->setMovable(false);
@@ -49,6 +46,7 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     connect(tree, &SessionManagerTreeView::sessionConnect, this, &SessionManagerWidget::sessionConnect);
     connect(tree, &SessionManagerTreeView::sessionRemove, this, &SessionManagerWidget::sessionRemove);
     connect(tree, &SessionManagerTreeView::sessionShowProperties, this, &SessionManagerWidget::sessionShowProperties);
+    connect(ui->toolButtonClose, &QToolButton::clicked, this, &SessionManagerWidget::hide);
 
     retranslateUi();
 }
@@ -65,7 +63,6 @@ void SessionManagerWidget::addActionOnToolBar(QAction *action)
 
 void SessionManagerWidget::retranslateUi()
 {
-    label->setText(tr("Session Manager"));
     ui->lineEdit->setPlaceholderText(tr("Filter by folder/session name"));
     ui->retranslateUi(this);
     tree->retranslateUi();

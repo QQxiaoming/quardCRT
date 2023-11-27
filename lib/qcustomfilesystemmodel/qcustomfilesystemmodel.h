@@ -1,3 +1,22 @@
+/*
+ * This file is part of the https://github.com/QQxiaoming/QCustomFileSystemModel.git
+ * project.
+ *
+ * Copyright (C) 2023 Quard <2014500726@smail.xtu.edu.cn>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */ 
 #ifndef QCUSTOMFILESYSTEMMODEL_H
 #define QCUSTOMFILESYSTEMMODEL_H
 
@@ -41,6 +60,11 @@ public:
     explicit QCustomFileSystemModel(QObject *parent = 0);
     ~QCustomFileSystemModel();
 
+
+    inline bool indexValid(const QModelIndex &index) const {
+         return (index.row() >= 0) && (index.column() >= 0) && (index.model() == this);
+    }
+
     QModelIndex index(int row, int column, const QModelIndex &parent) const;
     QModelIndex parent(const QModelIndex &child) const;
 
@@ -79,6 +103,12 @@ public:
     QString separator() const override;
     QStringList pathEntryList(const QString &path) override;
     void pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) override;
+
+    void setHideFiles(bool hideFiles) { m_hideFiles = hideFiles; }
+    bool hideFiles() const { return m_hideFiles; }
+
+private:
+    bool m_hideFiles = false;
 };
 
 
