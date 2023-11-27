@@ -94,8 +94,8 @@ private:
     void addBookmark(const QString &path);
     bool checkSessionName(QString &name);
     int addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name);
-    int addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname = true);
-    bool removeSessionFromSessionManager(QString name);
+    int addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname = true, int64_t id = -1);
+    int64_t removeSessionFromSessionManager(QString name);
     void connectSessionFromSessionManager(QString name);
     void restoreSessionToSessionManager(void);
     void saveSettings(void);

@@ -1590,8 +1590,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(sessionOptionsWindow,&SessionOptionsWindow::sessionPropertiesChanged,this,
         [=](QString name, QuickConnectWindow::QuickConnectData data, QString newName) {
-        if(removeSessionFromSessionManager(name)) {
-            addSessionToSessionManager(data,newName);
+        int64_t index = removeSessionFromSessionManager(name);
+        if(index >= 0) {
+            addSessionToSessionManager(data,newName, true, index);
         }
     });
     connect(realTimeSaveOptionsAction,&QAction::triggered,this,[=](bool checked){
@@ -2102,63 +2103,127 @@ int MainWindow::addSessionToSessionManager(SessionsWindow *sessionsWindow, QStri
     return 0;
 }
 
-int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname)
+int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname, int64_t id)
 {
     if(checkname) checkSessionName(name);
-    sessionManagerWidget->addSession(name,data.type);
 
     GlobalSetting settings;
     int size = settings.beginReadArray("Global/Session");
-    settings.endArray();
-    settings.beginWriteArray("Global/Session");
-    settings.setArrayIndex(size);
-    settings.setValue("name",name);
-    settings.setValue("type",data.type);
-    switch(data.type) {
-        case QuickConnectWindow::Telnet:
-            settings.setValue("hostname",data.TelnetData.hostname);
-            settings.setValue("port",data.TelnetData.port);
-            settings.setValue("socketType",data.TelnetData.webSocket);
-            break;
-        case QuickConnectWindow::Serial:
-            settings.setValue("portName",data.SerialData.portName);
-            settings.setValue("baudRate",data.SerialData.baudRate);
-            settings.setValue("dataBits",data.SerialData.dataBits);
-            settings.setValue("parity",data.SerialData.parity);
-            settings.setValue("stopBits",data.SerialData.stopBits);
-            settings.setValue("flowControl",data.SerialData.flowControl);
-            settings.setValue("xEnable",data.SerialData.xEnable);
-            break;
-        case QuickConnectWindow::LocalShell:
-            settings.setValue("command",data.LocalShellData.command);
-            break;
-        case QuickConnectWindow::Raw:
-            settings.setValue("hostname",data.RawData.hostname);
-            settings.setValue("port",data.RawData.port);
-            break;
-        case QuickConnectWindow::NamePipe:
-            settings.setValue("pipeName",data.NamePipeData.pipeName);
-            break;
-        case QuickConnectWindow::SSH2:
-            settings.setValue("hostname",data.SSH2Data.hostname);
-            settings.setValue("port",data.SSH2Data.port);
-            settings.setValue("username",data.SSH2Data.username);
-            settings.setValue("password",data.SSH2Data.password);
-            break;
-        default:
-            break;
+    if(id == -1 || id >= size) {
+        settings.endArray();
+        settings.beginWriteArray("Global/Session");
+        settings.setArrayIndex(size);
+        settings.setValue("name",name);
+        settings.setValue("type",data.type);
+        switch(data.type) {
+            case QuickConnectWindow::Telnet:
+                settings.setValue("hostname",data.TelnetData.hostname);
+                settings.setValue("port",data.TelnetData.port);
+                settings.setValue("socketType",data.TelnetData.webSocket);
+                break;
+            case QuickConnectWindow::Serial:
+                settings.setValue("portName",data.SerialData.portName);
+                settings.setValue("baudRate",data.SerialData.baudRate);
+                settings.setValue("dataBits",data.SerialData.dataBits);
+                settings.setValue("parity",data.SerialData.parity);
+                settings.setValue("stopBits",data.SerialData.stopBits);
+                settings.setValue("flowControl",data.SerialData.flowControl);
+                settings.setValue("xEnable",data.SerialData.xEnable);
+                break;
+            case QuickConnectWindow::LocalShell:
+                settings.setValue("command",data.LocalShellData.command);
+                break;
+            case QuickConnectWindow::Raw:
+                settings.setValue("hostname",data.RawData.hostname);
+                settings.setValue("port",data.RawData.port);
+                break;
+            case QuickConnectWindow::NamePipe:
+                settings.setValue("pipeName",data.NamePipeData.pipeName);
+                break;
+            case QuickConnectWindow::SSH2:
+                settings.setValue("hostname",data.SSH2Data.hostname);
+                settings.setValue("port",data.SSH2Data.port);
+                settings.setValue("username",data.SSH2Data.username);
+                settings.setValue("password",data.SSH2Data.password);
+                break;
+            default:
+                break;
+        }
+        settings.endArray();
+        sessionManagerWidget->addSession(name,data.type);
+    } else {
+        QList<QPair<QString,QuickConnectWindow::QuickConnectData>> infoList;
+        for(int i=0;i<size;i++) {
+            settings.setArrayIndex(i);
+            QuickConnectWindow::QuickConnectData dataInfo;
+            QString current_name;
+            setting2InfoData(&settings, dataInfo, current_name);
+            if(i == id) {
+                infoList.append(QPair<QString,QuickConnectWindow::QuickConnectData>(name,data));
+            }
+            infoList.append(QPair<QString,QuickConnectWindow::QuickConnectData>(current_name,dataInfo));
+            sessionManagerWidget->removeSession(current_name);
+        }
+        settings.endArray();
+        settings.beginWriteArray("Global/Session");
+        settings.remove("");
+        settings.endArray();
+        settings.beginWriteArray("Global/Session");
+        // write infoMap to settings
+        for(int i=0;i<infoList.size();i++) {
+            QPair<QString,QuickConnectWindow::QuickConnectData> info = infoList.at(i);
+            QuickConnectWindow::QuickConnectData dataR = info.second;
+            settings.setArrayIndex(i);
+            sessionManagerWidget->addSession(info.first,dataR.type);
+            settings.setValue("name",info.first);
+            settings.setValue("type",dataR.type);
+            switch(dataR.type) {
+            case QuickConnectWindow::Telnet:
+                settings.setValue("hostname",dataR.TelnetData.hostname);
+                settings.setValue("port",dataR.TelnetData.port);
+                settings.setValue("socketType",dataR.TelnetData.webSocket);
+                break;
+            case QuickConnectWindow::Serial:
+                settings.setValue("portName",dataR.SerialData.portName);
+                settings.setValue("baudRate",dataR.SerialData.baudRate);
+                settings.setValue("dataBits",dataR.SerialData.dataBits);
+                settings.setValue("parity",dataR.SerialData.parity);
+                settings.setValue("stopBits",dataR.SerialData.stopBits);
+                settings.setValue("flowControl",dataR.SerialData.flowControl);
+                settings.setValue("xEnable",dataR.SerialData.xEnable);
+                break;
+            case QuickConnectWindow::LocalShell:
+                settings.setValue("command",dataR.LocalShellData.command);
+                break;
+            case QuickConnectWindow::Raw:
+                settings.setValue("hostname",dataR.RawData.hostname);
+                settings.setValue("port",dataR.RawData.port);
+                break;
+            case QuickConnectWindow::NamePipe:
+                settings.setValue("pipeName",dataR.NamePipeData.pipeName);
+                break;
+            case QuickConnectWindow::SSH2:
+                settings.setValue("hostname",dataR.SSH2Data.hostname);
+                settings.setValue("port",dataR.SSH2Data.port);
+                settings.setValue("username",dataR.SSH2Data.username);
+                settings.setValue("password",dataR.SSH2Data.password);
+                break;
+            default:
+                break;
+            }
+        }
+        settings.endArray();
     }
-    settings.endArray();
 
     return 0;
 }
 
-bool MainWindow::removeSessionFromSessionManager(QString name)
+int64_t MainWindow::removeSessionFromSessionManager(QString name)
 {
-    bool matched = false;
+    int64_t matched = -1;
     sessionManagerWidget->removeSession(name);
     GlobalSetting settings;
-    QMap<QString,QuickConnectWindow::QuickConnectData> infoMap;
+    QList<QPair<QString,QuickConnectWindow::QuickConnectData>> infoList;
     int size = settings.beginReadArray("Global/Session");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
@@ -2166,10 +2231,10 @@ bool MainWindow::removeSessionFromSessionManager(QString name)
         QString current_name;
         setting2InfoData(&settings, data, current_name);
         if(current_name == name) {
-            matched = true;
+            matched = i;
             continue;
         } else {
-            infoMap.insert(current_name,data);
+            infoList.append(QPair<QString,QuickConnectWindow::QuickConnectData>(current_name,data));
         }
     }
     settings.endArray();
@@ -2178,40 +2243,42 @@ bool MainWindow::removeSessionFromSessionManager(QString name)
     settings.endArray();
     settings.beginWriteArray("Global/Session");
     // write infoMap to settings
-    foreach(QString name, infoMap.keys()) {
-        settings.setArrayIndex(infoMap.keys().indexOf(name));
-        settings.setValue("name",name);
-        settings.setValue("type",infoMap[name].type);
-        switch(infoMap[name].type) {
+    for(int i=0;i<infoList.size();i++) {
+        QPair<QString,QuickConnectWindow::QuickConnectData> info = infoList.at(i);
+        QuickConnectWindow::QuickConnectData dataR = info.second;
+        settings.setArrayIndex(i);
+        settings.setValue("name",info.first);
+        settings.setValue("type",dataR.type);
+        switch(dataR.type) {
         case QuickConnectWindow::Telnet:
-            settings.setValue("hostname",infoMap[name].TelnetData.hostname);
-            settings.setValue("port",infoMap[name].TelnetData.port);
-            settings.setValue("socketType",infoMap[name].TelnetData.webSocket);
+            settings.setValue("hostname",dataR.TelnetData.hostname);
+            settings.setValue("port",dataR.TelnetData.port);
+            settings.setValue("socketType",dataR.TelnetData.webSocket);
             break;
         case QuickConnectWindow::Serial:
-            settings.setValue("portName",infoMap[name].SerialData.portName);
-            settings.setValue("baudRate",infoMap[name].SerialData.baudRate);
-            settings.setValue("dataBits",infoMap[name].SerialData.dataBits);
-            settings.setValue("parity",infoMap[name].SerialData.parity);
-            settings.setValue("stopBits",infoMap[name].SerialData.stopBits);
-            settings.setValue("flowControl",infoMap[name].SerialData.flowControl);
-            settings.setValue("xEnable",infoMap[name].SerialData.xEnable);
+            settings.setValue("portName",dataR.SerialData.portName);
+            settings.setValue("baudRate",dataR.SerialData.baudRate);
+            settings.setValue("dataBits",dataR.SerialData.dataBits);
+            settings.setValue("parity",dataR.SerialData.parity);
+            settings.setValue("stopBits",dataR.SerialData.stopBits);
+            settings.setValue("flowControl",dataR.SerialData.flowControl);
+            settings.setValue("xEnable",dataR.SerialData.xEnable);
             break;
         case QuickConnectWindow::LocalShell:
-            settings.setValue("command",infoMap[name].LocalShellData.command);
+            settings.setValue("command",dataR.LocalShellData.command);
             break;
         case QuickConnectWindow::Raw:
-            settings.setValue("hostname",infoMap[name].RawData.hostname);
-            settings.setValue("port",infoMap[name].RawData.port);
+            settings.setValue("hostname",dataR.RawData.hostname);
+            settings.setValue("port",dataR.RawData.port);
             break;
         case QuickConnectWindow::NamePipe:
-            settings.setValue("pipeName",infoMap[name].NamePipeData.pipeName);
+            settings.setValue("pipeName",dataR.NamePipeData.pipeName);
             break;
         case QuickConnectWindow::SSH2:
-            settings.setValue("hostname",infoMap[name].SSH2Data.hostname);
-            settings.setValue("port",infoMap[name].SSH2Data.port);
-            settings.setValue("username",infoMap[name].SSH2Data.username);
-            settings.setValue("password",infoMap[name].SSH2Data.password);
+            settings.setValue("hostname",dataR.SSH2Data.hostname);
+            settings.setValue("port",dataR.SSH2Data.port);
+            settings.setValue("username",dataR.SSH2Data.username);
+            settings.setValue("password",dataR.SSH2Data.password);
             break;
         default:
             break;
