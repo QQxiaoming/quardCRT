@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.3.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.0)] - 2023-11-28
+
 - 增加SSH2协议支持（目前仅支持密码认证，用户密码存储在本地系统密钥链中，不存储在本软件配置文件中）
 - 增加SSH2会话打开SFTP文件传输窗口功能
 - 增加自定义设置单词字符（Word Characters）功能，可以设置哪些字符为视为单词字符，方便快速选中单词

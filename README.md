@@ -32,12 +32,14 @@ Other protocol selection interface:
 
 - Currently supported terminal protocols include:
 
+    - ssh
     - telnet (Support websocket wrapper)
     - serial
     - loaclshell
     - rawsocket
     - windows:NamedPipe（linux/macos:unix domain socket）
 
+- SSH2 session opens SFTP file transfer window with one click
 - Multi-tab management, tab cloning, tab drag-and-drop sorting, tab floating preview
 - Dual column split screen, tab drag-and-drop to split column
 - Floating window support, tab drag-and-drop to floating window
@@ -51,12 +53,10 @@ Other protocol selection interface:
 - Terminal keyword highlight matching
 - windows local terminal enhancement (Tab key selects completion command, etc.)
 - Support dark/light theme
-- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean)
+- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian)
 
 ## Planned features
 
-- [x] Support SSH protocol
-- [x] Support SFTP protocol
 - [ ] Support xyzmodem protocol
 - [ ] Support operation script recording/loading
 - [ ] Support screen recording
@@ -66,7 +66,6 @@ Other protocol selection interface:
 - [ ] GitHub Copilot plugin support
 - [ ] CI support Appimage package
 - [ ] CI support windows on arm64
-- [x] Add more language support (Spanish/French/Russian)
 
 ## Translation
 
