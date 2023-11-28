@@ -330,7 +330,7 @@
     <message>
         <location filename="../lib/qtermwidget/Session.cpp" line="317"/>
         <source>Bell in session &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>セッション &apos;%1&apos; でベル</translation>
     </message>
 </context>
 <context>
@@ -338,27 +338,27 @@
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1382"/>
         <source>Size: XXX x XXX</source>
-        <translation type="unfinished"></translation>
+        <translation>サイズ: XXX x XXX</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1394"/>
         <source>Size: %1 x %2</source>
-        <translation type="unfinished"></translation>
+        <translation>サイズ: %1 x %2</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2940"/>
         <source>Paste multiline text</source>
-        <translation type="unfinished"></translation>
+        <translation>複数行のテキストを貼り付ける</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2941"/>
         <source>Are you sure you want to paste this text?</source>
-        <translation type="unfinished"></translation>
+        <translation>このテキストを貼り付けてもよろしいですか？</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3424"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ctrl+Sを押すと出力が&lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;中断&lt;/a&gt;されます。再開するには&lt;b&gt;Ctrl+Q&lt;/b&gt;を押して下さい。&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -366,7 +366,7 @@
     <message>
         <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1113"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>
-        <translation type="unfinished"></translation>
+        <translation>キーボード変換がありません。キー入力を端末に送信するための情報がありません。</translation>
     </message>
 </context>
 <context>
@@ -487,7 +487,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="752"/>
         <location filename="../src/mainwindow.cpp" line="972"/>
-        <location filename="../src/mainwindow.cpp" line="2791"/>
+        <location filename="../src/mainwindow.cpp" line="2802"/>
         <source>Help</source>
         <translation>ヘルプ</translation>
     </message>
@@ -510,10 +510,10 @@
         <location filename="../src/mainwindow.cpp" line="266"/>
         <location filename="../src/mainwindow.cpp" line="282"/>
         <location filename="../src/mainwindow.cpp" line="293"/>
-        <location filename="../src/mainwindow.cpp" line="2015"/>
-        <location filename="../src/mainwindow.cpp" line="2584"/>
-        <location filename="../src/mainwindow.cpp" line="2827"/>
-        <location filename="../src/mainwindow.cpp" line="2832"/>
+        <location filename="../src/mainwindow.cpp" line="2016"/>
+        <location filename="../src/mainwindow.cpp" line="2553"/>
+        <location filename="../src/mainwindow.cpp" line="2838"/>
+        <location filename="../src/mainwindow.cpp" line="2843"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -602,7 +602,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="464"/>
         <location filename="../src/mainwindow.cpp" line="562"/>
-        <location filename="../src/mainwindow.cpp" line="1930"/>
+        <location filename="../src/mainwindow.cpp" line="1931"/>
         <source>Ready</source>
         <translation>準備完了</translation>
     </message>
@@ -1014,72 +1014,72 @@
         <translation>更新をチェック</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2584"/>
+        <location filename="../src/mainwindow.cpp" line="2553"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>このセッションを切断してもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2793"/>
+        <location filename="../src/mainwindow.cpp" line="2804"/>
         <source>Global Shortcuts:</source>
         <translation>グローバルショートカット：</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2794"/>
+        <location filename="../src/mainwindow.cpp" line="2805"/>
         <source>show/hide menu bar</source>
         <translation>メニューバーを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2795"/>
+        <location filename="../src/mainwindow.cpp" line="2806"/>
         <source>connect to LocalShell</source>
         <translation>ローカル端末に接続</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2796"/>
+        <location filename="../src/mainwindow.cpp" line="2807"/>
         <source>clone current session</source>
         <translation>現在のセッションを複製</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2797"/>
+        <location filename="../src/mainwindow.cpp" line="2808"/>
         <source>switch ui to STD mode</source>
         <translation>UIを標準モードに切り替え</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2798"/>
+        <location filename="../src/mainwindow.cpp" line="2809"/>
         <source>switch ui to MINI mode</source>
         <translation>UIをミニモードに切り替え</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2799"/>
+        <location filename="../src/mainwindow.cpp" line="2810"/>
         <source>switch to previous session</source>
         <translation>前のセッションに切り替え</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2800"/>
+        <location filename="../src/mainwindow.cpp" line="2811"/>
         <source>switch to next session</source>
         <translation>次のセッションに切り替え</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2801"/>
+        <location filename="../src/mainwindow.cpp" line="2812"/>
         <source>switch to session [num]</source>
         <translation>セッション[num]に切り替え</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2802"/>
+        <location filename="../src/mainwindow.cpp" line="2813"/>
         <source>Go to line start</source>
         <translation>行頭に移動</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2803"/>
+        <location filename="../src/mainwindow.cpp" line="2814"/>
         <source>Go to line end</source>
         <translation>行末に移動</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2827"/>
+        <location filename="../src/mainwindow.cpp" line="2838"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>ロックされていないセッションがあります。まずロックを解除して下さい。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2832"/>
+        <location filename="../src/mainwindow.cpp" line="2843"/>
         <source>Are you sure to quit?</source>
         <translation>終了してもよろしいですか？</translation>
     </message>
@@ -1295,7 +1295,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="931"/>
-        <location filename="../src/mainwindow.cpp" line="1840"/>
+        <location filename="../src/mainwindow.cpp" line="1841"/>
         <source>Remove Bookmark</source>
         <translation>ブックマークを削除</translation>
     </message>
@@ -1306,7 +1306,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="933"/>
-        <location filename="../src/mainwindow.cpp" line="1867"/>
+        <location filename="../src/mainwindow.cpp" line="1868"/>
         <source>Clean All Bookmark</source>
         <translation>全てのブックマークをクリア</translation>
     </message>
@@ -1482,7 +1482,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="978"/>
-        <location filename="../src/mainwindow.cpp" line="2774"/>
+        <location filename="../src/mainwindow.cpp" line="2785"/>
         <source>About</source>
         <translation>について</translation>
     </message>
@@ -1502,88 +1502,88 @@
         <translation>Qtについてのダイアログを表示</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1663"/>
+        <location filename="../src/mainwindow.cpp" line="1664"/>
         <source>PrintScreen saved to %1</source>
         <translation>プリントスクリーンを %1 に保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1673"/>
+        <location filename="../src/mainwindow.cpp" line="1674"/>
         <source>Save Screenshot</source>
         <translation>スクリーンショットを保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1673"/>
+        <location filename="../src/mainwindow.cpp" line="1674"/>
         <source>Image Files (*.jpg)</source>
         <translation>画像ファイル (*.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1678"/>
+        <location filename="../src/mainwindow.cpp" line="1679"/>
         <source>Screenshot saved to %1</source>
         <translation>スクリーンショットを %1 に保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1690"/>
+        <location filename="../src/mainwindow.cpp" line="1691"/>
         <source>Text Files (*.txt)</source>
         <translation>テキストファイル (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1693"/>
+        <location filename="../src/mainwindow.cpp" line="1694"/>
         <source>HTML Files (*.html)</source>
         <translation>HTMLファイル (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1813"/>
+        <location filename="../src/mainwindow.cpp" line="1814"/>
         <source>Select a directory</source>
         <translation>ディレクトリを選択</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1840"/>
+        <location filename="../src/mainwindow.cpp" line="1841"/>
         <source>Select a bookmark</source>
         <translation>ブックマークを選択</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1867"/>
+        <location filename="../src/mainwindow.cpp" line="1868"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>全てのブックマークをクリアしてもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2319"/>
+        <location filename="../src/mainwindow.cpp" line="2288"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2352"/>
+        <location filename="../src/mainwindow.cpp" line="2321"/>
         <source>Serial</source>
         <translation>シリアル</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2384"/>
+        <location filename="../src/mainwindow.cpp" line="2353"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2415"/>
+        <location filename="../src/mainwindow.cpp" line="2384"/>
         <source>NamePipe - </source>
         <translation>名前付きパイプ - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2416"/>
+        <location filename="../src/mainwindow.cpp" line="2385"/>
         <source>NamePipe</source>
         <translation>名前付きパイプ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2484"/>
-        <location filename="../src/mainwindow.cpp" line="2488"/>
+        <location filename="../src/mainwindow.cpp" line="2453"/>
+        <location filename="../src/mainwindow.cpp" line="2457"/>
         <source>Local Shell</source>
         <translation>ローカル端末</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2775"/>
+        <location filename="../src/mainwindow.cpp" line="2786"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;バージョン&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;コミット&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;開発者&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;ウェブサイト&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2318"/>
+        <location filename="../src/mainwindow.cpp" line="2287"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
@@ -1618,42 +1618,42 @@
         <translation>セッションオプションとグローバルオプションをリアルタイムで保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1687"/>
+        <location filename="../src/mainwindow.cpp" line="1688"/>
         <source>Save Session Export</source>
         <translation>セッションエクスポートを保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1687"/>
+        <location filename="../src/mainwindow.cpp" line="1688"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation>テキストファイル (*.txt);;HTMLファイル (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1702"/>
+        <location filename="../src/mainwindow.cpp" line="1703"/>
         <source>Session Export saved to %1</source>
         <translation>セッションエクスポートを %1 に保存</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1704"/>
+        <location filename="../src/mainwindow.cpp" line="1705"/>
         <source>Session Export failed to save to %1</source>
         <translation>セッションエクスポートを %1 に保存できませんでした</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2015"/>
+        <location filename="../src/mainwindow.cpp" line="2016"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>ビデオ背景が有効になっています。グローバルオプションでアニメーションを有効にするか、背景画像を変更してください（システムリソースが増えます）。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2351"/>
+        <location filename="../src/mainwindow.cpp" line="2320"/>
         <source>Serial - </source>
         <translation>シリアル - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2486"/>
+        <location filename="../src/mainwindow.cpp" line="2455"/>
         <source>Local Shell - </source>
         <translation>ローカル端末 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2383"/>
+        <location filename="../src/mainwindow.cpp" line="2352"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
@@ -1708,11 +1708,319 @@
     </message>
 </context>
 <context>
+    <name>QKeychain::DeletePasswordJobPrivate</name>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="173"/>
+        <source>Could not open keystore</source>
+        <translation>キーストアを開けませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="179"/>
+        <source>Could not remove private key from keystore</source>
+        <translation>キーストアから秘密鍵を削除できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="585"/>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="593"/>
+        <source>Unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="614"/>
+        <source>Could not open wallet: %1; %2</source>
+        <translation>ウォレットを開けませんでした: %1; %2</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="104"/>
+        <source>Password entry not found</source>
+        <translation>パスワードエントリが見つかりませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="108"/>
+        <source>Could not decrypt data</source>
+        <translation>データを復号できませんでした</translation>
+    </message>
+</context>
+<context>
+    <name>QKeychain::Job</name>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
+        <source>No error</source>
+        <translation>エラーなし</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
+        <source>The specified item could not be found in the keychain</source>
+        <translation>指定されたアイテムがキーチェーンに見つかりませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
+        <source>User canceled the operation</source>
+        <translation>ユーザーが操作をキャンセルしました</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
+        <source>User interaction is not allowed</source>
+        <translation>ユーザーインタラクションは許可されていません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
+        <source>No keychain is available. You may need to restart your computer</source>
+        <translation>利用可能なキーチェーンがありません。コンピューターを再起動する必要があるかもしれません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
+        <source>The user name or passphrase you entered is not correct</source>
+        <translation>入力したユーザー名またはパスフレーズが正しくありません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
+        <source>A cryptographic verification failure has occurred</source>
+        <translation>暗号化検証に失敗しました</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
+        <source>Function or operation not implemented</source>
+        <translation>関数または操作が実装されていません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
+        <source>I/O error</source>
+        <translation>I/Oエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
+        <source>Already open with with write permission</source>
+        <translation>書き込み権限で既に開いています</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
+        <source>Invalid parameters passed to a function</source>
+        <translation>関数に渡されたパラメータが無効です</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
+        <source>Failed to allocate memory</source>
+        <translation>メモリの割り当てに失敗しました</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
+        <source>Bad parameter or invalid state for operation</source>
+        <translation>パラメータが不正または操作の状態が無効です</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
+        <source>An internal component failed</source>
+        <translation>内部コンポーネントが失敗しました</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
+        <source>The specified item already exists in the keychain</source>
+        <translation>指定されたアイテムは既にキーチェーンに存在します</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
+        <source>Unable to decode the provided data</source>
+        <translation>提供されたデータをデコードできません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
+        <source>Unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+</context>
+<context>
+    <name>QKeychain::JobPrivate</name>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="295"/>
+        <source>Unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="542"/>
+        <source>Access to keychain denied</source>
+        <translation>キーチェーンへのアクセスが拒否されました</translation>
+    </message>
+</context>
+<context>
+    <name>QKeychain::PlainTextStore</name>
+    <message>
+        <location filename="../lib/qtkeychain/plaintextstore.cpp" line="65"/>
+        <source>Could not store data in settings: access error</source>
+        <translation>設定にデータを保存できませんでした: アクセスエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/plaintextstore.cpp" line="67"/>
+        <source>Could not store data in settings: format error</source>
+        <translation>設定にデータを保存できませんでした: フォーマットエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/plaintextstore.cpp" line="85"/>
+        <source>Could not delete data from settings: access error</source>
+        <translation>設定からデータを削除できませんでした: アクセスエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/plaintextstore.cpp" line="87"/>
+        <source>Could not delete data from settings: format error</source>
+        <translation>設定からデータを削除できませんでした: フォーマットエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/plaintextstore.cpp" line="104"/>
+        <source>Entry not found</source>
+        <translation>エントリが見つかりませんでした</translation>
+    </message>
+</context>
+<context>
+    <name>QKeychain::ReadPasswordJobPrivate</name>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="52"/>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="393"/>
+        <source>Entry not found</source>
+        <translation>エントリが見つかりませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="60"/>
+        <source>Could not open keystore</source>
+        <translation>キーストアを開けませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="68"/>
+        <source>Could not retrieve private key from keystore</source>
+        <translation>キーストアから秘密鍵を取得できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="75"/>
+        <source>Could not create decryption cipher</source>
+        <translation>復号化暗号を作成できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="205"/>
+        <source>D-Bus is not running</source>
+        <translation>D-Busが実行されていません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="214"/>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="224"/>
+        <source>Unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="316"/>
+        <source>No keychain service available</source>
+        <translation>利用可能なキーチェーンサービスがありません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="318"/>
+        <source>Could not open wallet: %1; %2</source>
+        <translation>ウォレットを開けませんでした: %1; %2</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="363"/>
+        <source>Access to keychain denied</source>
+        <translation>キーチェーンへのアクセスが拒否されました</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="384"/>
+        <source>Could not determine data type: %1; %2</source>
+        <translation>データ型を特定できませんでした: %1; %2</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="402"/>
+        <source>Unsupported entry type &apos;Map&apos;</source>
+        <translation>サポートされていないエントリタイプ &apos;Map&apos;</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="405"/>
+        <source>Unknown kwallet entry type &apos;%1&apos;</source>
+        <translation>不明なkwalletエントリタイプ &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="32"/>
+        <source>Password entry not found</source>
+        <translation>パスワードエントリが見つかりませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="36"/>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="139"/>
+        <source>Could not decrypt data</source>
+        <translation>データを復号できませんでした</translation>
+    </message>
+</context>
+<context>
+    <name>QKeychain::WritePasswordJobPrivate</name>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="95"/>
+        <source>Could not open keystore</source>
+        <translation>キーストアを開けませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="124"/>
+        <source>Could not create private key generator</source>
+        <translation>秘密鍵ジェネレータを作成できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="131"/>
+        <source>Could not generate new private key</source>
+        <translation>新しい秘密鍵を生成できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="139"/>
+        <source>Could not retrieve private key from keystore</source>
+        <translation>キーストアから秘密鍵を取得できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="147"/>
+        <source>Could not create encryption cipher</source>
+        <translation>暗号化暗号を作成できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_android.cpp" line="155"/>
+        <source>Could not encrypt data</source>
+        <translation>データを暗号化できませんでした</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="445"/>
+        <source>D-Bus is not running</source>
+        <translation>D-Busが実行されていません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="455"/>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="482"/>
+        <source>Unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="501"/>
+        <source>Could not open wallet: %1; %2</source>
+        <translation>ウォレットを開けませんでした: %1; %2</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="78"/>
+        <source>Credential size exceeds maximum size of %1</source>
+        <translation>資格情報のサイズが最大サイズ %1 を超えています</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="87"/>
+        <source>Credential key exceeds maximum size of %1</source>
+        <translation>資格情報のキーが最大サイズ %1 を超えています</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="92"/>
+        <source>Writing credentials failed: Win32 error code %1</source>
+        <translation>資格情報の書き込みに失敗しました: Win32エラーコード %1</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_win.cpp" line="162"/>
+        <source>Encryption failed</source>
+        <translation>暗号化に失敗しました</translation>
+    </message>
+</context>
+<context>
     <name>QMessageBox</name>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2947"/>
         <source>Show Details...</source>
-        <translation type="unfinished"></translation>
+        <translation>詳細を表示...</translation>
     </message>
 </context>
 <context>
@@ -1721,55 +2029,110 @@
         <location filename="../lib/qtermwidget/ColorScheme.cpp" line="267"/>
         <location filename="../lib/qtermwidget/ColorScheme.cpp" line="282"/>
         <source>Un-named Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>名前のないカラースキーム</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/ColorScheme.cpp" line="453"/>
         <source>Accessible Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>アクセシブルカラースキーム</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="549"/>
         <source>Open Link</source>
-        <translation type="unfinished"></translation>
+        <translation>リンクを開く</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="550"/>
         <source>Copy Link Address</source>
-        <translation type="unfinished"></translation>
+        <translation>リンクアドレスをコピー</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="554"/>
         <source>Send Email To...</source>
-        <translation type="unfinished"></translation>
+        <translation>メールを送信...</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="555"/>
         <source>Copy Email Address</source>
-        <translation type="unfinished"></translation>
+        <translation>メールアドレスをコピー</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="559"/>
         <source>Open Path</source>
-        <translation type="unfinished"></translation>
+        <translation>パスを開く</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="560"/>
         <source>Copy Path</source>
-        <translation type="unfinished">パスをコピー</translation>
+        <translation>パスをコピー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="255"/>
+        <source>Access to keychain denied</source>
+        <translation>キーチェーンへのアクセスが拒否されました</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="257"/>
+        <source>No keyring daemon</source>
+        <translation>キーリングデーモンがありません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="259"/>
+        <source>Already unlocked</source>
+        <translation>既にロック解除されています</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="261"/>
+        <source>No such keyring</source>
+        <translation>そのようなキーリングはありません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="263"/>
+        <source>Bad arguments</source>
+        <translation>引数が不正です</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="265"/>
+        <source>I/O error</source>
+        <translation>I/Oエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="267"/>
+        <source>Cancelled</source>
+        <translation>キャンセルされました</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="269"/>
+        <source>Keyring already exists</source>
+        <translation>キーリングは既に存在します</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="271"/>
+        <source>No match</source>
+        <translation>一致しません</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/keychain_unix.cpp" line="276"/>
+        <source>Unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+    <message>
+        <location filename="../lib/qtkeychain/libsecret.cpp" line="119"/>
+        <source>Entry not found</source>
+        <translation>エントリが見つかりませんでした</translation>
     </message>
 </context>
 <context>
     <name>QTermWidget</name>
     <message>
-        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="376"/>
+        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="350"/>
         <source>Color Scheme Error</source>
-        <translation type="unfinished"></translation>
+        <translation>カラースキームエラー</translation>
     </message>
     <message>
-        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="377"/>
+        <location filename="../lib/qtermwidget/qtermwidget.cpp" line="351"/>
         <source>Cannot load color scheme: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>カラースキームを読み込めません: %1</translation>
     </message>
 </context>
 <context>
@@ -1929,50 +2292,50 @@
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="14"/>
         <source>SearchBar</source>
-        <translation type="unfinished"></translation>
+        <translation>検索バー</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="20"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="32"/>
         <source>Find:</source>
-        <translation type="unfinished"></translation>
+        <translation>検索:</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="42"/>
         <source>&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="54"/>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="66"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="40"/>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="130"/>
         <source>Match case</source>
-        <translation type="unfinished"></translation>
+        <translation>大文字と小文字を区別する</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="46"/>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="131"/>
         <source>Regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>正規表現</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="50"/>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="132"/>
         <source>Highlight all matches</source>
-        <translation type="unfinished"></translation>
+        <translation>全ての一致箇所をハイライトする</translation>
     </message>
 </context>
 <context>

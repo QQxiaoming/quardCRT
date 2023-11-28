@@ -53,41 +53,5 @@ HEADERS += \
 FORMS += \
     $$PWD/SearchBar.ui
     
-TRANSLATIONS += \
-    $$PWD/translations/qtermwidget_arn.ts \
-    $$PWD/translations/qtermwidget_arn.ts \
-    $$PWD/translations/qtermwidget_ast.ts \
-    $$PWD/translations/qtermwidget_bg.ts \
-    $$PWD/translations/qtermwidget_ca.ts \
-    $$PWD/translations/qtermwidget_cs.ts \
-    $$PWD/translations/qtermwidget_cy.ts \
-    $$PWD/translations/qtermwidget_da.ts \
-    $$PWD/translations/qtermwidget_de.ts \
-    $$PWD/translations/qtermwidget_el.ts \
-    $$PWD/translations/qtermwidget_es.ts \
-    $$PWD/translations/qtermwidget_et.ts \
-    $$PWD/translations/qtermwidget_fr.ts \
-    $$PWD/translations/qtermwidget_gl.ts \
-    $$PWD/translations/qtermwidget_he.ts \
-    $$PWD/translations/qtermwidget_hr.ts \
-    $$PWD/translations/qtermwidget_hu.ts \
-    $$PWD/translations/qtermwidget_it.ts \
-    $$PWD/translations/qtermwidget_ja.ts \
-    $$PWD/translations/qtermwidget_ko.ts \
-    $$PWD/translations/qtermwidget_lt.ts \
-    $$PWD/translations/qtermwidget_nl.ts \
-    $$PWD/translations/qtermwidget_nb_NO.ts \
-    $$PWD/translations/qtermwidget_pl.ts \
-    $$PWD/translations/qtermwidget_pt_BR.ts \
-    $$PWD/translations/qtermwidget_pt.ts \
-    $$PWD/translations/qtermwidget_ru.ts \
-    $$PWD/translations/qtermwidget_si.ts \
-    $$PWD/translations/qtermwidget_tr.ts \
-    $$PWD/translations/qtermwidget.ts \
-    $$PWD/translations/qtermwidget_sk.ts \
-    $$PWD/translations/qtermwidget_uk.ts \
-    $$PWD/translations/qtermwidget_zh_CN.ts \
-    $$PWD/translations/qtermwidget_zh_TW.ts
-
 RESOURCES += \
     $$PWD/res.qrc

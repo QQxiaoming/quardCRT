@@ -21,7 +21,7 @@ def get_language_progress(root):
         finished_count = message_count - unfinished_count - vanished_count - obsolete_count
         total_message_count += message_count - vanished_count - obsolete_count
         total_finished_count += finished_count
-    return total_finished_count,total_message_count-27
+    return total_finished_count,total_message_count
 
 def generate_svg(name, finished_count, total_count):
     width = 150
