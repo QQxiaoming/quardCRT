@@ -330,7 +330,7 @@
     <message>
         <location filename="../lib/qtermwidget/Session.cpp" line="317"/>
         <source>Bell in session &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Campana en la sesión &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
@@ -338,27 +338,27 @@
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1382"/>
         <source>Size: XXX x XXX</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño: XXX x XXX</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1394"/>
         <source>Size: %1 x %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño: %1 x %2</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2940"/>
         <source>Paste multiline text</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar texto de varias líneas</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2941"/>
         <source>Are you sure you want to paste this text?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de que desea pegar este texto?</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3424"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;La salida ha sido &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspendida&lt;/a&gt; al presionar Ctrl+S.  Presione &lt;b&gt;Ctrl+Q&lt;/b&gt; para reanudar.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -366,7 +366,7 @@
     <message>
         <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1113"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay traductor de teclado disponible.  Falta la información necesaria para convertir las pulsaciones de teclas en caracteres para enviar al terminal.</translation>
     </message>
 </context>
 <context>
@@ -2292,50 +2292,50 @@
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="14"/>
         <source>SearchBar</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de búsqueda</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="20"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="32"/>
         <source>Find:</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar:</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="42"/>
         <source>&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="54"/>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.ui" line="66"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="40"/>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="130"/>
         <source>Match case</source>
-        <translation type="unfinished"></translation>
+        <translation>Coincidir mayúsculas y minúsculas</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="46"/>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="131"/>
         <source>Regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Expresión regular</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="50"/>
         <location filename="../lib/qtermwidget/SearchBar.cpp" line="132"/>
         <source>Highlight all matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Resaltar todas las coincidencias</translation>
     </message>
 </context>
 <context>

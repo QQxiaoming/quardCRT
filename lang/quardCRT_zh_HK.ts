@@ -1786,47 +1786,47 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
         <source>I/O error</source>
-        <translation type="unfinished">輸入/輸出錯誤</translation>
+        <translation>輸入/輸出錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
         <source>Already open with with write permission</source>
-        <translation type="unfinished"></translation>
+        <translation>已經以寫入權限打開</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
         <source>Invalid parameters passed to a function</source>
-        <translation type="unfinished"></translation>
+        <translation>向函數傳遞了無效的參數</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
         <source>Failed to allocate memory</source>
-        <translation type="unfinished"></translation>
+        <translation>無法分配內存</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
         <source>Bad parameter or invalid state for operation</source>
-        <translation type="unfinished"></translation>
+        <translation>操作的參數錯誤或狀態無效</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
         <source>An internal component failed</source>
-        <translation type="unfinished"></translation>
+        <translation>內部組件失敗</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
         <source>The specified item already exists in the keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>鑰匙圈中已經存在指定的項目</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
         <source>Unable to decode the provided data</source>
-        <translation type="unfinished"></translation>
+        <translation>無法解碼提供的數據</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
         <source>Unknown error</source>
-        <translation type="unfinished">未知錯誤</translation>
+        <translation>未知錯誤</translation>
     </message>
 </context>
 <context>
@@ -1834,12 +1834,12 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="295"/>
         <source>Unknown error</source>
-        <translation type="unfinished">未知錯誤</translation>
+        <translation>未知錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="542"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished">訪問鑰匙圈被拒絕</translation>
+        <translation>訪問鑰匙圈被拒絕</translation>
     </message>
 </context>
 <context>
@@ -1847,27 +1847,27 @@
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="65"/>
         <source>Could not store data in settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>無法在設置中存儲數據：訪問錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="67"/>
         <source>Could not store data in settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>無法在設置中存儲數據：格式錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="85"/>
         <source>Could not delete data from settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>無法從設置中刪除數據：訪問錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="87"/>
         <source>Could not delete data from settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>無法從設置中刪除數據：格式錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="104"/>
         <source>Entry not found</source>
-        <translation type="unfinished">條目未找到</translation>
+        <translation>條目未找到</translation>
     </message>
 </context>
 <context>
@@ -1876,74 +1876,74 @@
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="52"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="393"/>
         <source>Entry not found</source>
-        <translation type="unfinished">條目未找到</translation>
+        <translation>條目未找到</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="60"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>無法打開密鑰庫</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="68"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>無法從密鑰庫中檢索私鑰</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="75"/>
         <source>Could not create decryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>無法創建解密密碼</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="205"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus未運行</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="214"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="224"/>
         <source>Unknown error</source>
-        <translation type="unfinished">未知錯誤</translation>
+        <translation>未知錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="316"/>
         <source>No keychain service available</source>
-        <translation type="unfinished"></translation>
+        <translation>沒有可用的鑰匙圈服務</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="318"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>無法打開wallet：%1；%2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="363"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished">訪問鑰匙圈被拒絕</translation>
+        <translation>訪問鑰匙圈被拒絕</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="384"/>
         <source>Could not determine data type: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>無法確定數據類型：%1；%2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="402"/>
         <source>Unsupported entry type &apos;Map&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>不支持的條目類型&apos;Map&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="405"/>
         <source>Unknown kwallet entry type &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>未知的kwallet條目類型&apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="32"/>
         <source>Password entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>找不到密碼條目</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="36"/>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="139"/>
         <source>Could not decrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>無法解密數據</translation>
     </message>
 </context>
 <context>
@@ -1951,68 +1951,68 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="95"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>無法打開密鑰庫</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="124"/>
         <source>Could not create private key generator</source>
-        <translation type="unfinished"></translation>
+        <translation>無法創建私鑰生成器</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="131"/>
         <source>Could not generate new private key</source>
-        <translation type="unfinished"></translation>
+        <translation>無法生成新的私鑰</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="139"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>無法從密鑰庫中檢索私鑰</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="147"/>
         <source>Could not create encryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>無法創建加密密碼</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="155"/>
         <source>Could not encrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>無法加密數據</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="445"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus未運行</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="455"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="482"/>
         <source>Unknown error</source>
-        <translation type="unfinished">未知錯誤</translation>
+        <translation>未知錯誤</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="501"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>無法打開wallet：%1；%2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="78"/>
         <source>Credential size exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>憑據大小超過最大大小%1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="87"/>
         <source>Credential key exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>憑據密鑰超過最大大小%1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="92"/>
         <source>Writing credentials failed: Win32 error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>寫入憑據失敗：Win32錯誤碼%1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="162"/>
         <source>Encryption failed</source>
-        <translation type="unfinished"></translation>
+        <translation>加密失敗</translation>
     </message>
 </context>
 <context>
