@@ -109,3 +109,4 @@ The code of this project references or partially refers to or depends on the fol
 - [libssh2](https://github.com/libssh2/libssh2)
 - [QtSsh](https://github.com/condo4/QtSsh)
 - [QCustomFileSystemModel](https://github.com/QQxiaoming/QCustomFileSystemModel)
+- [qtkeychain](https://github.com/frankosterfeld/qtkeychain)

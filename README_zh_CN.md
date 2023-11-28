@@ -110,3 +110,4 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 - [libssh2](https://github.com/libssh2/libssh2)
 - [QtSsh](https://github.com/condo4/QtSsh)
 - [QCustomFileSystemModel](https://github.com/QQxiaoming/QCustomFileSystemModel)
+- [qtkeychain](https://github.com/frankosterfeld/qtkeychain)
