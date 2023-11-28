@@ -35,7 +35,7 @@ void SshSftpCommandMkdir::process()
                 return;
             }
             m_error = true;
-            m_errMsg << "SFTP mkdir error " + res;
+            m_errMsg << "SFTP mkdir error " << QString::number(res);
             qCWarning(logsshsftp) << "SFTP mkdir error " << res;
             setState(CommandState::Error);
             break;

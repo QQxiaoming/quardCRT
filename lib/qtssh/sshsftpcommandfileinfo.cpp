@@ -56,7 +56,7 @@ void SshSftpCommandFileInfo::process()
                 else
                 {
                     qCWarning(logsshsftp) << "SFTP last error " << err;
-                    m_errMsg << "SFTP last error " + err;
+                    m_errMsg << "SFTP last error " << QString::number(err);
                 }
             }
             setState(CommandState::Error);

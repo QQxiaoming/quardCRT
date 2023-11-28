@@ -20,6 +20,7 @@
 #ifndef SESSIONOPTIONSSSH2PROPERTIES_H
 #define SESSIONOPTIONSSSH2PROPERTIES_H
 
+#include "passwordedit.h"
 #include <QWidget>
 
 namespace Ui {
@@ -35,6 +36,7 @@ public:
     ~SessionOptionsSsh2Properties();
 
     Ui::SessionOptionsSsh2Properties *ui;
+    PasswordEdit *lineEditPassword;
 };
 
 #endif // SESSIONOPTIONSSSH2PROPERTIES_H

@@ -78,6 +78,7 @@ HEADERS += \
     src/util/filedialog.h \
     src/util/globalsetting.h \
     src/util/keychainclass.h \
+    src/util/passwordedit.h \
     src/globaloptions/globaloptionsadvancedwidget.h \
     src/globaloptions/globaloptionsappearancewidget.h \
     src/globaloptions/globaloptionsterminalwidget.h \

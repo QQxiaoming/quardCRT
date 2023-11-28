@@ -230,7 +230,7 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
         sessionOptionsSSH2Properties->ui->lineEditHostname->setText(data.SSH2Data.hostname);
         sessionOptionsSSH2Properties->ui->spinBoxPort->setValue(data.SSH2Data.port);
         sessionOptionsSSH2Properties->ui->lineEditUserName->setText(data.SSH2Data.username);
-        sessionOptionsSSH2Properties->ui->lineEditPassword->setText(data.SSH2Data.password);
+        sessionOptionsSSH2Properties->lineEditPassword->setText(data.SSH2Data.password);
         break;
     }
 }
@@ -293,7 +293,7 @@ void SessionOptionsWindow::buttonBoxAccepted(void)
         data.SSH2Data.hostname = sessionOptionsSSH2Properties->ui->lineEditHostname->text();
         data.SSH2Data.port = sessionOptionsSSH2Properties->ui->spinBoxPort->value();
         data.SSH2Data.username = sessionOptionsSSH2Properties->ui->lineEditUserName->text();
-        data.SSH2Data.password = sessionOptionsSSH2Properties->ui->lineEditPassword->text();
+        data.SSH2Data.password = sessionOptionsSSH2Properties->lineEditPassword->text();
         break;
     }
     emit sessionPropertiesChanged(currentSessionName, data, sessionOptionsGeneralWidget->ui->lineEditName->text());

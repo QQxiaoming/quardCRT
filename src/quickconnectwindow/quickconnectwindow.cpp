@@ -27,6 +27,8 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
     ui(new Ui::QuickConnectWindow)
 {
     ui->setupUi(this);
+    lineEditPassword = new PasswordEdit(true,this);
+    ui->horizontalLayout_5->addWidget(lineEditPassword);
 
     setWindowTitle(tr("Quick Connect"));
     setWindowModality(Qt::ApplicationModal);
@@ -82,7 +84,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
             ui->labelPassword->setVisible(false);
-            ui->lineEditPassword->setVisible(false);
+            lineEditPassword->setVisible(false);
             ui->lineEditHostname->setText("");
             ui->lineEditHostname->setPlaceholderText(tr("e.g. 127.0.0.1"));
             ui->spinBoxPort->setMinimum(0);
@@ -99,7 +101,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
             ui->labelPassword->setVisible(false);
-            ui->lineEditPassword->setVisible(false);
+            lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
             ui->labelWebSocket->setVisible(false);
@@ -139,7 +141,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
             ui->labelPassword->setVisible(false);
-            ui->lineEditPassword->setVisible(false);
+            lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(false);
             ui->spinBoxPort->setVisible(false);
             ui->labelWebSocket->setVisible(false);
@@ -164,7 +166,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
             ui->labelPassword->setVisible(false);
-            ui->lineEditPassword->setVisible(false);
+            lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
             ui->labelWebSocket->setVisible(false);
@@ -191,7 +193,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
             ui->labelPassword->setVisible(false);
-            ui->lineEditPassword->setVisible(false);
+            lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(false);
             ui->spinBoxPort->setVisible(false);
             ui->labelWebSocket->setVisible(false);
@@ -220,7 +222,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelUsername->setVisible(true);
             ui->lineEditUsername->setVisible(true);
             ui->labelPassword->setVisible(true);
-            ui->lineEditPassword->setVisible(true);
+            lineEditPassword->setVisible(true);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
             ui->labelWebSocket->setVisible(false);
@@ -284,7 +286,7 @@ void QuickConnectWindow::buttonBoxAccepted(void)
             data.SSH2Data.hostname = ui->lineEditHostname->text();
             data.SSH2Data.port = ui->spinBoxPort->value();
             data.SSH2Data.username = ui->lineEditUsername->text();
-            data.SSH2Data.password = ui->lineEditPassword->text();
+            data.SSH2Data.password = lineEditPassword->text();
             emit this->sendQuickConnectData(data);
             break;
         default:

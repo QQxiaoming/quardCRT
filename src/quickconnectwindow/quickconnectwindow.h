@@ -22,6 +22,7 @@
 
 #include <QDialog>
 #include <QShowEvent>
+#include "passwordedit.h"
 
 namespace Ui {
 class QuickConnectWindow;
@@ -97,6 +98,7 @@ protected:
 
 private:
     Ui::QuickConnectWindow *ui;
+    PasswordEdit *lineEditPassword;
 };
 
 #endif // QUICKCONNECTWINDOW_H
