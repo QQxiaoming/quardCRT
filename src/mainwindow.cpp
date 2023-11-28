@@ -440,10 +440,10 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
         int size = settings.beginReadArray("Global/Session");
         for(int i=0;i<size;i++) {
             settings.setArrayIndex(i);
-            QuickConnectWindow::QuickConnectData data;
-            QString current_name;
-            setting2InfoData(&settings, data, current_name);
+            QString current_name = settings.value("name").toString();
             if(current_name == str) {
+                QuickConnectWindow::QuickConnectData data;
+                setting2InfoData(&settings, data, current_name);
                 sessionOptionsWindow->setSessionProperties(str,data);
                 sessionOptionsWindow->show();
                 break;
@@ -2093,7 +2093,7 @@ int MainWindow::addSessionToSessionManager(SessionsWindow *sessionsWindow, QStri
         settings.setValue("hostname",sessionsWindow->getHostname());
         settings.setValue("port",sessionsWindow->getPort());
         settings.setValue("username",sessionsWindow->getUserName());
-        settings.setValue("password",sessionsWindow->getPassWord());
+        keyChainClass.writeKey(name,sessionsWindow->getPassWord());
         break;
     default:
         break;
@@ -2144,7 +2144,7 @@ int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnec
                 settings.setValue("hostname",data.SSH2Data.hostname);
                 settings.setValue("port",data.SSH2Data.port);
                 settings.setValue("username",data.SSH2Data.username);
-                settings.setValue("password",data.SSH2Data.password);
+                keyChainClass.writeKey(name,data.SSH2Data.password);
                 break;
             default:
                 break;
@@ -2206,7 +2206,7 @@ int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnec
                 settings.setValue("hostname",dataR.SSH2Data.hostname);
                 settings.setValue("port",dataR.SSH2Data.port);
                 settings.setValue("username",dataR.SSH2Data.username);
-                settings.setValue("password",dataR.SSH2Data.password);
+                keyChainClass.writeKey(info.first,data.SSH2Data.password);
                 break;
             default:
                 break;
@@ -2231,6 +2231,9 @@ int64_t MainWindow::removeSessionFromSessionManager(QString name)
         QString current_name;
         setting2InfoData(&settings, data, current_name);
         if(current_name == name) {
+            if(data.type == QuickConnectWindow::SSH2) {
+                keyChainClass.deleteKey(name);
+            }
             matched = i;
             continue;
         } else {
@@ -2278,7 +2281,7 @@ int64_t MainWindow::removeSessionFromSessionManager(QString name)
             settings.setValue("hostname",dataR.SSH2Data.hostname);
             settings.setValue("port",dataR.SSH2Data.port);
             settings.setValue("username",dataR.SSH2Data.username);
-            settings.setValue("password",dataR.SSH2Data.password);
+            keyChainClass.writeKey(info.first,dataR.SSH2Data.password);
             break;
         default:
             break;
@@ -2301,10 +2304,10 @@ void MainWindow::connectSessionFromSessionManager(QString name)
     int size = settings.beginReadArray("Global/Session");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
-        QuickConnectWindow::QuickConnectData data;
-        QString current_name;
-        setting2InfoData(&settings,data,current_name);
+        QString current_name = settings.value("name").toString();
         if(current_name == name) {
+            QuickConnectWindow::QuickConnectData data;
+            setting2InfoData(&settings,data,current_name);
             switch(data.type) {
             case QuickConnectWindow::Telnet:
                 startTelnetSession(findCurrentFocusGroup(),data.TelnetData.hostname,data.TelnetData.port,
@@ -2798,12 +2801,13 @@ void MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::Q
     case QuickConnectWindow::NamePipe:
         data.NamePipeData.pipeName = settings->value("pipeName").toString();
         break;
-    case QuickConnectWindow::SSH2:
+    case QuickConnectWindow::SSH2:{
         data.SSH2Data.hostname = settings->value("hostname").toString();
         data.SSH2Data.port = settings->value("port").toInt();
         data.SSH2Data.username = settings->value("username").toString();
-        data.SSH2Data.password = settings->value("password").toString();
+        keyChainClass.readKey(name,data.SSH2Data.password);
         break;
+    }
     default:
         break;
     }

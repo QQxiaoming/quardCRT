@@ -47,6 +47,7 @@
 #include "globalsetting.h"
 #include "qtftp.h"
 #include "sftpwindow.h"
+#include "keychainclass.h"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -237,6 +238,7 @@ private:
     QShortcut *shortcutTabSwitch[9];
     QShortcut *shortcutConnectAddressEdit;
 
+    KeyChainClass keyChainClass;
     QList<SessionsWindow *> sessionList;
     QTftp *tftpServer;
     qreal windowTransparency;

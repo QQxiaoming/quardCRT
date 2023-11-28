@@ -1,0 +1,122 @@
+# This file is used to ignore files which are generated
+# ----------------------------------------------------------------------------
+
+*~
+*.autosave
+*.a
+*.core
+*.moc
+*.o
+*.obj
+*.orig
+*.rej
+*.so
+*.so.*
+*_pch.h.cpp
+*_resource.rc
+*.qm
+.#*
+*.*#
+core
+!core/
+tags
+.DS_Store
+.directory
+*.debug
+Makefile*
+*.prl
+*.app
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+Thumbs.db
+*.res
+*.rc
+/.qmake.cache
+/.qmake.stash
+
+# qtcreator generated files
+*.pro.user*
+
+# xemacs temporary files
+*.flc
+
+# Vim temporary files
+.*.swp
+
+# Visual Studio generated files
+*.ib_pdb_index
+*.idb
+*.ilk
+*.pdb
+*.sln
+*.suo
+*.vcproj
+*vcproj.*.*.user
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj
+*vcxproj.*
+
+# MinGW generated files
+*.Debug
+*.Release
+
+# Python byte code
+*.pyc
+
+# Binaries
+# --------
+*.dll
+*.exe
+
+#CMake files
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+cmake_install.cmake
+
+#Keychain temporary files
+Qt5KeychainBuildTreeSettings.cmake
+Qt5KeychainConfig.cmake
+Qt5KeychainConfigVersion.cmake
+QtKeychainBuildTreeSettings.cmake
+QtKeychainConfig.cmake
+QtKeychainConfigVersion.cmake
+kwallet_interface.cpp
+kwallet_interface.h
+kwallet_interface.moc
+moc_keychain.*
+moc_keychain_p.*
+moc_gnomekeyring_p.*
+qkeychain_export.h
+qt_Qt5Keychain.pri
+
+#Qt files
+*_parameters
+*.qm
+
+#General build files
+Debug
+Release
+Makefile
+
+#Linux build files
+libqt5keychain.*
+testclient
+
+#Windows build files
+install_manifest.txt
+*.manifest
+*.lib
+
+#Mac build files
+qtkeychain.xcodeproj
+qtkeychain.build
+
+#Temporary files
+*.sw?
+
+/build-*/
+/compile_commands.json

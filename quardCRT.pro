@@ -20,6 +20,7 @@ include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
 include(./lib/Qtftp/Qtftp.pri)
 include(./lib/qtssh/qtssh.pri)
 include(./lib/qcustomfilesystemmodel/qcustomfilesystemmodel.pri)
+include(./lib/qtkeychain/qtkeychain.pri)
 
 INCLUDEPATH += \
     src/util \
@@ -39,6 +40,7 @@ SOURCES += \
     src/sftpwindow/sftpwindow.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
+    src/util/keychainclass.cpp \
     src/globaloptions/globaloptionsadvancedwidget.cpp \
     src/globaloptions/globaloptionsappearancewidget.cpp \
     src/globaloptions/globaloptionsterminalwidget.cpp \
@@ -75,6 +77,7 @@ HEADERS += \
     src/util/argv_split.h \
     src/util/filedialog.h \
     src/util/globalsetting.h \
+    src/util/keychainclass.h \
     src/globaloptions/globaloptionsadvancedwidget.h \
     src/globaloptions/globaloptionsappearancewidget.h \
     src/globaloptions/globaloptionsterminalwidget.h \
