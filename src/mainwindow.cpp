@@ -651,6 +651,41 @@ void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidg
             termWidget->addHighLightText(text, Qt::white);
         }
     });
+    QString translateService  = globalOptionsWindow->getTranslateService();
+    if(tr("Google Translate") == translateService) {
+        QAction *translateAction = new QAction(tr("Google Translate"),this);
+        menu->addAction(translateAction);
+        connect(translateAction,&QAction::triggered,this,[=](){
+            QString text = termWidget->selectedText();
+            if(text.isEmpty()) {
+                return;
+            }
+            QUrl url("https://translate.google.com/?sl=auto&tl=zh-CN&text="+text+"&op=translate");
+            QDesktopServices::openUrl(url);
+        });
+    } else if(tr("Baidu Translate") == translateService) {
+        QAction *translateAction = new QAction(tr("Baidu Translate"),this);
+        menu->addAction(translateAction);
+        connect(translateAction,&QAction::triggered,this,[=](){
+            QString text = termWidget->selectedText();
+            if(text.isEmpty()) {
+                return;
+            }
+            QUrl url("https://fanyi.baidu.com/#auto/zh/"+text);
+            QDesktopServices::openUrl(url);
+        });
+    } else if(tr("Microsoft Translate") == translateService) {
+        QAction *translateAction = new QAction(tr("Microsoft Translate"),this);
+        menu->addAction(translateAction);
+        connect(translateAction,&QAction::triggered,this,[=](){
+            QString text = termWidget->selectedText();
+            if(text.isEmpty()) {
+                return;
+            }
+            QUrl url("https://www.bing.com/translator/?from=auto&to=zh-Hans&text="+text);
+            QDesktopServices::openUrl(url);
+        });
+    }
 }
 
 void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {

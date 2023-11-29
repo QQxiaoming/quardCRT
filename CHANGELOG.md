@@ -3,6 +3,8 @@
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
 - 增加密码输入框支持显示/隐藏功能
+- 增加常用波特率提示
+- 增加右键菜单请求翻译功能
 - 修复二次编辑存储串口会话port信息后无法正确连接问题
 
 ## [[V0.3.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.0)] - 2023-11-28

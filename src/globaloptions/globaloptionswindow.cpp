@@ -133,6 +133,16 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
     settings.endGroup();
 
+    if(settings.contains("Global/Options/translateService")) {
+        globalOptionsAdvancedWidget->ui->comboBoxTranslateService->setCurrentIndex(settings.value("Global/Options/translateService").toInt());
+    } else {
+        QString locale = settings.value("Global/Startup/language", "en_US").toString();
+        if(locale == "zh_CN")
+            globalOptionsAdvancedWidget->ui->comboBoxTranslateService->setCurrentIndex(1);
+        else
+            globalOptionsAdvancedWidget->ui->comboBoxTranslateService->setCurrentIndex(0);
+    }
+
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->addItem(QDir::homePath());
     int size = settings.beginReadArray("Global/Bookmark");
     for (int i = 0; i < size; ++i) {
@@ -352,6 +362,11 @@ QString GlobalOptionsWindow::getWordCharacters(void)
     return globalOptionsTerminalWidget->ui->lineEditWordCharacters->text();
 }
 
+QString GlobalOptionsWindow::getTranslateService(void) 
+{
+    return globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentText();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -374,6 +389,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("enableTabPreview", globalOptionsGeneralWidget->ui->checkBoxTabPreview->isChecked());
     settings.setValue("tabPreviewWidth", globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->value());
     settings.setValue("wordCharacters", globalOptionsTerminalWidget->ui->lineEditWordCharacters->text());
+    settings.setValue("translateService", globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentIndex());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -403,6 +419,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
+    globalOptionsAdvancedWidget->ui->comboBoxTranslateService->setCurrentIndex(settings.value("translateService", 0).toInt());
     settings.endGroup();
     emit this->rejected();
 }
