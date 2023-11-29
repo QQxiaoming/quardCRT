@@ -14,7 +14,7 @@
 
 English | [简体中文](./README_zh_CN.md)
 
-quardCRT is a terminal emulation software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports multiple tabs and history management.
+quardCRT is a terminal emulation software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
 
 | ![img2](./docs/windows.png) |
 | :-------------------------: |
@@ -30,30 +30,72 @@ Other protocol selection interface:
 
 ## Feature
 
-- Currently supported terminal protocols include:
+### Currently supported terminal protocols
 
-    - ssh
-    - telnet (Support websocket wrapper)
-    - serial
-    - loaclshell
-    - rawsocket
-    - windows:NamedPipe（linux/macos:unix domain socket）
+- ssh
+- telnet (Support websocket wrapper)
+- serial
+- loaclshell
+- rawsocket
+- windows:NamedPipe（linux/macos:unix domain socket）
 
-- SSH2 session opens SFTP file transfer window with one click
-- Multi-tab management, tab cloning, tab drag-and-drop sorting, tab floating preview
-- Dual column split screen, tab drag-and-drop to split column
-- Floating window support, tab drag-and-drop to floating window
-- Working directory bookmark
-- Automated sending
-- HEX display
+### Basic functions
+
 - Session history management
+- Multi-tab management, tab cloning, tab drag-and-drop sorting
+- Dual column split screen, tab drag-and-drop to split column
 - Terminal style configuration (color scheme, font)
-- Terminal background image configuration (support transparency setting, support gif animation and video)
+- HEX display
+- Terminal background image configuration
 - Terminal scroll line configuration
-- Terminal keyword highlight matching
-- windows local terminal enhancement (Tab key selects completion command, etc.)
 - Support dark/light theme
 - Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian)
+
+### Special functions
+
+- Tab floating preview
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/5ecc8560-94ed-4d6e-90c4-7c18cce0db63
+
+- Floating window support, tab drag-and-drop to floating window
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/15a9401a-5302-44c4-a693-e5e3043d8ca6
+
+- SSH2 session one-click open SFTP file transfer window
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/3097025c-3279-4c5b-b5fe-166607211dd9
+
+- Working directory bookmark
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/82a2866e-cf45-4933-8638-777f6baff682
+
+- Automated sending
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/59d05a59-31fd-4133-8dbe-deb43122fe8c
+
+- Terminal background image supports gif animation and video
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/4fdb10c3-b754-4b1c-8dc3-bbe83d3b0fcf
+
+- Terminal keyword highlight matching
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/2d136273-8a53-4d4c-9cae-4609600bd32a
+
+- Selected text translation function
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/aae7a324-808f-45e5-a86d-579d9002b28b
+
+- Path matching and one-click direct
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/616c1c09-ffa1-428d-b897-1966ecb7517b
+
+- Working path direct
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/4aea9223-babd-4715-a908-56227ba04fed
+
+- Windows local terminal enhancement (Tab key to select complete command, etc.)
+
+https://github.com/QQxiaoming/quardCRT/assets/27486515/f60eed90-5c77-48c9-9c14-71f4a3d993b9
 
 ## Planned features
 
