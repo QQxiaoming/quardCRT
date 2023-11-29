@@ -1744,89 +1744,72 @@
 <context>
     <name>QKeychain::Job</name>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
         <source>No error</source>
-        <translation>エラーなし</translation>
+        <translation type="vanished">エラーなし</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
         <source>The specified item could not be found in the keychain</source>
-        <translation>指定されたアイテムがキーチェーンに見つかりませんでした</translation>
+        <translation type="vanished">指定されたアイテムがキーチェーンに見つかりませんでした</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
         <source>User canceled the operation</source>
-        <translation>ユーザーが操作をキャンセルしました</translation>
+        <translation type="vanished">ユーザーが操作をキャンセルしました</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
         <source>User interaction is not allowed</source>
-        <translation>ユーザーインタラクションは許可されていません</translation>
+        <translation type="vanished">ユーザーインタラクションは許可されていません</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
         <source>No keychain is available. You may need to restart your computer</source>
-        <translation>利用可能なキーチェーンがありません。コンピューターを再起動する必要があるかもしれません</translation>
+        <translation type="vanished">利用可能なキーチェーンがありません。コンピューターを再起動する必要があるかもしれません</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
         <source>The user name or passphrase you entered is not correct</source>
-        <translation>入力したユーザー名またはパスフレーズが正しくありません</translation>
+        <translation type="vanished">入力したユーザー名またはパスフレーズが正しくありません</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
         <source>A cryptographic verification failure has occurred</source>
-        <translation>暗号化検証に失敗しました</translation>
+        <translation type="vanished">暗号化検証に失敗しました</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
         <source>Function or operation not implemented</source>
-        <translation>関数または操作が実装されていません</translation>
+        <translation type="vanished">関数または操作が実装されていません</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
         <source>I/O error</source>
-        <translation>I/Oエラー</translation>
+        <translation type="vanished">I/Oエラー</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
         <source>Already open with with write permission</source>
-        <translation>書き込み権限で既に開いています</translation>
+        <translation type="vanished">書き込み権限で既に開いています</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
         <source>Invalid parameters passed to a function</source>
-        <translation>関数に渡されたパラメータが無効です</translation>
+        <translation type="vanished">関数に渡されたパラメータが無効です</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
         <source>Failed to allocate memory</source>
-        <translation>メモリの割り当てに失敗しました</translation>
+        <translation type="vanished">メモリの割り当てに失敗しました</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
         <source>Bad parameter or invalid state for operation</source>
-        <translation>パラメータが不正または操作の状態が無効です</translation>
+        <translation type="vanished">パラメータが不正または操作の状態が無効です</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
         <source>An internal component failed</source>
-        <translation>内部コンポーネントが失敗しました</translation>
+        <translation type="vanished">内部コンポーネントが失敗しました</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
         <source>The specified item already exists in the keychain</source>
-        <translation>指定されたアイテムは既にキーチェーンに存在します</translation>
+        <translation type="vanished">指定されたアイテムは既にキーチェーンに存在します</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
         <source>Unable to decode the provided data</source>
-        <translation>提供されたデータをデコードできません</translation>
+        <translation type="vanished">提供されたデータをデコードできません</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
         <source>Unknown error</source>
-        <translation>不明なエラー</translation>
+        <translation type="vanished">不明なエラー</translation>
     </message>
 </context>
 <context>
@@ -2149,23 +2132,23 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="66"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="160"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="216"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="68"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="162"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="218"/>
         <source>Hostname</source>
         <translation>ホスト名</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="67"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="161"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="217"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Port</source>
         <translation>ポート</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="228"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
@@ -2190,37 +2173,37 @@
         <translation>パスワード</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="183"/>
         <source>DataBits</source>
         <translation>データビット</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="220"/>
         <source>Parity</source>
         <translation>パリティ</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="233"/>
         <source>Odd</source>
         <translation>奇数</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="238"/>
         <source>Even</source>
         <translation>偶数</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="256"/>
         <source>StopBits</source>
         <translation>ストップビット</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="308"/>
         <source>Save session</source>
         <translation>セッションを保存</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="318"/>
         <source>Open in tab</source>
         <translation>タブで開く</translation>
     </message>
@@ -2230,7 +2213,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="33"/>
         <source>Quick Connect</source>
         <translation>クイックコネクト</translation>
     </message>
@@ -2245,44 +2228,44 @@
         <translation>ローカル端末</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="87"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="181"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="237"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="89"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="183"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="239"/>
         <source>e.g. 127.0.0.1</source>
         <translation>例えば 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="95"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="97"/>
         <source>Port Name</source>
         <translation>ポート名</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="96"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Baud Rate</source>
         <translation>ボーレート</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="136"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="138"/>
         <source>Command</source>
         <translation>指令</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="156"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="158"/>
         <source>e.g. /bin/bash</source>
         <translation>例えば /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="188"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="190"/>
         <source>Pipe Name</source>
         <translation>パイプ名</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="209"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>例えば \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="213"/>
         <source>e.g. /tmp/socket</source>
         <translation>例えば /tmp/socket</translation>
     </message>

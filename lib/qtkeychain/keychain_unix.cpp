@@ -182,7 +182,6 @@ static KeyringBackend detectKeyringBackend()
         // "keychain available".
         return Backend_GnomeKeyring;
     }
-
 }
 
 static KeyringBackend getKeyringBackend()

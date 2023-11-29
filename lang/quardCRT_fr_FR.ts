@@ -1742,94 +1742,6 @@
     </message>
 </context>
 <context>
-    <name>QKeychain::Job</name>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
-        <source>No error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
-        <source>The specified item could not be found in the keychain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
-        <source>User canceled the operation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
-        <source>User interaction is not allowed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
-        <source>No keychain is available. You may need to restart your computer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
-        <source>The user name or passphrase you entered is not correct</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
-        <source>A cryptographic verification failure has occurred</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
-        <source>Function or operation not implemented</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
-        <source>I/O error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
-        <source>Already open with with write permission</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
-        <source>Invalid parameters passed to a function</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
-        <source>Failed to allocate memory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
-        <source>Bad parameter or invalid state for operation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
-        <source>An internal component failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
-        <source>The specified item already exists in the keychain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
-        <source>Unable to decode the provided data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
-        <source>Unknown error</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>QKeychain::JobPrivate</name>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="295"/>
@@ -2159,17 +2071,17 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="66"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="160"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="216"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="68"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="162"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="218"/>
         <source>Hostname</source>
         <translation>Nom d&apos;hôte</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="67"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="161"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="217"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
@@ -2180,7 +2092,7 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="228"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
@@ -2205,84 +2117,84 @@
         <translation>Mot de passe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="183"/>
         <source>DataBits</source>
         <translation>Bits de données</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="220"/>
         <source>Parity</source>
         <translation>Parité</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="233"/>
         <source>Odd</source>
         <translation>Impair</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="238"/>
         <source>Even</source>
         <translation>Pair</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="256"/>
         <source>StopBits</source>
         <translation>Bits de stop</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="308"/>
         <source>Save session</source>
         <translation>Enregistrer la session</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="318"/>
         <source>Open in tab</source>
         <translation>Ouvrir dans un onglet</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="33"/>
         <source>Quick Connect</source>
         <translation>Connexion rapide</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="87"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="181"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="237"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="89"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="183"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="239"/>
         <source>e.g. 127.0.0.1</source>
         <translation>par exemple 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="95"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="97"/>
         <source>Port Name</source>
         <translation>Nom du port</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="96"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Baud Rate</source>
         <translation>Débit en bauds</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="136"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="138"/>
         <source>Command</source>
         <translation>Commande</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="156"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="158"/>
         <source>e.g. /bin/bash</source>
         <translation>par exemple /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="188"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="190"/>
         <source>Pipe Name</source>
         <translation>Nom du tube</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="209"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>par exemple \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="213"/>
         <source>e.g. /tmp/socket</source>
         <translation>par exemple /tmp/socket</translation>
     </message>

@@ -90,7 +90,6 @@ void Job::setErrorString( const QString& errorString ) {
 
 ReadPasswordJob::ReadPasswordJob( const QString& service, QObject* parent )
     : Job( new ReadPasswordJobPrivate( service, this ), parent ) {
-
 }
 
 ReadPasswordJob::~ReadPasswordJob() {
@@ -138,7 +137,6 @@ DeletePasswordJob::~DeletePasswordJob() {
 
 DeletePasswordJobPrivate::DeletePasswordJobPrivate(const QString &service_, DeletePasswordJob *qq) :
     JobPrivate(service_, qq) {
-
 }
 
 JobExecutor::JobExecutor()
@@ -191,7 +189,6 @@ JobExecutor* JobExecutor::instance() {
 
 ReadPasswordJobPrivate::ReadPasswordJobPrivate(const QString &service_, ReadPasswordJob *qq) :
     JobPrivate(service_, qq) {
-
 }
 
 JobPrivate::JobPrivate(const QString &service_, Job *qq)
@@ -231,5 +228,4 @@ JobPrivate::Mode JobPrivate::stringToMode(const QString& s)
 
 WritePasswordJobPrivate::WritePasswordJobPrivate(const QString &service_, WritePasswordJob *qq) :
     JobPrivate(service_, qq) {
-
 }

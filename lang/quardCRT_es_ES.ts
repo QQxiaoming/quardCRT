@@ -1712,121 +1712,104 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="173"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir el almacén de claves</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="179"/>
         <source>Could not remove private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo eliminar la clave privada del almacén de claves</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="585"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="593"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error desconocido</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="614"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir la billetera: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="104"/>
         <source>Password entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada de contraseña no encontrada</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="108"/>
         <source>Could not decrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo descifrar los datos</translation>
     </message>
 </context>
 <context>
     <name>QKeychain::Job</name>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
         <source>No error</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Sin errores</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
         <source>The specified item could not be found in the keychain</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">No se pudo encontrar el elemento especificado en el llavero</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
         <source>User canceled the operation</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">El usuario canceló la operación</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
         <source>User interaction is not allowed</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">No se permite la interacción del usuario</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
         <source>No keychain is available. You may need to restart your computer</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">No hay llavero disponible. Es posible que deba reiniciar su computadora</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
         <source>The user name or passphrase you entered is not correct</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">El nombre de usuario o la frase de contraseña que ingresó no es correcta</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
         <source>A cryptographic verification failure has occurred</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Se produjo un error de verificación criptográfica</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
         <source>Function or operation not implemented</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Función u operación no implementada</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
         <source>I/O error</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Error de E/S</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
         <source>Already open with with write permission</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Ya abierto con permiso de escritura</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
         <source>Invalid parameters passed to a function</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Parámetros no válidos pasados ​​a una función</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
         <source>Failed to allocate memory</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Error al asignar memoria</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
         <source>Bad parameter or invalid state for operation</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Parámetro incorrecto o estado no válido para la operación</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
         <source>An internal component failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Falló un componente interno</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
         <source>The specified item already exists in the keychain</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">El elemento especificado ya existe en el llavero</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
         <source>Unable to decode the provided data</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">No se puede decodificar los datos proporcionados</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Error desconocido</translation>
     </message>
 </context>
 <context>
@@ -1834,12 +1817,12 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="295"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error desconocido</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="542"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Acceso al llavero denegado</translation>
     </message>
 </context>
 <context>
@@ -1847,27 +1830,27 @@
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="65"/>
         <source>Could not store data in settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron almacenar los datos en la configuración: error de acceso</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="67"/>
         <source>Could not store data in settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron almacenar los datos en la configuración: error de formato</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="85"/>
         <source>Could not delete data from settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron eliminar los datos de la configuración: error de acceso</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="87"/>
         <source>Could not delete data from settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron eliminar los datos de la configuración: error de formato</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="104"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada no encontrada</translation>
     </message>
 </context>
 <context>
@@ -1876,74 +1859,74 @@
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="52"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="393"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada no encontrada</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="60"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir el almacén de claves</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="68"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo recuperar la clave privada del almacén de claves</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="75"/>
         <source>Could not create decryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo crear el cifrado de descifrado</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="205"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus no se está ejecutando</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="214"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="224"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error desconocido</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="316"/>
         <source>No keychain service available</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay servicio de llavero disponible</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="318"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir la billetera: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="363"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Acceso al llavero denegado</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="384"/>
         <source>Could not determine data type: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo determinar el tipo de datos: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="402"/>
         <source>Unsupported entry type &apos;Map&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de entrada no compatible &apos;Map&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="405"/>
         <source>Unknown kwallet entry type &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de entrada kwallet desconocido &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="32"/>
         <source>Password entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada de contraseña no encontrada</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="36"/>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="139"/>
         <source>Could not decrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo descifrar los datos</translation>
     </message>
 </context>
 <context>
@@ -1951,68 +1934,68 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="95"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir el almacén de claves</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="124"/>
         <source>Could not create private key generator</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo crear el generador de claves privadas</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="131"/>
         <source>Could not generate new private key</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo generar una nueva clave privada</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="139"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo recuperar la clave privada del almacén de claves</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="147"/>
         <source>Could not create encryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo crear el cifrado de cifrado</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="155"/>
         <source>Could not encrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudieron cifrar los datos</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="445"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus no se está ejecutando</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="455"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="482"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error desconocido</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="501"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir la billetera: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="78"/>
         <source>Credential size exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>El tamaño de la credencial supera el tamaño máximo de %1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="87"/>
         <source>Credential key exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>La clave de credencial supera el tamaño máximo de %1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="92"/>
         <source>Writing credentials failed: Win32 error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al escribir las credenciales: código de error Win32 %1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="162"/>
         <source>Encryption failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Cifrado fallido</translation>
     </message>
 </context>
 <context>
@@ -2020,7 +2003,7 @@
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2947"/>
         <source>Show Details...</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar detalles...</translation>
     </message>
 </context>
 <context>
@@ -2029,97 +2012,97 @@
         <location filename="../lib/qtermwidget/ColorScheme.cpp" line="267"/>
         <location filename="../lib/qtermwidget/ColorScheme.cpp" line="282"/>
         <source>Un-named Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de color sin nombre</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/ColorScheme.cpp" line="453"/>
         <source>Accessible Color Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de color accesible</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="549"/>
         <source>Open Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir enlace</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="550"/>
         <source>Copy Link Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar dirección del enlace</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="554"/>
         <source>Send Email To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar correo electrónico a...</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="555"/>
         <source>Copy Email Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar dirección de correo electrónico</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="559"/>
         <source>Open Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir ruta</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="560"/>
         <source>Copy Path</source>
-        <translation type="unfinished">Copiar ruta</translation>
+        <translation>Copiar ruta</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="255"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Acceso al llavero denegado</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="257"/>
         <source>No keyring daemon</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay demonio de llavero</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="259"/>
         <source>Already unlocked</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya desbloqueado</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="261"/>
         <source>No such keyring</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay tal llavero</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="263"/>
         <source>Bad arguments</source>
-        <translation type="unfinished"></translation>
+        <translation>Argumentos incorrectos</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="265"/>
         <source>I/O error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de E/S</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="267"/>
         <source>Cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelado</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="269"/>
         <source>Keyring already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>El llavero ya existe</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="271"/>
         <source>No match</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay coincidencia</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="276"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error desconocido</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/libsecret.cpp" line="119"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada no encontrada</translation>
     </message>
 </context>
 <context>
@@ -2127,12 +2110,12 @@
     <message>
         <location filename="../lib/qtermwidget/qtermwidget.cpp" line="350"/>
         <source>Color Scheme Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de esquema de color</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/qtermwidget.cpp" line="351"/>
         <source>Cannot load color scheme: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede cargar el esquema de color: %1</translation>
     </message>
 </context>
 <context>
@@ -2159,17 +2142,17 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="66"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="160"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="216"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="68"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="162"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="218"/>
         <source>Hostname</source>
         <translation>Nombre de host</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="67"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="161"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="217"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Port</source>
         <translation>Puerto</translation>
     </message>
@@ -2180,7 +2163,7 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="228"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
@@ -2205,84 +2188,84 @@
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="183"/>
         <source>DataBits</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="220"/>
         <source>Parity</source>
         <translation>Paridad</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="233"/>
         <source>Odd</source>
         <translation>Impar</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="238"/>
         <source>Even</source>
         <translation>Par</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="256"/>
         <source>StopBits</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="308"/>
         <source>Save session</source>
         <translation>Guardar sesión</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="318"/>
         <source>Open in tab</source>
         <translation>Abrir en pestaña</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="33"/>
         <source>Quick Connect</source>
         <translation>Conexión rápida</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="87"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="181"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="237"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="89"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="183"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="239"/>
         <source>e.g. 127.0.0.1</source>
         <translation>ej. 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="95"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="97"/>
         <source>Port Name</source>
         <translation>Nombre de puerto</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="96"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Baud Rate</source>
         <translation>Tasa de baudios</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="136"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="138"/>
         <source>Command</source>
         <translation>Comando</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="156"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="158"/>
         <source>e.g. /bin/bash</source>
         <translation>ej. /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="188"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="190"/>
         <source>Pipe Name</source>
         <translation>Nombre de tubería</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="209"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>ej. \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="213"/>
         <source>e.g. /tmp/socket</source>
         <translation>ej. /tmp/socket</translation>
     </message>

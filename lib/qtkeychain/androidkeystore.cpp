@@ -144,7 +144,6 @@ Calendar Calendar::getInstance()
 {
     return handleExceptions(callStaticObjectMethod("java/util/Calendar", "getInstance",
                                                    "()Ljava/util/Calendar;"));
-
 }
 
 bool Calendar::add(int field, int amount) const

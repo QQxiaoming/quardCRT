@@ -207,7 +207,6 @@ public:
     static KeyPairGenerator getInstance(const QString &algorithm, const QString &provider);
     KeyPair generateKeyPair() const;
     bool initialize(const spec::AlgorithmParameterSpec &spec) const;
-
 };
 
 class KeyStore : public java::lang::Object
@@ -303,7 +302,6 @@ public:
         Builder setStartDate(const java::util::Date &date) const;
         Builder setEndDate(const java::util::Date &date) const;
         KeyPairGeneratorSpec build() const;
-
     };
 
     using AlgorithmParameterSpec::AlgorithmParameterSpec;

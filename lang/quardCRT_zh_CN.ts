@@ -1744,89 +1744,72 @@
 <context>
     <name>QKeychain::Job</name>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
         <source>No error</source>
-        <translation>无错误</translation>
+        <translation type="vanished">无错误</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
         <source>The specified item could not be found in the keychain</source>
-        <translation>密钥库中找不到指定的项目</translation>
+        <translation type="vanished">密钥库中找不到指定的项目</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
         <source>User canceled the operation</source>
-        <translation>用户取消了操作</translation>
+        <translation type="vanished">用户取消了操作</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
         <source>User interaction is not allowed</source>
-        <translation>不允许用户交互</translation>
+        <translation type="vanished">不允许用户交互</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
         <source>No keychain is available. You may need to restart your computer</source>
-        <translation>没有可用的密钥库。您可能需要重新启动计算机</translation>
+        <translation type="vanished">没有可用的密钥库。您可能需要重新启动计算机</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
         <source>The user name or passphrase you entered is not correct</source>
-        <translation>您输入的用户名或密码不正确</translation>
+        <translation type="vanished">您输入的用户名或密码不正确</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
         <source>A cryptographic verification failure has occurred</source>
-        <translation>发生了加密验证失败</translation>
+        <translation type="vanished">发生了加密验证失败</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
         <source>Function or operation not implemented</source>
-        <translation>功能或操作未实现</translation>
+        <translation type="vanished">功能或操作未实现</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
         <source>I/O error</source>
-        <translation>输入/输出错误</translation>
+        <translation type="vanished">输入/输出错误</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
         <source>Already open with with write permission</source>
-        <translation>已经以写权限打开</translation>
+        <translation type="vanished">已经以写权限打开</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
         <source>Invalid parameters passed to a function</source>
-        <translation>向函数传递了无效参数</translation>
+        <translation type="vanished">向函数传递了无效参数</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
         <source>Failed to allocate memory</source>
-        <translation>无法分配内存</translation>
+        <translation type="vanished">无法分配内存</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
         <source>Bad parameter or invalid state for operation</source>
-        <translation>操作的参数错误或状态无效</translation>
+        <translation type="vanished">操作的参数错误或状态无效</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
         <source>An internal component failed</source>
-        <translation>内部组件失败</translation>
+        <translation type="vanished">内部组件失败</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
         <source>The specified item already exists in the keychain</source>
-        <translation>密钥库中已存在指定的项目</translation>
+        <translation type="vanished">密钥库中已存在指定的项目</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
         <source>Unable to decode the provided data</source>
-        <translation>无法解码提供的数据</translation>
+        <translation type="vanished">无法解码提供的数据</translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
         <source>Unknown error</source>
-        <translation>未知错误</translation>
+        <translation type="vanished">未知错误</translation>
     </message>
 </context>
 <context>
@@ -2149,23 +2132,23 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="81"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="66"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="160"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="216"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="68"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="162"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="218"/>
         <source>Hostname</source>
         <translation>主机地址</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="104"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="67"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="161"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="217"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="163"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="128"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="235"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="228"/>
         <source>None</source>
         <translation>无</translation>
     </message>
@@ -2190,37 +2173,37 @@
         <translation>密码</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="183"/>
         <source>DataBits</source>
         <translation>数据位</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="227"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="220"/>
         <source>Parity</source>
         <translation>校验位</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="240"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="233"/>
         <source>Odd</source>
         <translation>奇</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="245"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="238"/>
         <source>Even</source>
         <translation>偶</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="263"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="256"/>
         <source>StopBits</source>
         <translation>停止位</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="315"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="308"/>
         <source>Save session</source>
         <translation>保存会话</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="325"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="318"/>
         <source>Open in tab</source>
         <translation>在标签中打开</translation>
     </message>
@@ -2230,7 +2213,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="31"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="33"/>
         <source>Quick Connect</source>
         <translation>快速连接</translation>
     </message>
@@ -2245,44 +2228,44 @@
         <translation>本机终端</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="87"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="181"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="237"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="89"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="183"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="239"/>
         <source>e.g. 127.0.0.1</source>
         <translation>例如 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="95"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="97"/>
         <source>Port Name</source>
         <translation>端口名称</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="96"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
         <source>Baud Rate</source>
         <translation>波特率</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="136"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="138"/>
         <source>Command</source>
         <translation>命令</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="156"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="158"/>
         <source>e.g. /bin/bash</source>
         <translation>例如 /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="188"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="190"/>
         <source>Pipe Name</source>
         <translation>管道名称</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="209"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>例如 \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="213"/>
         <source>e.g. /tmp/socket</source>
         <translation>例如 /tmp/socket</translation>
     </message>

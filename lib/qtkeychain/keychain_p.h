@@ -143,7 +143,6 @@ protected:
 class JobExecutor : public QObject {
     Q_OBJECT
 public:
-
     static JobExecutor* instance();
 
     void enqueue( Job* job );
