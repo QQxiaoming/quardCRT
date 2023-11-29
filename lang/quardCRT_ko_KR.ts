@@ -330,7 +330,7 @@
     <message>
         <location filename="../lib/qtermwidget/Session.cpp" line="317"/>
         <source>Bell in session &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; 세션에서 벨</translation>
     </message>
 </context>
 <context>
@@ -338,27 +338,27 @@
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1382"/>
         <source>Size: XXX x XXX</source>
-        <translation type="unfinished"></translation>
+        <translation>크기: XXX x XXX</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1394"/>
         <source>Size: %1 x %2</source>
-        <translation type="unfinished"></translation>
+        <translation>크기: %1 x %2</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2940"/>
         <source>Paste multiline text</source>
-        <translation type="unfinished"></translation>
+        <translation>여러 줄 텍스트 붙여넣기</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="2941"/>
         <source>Are you sure you want to paste this text?</source>
-        <translation type="unfinished"></translation>
+        <translation>이 텍스트를 붙여넣으시겠습니까?</translation>
     </message>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="3424"/>
         <source>&lt;qt&gt;Output has been &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;suspended&lt;/a&gt; by pressing Ctrl+S.  Press &lt;b&gt;Ctrl+Q&lt;/b&gt; to resume.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ctrl+S를 눌러 출력이 &lt;a href=&quot;http://en.wikipedia.org/wiki/Flow_control&quot;&gt;중지&lt;/a&gt;되었습니다. 재개하려면 &lt;b&gt;Ctrl+Q&lt;/b&gt;를 누르십시오.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -366,7 +366,7 @@
     <message>
         <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1113"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>
-        <translation type="unfinished"></translation>
+        <translation>사용 가능한 키보드 변환기가 없습니다. 키를 문자로 변환하여 터미널로 보내는 데 필요한 정보가 없습니다.</translation>
     </message>
 </context>
 <context>
@@ -1712,12 +1712,12 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="173"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>키스토어를 열 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="179"/>
         <source>Could not remove private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>키스토어에서 개인 키를 제거할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="585"/>

@@ -271,7 +271,7 @@ void SessionOptionsWindow::buttonBoxAccepted(void)
         data.TelnetData.webSocket = sessionOptionsTelnetProperties->ui->comboBoxWebSocket->currentText();
         break;
     case QuickConnectWindow::Serial:
-        data.SerialData.portName = sessionOptionsSerialProperties->ui->comboBoxPortName->currentText();
+        data.SerialData.portName = sessionOptionsSerialProperties->ui->comboBoxPortName->currentText().split(" - ")[0];
         data.SerialData.baudRate = sessionOptionsSerialProperties->ui->spinBoxBaudRate->value();
         data.SerialData.dataBits = sessionOptionsSerialProperties->ui->comboBoxDataBits->currentText().toInt();
         data.SerialData.parity = sessionOptionsSerialProperties->ui->comboBoxParity->currentText().toInt();
