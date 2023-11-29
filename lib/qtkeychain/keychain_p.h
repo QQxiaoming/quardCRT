@@ -34,10 +34,11 @@ class JobExecutor;
 
 class JobPrivate : public QObject {
     Q_OBJECT
+
 public:
     enum Mode {
-	Text,
-	Binary
+        Text,
+        Binary
     };
 
     virtual void scheduledStart() = 0;

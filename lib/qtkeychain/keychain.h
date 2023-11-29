@@ -46,6 +46,7 @@ class JobPrivate;
  */
 class QKEYCHAIN_EXPORT Job : public QObject {
     Q_OBJECT
+
 public:
     ~Job() override;
 
@@ -179,6 +180,7 @@ class ReadPasswordJobPrivate;
  */
 class QKEYCHAIN_EXPORT ReadPasswordJob : public Job {
     Q_OBJECT
+
 public:
     /**
      * Create a new ReadPasswordJob.
@@ -216,6 +218,7 @@ class WritePasswordJobPrivate;
  */
 class QKEYCHAIN_EXPORT WritePasswordJob : public Job {
     Q_OBJECT
+
 public:
     /**
      * Create a new WritePasswordJob.
@@ -239,7 +242,6 @@ public:
     void setTextData( const QString& data );
 
 private:
-
     friend class QKeychain::WritePasswordJobPrivate;
 };
 

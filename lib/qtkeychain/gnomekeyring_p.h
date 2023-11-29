@@ -66,6 +66,7 @@ public:
 
     static gpointer delete_network_password( const gchar* user, const gchar* server,
                                              OperationDoneCallback callback, gpointer data, GDestroyNotify destroy_data );
+
 private:
     GnomeKeyring();
 
