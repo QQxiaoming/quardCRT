@@ -362,9 +362,9 @@ QString GlobalOptionsWindow::getWordCharacters(void)
     return globalOptionsTerminalWidget->ui->lineEditWordCharacters->text();
 }
 
-QString GlobalOptionsWindow::getTranslateService(void) 
+int GlobalOptionsWindow::getTranslateService(void) 
 {
-    return globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentText();
+    return globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentIndex();
 }
 
 void GlobalOptionsWindow::buttonBoxAccepted(void)

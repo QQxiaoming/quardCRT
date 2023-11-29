@@ -58,7 +58,7 @@ public:
     bool getEnableTabPreview(void);
     int getTabPreviewWidth(void);
     QString getWordCharacters(void);
-    QString getTranslateService(void);
+    int getTranslateService(void);
 
     const static QString defaultColorScheme;
 

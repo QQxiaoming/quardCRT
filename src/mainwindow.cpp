@@ -651,8 +651,53 @@ void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidg
             termWidget->addHighLightText(text, Qt::white);
         }
     });
-    QString translateService  = globalOptionsWindow->getTranslateService();
-    if(tr("Google Translate") == translateService) {
+    int translateService  = globalOptionsWindow->getTranslateService();
+    QString targetLanguage[3];
+    switch (language.language()) {
+    case QLocale::Chinese:
+        if(language.script() == QLocale::SimplifiedChineseScript) {
+            targetLanguage[0] = "zh-CN";
+            targetLanguage[1] = "zh";
+            targetLanguage[2] = "zh-Hans";
+        } else if (language.script() == QLocale::TraditionalHanScript) {
+            targetLanguage[0] = "zh-TW";
+            targetLanguage[1] = "cht";
+            targetLanguage[2] = "zh-Hant";
+        }
+        break;
+    case QLocale::Russian:
+        targetLanguage[0] = "ru";
+        targetLanguage[1] = "ru";
+        targetLanguage[2] = "ru";
+        break;
+    case QLocale::Korean:
+        targetLanguage[0] = "ko";
+        targetLanguage[1] = "kor";
+        targetLanguage[2] = "ko";
+        break;
+    case QLocale::Japanese:
+        targetLanguage[0] = "ja";
+        targetLanguage[1] = "jp";
+        targetLanguage[2] = "ja";
+        break;
+    case QLocale::French:
+        targetLanguage[0] = "fr";
+        targetLanguage[1] = "fra";
+        targetLanguage[2] = "fr";
+        break;
+    case QLocale::Spanish:
+        targetLanguage[0] = "es";
+        targetLanguage[1] = "spa";
+        targetLanguage[2] = "es";
+        break;
+    default:
+    case QLocale::English:
+        targetLanguage[0] = "en";
+        targetLanguage[1] = "en";
+        targetLanguage[2] = "en";
+        break;
+    }
+    if(0 == translateService) {
         QAction *translateAction = new QAction(tr("Google Translate"),this);
         menu->addAction(translateAction);
         connect(translateAction,&QAction::triggered,this,[=](){
@@ -660,10 +705,11 @@ void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidg
             if(text.isEmpty()) {
                 return;
             }
-            QUrl url("https://translate.google.com/?sl=auto&tl=zh-CN&text="+text+"&op=translate");
+            
+            QUrl url("https://translate.google.com/?sl=auto&tl="+targetLanguage[0]+"&text="+text+"&op=translate");
             QDesktopServices::openUrl(url);
         });
-    } else if(tr("Baidu Translate") == translateService) {
+    } else if(1 == translateService) {
         QAction *translateAction = new QAction(tr("Baidu Translate"),this);
         menu->addAction(translateAction);
         connect(translateAction,&QAction::triggered,this,[=](){
@@ -671,10 +717,10 @@ void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidg
             if(text.isEmpty()) {
                 return;
             }
-            QUrl url("https://fanyi.baidu.com/#auto/zh/"+text);
+            QUrl url("https://fanyi.baidu.com/#auto/"+targetLanguage[1]+"/"+text);
             QDesktopServices::openUrl(url);
         });
-    } else if(tr("Microsoft Translate") == translateService) {
+    } else if(2 == translateService) {
         QAction *translateAction = new QAction(tr("Microsoft Translate"),this);
         menu->addAction(translateAction);
         connect(translateAction,&QAction::triggered,this,[=](){
@@ -682,7 +728,7 @@ void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidg
             if(text.isEmpty()) {
                 return;
             }
-            QUrl url("https://www.bing.com/translator/?from=auto&to=zh-Hans&text="+text);
+            QUrl url("https://www.bing.com/translator/?from=auto&to="+targetLanguage[2]+"&text="+text);
             QDesktopServices::openUrl(url);
         });
     }
