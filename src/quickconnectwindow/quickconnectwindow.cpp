@@ -71,6 +71,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->lineEditHostname->setVisible(true);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
+            ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(true);
             ui->comboBoxWebSocket->setVisible(true);
             ui->labelDataBits->setVisible(false);
@@ -104,6 +105,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
+            ui->spinBoxPort->setToolTip(tr("e.g. 110, 300, 600, 1200, 2400, \n4800, 9600, 14400, 19200, 38400, \n56000, 57600, 115200, 128000, 256000, \n460800, 921600"));
             ui->labelWebSocket->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(true);
@@ -144,6 +146,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(false);
             ui->spinBoxPort->setVisible(false);
+            ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
@@ -169,6 +172,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
+            ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
@@ -196,6 +200,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             lineEditPassword->setVisible(false);
             ui->labelPort->setVisible(false);
             ui->spinBoxPort->setVisible(false);
+            ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
@@ -225,6 +230,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             lineEditPassword->setVisible(true);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
+            ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);

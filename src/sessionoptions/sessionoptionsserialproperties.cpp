@@ -25,6 +25,7 @@ SessionOptionsSerialProperties::SessionOptionsSerialProperties(QWidget *parent) 
     ui(new Ui::SessionOptionsSerialProperties)
 {
     ui->setupUi(this);
+    ui->spinBoxBaudRate->setToolTip(tr("e.g. 110, 300, 600, 1200, 2400, \n4800, 9600, 14400, 19200, 38400, \n56000, 57600, 115200, 128000, 256000, \n460800, 921600"));
 }
 
 SessionOptionsSerialProperties::~SessionOptionsSerialProperties()
