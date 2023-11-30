@@ -18,6 +18,9 @@ class SshSftpCommandGet : public SshSftpCommand
 public:
     SshSftpCommandGet(QFile &fout, const QString &source, SshSFtp &parent);
     void process() override;
+
+signals:
+    void progress(qint64 size);
 };
 
 #endif // SSHSFTPCOMMANDGET_H

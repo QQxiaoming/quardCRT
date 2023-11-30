@@ -48,15 +48,35 @@ SftpWindow::SftpWindow(QWidget *parent) :
 
     QTimer *timerRefreshProgressBar = new QTimer(this);
     connect(timerRefreshProgressBar, &QTimer::timeout, [=](){
+        QString speed;
+        uint64_t size = dataSize>lastDataSize?(dataSize-lastDataSize):0;
+        size = size * 2;
+        if(size < 1024) {
+            speed = " " + QString::number(size) + "B/s";
+        } else if(size < 1024*1024) {
+            speed = " " + QString::number(size / 1024) + "KB/s";
+        } else if(size < 1024*1024*1024) {
+            speed = " " + QString::number(size / 1024 / 1024) + "MB/s";
+        } else {
+            speed = " " + QString::number(size / 1024 / 1024 / 1024) + "GB/s";
+        }
         if (taskNum == 0) {
             ui->progressBarTransfer->setValue(100);
-            ui->progressBarTransfer->setFormat(tr("No task"));
+            ui->progressBarTransfer->setFormat(tr("No task!") + speed);
         } else {
-            ui->progressBarTransfer->setValue(taskDone * 100 / taskNum);
-            ui->progressBarTransfer->setFormat(tr("task %1/%2").arg(taskDone).arg(taskNum));
+            if(taskDone == taskNum) {
+                ui->progressBarTransfer->setValue(100);
+                ui->progressBarTransfer->setFormat(tr("All tasks finished!") + speed);
+            } else {
+                uint64_t progressSize = dataSize * 100 / needDataSize;
+                uint64_t progressNum = taskDone * 100 / taskNum;
+                ui->progressBarTransfer->setValue(progressSize > progressNum ? progressSize:progressNum);
+                ui->progressBarTransfer->setFormat(tr("task %1/%2").arg(taskDone).arg(taskNum) + speed);
+            }
         }
+        lastDataSize = dataSize;
     });
-    timerRefreshProgressBar->start(100);
+    timerRefreshProgressBar->start(500);
 
     fileSystemModel = new QNativeFileSystemModel(this);
     ui->treeViewLocal->setModel(fileSystemModel);
@@ -109,7 +129,8 @@ SftpWindow::SftpWindow(QWidget *parent) :
                                     task.dstPath = dstPath + "/" + file;
                                     task.type = SftpTransferThread::Upload;
                                     transferThread->addTask(task);
-                                    ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                                    needDataSize += fileInfo.size();
+                                    ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
                                     taskNum++;
                                 }
                             }
@@ -122,7 +143,8 @@ SftpWindow::SftpWindow(QWidget *parent) :
                         task.dstPath = dstPath;
                         task.type = SftpTransferThread::Upload;
                         transferThread->addTask(task);
-                        ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                        needDataSize += fileInfo.size();
+                        ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
                         taskNum++;
                     }
                 }
@@ -208,7 +230,8 @@ SftpWindow::SftpWindow(QWidget *parent) :
                                             task.dstPath = dstPath + "/" + file;
                                             task.type = SftpTransferThread::Download;
                                             transferThread->addTask(task);
-                                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                                            needDataSize += fileinfo.filesize;
+                                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
                                             taskNum++;
                                         }
                                     }
@@ -229,7 +252,8 @@ SftpWindow::SftpWindow(QWidget *parent) :
                             task.dstPath = dstPath;
                             task.type = SftpTransferThread::Download;
                             transferThread->addTask(task);
-                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                            needDataSize += sshFileSystemModel->filesize(index);
+                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
                             taskNum++;
                         }
                     }
@@ -267,10 +291,24 @@ void SftpWindow::setSftpChannel(SshSFtp *sftp)
         QThread::msleep(100);
         QApplication::processEvents();
     }
+    if(this->sftp) {
+        disconnect(this->sftp, &SshSFtp::progress, this, &SftpWindow::progress);
+    }
+    taskNum = 0;
+    taskDone = 0;
+    dataSize = 0;
+    lastDataSize = 0;
+    needDataSize = 0;
     ui->listWidgetTransfer->clear();
     this->sftp = sftp;
+    connect(this->sftp, &SshSFtp::progress, this, &SftpWindow::progress);
     transferThread->setSftpChannel(sftp);
     sshFileSystemModel->setSftpChannel(sftp);
     ui->lineEditPathRemote->setText("/");
     ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath("/"));
+}
+
+void SftpWindow::progress(qint64 size)
+{
+    dataSize += size;
 }

@@ -53,8 +53,10 @@ QString SshSFtp::send(const QString &source, QString dest)
     }
 
     SshSftpCommandSend cmd(source,dest,*this);
-    if(processCmd(&cmd))
-    {
+    connect(&cmd, &SshSftpCommandSend::progress, this, &SshSFtp::progress);
+    bool ret = processCmd(&cmd);
+    disconnect(&cmd, &SshSftpCommandSend::progress, this, &SshSFtp::progress);
+    if(ret) {
         return dest;
     }
     return QString();
@@ -88,8 +90,9 @@ bool SshSFtp::get(const QString &source, QString dest, bool override)
     }
 
     SshSftpCommandGet cmd(fout, source, *this);
+    connect(&cmd, &SshSftpCommandGet::progress, this, &SshSFtp::progress);
     bool ret = processCmd(&cmd);
-
+    disconnect(&cmd, &SshSftpCommandGet::progress, this, &SshSFtp::progress);
     if(!ret)
         return false;
 

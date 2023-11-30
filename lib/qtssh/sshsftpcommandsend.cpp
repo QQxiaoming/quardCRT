@@ -75,6 +75,7 @@ void SshSftpCommandSend::process()
                 }
                 m_nread -= rc;
                 m_begin += rc;
+                emit progress(rc);
             }
         }
         break;

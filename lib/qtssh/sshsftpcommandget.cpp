@@ -76,6 +76,7 @@ void SshSftpCommandGet::process()
                     ssize_t wrc = m_fout.write(begin, rc);
                     rc -= wrc;
                     begin += wrc;
+                    emit progress(wrc);
                 }
             }
         }

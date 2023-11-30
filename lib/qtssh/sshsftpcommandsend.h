@@ -26,6 +26,9 @@ class SshSftpCommandSend: public SshSftpCommand
 public:
     SshSftpCommandSend(const QString &source, QString dest, SshSFtp &parent);
     void process() override;
+
+signals:
+    void progress(qint64 size);
 };
 
 #endif // SSHSFTPCOMMANDSEND_H

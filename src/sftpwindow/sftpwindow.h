@@ -166,6 +166,15 @@ public:
         return item->isDir();
     }
 
+    uint64_t filesize(const QModelIndex &index) {
+        if (!index.isValid())
+            return 0;
+        if (!indexValid(index))
+            return 0;
+        QCustomFileSystemItem *item = static_cast<QCustomFileSystemItem*>(index.internalPointer());
+        return item->size();
+    }
+
     void setSftpChannel(SshSFtp *sftp) { 
         this->sftp = sftp; 
     }
@@ -187,6 +196,9 @@ public:
     ~SftpWindow();
     void setSftpChannel(SshSFtp *sftp);
 
+private slots:
+    void progress(qint64 size);
+
 private:
     Ui::SftpWindow *ui;
     SshSFtp *sftp = nullptr;
@@ -195,6 +207,9 @@ private:
     QNativeFileSystemModel *fileSystemModel;
     uint64_t taskNum = 0;
     uint64_t taskDone = 0;
+    uint64_t needDataSize = 0;
+    uint64_t dataSize = 0;
+    uint64_t lastDataSize = 0;
 };
 
 #endif // SFTPWINDOW_H

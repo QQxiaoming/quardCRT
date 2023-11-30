@@ -62,4 +62,5 @@ private slots:
 signals:
     void sendEvent();
     void cmdEvent();
+    void progress(qint64 size);
 };
