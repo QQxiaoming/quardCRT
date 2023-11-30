@@ -1763,17 +1763,17 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="613"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>월렛을 열 수 없습니다: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="104"/>
         <source>Password entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>암호 항목을 찾을 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="108"/>
         <source>Could not decrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터를 복호화할 수 없습니다</translation>
     </message>
 </context>
 <context>
@@ -1781,87 +1781,87 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
         <source>No error</source>
-        <translation type="unfinished"></translation>
+        <translation>오류 없음</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
         <source>The specified item could not be found in the keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>지정된 항목을 키스토어에서 찾을 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
         <source>User canceled the operation</source>
-        <translation type="unfinished"></translation>
+        <translation>사용자가 작업을 취소했습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
         <source>User interaction is not allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>사용자 상호 작용이 허용되지 않습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
         <source>No keychain is available. You may need to restart your computer</source>
-        <translation type="unfinished"></translation>
+        <translation>사용 가능한 키스토어가 없습니다. 컴퓨터를 다시 시작해야 할 수도 있습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
         <source>The user name or passphrase you entered is not correct</source>
-        <translation type="unfinished"></translation>
+        <translation>입력한 사용자 이름 또는 암호가 올바르지 않습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
         <source>A cryptographic verification failure has occurred</source>
-        <translation type="unfinished"></translation>
+        <translation>암호화 검증 실패가 발생했습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
         <source>Function or operation not implemented</source>
-        <translation type="unfinished"></translation>
+        <translation>기능 또는 작업이 구현되지 않았습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
         <source>I/O error</source>
-        <translation type="unfinished"></translation>
+        <translation>입출력 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
         <source>Already open with with write permission</source>
-        <translation type="unfinished"></translation>
+        <translation>쓰기 권한으로 이미 열려 있습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
         <source>Invalid parameters passed to a function</source>
-        <translation type="unfinished"></translation>
+        <translation>함수에 잘못된 매개변수가 전달되었습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
         <source>Failed to allocate memory</source>
-        <translation type="unfinished"></translation>
+        <translation>메모리 할당에 실패했습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
         <source>Bad parameter or invalid state for operation</source>
-        <translation type="unfinished"></translation>
+        <translation>잘못된 매개변수 또는 작업에 대한 잘못된 상태입니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
         <source>An internal component failed</source>
-        <translation type="unfinished"></translation>
+        <translation>내부 구성 요소가 실패했습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
         <source>The specified item already exists in the keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>지정된 항목이 이미 키스토어에 있습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
         <source>Unable to decode the provided data</source>
-        <translation type="unfinished"></translation>
+        <translation>제공된 데이터를 디코딩할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
         <source>Unknown error</source>
-        <translation type="unfinished">알 수 없는 오류</translation>
+        <translation>알 수 없는 오류</translation>
     </message>
 </context>
 <context>
@@ -1869,12 +1869,12 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="294"/>
         <source>Unknown error</source>
-        <translation type="unfinished">알 수 없는 오류</translation>
+        <translation>알 수 없는 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="541"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished">키스토어에 접근할 수 없습니다</translation>
+        <translation>키스토어에 접근할 수 없습니다</translation>
     </message>
 </context>
 <context>
@@ -1882,27 +1882,27 @@
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="65"/>
         <source>Could not store data in settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>설정에 데이터를 저장할 수 없습니다: 접근 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="67"/>
         <source>Could not store data in settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>설정에 데이터를 저장할 수 없습니다: 형식 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="85"/>
         <source>Could not delete data from settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>설정에서 데이터를 삭제할 수 없습니다: 접근 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="87"/>
         <source>Could not delete data from settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>설정에서 데이터를 삭제할 수 없습니다: 형식 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="104"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>항목을 찾을 수 없습니다</translation>
     </message>
 </context>
 <context>
@@ -1911,74 +1911,74 @@
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="52"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="392"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>항목을 찾을 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="60"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished">키스토어를 열 수 없습니다</translation>
+        <translation>키스토어를 열 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="68"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>키스토어에서 개인 키를 검색할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="75"/>
         <source>Could not create decryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>복호화 암호를 생성할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="204"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus가 실행되고 있지 않습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="213"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="223"/>
         <source>Unknown error</source>
-        <translation type="unfinished">알 수 없는 오류</translation>
+        <translation>알 수 없는 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="315"/>
         <source>No keychain service available</source>
-        <translation type="unfinished"></translation>
+        <translation>사용 가능한 키스토어 서비스가 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="317"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>월렛을 열 수 없습니다: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="362"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished">키스토어에 접근할 수 없습니다</translation>
+        <translation>키스토어에 접근할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="383"/>
         <source>Could not determine data type: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터 유형을 결정할 수 없습니다: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="401"/>
         <source>Unsupported entry type &apos;Map&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>지원되지 않는 항목 유형 &apos;Map&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="404"/>
         <source>Unknown kwallet entry type &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>알 수 없는 kwallet 항목 유형 &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="32"/>
         <source>Password entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>암호 항목을 찾을 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="36"/>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="139"/>
         <source>Could not decrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터를 복호화할 수 없습니다</translation>
     </message>
 </context>
 <context>
@@ -1986,68 +1986,68 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="95"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished">키스토어를 열 수 없습니다</translation>
+        <translation>키스토어를 열 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="124"/>
         <source>Could not create private key generator</source>
-        <translation type="unfinished"></translation>
+        <translation>개인 키 생성기를 만들 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="131"/>
         <source>Could not generate new private key</source>
-        <translation type="unfinished"></translation>
+        <translation>새 개인 키를 생성할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="139"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>키스토어에서 개인 키를 검색할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="147"/>
         <source>Could not create encryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>암호화 암호를 생성할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="155"/>
         <source>Could not encrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>데이터를 암호화할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="444"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus가 실행되고 있지 않습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="454"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="481"/>
         <source>Unknown error</source>
-        <translation type="unfinished">알 수 없는 오류</translation>
+        <translation>알 수 없는 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="500"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>월렛을 열 수 없습니다: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="78"/>
         <source>Credential size exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>자격 증명 크기가 최대 크기 %1을(를) 초과합니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="87"/>
         <source>Credential key exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>자격 증명 키가 최대 크기 %1을(를) 초과합니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="92"/>
         <source>Writing credentials failed: Win32 error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>자격 증명 쓰기 실패: Win32 오류 코드 %1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="162"/>
         <source>Encryption failed</source>
-        <translation type="unfinished"></translation>
+        <translation>암호화 실패</translation>
     </message>
 </context>
 <context>
@@ -2109,52 +2109,52 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="256"/>
         <source>No keyring daemon</source>
-        <translation type="unfinished"></translation>
+        <translation>키링 데몬 없음</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="258"/>
         <source>Already unlocked</source>
-        <translation type="unfinished"></translation>
+        <translation>이미 잠금 해제됨</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="260"/>
         <source>No such keyring</source>
-        <translation type="unfinished"></translation>
+        <translation>그런 키링 없음</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="262"/>
         <source>Bad arguments</source>
-        <translation type="unfinished"></translation>
+        <translation>잘못된 인수</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="264"/>
         <source>I/O error</source>
-        <translation type="unfinished"></translation>
+        <translation>입출력 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="266"/>
         <source>Cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>취소됨</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="268"/>
         <source>Keyring already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>키링이 이미 있습니다</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="270"/>
         <source>No match</source>
-        <translation type="unfinished"></translation>
+        <translation>일치하는 것 없음</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="275"/>
         <source>Unknown error</source>
-        <translation type="unfinished">알 수 없는 오류</translation>
+        <translation>알 수 없는 오류</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/libsecret.cpp" line="119"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>항목을 찾을 수 없습니다</translation>
     </message>
 </context>
 <context>

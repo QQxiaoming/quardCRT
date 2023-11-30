@@ -1747,33 +1747,33 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="173"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть хранилище ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="179"/>
         <source>Could not remove private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось удалить закрытый ключ из хранилища ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="584"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="592"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="613"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть кошелек: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="104"/>
         <source>Password entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись пароля не найдена</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="108"/>
         <source>Could not decrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось расшифровать данные</translation>
     </message>
 </context>
 <context>
@@ -1781,87 +1781,87 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
         <source>No error</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет ошибки</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
         <source>The specified item could not be found in the keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>Указанный элемент не может быть найден в хранилище ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
         <source>User canceled the operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользователь отменил операцию</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
         <source>User interaction is not allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Взаимодействие с пользователем не разрешено</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
         <source>No keychain is available. You may need to restart your computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет доступного хранилища ключей. Возможно, вам нужно перезапустить компьютер</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
         <source>The user name or passphrase you entered is not correct</source>
-        <translation type="unfinished"></translation>
+        <translation>Введенное вами имя пользователя или пароль неверны</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
         <source>A cryptographic verification failure has occurred</source>
-        <translation type="unfinished"></translation>
+        <translation>Произошла ошибка криптографической проверки</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
         <source>Function or operation not implemented</source>
-        <translation type="unfinished"></translation>
+        <translation>Функция или операция не реализована</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
         <source>I/O error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка ввода-вывода</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
         <source>Already open with with write permission</source>
-        <translation type="unfinished"></translation>
+        <translation>Уже открыто с разрешением на запись</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
         <source>Invalid parameters passed to a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Недопустимые параметры, переданные функции</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
         <source>Failed to allocate memory</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось выделить память</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
         <source>Bad parameter or invalid state for operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверный параметр или недопустимое состояние для операции</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
         <source>An internal component failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Внутренний компонент не сработал</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
         <source>The specified item already exists in the keychain</source>
-        <translation type="unfinished"></translation>
+        <translation>Указанный элемент уже существует в хранилище ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
         <source>Unable to decode the provided data</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось декодировать предоставленные данные</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
 </context>
 <context>
@@ -1869,12 +1869,12 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="294"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="541"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished">Доступ к хранилищу ключей запрещен</translation>
+        <translation>Доступ к хранилищу ключей запрещен</translation>
     </message>
 </context>
 <context>
@@ -1882,27 +1882,27 @@
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="65"/>
         <source>Could not store data in settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось сохранить данные в настройках: ошибка доступа</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="67"/>
         <source>Could not store data in settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось сохранить данные в настройках: ошибка формата</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="85"/>
         <source>Could not delete data from settings: access error</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось удалить данные из настроек: ошибка доступа</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="87"/>
         <source>Could not delete data from settings: format error</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось удалить данные из настроек: ошибка формата</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/plaintextstore.cpp" line="104"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись не найдена</translation>
     </message>
 </context>
 <context>
@@ -1911,74 +1911,74 @@
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="52"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="392"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись не найдена</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="60"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть хранилище ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="68"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось получить закрытый ключ из хранилища ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="75"/>
         <source>Could not create decryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось создать шифр дешифрования</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="204"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus не запущен</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="213"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="223"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="315"/>
         <source>No keychain service available</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет доступных служб хранилища ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="317"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть кошелек: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="362"/>
         <source>Access to keychain denied</source>
-        <translation type="unfinished">Доступ к хранилищу ключей запрещен</translation>
+        <translation>Доступ к хранилищу ключей запрещен</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="383"/>
         <source>Could not determine data type: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось определить тип данных: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="401"/>
         <source>Unsupported entry type &apos;Map&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неподдерживаемый тип записи &apos;Map&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="404"/>
         <source>Unknown kwallet entry type &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестный тип записи kwallet &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="32"/>
         <source>Password entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись пароля не найдена</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="36"/>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="139"/>
         <source>Could not decrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось расшифровать данные</translation>
     </message>
 </context>
 <context>
@@ -1986,68 +1986,68 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="95"/>
         <source>Could not open keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть хранилище ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="124"/>
         <source>Could not create private key generator</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось создать генератор закрытых ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="131"/>
         <source>Could not generate new private key</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось сгенерировать новый закрытый ключ</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="139"/>
         <source>Could not retrieve private key from keystore</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось получить закрытый ключ из хранилища ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="147"/>
         <source>Could not create encryption cipher</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось создать шифр шифрования</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_android.cpp" line="155"/>
         <source>Could not encrypt data</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось зашифровать данные</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="444"/>
         <source>D-Bus is not running</source>
-        <translation type="unfinished"></translation>
+        <translation>D-Bus не запущен</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="454"/>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="481"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="500"/>
         <source>Could not open wallet: %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть кошелек: %1; %2</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="78"/>
         <source>Credential size exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер учетных данных превышает максимальный размер %1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="87"/>
         <source>Credential key exceeds maximum size of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ учетных данных превышает максимальный размер %1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="92"/>
         <source>Writing credentials failed: Win32 error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось записать учетные данные: код ошибки Win32 %1</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_win.cpp" line="162"/>
         <source>Encryption failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Шифрование не удалось</translation>
     </message>
 </context>
 <context>
@@ -2109,52 +2109,52 @@
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="256"/>
         <source>No keyring daemon</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет демона кольцевых ключей</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="258"/>
         <source>Already unlocked</source>
-        <translation type="unfinished"></translation>
+        <translation>Уже разблокировано</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="260"/>
         <source>No such keyring</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет такого кольцевого ключа</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="262"/>
         <source>Bad arguments</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверные аргументы</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="264"/>
         <source>I/O error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка ввода-вывода</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="266"/>
         <source>Cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменено</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="268"/>
         <source>Keyring already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольцевой ключ уже существует</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="270"/>
         <source>No match</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет совпадений</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/keychain_unix.cpp" line="275"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
     <message>
         <location filename="../lib/qtkeychain/libsecret.cpp" line="119"/>
         <source>Entry not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись не найдена</translation>
     </message>
 </context>
 <context>

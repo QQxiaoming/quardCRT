@@ -53,49 +53,29 @@ quardCRT一款终端仿真软件，支持多种后端协议，无依赖跨平台
 
 ### 特色功能 （带视频演示，需要前往github查看）
 
-- 标签页悬浮预览
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/5ecc8560-94ed-4d6e-90c4-7c18cce0db63
-
-- 浮动窗口支持，可将标签页拖拽至浮动窗口
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/15a9401a-5302-44c4-a693-e5e3043d8ca6
-
-- SSH2会话一键打开SFTP文件传输窗口
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/3097025c-3279-4c5b-b5fe-166607211dd9
-
-- 本地终端工作目录书签
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/82a2866e-cf45-4933-8638-777f6baff682
-
-- 自动化发送
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/59d05a59-31fd-4133-8dbe-deb43122fe8c
-
-- 终端背景图片支持gif动画和视频
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/4fdb10c3-b754-4b1c-8dc3-bbe83d3b0fcf
-
-- 终端关键词高亮匹配
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/2d136273-8a53-4d4c-9cae-4609600bd32a
-
-- 选中文本翻译功能
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/aae7a324-808f-45e5-a86d-579d9002b28b
-
-- 路径匹配与一键直达
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/4aea9223-babd-4715-a908-56227ba04fed
-
-- 工作路径直达
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/616c1c09-ffa1-428d-b897-1966ecb7517b
-
-- windows本地终端增强（Tab键选择补全命令等）
-
-https://github.com/QQxiaoming/quardCRT/assets/27486515/f60eed90-5c77-48c9-9c14-71f4a3d993b9
+| 标签页悬浮预览 |
+| :------------: |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/5ecc8560-94ed-4d6e-90c4-7c18cce0db63"></video> |
+| 浮动窗口支持，可将标签页拖拽至浮动窗口 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/15a9401a-5302-44c4-a693-e5e3043d8ca6"></video> |
+| SSH2会话一键打开SFTP文件传输窗口 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/3097025c-3279-4c5b-b5fe-166607211dd9"></video> |
+| 本地终端工作目录书签 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/82a2866e-cf45-4933-8638-777f6baff682"></video> |
+| 自动化发送 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/59d05a59-31fd-4133-8dbe-deb43122fe8c"></video> |
+| 终端背景图片支持gif动画和视频 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/4fdb10c3-b754-4b1c-8dc3-bbe83d3b0fcf"></video> |
+| 终端关键词高亮匹配 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/2d136273-8a53-4d4c-9cae-4609600bd32a"></video> |
+| 选中文本翻译功能 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/aae7a324-808f-45e5-a86d-579d9002b28b"></video> |
+| 路径匹配与一键直达 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/4aea9223-babd-4715-a908-56227ba04fed"></video> |
+| 工作路径直达 |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/616c1c09-ffa1-428d-b897-1966ecb7517b"></video> |
+| windows本地终端增强（Tab键选择补全命令等） |
+| <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/f60eed90-5c77-48c9-9c14-71f4a3d993b9"></video> |
 
 ## 计划中特性
 
