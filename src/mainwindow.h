@@ -47,6 +47,7 @@
 #include "globalsetting.h"
 #include "qtftp.h"
 #include "sftpwindow.h"
+#include "netscanwindow.h"
 #include "keychainclass.h"
 
 extern QString VERSION;
@@ -127,6 +128,7 @@ private:
     StartTftpSeverWindow *startTftpSeverWindow;
     LockSessionWindow *lockSessionWindow;
     SftpWindow *sftpWindow;
+    NetScanWindow *netScanWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -208,6 +210,7 @@ private:
     QAction *keymapManagerAction;
     QAction *createPublicKeyAction;
     QAction *publickeyManagerAction;
+    QAction *sshScanningAction;
     QActionGroup *windowActionGroup;
     QAction *tabAction;
     QAction *tileAction;

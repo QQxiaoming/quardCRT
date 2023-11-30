@@ -34,10 +34,10 @@ INCLUDEPATH += \
     src/starttftpseverwindow \
     src/hexviewwindow \
     src/sftpwindow \
+    src/netscanwindow \
     src
 
 SOURCES += \
-    src/sftpwindow/sftpwindow.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
     src/util/keychainclass.cpp \
@@ -65,6 +65,8 @@ SOURCES += \
     src/quickconnectwindow/quickconnectwindow.cpp \
     src/starttftpseverwindow/starttftpseverwindow.cpp \
     src/hexviewwindow/hexviewwindow.cpp \
+    src/netscanwindow/netscanwindow.cpp \
+    src/sftpwindow/sftpwindow.cpp \
     src/sessiontab.cpp \
     src/sessionswindow.cpp \
     src/mainwidgetgroup.cpp \
@@ -72,7 +74,6 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
-    src/sftpwindow/sftpwindow.h \
     src/util/logger.h \
     src/util/argv_split.h \
     src/util/filedialog.h \
@@ -103,6 +104,8 @@ HEADERS += \
     src/quickconnectwindow/quickconnectwindow.h \
     src/hexviewwindow/hexviewwindow.h \
     src/starttftpseverwindow/starttftpseverwindow.h \
+    src/netscanwindow/netscanwindow.h \
+    src/sftpwindow/sftpwindow.h \
     src/sessiontab.h \
     src/sessionswindow.h \
     src/mainwidgetgroup.h \
@@ -130,6 +133,7 @@ FORMS += \
     src/locksessionwindow/locksessionwindow.ui \
     src/quickconnectwindow/quickconnectwindow.ui \
     src/hexviewwindow/hexviewwindow.ui \
+    src/netscanwindow/netscanwindow.ui \
     src/sftpwindow/sftpwindow.ui \
     src/starttftpseverwindow/starttftpseverwindow.ui \
     src/mainwindow.ui

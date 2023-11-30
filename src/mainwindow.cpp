@@ -99,6 +99,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
 
     sftpWindow = new SftpWindow(this);
 
+    netScanWindow = new NetScanWindow(this);
+
     startTftpSeverWindow = new StartTftpSeverWindow(this);
     tftpServer = new QTftp;
 
@@ -1023,6 +1025,8 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     createPublicKeyAction->setStatusTip(tr("Create a public key"));
     publickeyManagerAction->setText(tr("Publickey Manager"));
     publickeyManagerAction->setStatusTip(tr("Display publickey manager"));
+    sshScanningAction->setText(tr("SSH Scanning"));
+    sshScanningAction->setStatusTip(tr("Display SSH scanning dialog"));
 
     tabAction->setText(tr("Tab"));
     tabAction->setStatusTip(tr("Arrange sessions in tabs"));
@@ -1327,6 +1331,9 @@ void MainWindow::menuAndToolBarInit(void) {
     toolsMenu->addAction(createPublicKeyAction);
     publickeyManagerAction = new QAction(this);
     toolsMenu->addAction(publickeyManagerAction);
+    toolsMenu->addSeparator();
+    sshScanningAction = new QAction(this);
+    toolsMenu->addAction(sshScanningAction);
 
     windowActionGroup = new QActionGroup(this);
     tabAction = new QAction(this);
@@ -1964,6 +1971,10 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(keymapManagerAction,&QAction::triggered,this,[=](){
         keyMapManagerWindow->show();
+    });
+    connect(sshScanningAction,&QAction::triggered,this,[=](){
+        netScanWindow->setScanPort(22);
+        netScanWindow->show();
     });
     connect(sessionOptionsAction,&QAction::triggered,this,[=](){
         QString name;
