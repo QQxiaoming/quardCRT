@@ -7,6 +7,7 @@
 - 增加右键菜单请求翻译功能
 - SFTP文件传输窗口增加传输进度显示
 - 修复二次编辑存储串口会话port信息后无法正确连接问题
+- 修复钥匙串授权失败使用错误信息的问题
 
 ## [[V0.3.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.0)] - 2023-11-28
 

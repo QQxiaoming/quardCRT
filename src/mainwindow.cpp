@@ -443,7 +443,10 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
             QString current_name = settings.value("name").toString();
             if(current_name == str) {
                 QuickConnectWindow::QuickConnectData data;
-                setting2InfoData(&settings, data, current_name);
+                if(setting2InfoData(&settings, data, current_name) != 0) {
+                    QMessageBox::warning(this, tr("Warning"), tr("Session properties error!"));
+                    return;
+                }
                 sessionOptionsWindow->setSessionProperties(str,data);
                 sessionOptionsWindow->show();
                 break;
@@ -2287,7 +2290,11 @@ void MainWindow::connectSessionFromSessionManager(QString name)
         QString current_name = settings.value("name").toString();
         if(current_name == name) {
             QuickConnectWindow::QuickConnectData data;
-            setting2InfoData(&settings,data,current_name);
+            if(setting2InfoData(&settings,data,current_name) != 0) {
+                settings.endArray();
+                QMessageBox::warning(this,tr("Warning"),tr("Session information get failed."),QMessageBox::Ok);
+                return;
+            }
             switch(data.type) {
             case QuickConnectWindow::Telnet:
                 startTelnetSession(findCurrentFocusGroup(),data.TelnetData.hostname,data.TelnetData.port,
@@ -2752,7 +2759,7 @@ void MainWindow::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickCon
     }
 }
 
-void MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name,bool skipPassword)
+int MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name,bool skipPassword)
 {
     name = settings->value("name").toString();
     data.type = (QuickConnectWindow::QuickConnectType)(settings->value("type").toInt());
@@ -2785,13 +2792,18 @@ void MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::Q
         data.SSH2Data.hostname = settings->value("hostname").toString();
         data.SSH2Data.port = settings->value("port").toInt();
         data.SSH2Data.username = settings->value("username").toString();
-        if(!skipPassword)
-            keyChainClass.readKey(name,data.SSH2Data.password);
+        if(!skipPassword){
+            bool isOK = keyChainClass.readKey(name,data.SSH2Data.password);
+            if(!isOK) {
+                return -1;
+            }
+        }
         break;
     }
     default:
         break;
     }
+    return 0;
 }
 
 void MainWindow::infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name,bool skipPassword) {

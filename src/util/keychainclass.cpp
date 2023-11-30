@@ -14,16 +14,19 @@ KeyChainClass::KeyChainClass(QObject* parent) :
     m_deleteCredentialJob.setAutoDelete(false);
 }
 
-void KeyChainClass::readKey(const QString &key, QString &value)
+bool KeyChainClass::readKey(const QString &key, QString &value)
 {
+    bool ret = false;
     bool waitKeyChain = true;
     m_readCredentialJob.setKey(key);
     QObject::connect(&m_readCredentialJob, &QKeychain::ReadPasswordJob::finished,this,[&](){
         if (m_readCredentialJob.error()) {
             value = "";
+            ret = false;
             qDebug() << "Read key failed: " << m_readCredentialJob.errorString();
         } else {
             value = m_readCredentialJob.textData();
+            ret = true;
         }
         waitKeyChain = false;
     });
@@ -32,15 +35,20 @@ void KeyChainClass::readKey(const QString &key, QString &value)
         QApplication::processEvents();
     }
     QObject::disconnect(&m_readCredentialJob,&QKeychain::ReadPasswordJob::finished,this,nullptr);
+    return ret;
 }
 
-void KeyChainClass::writeKey(const QString &key, const QString &value)
+bool KeyChainClass::writeKey(const QString &key, const QString &value)
 {
+    bool ret = false;
     bool waitKeyChain = true;
     m_writeCredentialJob.setKey(key);
     QObject::connect(&m_writeCredentialJob, &QKeychain::WritePasswordJob::finished, [&](){
         if (m_writeCredentialJob.error()) {
+            ret = false;
             qDebug() << "Write key failed: " << m_writeCredentialJob.errorString();
+        } else {
+            ret = true;
         }
         waitKeyChain = false;
     });
@@ -50,15 +58,20 @@ void KeyChainClass::writeKey(const QString &key, const QString &value)
         QApplication::processEvents();
     }
     QObject::disconnect(&m_writeCredentialJob,&QKeychain::WritePasswordJob::finished,this,nullptr);
+    return ret;
 }
 
-void KeyChainClass::deleteKey(const QString &key)
+bool KeyChainClass::deleteKey(const QString &key)
 {
+    bool ret = false;
     bool waitKeyChain = true;
     m_deleteCredentialJob.setKey(key);
     QObject::connect(&m_deleteCredentialJob, &QKeychain::DeletePasswordJob::finished, [&](){
         if (m_deleteCredentialJob.error()) {
+            ret = false;
             qDebug() << "Delete key failed: " << m_deleteCredentialJob.errorString();
+        } else {
+            ret = true;
         }
         waitKeyChain = false;
     });
@@ -67,4 +80,5 @@ void KeyChainClass::deleteKey(const QString &key)
         QApplication::processEvents();
     }
     QObject::disconnect(&m_deleteCredentialJob,&QKeychain::DeletePasswordJob::finished,this,nullptr);
+    return ret;
 }

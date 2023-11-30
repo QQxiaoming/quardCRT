@@ -103,7 +103,7 @@ private:
     void restoreSettings(void);
     void connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow);
     void sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name);
-    void setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name, bool skipPassword = false);
+    int setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name, bool skipPassword = false);
     void infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name, bool skipPassword = false);
     void moveToAnotherTab(int src,int dst, int index);
     void floatingWindow(MainWidgetGroup *g, int index);

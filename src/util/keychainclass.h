@@ -11,9 +11,9 @@ class KeyChainClass: public QObject
 public:
     KeyChainClass(QObject* parent = nullptr);
 
-    void readKey(const QString &key, QString &value);
-    void writeKey(const QString& key, const QString& value);
-    void deleteKey(const QString& key);
+    bool readKey(const QString &key, QString &value);
+    bool writeKey(const QString& key, const QString& value);
+    bool deleteKey(const QString& key);
 
 private:
     QKeychain::ReadPasswordJob   m_readCredentialJob;
