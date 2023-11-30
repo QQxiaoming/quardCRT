@@ -38,11 +38,10 @@ void NetScanWindow::addRow(QString ip, QString port, QString status)
 void NetScanWindow::setScanPort(int port)
 {
     ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(0);
     QList<QHostAddress> addressList = QNetworkInterface::allAddresses();
     foreach(QHostAddress address, addressList) {
         if(address.protocol() == QAbstractSocket::IPv4Protocol && address != QHostAddress::LocalHost) {
-            if(address.toString().split(".").at(0) == "198")
-                continue;
             QString gateway = address.toString().split(".").at(0) + "." + address.toString().split(".").at(1) + "." + address.toString().split(".").at(2) + ".";
             for(int i=1;i<255;i++) {
                 QString ip = gateway + QString::number(i);
