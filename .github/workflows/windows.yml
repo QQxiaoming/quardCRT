@@ -38,10 +38,15 @@ jobs:
           modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
           aqtversion: ==3.1.7
 
-      - name: Install prerequisites
-        run: |
-          Choco-Install -PackageName innosetup --force
-          Choco-Install -PackageName cmake --force
+      - name: Install cmake
+        uses: crazy-max/ghaction-chocolatey@v3
+        with:
+          args: install cmake --no-progress
+
+      - name: Install innosetup
+        uses: crazy-max/ghaction-chocolatey@v3
+        with:
+          args: install innosetup --no-progress
 
       - uses: msys2/setup-msys2@v2
         with:
@@ -115,10 +120,15 @@ jobs:
           modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
           aqtversion: '==3.1.7'
 
-      - name: Install prerequisites
-        run: |
-          Choco-Install -PackageName innosetup --force
-          Choco-Install -PackageName cmake --force
+      - name: Install cmake
+        uses: crazy-max/ghaction-chocolatey@v3
+        with:
+          args: install cmake --no-progress
+
+      - name: Install innosetup
+        uses: crazy-max/ghaction-chocolatey@v3
+        with:
+          args: install innosetup --no-progress
 
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
