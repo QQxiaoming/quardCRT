@@ -2810,39 +2810,50 @@
         <translation>リモート</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="67"/>
         <source>Open Directory</source>
         <translation>ディレクトリを開く</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="57"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="138"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="79"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
         <source>Show/Hide Files</source>
         <translation>ファイルを表示/非表示</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="61"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="83"/>
         <source>Upload</source>
         <translation>アップロード</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="98"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="188"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="128"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="232"/>
         <source>Open</source>
         <translation>開く</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="142"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="132"/>
+        <source>Open in System File Manager</source>
+        <translation>ファイルマネージャーで開く</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="137"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="238"/>
+        <source>refresh</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="178"/>
         <source>Download</source>
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File exists</source>
         <translation>ファイルが存在します</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>ファイル %1 は既に存在します。上書きしますか？</translation>
     </message>

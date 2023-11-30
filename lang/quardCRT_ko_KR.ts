@@ -2810,39 +2810,50 @@
         <translation>원격</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="67"/>
         <source>Open Directory</source>
         <translation>디렉터리 열기</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="57"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="138"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="79"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
         <source>Show/Hide Files</source>
         <translation>파일 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="61"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="83"/>
         <source>Upload</source>
         <translation>업로드</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="98"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="188"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="128"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="232"/>
         <source>Open</source>
         <translation>열기</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="142"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="132"/>
+        <source>Open in System File Manager</source>
+        <translation>시스템 파일 관리자에서 열기</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="137"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="238"/>
+        <source>refresh</source>
+        <translation>새로고침</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="178"/>
         <source>Download</source>
         <translation>다운로드</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File exists</source>
         <translation>파일이 존재합니다</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>%1 파일이 이미 존재합니다. 덮어쓰시겠습니까?</translation>
     </message>

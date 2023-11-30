@@ -2796,39 +2796,50 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="67"/>
         <source>Open Directory</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="57"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="138"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="79"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
         <source>Show/Hide Files</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="61"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="83"/>
         <source>Upload</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="98"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="188"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="128"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="232"/>
         <source>Open</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="142"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="132"/>
+        <source>Open in System File Manager</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="137"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="238"/>
+        <source>refresh</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="178"/>
         <source>Download</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File exists</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation></translation>
     </message>

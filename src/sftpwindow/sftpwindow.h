@@ -22,6 +22,8 @@
 
 #include <QDialog>
 #include <QAbstractItemModel>
+#include <QThread>
+#include <QMutex>
 
 #include "qcustomfilesystemmodel.h"
 #include "sshsftp.h"
@@ -30,6 +32,79 @@
 namespace Ui {
 class SftpWindow;
 }
+
+class SftpTransferThread : public QThread
+{
+    Q_OBJECT
+public:
+    enum TaskType {
+        Upload,
+        Download
+    };
+    struct task_t {
+        uint64_t id;
+        QString srcPath;
+        QString dstPath;
+        TaskType type;
+    };
+    SftpTransferThread(QObject *parent = nullptr) :
+        QThread(parent), sftp(nullptr) {
+        exit = false;
+    }
+    ~SftpTransferThread() {
+        exit = true;
+        wait();
+    }
+
+    void setSftpChannel(SshSFtp *sftp) {
+        mutex.lock();
+        this->sftp = sftp;
+        mutex.unlock();
+    }
+    void addTask(task_t &task) {
+        mutex.lock();
+        task.id = taskId++;
+        taskList.append(task);
+        mutex.unlock();
+    }
+    bool isBusy() {
+        return !taskList.isEmpty();
+    }
+
+signals:
+    void taskProgress(uint64_t id, uint64_t done, uint64_t total);
+    void taskFinished(uint64_t id, bool ok);
+
+protected:
+    void run() override {
+        while (!exit) {
+            mutex.lock();
+            if(sftp) {
+                if(taskList.isEmpty()) {
+                    mutex.unlock();
+                    msleep(100);
+                    continue;
+                }
+                task_t task = taskList.takeFirst();
+                mutex.unlock();
+                if (task.type == Upload) {
+                    sftp->send(task.srcPath, task.dstPath);
+                } else if (task.type == Download) {
+                    sftp->get(task.srcPath, task.dstPath, true);
+                }
+                emit taskFinished(task.id, true);
+            } else {
+                mutex.unlock();
+            }
+        }
+    }
+private:
+    SshSFtp *sftp;
+    QMutex mutex;
+    bool exit;
+    QList<task_t> taskList;
+    uint64_t taskId = 0;
+};
 
 class QSshFileSystemModel : public QCustomFileSystemModel
 {
@@ -115,8 +190,11 @@ public:
 private:
     Ui::SftpWindow *ui;
     SshSFtp *sftp = nullptr;
+    SftpTransferThread *transferThread = nullptr;
     QSshFileSystemModel *sshFileSystemModel;
     QNativeFileSystemModel *fileSystemModel;
+    uint64_t taskNum = 0;
+    uint64_t taskDone = 0;
 };
 
 #endif // SFTPWINDOW_H

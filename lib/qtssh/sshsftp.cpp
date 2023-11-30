@@ -302,7 +302,7 @@ LIBSSH2_SFTP *SshSFtp::getSftpSession() const
 
 bool SshSFtp::processCmd(SshSftpCommand *cmd)
 {
-    QEventLoop wait(this);
+    QEventLoop wait;
     QObject::connect(this, &SshSFtp::stateChanged, &wait, &QEventLoop::quit);
     QObject::connect(this, &SshSFtp::cmdEvent, &wait, &QEventLoop::quit);
 

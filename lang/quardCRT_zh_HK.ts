@@ -2744,16 +2744,6 @@
 %1。</translation>
     </message>
     <message>
-        <source>Start Serial</source>
-        <translation type="vanished">啟動串口</translation>
-    </message>
-    <message>
-        <source>Cannot open serial port:
-%1.</source>
-        <translation type="vanished">無法打開串口：
-%1。</translation>
-    </message>
-    <message>
         <location filename="../src/sessionswindow.cpp" line="483"/>
         <source>Save log...</source>
         <translation>保存日誌...</translation>
@@ -2820,39 +2810,50 @@
         <translation>遠程</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="67"/>
         <source>Open Directory</source>
         <translation>打開目錄</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="57"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="138"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="79"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
         <source>Show/Hide Files</source>
         <translation>顯示/隱藏文件</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="61"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="83"/>
         <source>Upload</source>
         <translation>上傳</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="98"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="188"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="128"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="232"/>
         <source>Open</source>
         <translation>打開</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="142"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="132"/>
+        <source>Open in System File Manager</source>
+        <translation>在系統文件管理器中打開</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="137"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="238"/>
+        <source>refresh</source>
+        <translation>刷新</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="178"/>
         <source>Download</source>
         <translation>下載</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File exists</source>
         <translation>文件已存在</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="174"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="215"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>文件%1已經存在。 您要覆蓋它嗎？</translation>
     </message>

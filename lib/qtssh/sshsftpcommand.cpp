@@ -21,7 +21,7 @@ QStringList SshSftpCommand::errMsg() const
 }
 
 SshSftpCommand::SshSftpCommand(SshSFtp &sftp)
-    : QObject(qobject_cast<QObject*>(&sftp))
+    : QObject(nullptr)
     , m_sftp(sftp)
 {
     m_state = CommandState::Openning;
