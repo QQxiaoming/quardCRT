@@ -43,6 +43,7 @@ public:
         Raw,
         NamePipe,
         SSH2,
+        VNC,
     };
     struct QuickConnectData {
         QuickConnectType type;
@@ -78,6 +79,11 @@ public:
             QString privateKey;
             QString passphrase;
         }SSH2Data;
+        struct {
+            QString hostname;
+            int port;
+            QString password;
+        }VNCData;
         bool saveSession;
         bool openInTab;
     };

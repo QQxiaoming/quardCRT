@@ -45,33 +45,40 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , rawSocket(nullptr)
     , localShell(nullptr)
     , namePipe(nullptr)
+    , ssh2Client(nullptr)
+    , vncClient(nullptr)
     , enableLog(false)
     , enableRawLog(false) {
-    term = new QTermWidget(parent);
-    term->setUserdata(this);
+    if(type == VNC) {
+        vncClient = new QVNCClientWidget(parent);
+        vncClient->setProperty("session", QVariant::fromValue(this));
+    } else {
+        term = new QTermWidget(parent);
+        term->setProperty("session", QVariant::fromValue(this));
 
-    term->setScrollBarPosition(QTermWidget::ScrollBarRight);
-    term->setBlinkingCursor(true);
-    term->setMargin(0);
-    term->startTerminalTeletype();
+        term->setScrollBarPosition(QTermWidget::ScrollBarRight);
+        term->setBlinkingCursor(true);
+        term->setMargin(0);
+        term->startTerminalTeletype();
 
-    QStringList availableColorSchemes = term->availableColorSchemes();
-    availableColorSchemes.sort();
-    QString currentColorScheme = availableColorSchemes.first();
-    foreach(QString colorScheme, availableColorSchemes) {
-        if(colorScheme == GlobalOptionsWindow::defaultColorScheme) {
-            term->setColorScheme(GlobalOptionsWindow::defaultColorScheme);
-            currentColorScheme = GlobalOptionsWindow::defaultColorScheme;
+        QStringList availableColorSchemes = term->availableColorSchemes();
+        availableColorSchemes.sort();
+        QString currentColorScheme = availableColorSchemes.first();
+        foreach(QString colorScheme, availableColorSchemes) {
+            if(colorScheme == GlobalOptionsWindow::defaultColorScheme) {
+                term->setColorScheme(GlobalOptionsWindow::defaultColorScheme);
+                currentColorScheme = GlobalOptionsWindow::defaultColorScheme;
+            }
         }
-    }
 
-    QStringList availableKeyBindings = term->availableKeyBindings();
-    availableKeyBindings.sort();
-    QString currentAvailableKeyBindings = availableKeyBindings.first();
-    foreach(QString keyBinding, availableKeyBindings) {
-        if(keyBinding == "linux") {
-            term->setKeyBindings("linux");
-            currentAvailableKeyBindings = "linux";
+        QStringList availableKeyBindings = term->availableKeyBindings();
+        availableKeyBindings.sort();
+        QString currentAvailableKeyBindings = availableKeyBindings.first();
+        foreach(QString keyBinding, availableKeyBindings) {
+            if(keyBinding == "linux") {
+                term->setKeyBindings("linux");
+                currentAvailableKeyBindings = "linux";
+            }
         }
     }
 
@@ -256,35 +263,38 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         }
     }
 
-    connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
-        saveLog(data, size);
-    });
-    connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, bool fromContextMenu){
-        QUrl u = url;
-        QString path = u.toString();
-        if(path.startsWith("relative:") ) {
-            if(getSessionType() == LocalShell) {
-                path.remove("relative:");
-                path = getWorkingDirectory() + "/" + path;
-                u = QUrl::fromLocalFile(path);
-            } else {
-                return;
+    if(type != VNC) {
+        connect(term, &QTermWidget::titleChanged, this, &SessionsWindow::titleChanged);
+        connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
+            saveLog(data, size);
+        });
+        connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, bool fromContextMenu){
+            QUrl u = url;
+            QString path = u.toString();
+            if(path.startsWith("relative:") ) {
+                if(getSessionType() == LocalShell) {
+                    path.remove("relative:");
+                    path = getWorkingDirectory() + "/" + path;
+                    u = QUrl::fromLocalFile(path);
+                } else {
+                    return;
+                }
             }
-        }
-        QDesktopServices::openUrl(u);
-        Q_UNUSED(fromContextMenu);
-    });
-    connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event){
-        // only windows and macos need do this
-    #if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
-        if(event->button() == Qt::MiddleButton) {
-            term->copyClipboard();
-            term->pasteClipboard();
-        }
-    #else
-        Q_UNUSED(event);
-    #endif
-    });
+            QDesktopServices::openUrl(u);
+            Q_UNUSED(fromContextMenu);
+        });
+        connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event){
+            // only windows and macos need do this
+        #if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
+            if(event->button() == Qt::MiddleButton) {
+                term->copyClipboard();
+                term->pasteClipboard();
+            }
+        #else
+            Q_UNUSED(event);
+        #endif
+        });
+    }
 }
 
 SessionsWindow::~SessionsWindow() {
@@ -324,7 +334,17 @@ SessionsWindow::~SessionsWindow() {
         if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
         delete namePipe;
     }
-    delete term;
+    if(ssh2Client) {
+        ssh2Client->disconnectFromHost();
+        delete ssh2Client;
+    }
+    if(vncClient) {
+        vncClient->disconnectFromVncServer();
+        delete vncClient;
+    }
+    if(term) {
+        delete term;
+    }
 }
 
 void SessionsWindow::cloneSession(SessionsWindow *src) {
@@ -347,6 +367,9 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
             break;
         case SSH2:
             startSSH2Session(src->m_hostname, src->m_port, src->m_username, src->m_password);
+            break;
+        case VNC:
+            startVNCSession(src->m_hostname, src->m_port, src->m_password);
             break;
         }
     }  
@@ -475,6 +498,14 @@ int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, cons
     m_hostname = hostname;
     m_port = port;
     m_username = username;
+    m_password = password;
+    return 0;
+}
+
+int SessionsWindow::startVNCSession(const QString &hostname, quint16 port, const QString &password) {
+    vncClient->connectToVncServer(hostname,password,port);
+    m_hostname = hostname;
+    m_port = port;
     m_password = password;
     return 0;
 }

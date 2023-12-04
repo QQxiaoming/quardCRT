@@ -84,11 +84,12 @@ private:
     QString startNamePipeSession(MainWidgetGroup *group, QString namePipe, QString name = QString());
     QString startSSH2Session(MainWidgetGroup *group,
         QString hostname, quint16 port, QString username, QString password, QString name = QString());
+    QString startVNCSession(MainWidgetGroup *group, QString hostname, quint16 port, QString password, QString name = QString());
     int stopSession(MainWidgetGroup *group, int index, bool force = false);
     int stopAllSession(bool force = false);
     int cloneCurrentSession(MainWidgetGroup *group, QString name = QString());
     MainWidgetGroup *findCurrentFocusGroup(void);
-    QTermWidget *findCurrentFocusTermWidget(void);
+    QWidget *findCurrentFocusWidget(void);
     QMenu *createPopupMenu(void) override;
     void setSessionClassActionEnable(bool enable);
     void setGlobalOptions(SessionsWindow *window);
@@ -108,7 +109,7 @@ private:
     void infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name, bool skipPassword = false);
     void moveToAnotherTab(int src,int dst, int index);
     void floatingWindow(MainWidgetGroup *g, int index);
-    void terminalWidgetContextMenuBase(QMenu *menu,QTermWidget *termWidget,const QPoint& position);
+    void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
 
 protected:
     void closeEvent(QCloseEvent *event) override;

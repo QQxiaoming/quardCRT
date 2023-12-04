@@ -247,14 +247,6 @@ public:
     void setWordCharacters(const QString &wordCharacters);
     QString wordCharacters(void);
 
-    // FIXME: this is a hack operation, should be removed
-    void setUserdata(void *data) {
-        this->userData = data;
-    }
-    void *getUserdata() const {
-        return this->userData;
-    }
-
     void reTranslateUi(void);
 
 signals:
@@ -377,7 +369,6 @@ private:
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;
     QList<HighLightText*> m_highLightTexts;
-    void *userData = nullptr;
 };
 
 #endif

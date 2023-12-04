@@ -33,6 +33,7 @@
 #include "QTelnet.h"
 #include "ptyqt.h"
 #include "sshsftp.h"
+#include "qvncclientwidget.h"
 
 class SessionsWindow : public QObject
 {
@@ -45,6 +46,7 @@ public:
         RawSocket,
         NamePipe,
         SSH2,
+        VNC,
     };
     enum SessionsState {
         Connected,
@@ -89,6 +91,7 @@ public:
     int startRawSocketSession(const QString &hostname, quint16 port);
     int startNamePipeSession(const QString &name);
     int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password);
+    int startVNCSession(const QString &hostname, quint16 port, const QString &password);
 
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
@@ -98,7 +101,12 @@ public:
     int setRawLog(bool enable);
     bool isRawLog(void) { return enableRawLog; }
 
-    QTermWidget *getTermWidget() const { return term; }
+    QWidget *getMainWidget() const { 
+        if(type == VNC)
+            return static_cast<QWidget *>(vncClient);
+        else
+            return static_cast<QWidget *>(term); 
+    }
     SessionType getSessionType() const { return type; }
     QString getTitle() const { return showShortTitle ? shortTitle : longTitle; }
     QString getLongTitle() const { return longTitle; }
@@ -132,9 +140,116 @@ public:
     QString getUserName() const { return m_username; }
     QString getPassWord() const { return m_password; }
 
+    void setScrollBarPosition(QTermWidget::ScrollBarPosition position) {
+        if(term) term->setScrollBarPosition(position);
+    }
+    void reTranslateUi(void) {
+        if(term) term->reTranslateUi();
+    }
+    void setKeyBindings(const QString & kb) {
+        if(term) term->setKeyBindings(kb);
+    }
+    void setColorScheme(const QString & name) {
+        if(term) term->setColorScheme(name);
+    }
+    void setTerminalFont(const QFont & font) {
+        if(term) term->setTerminalFont(font);
+    }
+    void setTerminalBackgroundMode(int mode) {
+        if(term) term->setTerminalBackgroundMode(mode);
+    }
+    void setTerminalOpacity(qreal level) {
+        if(term) term->setTerminalOpacity(level);
+    }
+    void setHistorySize(int lines) {
+        if(term) term->setHistorySize(lines);
+    }
+    void setKeyboardCursorShape(uint32_t shape) {
+        if(term) term->setKeyboardCursorShape(shape);
+    }
+    void setBlinkingCursor(bool blink) {
+        if(term) term->setBlinkingCursor(blink);
+    }
+    void setWordCharacters(const QString &wordCharacters) {
+        if(term) term->setWordCharacters(wordCharacters);
+    }
+    void setTerminalBackgroundImage(const QString& backgroundImage) {
+        if(term) term->setTerminalBackgroundImage(backgroundImage);
+    }
+    void setTerminalBackgroundMovie(const QString& backgroundMovie) {
+        if(term) term->setTerminalBackgroundMovie(backgroundMovie);
+    }
+    void setTerminalBackgroundVideo(const QString& backgroundVideo) {
+        if(term) term->setTerminalBackgroundVideo(backgroundVideo);
+    }
+    QString selectedText(bool preserveLineBreaks = true) {
+        if(term) return term->selectedText(preserveLineBreaks);
+        return QString();
+    }
+    void copyClipboard() {
+        if(term) term->copyClipboard();
+    }
+    void pasteClipboard() {
+        if(term) term->pasteClipboard();
+    }
+    void selectAll() {
+        if(term) term->selectAll();
+    }
+    void toggleShowSearchBar() {
+        if(term) term->toggleShowSearchBar();
+    }
+    void saveHistory(QTextStream *stream, int format = 0) {
+        if(term) term->saveHistory(stream,format);
+    }
+    void saveHistory(QIODevice *device, int format = 0) {
+        if(term) term->saveHistory(device,format);
+    }
+    void screenShot(const QString &fileName) {
+        if(term) term->screenShot(fileName);
+    }
+    void clearScrollback() {
+        if(term) term->clearScrollback();
+    }
+    void clearScreen() {
+        if(term) term->clearScreen();
+    }
+    void clear() {
+        if(term) term->clear();
+    }
+    void zoomIn() {
+        if(term) term->zoomIn();
+    }
+    void zoomOut() {
+        if(term) term->zoomOut();
+    }
+    void proxySendData(QByteArray data) {
+        if(term) term->proxySendData(data);
+    }
+    QList<QAction*> filterActions(const QPoint& position) {
+        if(term) {
+            QPoint maptermWidgetPos = term->mapFromGlobal(position);
+            return term->filterActions(maptermWidgetPos);
+        }
+        return QList<QAction*>();
+    }
+    void addHighLightText(const QString &text, const QColor &color) {
+        if(term) term->addHighLightText(text,color);
+    }
+    bool isContainHighLightText(const QString &text) {
+        if(term) return term->isContainHighLightText(text);
+        return false;
+    }
+    void removeHighLightText(const QString &text) {
+        if(term) term->removeHighLightText(text);
+    }
+    void clearHighLightTexts(void) {
+        if(term) term->clearHighLightTexts();
+    }
+
 signals:
     void hexDataDup(const char *data, int size);
     void stateChanged(SessionsState state);
+    void titleChanged(int title,const QString& newTitle);
 
 private:
     int saveLog(const char *data, int size);
@@ -154,6 +269,7 @@ private:
     IPtyProcess *localShell;
     QLocalSocket *namePipe;
     SshClient *ssh2Client;
+    QVNCClientWidget *vncClient;
     bool enableLog;
     bool enableRawLog;
     QMutex log_file_mutex;

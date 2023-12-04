@@ -246,6 +246,36 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->spinBoxPort->setMinimum(0);
             ui->spinBoxPort->setMaximum(65535);
             ui->spinBoxPort->setValue(22);
+            break;
+        }
+        case VNC: {
+            ui->labelHostname->setText(tr("Hostname"));
+            ui->labelPort->setText(tr("Port"));
+            ui->comboBoxHostname->setVisible(false);
+            ui->lineEditHostname->setVisible(true);
+            ui->labelUsername->setVisible(true);
+            ui->lineEditUsername->setVisible(true);
+            ui->labelPassword->setVisible(true);
+            lineEditPassword->setVisible(true);
+            ui->labelPort->setVisible(true);
+            ui->spinBoxPort->setVisible(true);
+            ui->spinBoxPort->setToolTip("");
+            ui->labelWebSocket->setVisible(false);
+            ui->comboBoxWebSocket->setVisible(false);
+            ui->labelDataBits->setVisible(false);
+            ui->comboBoxDataBits->setVisible(false);
+            ui->labelParity->setVisible(false);
+            ui->comboBoxParity->setVisible(false);
+            ui->labelStopBits->setVisible(false);
+            ui->comboBoxStopBits->setVisible(false);
+            ui->checkBoxFlowCtrl->setVisible(false);
+            ui->checkBoxXEnable->setVisible(false);
+            ui->lineEditHostname->setText("");
+            ui->lineEditHostname->setPlaceholderText(tr("e.g. 127.0.0.1"));
+            ui->spinBoxPort->setMinimum(0);
+            ui->spinBoxPort->setMaximum(65535);
+            ui->spinBoxPort->setValue(5900);
+            break;
         }
         default:
             break;
@@ -293,6 +323,12 @@ void QuickConnectWindow::buttonBoxAccepted(void)
             data.SSH2Data.port = ui->spinBoxPort->value();
             data.SSH2Data.username = ui->lineEditUsername->text();
             data.SSH2Data.password = lineEditPassword->text();
+            emit this->sendQuickConnectData(data);
+            break;
+        case VNC:
+            data.VNCData.hostname = ui->lineEditHostname->text();
+            data.VNCData.port = ui->spinBoxPort->value();
+            data.VNCData.password = lineEditPassword->text();
             emit this->sendQuickConnectData(data);
             break;
         default:

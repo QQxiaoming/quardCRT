@@ -63,6 +63,11 @@
            <string notr="true">SSH2</string>
           </property>
          </item>
+            <item>
+            <property name="text">
+            <string notr="true">VNC</string>
+            </property>
+            </item>
         </widget>
        </item>
       </layout>
