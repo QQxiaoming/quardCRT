@@ -253,14 +253,14 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelPort->setText(tr("Port"));
             ui->comboBoxHostname->setVisible(false);
             ui->lineEditHostname->setVisible(true);
-            ui->labelUsername->setVisible(true);
-            ui->lineEditUsername->setVisible(true);
             ui->labelPassword->setVisible(true);
             lineEditPassword->setVisible(true);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
             ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(false);
+            ui->labelUsername->setVisible(false);
+            ui->lineEditUsername->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
             ui->comboBoxDataBits->setVisible(false);

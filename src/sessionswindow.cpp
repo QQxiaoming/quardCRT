@@ -260,7 +260,10 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 state = Error;
                 emit stateChanged(state);
             });
+            break;
         }
+        case VNC:
+            break;
     }
 
     if(type != VNC) {
@@ -676,6 +679,8 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
         case SSH2:
             info.ssh2.tx_total = tx_total;
             info.ssh2.rx_total = rx_total;
+            break;
+        case VNC:
             break;
     }
     return info;

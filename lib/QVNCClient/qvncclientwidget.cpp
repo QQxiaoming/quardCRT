@@ -144,6 +144,23 @@ void QVNCClientWidget::setFullScreen(bool full)
     resizeEvent(nullptr);
 }
 
+void QVNCClientWidget::screenShot(QPixmap *pixmap)
+{
+    QPixmap currPixmap(size());
+    render(&currPixmap);
+    *pixmap = currPixmap.scaled(pixmap->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+}
+
+void QVNCClientWidget::screenShot(const QString &fileName)
+{
+    qreal deviceratio = devicePixelRatio();
+    deviceratio = deviceratio*2;
+    QPixmap pixmap(size() * deviceratio);
+    pixmap.setDevicePixelRatio(deviceratio);
+    render(&pixmap);
+    pixmap.save(fileName);
+}
+
 void QVNCClientWidget::resizeEvent(QResizeEvent *e)
 {
     if (isScaled)

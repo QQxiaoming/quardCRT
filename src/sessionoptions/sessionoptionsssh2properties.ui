@@ -43,7 +43,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinBoxPort"/>
+      <widget class="QSpinBox" name="spinBoxPort">
+       <property name="maximum">
+        <number>65535</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

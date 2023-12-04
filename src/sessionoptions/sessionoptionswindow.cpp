@@ -36,6 +36,7 @@
 #include "ui_sessionoptionsnamepipeproperties.h"
 #include "ui_sessionoptionsrawproperties.h"
 #include "ui_sessionoptionsssh2properties.h"
+#include "ui_sessionoptionsvncproperties.h"
 
 #include "ui_sessionoptionslocalshellstate.h"
 
@@ -79,6 +80,8 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
     widget->layout()->addWidget(sessionOptionsRawProperties);
     sessionOptionsSSH2Properties = new SessionOptionsSsh2Properties(widget);
     widget->layout()->addWidget(sessionOptionsSSH2Properties);
+    sessionOptionsVNCProperties = new SessionOptionsVNCProperties(widget);
+    widget->layout()->addWidget(sessionOptionsVNCProperties);
 
     sessionOptionsLocalShellState = new SessionOptionsLocalShellState(widget);
     widget->layout()->addWidget(sessionOptionsLocalShellState);
@@ -125,6 +128,7 @@ void SessionOptionsWindow::retranslateUi()
     sessionOptionsNamePipeProperties->ui->retranslateUi(this);
     sessionOptionsRawProperties->ui->retranslateUi(this);
     sessionOptionsSSH2Properties->ui->retranslateUi(this);
+    sessionOptionsVNCProperties->ui->retranslateUi(this);
     sessionOptionsLocalShellState->ui->retranslateUi(this);
     sessionOptionsLocalShellState->ui->treeViewInfo->model()->setHeaderData(1, Qt::Horizontal, tr("Name"));
 }
@@ -137,6 +141,7 @@ void SessionOptionsWindow::setactiveProperties(int index)
     sessionOptionsNamePipeProperties->setVisible(false);
     sessionOptionsRawProperties->setVisible(false);
     sessionOptionsSSH2Properties->setVisible(false);
+    sessionOptionsVNCProperties->setVisible(false);
 
     if(index == -1) {
         return;
@@ -159,6 +164,9 @@ void SessionOptionsWindow::setactiveProperties(int index)
         break;
     case 5:
         sessionOptionsSSH2Properties->setVisible(true);
+        break;
+    case 6:
+        sessionOptionsVNCProperties->setVisible(true);
         break;
     }
 }
@@ -231,6 +239,11 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
         sessionOptionsSSH2Properties->ui->spinBoxPort->setValue(data.SSH2Data.port);
         sessionOptionsSSH2Properties->ui->lineEditUserName->setText(data.SSH2Data.username);
         sessionOptionsSSH2Properties->lineEditPassword->setText(data.SSH2Data.password);
+        break;
+    case QuickConnectWindow::VNC:
+        sessionOptionsVNCProperties->ui->lineEditHostname->setText(data.VNCData.hostname);
+        sessionOptionsVNCProperties->ui->spinBoxPort->setValue(data.VNCData.port);
+        sessionOptionsVNCProperties->lineEditPassword->setText(data.VNCData.password);
         break;
     }
 }
@@ -312,6 +325,11 @@ void SessionOptionsWindow::buttonBoxAccepted(void)
         data.SSH2Data.port = sessionOptionsSSH2Properties->ui->spinBoxPort->value();
         data.SSH2Data.username = sessionOptionsSSH2Properties->ui->lineEditUserName->text();
         data.SSH2Data.password = sessionOptionsSSH2Properties->lineEditPassword->text();
+        break;
+    case QuickConnectWindow::VNC:
+        data.VNCData.hostname = sessionOptionsVNCProperties->ui->lineEditHostname->text();
+        data.VNCData.port = sessionOptionsVNCProperties->ui->spinBoxPort->value();
+        data.VNCData.password = sessionOptionsVNCProperties->lineEditPassword->text();
         break;
     }
     emit sessionPropertiesChanged(currentSessionName, data, sessionOptionsGeneralWidget->ui->lineEditName->text());

@@ -36,6 +36,7 @@
 #include "sessionoptionsnamepipeproperties.h"
 #include "sessionoptionsrawproperties.h"
 #include "sessionoptionsssh2properties.h"
+#include "sessionoptionsvncproperties.h"
 
 #include "sessionoptionslocalshellstate.h"
 
@@ -79,6 +80,7 @@ private:
     SessionOptionsNamePipeProperties *sessionOptionsNamePipeProperties;
     SessionOptionsRawProperties *sessionOptionsRawProperties;
     SessionOptionsSsh2Properties *sessionOptionsSSH2Properties;
+    SessionOptionsVNCProperties *sessionOptionsVNCProperties;
     SessionOptionsLocalShellState *sessionOptionsLocalShellState;
     QStringListModel *model;
     QString currentSessionName;

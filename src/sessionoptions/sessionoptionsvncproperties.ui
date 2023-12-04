@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SessionOptionsRawProperties</class>
- <widget class="QWidget" name="SessionOptionsRawProperties">
+ <class>SessionOptionsVNCProperties</class>
+ <widget class="QWidget" name="SessionOptionsVNCProperties">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,10 +29,6 @@
      <item>
       <widget class="QLineEdit" name="lineEditHostname"/>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="label_2">
        <property name="sizePolicy">
@@ -50,6 +46,23 @@
       <widget class="QSpinBox" name="spinBoxPort">
        <property name="maximum">
         <number>65535</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Password</string>
        </property>
       </widget>
      </item>

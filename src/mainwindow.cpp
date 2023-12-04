@@ -2809,6 +2809,11 @@ void MainWindow::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickCon
             data.SSH2Data.username = sessionsWindow->getUserName();
             data.SSH2Data.password = sessionsWindow->getPassWord();
             break;
+        case QuickConnectWindow::VNC:
+            data.VNCData.hostname = sessionsWindow->getHostname();
+            data.VNCData.port = sessionsWindow->getPort();
+            data.VNCData.password = sessionsWindow->getPassWord();
+            break;
         default:
             break;
     }
@@ -2855,6 +2860,17 @@ int MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::Qu
         }
         break;
     }
+    case QuickConnectWindow::VNC: {
+        data.VNCData.hostname = settings->value("hostname").toString();
+        data.VNCData.port = settings->value("port").toInt();
+        if(!skipPassword){
+            bool isOK = keyChainClass.readKey(name,data.VNCData.password);
+            if(!isOK) {
+                return -1;
+            }
+        }
+        break;
+    }
     default:
         break;
     }
@@ -2895,6 +2911,12 @@ void MainWindow::infoData2Setting(GlobalSetting *settings,const QuickConnectWind
         settings->setValue("username",data.SSH2Data.username);
         if(!skipPassword)
             keyChainClass.writeKey(name,data.SSH2Data.password);
+        break;
+    case QuickConnectWindow::VNC:
+        settings->setValue("hostname",data.VNCData.hostname);
+        settings->setValue("port",data.VNCData.port);
+        if(!skipPassword)
+            keyChainClass.writeKey(name,data.VNCData.password);
         break;
     default:
         break;

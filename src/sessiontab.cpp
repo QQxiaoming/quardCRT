@@ -31,6 +31,7 @@
 #include "sessiontab.h"
 #include "qtermwidget.h"
 #include "CharWidth.h"
+#include "sessionswindow.h"
 
 EmptyTabWidget::EmptyTabWidget(QWidget *parent) 
     : QWidget(parent) {
@@ -154,9 +155,10 @@ bool SessionTabBar::event(QEvent * event) {
         if(index > 0) {
             if(previewEnabled) {
                 SessionTab *tab = (SessionTab *)parentWidget();
-                QTermWidget *term = (QTermWidget *)tab->widget(index);
+                QWidget *widget = (QWidget *)tab->widget(index);
+                SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
                 QPixmap viewPixmap(preview->viewWidthHighDpi(),preview->viewWidthHighDpi());
-                term->screenShot(&viewPixmap);
+                sessionsWindow->screenShot(&viewPixmap);
                 preview->updateInfo(viewPixmap,tab->tabToolTip(index));
                 QPoint viewPos = mapToGlobal(QPoint(tabRect(index).center().x(),
                     tabRect(index).center().y() + tabRect(index).height()/2 + 5) - QPoint(preview->width()/2,0));

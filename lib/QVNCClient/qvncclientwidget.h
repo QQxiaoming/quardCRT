@@ -91,6 +91,9 @@ public:
         disconnect(this, SIGNAL(frameBufferUpdated()), this, SLOT(sendFrameBufferUpdateRequest()));
     }
 
+    void screenShot(QPixmap *pixmap);
+    void screenShot(const QString &fileName);
+    
 public slots:
     void sendFrameBufferUpdateRequest(int incremental = 1);
     void setFullScreen(bool full);

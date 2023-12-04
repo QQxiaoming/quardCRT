@@ -206,6 +206,11 @@ public:
     }
     void screenShot(const QString &fileName) {
         if(term) term->screenShot(fileName);
+        if(vncClient) vncClient->screenShot(fileName);
+    }
+    void screenShot(QPixmap *pixmap) {
+        if(term) term->screenShot(pixmap);
+        if(vncClient) vncClient->screenShot(pixmap);
     }
     void clearScrollback() {
         if(term) term->clearScrollback();
