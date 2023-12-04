@@ -52,6 +52,32 @@ public:
         Locked,
         Error,
     };
+    struct StateInfo {
+        SessionType type;
+        SessionsState state;
+        struct TelnetState {
+            uint64_t tx_total;
+            uint64_t rx_total;
+        } telnet;
+        struct SerialState {
+            uint64_t tx_total;
+            uint64_t rx_total;
+        } serial;
+        struct LocalShellState {
+            IPtyProcess::pidTree_t tree;
+        } localShell;
+        struct RawSocketState {
+            uint64_t tx_total;
+            uint64_t rx_total;
+        } rawSocket;
+        struct NamePipeState {
+            uint64_t dummy;
+        } namePipe;
+        struct SSH2State {
+            uint64_t tx_total;
+            uint64_t rx_total;
+        } ssh2;
+    };
     SessionsWindow(SessionType tp, QWidget *parent = nullptr);
     ~SessionsWindow();
 
@@ -88,7 +114,7 @@ public:
     bool isLocked() const { return locked; }
     SessionsState getState() const { return state; }
     bool hasChildProcess();
-    IPtyProcess::pidTree_t getLocalShellState(void);
+    StateInfo getStateInfo(void);
     SshSFtp *getSshSFtpChannel(void);
 
     QString getHostname() const { return m_hostname; }
@@ -138,6 +164,8 @@ private:
     QByteArray password_hash;
     bool locked = false;
     SessionsState state = Disconnected;
+    uint64_t tx_total = 0;
+    uint64_t rx_total = 0;
 
     QString m_hostname;
     quint16 m_port;

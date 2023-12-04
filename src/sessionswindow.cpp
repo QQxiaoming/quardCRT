@@ -98,13 +98,16 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(telnet,&QTelnet::newData,this,
                 [=](const char *data, int size){
                 term->recvData(data, size);
+                rx_total += size;
                 saveRawLog(data, size);
                 emit hexDataDup(data, size);
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
-                if(telnet->isConnected())
+                if(telnet->isConnected()) {
                     telnet->sendData(data, size);
+                    tx_total += size;
+                }
             });
             connect(telnet, &QTelnet::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
                 if(socketState == QAbstractSocket::ConnectedState) {
@@ -129,6 +132,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 [=](){
                 QByteArray data = serialPort->readAll();
                 term->recvData(data.data(), data.size());
+                rx_total += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
             });
@@ -136,6 +140,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 [=](const char *data, int size){
                 if(serialPort->isOpen()) {
                     serialPort->write(data, size);
+                    tx_total += size;
                 }
             });
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
@@ -154,6 +159,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 [=](){
                 QByteArray data = rawSocket->readAll();
                 term->recvData(data.data(), data.size());
+                rx_total += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
             });
@@ -161,6 +167,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 [=](const char *data, int size){
                 if(rawSocket->state() == QAbstractSocket::ConnectedState) {
                     rawSocket->write(data, size);
+                    tx_total += size;
                 }
             });
             connect(rawSocket, &QTcpSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
@@ -226,11 +233,13 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 });
                 connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
                     term->recvData(data, size);
+                    rx_total += size;
                     saveRawLog(data, size);
                     emit hexDataDup(data, size);
                 });
                 connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
                     shell->sendData(data, size);
+                    tx_total += size;
                 });
                 state = Connected;
                 emit stateChanged(state);
@@ -611,9 +620,32 @@ bool SessionsWindow::hasChildProcess() {
     }
 }
 
-IPtyProcess::pidTree_t SessionsWindow::getLocalShellState(void) {
-    if(type == LocalShell) {
-        return localShell->processInfoTree();
+SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
+    StateInfo info;
+    info.type = type;
+    info.state = state;
+    switch (type) {
+        case Telnet:
+            info.telnet.tx_total = tx_total;
+            info.telnet.rx_total = rx_total;
+            break;
+        case Serial:
+            info.serial.tx_total = tx_total;
+            info.serial.rx_total = rx_total;
+            break;
+        case LocalShell:
+            info.localShell.tree = localShell->processInfoTree();
+            break;
+        case RawSocket:
+            info.rawSocket.tx_total = tx_total;
+            info.rawSocket.rx_total = rx_total;
+            break;
+        case NamePipe:
+            break;
+        case SSH2:
+            info.ssh2.tx_total = tx_total;
+            info.ssh2.rx_total = rx_total;
+            break;
     }
-    return IPtyProcess::pidTree_t();
+    return info;
 }

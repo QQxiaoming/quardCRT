@@ -237,52 +237,54 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                     connect(floatAction,&QAction::triggered,this,[=](){
                         floatingWindow(mainWidgetGroup,index);
                     });
-                    QAction *copyPathAction = new QAction(tr("Copy Path"),this);
-                    menu->addAction(copyPathAction);
-                    connect(copyPathAction,&QAction::triggered,this,[=](){
-                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
-                        QString dir = sessionsWindow->getWorkingDirectory();
-                        if(!dir.isEmpty()) {
-                            QFileInfo fileInfo(dir);
-                            if(fileInfo.isDir()) {
-                                QApplication::clipboard()->setText(dir);
-                                return;
+                    if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
+                        QAction *copyPathAction = new QAction(tr("Copy Path"),this);
+                        menu->addAction(copyPathAction);
+                        connect(copyPathAction,&QAction::triggered,this,[=](){
+                            QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                            QString dir = sessionsWindow->getWorkingDirectory();
+                            if(!dir.isEmpty()) {
+                                QFileInfo fileInfo(dir);
+                                if(fileInfo.isDir()) {
+                                    QApplication::clipboard()->setText(dir);
+                                    return;
+                                }
                             }
-                        }
-                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
-                    });
-                    QAction *addPathToBookmarkAction = new QAction(tr("Add Path to Bookmark"),this);
-                    menu->addAction(addPathToBookmarkAction);
-                    connect(addPathToBookmarkAction,&QAction::triggered,this,[=](){
-                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
-                        QString dir = sessionsWindow->getWorkingDirectory();
-                        if(!dir.isEmpty()) {
-                            QFileInfo fileInfo(dir);
-                            if(fileInfo.isDir()) {
-                                addBookmark(dir);
-                                return;
+                            QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                        });
+                        QAction *addPathToBookmarkAction = new QAction(tr("Add Path to Bookmark"),this);
+                        menu->addAction(addPathToBookmarkAction);
+                        connect(addPathToBookmarkAction,&QAction::triggered,this,[=](){
+                            QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                            QString dir = sessionsWindow->getWorkingDirectory();
+                            if(!dir.isEmpty()) {
+                                QFileInfo fileInfo(dir);
+                                if(fileInfo.isDir()) {
+                                    addBookmark(dir);
+                                    return;
+                                }
                             }
-                        }
-                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
-                    });
-                    QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
-                    menu->addAction(openWorkingFolderAction);
-                    menu->addSeparator();
-                    connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
-                        QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
-                        SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
-                        QString dir = sessionsWindow->getWorkingDirectory();
-                        if(!dir.isEmpty()) {
-                            QFileInfo fileInfo(dir);
-                            if(fileInfo.isDir()) {
-                                QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
-                                return;
+                            QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                        });
+                        QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
+                        menu->addAction(openWorkingFolderAction);
+                        menu->addSeparator();
+                        connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
+                            QTermWidget *termWidget = (QTermWidget *)mainWidgetGroup->sessionTab->currentWidget();
+                            SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
+                            QString dir = sessionsWindow->getWorkingDirectory();
+                            if(!dir.isEmpty()) {
+                                QFileInfo fileInfo(dir);
+                                if(fileInfo.isDir()) {
+                                    QDesktopServices::openUrl(QUrl::fromLocalFile(dir));
+                                    return;
+                                }
                             }
-                        }
-                        QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
-                    });
+                            QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
+                        });
+                    }
                     if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
                         QAction *openSFtpAction = new QAction(tr("Open SFTP"),this);
                         menu->addAction(openSFtpAction);
@@ -329,9 +331,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                         QString name;
                         sessionWindow2InfoData(sessionsWindow,data,name);
                         sessionOptionsWindow->setSessionProperties(name,data);
-                        if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
-                            sessionOptionsWindow->setSessionLocalShellState(sessionsWindow->getLocalShellState());
-                        }
+                        sessionOptionsWindow->setSessionState(sessionsWindow->getStateInfo());
                         sessionOptionsWindow->show();
                     });
                     QAction *closeAction = new QAction(tr("Close"),this);
@@ -1984,9 +1984,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         SessionsWindow *sessionsWindow = (SessionsWindow *)termWidget->getUserdata();
         sessionWindow2InfoData(sessionsWindow, data, name);
         sessionOptionsWindow->setSessionProperties(name,data);
-        if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
-            sessionOptionsWindow->setSessionLocalShellState(sessionsWindow->getLocalShellState());
-        }
+        sessionOptionsWindow->setSessionState(sessionsWindow->getStateInfo());
         sessionOptionsWindow->show();
     });
     connect(globalOptionsAction,&QAction::triggered,this,[=](){

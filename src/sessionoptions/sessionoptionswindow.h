@@ -26,6 +26,7 @@
 
 #include "ptyqt.h"
 #include "quickconnectwindow.h"
+#include "sessionswindow.h"
 
 #include "sessionoptionsgeneralwidget.h"
 
@@ -51,7 +52,7 @@ public:
     ~SessionOptionsWindow();
 
     void setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data);
-    void setSessionLocalShellState(IPtyProcess::pidTree_t state);
+    void setSessionState(SessionsWindow::StateInfo state);
 
     void retranslateUi();
 
