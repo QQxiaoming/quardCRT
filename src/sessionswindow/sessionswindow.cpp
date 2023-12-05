@@ -53,6 +53,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         vncClient = new QVNCClientWidget(parent);
         vncClient->setProperty("session", QVariant::fromValue(this));
         vncClient->setFullScreen(false);
+        vncClient->setMouseHide(false);
         connect(vncClient, &QVNCClientWidget::connected, this, [=](bool connected){
             if(connected) {
                 state = Connected;

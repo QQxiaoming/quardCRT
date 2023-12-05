@@ -97,6 +97,7 @@ public:
 public slots:
     void sendFrameBufferUpdateRequest(int incremental = 1);
     void setFullScreen(bool full);
+    void setMouseHide(bool hide);
 
 protected:
     void resizeEvent(QResizeEvent *e);

@@ -144,6 +144,14 @@ void QVNCClientWidget::setFullScreen(bool full)
     resizeEvent(nullptr);
 }
 
+void QVNCClientWidget::setMouseHide(bool hide)
+{
+    if (hide)
+        setCursor(Qt::BlankCursor);
+    else
+        unsetCursor();
+}
+
 void QVNCClientWidget::screenShot(QPixmap *pixmap)
 {
     QPixmap currPixmap(size());
@@ -160,6 +168,7 @@ void QVNCClientWidget::screenShot(const QString &fileName)
     render(&pixmap);
     pixmap.save(fileName);
 }
+
 
 void QVNCClientWidget::resizeEvent(QResizeEvent *e)
 {
