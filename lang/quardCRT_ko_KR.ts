@@ -50,7 +50,7 @@
 <context>
     <name>EmptyTabWidget</name>
     <message>
-        <location filename="../src/sessiontab.cpp" line="68"/>
+        <location filename="../src/sessiontab/sessiontab.cpp" line="69"/>
         <source>No session</source>
         <translation>세션 없음</translation>
     </message>
@@ -59,36 +59,41 @@
     <name>GlobalOptionsAdvancedWidget</name>
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="25"/>
+        <source>Config File</source>
+        <translation>설정 파일</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="56"/>
         <source>Translate Service</source>
         <translation>번역 서비스</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="36"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="67"/>
         <source>Google Translate</source>
         <translation>Google 번역</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="41"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
         <source>Baidu Translate</source>
         <translation>Baidu 번역</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="46"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="77"/>
         <source>Microsoft Translate</source>
         <translation>Microsoft 번역</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="56"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="87"/>
         <source>Terminal background support animation</source>
         <translation>터미널 배경 지원 애니메이션</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="63"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="94"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>NativeUI(재시작 후 적용)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="70"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="101"/>
         <source>Github Copilot</source>
         <translation>Github Copilot</translation>
     </message>
@@ -256,53 +261,53 @@
         <translation>전역 옵션</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="159"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="161"/>
         <source>Select Background Image</source>
         <translation>배경 이미지 선택</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="159"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="161"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation>이미지 파일 (*.png *.jpg *.jpeg *.bmp *.gif);;비디오 파일 (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="197"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="202"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="199"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="204"/>
         <source>Information</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="197"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="199"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation>이 기능은 더 많은 시스템 리소스가 필요합니다. 주의해서 사용하십시오!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="202"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="204"/>
         <source>This feature is not implemented yet!</source>
         <translation>이 기능은 아직 구현되지 않았습니다!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="222"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="226"/>
         <source>General</source>
         <translation>일반</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="222"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="226"/>
         <source>Appearance</source>
         <translation>외관</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="222"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="226"/>
         <source>Terminal</source>
         <translation>터미널</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="222"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="226"/>
         <source>Window</source>
         <translation>창</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="222"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="226"/>
         <source>Advanced</source>
         <translation>고급</translation>
     </message>
@@ -456,7 +461,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/mainwindow.ui" line="101"/>
-        <location filename="../src/mainwindow.cpp" line="951"/>
+        <location filename="../src/mainwindow.cpp" line="961"/>
         <source>Tool Bar</source>
         <translation>툴바</translation>
     </message>
@@ -468,12 +473,12 @@
         <location filename="../src/mainwindow.cpp" line="269"/>
         <location filename="../src/mainwindow.cpp" line="285"/>
         <location filename="../src/mainwindow.cpp" line="297"/>
-        <location filename="../src/mainwindow.cpp" line="448"/>
-        <location filename="../src/mainwindow.cpp" line="2133"/>
-        <location filename="../src/mainwindow.cpp" line="2328"/>
-        <location filename="../src/mainwindow.cpp" line="2696"/>
-        <location filename="../src/mainwindow.cpp" line="2986"/>
-        <location filename="../src/mainwindow.cpp" line="2991"/>
+        <location filename="../src/mainwindow.cpp" line="453"/>
+        <location filename="../src/mainwindow.cpp" line="2143"/>
+        <location filename="../src/mainwindow.cpp" line="2338"/>
+        <location filename="../src/mainwindow.cpp" line="2706"/>
+        <location filename="../src/mainwindow.cpp" line="3018"/>
+        <location filename="../src/mainwindow.cpp" line="3023"/>
         <source>Warning</source>
         <translation>경고</translation>
     </message>
@@ -570,14 +575,14 @@
         <translation>모든 탭 닫기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="644"/>
+        <location filename="../src/mainwindow.cpp" line="649"/>
         <source>Highlight/Unhighlight</source>
         <translation>강조/강조 해제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="468"/>
-        <location filename="../src/mainwindow.cpp" line="566"/>
-        <location filename="../src/mainwindow.cpp" line="2048"/>
+        <location filename="../src/mainwindow.cpp" line="473"/>
+        <location filename="../src/mainwindow.cpp" line="571"/>
+        <location filename="../src/mainwindow.cpp" line="2058"/>
         <source>Ready</source>
         <translation>준비 완료</translation>
     </message>
@@ -592,1136 +597,1136 @@
         <translation>SFTP 채널 없음!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="448"/>
+        <location filename="../src/mainwindow.cpp" line="453"/>
         <source>Session properties error!</source>
         <translation>세션 속성 오류!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="704"/>
+        <location filename="../src/mainwindow.cpp" line="709"/>
         <source>Google Translate</source>
         <translation>Google 번역</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="716"/>
+        <location filename="../src/mainwindow.cpp" line="721"/>
         <source>Baidu Translate</source>
         <translation>Baidu 번역</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="727"/>
+        <location filename="../src/mainwindow.cpp" line="732"/>
         <source>Microsoft Translate</source>
         <translation>Microsoft 번역</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="767"/>
+        <location filename="../src/mainwindow.cpp" line="773"/>
         <source>Back to Main Window</source>
         <translation>메인 창으로 돌아가기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="824"/>
-        <location filename="../src/mainwindow.cpp" line="847"/>
+        <location filename="../src/mainwindow.cpp" line="834"/>
+        <location filename="../src/mainwindow.cpp" line="857"/>
         <source>Session Manager</source>
         <translation>세션 관리자</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="826"/>
+        <location filename="../src/mainwindow.cpp" line="836"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="827"/>
+        <location filename="../src/mainwindow.cpp" line="837"/>
         <source>Edit</source>
         <translation>편집</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="828"/>
+        <location filename="../src/mainwindow.cpp" line="838"/>
         <source>View</source>
         <translation>보기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="829"/>
+        <location filename="../src/mainwindow.cpp" line="839"/>
         <source>Options</source>
         <translation>옵션</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="830"/>
+        <location filename="../src/mainwindow.cpp" line="840"/>
         <source>Transfer</source>
         <translation>전송</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="831"/>
+        <location filename="../src/mainwindow.cpp" line="841"/>
         <source>Script</source>
         <translation>스크립트</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="832"/>
+        <location filename="../src/mainwindow.cpp" line="842"/>
         <source>Bookmark</source>
         <translation>북마크</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="833"/>
+        <location filename="../src/mainwindow.cpp" line="843"/>
         <source>Tools</source>
         <translation>도구</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="834"/>
+        <location filename="../src/mainwindow.cpp" line="844"/>
         <source>Window</source>
         <translation>창</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="835"/>
+        <location filename="../src/mainwindow.cpp" line="845"/>
         <source>Language</source>
         <translation>언어</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="836"/>
+        <location filename="../src/mainwindow.cpp" line="846"/>
         <source>Theme</source>
         <translation>테마</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="837"/>
-        <location filename="../src/mainwindow.cpp" line="1059"/>
-        <location filename="../src/mainwindow.cpp" line="2950"/>
+        <location filename="../src/mainwindow.cpp" line="847"/>
+        <location filename="../src/mainwindow.cpp" line="1069"/>
+        <location filename="../src/mainwindow.cpp" line="2982"/>
         <source>Help</source>
         <translation>도움말</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="839"/>
+        <location filename="../src/mainwindow.cpp" line="849"/>
         <source>New Window</source>
         <translation>새 창</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="841"/>
+        <location filename="../src/mainwindow.cpp" line="851"/>
         <source>Open a new window &lt;Ctrl+Shift+N&gt;</source>
         <translation>새 창 열기 &lt;Ctrl+Shift+N&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="843"/>
+        <location filename="../src/mainwindow.cpp" line="853"/>
         <source>Connect...</source>
         <translation>연결...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="845"/>
+        <location filename="../src/mainwindow.cpp" line="855"/>
         <source>Connect to a host &lt;Alt+C&gt;</source>
         <translation>호스트에 연결 &lt;Alt+C&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="849"/>
+        <location filename="../src/mainwindow.cpp" line="859"/>
         <source>Go to the Session Manager &lt;Alt+M&gt;</source>
         <translation>세션 관리자로 이동 &lt;Alt+M&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="851"/>
+        <location filename="../src/mainwindow.cpp" line="861"/>
         <source>Quick Connect...</source>
         <translation>빠른 연결...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="853"/>
+        <location filename="../src/mainwindow.cpp" line="863"/>
         <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
         <translation>호스트에 빠르게 연결 &lt;Alt+Q&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="855"/>
+        <location filename="../src/mainwindow.cpp" line="865"/>
         <source>Connect in Tab/Tile...</source>
         <translation>탭/타일에 연결...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="856"/>
+        <location filename="../src/mainwindow.cpp" line="866"/>
         <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
         <translation>새 탭에 호스트에 연결 &lt;Alt+B&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="858"/>
+        <location filename="../src/mainwindow.cpp" line="868"/>
         <source>Connect Local Shell</source>
         <translation>로컬 쉘 연결</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="860"/>
+        <location filename="../src/mainwindow.cpp" line="870"/>
         <source>Connect to a local shell &lt;Alt+T&gt;</source>
         <translation>로컬 쉘에 연결 &lt;Alt+T&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="862"/>
+        <location filename="../src/mainwindow.cpp" line="872"/>
         <source>Reconnect</source>
         <translation>재연결</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="864"/>
+        <location filename="../src/mainwindow.cpp" line="874"/>
         <source>Reconnect current session</source>
         <translation>현재 세션 재연결</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="865"/>
+        <location filename="../src/mainwindow.cpp" line="875"/>
         <source>Reconnect All</source>
         <translation>모두 재연결</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="866"/>
+        <location filename="../src/mainwindow.cpp" line="876"/>
         <source>Reconnect all sessions &lt;Alt+A&gt;</source>
         <translation>모든 세션 재연결 &lt;Alt+A&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="868"/>
+        <location filename="../src/mainwindow.cpp" line="878"/>
         <source>Disconnect</source>
         <translation>연결 해제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="870"/>
+        <location filename="../src/mainwindow.cpp" line="880"/>
         <source>Disconnect current session</source>
         <translation>현재 세션 연결 해제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="871"/>
-        <location filename="../src/mainwindow.cpp" line="872"/>
+        <location filename="../src/mainwindow.cpp" line="881"/>
+        <location filename="../src/mainwindow.cpp" line="882"/>
         <source>Enter host &lt;Alt+R&gt; to connect</source>
         <translation>연결할 호스트 입력 &lt;Alt+R&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="873"/>
+        <location filename="../src/mainwindow.cpp" line="883"/>
         <source>Disconnect All</source>
         <translation>모두 연결 해제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="874"/>
+        <location filename="../src/mainwindow.cpp" line="884"/>
         <source>Disconnect all sessions</source>
         <translation>모든 세션 연결 해제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="875"/>
+        <location filename="../src/mainwindow.cpp" line="885"/>
         <source>Clone Session</source>
         <translation>세션 복제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="876"/>
+        <location filename="../src/mainwindow.cpp" line="886"/>
         <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
         <translation>현재 세션 복제 &lt;Ctrl+Shift+T&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="878"/>
+        <location filename="../src/mainwindow.cpp" line="888"/>
         <source>Lock Session</source>
         <translation>세션 잠금</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="879"/>
+        <location filename="../src/mainwindow.cpp" line="889"/>
         <source>Lock/Unlock current session</source>
         <translation>현재 세션 잠금/잠금 해제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="880"/>
+        <location filename="../src/mainwindow.cpp" line="890"/>
         <source>Log Session</source>
         <translation>세션 로그</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="881"/>
+        <location filename="../src/mainwindow.cpp" line="891"/>
         <source>Create a log file for current session</source>
         <translation>현재 세션의 로그 파일 생성</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="882"/>
+        <location filename="../src/mainwindow.cpp" line="892"/>
         <source>Raw Log Session</source>
         <translation>세션 로그(원본)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="883"/>
+        <location filename="../src/mainwindow.cpp" line="893"/>
         <source>Create a raw log file for current session</source>
         <translation>현재 세션의 원본 로그 파일 생성</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="884"/>
+        <location filename="../src/mainwindow.cpp" line="894"/>
         <source>Hex View</source>
         <translation>16진수 보기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="885"/>
+        <location filename="../src/mainwindow.cpp" line="895"/>
         <source>Show/Hide Hex View for current session</source>
         <translation>현재 세션의 16진수 보기 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="886"/>
+        <location filename="../src/mainwindow.cpp" line="896"/>
         <source>Exit</source>
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="887"/>
+        <location filename="../src/mainwindow.cpp" line="897"/>
         <source>Quit the application</source>
         <translation>애플리케이션 종료</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="889"/>
+        <location filename="../src/mainwindow.cpp" line="899"/>
         <source>Copy</source>
         <translation>복사</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="892"/>
+        <location filename="../src/mainwindow.cpp" line="902"/>
         <source>Copy the selected text to the clipboard &lt;Command+C&gt;</source>
         <translation>선택한 텍스트를 클립보드에 복사 &lt;Command+C&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="895"/>
+        <location filename="../src/mainwindow.cpp" line="905"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
         <translation>선택한 텍스트를 클립보드에 복사 &lt;Ctrl+Ins&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="898"/>
+        <location filename="../src/mainwindow.cpp" line="908"/>
         <source>Paste</source>
         <translation>붙여넣기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="901"/>
+        <location filename="../src/mainwindow.cpp" line="911"/>
         <source>Paste the clipboard text to the current session &lt;Command+V&gt;</source>
         <translation>클립보드 텍스트를 현재 세션에 붙여넣기 &lt;Command+V&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="904"/>
+        <location filename="../src/mainwindow.cpp" line="914"/>
         <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
         <translation>클립보드 텍스트를 현재 세션에 붙여넣기 &lt;Shift+Ins&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="907"/>
+        <location filename="../src/mainwindow.cpp" line="917"/>
         <source>Copy and Paste</source>
         <translation>복사 및 붙여넣기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="908"/>
+        <location filename="../src/mainwindow.cpp" line="918"/>
         <source>Copy the selected text to the clipboard and paste to the current session</source>
         <translation>선택한 텍스트를 클립보드에 복사하고 현재 세션에 붙여넣기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="909"/>
+        <location filename="../src/mainwindow.cpp" line="919"/>
         <source>Select All</source>
         <translation>모두 선택</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="911"/>
+        <location filename="../src/mainwindow.cpp" line="921"/>
         <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
         <translation>현재 세션의 모든 텍스트 선택 &lt;Ctrl+Shift+A&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="913"/>
+        <location filename="../src/mainwindow.cpp" line="923"/>
         <source>Find...</source>
         <translation>찾기...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="915"/>
+        <location filename="../src/mainwindow.cpp" line="925"/>
         <source>Find text in the current session &lt;Ctrl+F&gt;</source>
         <translation>현재 세션에서 텍스트 찾기 &lt;Ctrl+F&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="917"/>
+        <location filename="../src/mainwindow.cpp" line="927"/>
         <source>Print Screen</source>
         <translation>스크린 샷</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="919"/>
+        <location filename="../src/mainwindow.cpp" line="929"/>
         <source>Print current screen</source>
         <translation>현재 화면 인쇄</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="920"/>
+        <location filename="../src/mainwindow.cpp" line="930"/>
         <source>Screen Shot</source>
         <translation>스크린 샷</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="922"/>
+        <location filename="../src/mainwindow.cpp" line="932"/>
         <source>Screen shot current screen &lt;Alt+P&gt;</source>
         <translation>현재 화면 스크린 샷 &lt;Alt+P&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="924"/>
+        <location filename="../src/mainwindow.cpp" line="934"/>
         <source>Session Export</source>
         <translation>세션 내보내기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="926"/>
+        <location filename="../src/mainwindow.cpp" line="936"/>
         <source>Export current session to a file &lt;Alt+O&gt;</source>
         <translation>현재 세션을 파일로 내보내기 &lt;Alt+O&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="928"/>
+        <location filename="../src/mainwindow.cpp" line="938"/>
         <source>Clear Scrollback</source>
         <translation>스크롤백 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="929"/>
+        <location filename="../src/mainwindow.cpp" line="939"/>
         <source>Clear the contents of the scrollback rows</source>
         <translation>스크롤백 행의 내용 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="930"/>
+        <location filename="../src/mainwindow.cpp" line="940"/>
         <source>Clear Screen</source>
         <translation>화면 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="931"/>
+        <location filename="../src/mainwindow.cpp" line="941"/>
         <source>Clear the contents of the current screen</source>
         <translation>현재 화면의 내용 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="932"/>
+        <location filename="../src/mainwindow.cpp" line="942"/>
         <source>Clear Screen and Scrollback</source>
         <translation>화면과 스크롤백 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="933"/>
+        <location filename="../src/mainwindow.cpp" line="943"/>
         <source>Clear the contents of the screen and scrollback</source>
         <translation>화면과 스크롤백의 내용 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="934"/>
+        <location filename="../src/mainwindow.cpp" line="944"/>
         <source>Reset</source>
         <translation>재설정</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="935"/>
+        <location filename="../src/mainwindow.cpp" line="945"/>
         <source>Reset terminal emulator</source>
         <translation>터미널 에뮬레이터 재설정</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="937"/>
+        <location filename="../src/mainwindow.cpp" line="947"/>
         <source>Zoom In</source>
         <translation>확대</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="939"/>
+        <location filename="../src/mainwindow.cpp" line="949"/>
         <source>Zoom In &lt;Ctrl+&quot;=&quot;&gt;</source>
         <translation>확대 &lt;Ctrl+&quot;=&quot;&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="941"/>
+        <location filename="../src/mainwindow.cpp" line="951"/>
         <source>Zoom Out</source>
         <translation>축소</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="943"/>
+        <location filename="../src/mainwindow.cpp" line="953"/>
         <source>Zoom Out &lt;Ctrl+&quot;-&quot;&gt;</source>
         <translation>축소 &lt;Ctrl+&quot;-&quot;&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="945"/>
-        <location filename="../src/mainwindow.cpp" line="947"/>
+        <location filename="../src/mainwindow.cpp" line="955"/>
+        <location filename="../src/mainwindow.cpp" line="957"/>
         <source>Zoom Reset</source>
         <translation>확대/축소 초기화</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="948"/>
+        <location filename="../src/mainwindow.cpp" line="958"/>
         <source>Menu Bar</source>
         <translation>메뉴 바</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="949"/>
+        <location filename="../src/mainwindow.cpp" line="959"/>
         <source>Show/Hide Menu Bar &lt;Alt+U&gt;</source>
         <translation>메뉴 바 표시/숨기기 &lt;Alt+U&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="952"/>
+        <location filename="../src/mainwindow.cpp" line="962"/>
         <source>Show/Hide Tool Bar</source>
         <translation>툴바 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="953"/>
+        <location filename="../src/mainwindow.cpp" line="963"/>
         <source>Status Bar</source>
         <translation>상태 바</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="954"/>
+        <location filename="../src/mainwindow.cpp" line="964"/>
         <source>Show/Hide Status Bar</source>
         <translation>상태 바 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="955"/>
+        <location filename="../src/mainwindow.cpp" line="965"/>
         <source>Command Window</source>
         <translation>명령 창</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="956"/>
+        <location filename="../src/mainwindow.cpp" line="966"/>
         <source>Show/Hide Command Window</source>
         <translation>명령 창 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="957"/>
+        <location filename="../src/mainwindow.cpp" line="967"/>
         <source>Connect Bar</source>
         <translation>연결 바</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="958"/>
+        <location filename="../src/mainwindow.cpp" line="968"/>
         <source>Show/Hide Connect Bar</source>
         <translation>연결 바 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="959"/>
+        <location filename="../src/mainwindow.cpp" line="969"/>
         <source>Side Window</source>
         <translation>사이드 창</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="960"/>
+        <location filename="../src/mainwindow.cpp" line="970"/>
         <source>Show/Hide Side Window</source>
         <translation>사이드 창 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="961"/>
+        <location filename="../src/mainwindow.cpp" line="971"/>
         <source>Windows Transparency</source>
         <translation>창 투명도</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="962"/>
+        <location filename="../src/mainwindow.cpp" line="972"/>
         <source>Enable/Disable alpha transparency</source>
         <translation>알파 투명도 사용/사용 안 함</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="963"/>
+        <location filename="../src/mainwindow.cpp" line="973"/>
         <source>Vertical Scroll Bar</source>
         <translation>수직 스크롤 바</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="964"/>
+        <location filename="../src/mainwindow.cpp" line="974"/>
         <source>Show/Hide Vertical Scroll Bar</source>
         <translation>수직 스크롤 바 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="965"/>
+        <location filename="../src/mainwindow.cpp" line="975"/>
         <source>Allways On Top</source>
         <translation>항상 위에 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="966"/>
+        <location filename="../src/mainwindow.cpp" line="976"/>
         <source>Show window always on top</source>
         <translation>창을 항상 위에 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="967"/>
+        <location filename="../src/mainwindow.cpp" line="977"/>
         <source>Full Screen</source>
         <translation>전체 화면</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="968"/>
+        <location filename="../src/mainwindow.cpp" line="978"/>
         <source>Toggle between full screen and normal mode &lt;Alt+Enter&gt;</source>
         <translation>전체 화면 모드와 일반 모드 전환 &lt;Alt+Enter&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="971"/>
+        <location filename="../src/mainwindow.cpp" line="981"/>
         <source>Session Options...</source>
         <translation>세션 옵션...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="973"/>
+        <location filename="../src/mainwindow.cpp" line="983"/>
         <source>Configure session options</source>
         <translation>세션 옵션 구성</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="974"/>
+        <location filename="../src/mainwindow.cpp" line="984"/>
         <source>Global Options...</source>
         <translation>전역 옵션...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="976"/>
+        <location filename="../src/mainwindow.cpp" line="986"/>
         <source>Configure global options</source>
         <translation>전역 옵션 구성</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="977"/>
+        <location filename="../src/mainwindow.cpp" line="987"/>
         <source>Real-time Save Options</source>
         <translation>실시간 저장 옵션</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="978"/>
+        <location filename="../src/mainwindow.cpp" line="988"/>
         <source>Real-time save session options and global options</source>
         <translation>세션 옵션과 전역 옵션을 실시간으로 저장</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="979"/>
+        <location filename="../src/mainwindow.cpp" line="989"/>
         <source>Save Settings Now</source>
         <translation>설정 지금 저장</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="980"/>
+        <location filename="../src/mainwindow.cpp" line="990"/>
         <source>Save options configuration now</source>
         <translation>옵션 구성 지금 저장</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="982"/>
+        <location filename="../src/mainwindow.cpp" line="992"/>
         <source>Send ASCII...</source>
         <translation>ASCII 전송...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="983"/>
+        <location filename="../src/mainwindow.cpp" line="993"/>
         <source>Send ASCII file</source>
         <translation>ASCII 파일 전송</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="984"/>
+        <location filename="../src/mainwindow.cpp" line="994"/>
         <source>Receive ASCII...</source>
         <translation>ASCII 수신...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="985"/>
+        <location filename="../src/mainwindow.cpp" line="995"/>
         <source>Receive ASCII file</source>
         <translation>ASCII 파일 수신</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="986"/>
+        <location filename="../src/mainwindow.cpp" line="996"/>
         <source>Send Binary...</source>
         <translation>바이너리 전송...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="987"/>
+        <location filename="../src/mainwindow.cpp" line="997"/>
         <source>Send Binary file</source>
         <translation>바이너리 파일 전송</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="988"/>
+        <location filename="../src/mainwindow.cpp" line="998"/>
         <source>Send Xmodem...</source>
         <translation>Xmodem 전송...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="989"/>
+        <location filename="../src/mainwindow.cpp" line="999"/>
         <source>Send a file using Xmodem</source>
         <translation>Xmodem을 사용하여 파일 전송</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="990"/>
+        <location filename="../src/mainwindow.cpp" line="1000"/>
         <source>Receive Xmodem...</source>
         <translation>Xmodem 수신...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="991"/>
+        <location filename="../src/mainwindow.cpp" line="1001"/>
         <source>Receive a file using Xmodem</source>
         <translation>Xmodem을 사용하여 파일 수신</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="992"/>
+        <location filename="../src/mainwindow.cpp" line="1002"/>
         <source>Send Ymodem...</source>
         <translation>Ymodem 전송...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="993"/>
+        <location filename="../src/mainwindow.cpp" line="1003"/>
         <source>Send a file using Ymodem</source>
         <translation>Ymodem을 사용하여 파일 전송</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="994"/>
+        <location filename="../src/mainwindow.cpp" line="1004"/>
         <source>Receive Ymodem...</source>
         <translation>Ymodem 수신...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="995"/>
+        <location filename="../src/mainwindow.cpp" line="1005"/>
         <source>Receive a file using Ymodem</source>
         <translation>Ymodem을 사용하여 파일 수신</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="996"/>
+        <location filename="../src/mainwindow.cpp" line="1006"/>
         <source>Zmodem Upload List...</source>
         <translation>Zmodem 파일 업로드 목록...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="997"/>
+        <location filename="../src/mainwindow.cpp" line="1007"/>
         <source>Display Zmodem file upload list</source>
         <translation>Zmodem 파일 업로드 목록 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="998"/>
+        <location filename="../src/mainwindow.cpp" line="1008"/>
         <source>Start Zmodem Upload</source>
         <translation>Zmodem 파일 업로드 시작</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="999"/>
+        <location filename="../src/mainwindow.cpp" line="1009"/>
         <source>Start Zmodem file upload</source>
         <translation>Zmodem 파일 업로드 시작</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1000"/>
+        <location filename="../src/mainwindow.cpp" line="1010"/>
         <source>Start TFTP Server</source>
         <translation>TFTP 서버 시작</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1001"/>
+        <location filename="../src/mainwindow.cpp" line="1011"/>
         <source>Start/Stop the TFTP server</source>
         <translation>TFTP 서버 시작/중지</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1003"/>
+        <location filename="../src/mainwindow.cpp" line="1013"/>
         <source>Run...</source>
         <translation>실행...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1004"/>
+        <location filename="../src/mainwindow.cpp" line="1014"/>
         <source>Run a script</source>
         <translation>스크립트 실행</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1005"/>
+        <location filename="../src/mainwindow.cpp" line="1015"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1006"/>
+        <location filename="../src/mainwindow.cpp" line="1016"/>
         <source>Cancel script execution</source>
         <translation>스크립트 실행 취소</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1007"/>
+        <location filename="../src/mainwindow.cpp" line="1017"/>
         <source>Start Recording Script</source>
         <translation>스크립트 녹화 시작</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1008"/>
+        <location filename="../src/mainwindow.cpp" line="1018"/>
         <source>Start recording script</source>
         <translation>스크립트 녹화 시작</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1009"/>
+        <location filename="../src/mainwindow.cpp" line="1019"/>
         <source>Stop Recording Script...</source>
         <translation>스크립트 녹화 중지...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1010"/>
+        <location filename="../src/mainwindow.cpp" line="1020"/>
         <source>Stop recording script</source>
         <translation>스크립트 녹화 중지</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1011"/>
+        <location filename="../src/mainwindow.cpp" line="1021"/>
         <source>Cancel Recording Script</source>
         <translation>스크립트 녹화 취소</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1012"/>
+        <location filename="../src/mainwindow.cpp" line="1022"/>
         <source>Cancel recording script</source>
         <translation>스크립트 녹화 취소</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1014"/>
+        <location filename="../src/mainwindow.cpp" line="1024"/>
         <source>Add Bookmark</source>
         <translation>북마크 추가</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1015"/>
+        <location filename="../src/mainwindow.cpp" line="1025"/>
         <source>Add a bookmark</source>
         <translation>북마크 추가</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1016"/>
-        <location filename="../src/mainwindow.cpp" line="1956"/>
+        <location filename="../src/mainwindow.cpp" line="1026"/>
+        <location filename="../src/mainwindow.cpp" line="1966"/>
         <source>Remove Bookmark</source>
         <translation>북마크 제거</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1017"/>
+        <location filename="../src/mainwindow.cpp" line="1027"/>
         <source>Remove a bookmark</source>
         <translation>북마크 제거</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1018"/>
-        <location filename="../src/mainwindow.cpp" line="1983"/>
+        <location filename="../src/mainwindow.cpp" line="1028"/>
+        <location filename="../src/mainwindow.cpp" line="1993"/>
         <source>Clean All Bookmark</source>
         <translation>모든 북마크 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1019"/>
+        <location filename="../src/mainwindow.cpp" line="1029"/>
         <source>Clean all bookmark</source>
         <translation>모든 북마크 지우기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1021"/>
+        <location filename="../src/mainwindow.cpp" line="1031"/>
         <source>Keymap Manager</source>
         <translation>키맵 관리자</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1022"/>
+        <location filename="../src/mainwindow.cpp" line="1032"/>
         <source>Display keymap editor</source>
         <translation>키맵 편집기 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1023"/>
+        <location filename="../src/mainwindow.cpp" line="1033"/>
         <source>Create Public Key...</source>
         <translation>공개 키 생성...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1024"/>
+        <location filename="../src/mainwindow.cpp" line="1034"/>
         <source>Create a public key</source>
         <translation>공개 키 생성</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1025"/>
+        <location filename="../src/mainwindow.cpp" line="1035"/>
         <source>Publickey Manager</source>
         <translation>공개 키 관리자</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1026"/>
+        <location filename="../src/mainwindow.cpp" line="1036"/>
         <source>Display publickey manager</source>
         <translation>공개 키 관리자 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1027"/>
+        <location filename="../src/mainwindow.cpp" line="1037"/>
         <source>SSH Scanning</source>
         <translation>SSH 스캔</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1028"/>
+        <location filename="../src/mainwindow.cpp" line="1038"/>
         <source>Display SSH scanning dialog</source>
         <translation>SSH 스캔 대화 상자 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1030"/>
+        <location filename="../src/mainwindow.cpp" line="1040"/>
         <source>Tab</source>
         <translation>탭</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1031"/>
+        <location filename="../src/mainwindow.cpp" line="1041"/>
         <source>Arrange sessions in tabs</source>
         <translation>탭에 세션 정렬</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1032"/>
+        <location filename="../src/mainwindow.cpp" line="1042"/>
         <source>Tile</source>
         <translation>타일</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1033"/>
+        <location filename="../src/mainwindow.cpp" line="1043"/>
         <source>Arrange sessions in non-overlapping tiles</source>
         <translation>겹치지 않는 타일에 세션 정렬</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1034"/>
+        <location filename="../src/mainwindow.cpp" line="1044"/>
         <source>Cascade</source>
         <translation>계단식</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1035"/>
+        <location filename="../src/mainwindow.cpp" line="1045"/>
         <source>Arrange sessions to overlap each other</source>
         <translation>서로 겹치도록 세션 정렬</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1051"/>
+        <location filename="../src/mainwindow.cpp" line="1061"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1052"/>
+        <location filename="../src/mainwindow.cpp" line="1062"/>
         <source>Switch to English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1045"/>
+        <location filename="../src/mainwindow.cpp" line="1055"/>
         <source>Japanese</source>
         <translation>日本語</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1037"/>
+        <location filename="../src/mainwindow.cpp" line="1047"/>
         <source>Simplified Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1038"/>
+        <location filename="../src/mainwindow.cpp" line="1048"/>
         <source>Switch to Simplified Chinese</source>
         <translation>切换到简体中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1039"/>
+        <location filename="../src/mainwindow.cpp" line="1049"/>
         <source>Traditional Chinese</source>
         <translation>繁體中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1040"/>
+        <location filename="../src/mainwindow.cpp" line="1050"/>
         <source>Switch to Traditional Chinese</source>
         <translation>切換到繁體中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1041"/>
+        <location filename="../src/mainwindow.cpp" line="1051"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1042"/>
+        <location filename="../src/mainwindow.cpp" line="1052"/>
         <source>Switch to Russian</source>
         <translation>Переключиться на русский</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1043"/>
+        <location filename="../src/mainwindow.cpp" line="1053"/>
         <source>Korean</source>
         <translation>한국어</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1044"/>
+        <location filename="../src/mainwindow.cpp" line="1054"/>
         <source>Switch to Korean</source>
         <translation>한국어로 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1046"/>
+        <location filename="../src/mainwindow.cpp" line="1056"/>
         <source>Switch to Japanese</source>
         <translation>日本語に切り替える</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1047"/>
+        <location filename="../src/mainwindow.cpp" line="1057"/>
         <source>French</source>
         <translation>français</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1048"/>
+        <location filename="../src/mainwindow.cpp" line="1058"/>
         <source>Switch to French</source>
         <translation>Passer au français</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1049"/>
+        <location filename="../src/mainwindow.cpp" line="1059"/>
         <source>Spanish</source>
         <translation>español</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1050"/>
+        <location filename="../src/mainwindow.cpp" line="1060"/>
         <source>Switch to Spanish</source>
         <translation>Cambiar a español</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1054"/>
+        <location filename="../src/mainwindow.cpp" line="1064"/>
         <source>Light</source>
         <translation>밝게</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1055"/>
+        <location filename="../src/mainwindow.cpp" line="1065"/>
         <source>Switch to light theme</source>
         <translation>밝은 테마로 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1056"/>
+        <location filename="../src/mainwindow.cpp" line="1066"/>
         <source>Dark</source>
         <translation>어둡게</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1057"/>
+        <location filename="../src/mainwindow.cpp" line="1067"/>
         <source>Switch to dark theme</source>
         <translation>어두운 테마로 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1061"/>
+        <location filename="../src/mainwindow.cpp" line="1071"/>
         <source>Display help</source>
         <translation>도움말 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1062"/>
+        <location filename="../src/mainwindow.cpp" line="1072"/>
         <source>Check Update</source>
         <translation>업데이트 확인</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1064"/>
+        <location filename="../src/mainwindow.cpp" line="1074"/>
         <source>Check for updates</source>
         <translation>업데이트 확인</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1065"/>
-        <location filename="../src/mainwindow.cpp" line="2933"/>
+        <location filename="../src/mainwindow.cpp" line="1075"/>
+        <location filename="../src/mainwindow.cpp" line="2965"/>
         <source>About</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1067"/>
+        <location filename="../src/mainwindow.cpp" line="1077"/>
         <source>Display about dialog</source>
         <translation>정보 대화 상자 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1068"/>
+        <location filename="../src/mainwindow.cpp" line="1078"/>
         <source>About Qt</source>
         <translation>Qt 정보</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1070"/>
+        <location filename="../src/mainwindow.cpp" line="1080"/>
         <source>Display about Qt dialog</source>
         <translation>Qt 정보 대화 상자 표시</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1768"/>
+        <location filename="../src/mainwindow.cpp" line="1778"/>
         <source>PrintScreen saved to %1</source>
         <translation>스크린 샷 저장 위치: %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1780"/>
+        <location filename="../src/mainwindow.cpp" line="1790"/>
         <source>Save Screenshot</source>
         <translation>스크린 샷 저장</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1780"/>
+        <location filename="../src/mainwindow.cpp" line="1790"/>
         <source>Image Files (*.jpg)</source>
         <translation>이미지 파일 (*.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1785"/>
+        <location filename="../src/mainwindow.cpp" line="1795"/>
         <source>Screenshot saved to %1</source>
         <translation>스크린 샷 저장 위치: %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1796"/>
+        <location filename="../src/mainwindow.cpp" line="1806"/>
         <source>Save Session Export</source>
         <translation>세션 내보내기 저장</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1796"/>
+        <location filename="../src/mainwindow.cpp" line="1806"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation>텍스트 파일 (*.txt);;HTML 파일 (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1799"/>
+        <location filename="../src/mainwindow.cpp" line="1809"/>
         <source>Text Files (*.txt)</source>
         <translation>텍스트 파일 (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1802"/>
+        <location filename="../src/mainwindow.cpp" line="1812"/>
         <source>HTML Files (*.html)</source>
         <translation>HTML 파일 (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1811"/>
+        <location filename="../src/mainwindow.cpp" line="1821"/>
         <source>Session Export saved to %1</source>
         <translation>세션 내보내기 저장 위치: %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1813"/>
+        <location filename="../src/mainwindow.cpp" line="1823"/>
         <source>Session Export failed to save to %1</source>
         <translation>세션 내보내기 저장 위치: %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1929"/>
+        <location filename="../src/mainwindow.cpp" line="1939"/>
         <source>Select a directory</source>
         <translation>디렉터리 선택</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1956"/>
+        <location filename="../src/mainwindow.cpp" line="1966"/>
         <source>Select a bookmark</source>
         <translation>북마크 선택</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1983"/>
+        <location filename="../src/mainwindow.cpp" line="1993"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>모든 북마크를 지우시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2133"/>
+        <location filename="../src/mainwindow.cpp" line="2143"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>비디오 배경이 활성화되었습니다. 전역 옵션에서 애니메이션을 활성화하거나(시스템 리소스가 더 필요함) 배경 이미지를 변경하십시오.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2328"/>
+        <location filename="../src/mainwindow.cpp" line="2338"/>
         <source>Session information get failed.</source>
         <translation>세션 정보 가져오기 실패.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2411"/>
+        <location filename="../src/mainwindow.cpp" line="2421"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2412"/>
+        <location filename="../src/mainwindow.cpp" line="2422"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2444"/>
+        <location filename="../src/mainwindow.cpp" line="2454"/>
         <source>Serial - </source>
         <translation>시리얼 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2445"/>
+        <location filename="../src/mainwindow.cpp" line="2455"/>
         <source>Serial</source>
         <translation>시리얼</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2476"/>
+        <location filename="../src/mainwindow.cpp" line="2486"/>
         <source>Raw - </source>
         <translation>Raw - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2477"/>
+        <location filename="../src/mainwindow.cpp" line="2487"/>
         <source>Raw</source>
         <translation>Raw</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2508"/>
+        <location filename="../src/mainwindow.cpp" line="2518"/>
         <source>NamePipe - </source>
         <translation>네임 파이프 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2509"/>
+        <location filename="../src/mainwindow.cpp" line="2519"/>
         <source>NamePipe</source>
         <translation>네임 파이프</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2577"/>
-        <location filename="../src/mainwindow.cpp" line="2581"/>
+        <location filename="../src/mainwindow.cpp" line="2587"/>
+        <location filename="../src/mainwindow.cpp" line="2591"/>
         <source>Local Shell</source>
         <translation>로컬 쉘</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2579"/>
+        <location filename="../src/mainwindow.cpp" line="2589"/>
         <source>Local Shell - </source>
         <translation>로컬 쉘 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2696"/>
+        <location filename="../src/mainwindow.cpp" line="2706"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>이 세션을 연결 해제하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2934"/>
+        <location filename="../src/mainwindow.cpp" line="2966"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;버전&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;제출하다&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;작가&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;웹사이트&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2952"/>
+        <location filename="../src/mainwindow.cpp" line="2984"/>
         <source>Global Shortcuts:</source>
         <translation>전역 단축키:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2953"/>
+        <location filename="../src/mainwindow.cpp" line="2985"/>
         <source>show/hide menu bar</source>
         <translation>메뉴 바 표시/숨기기</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2954"/>
+        <location filename="../src/mainwindow.cpp" line="2986"/>
         <source>connect to LocalShell</source>
         <translation>로컬 쉘에 연결</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2955"/>
+        <location filename="../src/mainwindow.cpp" line="2987"/>
         <source>clone current session</source>
         <translation>현재 세션 복제</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2956"/>
+        <location filename="../src/mainwindow.cpp" line="2988"/>
         <source>switch ui to STD mode</source>
         <translation>STD 모드로 UI 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2957"/>
+        <location filename="../src/mainwindow.cpp" line="2989"/>
         <source>switch ui to MINI mode</source>
         <translation>MINI 모드로 UI 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2958"/>
+        <location filename="../src/mainwindow.cpp" line="2990"/>
         <source>switch to previous session</source>
         <translation>이전 세션으로 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2959"/>
+        <location filename="../src/mainwindow.cpp" line="2991"/>
         <source>switch to next session</source>
         <translation>다음 세션으로 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2960"/>
+        <location filename="../src/mainwindow.cpp" line="2992"/>
         <source>switch to session [num]</source>
         <translation>세션 [num]으로 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2961"/>
+        <location filename="../src/mainwindow.cpp" line="2993"/>
         <source>Go to line start</source>
         <translation>줄 시작으로 이동</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2962"/>
+        <location filename="../src/mainwindow.cpp" line="2994"/>
         <source>Go to line end</source>
         <translation>줄 끝으로 이동</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2986"/>
+        <location filename="../src/mainwindow.cpp" line="3018"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>아직 잠금 해제되지 않은 세션이 있습니다. 먼저 잠금을 해제하십시오.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2991"/>
+        <location filename="../src/mainwindow.cpp" line="3023"/>
         <source>Are you sure to quit?</source>
         <translation>종료하시겠습니까?</translation>
     </message>
@@ -2445,12 +2450,12 @@
         <translation>네임 파이프</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="267"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="269"/>
         <source>Name</source>
         <translation>이름</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="269"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreemodel.cpp" line="271"/>
         <source>Kind</source>
         <translation>종류</translation>
     </message>
@@ -2644,12 +2649,12 @@
         <translation>포트</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="61"/>
+        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="65"/>
         <source>UserName</source>
         <translation>사용자 이름</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="77"/>
+        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="81"/>
         <source>Password</source>
         <translation>비밀번호</translation>
     </message>
@@ -2667,19 +2672,37 @@
         <translation>포트</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="51"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="55"/>
         <source>None</source>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="56"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="60"/>
         <source>Insecure</source>
         <translation>보안되지 않음</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="61"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="65"/>
         <source>Secure</source>
         <translation>보안됨</translation>
+    </message>
+</context>
+<context>
+    <name>SessionOptionsVNCProperties</name>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="25"/>
+        <source>Hostname</source>
+        <translation>호스트 이름</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="41"/>
+        <source>Port</source>
+        <translation>포트</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="65"/>
+        <source>Password</source>
+        <translation>비밀번호</translation>
     </message>
 </context>
 <context>
@@ -2690,22 +2713,22 @@
         <translation>세션 옵션</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="119"/>
+        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="122"/>
         <source>General</source>
         <translation>일반</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="119"/>
+        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="122"/>
         <source>Properties</source>
         <translation>속성</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="119"/>
+        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="122"/>
         <source>State</source>
         <translation>상태</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="129"/>
+        <location filename="../src/sessionoptions/sessionoptionswindow.cpp" line="133"/>
         <source>Name</source>
         <translation>이름</translation>
     </message>
@@ -2713,124 +2736,124 @@
 <context>
     <name>SessionsWindow</name>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="129"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="140"/>
         <source>Telnet Error</source>
         <translation>텔넷 오류</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="129"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="140"/>
         <source>Telnet error:
 %1.</source>
         <translation>텔넷 오류:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="156"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="167"/>
         <source>Serial Error</source>
         <translation>시리얼 오류</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="156"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="167"/>
         <source>Serial error:
 %1.</source>
         <translation>시리얼 오류:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="190"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="201"/>
         <source>Raw Socket Error</source>
         <translation>Raw 소켓 오류</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="190"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="201"/>
         <source>Raw Socket error:
 %1.</source>
         <translation>Raw 소켓 오류:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="221"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="232"/>
         <source>Name Pipe Error</source>
         <translation>네임 파이프 오류</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="221"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="232"/>
         <source>Name Pipe error:
 %1.</source>
         <translation>네임 파이프 오류:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="233"/>
-        <location filename="../src/sessionswindow.cpp" line="259"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="244"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="270"/>
         <source>SSH2 Error</source>
         <translation>SSH2 오류</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="233"/>
-        <location filename="../src/sessionswindow.cpp" line="259"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="244"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="270"/>
         <source>SSH2 error:
 %1.</source>
         <translation>SSH2 오류:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="415"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="429"/>
         <source>Start Local Shell</source>
         <translation>로컬 쉘 시작</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="415"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="429"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>로컬 쉘을 시작할 수 없습니다:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="523"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="537"/>
         <source>Save log...</source>
         <translation>로그 저장...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="524"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="538"/>
         <source>log files (*.log)</source>
         <translation>로그 파일 (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="528"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="542"/>
         <source>Save log</source>
         <translation>로그 저장</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="528"/>
-        <location filename="../src/sessionswindow.cpp" line="563"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="542"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="577"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>%1 파일을 쓸 수 없습니다:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="558"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="572"/>
         <source>Save Raw log...</source>
         <translation>Raw 로그 저장...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="559"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="573"/>
         <source>binary files (*.bin)</source>
         <translation>바이너리 파일 (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="563"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="577"/>
         <source>Save Raw log</source>
         <translation>Raw 로그 저장</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="635"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="649"/>
         <source>Unlock Session</source>
         <translation>세션 잠금 해제</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow.cpp" line="635"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="649"/>
         <source>Wrong password!</source>
         <translation>잘못된 비밀번호!</translation>
     </message>
