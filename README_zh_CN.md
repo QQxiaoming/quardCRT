@@ -105,6 +105,10 @@ quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协�
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
 
+## 编译说明
+
+请参考[开发笔记](./DEVELOPNOTE.md)。
+
 ## 贡献
 
 如果您对本项目有建议或想法，欢迎在GitHub或Gitee上提交issue和pull requests。
@@ -135,3 +139,4 @@ quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协�
 - [QtSsh](https://github.com/condo4/QtSsh)
 - [QCustomFileSystemModel](https://github.com/QQxiaoming/QCustomFileSystemModel)
 - [qtkeychain](https://github.com/frankosterfeld/qtkeychain)
+- [qvncclient](https://bitbucket.org/amahta/qvncclient)

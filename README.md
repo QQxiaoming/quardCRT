@@ -105,6 +105,10 @@ Other protocol selection interface:
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
  
+## Build
+
+please refer to [DEVELOPNOTE.md](./DEVELOPNOTE.md).
+
 ## Contributing
 
 If you have suggestions or ideas for this project, please submit issues and pull requests on GitHub or Gitee.
@@ -135,3 +139,4 @@ The code of this project references or partially refers to or depends on the fol
 - [QtSsh](https://github.com/condo4/QtSsh)
 - [QCustomFileSystemModel](https://github.com/QQxiaoming/QCustomFileSystemModel)
 - [qtkeychain](https://github.com/frankosterfeld/qtkeychain)
+- [qvncclient](https://bitbucket.org/amahta/qvncclient)
