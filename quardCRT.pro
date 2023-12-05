@@ -25,6 +25,8 @@ include(./lib/QVNCClient/QVNCClient.pri)
 
 INCLUDEPATH += \
     src/util \
+    src/sessionswindow \
+    src/sessiontab \
     src/sessionmanagerwidget \
     src/globaloptions \
     src/sessionoptions \
@@ -69,8 +71,8 @@ SOURCES += \
     src/hexviewwindow/hexviewwindow.cpp \
     src/netscanwindow/netscanwindow.cpp \
     src/sftpwindow/sftpwindow.cpp \
-    src/sessiontab.cpp \
-    src/sessionswindow.cpp \
+    src/sessiontab/sessiontab.cpp \
+    src/sessionswindow/sessionswindow.cpp \
     src/mainwidgetgroup.cpp \
     src/mainwindow.cpp \
     src/main.cpp
@@ -109,8 +111,8 @@ HEADERS += \
     src/starttftpseverwindow/starttftpseverwindow.h \
     src/netscanwindow/netscanwindow.h \
     src/sftpwindow/sftpwindow.h \
-    src/sessiontab.h \
-    src/sessionswindow.h \
+    src/sessiontab/sessiontab.h \
+    src/sessionswindow/sessionswindow.h \
     src/mainwidgetgroup.h \
     src/mainwindow.h
 

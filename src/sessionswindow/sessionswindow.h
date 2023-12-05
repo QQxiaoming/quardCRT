@@ -107,6 +107,7 @@ public:
         else
             return static_cast<QWidget *>(term); 
     }
+    bool isTerminal() const { return type != VNC; }
     SessionType getSessionType() const { return type; }
     QString getTitle() const { return showShortTitle ? shortTitle : longTitle; }
     QString getLongTitle() const { return longTitle; }

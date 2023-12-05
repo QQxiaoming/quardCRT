@@ -373,7 +373,8 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                         delete menu;
                         return;
                     }
-                    terminalWidgetContextMenuBase(menu,sessionsWindow,position);
+                    if(sessionsWindow->isTerminal())
+                        terminalWidgetContextMenuBase(menu,sessionsWindow,position);
                     if(!ui->menuBar->isVisible()) {
                         menu->addSeparator();
                         menu->addAction(menuBarAction);
@@ -392,6 +393,10 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                 menu->addAction(cmdWindowAction);
                 menu->addAction(fullScreenAction);
             } else {
+                delete menu;
+                return;
+            }
+            if(menu->isEmpty()) {
                 delete menu;
                 return;
             }
@@ -762,7 +767,8 @@ void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
         QMenu *menu = new QMenu(this);
         QWidget *widget = group->sessionTab->currentWidget();
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
-        terminalWidgetContextMenuBase(menu,sessionsWindow,position);
+        if(sessionsWindow->isTerminal())
+            terminalWidgetContextMenuBase(menu,sessionsWindow,position);
         menu->addSeparator();
         QAction *floatBackAction = new QAction(tr("Back to Main Window"),this);
         menu->addAction(floatBackAction);
@@ -770,6 +776,10 @@ void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
             moveToAnotherTab(newGroup,0,1);
             dialog->close();
         });
+        if(menu->isEmpty()) {
+            delete menu;
+            return;
+        }
         menu->move(cursor().pos()+QPoint(5,5));
         menu->show();
     });

@@ -52,6 +52,16 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     if(type == VNC) {
         vncClient = new QVNCClientWidget(parent);
         vncClient->setProperty("session", QVariant::fromValue(this));
+        vncClient->setFullScreen(false);
+        connect(vncClient, &QVNCClientWidget::connected, this, [=](bool connected){
+            if(connected) {
+                state = Connected;
+                emit stateChanged(state);
+            } else {
+                state = Disconnected;
+                emit stateChanged(state);
+            }
+        });
     } else {
         term = new QTermWidget(parent);
         term->setProperty("session", QVariant::fromValue(this));
