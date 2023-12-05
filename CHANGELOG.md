@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.3.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.1)] - 2023-12-05
+
 - 增加密码输入框支持显示/隐藏功能
 - 增加常用波特率提示
 - 增加右键菜单请求翻译功能

@@ -14,7 +14,7 @@
 
 English | [简体中文](./README_zh_CN.md)
 
-quardCRT is a terminal emulation software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
+quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
 
 | ![img2](./docs/windows.png) |
 | :-------------------------: |
@@ -38,6 +38,10 @@ Other protocol selection interface:
 - loaclshell
 - rawsocket
 - windows:NamedPipe（linux/macos:unix domain socket）
+
+### Currently supported remote desktop protocols
+
+- vnc
 
 ### Basic functions
 
