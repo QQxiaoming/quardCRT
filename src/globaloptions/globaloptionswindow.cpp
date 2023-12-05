@@ -27,10 +27,12 @@
 #include <QComboBox>
 #include <QMessageBox>
 #include <QFontDialog>
+#include <QDesktopServices>
+
 #include "filedialog.h"
 #include "globalsetting.h"
-
 #include "globaloptionswindow.h"
+
 #include "ui_globaloptionswindow.h"
 #include "ui_globaloptionsgeneralwidget.h"
 #include "ui_globaloptionsappearancewidget.h"
@@ -82,8 +84,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     retranslateUi();
 
     GlobalSetting settings;
+    globalOptionsAdvancedWidget->ui->lineEditConfigFile->setText(settings.fileName());
     settings.beginGroup("Global/Options");
-    
     font = QApplication::font();
 #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
     int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
@@ -203,7 +205,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
             globalOptionsAdvancedWidget->ui->checkBoxGithubCopilot->setChecked(false);
         }
     });
-
+    connect(globalOptionsAdvancedWidget->ui->toolButtonOpenConfigFile,&QToolButton::clicked, this, [&](){
+        QDesktopServices::openUrl(QUrl::fromLocalFile(globalOptionsAdvancedWidget->ui->lineEditConfigFile->text()));
+    });
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
 
