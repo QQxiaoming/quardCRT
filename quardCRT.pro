@@ -22,6 +22,7 @@ include(./lib/qtssh/qtssh.pri)
 include(./lib/qcustomfilesystemmodel/qcustomfilesystemmodel.pri)
 include(./lib/qtkeychain/qtkeychain.pri)
 include(./lib/QVNCClient/QVNCClient.pri)
+include(./lib/qhexedit/qhexedit.pri)
 
 INCLUDEPATH += \
     src/util \

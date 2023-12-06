@@ -24,6 +24,8 @@
 #include <QHideEvent>
 #include <QFont>
 
+#include "qhexedit.h"
+
 namespace Ui {
 class HexViewWindow;
 }
@@ -33,33 +35,23 @@ class HexViewWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit HexViewWindow(int type, QWidget *parent = nullptr);
+    explicit HexViewWindow(QWidget *parent = nullptr);
     ~HexViewWindow();
     void setFont(const QFont &font);
 
-    enum {
-        SEND = 0,
-        RECV = 1,
-    };
-
 signals:
-    void sendData(const char *,int);
     void hideOrClose();
 
 protected:
     void hideEvent(QHideEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
 
 public slots:
     void recvData(const char *data,int size);
 
-private slots:
-    void buttonBoxAccepted(void);
-    void buttonBoxRejected(void);
-    void on_pushButton_clicked();
-
 private:
     Ui::HexViewWindow *ui;
-    int m_type;
+    QHexEdit *hexEdit;
 };
 
 #endif // HEXVIEWWINDOWS_H

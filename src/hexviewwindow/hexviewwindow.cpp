@@ -19,49 +19,25 @@
  */
 #include <QMessageBox>
 #include <QScrollBar>
+#include <QMenu>
+#include <QApplication>
+#include <QClipboard>
+#include <QFile>
+
+#include "filedialog.h"
 #include "hexviewwindow.h"
 #include "ui_hexviewwindow.h"
 
-HexViewWindow::HexViewWindow(int type, QWidget *parent) :
+HexViewWindow::HexViewWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::HexViewWindow),
-    m_type(type)
+    ui(new Ui::HexViewWindow)
 {
     ui->setupUi(this);
+    hexEdit = new QHexEdit(this);
+    ui->verticalLayout->insertWidget(0,hexEdit);
+    hexEdit->setReadOnly(true);
 
-    QPalette p = ui->textEditHEX->palette();
-    p.setColor(QPalette::Text, Qt::white);
-    p.setColor(QPalette::Base, Qt::black);
-    ui->textEditHEX->setPalette(p);
-    ui->textEditASCII->setPalette(p);
-
-    setWindowTitle(tr("Hex View"));
     setWindowFlags(Qt::Window);
-
-    if(type == SEND) {
-        ui->textEditHEX->setReadOnly(false);
-        ui->buttonBox->setVisible(true);
-        ui->textEditASCII->setVisible(false);
-    } else if(type == RECV){
-        ui->buttonBox->setEnabled(false);
-        ui->buttonBox->setVisible(false);
-        ui->textEditHEX->setReadOnly(true);
-        ui->textEditHEX->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        ui->textEditHEX->setFocusPolicy(Qt::NoFocus);
-        ui->textEditHEX->setLineWrapMode(QTextEdit::FixedColumnWidth);
-        ui->textEditHEX->setLineWrapColumnOrWidth(3*16);
-        ui->textEditASCII->setReadOnly(true);
-        ui->textEditASCII->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        ui->textEditASCII->setFocusPolicy(Qt::NoFocus);
-        ui->textEditASCII->setLineWrapMode(QTextEdit::FixedColumnWidth);
-        ui->textEditASCII->setLineWrapColumnOrWidth(16);
-    }
-
-    connect(ui->textEditHEX->verticalScrollBar(), &QScrollBar::valueChanged, ui->textEditASCII->verticalScrollBar(), &QScrollBar::setValue);
-    connect(ui->textEditASCII->verticalScrollBar(), &QScrollBar::valueChanged, ui->textEditHEX->verticalScrollBar(), &QScrollBar::setValue);
-    
-    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &HexViewWindow::buttonBoxAccepted);
-    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &HexViewWindow::buttonBoxRejected);
 }
 
 HexViewWindow::~HexViewWindow()
@@ -71,79 +47,15 @@ HexViewWindow::~HexViewWindow()
 
 void HexViewWindow::setFont(const QFont &font)
 {
-    ui->textEditHEX->setFont(font);
-    ui->textEditASCII->setFont(font);
-}
-
-void HexViewWindow::buttonBoxAccepted(void)
-{
-    if(m_type == SEND) {
-        QString input = ui->textEditHEX->toPlainText();
-        QByteArray array = QByteArray::fromHex(input.toLatin1());
-        if(!array.isEmpty()) {
-            QMessageBox::information(this, tr("Information"), tr("Will send Hex:\n")+array.toHex(' '));
-            emit sendData(array.constData(),array.size());
-            ui->textEditHEX->setPlainText(array.toHex(' '));
-        }
-    }
-    emit this->accepted();
-}
-
-void HexViewWindow::buttonBoxRejected(void)
-{
-    emit this->rejected();
+    hexEdit->setFont(font);
 }
 
 void HexViewWindow::recvData(const char *data,int size)
 {
-    auto insertPlainText = [&](const char *data,int size){
-        if(size > 0) {
-            QByteArray ba(data,size);
-            ui->textEditHEX->insertPlainText(ba.toHex(' ') + " ");
-            for(int j=0;j<size;j++) {
-                uint8_t ch = ba.at(j);
-                const static QString ascii_table[256] = {
-                    ".",".",".",".",".",".",".",".",
-                    ".",".",".",".",".",".",".",".",
-                    ".",".",".",".",".",".",".",".",
-                    ".",".",".",".",".",".",".",".",
-                    ".","!","\"","#","$","%","&","\'",
-                    "(",")","*","+",",","-",".","/",
-                    "0","1","2","3","4","5","6","7",
-                    "8","9",":",";","<","=",">","?",
-                    "@","A","B","C","D","E","F","G",
-                    "H","I","J","K","L","M","N","O",
-                    "P","Q","R","S","T","U","V","W",
-                    "X","Y","Z","[","\\","]","^",".",
-                    "`","a","b","c","d","e","f","g",
-                    "h","i","j","k","l","m","n","o",
-                    "p","q","r","s","t","u","v","w",
-                    "x","y","z","{","|","}","~",".",
-                    "€",".",".","ƒ",".",".","†","‡",
-                    "ˆ","‰","Š","‹","Œ",".","Ž",".",
-                    ".",".",".",".",".",".","–",".",
-                    "˜","™","š","›","œ",".","ž","Ÿ",
-                    ".","¡","¢","£",".","¥","¦",".",
-                    "¨",".","ª","«","¬",".",".","¯",
-                    "°",".","²","³","´","µ","¶",".",
-                    "¸","¹","º","»","¼","½","¾","¿",
-                    "À","Á","Â","Ã","Ä","Å","Æ","Ç",
-                    "È","É","Ê","Ë","Ì","Í","Î","Ï",
-                    "Ð","Ñ","Ò","Ó","Ô","Õ","Ö",".",
-                    "Ø","Ù","Ú","Û","Ü","Ý","Þ","ß",
-                    "à","á","â","ã","ä","å","æ","ç",
-                    "è","é","ê","ë","ì","í","î","ï",
-                    "ð","ñ","ò","ó","ô","õ","ö",".",
-                    "ø","ù","ú","û","ü","ý","þ","ÿ"
-                };
-                ui->textEditASCII->insertPlainText(ascii_table[ch]);
-            }
-        }
-    };
     if(size > 0) {
-        insertPlainText(data,size);
-        ui->textEditHEX->ensureCursorVisible();
-        ui->textEditASCII->ensureCursorVisible();
+        QByteArray ba(data,size);
+        hexEdit->insert(ba);
+        hexEdit->ensureVisible();
     }
 }
 
@@ -153,9 +65,48 @@ void HexViewWindow::hideEvent(QHideEvent *event)
     Q_UNUSED(event);
 }
 
-void HexViewWindow::on_pushButton_clicked()
+void HexViewWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-    ui->textEditHEX->clear();
-    ui->textEditASCII->clear();
+    QMenu *menu = new QMenu(this);
+    QAction *copyAction = new QAction(tr("Copy"),this);
+    connect(copyAction,&QAction::triggered,this,[=](){
+        QByteArray ba = hexEdit->getSelection();
+        if(ba.isEmpty()) return;
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(ba);
+    });
+    menu->addAction(copyAction);
+    QAction *copyHexAction = new QAction(tr("Copy Hex"),this);
+    connect(copyHexAction,&QAction::triggered,this,[=](){
+        QByteArray ba = hexEdit->getSelection();
+        if(ba.isEmpty()) return;
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(ba.toHex(' '));
+    });
+    menu->addAction(copyHexAction);
+    QAction *dumpAction = new QAction(tr("Dump"),this);
+    connect(dumpAction,&QAction::triggered,this,[=](){
+        QByteArray ba = hexEdit->getSelection();
+        if(ba.isEmpty()) return;
+        QString fileName = FileDialog::getSaveFileName(this,tr("Save As"),QString(),tr("Binary File (*.bin)"));
+        if(!fileName.isEmpty()) {
+            if(!fileName.endsWith(".bin")) fileName.append(".bin");
+            QFile file(fileName);
+            if(file.open(QIODevice::WriteOnly)) {
+                file.write(ba);
+                file.close();
+            } else {
+                QMessageBox::critical(this,tr("Error"),tr("Failed to save file!"));
+            }
+        }
+    });
+    menu->addAction(dumpAction);
+    QAction *clearAction = new QAction(tr("Clear"),this);
+    connect(clearAction,&QAction::triggered,this,[=](){
+        hexEdit->setData(QByteArray());
+    });
+    menu->addAction(clearAction);
+    menu->move(cursor().pos()+QPoint(5,5));
+    menu->show();
 }
 

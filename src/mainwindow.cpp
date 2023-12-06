@@ -112,7 +112,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
 
     sessionOptionsWindow = new SessionOptionsWindow(this);
 
-    hexViewWindow = new HexViewWindow(HexViewWindow::RECV);
+    hexViewWindow = new HexViewWindow(this);
     hexViewWindow->setFont(globalOptionsWindow->getCurrentFont());
 
     QGraphicsScene *scene = new QGraphicsScene(this);
@@ -2007,7 +2007,10 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         keyMapManagerWindow->show();
     });
     connect(sshScanningAction,&QAction::triggered,this,[=](){
-        netScanWindow->setScanPort(22);
+        bool isOk = false;
+        int port = QInputDialog::getInt(this,tr("SSH Scanning"),tr("Port"),22,1,65535,1,&isOk);
+        if(!isOk) return;
+        netScanWindow->setScanPort(port);
         netScanWindow->show();
     });
     connect(sessionOptionsAction,&QAction::triggered,this,[=](){
