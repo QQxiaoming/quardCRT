@@ -239,11 +239,13 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
         sessionOptionsSSH2Properties->ui->spinBoxPort->setValue(data.SSH2Data.port);
         sessionOptionsSSH2Properties->ui->lineEditUserName->setText(data.SSH2Data.username);
         sessionOptionsSSH2Properties->lineEditPassword->setText(data.SSH2Data.password);
+        sessionOptionsSSH2Properties->lineEditPassword->setPasswordShown(false);
         break;
     case QuickConnectWindow::VNC:
         sessionOptionsVNCProperties->ui->lineEditHostname->setText(data.VNCData.hostname);
         sessionOptionsVNCProperties->ui->spinBoxPort->setValue(data.VNCData.port);
         sessionOptionsVNCProperties->lineEditPassword->setText(data.VNCData.password);
+        sessionOptionsVNCProperties->lineEditPassword->setPasswordShown(false);
         break;
     }
 }
@@ -343,6 +345,9 @@ void SessionOptionsWindow::buttonBoxRejected(void)
 
 void SessionOptionsWindow::showEvent(QShowEvent *event)
 {
+    sessionOptionsGeneralWidget->setVisible(true);
+    setactiveProperties(-1);
+    setactiveState(-1);
     retranslateUi();
     QDialog::showEvent(event);
 }

@@ -140,3 +140,4 @@ quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协�
 - [QCustomFileSystemModel](https://github.com/QQxiaoming/QCustomFileSystemModel)
 - [qtkeychain](https://github.com/frankosterfeld/qtkeychain)
 - [qvncclient](https://bitbucket.org/amahta/qvncclient)
+- [qhexedit](https://github.com/Simsys/qhexedit2)

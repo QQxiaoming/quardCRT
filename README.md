@@ -140,3 +140,4 @@ The code of this project references or partially refers to or depends on the fol
 - [QCustomFileSystemModel](https://github.com/QQxiaoming/QCustomFileSystemModel)
 - [qtkeychain](https://github.com/frankosterfeld/qtkeychain)
 - [qvncclient](https://bitbucket.org/amahta/qvncclient)
+- [qhexedit](https://github.com/Simsys/qhexedit2)

@@ -22,6 +22,18 @@ public:
         setEchoMode(QLineEdit::Password);
     }
 
+    void setPasswordShown(bool show) {
+        if (show) {
+            setEchoMode(QLineEdit::Normal);
+            password_shown = true;
+            togglepasswordAction->setIcon(QFontIcon::icon(QChar(0xf070)));
+        } else {
+            setEchoMode(QLineEdit::Password);
+            password_shown = false;
+            togglepasswordAction->setIcon(QFontIcon::icon(QChar(0xf06e)));
+        }
+    }
+
 private slots:
     void on_toggle_password_Action() {
         if (!password_shown) {

@@ -3,6 +3,8 @@
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
 - 增加设置选项里打开当前设置文件功能
+- 改进优化HexView窗口
+- 修复打开会话属性存在历史页面未刷新
 
 ## [[V0.3.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.1)] - 2023-12-05
 

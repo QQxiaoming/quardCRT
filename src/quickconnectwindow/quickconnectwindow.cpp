@@ -63,6 +63,7 @@ void QuickConnectWindow::setOpenInTab(bool enable) {
 
 void QuickConnectWindow::comboBoxProtocolChanged(int index)
 {
+    lineEditPassword->setPasswordShown(false);
     switch(index) {
         case Telnet: {
             ui->labelHostname->setText(tr("Hostname"));
