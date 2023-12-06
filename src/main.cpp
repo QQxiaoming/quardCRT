@@ -261,7 +261,7 @@ int main(int argc, char *argv[])
     if(app_lang == "fr_FR") locale = QLocale::French;
     if(app_lang == "es_ES") locale = QLocale::Spanish;
     if(app_lang == "en_US") locale = QLocale::English;
-    MainWindow::setAppLangeuage(locale);
+    CentralWidget::setAppLangeuage(locale);
 
 #if 0 // Now we always use the dark theme, Because the dark theme is more beautiful
     int text_hsv_value = QPalette().color(QPalette::WindowText).value();
@@ -291,7 +291,7 @@ int main(int argc, char *argv[])
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    MainWindow window(dir,isMiniUI?MainWindow::MINIUI_MODE:MainWindow::STDUI_MODE,locale,isDarkTheme);
+    CentralWidget window(dir,isMiniUI?CentralWidget::MINIUI_MODE:CentralWidget::STDUI_MODE,locale,isDarkTheme);
     window.show();
 
     return application.exec();

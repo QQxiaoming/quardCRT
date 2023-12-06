@@ -63,16 +63,16 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDark, QWidget *parent)
+CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool isDark, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::CentralWidget)
     , windowTransparency(1.0)
     , windowTransparencyEnabled(false)
     , language(lang)
     , isDarkTheme(isDark) {
     ui->setupUi(this);
-
     restoreSettings();
+
     ui->toolBar->setVisible(true);
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
@@ -375,16 +375,20 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                     }
                     if(sessionsWindow->isTerminal())
                         terminalWidgetContextMenuBase(menu,sessionsWindow,position);
-                    if(!ui->menuBar->isVisible()) {
+                    if(fullScreenAction->isChecked()) {
+                        menu->addSeparator();
+                        menu->addAction(fullScreenAction);
+                    } else if(!ui->menuBar->isVisible()) {
                         menu->addSeparator();
                         menu->addAction(menuBarAction);
                     }
                 } else {
-                    if(!ui->menuBar->isVisible()) {
+                    if(fullScreenAction->isChecked()) {
+                        menu->addSeparator();
+                        menu->addAction(fullScreenAction);
+                    } else if(!ui->menuBar->isVisible()) {
+                        menu->addSeparator();
                         menu->addAction(menuBarAction);
-                    } else {
-                        delete menu;
-                        return;
                     }
                 }
             } else if(index == -2) {
@@ -392,9 +396,6 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
                 menu->addAction(toolBarAction);
                 menu->addAction(cmdWindowAction);
                 menu->addAction(fullScreenAction);
-            } else {
-                delete menu;
-                return;
             }
             if(menu->isEmpty()) {
                 delete menu;
@@ -609,7 +610,7 @@ MainWindow::MainWindow(QString dir, StartupUIMode mode, QLocale lang, bool isDar
     cascadeAction->setEnabled(false);
 }
 
-MainWindow::~MainWindow() {
+CentralWidget::~CentralWidget() {
     stopAllSession(true);
     saveSettings();
     if(tftpServer->isRunning()) {
@@ -621,7 +622,7 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::moveToAnotherTab(int src,int dst, int index) {
+void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
     QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
     QString text = mainWidgetGroupList.at(src)->sessionTab->tabTitle(index);
     QWidget *widget = mainWidgetGroupList.at(src)->sessionTab->widget(index);
@@ -634,7 +635,7 @@ void MainWindow::moveToAnotherTab(int src,int dst, int index) {
         mainWidgetGroupList.at(src)->sessionTab->count()-1);
 };
 
-void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position)
+void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position)
 {
     QList<QAction*> ftActions = term->filterActions(position);
     if(!ftActions.isEmpty()) {
@@ -742,7 +743,7 @@ void MainWindow::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,
     }
 }
 
-void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
+void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
     QDialog *dialog = new QDialog(this);
     dialog->setWindowFlags(Qt::Window);
     dialog->resize(800,480);
@@ -798,19 +799,19 @@ void MainWindow::floatingWindow(MainWidgetGroup *g, int index) {
     dialog->show();
 }
 
-void MainWindow::saveSettings(void) {
+void CentralWidget::saveSettings(void) {
     GlobalSetting settings;
     settings.setValue("MainWindow/Geometry", saveGeometry());
     settings.setValue("MainWindow/State", saveState());
 }
 
-void MainWindow::restoreSettings(void) {
+void CentralWidget::restoreSettings(void) {
     GlobalSetting settings;
     restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
     restoreState(settings.value("MainWindow/State").toByteArray());
 }
 
-MainWidgetGroup* MainWindow::findCurrentFocusGroup(void) {
+MainWidgetGroup* CentralWidget::findCurrentFocusGroup(void) {
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         if(mainWidgetGroup->sessionTab->currentWidget()->hasFocus()) {
             return mainWidgetGroup;
@@ -824,13 +825,13 @@ MainWidgetGroup* MainWindow::findCurrentFocusGroup(void) {
     return mainWidgetGroupList[0];
 }
 
-QWidget *MainWindow::findCurrentFocusWidget(void) {
+QWidget *CentralWidget::findCurrentFocusWidget(void) {
     SessionTab *sessionTab = findCurrentFocusGroup()->sessionTab;
     if(sessionTab->count() == 0) return nullptr;
     return sessionTab->currentWidget();
 }
 
-void MainWindow::menuAndToolBarRetranslateUi(void) {
+void CentralWidget::menuAndToolBarRetranslateUi(void) {
     sessionManagerPushButton->setText(tr("Session Manager"));
 
     fileMenu->setTitle(tr("File"));
@@ -1080,7 +1081,7 @@ void MainWindow::menuAndToolBarRetranslateUi(void) {
     aboutQtAction->setStatusTip(tr("Display about Qt dialog"));
 }
 
-void MainWindow::menuAndToolBarInit(void) {
+void CentralWidget::menuAndToolBarInit(void) {
     GlobalSetting settings;
 
     ui->toolBar->setIconSize(QSize(16,16));
@@ -1430,7 +1431,7 @@ void MainWindow::menuAndToolBarInit(void) {
     setSessionClassActionEnable(false);
 }
 
-void MainWindow::setSessionClassActionEnable(bool enable)
+void CentralWidget::setSessionClassActionEnable(bool enable)
 {
     reconnectAction->setEnabled(enable);
     reconnectAllAction->setEnabled(enable);
@@ -1472,7 +1473,7 @@ void MainWindow::setSessionClassActionEnable(bool enable)
     //startZmodemUploadAction->setEnabled(enable);
 }
 
-void MainWindow::menuAndToolBarConnectSignals(void) {
+void CentralWidget::menuAndToolBarConnectSignals(void) {
     connect(newWindowAction,&QAction::triggered,this,[=](){
         QProcess::startDetached(QApplication::applicationFilePath(),QApplication::arguments().mid(1));
     });
@@ -1921,9 +1922,9 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
     });
     connect(fullScreenAction,&QAction::triggered,this,[=](bool checked){
         if(checked) {
-            this->showFullScreen();
+            showFullScreen();
         } else {
-            this->showNormal();
+            showNormal();
         }
     });
     connect(startTFTPServerAction,&QAction::triggered,this,[=](bool checked){
@@ -2094,7 +2095,7 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         qApp->quit();
     });
     connect(helpAction, &QAction::triggered, this, [&]() {
-        MainWindow::appHelp(this);
+        CentralWidget::appHelp(this);
     });
     connect(checkUpdateAction, &QAction::triggered, this, [&]() {
         QLocale locale;
@@ -2106,14 +2107,14 @@ void MainWindow::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(aboutAction, &QAction::triggered, this, [&]() {
-        MainWindow::appAbout(this);
+        CentralWidget::appAbout(this);
     });
     connect(aboutQtAction, &QAction::triggered, this, [&]() {
         QMessageBox::aboutQt(this);
     });
 }
 
-void MainWindow::setGlobalOptions(SessionsWindow *window) {
+void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
     window->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
     window->setTerminalFont(globalOptionsWindow->getCurrentFont());
@@ -2148,7 +2149,7 @@ void MainWindow::setGlobalOptions(SessionsWindow *window) {
     }
 }
 
-void MainWindow::restoreSessionToSessionManager(void)
+void CentralWidget::restoreSessionToSessionManager(void)
 {
     GlobalSetting settings;
     int size = settings.beginReadArray("Global/Session");
@@ -2161,7 +2162,7 @@ void MainWindow::restoreSessionToSessionManager(void)
     settings.endArray();
 }
 
-bool MainWindow::checkSessionName(QString &name)
+bool CentralWidget::checkSessionName(QString &name)
 {
     QString oldNmae = name;
     for(uint32_t i=0;i<UINT_MAX;i++) {
@@ -2173,7 +2174,7 @@ bool MainWindow::checkSessionName(QString &name)
     return oldNmae == name;
 }
 
-int MainWindow::addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name)
+int CentralWidget::addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name)
 {
     checkSessionName(name);
     sessionManagerWidget->addSession(name,sessionsWindow->getSessionType());
@@ -2233,7 +2234,7 @@ int MainWindow::addSessionToSessionManager(SessionsWindow *sessionsWindow, QStri
     return 0;
 }
 
-int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname, int64_t id)
+int CentralWidget::addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname, int64_t id)
 {
     if(checkname) checkSessionName(name);
 
@@ -2282,7 +2283,7 @@ int MainWindow::addSessionToSessionManager(const QuickConnectWindow::QuickConnec
     return 0;
 }
 
-int64_t MainWindow::removeSessionFromSessionManager(QString name)
+int64_t CentralWidget::removeSessionFromSessionManager(QString name)
 {
     int64_t matched = -1;
     sessionManagerWidget->removeSession(name);
@@ -2321,7 +2322,7 @@ int64_t MainWindow::removeSessionFromSessionManager(QString name)
     return matched;
 }
 
-void MainWindow::connectSessionFromSessionManager(QString name)
+void CentralWidget::connectSessionFromSessionManager(QString name)
 {
     foreach(SessionsWindow *sessionsWindow, sessionList) {
         if(sessionsWindow->getName() == name) {
@@ -2378,7 +2379,7 @@ void MainWindow::connectSessionFromSessionManager(QString name)
     }
 }
 
-void MainWindow::connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow)
+void CentralWidget::connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow)
 {
     tab->setTabIcon(index,QFontIcon::icon(QChar(0xf09e), Qt::gray));
     connect(sessionsWindow, &SessionsWindow::stateChanged, this, [=](SessionsWindow::SessionsState state){
@@ -2417,7 +2418,7 @@ void MainWindow::connectSessionStateChange(SessionTab *tab, int index, SessionsW
     });
 }
 
-QString MainWindow::startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type, QString name)
+QString CentralWidget::startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Telnet,this);
     setGlobalOptions(sessionsWindow);
@@ -2449,7 +2450,7 @@ QString MainWindow::startTelnetSession(MainWidgetGroup *group, QString hostname,
     return name;
 }
 
-QString MainWindow::startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
+QString CentralWidget::startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Serial,this);
@@ -2482,7 +2483,7 @@ QString MainWindow::startSerialSession(MainWidgetGroup *group, QString portName,
     return name;
 }
 
-QString MainWindow::startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, QString name)
+QString CentralWidget::startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::RawSocket,this);
     setGlobalOptions(sessionsWindow);
@@ -2514,7 +2515,7 @@ QString MainWindow::startRawSocketSession(MainWidgetGroup *group, QString hostna
     return name;
 }
 
-QString MainWindow::startNamePipeSession(MainWidgetGroup *group, QString pipeName, QString name)
+QString CentralWidget::startNamePipeSession(MainWidgetGroup *group, QString pipeName, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::NamePipe,this);
     setGlobalOptions(sessionsWindow);
@@ -2546,7 +2547,7 @@ QString MainWindow::startNamePipeSession(MainWidgetGroup *group, QString pipeNam
     return name;
 }
 
-QString MainWindow::getDirAndcheckeSysName(const QString &title)
+QString CentralWidget::getDirAndcheckeSysName(const QString &title)
 {
     // newTitle lile username@hostname:dir
 #if defined(Q_OS_WIN)
@@ -2582,7 +2583,7 @@ QString MainWindow::getDirAndcheckeSysName(const QString &title)
     return QString();
 }
 
-QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString &command, const QString &workingDirectory, QString name)
+QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, const QString &command, const QString &workingDirectory, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
     setGlobalOptions(sessionsWindow);
@@ -2632,7 +2633,7 @@ QString MainWindow::startLocalShellSession(MainWidgetGroup *group, const QString
     return name;
 }
 
-QString MainWindow::startSSH2Session(MainWidgetGroup *group, 
+QString CentralWidget::startSSH2Session(MainWidgetGroup *group, 
         QString hostname, quint16 port, QString username, QString password, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::SSH2,this);
@@ -2665,7 +2666,7 @@ QString MainWindow::startSSH2Session(MainWidgetGroup *group,
     return name;
 }
 
-QString MainWindow::startVNCSession(MainWidgetGroup *group, QString hostname, quint16 port, QString password, QString name)
+QString CentralWidget::startVNCSession(MainWidgetGroup *group, QString hostname, quint16 port, QString password, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::VNC,this);
     setGlobalOptions(sessionsWindow);
@@ -2684,7 +2685,7 @@ QString MainWindow::startVNCSession(MainWidgetGroup *group, QString hostname, qu
     return name;
 }
 
-int MainWindow::stopSession(MainWidgetGroup *group, int index, bool force)
+int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
 {
     if(index <= 0) return -1;
     if(group->sessionTab->count() == 0) return -1;
@@ -2723,7 +2724,7 @@ int MainWindow::stopSession(MainWidgetGroup *group, int index, bool force)
     return 0;
 }
 
-int MainWindow::stopAllSession(bool force)
+int CentralWidget::stopAllSession(bool force)
 {
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         while(mainWidgetGroup->sessionTab->count() > 0) {
@@ -2733,7 +2734,7 @@ int MainWindow::stopAllSession(bool force)
     return 0;
 }
 
-int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
+int CentralWidget::cloneCurrentSession(MainWidgetGroup *group, QString name)
 {
     if(group->sessionTab->count() == 0) return -1;
     QWidget *widget = group->sessionTab->currentWidget();
@@ -2781,7 +2782,7 @@ int MainWindow::cloneCurrentSession(MainWidgetGroup *group, QString name)
     return 0;
 }
 
-void MainWindow::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name)
+void CentralWidget::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name)
 {
     name = sessionsWindow->getName();
     data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
@@ -2832,7 +2833,7 @@ void MainWindow::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickCon
     }
 }
 
-int MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name,bool skipPassword)
+int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name,bool skipPassword)
 {
     name = settings->value("name").toString();
     data.type = (QuickConnectWindow::QuickConnectType)(settings->value("type").toInt());
@@ -2890,7 +2891,7 @@ int MainWindow::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::Qu
     return 0;
 }
 
-void MainWindow::infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name,bool skipPassword) {
+void CentralWidget::infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name,bool skipPassword) {
     settings->setValue("name",name);
     settings->setValue("type",data.type);
     switch(data.type) {
@@ -2936,7 +2937,7 @@ void MainWindow::infoData2Setting(GlobalSetting *settings,const QuickConnectWind
     }
 }
 
-void MainWindow::addBookmark(const QString &path)
+void CentralWidget::addBookmark(const QString &path)
 {
     QAction *action = new QAction(path,bookmarkMenu);
     action->setStatusTip(path);
@@ -2953,7 +2954,7 @@ void MainWindow::addBookmark(const QString &path)
     settings.endArray();
 }
 
-QMenu *MainWindow::createPopupMenu()
+QMenu *CentralWidget::createPopupMenu()
 {
     QMenu *menu = new QMenu(this);
     menu->addAction(menuBarAction);
@@ -2963,7 +2964,7 @@ QMenu *MainWindow::createPopupMenu()
     return menu;
 }
 
-void MainWindow::appAbout(QWidget *parent)
+void CentralWidget::appAbout(QWidget *parent)
 {
     QMessageBox::about(parent, tr("About"),
                        tr(
@@ -2980,7 +2981,7 @@ void MainWindow::appAbout(QWidget *parent)
                        );
 }
 
-void MainWindow::appHelp(QWidget *parent)
+void CentralWidget::appHelp(QWidget *parent)
 {
     QMessageBox::about(parent, tr("Help"), 
         QString() + "<table border='0' width='100%'>" + 
@@ -2999,7 +3000,7 @@ void MainWindow::appHelp(QWidget *parent)
     );
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void CentralWidget::closeEvent(QCloseEvent *event)
 {
     int activeSessionCount = 0;
     int lockedSessionCount = 0;
@@ -3036,7 +3037,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::setAppLangeuage(QLocale lang) {
+void CentralWidget::setAppLangeuage(QLocale lang) {
     GlobalSetting settings;
     static QTranslator *qtTranslator = nullptr;
     static QTranslator *qtbaseTranslator = nullptr;

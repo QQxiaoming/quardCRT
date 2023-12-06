@@ -54,10 +54,10 @@ extern QString VERSION;
 extern QString GIT_TAG;
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class CentralWidget; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class CentralWidget : public QMainWindow
 {
     Q_OBJECT
 
@@ -66,8 +66,8 @@ public:
         STDUI_MODE = 0,
         MINIUI_MODE,
     };
-    MainWindow(QString dir = QString(), StartupUIMode mode = STDUI_MODE, QLocale lang = QLocale(QLocale::English), bool isDark = true, QWidget *parent = nullptr);
-    ~MainWindow();
+    CentralWidget(QString dir = QString(), StartupUIMode mode = STDUI_MODE, QLocale lang = QLocale(QLocale::English), bool isDark = true, QWidget *parent = nullptr);
+    ~CentralWidget();
     static void appAbout(QWidget *parent = nullptr);
     static void appHelp(QWidget *parent = nullptr);
     static void setAppLangeuage(QLocale lang);
@@ -115,7 +115,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private:
-    Ui::MainWindow *ui;
+    Ui::CentralWidget *ui;
 
     SessionManagerWidget *sessionManagerWidget;
     QList<MainWidgetGroup *> mainWidgetGroupList;
