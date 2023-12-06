@@ -1242,6 +1242,9 @@ void CentralWidget::menuAndToolBarInit(void) {
     windwosTransparencyAction = new QAction(this);
     windwosTransparencyAction->setCheckable(true);
     viewMenu->addAction(windwosTransparencyAction);
+#ifdef Q_OS_WIN
+    windwosTransparencyAction->setEnabled(false); //windows platform not support
+#endif
     viewMenu->addSeparator();
     verticalScrollBarAction = new QAction(this);
     verticalScrollBarAction->setCheckable(true);
