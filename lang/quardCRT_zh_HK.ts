@@ -323,31 +323,67 @@
 <context>
     <name>HexViewWindow</name>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>ASCII Text...</source>
-        <translation>ASCII文本...</translation>
+        <translation type="vanished">ASCII文本...</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="50"/>
         <source>clear</source>
-        <translation>清除</translation>
+        <translation type="vanished">清除</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="38"/>
+        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>Hex View</source>
         <translation>十六進制視圖</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="84"/>
         <source>Information</source>
-        <translation>信息</translation>
+        <translation type="vanished">信息</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="84"/>
         <source>Will send Hex:
 </source>
-        <translation>將發送十六進制:
+        <translation type="vanished">將發送十六進制:
 </translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="71"/>
+        <source>Copy</source>
+        <translation>複製</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="79"/>
+        <source>Copy Hex</source>
+        <translation>複製HEX</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="87"/>
+        <source>Dump</source>
+        <translation>轉儲</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="91"/>
+        <source>Save As</source>
+        <translation>另存為</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="91"/>
+        <source>Binary File (*.bin)</source>
+        <translation>二進制文件 (*.bin)</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="99"/>
+        <source>Error</source>
+        <translation>錯誤</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="99"/>
+        <source>Failed to save file!</source>
+        <translation>無法保存文件！</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="104"/>
+        <source>Clear</source>
+        <translation>清除</translation>
     </message>
 </context>
 <context>
@@ -474,11 +510,11 @@
         <location filename="../src/mainwindow.cpp" line="285"/>
         <location filename="../src/mainwindow.cpp" line="297"/>
         <location filename="../src/mainwindow.cpp" line="453"/>
-        <location filename="../src/mainwindow.cpp" line="2143"/>
-        <location filename="../src/mainwindow.cpp" line="2338"/>
-        <location filename="../src/mainwindow.cpp" line="2706"/>
-        <location filename="../src/mainwindow.cpp" line="3018"/>
-        <location filename="../src/mainwindow.cpp" line="3023"/>
+        <location filename="../src/mainwindow.cpp" line="2146"/>
+        <location filename="../src/mainwindow.cpp" line="2341"/>
+        <location filename="../src/mainwindow.cpp" line="2709"/>
+        <location filename="../src/mainwindow.cpp" line="3021"/>
+        <location filename="../src/mainwindow.cpp" line="3026"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -582,7 +618,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="473"/>
         <location filename="../src/mainwindow.cpp" line="571"/>
-        <location filename="../src/mainwindow.cpp" line="2058"/>
+        <location filename="../src/mainwindow.cpp" line="2061"/>
         <source>Ready</source>
         <translation>就緒</translation>
     </message>
@@ -685,7 +721,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="847"/>
         <location filename="../src/mainwindow.cpp" line="1069"/>
-        <location filename="../src/mainwindow.cpp" line="2982"/>
+        <location filename="../src/mainwindow.cpp" line="2985"/>
         <source>Help</source>
         <translation>幫助</translation>
     </message>
@@ -1355,6 +1391,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1037"/>
+        <location filename="../src/mainwindow.cpp" line="2011"/>
         <source>SSH Scanning</source>
         <translation>SSH掃描</translation>
     </message>
@@ -1510,7 +1547,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1075"/>
-        <location filename="../src/mainwindow.cpp" line="2965"/>
+        <location filename="../src/mainwindow.cpp" line="2968"/>
         <source>About</source>
         <translation>關於</translation>
     </message>
@@ -1595,138 +1632,143 @@
         <translation>您確定要清除所有書籤嗎？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2143"/>
+        <location filename="../src/mainwindow.cpp" line="2011"/>
+        <source>Port</source>
+        <translation>端口</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2146"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>視頻背景已啟用，請在全局選項中啟用動畫（更多系統資源）或更改背景圖像。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2338"/>
+        <location filename="../src/mainwindow.cpp" line="2341"/>
         <source>Session information get failed.</source>
         <translation>會話信息獲取失敗。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2421"/>
+        <location filename="../src/mainwindow.cpp" line="2424"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2422"/>
+        <location filename="../src/mainwindow.cpp" line="2425"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2454"/>
+        <location filename="../src/mainwindow.cpp" line="2457"/>
         <source>Serial - </source>
         <translation>串口 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2455"/>
+        <location filename="../src/mainwindow.cpp" line="2458"/>
         <source>Serial</source>
         <translation>串口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2486"/>
+        <location filename="../src/mainwindow.cpp" line="2489"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2487"/>
+        <location filename="../src/mainwindow.cpp" line="2490"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2518"/>
+        <location filename="../src/mainwindow.cpp" line="2521"/>
         <source>NamePipe - </source>
         <translation>命名管道 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2519"/>
+        <location filename="../src/mainwindow.cpp" line="2522"/>
         <source>NamePipe</source>
         <translation>命名管道</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2587"/>
-        <location filename="../src/mainwindow.cpp" line="2591"/>
+        <location filename="../src/mainwindow.cpp" line="2590"/>
+        <location filename="../src/mainwindow.cpp" line="2594"/>
         <source>Local Shell</source>
         <translation>本地Shell</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2589"/>
+        <location filename="../src/mainwindow.cpp" line="2592"/>
         <source>Local Shell - </source>
         <translation>本地Shell - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2706"/>
+        <location filename="../src/mainwindow.cpp" line="2709"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>您確定要斷開此會話嗎？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2966"/>
+        <location filename="../src/mainwindow.cpp" line="2969"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;版本&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;提交&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;作者&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;網站&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2984"/>
+        <location filename="../src/mainwindow.cpp" line="2987"/>
         <source>Global Shortcuts:</source>
         <translation>全局快捷鍵：</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2985"/>
+        <location filename="../src/mainwindow.cpp" line="2988"/>
         <source>show/hide menu bar</source>
         <translation>顯示/隱藏菜單欄</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2986"/>
+        <location filename="../src/mainwindow.cpp" line="2989"/>
         <source>connect to LocalShell</source>
         <translation>連接到本地Shell</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2987"/>
+        <location filename="../src/mainwindow.cpp" line="2990"/>
         <source>clone current session</source>
         <translation>克隆當前會話</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2988"/>
+        <location filename="../src/mainwindow.cpp" line="2991"/>
         <source>switch ui to STD mode</source>
         <translation>切換ui到STD模式</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2989"/>
+        <location filename="../src/mainwindow.cpp" line="2992"/>
         <source>switch ui to MINI mode</source>
         <translation>切換ui到MINI模式</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2990"/>
+        <location filename="../src/mainwindow.cpp" line="2993"/>
         <source>switch to previous session</source>
         <translation>切換到上一個會話</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2991"/>
+        <location filename="../src/mainwindow.cpp" line="2994"/>
         <source>switch to next session</source>
         <translation>切換到下一個會話</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2992"/>
+        <location filename="../src/mainwindow.cpp" line="2995"/>
         <source>switch to session [num]</source>
         <translation>切換到會話[num]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2993"/>
+        <location filename="../src/mainwindow.cpp" line="2996"/>
         <source>Go to line start</source>
         <translation>跳轉到行首</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2994"/>
+        <location filename="../src/mainwindow.cpp" line="2997"/>
         <source>Go to line end</source>
         <translation>跳轉到行尾</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3018"/>
+        <location filename="../src/mainwindow.cpp" line="3021"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>有會話尚未解鎖，請先解鎖它們。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3023"/>
+        <location filename="../src/mainwindow.cpp" line="3026"/>
         <source>Are you sure to quit?</source>
         <translation>您確定要退出嗎？</translation>
     </message>
@@ -2229,19 +2271,19 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="86"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="68"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="165"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="223"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="252"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="166"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="224"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="253"/>
         <source>Hostname</source>
         <translation>主機名</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="109"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="166"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="224"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="253"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="70"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="167"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="225"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="254"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
@@ -2317,25 +2359,25 @@
         <translation>快速連接</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="90"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="187"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="245"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="274"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="91"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="188"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="246"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="275"/>
         <source>e.g. 127.0.0.1</source>
         <translation>例如： 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
         <source>Port Name</source>
         <translation>端口名稱</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="100"/>
         <source>Baud Rate</source>
         <translation>波特率</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="108"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="109"/>
         <source>e.g. 110, 300, 600, 1200, 2400, 
 4800, 9600, 14400, 19200, 38400, 
 56000, 57600, 115200, 128000, 256000, 
@@ -2346,27 +2388,27 @@
 460800, 921600</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="140"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="141"/>
         <source>Command</source>
         <translation>命令</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="161"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="162"/>
         <source>e.g. /bin/bash</source>
         <translation>例如： /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="194"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="195"/>
         <source>Pipe Name</source>
         <translation>管道名稱</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="216"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="217"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>例如： \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="218"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>e.g. /tmp/socket</source>
         <translation>例如： /tmp/socket</translation>
     </message>
@@ -2981,6 +3023,24 @@
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Please select a valid directory!</source>
         <translation>請選擇一個有效的目錄！</translation>
+    </message>
+</context>
+<context>
+    <name>UndoStack</name>
+    <message>
+        <location filename="../lib/qhexedit/commands.cpp" line="115"/>
+        <source>Inserting %1 bytes</source>
+        <translation>插入%1字節</translation>
+    </message>
+    <message>
+        <location filename="../lib/qhexedit/commands.cpp" line="137"/>
+        <source>Delete %1 chars</source>
+        <translation>刪除%1字符</translation>
+    </message>
+    <message>
+        <location filename="../lib/qhexedit/commands.cpp" line="162"/>
+        <source>Overwrite %1 chars</source>
+        <translation>覆蓋%1字符</translation>
     </message>
 </context>
 <context>

@@ -323,31 +323,67 @@
 <context>
     <name>HexViewWindow</name>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>ASCII Text...</source>
-        <translation>ASCII текст...</translation>
+        <translation type="vanished">ASCII текст...</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="50"/>
         <source>clear</source>
-        <translation>очистить</translation>
+        <translation type="vanished">очистить</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="38"/>
+        <location filename="../src/hexviewwindow/hexviewwindow.ui" line="20"/>
         <source>Hex View</source>
         <translation>Шестнадцатеричный просмотр</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="84"/>
         <source>Information</source>
-        <translation>Информация</translation>
+        <translation type="vanished">Информация</translation>
     </message>
     <message>
-        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="84"/>
         <source>Will send Hex:
 </source>
-        <translation>Будет отправлено Hex:
+        <translation type="vanished">Будет отправлено Hex:
 </translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="71"/>
+        <source>Copy</source>
+        <translation>Копировать</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="79"/>
+        <source>Copy Hex</source>
+        <translation>Копировать Hex</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="87"/>
+        <source>Dump</source>
+        <translation>Дамп</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="91"/>
+        <source>Save As</source>
+        <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="91"/>
+        <source>Binary File (*.bin)</source>
+        <translation>Бинарный файл (*.bin)</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="99"/>
+        <source>Error</source>
+        <translation>Ошибка</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="99"/>
+        <source>Failed to save file!</source>
+        <translation>Не удалось сохранить файл!</translation>
+    </message>
+    <message>
+        <location filename="../src/hexviewwindow/hexviewwindow.cpp" line="104"/>
+        <source>Clear</source>
+        <translation>Очистить</translation>
     </message>
 </context>
 <context>
@@ -474,11 +510,11 @@
         <location filename="../src/mainwindow.cpp" line="285"/>
         <location filename="../src/mainwindow.cpp" line="297"/>
         <location filename="../src/mainwindow.cpp" line="453"/>
-        <location filename="../src/mainwindow.cpp" line="2143"/>
-        <location filename="../src/mainwindow.cpp" line="2338"/>
-        <location filename="../src/mainwindow.cpp" line="2706"/>
-        <location filename="../src/mainwindow.cpp" line="3018"/>
-        <location filename="../src/mainwindow.cpp" line="3023"/>
+        <location filename="../src/mainwindow.cpp" line="2146"/>
+        <location filename="../src/mainwindow.cpp" line="2341"/>
+        <location filename="../src/mainwindow.cpp" line="2709"/>
+        <location filename="../src/mainwindow.cpp" line="3021"/>
+        <location filename="../src/mainwindow.cpp" line="3026"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
@@ -582,7 +618,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="473"/>
         <location filename="../src/mainwindow.cpp" line="571"/>
-        <location filename="../src/mainwindow.cpp" line="2058"/>
+        <location filename="../src/mainwindow.cpp" line="2061"/>
         <source>Ready</source>
         <translation>Готово</translation>
     </message>
@@ -685,7 +721,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="847"/>
         <location filename="../src/mainwindow.cpp" line="1069"/>
-        <location filename="../src/mainwindow.cpp" line="2982"/>
+        <location filename="../src/mainwindow.cpp" line="2985"/>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
@@ -1355,6 +1391,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1037"/>
+        <location filename="../src/mainwindow.cpp" line="2011"/>
         <source>SSH Scanning</source>
         <translation>Сканирование SSH</translation>
     </message>
@@ -1510,7 +1547,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1075"/>
-        <location filename="../src/mainwindow.cpp" line="2965"/>
+        <location filename="../src/mainwindow.cpp" line="2968"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
@@ -1595,138 +1632,143 @@
         <translation>Вы уверены, что хотите очистить все закладки?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2143"/>
+        <location filename="../src/mainwindow.cpp" line="2011"/>
+        <source>Port</source>
+        <translation>Порт</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2146"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>Включен видеофон, пожалуйста, включите анимацию в глобальных настройках (больше системных ресурсов) или измените фоновое изображение.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2338"/>
+        <location filename="../src/mainwindow.cpp" line="2341"/>
         <source>Session information get failed.</source>
         <translation>Не удалось получить информацию о сессии.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2421"/>
+        <location filename="../src/mainwindow.cpp" line="2424"/>
         <source>Telnet - </source>
         <translation>Телнет - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2422"/>
+        <location filename="../src/mainwindow.cpp" line="2425"/>
         <source>Telnet</source>
         <translation>Телнет</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2454"/>
+        <location filename="../src/mainwindow.cpp" line="2457"/>
         <source>Serial - </source>
         <translation>Серийный порт - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2455"/>
+        <location filename="../src/mainwindow.cpp" line="2458"/>
         <source>Serial</source>
         <translation>Серийный порт</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2486"/>
+        <location filename="../src/mainwindow.cpp" line="2489"/>
         <source>Raw - </source>
         <translation>Raw - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2487"/>
+        <location filename="../src/mainwindow.cpp" line="2490"/>
         <source>Raw</source>
         <translation>Raw</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2518"/>
+        <location filename="../src/mainwindow.cpp" line="2521"/>
         <source>NamePipe - </source>
         <translation>Именованный канал - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2519"/>
+        <location filename="../src/mainwindow.cpp" line="2522"/>
         <source>NamePipe</source>
         <translation>Именованный канал</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2587"/>
-        <location filename="../src/mainwindow.cpp" line="2591"/>
+        <location filename="../src/mainwindow.cpp" line="2590"/>
+        <location filename="../src/mainwindow.cpp" line="2594"/>
         <source>Local Shell</source>
         <translation>Локальная оболочка</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2589"/>
+        <location filename="../src/mainwindow.cpp" line="2592"/>
         <source>Local Shell - </source>
         <translation>Локальная оболочка - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2706"/>
+        <location filename="../src/mainwindow.cpp" line="2709"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>Вы уверены, что хотите отключить эту сессию?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2966"/>
+        <location filename="../src/mainwindow.cpp" line="2969"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Версия&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;представлять на рассмотрение&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;автор&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Веб-сайт&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2984"/>
+        <location filename="../src/mainwindow.cpp" line="2987"/>
         <source>Global Shortcuts:</source>
         <translation>Глобальные ярлыки:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2985"/>
+        <location filename="../src/mainwindow.cpp" line="2988"/>
         <source>show/hide menu bar</source>
         <translation>показать/скрыть меню</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2986"/>
+        <location filename="../src/mainwindow.cpp" line="2989"/>
         <source>connect to LocalShell</source>
         <translation>подключиться к локальной оболочке</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2987"/>
+        <location filename="../src/mainwindow.cpp" line="2990"/>
         <source>clone current session</source>
         <translation>клонировать текущую сессию</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2988"/>
+        <location filename="../src/mainwindow.cpp" line="2991"/>
         <source>switch ui to STD mode</source>
         <translation>переключить интерфейс в режим STD</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2989"/>
+        <location filename="../src/mainwindow.cpp" line="2992"/>
         <source>switch ui to MINI mode</source>
         <translation>переключить интерфейс в режим MINI</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2990"/>
+        <location filename="../src/mainwindow.cpp" line="2993"/>
         <source>switch to previous session</source>
         <translation>переключиться на предыдущую сессию</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2991"/>
+        <location filename="../src/mainwindow.cpp" line="2994"/>
         <source>switch to next session</source>
         <translation>переключиться на следующую сессию</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2992"/>
+        <location filename="../src/mainwindow.cpp" line="2995"/>
         <source>switch to session [num]</source>
         <translation>переключиться на сессию [num]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2993"/>
+        <location filename="../src/mainwindow.cpp" line="2996"/>
         <source>Go to line start</source>
         <translation>Перейти в начало строки</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2994"/>
+        <location filename="../src/mainwindow.cpp" line="2997"/>
         <source>Go to line end</source>
         <translation>Перейти в конец строки</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3018"/>
+        <location filename="../src/mainwindow.cpp" line="3021"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>Есть сессии, которые еще не были разблокированы, пожалуйста, сначала разблокируйте их.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3023"/>
+        <location filename="../src/mainwindow.cpp" line="3026"/>
         <source>Are you sure to quit?</source>
         <translation>Вы уверены, что хотите выйти?</translation>
     </message>
@@ -2229,19 +2271,19 @@
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="86"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="68"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="165"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="223"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="252"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="166"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="224"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="253"/>
         <source>Hostname</source>
         <translation>Имя хоста</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="109"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="69"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="166"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="224"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="253"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="70"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="167"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="225"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="254"/>
         <source>Port</source>
         <translation>Порт</translation>
     </message>
@@ -2317,25 +2359,25 @@
         <translation>Быстрое подключение</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="90"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="187"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="245"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="274"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="91"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="188"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="246"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="275"/>
         <source>e.g. 127.0.0.1</source>
         <translation>например, 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="98"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
         <source>Port Name</source>
         <translation>Имя порта</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="99"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="100"/>
         <source>Baud Rate</source>
         <translation>Скорость передачи</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="108"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="109"/>
         <source>e.g. 110, 300, 600, 1200, 2400, 
 4800, 9600, 14400, 19200, 38400, 
 56000, 57600, 115200, 128000, 256000, 
@@ -2346,27 +2388,27 @@
 460800, 921600</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="140"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="141"/>
         <source>Command</source>
         <translation>Команда</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="161"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="162"/>
         <source>e.g. /bin/bash</source>
         <translation>например, /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="194"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="195"/>
         <source>Pipe Name</source>
         <translation>Имя канала</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="216"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="217"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>например, \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="218"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>e.g. /tmp/socket</source>
         <translation>например, /tmp/socket</translation>
     </message>
@@ -2981,6 +3023,24 @@
         <location filename="../src/starttftpseverwindow/starttftpseverwindow.cpp" line="77"/>
         <source>Please select a valid directory!</source>
         <translation>Пожалуйста, выберите действительный каталог!</translation>
+    </message>
+</context>
+<context>
+    <name>UndoStack</name>
+    <message>
+        <location filename="../lib/qhexedit/commands.cpp" line="115"/>
+        <source>Inserting %1 bytes</source>
+        <translation>Вставка %1 байт</translation>
+    </message>
+    <message>
+        <location filename="../lib/qhexedit/commands.cpp" line="137"/>
+        <source>Delete %1 chars</source>
+        <translation>Удаление %1 символов</translation>
+    </message>
+    <message>
+        <location filename="../lib/qhexedit/commands.cpp" line="162"/>
+        <source>Overwrite %1 chars</source>
+        <translation>Перезапись %1 символов</translation>
     </message>
 </context>
 <context>
