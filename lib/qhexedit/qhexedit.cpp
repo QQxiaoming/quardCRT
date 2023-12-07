@@ -799,8 +799,6 @@ void QHexEdit::keyPressEvent(QKeyEvent *event)
                 }
             }
         }
-
-
     }
 
     /* Copy */
@@ -853,6 +851,7 @@ void QHexEdit::mouseReleaseEvent(QMouseEvent* event)
 {
     _press = false;
     viewport()->update();
+    Q_UNUSED(event);
 }
 
 void QHexEdit::mousePressEvent(QMouseEvent * event)

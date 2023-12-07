@@ -49,6 +49,7 @@ void NetScanWindow::setScanPort(int port)
                 telnet->connectToHost(ip,port);
                 connect(telnet,&QTelnet::error,this,[=](QAbstractSocket::SocketError err){
                     telnet->deleteLater();
+                    Q_UNUSED(err);
                 });
                 connect(telnet,&QTelnet::newData,this,[=](const char *buff, int len){
                     QString data = QString::fromUtf8(buff,len);

@@ -108,5 +108,6 @@ void HexViewWindow::contextMenuEvent(QContextMenuEvent *event)
     menu->addAction(clearAction);
     menu->move(cursor().pos()+QPoint(5,5));
     menu->show();
+    Q_UNUSED(event);
 }
 
