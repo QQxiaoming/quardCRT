@@ -124,8 +124,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     ui->graphicsView->setFrameStyle(0);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    sessionManagerPushButton->setFixedSize(200,26);
-    ui->graphicsView->setFixedSize(30, 200);
+    sessionManagerPushButton->setFixedSize(250,26);
+    ui->graphicsView->setFixedSize(30, 250);
     ui->sidewidget->setFixedWidth(30);
 
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
@@ -217,12 +217,14 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
                 if(sessionsWindow->isLocked()) {
                     QAction *unlockAction = new QAction(tr("Unlock Session"),this);
+                    unlockAction->setStatusTip(tr("Unlock current session"));
                     menu->addAction(unlockAction);
                     connect(unlockAction,&QAction::triggered,this,[=](){
                         lockSessionWindow->showUnlock();
                     });
                 } else {
                     QAction *moveToAnotherTabAction = new QAction(tr("Move to another Tab"),this);
+                    moveToAnotherTabAction->setStatusTip(tr("Move to current session to another tab group"));
                     menu->addAction(moveToAnotherTabAction);
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
                         if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
@@ -232,6 +234,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         }
                     });
                     QAction *floatAction = new QAction(tr("Floating Window"),this);
+                    floatAction->setStatusTip(tr("Floating current session to a new window"));
                     menu->addAction(floatAction);
                     menu->addSeparator();
                     connect(floatAction,&QAction::triggered,this,[=](){
@@ -239,6 +242,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     });
                     if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
                         QAction *copyPathAction = new QAction(tr("Copy Path"),this);
+                        copyPathAction->setStatusTip(tr("Copy current session working folder path"));
                         menu->addAction(copyPathAction);
                         connect(copyPathAction,&QAction::triggered,this,[=](){
                             QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
@@ -254,6 +258,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                         });
                         QAction *addPathToBookmarkAction = new QAction(tr("Add Path to Bookmark"),this);
+                        addPathToBookmarkAction->setStatusTip(tr("Add current session working folder path to bookmark"));
                         menu->addAction(addPathToBookmarkAction);
                         connect(addPathToBookmarkAction,&QAction::triggered,this,[=](){
                             QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
@@ -269,6 +274,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                         });
                         QAction *openWorkingFolderAction = new QAction(tr("Open Working Folder"),this);
+                        openWorkingFolderAction->setStatusTip(tr("Open current session working folder in system file manager"));
                         menu->addAction(openWorkingFolderAction);
                         menu->addSeparator();
                         connect(openWorkingFolderAction,&QAction::triggered,this,[=](){
@@ -287,6 +293,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     }
                     if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
                         QAction *openSFtpAction = new QAction(tr("Open SFTP"),this);
+                        openSFtpAction->setStatusTip(tr("Open SFTP in a new window"));
                         menu->addAction(openSFtpAction);
                         menu->addSeparator();
                         connect(openSFtpAction,&QAction::triggered,this,[=](){
@@ -302,6 +309,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         });
                     }
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
+                    saveSessionAction->setStatusTip(tr("Save current session to session manager"));
                     menu->addAction(saveSessionAction);
                     connect(saveSessionAction,&QAction::triggered,this,[=](){
                         QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
@@ -319,6 +327,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         }
                     });
                     QAction *propertiesAction = new QAction(tr("Properties"),this);
+                    propertiesAction->setStatusTip(tr("Show current session properties"));
                     menu->addAction(propertiesAction);
                     menu->addSeparator();
                     connect(propertiesAction,&QAction::triggered,this,[=](){
@@ -335,11 +344,13 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         sessionOptionsWindow->show();
                     });
                     QAction *closeAction = new QAction(tr("Close"),this);
+                    closeAction->setStatusTip(tr("Close current session"));
                     menu->addAction(closeAction);
                     connect(closeAction,&QAction::triggered,this,[=](){
                         stopSession(mainWidgetGroup,index);
                     });
                     QAction *closeOthersAction = new QAction(tr("Close Others"),this);
+                    closeOthersAction->setStatusTip(tr("Close other sessions"));
                     menu->addAction(closeOthersAction);
                     connect(closeOthersAction,&QAction::triggered,this,[=](){
                         int count = mainWidgetGroup->sessionTab->count();
@@ -350,6 +361,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         }
                     });
                     QAction *closeToTheRightAction = new QAction(tr("Close to the Right"),this);
+                    closeToTheRightAction->setStatusTip(tr("Close sessions to the right"));
                     menu->addAction(closeToTheRightAction);
                     connect(closeToTheRightAction,&QAction::triggered,this,[=](){
                         int count = mainWidgetGroup->sessionTab->count();
@@ -358,6 +370,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         }
                     });
                     QAction *closeAllAction = new QAction(tr("Close All"),this);
+                    closeAllAction->setStatusTip(tr("Close all sessions"));
                     menu->addAction(closeAllAction);
                     connect(closeAllAction,&QAction::triggered,this,[=](){
                         while(mainWidgetGroup->sessionTab->count() > 0) {
@@ -563,7 +576,11 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 } else if(type == "namepipe") {
                     startNamePipeSession(findCurrentFocusGroup(),hostname);
                 } else if(type == "ssh") {
-                    //startSSHSession(findCurrentFocusGroup(),hostname,port.toInt());
+                    //TODO:
+                } else if(type == "serial") {
+                    //TODO:
+                } else if(type == "vnc") {
+                    //TODO:
                 }
             }
         }
@@ -648,6 +665,7 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     menu->addAction(selectAllAction);
     menu->addAction(findAction);
     QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
+    highlightAction->setStatusTip(tr("Highlight/Unhighlight selected text"));
     menu->addAction(highlightAction);
     connect(highlightAction,&QAction::triggered,this,[=](){
         QString text = term->selectedText();
@@ -708,6 +726,7 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     }
     if(0 == translateService) {
         QAction *translateAction = new QAction(tr("Google Translate"),this);
+        translateAction->setStatusTip(tr("Translate selected text"));
         menu->addAction(translateAction);
         connect(translateAction,&QAction::triggered,this,[=](){
             QString text = term->selectedText();
@@ -720,6 +739,7 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
         });
     } else if(1 == translateService) {
         QAction *translateAction = new QAction(tr("Baidu Translate"),this);
+        translateAction->setStatusTip(tr("Translate selected text"));
         menu->addAction(translateAction);
         connect(translateAction,&QAction::triggered,this,[=](){
             QString text = term->selectedText();
@@ -731,6 +751,7 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
         });
     } else if(2 == translateService) {
         QAction *translateAction = new QAction(tr("Microsoft Translate"),this);
+        translateAction->setStatusTip(tr("Translate selected text"));
         menu->addAction(translateAction);
         connect(translateAction,&QAction::triggered,this,[=](){
             QString text = term->selectedText();
