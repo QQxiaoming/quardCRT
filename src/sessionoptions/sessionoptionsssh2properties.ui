@@ -52,7 +52,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayoutPassword">
      <item>
       <widget class="QLabel" name="label_3">
        <property name="sizePolicy">

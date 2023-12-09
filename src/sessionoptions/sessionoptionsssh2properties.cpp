@@ -26,7 +26,7 @@ SessionOptionsSsh2Properties::SessionOptionsSsh2Properties(QWidget *parent) :
 {
     ui->setupUi(this);
     lineEditPassword = new PasswordEdit(true, this);
-    ui->horizontalLayout_2->addWidget(lineEditPassword);
+    ui->horizontalLayoutPassword->addWidget(lineEditPassword);
 }
 
 SessionOptionsSsh2Properties::~SessionOptionsSsh2Properties()

@@ -71,6 +71,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         term->setBlinkingCursor(true);
         term->setMargin(0);
         term->startTerminalTeletype();
+        term->setDrawLineChars(false);
 
         QStringList availableColorSchemes = term->availableColorSchemes();
         availableColorSchemes.sort();
