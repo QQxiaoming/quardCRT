@@ -127,8 +127,8 @@ QDockWidget::title{
   border-bottom:2px solid rgba(220,220,220,75);
 }
 QDockWidget{
-  titlebar-close-icon:url(:/darkstyle/icon_close.png);
-  titlebar-normal-icon:url(:/darkstyle/icon_restore.png);
+  titlebar-close-icon:url(":/qss_icons/light/light_icons/window_close.png");
+  titlebar-normal-icon:url(":/qss_icons/light/light_icons/window_undock.png");
 }
 QDockWidget::close-button,QDockWidget::float-button{
   subcontrol-position:top right;
@@ -199,17 +199,17 @@ QTabBar::tab:!selected{
 QTabBar::close-button {
   border:1px solid transparent;
   border-radius:2px;
-  image: url(":/qss_icons/light/rc/window_close.png");
+  image: url(":/qss_icons/light/light_icons/window_close.png");
 }
 QTabBar::close-button:hover {
   background-color:qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 rgba(176,176,176,255),stop:1 rgba(176,176,176,75));
   border:1px solid palette(base);
-  image: url(":/qss_icons/light/rc/window_close_focus.png");
+  image: url(":/qss_icons/light/light_icons/window_close_focus.png");
 }
 QTabBar::close-button:pressed {
   background-color:qlineargradient(x1:0,y1:1,x2:0,y2:0,stop:0 rgba(220,220,220,127),stop:1 rgba(200,200,200,75));
   border:1px solid palette(base);
-  image: url(":/qss_icons/light/rc/window_close_pressed.png");
+  image: url(":/qss_icons/light/light_icons/window_close_pressed.png");
 }
 QCheckBox::indicator{
   width:18px;

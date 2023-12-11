@@ -152,9 +152,7 @@ FORMS += \
     src/mainwindow.ui
 
 RESOURCES += \
-    res/resource.qrc \
-    theme/dark/darkstyle.qrc \
-    theme/light/lightstyle.qrc
+    res/resource.qrc
 
 TRANSLATIONS += \
     lang/quardCRT_zh_CN.ts \

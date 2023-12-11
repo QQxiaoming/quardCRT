@@ -93,7 +93,7 @@ void LightStyle::polish(QPalette &palette)
     palette.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(120, 120, 120));
     palette.setColor(QPalette::BrightText, QColor(0, 0, 255));
     palette.setColor(QPalette::Link, QColor(51, 153, 255));
-    palette.setColor(QPalette::Highlight, QColor(0, 0, 255));
+    palette.setColor(QPalette::Highlight, QColor(42, 130, 218));
     palette.setColor(QPalette::Disabled, QPalette::Highlight, QColor(51, 153, 255));
     palette.setColor(QPalette::HighlightedText, QColor(255, 255, 255));
     palette.setColor(QPalette::Disabled, QPalette::HighlightedText, QColor(255, 255, 255));
