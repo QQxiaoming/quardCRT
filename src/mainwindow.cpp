@@ -3417,6 +3417,9 @@ MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale l
 
         connect(m_good_central_widget,&QGoodCentralWidget::windowActiveChanged,this, [&](bool active){
             m_menu_bar->setEnabled(active);
+        #ifdef Q_OS_MACOS
+            fixWhenShowQuardCRTTabPreviewIssue();
+        #endif
         });
 
         m_good_central_widget->setLeftTitleBarWidget(m_menu_bar);
