@@ -3265,7 +3265,7 @@ void CentralWidget::checkCloseEvent(QCloseEvent *event)
 
 void CentralWidget::checkStatusTipEvent(QStatusTipEvent *event) {
     if (!event->tip().isEmpty()) {
-        ui->statusBar->showMessage(event->tip());
+        ui->statusBar->showMessage(event->tip(), 2000);
     }
 }
 
