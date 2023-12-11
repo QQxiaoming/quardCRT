@@ -20,6 +20,7 @@ void OneStepWindow::setConfig(const QString &stepName, const QString &userName, 
     ui->lineEditUserName->setText(userName);
     lineEditPassword->setText(password);
     ui->spinBoxPort->setValue(port);
+    stepInitName = stepName;
 }
 
 void OneStepWindow::getConfig(QString &stepName, QString &userName, QString &password, int &port) {

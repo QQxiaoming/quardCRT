@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>248</width>
-    <height>239</height>
+    <width>313</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,25 +15,35 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Step Name</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEditStepName"/>
-       </item>
-      </layout>
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>&quot;One Step&quot; is a user-defined automatic command completion function that currently supports users to configure the SSH port, username, and password, and then connect with one click by directly selecting text as the host address. The &quot;One Step&quot; function, as a batch shortcut, does not strictly encrypt and store password information, etc. Please do not configure important server password information here.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Step Name</string>
+       </property>
+      </widget>
      </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditStepName"/>
+     </item>
+    </layout>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
@@ -60,7 +70,7 @@
        <property name="value">
         <number>22</number>
        </property>
-        </widget>
+      </widget>
      </item>
     </layout>
    </item>

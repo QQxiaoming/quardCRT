@@ -53,10 +53,14 @@ public:
         getConfig(config.stepName, config.userName, config.password, config.port);
         return config;
     }
+    QString getStepInitName(void) {
+        return stepInitName;
+    }
 
 private:
     Ui::OneStepWindow *ui;
     PasswordEdit *lineEditPassword;
+    QString stepInitName;
 };
 
 #endif // ONESTEPWINDOW_H

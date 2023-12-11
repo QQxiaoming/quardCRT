@@ -2138,10 +2138,13 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             QMessageBox::warning(this,tr("One Step"),tr("Step name can not be empty!"));
             return;
         }
-        foreach(OneStepWindow::Config data, oneStepList) {
-            if(data.stepName == newData.stepName) {
-                oneStepList.removeOne(data);
-                break;
+        QString oldStepName = oneStepWindow->getStepInitName();
+        if(!oldStepName.isEmpty()) {
+            foreach(OneStepWindow::Config data, oneStepList) {
+                if(oldStepName == data.stepName) {
+                    oneStepList.removeOne(data);
+                    break;
+                }
             }
         }
         oneStepList.append(newData);
