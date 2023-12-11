@@ -358,6 +358,10 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         sessionOptionsWindow->setSessionState(sessionsWindow->getStateInfo());
                         sessionOptionsWindow->show();
                     });
+                    if(sessionsWindow->getState() == SessionsWindow::Disconnected ||
+                          sessionsWindow->getState() == SessionsWindow::Error) {
+                        menu->addAction(reconnectAction);
+                    }
                     QAction *closeAction = new QAction(tr("Close"),this);
                     closeAction->setStatusTip(tr("Close current session"));
                     menu->addAction(closeAction);
@@ -676,7 +680,7 @@ void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
         mainWidgetGroupList.at(dst)->sessionTab->count()-1);
     mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
         mainWidgetGroupList.at(src)->sessionTab->count()-1);
-    QTimer::singleShot(100, this, [=](){
+    QTimer::singleShot(1000, this, [=](){
         sessionsWindow->setShowResizeNotificationEnabled(true);
     });
 };
@@ -690,9 +694,9 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     }
     menu->addAction(copyAction);
     menu->addAction(pasteAction);
-    menu->addSeparator();
     menu->addAction(selectAllAction);
     menu->addAction(findAction);
+    menu->addSeparator();
     QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
     highlightAction->setStatusTip(tr("Highlight/Unhighlight selected text"));
     menu->addAction(highlightAction);

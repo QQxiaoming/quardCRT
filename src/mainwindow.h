@@ -282,6 +282,9 @@ public:
         QTimer::singleShot(0, this, [this, laboratoryButton](){
             laboratoryButton->setFixedSize(m_good_central_widget->titleBarHeight(),m_good_central_widget->titleBarHeight());
             m_good_central_widget->setRightTitleBarWidget(laboratoryButton, false);
+            connect(m_good_central_widget,&QGoodCentralWidget::windowActiveChanged,this, [=](bool active){
+                laboratoryButton->setEnabled(active);
+            });
         });
     }
 
