@@ -325,6 +325,7 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
 ,_bidiEnabled(true)
 ,_mouseMarks(false)
 ,_disabledBracketedPasteMode(false)
+,_showResizeNotificationEnabled(false)
 ,_actSel(0)
 ,_wordSelectionMode(false)
 ,_lineSelectionMode(false)
@@ -2009,6 +2010,7 @@ void TerminalDisplay::updateImageSize()
 
   if ( _resizing )
   {
+    if(_showResizeNotificationEnabled)
       showResizeNotification();
     emit changedContentSizeSignal(_contentHeight, _contentWidth); // expose resizeEvent
     emit changedContentCountSignal(_lines, _columns);

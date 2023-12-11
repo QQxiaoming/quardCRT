@@ -821,6 +821,10 @@ QString QTermWidget::wordCharacters(void) {
     return m_impl->m_terminalDisplay->wordCharacters();
 }
 
+void QTermWidget::setShowResizeNotificationEnabled(bool enabled) {
+    m_impl->m_terminalDisplay->setShowResizeNotificationEnabled(enabled);
+}
+
 void QTermWidget::reTranslateUi(void) {
     m_searchBar->retranslateUi();
 }

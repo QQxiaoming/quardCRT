@@ -31,6 +31,7 @@
 #include <QAction>
 #include <QShortcut>
 #include <QDir>
+#include <QStatusTipEvent>
 
 #include "mainwidgetgroup.h"
 #include "sessiontab.h"
@@ -50,6 +51,8 @@
 #include "onestepwindow.h"
 #include "netscanwindow.h"
 #include "keychainclass.h"
+#include "QGoodWindow"
+#include "QGoodCentralWidget"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -58,6 +61,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class CentralWidget; }
 QT_END_NAMESPACE
 
+class MainWindow;
 class CentralWidget : public QMainWindow
 {
     Q_OBJECT
@@ -72,6 +76,8 @@ public:
     static void appAbout(QWidget *parent = nullptr);
     static void appHelp(QWidget *parent = nullptr);
     static void setAppLangeuage(QLocale lang);
+    void checkCloseEvent(QCloseEvent *event);
+    void checkStatusTipEvent(QStatusTipEvent *event);
 
 private:
     void menuAndToolBarInit(void);
@@ -113,7 +119,9 @@ private:
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
 
 protected:
-    void closeEvent(QCloseEvent *event) override;
+    void closeEvent(QCloseEvent *event) override {
+        checkCloseEvent(event);
+    }
 
 private:
     Ui::CentralWidget *ui;
@@ -239,6 +247,9 @@ private:
     QAction *aboutAction;
     QAction *aboutQtAction;
 
+    QToolButton *laboratoryButton;
+    QMenu *laboratoryMenu;
+
     QShortcut *shortcutMenuBarView;
     QShortcut *shortcutConnectLocalShell;
     QShortcut *shortcutCloneSession;
@@ -258,5 +269,33 @@ private:
 
     QLocale language;
     bool isDarkTheme;
+    class MainWindow *mainWindow = nullptr;
 };
+
+class MainWindow : public QGoodWindow
+{
+    Q_OBJECT
+public:
+    explicit MainWindow(QString dir = QString(), CentralWidget::StartupUIMode mode = CentralWidget::STDUI_MODE, QLocale lang = QLocale(QLocale::English), bool isDark = true, QWidget *parent = nullptr);
+    ~MainWindow();
+    void setLaboratoryButton(QToolButton *laboratoryButton) {
+        QTimer::singleShot(0, this, [this, laboratoryButton](){
+            laboratoryButton->setFixedSize(m_good_central_widget->titleBarHeight(),m_good_central_widget->titleBarHeight());
+            m_good_central_widget->setRightTitleBarWidget(laboratoryButton, false);
+            connect(m_good_central_widget,&QGoodCentralWidget::windowActiveChanged,this, [=](bool active){
+                laboratoryButton->setEnabled(active);
+            });
+        });
+    }
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+    bool event(QEvent * event) override;
+
+private:
+    QGoodCentralWidget *m_good_central_widget;
+    QMenuBar *m_menu_bar = nullptr;
+    CentralWidget *m_central_widget;
+};
+
 #endif // MAINWINDOW_H

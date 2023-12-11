@@ -141,3 +141,4 @@ The code of this project references or partially refers to or depends on the fol
 - [qtkeychain](https://github.com/frankosterfeld/qtkeychain)
 - [qvncclient](https://bitbucket.org/amahta/qvncclient)
 - [qhexedit](https://github.com/Simsys/qhexedit2)
+- [QGoodWindow](https://github.com/antonypro/QGoodWindow)

@@ -23,6 +23,8 @@ include(./lib/qcustomfilesystemmodel/qcustomfilesystemmodel.pri)
 include(./lib/qtkeychain/qtkeychain.pri)
 include(./lib/QVNCClient/QVNCClient.pri)
 include(./lib/qhexedit/qhexedit.pri)
+include(./lib/QGoodWindow/QGoodWindow/QGoodWindow.pri)
+include(./lib/QGoodWindow/QGoodCentralWidget/QGoodCentralWidget.pri)
 
 INCLUDEPATH += \
     src/util \
@@ -150,9 +152,7 @@ FORMS += \
     src/mainwindow.ui
 
 RESOURCES += \
-    res/resource.qrc \
-    theme/dark/darkstyle.qrc \
-    theme/light/lightstyle.qrc
+    res/resource.qrc
 
 TRANSLATIONS += \
     lang/quardCRT_zh_CN.ts \

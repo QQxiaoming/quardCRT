@@ -187,6 +187,9 @@ public:
         if(term) return term->selectedText(preserveLineBreaks);
         return QString();
     }
+    void setShowResizeNotificationEnabled(bool enabled) {
+        if(term) term->setShowResizeNotificationEnabled(enabled);
+    }
     void copyClipboard() {
         if(term) term->copyClipboard();
     }

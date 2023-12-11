@@ -69,7 +69,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     , windowTransparency(1.0)
     , windowTransparencyEnabled(false)
     , language(lang)
-    , isDarkTheme(isDark) {
+    , isDarkTheme(isDark)
+    , mainWindow(static_cast<MainWindow *>(parent)) {
     ui->setupUi(this);
     restoreSettings();
 
@@ -357,6 +358,10 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         sessionOptionsWindow->setSessionState(sessionsWindow->getStateInfo());
                         sessionOptionsWindow->show();
                     });
+                    if(sessionsWindow->getState() == SessionsWindow::Disconnected ||
+                          sessionsWindow->getState() == SessionsWindow::Error) {
+                        menu->addAction(reconnectAction);
+                    }
                     QAction *closeAction = new QAction(tr("Close"),this);
                     closeAction->setStatusTip(tr("Close current session"));
                     menu->addAction(closeAction);
@@ -454,6 +459,13 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             sessionsWindow->setShowShortTitle(!sessionsWindow->getShowShortTitle());
             mainWidgetGroup->sessionTab->setTabText(index,sessionsWindow->getTitle());
         });
+    #if defined(Q_OS_MACOS)
+        connect(mainWidgetGroup->sessionTab,&SessionTab::tabPreviewShow,this,[=](int index){
+            if(mainWindow) {
+                mainWindow->fixWhenShowQuardCRTTabPreviewIssue();
+            }
+        });
+    #endif
         connect(mainWidgetGroup->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
             if(mainWidgetGroup->sessionTab->count() != 0) {
                 QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
@@ -521,7 +533,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     shortcutCloneSession->setEnabled(false);
     shortcutMiniModeSwitch = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_J),this);
     connect(shortcutMiniModeSwitch,&QShortcut::activated,this,[=](){
-        if(ui->menuBar->isVisible() == true) menuBarAction->trigger();
+        if(ui->menuBar->isVisible() == true) if(!mainWindow) menuBarAction->trigger();
         if(ui->toolBar->isVisible() == true) toolBarAction->trigger();
         if(ui->statusBar->isVisible() == true) statusBarAction->trigger();
         if(ui->sidewidget->isVisible() == true) sideWindowAction->trigger();
@@ -609,7 +621,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         }
     }
     if(mode == MINIUI_MODE) {
-        menuBarAction->trigger();
+        if(!mainWindow) menuBarAction->trigger();
         toolBarAction->trigger();
         statusBarAction->trigger();
         sideWindowAction->trigger();
@@ -657,6 +669,10 @@ void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
     QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
     QString text = mainWidgetGroupList.at(src)->sessionTab->tabTitle(index);
     QWidget *widget = mainWidgetGroupList.at(src)->sessionTab->widget(index);
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    //FIXME: this is a workaround for ResizeNotification label QStyleSheetStyle::polish crash bug
+    //       But this not a good solution, need to find a better way to solve this problem
+    sessionsWindow->setShowResizeNotificationEnabled(false); 
     mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
     int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(widget, text);
     mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
@@ -664,6 +680,9 @@ void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
         mainWidgetGroupList.at(dst)->sessionTab->count()-1);
     mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
         mainWidgetGroupList.at(src)->sessionTab->count()-1);
+    QTimer::singleShot(1000, this, [=](){
+        sessionsWindow->setShowResizeNotificationEnabled(true);
+    });
 };
 
 void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position)
@@ -675,9 +694,9 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     }
     menu->addAction(copyAction);
     menu->addAction(pasteAction);
-    menu->addSeparator();
     menu->addAction(selectAllAction);
     menu->addAction(findAction);
+    menu->addSeparator();
     QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
     highlightAction->setStatusTip(tr("Highlight/Unhighlight selected text"));
     menu->addAction(highlightAction);
@@ -851,14 +870,24 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
 
 void CentralWidget::saveSettings(void) {
     GlobalSetting settings;
-    settings.setValue("MainWindow/Geometry", saveGeometry());
-    settings.setValue("MainWindow/State", saveState());
+    if(mainWindow) {
+        settings.setValue("MainWindow/Geometry", mainWindow->saveGeometry());
+        settings.setValue("MainWindow/State", mainWindow->saveState());
+    } else {
+        settings.setValue("MainWindow/Geometry", saveGeometry());
+        settings.setValue("MainWindow/State", saveState());
+    }
 }
 
 void CentralWidget::restoreSettings(void) {
     GlobalSetting settings;
-    restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
-    restoreState(settings.value("MainWindow/State").toByteArray());
+    if(mainWindow) {
+        mainWindow->restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
+        mainWindow->restoreState(settings.value("MainWindow/State").toByteArray());
+    } else {
+        restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
+        restoreState(settings.value("MainWindow/State").toByteArray());
+    }
 }
 
 MainWidgetGroup* CentralWidget::findCurrentFocusGroup(void) {
@@ -1085,15 +1114,6 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     createPublicKeyAction->setStatusTip(tr("Create a public key"));
     publickeyManagerAction->setText(tr("Publickey Manager"));
     publickeyManagerAction->setStatusTip(tr("Display publickey manager"));
-    sshScanningAction->setText(tr("SSH Scanning"));
-    sshScanningAction->setStatusTip(tr("Display SSH scanning dialog"));
-    oneStepMenu->setTitle(tr("One Step"));
-    addOneStepAction->setText(tr("Add One Step"));
-    addOneStepAction->setStatusTip(tr("Add a one step"));
-    editOneStepAction->setText(tr("Edit One Step"));
-    editOneStepAction->setStatusTip(tr("Edit a one step"));
-    removeOneStepAction->setText(tr("Remove One Step"));
-    removeOneStepAction->setStatusTip(tr("Remove a one step"));
 
     tabAction->setText(tr("Tab"));
     tabAction->setStatusTip(tr("Arrange sessions in tabs"));
@@ -1136,6 +1156,19 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     aboutQtAction->setText(tr("About Qt"));
     aboutQtAction->setIcon(QIcon(":/icons/icons/aboutqt.png"));
     aboutQtAction->setStatusTip(tr("Display about Qt dialog"));
+
+    laboratoryButton->setToolTip(tr("Laboratory"));
+    laboratoryButton->setIcon(QFontIcon::icon(QChar(0xf0c3)));
+
+    sshScanningAction->setText(tr("SSH Scanning"));
+    sshScanningAction->setStatusTip(tr("Display SSH scanning dialog"));
+    oneStepMenu->setTitle(tr("One Step"));
+    addOneStepAction->setText(tr("Add One Step"));
+    addOneStepAction->setStatusTip(tr("Add a one step"));
+    editOneStepAction->setText(tr("Edit One Step"));
+    editOneStepAction->setStatusTip(tr("Edit a one step"));
+    removeOneStepAction->setText(tr("Remove One Step"));
+    removeOneStepAction->setStatusTip(tr("Remove a one step"));
 }
 
 void CentralWidget::menuAndToolBarInit(void) {
@@ -1401,17 +1434,6 @@ void CentralWidget::menuAndToolBarInit(void) {
     toolsMenu->addAction(createPublicKeyAction);
     publickeyManagerAction = new QAction(this);
     toolsMenu->addAction(publickeyManagerAction);
-    toolsMenu->addSeparator();
-    sshScanningAction = new QAction(this);
-    toolsMenu->addAction(sshScanningAction);
-    oneStepMenu = new QMenu(this);
-    toolsMenu->addMenu(oneStepMenu);
-    addOneStepAction = new QAction(this);
-    oneStepMenu->addAction(addOneStepAction);
-    editOneStepAction = new QAction(this);
-    oneStepMenu->addAction(editOneStepAction);
-    removeOneStepAction = new QAction(this);
-    oneStepMenu->addAction(removeOneStepAction);
 
     windowActionGroup = new QActionGroup(this);
     tabAction = new QAction(this);
@@ -1493,6 +1515,34 @@ void CentralWidget::menuAndToolBarInit(void) {
     helpMenu->addAction(aboutAction);
     aboutQtAction = new QAction(this);
     helpMenu->addAction(aboutQtAction);
+
+    //laboratory feature
+    laboratoryButton = new QToolButton(this);
+    laboratoryButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    laboratoryButton->setPopupMode(QToolButton::InstantPopup);
+    laboratoryButton->setAutoRaise(true);
+    laboratoryMenu = new QMenu(this);
+    connect(laboratoryButton,&QToolButton::clicked,this,[=](){
+        if(laboratoryMenu->isEmpty()) {
+            return;
+        }
+        laboratoryMenu->move(laboratoryButton->mapToGlobal(QPoint(0,laboratoryButton->height())));
+        laboratoryMenu->show();
+    });
+    if(mainWindow) {
+        mainWindow->setLaboratoryButton(laboratoryButton);
+    } 
+    
+    sshScanningAction = new QAction(this);
+    laboratoryMenu->addAction(sshScanningAction);
+    oneStepMenu = new QMenu(this);
+    laboratoryMenu->addMenu(oneStepMenu);
+    addOneStepAction = new QAction(this);
+    oneStepMenu->addAction(addOneStepAction);
+    editOneStepAction = new QAction(this);
+    oneStepMenu->addAction(editOneStepAction);
+    removeOneStepAction = new QAction(this);
+    oneStepMenu->addAction(removeOneStepAction);
 
     menuAndToolBarRetranslateUi();
 
@@ -1763,7 +1813,11 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(globalOptionsWindow,&GlobalOptionsWindow::transparencyChanged,this,[=](int transparency){
         windowTransparency = (100-transparency)/100.0;
-        setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+        if(mainWindow) {
+            mainWindow->setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+        } else {
+            setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+        }
     });
     connect(sessionOptionsWindow,&SessionOptionsWindow::sessionPropertiesChanged,this,
         [=](QString name, QuickConnectWindow::QuickConnectData data, QString newName) {
@@ -1948,6 +2002,14 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         } else {
             shortcutConnectLocalShell->setEnabled(true);
         }
+        // FIXME: if use QGoodWindow, we must call hide() and show() to make title bar refresh
+        //       but this will cause the window flash, we will improve this in the future
+        if(mainWindow) {
+            mainWindow->hide();
+            QTimer::singleShot(100,this,[=](){
+                mainWindow->show();
+            });
+        }
     });
     connect(toolBarAction,&QAction::triggered,this,[=](bool checked){
         ui->toolBar->setVisible(checked);
@@ -1973,7 +2035,11 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(windwosTransparencyAction,&QAction::triggered,this,[=](bool checked){
         windowTransparencyEnabled = checked;
-        setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+        if(mainWindow) {
+            mainWindow->setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+        } else {
+            setWindowOpacity(windowTransparencyEnabled?windowTransparency:1.0);
+        }
     });
     connect(verticalScrollBarAction,&QAction::triggered,this,[=](bool checked){
         foreach(SessionsWindow *sessionsWindow, sessionList) {
@@ -1981,18 +2047,34 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(allwaysOnTopAction,&QAction::triggered,this,[=](bool checked){
-        if(checked) {
-            setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+        if(mainWindow) {
+            mainWindow->setWindowStaysOnTop(checked);
+            mainWindow->hide();
+            QTimer::singleShot(100,this,[=](){
+                mainWindow->show();
+            });
         } else {
-            setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
+            if(checked) {
+                setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+            } else {
+                setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
+            }
+            show();
         }
-        show();
     });
     connect(fullScreenAction,&QAction::triggered,this,[=](bool checked){
-        if(checked) {
-            showFullScreen();
+        if(mainWindow) {
+            if(checked) {
+                mainWindow->showFullScreen();
+            } else {
+                mainWindow->showNormal();
+            }
         } else {
-            showNormal();
+            if(checked) {
+                showFullScreen();
+            } else {
+                showNormal();
+            }
         }
     });
     connect(startTFTPServerAction,&QAction::triggered,this,[=](bool checked){
@@ -2209,17 +2291,18 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
         menuAndToolBarRetranslateUi();
         ui->statusBar->showMessage(tr("Ready"));
+        // FIXME: if use QGoodWindow, we must call hide() and show() to make title bar refresh
+        //       but this will cause the window flash, we will improve this in the future
+        if(mainWindow) {
+            mainWindow->hide();
+            QTimer::singleShot(100,this,[=](){
+                mainWindow->show();
+            });
+        }
     });
     connect(lightThemeAction,&QAction::triggered,this,[=](){
         isDarkTheme = false;
-        QFile ftheme(":/qdarkstyle/light/lightstyle.qss");
-        if (!ftheme.exists())   {
-            qDebug() << "Unable to set stylesheet, file not found!";
-        } else {
-            ftheme.open(QFile::ReadOnly | QFile::Text);
-            QTextStream ts(&ftheme);
-            qApp->setStyleSheet(ts.readAll());
-        }
+        qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
         QFontIcon::instance()->setColor(Qt::black);
         menuAndToolBarRetranslateUi();
         GlobalSetting settings;
@@ -2227,14 +2310,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(darkThemeAction,&QAction::triggered,this,[=](){
         isDarkTheme = true;
-        QFile ftheme(":/qdarkstyle/dark/darkstyle.qss");
-        if (!ftheme.exists())   {
-            qDebug() << "Unable to set stylesheet, file not found!";
-        } else {
-            ftheme.open(QFile::ReadOnly | QFile::Text);
-            QTextStream ts(&ftheme);
-            qApp->setStyleSheet(ts.readAll());
-        }
+        qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
         QFontIcon::instance()->setColor(Qt::white);
         menuAndToolBarRetranslateUi();
         GlobalSetting settings;
@@ -2244,7 +2320,11 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         qApp->quit();
     });
     connect(helpAction, &QAction::triggered, this, [&]() {
-        CentralWidget::appHelp(this);
+        if(mainWindow) {
+            CentralWidget::appHelp(mainWindow);
+        } else {
+            CentralWidget::appHelp(this);
+        }
     });
     connect(checkUpdateAction, &QAction::triggered, this, [&]() {
         QLocale locale;
@@ -2256,10 +2336,18 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(aboutAction, &QAction::triggered, this, [&]() {
-        CentralWidget::appAbout(this);
+        if (mainWindow) {
+            CentralWidget::appAbout(mainWindow);
+        } else {
+            CentralWidget::appAbout(this);
+        }
     });
     connect(aboutQtAction, &QAction::triggered, this, [&]() {
-        QMessageBox::aboutQt(this);
+        if (mainWindow) {
+            QMessageBox::aboutQt(mainWindow);
+        } else {
+            QMessageBox::aboutQt(this);
+        }
     });
 }
 
@@ -3149,7 +3237,7 @@ void CentralWidget::appHelp(QWidget *parent)
     );
 }
 
-void CentralWidget::closeEvent(QCloseEvent *event)
+void CentralWidget::checkCloseEvent(QCloseEvent *event)
 {
     int activeSessionCount = 0;
     int lockedSessionCount = 0;
@@ -3183,6 +3271,12 @@ void CentralWidget::closeEvent(QCloseEvent *event)
         }
     } else {
         event->accept();
+    }
+}
+
+void CentralWidget::checkStatusTipEvent(QStatusTipEvent *event) {
+    if (!event->tip().isEmpty()) {
+        ui->statusBar->showMessage(event->tip(), 2000);
     }
 }
 
@@ -3289,4 +3383,83 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
         settings.setValue("Global/Startup/language","en_US");
         break;
     }
+}
+
+MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, QWidget *parent) 
+    : QGoodWindow(parent)
+{
+    m_central_widget = new CentralWidget(dir,mode,lang,isDark,this);
+    m_central_widget->setWindowFlags(Qt::Widget);
+
+    m_good_central_widget = new QGoodCentralWidget(this);
+
+#ifdef Q_OS_MAC
+    //macOS uses global menu bar
+    if(QApplication::testAttribute(Qt::AA_DontUseNativeMenuBar)) {
+#else
+    if(true) {
+#endif
+        m_menu_bar = m_central_widget->menuBar();
+
+        //Set font of menu bar
+        QFont font = m_menu_bar->font();
+    #ifdef Q_OS_WIN
+        font.setFamily("Segoe UI");
+    #else
+        font.setFamily(qApp->font().family());
+    #endif
+        m_menu_bar->setFont(font);
+
+        QTimer::singleShot(0, this, [=]{
+            const int title_bar_height = m_good_central_widget->titleBarHeight();
+            m_menu_bar->setStyleSheet(QString("QMenuBar {height: %0px;}").arg(title_bar_height));
+        });
+
+        connect(m_good_central_widget,&QGoodCentralWidget::windowActiveChanged,this, [&](bool active){
+            m_menu_bar->setEnabled(active);
+        #ifdef Q_OS_MACOS
+            fixWhenShowQuardCRTTabPreviewIssue();
+        #endif
+        });
+
+        m_good_central_widget->setLeftTitleBarWidget(m_menu_bar);
+        setNativeCaptionButtonsVisibleOnMac(false);
+    }
+
+    connect(qGoodStateHolder, &QGoodStateHolder::currentThemeChanged, this, [](){
+        if (qGoodStateHolder->isCurrentThemeDark())
+            QGoodWindow::setAppDarkTheme();
+        else
+            QGoodWindow::setAppLightTheme();
+    });
+    connect(this, &QGoodWindow::systemThemeChanged, this, [=]{
+        qGoodStateHolder->setCurrentThemeDark(QGoodWindow::isSystemThemeDark());
+    });
+    qGoodStateHolder->setCurrentThemeDark(isDark);
+
+    m_good_central_widget->setCentralWidget(m_central_widget);
+    setCentralWidget(m_good_central_widget);
+
+    setWindowIcon(QIcon(":/icons/icons/about.png"));
+    setWindowTitle(QApplication::applicationName()+" - "+VERSION);
+
+    m_good_central_widget->setTitleAlignment(Qt::AlignCenter);
+
+}
+
+MainWindow::~MainWindow() {
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    m_central_widget->checkCloseEvent(event);
+}
+
+bool MainWindow::event(QEvent * event)
+{
+    if(event->type() == QEvent::StatusTip) {
+        m_central_widget->checkStatusTipEvent(static_cast<QStatusTipEvent *>(event));
+        return true;
+    }
+    return QGoodWindow::event(event);
 }

@@ -246,6 +246,7 @@ public:
 
     void setWordCharacters(const QString &wordCharacters);
     QString wordCharacters(void);
+    void setShowResizeNotificationEnabled(bool enabled);
 
     void reTranslateUi(void);
 

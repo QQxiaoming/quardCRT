@@ -138,7 +138,7 @@ SessionTabBar::SessionTabBar(QWidget *parent)
     : QTabBar(parent) {
     tabBarInstances << this;
     setAttribute(Qt::WA_Hover, true);
-    preview = new SessionTabBarPreviewWidget();
+    preview = new SessionTabBarPreviewWidget;
     preview->hide();
     preview->window()->lower();
 }
@@ -170,6 +170,7 @@ bool SessionTabBar::event(QEvent * event) {
                 }
                 preview->show();
                 preview->window()->lower();
+                emit tabPreviewShow(index);
             }
         } else {
             preview->hide();
@@ -197,11 +198,11 @@ void SessionTabBar::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         int index = tabAt(event->pos());
         if(index > 0) {
-            QPixmap pixmap(tabRect(tabAt(event->pos())).size());
-            render(&pixmap, QPoint(), QRegion(tabRect(tabAt(event->pos()))));
-            dragLabel = new QLabel(this);
+            QRect rect = tabRect(index);
+            QPixmap pixmap = grab(rect);
+            dragLabel = new QLabel;
             dragLabel->setPixmap(pixmap);
-            dragTabindex = tabAt(event->pos());
+            dragTabindex = index;
             SessionTab *tab = (SessionTab *)parentWidget();
             dragTabWidget = tab->widget(dragTabindex);
             dragTabFrom = this;
@@ -339,6 +340,8 @@ SessionTab::SessionTab(QWidget *parent)
             emit dragTabMoved(from,to,(SessionTab *)toBar->parentWidget());
         }
     });
+
+    connect(sTabBar,&SessionTabBar::tabPreviewShow,this,&SessionTab::tabPreviewShow);
 }
 
 SessionTab::~SessionTab() {
