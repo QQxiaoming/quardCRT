@@ -1103,15 +1103,6 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     createPublicKeyAction->setStatusTip(tr("Create a public key"));
     publickeyManagerAction->setText(tr("Publickey Manager"));
     publickeyManagerAction->setStatusTip(tr("Display publickey manager"));
-    sshScanningAction->setText(tr("SSH Scanning"));
-    sshScanningAction->setStatusTip(tr("Display SSH scanning dialog"));
-    oneStepMenu->setTitle(tr("One Step"));
-    addOneStepAction->setText(tr("Add One Step"));
-    addOneStepAction->setStatusTip(tr("Add a one step"));
-    editOneStepAction->setText(tr("Edit One Step"));
-    editOneStepAction->setStatusTip(tr("Edit a one step"));
-    removeOneStepAction->setText(tr("Remove One Step"));
-    removeOneStepAction->setStatusTip(tr("Remove a one step"));
 
     tabAction->setText(tr("Tab"));
     tabAction->setStatusTip(tr("Arrange sessions in tabs"));
@@ -1154,6 +1145,19 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     aboutQtAction->setText(tr("About Qt"));
     aboutQtAction->setIcon(QIcon(":/icons/icons/aboutqt.png"));
     aboutQtAction->setStatusTip(tr("Display about Qt dialog"));
+
+    laboratoryButton->setToolTip(tr("Laboratory"));
+    laboratoryButton->setIcon(QFontIcon::icon(QChar(0xf0c3)));
+
+    sshScanningAction->setText(tr("SSH Scanning"));
+    sshScanningAction->setStatusTip(tr("Display SSH scanning dialog"));
+    oneStepMenu->setTitle(tr("One Step"));
+    addOneStepAction->setText(tr("Add One Step"));
+    addOneStepAction->setStatusTip(tr("Add a one step"));
+    editOneStepAction->setText(tr("Edit One Step"));
+    editOneStepAction->setStatusTip(tr("Edit a one step"));
+    removeOneStepAction->setText(tr("Remove One Step"));
+    removeOneStepAction->setStatusTip(tr("Remove a one step"));
 }
 
 void CentralWidget::menuAndToolBarInit(void) {
@@ -1419,17 +1423,6 @@ void CentralWidget::menuAndToolBarInit(void) {
     toolsMenu->addAction(createPublicKeyAction);
     publickeyManagerAction = new QAction(this);
     toolsMenu->addAction(publickeyManagerAction);
-    toolsMenu->addSeparator();
-    sshScanningAction = new QAction(this);
-    toolsMenu->addAction(sshScanningAction);
-    oneStepMenu = new QMenu(this);
-    toolsMenu->addMenu(oneStepMenu);
-    addOneStepAction = new QAction(this);
-    oneStepMenu->addAction(addOneStepAction);
-    editOneStepAction = new QAction(this);
-    oneStepMenu->addAction(editOneStepAction);
-    removeOneStepAction = new QAction(this);
-    oneStepMenu->addAction(removeOneStepAction);
 
     windowActionGroup = new QActionGroup(this);
     tabAction = new QAction(this);
@@ -1511,6 +1504,34 @@ void CentralWidget::menuAndToolBarInit(void) {
     helpMenu->addAction(aboutAction);
     aboutQtAction = new QAction(this);
     helpMenu->addAction(aboutQtAction);
+
+    //laboratory feature
+    laboratoryButton = new QToolButton(this);
+    laboratoryButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    laboratoryButton->setPopupMode(QToolButton::InstantPopup);
+    laboratoryButton->setAutoRaise(true);
+    laboratoryMenu = new QMenu(this);
+    connect(laboratoryButton,&QToolButton::clicked,this,[=](){
+        if(laboratoryMenu->isEmpty()) {
+            return;
+        }
+        laboratoryMenu->move(laboratoryButton->mapToGlobal(QPoint(0,laboratoryButton->height())));
+        laboratoryMenu->show();
+    });
+    if(mainWindow) {
+        mainWindow->setLaboratoryButton(laboratoryButton);
+    } 
+    
+    sshScanningAction = new QAction(this);
+    laboratoryMenu->addAction(sshScanningAction);
+    oneStepMenu = new QMenu(this);
+    laboratoryMenu->addMenu(oneStepMenu);
+    addOneStepAction = new QAction(this);
+    oneStepMenu->addAction(addOneStepAction);
+    editOneStepAction = new QAction(this);
+    oneStepMenu->addAction(editOneStepAction);
+    removeOneStepAction = new QAction(this);
+    oneStepMenu->addAction(removeOneStepAction);
 
     menuAndToolBarRetranslateUi();
 
@@ -3205,7 +3226,7 @@ void CentralWidget::appHelp(QWidget *parent)
     );
 }
 
-void CentralWidget::closeEvent(QCloseEvent *event)
+void CentralWidget::checkCloseEvent(QCloseEvent *event)
 {
     int activeSessionCount = 0;
     int lockedSessionCount = 0;
@@ -3239,6 +3260,12 @@ void CentralWidget::closeEvent(QCloseEvent *event)
         }
     } else {
         event->accept();
+    }
+}
+
+void CentralWidget::checkStatusTipEvent(QStatusTipEvent *event) {
+    if (!event->tip().isEmpty()) {
+        ui->statusBar->showMessage(event->tip());
     }
 }
 
@@ -3407,4 +3434,18 @@ MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale l
 }
 
 MainWindow::~MainWindow() {
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    m_central_widget->checkCloseEvent(event);
+}
+
+bool MainWindow::event(QEvent * event)
+{
+    if(event->type() == QEvent::StatusTip) {
+        m_central_widget->checkStatusTipEvent(static_cast<QStatusTipEvent *>(event));
+        return true;
+    }
+    return QGoodWindow::event(event);
 }
