@@ -28,7 +28,6 @@ SOFTWARE.
 
 Notification::Notification()
 {
-
 }
 
 Notification::~Notification()

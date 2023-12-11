@@ -38,12 +38,10 @@ DarkStyle::DarkStyle() : DarkStyle(styleBase())
 
 DarkStyle::DarkStyle(QStyle *style) : QProxyStyle(style)
 {
-
 }
 
 DarkStyle::~DarkStyle()
 {
-
 }
 
 QStyle *DarkStyle::styleBase() const

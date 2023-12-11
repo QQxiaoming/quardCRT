@@ -125,7 +125,6 @@ QGoodCentralWidget::QGoodCentralWidget(QGoodWindow *gw) : QWidget(gw)
 
 QGoodCentralWidget::~QGoodCentralWidget()
 {
-
 }
 
 int QGoodCentralWidget::execDialogWithWindow(QDialog *dialog, QGoodWindow *parent_gw,

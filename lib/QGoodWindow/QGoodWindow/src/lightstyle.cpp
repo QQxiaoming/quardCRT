@@ -38,12 +38,10 @@ LightStyle::LightStyle() : LightStyle(styleBase())
 
 LightStyle::LightStyle(QStyle *style) : QProxyStyle(style)
 {
-
 }
 
 LightStyle::~LightStyle()
 {
-
 }
 
 QStyle *LightStyle::styleBase() const

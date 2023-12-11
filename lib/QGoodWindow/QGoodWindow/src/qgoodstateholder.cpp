@@ -37,7 +37,6 @@ QGoodStateHolder::QGoodStateHolder() : QObject()
 
 QGoodStateHolder::~QGoodStateHolder()
 {
-
 }
 
 bool QGoodStateHolder::isCurrentThemeDark() const

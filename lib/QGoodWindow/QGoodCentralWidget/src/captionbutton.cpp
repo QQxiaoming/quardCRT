@@ -40,7 +40,6 @@ CaptionButton::CaptionButton(IconType type, QWidget *parent) : QWidget(parent)
 
 CaptionButton::~CaptionButton()
 {
-
 }
 
 QPixmap CaptionButton::loadSVG(const QString &svg_path, int w, int h)

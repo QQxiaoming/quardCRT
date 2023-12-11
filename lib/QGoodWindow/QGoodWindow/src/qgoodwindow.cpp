@@ -66,7 +66,6 @@ class ParentWindow : public QWidget
 public:
     explicit ParentWindow(QWidget *parent) : QWidget(parent, Qt::Window)
     {
-
     }
 
 private:
