@@ -138,7 +138,7 @@ SessionTabBar::SessionTabBar(QWidget *parent)
     : QTabBar(parent) {
     tabBarInstances << this;
     setAttribute(Qt::WA_Hover, true);
-    preview = new SessionTabBarPreviewWidget();
+    preview = new SessionTabBarPreviewWidget;
     preview->hide();
     preview->window()->lower();
 }
@@ -170,6 +170,7 @@ bool SessionTabBar::event(QEvent * event) {
                 }
                 preview->show();
                 preview->window()->lower();
+                emit tabPreviewShow(index);
             }
         } else {
             preview->hide();
@@ -339,6 +340,8 @@ SessionTab::SessionTab(QWidget *parent)
             emit dragTabMoved(from,to,(SessionTab *)toBar->parentWidget());
         }
     });
+
+    connect(sTabBar,&SessionTabBar::tabPreviewShow,this,&SessionTab::tabPreviewShow);
 }
 
 SessionTab::~SessionTab() {

@@ -23,6 +23,8 @@ include(./lib/qcustomfilesystemmodel/qcustomfilesystemmodel.pri)
 include(./lib/qtkeychain/qtkeychain.pri)
 include(./lib/QVNCClient/QVNCClient.pri)
 include(./lib/qhexedit/qhexedit.pri)
+include(./lib/QGoodWindow/QGoodWindow/QGoodWindow.pri)
+include(./lib/QGoodWindow/QGoodCentralWidget/QGoodCentralWidget.pri)
 
 INCLUDEPATH += \
     src/util \

@@ -154,6 +154,7 @@ static QTranslator appTranslator;
 
 int main(int argc, char *argv[])
 {
+    QGoodWindow::setup();
     QApplication::setAttribute(Qt::AA_DontUseNativeDialogs);
     QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
     QApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
@@ -272,26 +273,17 @@ int main(int argc, char *argv[])
 #endif
     if(dark_theme == "true") isDarkTheme = true;
     if(dark_theme == "false") isDarkTheme = false;
-    QString themeName;
     if(isDarkTheme) {
-        themeName = ":/qdarkstyle/dark/darkstyle.qss";
+        QGoodWindow::setAppDarkTheme();
     } else {
-        themeName = ":/qdarkstyle/light/lightstyle.qss";
-    }
-    QFile ftheme(themeName);
-    if (!ftheme.exists())   {
-        qDebug() << "Unable to set stylesheet, file not found!";
-    } else {
-        ftheme.open(QFile::ReadOnly | QFile::Text);
-        QTextStream ts(&ftheme);
-        qApp->setStyleSheet(ts.readAll());
+        QGoodWindow::setAppLightTheme();
     }
 
     QFontIcon::addFont(":/icons/icons/fontawesome-webfont.ttf");
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    CentralWidget window(dir,isMiniUI?CentralWidget::MINIUI_MODE:CentralWidget::STDUI_MODE,locale,isDarkTheme);
+    MainWindow window(dir,isMiniUI?CentralWidget::MINIUI_MODE:CentralWidget::STDUI_MODE,locale,isDarkTheme);
     window.show();
 
     return application.exec();

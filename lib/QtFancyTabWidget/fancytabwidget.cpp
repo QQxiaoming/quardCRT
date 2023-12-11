@@ -70,7 +70,7 @@ FancyTabWidget::FancyTabWidget(QWidget *parent)
     setStyleSheet("QTabWidget::right-corner {alignment: left;}");
 #endif
 
-    int addButtonSize = tabBar()->height() - 4;
+    int addButtonSize = tabBar()->height() + 4;
 
     addButton = new AddTabButton(addButtonSize, addButtonSize, this);
     connect(addButton, &AddTabButton::clicked, this, &FancyTabWidget::addTabButtonClicked);

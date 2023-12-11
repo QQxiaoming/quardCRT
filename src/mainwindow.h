@@ -50,6 +50,8 @@
 #include "onestepwindow.h"
 #include "netscanwindow.h"
 #include "keychainclass.h"
+#include "QGoodWindow"
+#include "QGoodCentralWidget"
 
 extern QString VERSION;
 extern QString GIT_TAG;
@@ -58,6 +60,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class CentralWidget; }
 QT_END_NAMESPACE
 
+class MainWindow;
 class CentralWidget : public QMainWindow
 {
     Q_OBJECT
@@ -258,5 +261,20 @@ private:
 
     QLocale language;
     bool isDarkTheme;
+    class MainWindow *mainWindow = nullptr;
 };
+
+class MainWindow : public QGoodWindow
+{
+    Q_OBJECT
+public:
+    explicit MainWindow(QString dir = QString(), CentralWidget::StartupUIMode mode = CentralWidget::STDUI_MODE, QLocale lang = QLocale(QLocale::English), bool isDark = true, QWidget *parent = nullptr);
+    ~MainWindow();
+    
+private:
+    QGoodCentralWidget *m_good_central_widget;
+    QMenuBar *m_menu_bar = nullptr;
+    CentralWidget *m_central_widget;
+};
+
 #endif // MAINWINDOW_H

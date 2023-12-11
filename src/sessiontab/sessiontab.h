@@ -89,6 +89,7 @@ public:
     
 signals:
     void dragTabMoved(int from, int to, SessionTabBar* toBar);
+    void tabPreviewShow(int index);
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -142,6 +143,7 @@ signals:
     void showContextMenu(int index, const QPoint& position);
     void tabTextSet(int index, const QString &text);
     void dragTabMoved(int from, int to, SessionTab *toTab);
+    void tabPreviewShow(int index);
 
 private:
     void refreshTabText(void);
