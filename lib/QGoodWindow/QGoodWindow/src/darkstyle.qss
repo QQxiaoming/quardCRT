@@ -4,6 +4,12 @@ QLineEdit{
 QLineEdit[text=""]{ 
   color:palette(text);
 }
+QPlainTextEdit{
+  color:palette(text);
+}
+QPlainTextEdit[text=""]{ 
+  color:palette(text);
+}
 QToolTip{
   color:palette(text);
   background-color:palette(base);

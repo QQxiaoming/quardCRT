@@ -439,6 +439,8 @@ public:
     void disableBracketedPasteMode(bool disable) { _disabledBracketedPasteMode = disable; }
     bool bracketedPasteModeIsDisabled() const { return _disabledBracketedPasteMode; }
 
+    void setShowResizeNotificationEnabled(bool enabled) { _showResizeNotificationEnabled = enabled; }
+
 public slots:
 
     /**
@@ -787,6 +789,7 @@ private:
     bool _mouseMarks;
     bool _bracketedPasteMode;
     bool _disabledBracketedPasteMode;
+    bool _showResizeNotificationEnabled;
 
     QPoint  _iPntSel; // initial selection point
     QPoint  _pntSel; // current selection point

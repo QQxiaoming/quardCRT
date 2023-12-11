@@ -665,6 +665,10 @@ void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
     QIcon icon = mainWidgetGroupList.at(src)->sessionTab->tabIcon(index);
     QString text = mainWidgetGroupList.at(src)->sessionTab->tabTitle(index);
     QWidget *widget = mainWidgetGroupList.at(src)->sessionTab->widget(index);
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    //FIXME: this is a workaround for ResizeNotification label QStyleSheetStyle::polish crash bug
+    //       But this not a good solution, need to find a better way to solve this problem
+    sessionsWindow->setShowResizeNotificationEnabled(false); 
     mainWidgetGroupList.at(src)->sessionTab->removeTab(index);
     int newIndex = mainWidgetGroupList.at(dst)->sessionTab->addTab(widget, text);
     mainWidgetGroupList.at(dst)->sessionTab->setTabIcon(newIndex,icon);
@@ -672,6 +676,9 @@ void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
         mainWidgetGroupList.at(dst)->sessionTab->count()-1);
     mainWidgetGroupList.at(src)->sessionTab->setCurrentIndex(
         mainWidgetGroupList.at(src)->sessionTab->count()-1);
+    QTimer::singleShot(100, this, [=](){
+        sessionsWindow->setShowResizeNotificationEnabled(true);
+    });
 };
 
 void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position)

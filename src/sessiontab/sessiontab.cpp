@@ -198,11 +198,11 @@ void SessionTabBar::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         int index = tabAt(event->pos());
         if(index > 0) {
-            QPixmap pixmap(tabRect(tabAt(event->pos())).size());
-            render(&pixmap, QPoint(), QRegion(tabRect(tabAt(event->pos()))));
-            dragLabel = new QLabel(this);
+            QRect rect = tabRect(index);
+            QPixmap pixmap = grab(rect);
+            dragLabel = new QLabel;
             dragLabel->setPixmap(pixmap);
-            dragTabindex = tabAt(event->pos());
+            dragTabindex = index;
             SessionTab *tab = (SessionTab *)parentWidget();
             dragTabWidget = tab->widget(dragTabindex);
             dragTabFrom = this;
