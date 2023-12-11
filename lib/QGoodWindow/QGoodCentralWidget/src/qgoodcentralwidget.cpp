@@ -72,8 +72,6 @@ QGoodCentralWidget::QGoodCentralWidget(QGoodWindow *gw) : QWidget(gw)
         }
     });
 
-    m_draw_borders = !QGoodWindow::shouldBordersBeDrawnBySystem();
-
 #ifdef Q_OS_MAC
     auto caption_buttons_visibility_changed_func = [=]{
         if (m_gw->isNativeCaptionButtonsVisibleOnMac())
@@ -575,7 +573,6 @@ void QGoodCentralWidget::updateWindowLater()
 
     bool window_active = m_gw->isActiveWindow();
     bool window_no_state = m_gw->windowState().testFlag(Qt::WindowNoState);
-    bool draw_borders = m_draw_borders;
     bool is_maximized = m_gw->isMaximized();
     bool is_full_screen = m_gw->isFullScreen();
     int title_bar_width = m_title_bar->width();
@@ -585,22 +582,6 @@ void QGoodCentralWidget::updateWindowLater()
 
     if (m_icon_visible)
         icon_width = m_title_bar->m_icon_widget->width();
-
-    QString border_str = "none;";
-
-    if (draw_borders && window_no_state)
-    {
-        if (window_active)
-            border_str = QString("border: 1px solid %0;").arg(m_active_border_color.name());
-        else
-            border_str = "border: 1px solid #AAAAAA;";
-    }
-
-#ifdef Q_OS_LINUX
-    border_str.append("border-radius: 10px;");
-#endif
-
-    m_frame->setStyleSheet(m_frame_style.arg(border_str));
 
     m_title_bar->setMaximized(is_maximized && !is_full_screen);
 
