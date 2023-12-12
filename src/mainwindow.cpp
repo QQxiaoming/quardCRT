@@ -3386,8 +3386,7 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
 }
 
 MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, QWidget *parent) 
-    : QGoodWindow(parent)
-{
+    : QGoodWindow(parent) {
     m_central_widget = new CentralWidget(dir,mode,lang,isDark,this);
     m_central_widget->setWindowFlags(Qt::Widget);
 
@@ -3441,22 +3440,19 @@ MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale l
     setCentralWidget(m_good_central_widget);
 
     setWindowIcon(QIcon(":/icons/icons/about.png"));
-    setWindowTitle(QApplication::applicationName()+" - "+VERSION);
+    setWindowTitle(m_central_widget->windowTitle());
 
     m_good_central_widget->setTitleAlignment(Qt::AlignCenter);
-
 }
 
 MainWindow::~MainWindow() {
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
-{
+void MainWindow::closeEvent(QCloseEvent *event) {
     m_central_widget->checkCloseEvent(event);
 }
 
-bool MainWindow::event(QEvent * event)
-{
+bool MainWindow::event(QEvent * event) {
     if(event->type() == QEvent::StatusTip) {
         m_central_widget->checkStatusTipEvent(static_cast<QStatusTipEvent *>(event));
         return true;

@@ -2,9 +2,12 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 主UI全面更新，整体风格更现代化，配套亮色/暗色主题更加美观
 - 增加设置选项里打开当前设置文件功能
 - 改进优化HexView窗口
+- 右上角增加实验室功能，SSH扫描迁移至实验室，并新增“一步”功能，未来将会增加更多特定功能到实验室，并开放插件接口
 - 修复打开会话属性存在历史页面未刷新
+- 修复会话内line字符渲染错误
 
 ## [[V0.3.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.1)] - 2023-12-05
 
