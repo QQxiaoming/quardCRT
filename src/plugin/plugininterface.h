@@ -2,6 +2,7 @@
 #define PLUGININTERFACE_H
 
 #include <QtPlugin>
+#include <QMap>
 #include <QMenu>
 #include <QAction>
 

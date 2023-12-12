@@ -47,6 +47,7 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QPluginLoader>
+#include <QMap>
 
 #include "filedialog.h"
 #include "qtftp.h"
@@ -1555,18 +1556,18 @@ void CentralWidget::menuAndToolBarInit(void) {
             QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
             QObject *plugin = loader.instance();
             if(plugin) {
-                PluginInterface *interface = qobject_cast<PluginInterface *>(plugin);
-                if(interface) {
+                PluginInterface *iface = qobject_cast<PluginInterface *>(plugin);
+                if(iface) {
                     QMap<QString, QString> params;
                     params.insert("version",VERSION);
                     params.insert("git_tag",GIT_TAG);
-                    qDebug() << "we will load plugin:" << interface->name();
-                    if(interface->init(params, this) == 0) {
-                        QAction *action = interface->action();
+                    qDebug() << "we will load plugin:" << iface->name();
+                    if(iface->init(params, this) == 0) {
+                        QAction *action = iface->action();
                         if(action) {
                             laboratoryMenu->addAction(action);
                         } else {
-                            QMenu *menu = interface->menu();
+                            QMenu *menu = iface->menu();
                             if(menu) {
                                 laboratoryMenu->addMenu(menu);
                             }
