@@ -51,6 +51,7 @@
 #include "onestepwindow.h"
 #include "netscanwindow.h"
 #include "keychainclass.h"
+#include "plugininterface.h"
 #include "QGoodWindow"
 #include "QGoodCentralWidget"
 
@@ -266,6 +267,7 @@ private:
     KeyChainClass keyChainClass;
     QList<SessionsWindow *> sessionList;
     QList<OneStepWindow::Config> oneStepList;
+    QList<PluginInterface *> pluginList;
     QTftp *tftpServer;
     qreal windowTransparency;
     bool windowTransparencyEnabled;

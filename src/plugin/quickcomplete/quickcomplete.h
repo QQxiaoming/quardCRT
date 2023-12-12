@@ -17,6 +17,8 @@ public:
     virtual ~QuickComplete() {}
 
     int init(QMap<QString, QString> params, QWidget *parent);
+    void setLanguage(const QLocale &language,QApplication *app);
+    void retranslateUi();
 
     QString name() { return PLUGIN_NAME; }
     QString version() { return PLUGIN_VERSION; }

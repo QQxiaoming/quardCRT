@@ -18,6 +18,8 @@ public:
 
     int init(QMap<QString, QString> params, QWidget *parent);
 
+    void setLanguage(const QLocale &language,QApplication *app) {Q_UNUSED(language);Q_UNUSED(app);}
+    void retranslateUi() {}
     QString name() { return PLUGIN_NAME; }
     QString version() { return PLUGIN_VERSION; }
 

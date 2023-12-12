@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QVariant>
+#include <QLocale>
 
 class PluginInterface : public QObject
 {
@@ -18,6 +19,8 @@ public:
     virtual QString version() = 0;
     virtual QMenu *menu() = 0;
     virtual QAction *action() = 0;
+    virtual void setLanguage(const QLocale &language,QApplication *app) = 0;
+    virtual void retranslateUi() = 0;
 
 signals:
     void sendCommand(QString cmd);

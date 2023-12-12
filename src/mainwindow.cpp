@@ -62,7 +62,6 @@
 #include "globalsetting.h"
 #include "sessionoptionswindow.h"
 #include "sshsftp.h"
-#include "plugininterface.h"
 
 #include "ui_mainwindow.h"
 
@@ -1553,8 +1552,8 @@ void CentralWidget::menuAndToolBarInit(void) {
         pluginsDir.cd("plugins");
         pluginsDir.cd("QuardCRT");
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-            QPluginLoader *loader = new QPluginLoader(pluginsDir.absoluteFilePath(fileName),this);
-            QObject *plugin = loader->instance();
+            QPluginLoader loader(pluginsDir.absoluteFilePath(fileName),this);
+            QObject *plugin = loader.instance();
             if(plugin) {
                 PluginInterface *iface = qobject_cast<PluginInterface *>(plugin);
                 if(iface) {
@@ -1572,6 +1571,9 @@ void CentralWidget::menuAndToolBarInit(void) {
                                 laboratoryMenu->addMenu(menu);
                             }
                         }
+                        pluginList.append(iface);
+                        iface->setLanguage(language,qApp);
+                        iface->retranslateUi();
                         connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                     }
                 }
@@ -2323,6 +2325,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
 
         setAppLangeuage(this->language);
+        foreach(PluginInterface *iface, pluginList) {
+            iface->setLanguage(this->language,qApp);
+            iface->retranslateUi();
+        }
         ui->retranslateUi(this);
         sessionManagerWidget->retranslateUi();
         startTftpSeverWindow->retranslateUi();
