@@ -42,12 +42,14 @@ INCLUDEPATH += \
     src/sftpwindow \
     src/netscanwindow \
     src/onestepwindow \
+    src/plugin \
     src
 
 SOURCES += \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
     src/util/keychainclass.cpp \
+    src/plugin/plugininterface.cpp \
     src/globaloptions/globaloptionsadvancedwidget.cpp \
     src/globaloptions/globaloptionsappearancewidget.cpp \
     src/globaloptions/globaloptionsterminalwidget.cpp \
@@ -89,6 +91,7 @@ HEADERS += \
     src/util/globalsetting.h \
     src/util/keychainclass.h \
     src/util/passwordedit.h \
+    src/plugin/plugininterface.h \
     src/globaloptions/globaloptionsadvancedwidget.h \
     src/globaloptions/globaloptionsappearancewidget.h \
     src/globaloptions/globaloptionsterminalwidget.h \

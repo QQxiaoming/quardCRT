@@ -46,6 +46,7 @@
 #include <QInputDialog>
 #include <QPrinter>
 #include <QPrintDialog>
+#include <QPluginLoader>
 
 #include "filedialog.h"
 #include "qtftp.h"
@@ -60,6 +61,7 @@
 #include "globalsetting.h"
 #include "sessionoptionswindow.h"
 #include "sshsftp.h"
+#include "plugininterface.h"
 
 #include "ui_mainwindow.h"
 
@@ -1543,6 +1545,37 @@ void CentralWidget::menuAndToolBarInit(void) {
     oneStepMenu->addAction(editOneStepAction);
     removeOneStepAction = new QAction(this);
     oneStepMenu->addAction(removeOneStepAction);
+    laboratoryMenu->addSeparator();
+
+    QTimer::singleShot(200, this, [&](){
+        QDir pluginsDir(QCoreApplication::applicationDirPath());
+        pluginsDir.cd("plugins");
+        pluginsDir.cd("QuardCRT");
+        foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+            QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
+            QObject *plugin = loader.instance();
+            if(plugin) {
+                PluginInterface *interface = qobject_cast<PluginInterface *>(plugin);
+                if(interface) {
+                    QMap<QString, QString> params;
+                    params.insert("version",VERSION);
+                    params.insert("git_tag",GIT_TAG);
+                    qDebug() << "we will load plugin:" << interface->name();
+                    if(interface->init(params, this) == 0) {
+                        QAction *action = interface->action();
+                        if(action) {
+                            laboratoryMenu->addAction(action);
+                        } else {
+                            QMenu *menu = interface->menu();
+                            if(menu) {
+                                laboratoryMenu->addMenu(menu);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
 
     menuAndToolBarRetranslateUi();
 
