@@ -3,21 +3,26 @@
 
 #include "plugininterface.h"
 
-class HelloWorld : public QObject, PluginInterface
+#define PLUGIN_NAME    "Hello World"
+#define PLUGIN_VERSION "0.0.1"
+
+class HelloWorld : public PluginInterface
 {
     Q_OBJECT
-    Q_INTERFACES(PluginInterface)
     Q_PLUGIN_METADATA(IID "org.quardCRT.PluginInterface" FILE "helloworld.json")
+    Q_INTERFACES(PluginInterface)
 
 public:
-    HelloWorld();
-    virtual ~HelloWorld();
+    HelloWorld() : m_action(nullptr) {}
+    virtual ~HelloWorld() {}
 
     int init(QMap<QString, QString> params, QWidget *parent);
-    QString name();
 
-    QMenu *menu();
-    QAction *action();
+    QString name() { return PLUGIN_NAME; }
+    QString version() { return PLUGIN_VERSION; }
+
+    QMenu *menu() { return nullptr; }
+    QAction *action() { return m_action; }
 
 private:
     QAction *m_action;

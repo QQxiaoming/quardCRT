@@ -5,14 +5,6 @@
 #include <QMessageBox>
 #include <QDebug>
 
-HelloWorld::HelloWorld()
-{
-}
-
-HelloWorld::~HelloWorld()
-{
-}
-
 int HelloWorld::init(QMap<QString, QString> params, QWidget *parent)
 {
     foreach (QString key, params.keys()) {
@@ -25,19 +17,4 @@ int HelloWorld::init(QMap<QString, QString> params, QWidget *parent)
     });
 
     return 0;
-}
-
-QString HelloWorld::name()
-{
-    return "Hello World";
-}
-
-QMenu *HelloWorld::menu()
-{
-    return NULL;
-}
-
-QAction *HelloWorld::action()
-{
-    return m_action;
 }

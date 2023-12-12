@@ -118,6 +118,9 @@ private:
     void floatingWindow(MainWidgetGroup *g, int index);
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
 
+private slots:
+    void onPluginSendCommand(QString cmd);
+
 protected:
     void closeEvent(QCloseEvent *event) override {
         checkCloseEvent(event);

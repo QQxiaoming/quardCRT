@@ -1553,8 +1553,8 @@ void CentralWidget::menuAndToolBarInit(void) {
         pluginsDir.cd("plugins");
         pluginsDir.cd("QuardCRT");
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-            QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
-            QObject *plugin = loader.instance();
+            QPluginLoader *loader = new QPluginLoader(pluginsDir.absoluteFilePath(fileName),this);
+            QObject *plugin = loader->instance();
             if(plugin) {
                 PluginInterface *iface = qobject_cast<PluginInterface *>(plugin);
                 if(iface) {
@@ -1572,6 +1572,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                                 laboratoryMenu->addMenu(menu);
                             }
                         }
+                        connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                     }
                 }
             }
@@ -1581,6 +1582,15 @@ void CentralWidget::menuAndToolBarInit(void) {
     menuAndToolBarRetranslateUi();
 
     setSessionClassActionEnable(false);
+}
+
+void CentralWidget::onPluginSendCommand(QString cmd){
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
+    if(sessionsWindow->isLocked()) return;
+    cmd += "\n";
+    sessionsWindow->proxySendData(cmd.toLatin1());
 }
 
 void CentralWidget::setSessionClassActionEnable(bool enable)
