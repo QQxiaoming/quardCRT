@@ -1551,6 +1551,14 @@ void CentralWidget::menuAndToolBarInit(void) {
         QDir pluginsDir(QCoreApplication::applicationDirPath());
         pluginsDir.cd("plugins");
         pluginsDir.cd("QuardCRT");
+        qApp->addLibraryPath(pluginsDir.absolutePath());
+    #if defined(Q_OS_WIN)
+        qApp->addLibraryPath(QCoreApplication::applicationDirPath());
+    #else defined(Q_OS_MACOS)
+        qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/../Frameworks");
+    #else defined(Q_OS_LINUX)
+        qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/lib");
+    #endif
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
             QPluginLoader loader(pluginsDir.absoluteFilePath(fileName),this);
             QObject *plugin = loader.instance();
@@ -1578,6 +1586,8 @@ void CentralWidget::menuAndToolBarInit(void) {
                         iface->setLanguage(language,qApp);
                         iface->retranslateUi();
                     }
+                } else {
+                    qInfo() << "load plugin failed:" << loader.errorString();
                 }
             }
         }
