@@ -124,6 +124,7 @@ public:
     SessionsState getState() const { return state; }
     bool hasChildProcess();
     StateInfo getStateInfo(void);
+    void refeshTermSize(void);
     SshSFtp *getSshSFtpChannel(void);
 
     QString getHostname() const { return m_hostname; }

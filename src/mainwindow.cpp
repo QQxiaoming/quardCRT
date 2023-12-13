@@ -684,6 +684,7 @@ void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
         mainWidgetGroupList.at(src)->sessionTab->count()-1);
     QTimer::singleShot(1000, this, [=](){
         sessionsWindow->setShowResizeNotificationEnabled(true);
+        sessionsWindow->refeshTermSize();
     });
 };
 

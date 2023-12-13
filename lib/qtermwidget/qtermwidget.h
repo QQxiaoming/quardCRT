@@ -248,6 +248,9 @@ public:
     QString wordCharacters(void);
     void setShowResizeNotificationEnabled(bool enabled);
 
+    int lines();
+    int columns();
+
     void reTranslateUi(void);
 
 signals:

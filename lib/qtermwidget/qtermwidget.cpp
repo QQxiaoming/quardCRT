@@ -825,6 +825,14 @@ void QTermWidget::setShowResizeNotificationEnabled(bool enabled) {
     m_impl->m_terminalDisplay->setShowResizeNotificationEnabled(enabled);
 }
 
+int QTermWidget::lines() {
+    return m_impl->m_terminalDisplay->lines();
+}
+
+int QTermWidget::columns() {
+    return m_impl->m_terminalDisplay->columns();
+}
+
 void QTermWidget::reTranslateUi(void) {
     m_searchBar->retranslateUi();
 }

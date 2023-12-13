@@ -247,6 +247,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     emit stateChanged(state);
                     return;
                 }
+                QTimer::singleShot(100, [=](){
+                    shell->resize(term->columns(),term->lines());
+                });
                 connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
                     shell->resize(columns,lines);
                 });
@@ -696,4 +699,10 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
             break;
     }
     return info;
+}
+
+void SessionsWindow::refeshTermSize(void) {
+    if(type == LocalShell) {
+        localShell->resize(term->columns(),term->lines());
+    }
 }
