@@ -25,6 +25,7 @@ public:
 signals:
     void sendCommand(QString cmd);
     void writeSettings(QString path, QString key, QVariant value);
+    void readSettings(QString path, QString key, QVariant &value);
 };
 
 #define PluginInterface_iid "org.quardCRT.PluginInterface"

@@ -1562,6 +1562,10 @@ void CentralWidget::menuAndToolBarInit(void) {
                     params.insert("git_tag",GIT_TAG);
                     qDebug() << "we will load plugin:" << iface->name();
                     if(iface->init(params, this) == 0) {
+                        pluginList.append(iface);
+                        connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
+                        connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
+                        connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
                         QAction *action = iface->action();
                         if(action) {
                             laboratoryMenu->addAction(action);
@@ -1571,10 +1575,8 @@ void CentralWidget::menuAndToolBarInit(void) {
                                 laboratoryMenu->addMenu(menu);
                             }
                         }
-                        pluginList.append(iface);
                         iface->setLanguage(language,qApp);
                         iface->retranslateUi();
-                        connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                     }
                 }
             }
@@ -1593,6 +1595,19 @@ void CentralWidget::onPluginSendCommand(QString cmd){
     if(sessionsWindow->isLocked()) return;
     cmd += "\n";
     sessionsWindow->proxySendData(cmd.toLatin1());
+}
+
+void CentralWidget::onPluginWriteSettings(QString group, QString key, QVariant value){
+    PluginInterface *iface = qobject_cast<PluginInterface *>(sender());
+    GlobalSetting settings;
+    settings.setValue("Plugin/"+iface->name()+"/"+group+"/"+key,value);
+}
+
+void CentralWidget::onPluginReadSettings(QString group, QString key, QVariant &value){
+    PluginInterface *iface = qobject_cast<PluginInterface *>(sender());
+    GlobalSetting settings;
+    value = settings.value("Plugin/"+iface->name()+"/"+group+"/"+key);
+    qDebug() << value;
 }
 
 void CentralWidget::setSessionClassActionEnable(bool enable)

@@ -121,6 +121,8 @@ private:
 
 private slots:
     void onPluginSendCommand(QString cmd);
+    void onPluginWriteSettings(QString group, QString key, QVariant value);
+    void onPluginReadSettings(QString group, QString key, QVariant &value);
 
 protected:
     void closeEvent(QCloseEvent *event) override {

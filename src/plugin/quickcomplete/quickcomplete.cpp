@@ -8,6 +8,7 @@
 #include <QStringList>
 #include <QTranslator>
 #include <QApplication>
+#include <QTimer>
 #include <QDebug>
 
 int QuickComplete::init(QMap<QString, QString> params, QWidget *parent)
@@ -45,6 +46,18 @@ int QuickComplete::init(QMap<QString, QString> params, QWidget *parent)
     });
     m_menu->addSeparator();
 
+    QTimer::singleShot(100, this, [=](){
+        QVariant quickCompleteListVariant(m_quickCompleteList);
+        emit readSettings("settings","quickCompleteList",quickCompleteListVariant);
+        m_quickCompleteList = quickCompleteListVariant.toStringList();
+        foreach (QString cmd, m_quickCompleteList) {
+            QAction *action = new QAction(cmd,m_menu);
+            m_menu->addAction(action);
+            QObject::connect(action,&QAction::triggered,this,[=](){
+                emit sendCommand(cmd);
+            });
+        }
+    });
     return 0;
 }
 
@@ -61,6 +74,8 @@ void QuickComplete::quickCompleteListChanged(void) {
             emit sendCommand(cmd);
         });
     }
+    QVariant quickCompleteListVariant(m_quickCompleteList);
+    emit writeSettings("settings","quickCompleteList",quickCompleteListVariant);
 }
 
 void QuickComplete::setLanguage(const QLocale &language,QApplication *app) {

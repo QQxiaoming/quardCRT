@@ -4,38 +4,38 @@
 <context>
     <name>QuickComplete</name>
     <message>
-        <location filename="quickcomplete.cpp" line="16"/>
-        <location filename="quickcomplete.cpp" line="87"/>
+        <location filename="quickcomplete.cpp" line="17"/>
+        <location filename="quickcomplete.cpp" line="104"/>
         <source>Quick Complete</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="quickcomplete.cpp" line="18"/>
-        <location filename="quickcomplete.cpp" line="22"/>
-        <location filename="quickcomplete.cpp" line="88"/>
+        <location filename="quickcomplete.cpp" line="19"/>
+        <location filename="quickcomplete.cpp" line="23"/>
+        <location filename="quickcomplete.cpp" line="105"/>
         <source>Add Quick Complete</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="quickcomplete.cpp" line="22"/>
+        <location filename="quickcomplete.cpp" line="23"/>
         <source>Input Command</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="quickcomplete.cpp" line="29"/>
-        <location filename="quickcomplete.cpp" line="33"/>
-        <location filename="quickcomplete.cpp" line="89"/>
+        <location filename="quickcomplete.cpp" line="30"/>
+        <location filename="quickcomplete.cpp" line="34"/>
+        <location filename="quickcomplete.cpp" line="106"/>
         <source>Remove Quick Complete</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="quickcomplete.cpp" line="33"/>
+        <location filename="quickcomplete.cpp" line="34"/>
         <source>Select Command</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="quickcomplete.cpp" line="40"/>
-        <location filename="quickcomplete.cpp" line="90"/>
+        <location filename="quickcomplete.cpp" line="41"/>
+        <location filename="quickcomplete.cpp" line="107"/>
         <source>Clear Quick Complete</source>
         <translation></translation>
     </message>
