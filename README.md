@@ -104,7 +104,11 @@ Other protocol selection interface:
 | Español   | ![es_ES](./docs/es_ES.svg) |
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
- 
+
+## Plugin
+
+quardCRT will support plugins from version V0.4.0, plugins will be provided in the form of Qt plugins, loaded in the form of dynamic libraries, to learn more about plugin development information, please refer to the plugin open platform [https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform), This platform will provide template repositories and related examples for plugin development. At present, the plugin function is still in the early development stage. If you have good ideas or suggestions, please submit issues or discussions on GitHub or Gitee.
+
 ## Build
 
 please refer to [DEVELOPNOTE.md](./DEVELOPNOTE.md).

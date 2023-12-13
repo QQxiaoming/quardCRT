@@ -105,6 +105,10 @@ quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协�
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
 
+## 插件
+
+quardCRT将从V0.4.0版本开始支持插件，插件将以Qt Plug-in插件的形式提供，以动态库的形式加载，想了解更多插件开发信息请参考插件开放平台[https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform)，此平台将提供插件开发的模板仓库以及相关示例。目前插件功能仍处于早期开发阶段，如果您有好的想法或建议，欢迎在GitHub或Gitee上提交issue或discussion。
+
 ## 编译说明
 
 请参考[开发笔记](./DEVELOPNOTE.md)。
