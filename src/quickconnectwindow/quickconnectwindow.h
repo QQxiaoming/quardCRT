@@ -90,6 +90,8 @@ public:
     void setProtocol(QuickConnectType index);
     void setSaveSession(bool enable);
     void setOpenInTab(bool enable);
+    void reset(void);
+    void setQuickConnectData(QuickConnectData data);
 
 signals:
     void sendQuickConnectData(QuickConnectData);

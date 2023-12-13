@@ -1678,6 +1678,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(quickConnectAction,&QAction::triggered,this,[=](){
         quickConnectMainWidgetGroup = findCurrentFocusGroup();
+        quickConnectWindow->reset();
         quickConnectWindow->show();
     });
     connect(quickConnectWindow,&QuickConnectWindow::sendQuickConnectData,this,
@@ -3051,46 +3052,66 @@ int CentralWidget::cloneCurrentSession(MainWidgetGroup *group, QString name)
     if(group->sessionTab->count() == 0) return -1;
     QWidget *widget = group->sessionTab->currentWidget();
     SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
-    SessionsWindow *sessionsWindowClone = new SessionsWindow(sessionsWindow->getSessionType(),this);
-    setGlobalOptions(sessionsWindowClone);
-    sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
-    sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
-    sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
-    int index = group->sessionTab->addTab(sessionsWindowClone->getMainWidget(), group->sessionTab->tabTitle(group->sessionTab->indexOf(widget)));
-    connectSessionStateChange(group->sessionTab,index,sessionsWindowClone);
-    if(name.isEmpty()) {
-        name = sessionsWindow->getName();
-        checkSessionName(name);
-    }
-    sessionsWindowClone->setName(name);
-    sessionsWindowClone->cloneSession(sessionsWindow);
-    sessionList.push_back(sessionsWindowClone);
-    connect(sessionsWindowClone, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 0 || title == 2) {
-            sessionsWindowClone->setLongTitle(newTitle);
-            QString workDir = getDirAndcheckeSysName(newTitle);
-            if(!workDir.isEmpty()) {
-                sessionsWindowClone->setShortTitle(workDir);
-                if(workDir.startsWith("~/")) {
-                    workDir = workDir.replace(0,1,QDir::homePath());
-                }
-                QFileInfo fileInfo(workDir);
-                if(fileInfo.isDir()) {
-                    sessionsWindowClone->setWorkingDirectory(workDir);
-                }
-            } else {
-                sessionsWindowClone->setShortTitle(newTitle);
-            }
-            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindowClone->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindowClone->getTitle());
-                    break;
-                }
-            }
+    SessionsWindow::SessionType type = sessionsWindow->getSessionType();
+    switch(type) {
+        case SessionsWindow::Serial:
+        case SessionsWindow::RawSocket:
+        case SessionsWindow::NamePipe: {
+            QString newName;
+            QuickConnectWindow::QuickConnectData data;
+            sessionWindow2InfoData(sessionsWindow, data, newName);
+            quickConnectWindow->reset();
+            quickConnectWindow->setQuickConnectData(data);
+            quickConnectWindow->show();
+            break;
         }
-    });
-    group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
+        case SessionsWindow::Telnet:
+        case SessionsWindow::LocalShell:
+        case SessionsWindow::SSH2:
+        case SessionsWindow::VNC: {
+            SessionsWindow *sessionsWindowClone = new SessionsWindow(type,this);
+            setGlobalOptions(sessionsWindowClone);
+            sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
+            sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
+            sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
+            int index = group->sessionTab->addTab(sessionsWindowClone->getMainWidget(), group->sessionTab->tabTitle(group->sessionTab->indexOf(widget)));
+            connectSessionStateChange(group->sessionTab,index,sessionsWindowClone);
+            if(name.isEmpty()) {
+                name = sessionsWindow->getName();
+                checkSessionName(name);
+            }
+            sessionsWindowClone->setName(name);
+            sessionsWindowClone->cloneSession(sessionsWindow);
+            sessionList.push_back(sessionsWindowClone);
+            connect(sessionsWindowClone, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
+                if(title == 0 || title == 2) {
+                    sessionsWindowClone->setLongTitle(newTitle);
+                    QString workDir = getDirAndcheckeSysName(newTitle);
+                    if(!workDir.isEmpty()) {
+                        sessionsWindowClone->setShortTitle(workDir);
+                        if(workDir.startsWith("~/")) {
+                            workDir = workDir.replace(0,1,QDir::homePath());
+                        }
+                        QFileInfo fileInfo(workDir);
+                        if(fileInfo.isDir()) {
+                            sessionsWindowClone->setWorkingDirectory(workDir);
+                        }
+                    } else {
+                        sessionsWindowClone->setShortTitle(newTitle);
+                    }
+                    foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                        int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindowClone->getMainWidget());
+                        if(index >= 0) {
+                            mainWidgetGroup->sessionTab->setTabText(index, sessionsWindowClone->getTitle());
+                            break;
+                        }
+                    }
+                }
+            });
+            group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
+            break;
+        }
+    }
     return 0;
 }
 

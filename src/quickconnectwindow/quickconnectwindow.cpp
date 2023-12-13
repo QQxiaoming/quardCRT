@@ -347,6 +347,55 @@ void QuickConnectWindow::buttonBoxRejected(void)
 void QuickConnectWindow::showEvent(QShowEvent *event)
 {
     ui->retranslateUi(this);
-    comboBoxProtocolChanged(ui->comboBoxProtocol->currentIndex());
     QDialog::showEvent(event);
+}
+
+void QuickConnectWindow::reset(void)
+{
+    comboBoxProtocolChanged(ui->comboBoxProtocol->currentIndex());
+}
+
+void QuickConnectWindow::setQuickConnectData(QuickConnectData data) 
+{
+    ui->comboBoxProtocol->setCurrentIndex((int)data.type);
+    comboBoxProtocolChanged((int)data.type);
+    switch(data.type) {
+        case Telnet:
+            ui->lineEditHostname->setText(data.TelnetData.hostname);
+            ui->spinBoxPort->setValue(data.TelnetData.port);
+            ui->comboBoxWebSocket->setCurrentText(data.TelnetData.webSocket);
+            break;
+        case Serial:
+            ui->comboBoxHostname->setCurrentText(data.SerialData.portName);
+            ui->spinBoxPort->setValue(data.SerialData.baudRate);
+            ui->comboBoxDataBits->setCurrentText(QString::number(data.SerialData.dataBits));
+            ui->comboBoxParity->setCurrentIndex(data.SerialData.parity);
+            ui->comboBoxStopBits->setCurrentText(QString::number(data.SerialData.stopBits));
+            ui->checkBoxFlowCtrl->setChecked(data.SerialData.flowControl);
+            ui->checkBoxXEnable->setChecked(data.SerialData.xEnable);
+            break;
+        case LocalShell:
+            ui->lineEditHostname->setText(data.LocalShellData.command);
+            break;
+        case Raw:
+            ui->lineEditHostname->setText(data.RawData.hostname);
+            ui->spinBoxPort->setValue(data.RawData.port);
+            break;
+        case NamePipe:
+            ui->lineEditHostname->setText(data.NamePipeData.pipeName);
+            break;
+        case SSH2:
+            ui->lineEditHostname->setText(data.SSH2Data.hostname);
+            ui->spinBoxPort->setValue(data.SSH2Data.port);
+            ui->lineEditUsername->setText(data.SSH2Data.username);
+            lineEditPassword->setText(data.SSH2Data.password);
+            break;
+        case VNC:
+            ui->lineEditHostname->setText(data.VNCData.hostname);
+            ui->spinBoxPort->setValue(data.VNCData.port);
+            lineEditPassword->setText(data.VNCData.password);
+            break;
+        default:
+            break;
+    }
 }
