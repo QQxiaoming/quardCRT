@@ -208,6 +208,7 @@ void SessionTabBar::mousePressEvent(QMouseEvent *event) {
             dragTabFrom = this;
             dragStartPosition = event->pos();
             grabMouse();
+            setCursor(Qt::ClosedHandCursor);            
         }
     }
 
@@ -239,6 +240,7 @@ void SessionTabBar::mouseMoveEvent(QMouseEvent *event) {
 void SessionTabBar::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         if (dragLabel) {
+            unsetCursor();
             dragLabel->hide();
             dragLabel->deleteLater();
             dragLabel = nullptr;
