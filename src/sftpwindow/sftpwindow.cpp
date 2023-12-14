@@ -100,9 +100,6 @@ SftpWindow::SftpWindow(QWidget *parent) :
         settings.setValue("SFTPmenuBookmarkWindow/bookmarkList", byteArray);
     });
     connect(bookmarkWindow,&SFTPmenuBookmarkWindow::accepted,this,[&](){
-        QTimer::singleShot(1000, this, [=](){ //FIXME: why need this?
-            this->raise();
-        });
         SFTPmenuBookmarkWindow::Config newData = bookmarkWindow->getConfig();
         if(newData.bookmarkName.isEmpty()) return;
         QString oldNmae = bookmarkWindow->getBookmarkInitName();
@@ -136,8 +133,13 @@ SftpWindow::SftpWindow(QWidget *parent) :
         out << bookmarkList;
         settings.setValue("SFTPmenuBookmarkWindow/bookmarkList", byteArray);
     });
-    connect(bookmarkWindow,&SFTPmenuBookmarkWindow::rejected,this,[&](){
-        QTimer::singleShot(1000, this, [=](){ //FIXME: why need this?
+    connect(bookmarkWindow, &QDialog::finished, this, [=](int result) {
+        Q_UNUSED(result);
+        // FIXME: why need this? ugly hack 
+        this->activateWindow();
+        this->raise();
+        QTimer::singleShot(500, this, [=]() {
+            this->activateWindow();
             this->raise();
         });
     });

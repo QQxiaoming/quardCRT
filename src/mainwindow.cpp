@@ -2941,6 +2941,9 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
                 reply = QMessageBox::question(this, tr("Warning"), tr("Are you sure to disconnect this session?"),
                                             QMessageBox::Yes|QMessageBox::No);
                 if (reply == QMessageBox::Yes) {
+                    if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
+                        sftpWindow->hide();
+                    }
                     sessionList.removeOne(sessionsWindow);
                     group->sessionTab->removeTab(index);
                     delete sessionsWindow;
