@@ -136,6 +136,11 @@ SftpWindow::SftpWindow(QWidget *parent) :
         out << bookmarkList;
         settings.setValue("SFTPmenuBookmarkWindow/bookmarkList", byteArray);
     });
+    connect(bookmarkWindow,&SFTPmenuBookmarkWindow::rejected,this,[&](){
+        QTimer::singleShot(1000, this, [=](){ //FIXME: why need this?
+            this->raise();
+        });
+    });
 
     QByteArray byteArray;
     GlobalSetting settings;
@@ -252,6 +257,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
                                     transferThread->addTask(task);
                                     needDataSize += fileInfo.size();
                                     ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                                    ui->listWidgetTransfer->scrollToBottom();
                                     taskNum++;
                                 }
                             }
@@ -266,6 +272,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
                         transferThread->addTask(task);
                         needDataSize += fileInfo.size();
                         ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                        ui->listWidgetTransfer->scrollToBottom();
                         taskNum++;
                     }
                 }
@@ -353,6 +360,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
                                             transferThread->addTask(task);
                                             needDataSize += fileinfo.filesize;
                                             ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                                            ui->listWidgetTransfer->scrollToBottom();
                                             taskNum++;
                                         }
                                     }
@@ -375,6 +383,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
                             transferThread->addTask(task);
                             needDataSize += sshFileSystemModel->filesize(index);
                             ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                            ui->listWidgetTransfer->scrollToBottom();
                             taskNum++;
                         }
                     }
@@ -397,7 +406,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
         }
     });
 
-    resize(920, 380);
+    resize(1020, 480);
 }
 
 SftpWindow::~SftpWindow()

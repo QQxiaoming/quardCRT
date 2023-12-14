@@ -1,4 +1,5 @@
 #include "sftpmenubookmarkwindow.h"
+#include "filedialog.h"
 #include "ui_sftpmenubookmarkwindow.h"
 
 SFTPmenuBookmarkWindow::SFTPmenuBookmarkWindow(QWidget *parent)
@@ -7,6 +8,13 @@ SFTPmenuBookmarkWindow::SFTPmenuBookmarkWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowModality(Qt::ApplicationModal);
+
+    connect(ui->toolButton, &QToolButton::clicked, this, [=](){
+        QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
+                 ui->lineEditLocalPath->text().isEmpty() ? QDir::homePath() : ui->lineEditLocalPath->text());
+        if (!dir.isEmpty())
+            ui->lineEditLocalPath->setText(dir);
+    });
 }
 
 SFTPmenuBookmarkWindow::~SFTPmenuBookmarkWindow()
