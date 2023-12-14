@@ -104,20 +104,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     netScanWindow = new NetScanWindow(this);
 
-    oneStepWindow = new OneStepWindow(this);
-    GlobalSetting settings;
-    int size = settings.beginReadArray("Global/OneStep");
-    for(int i=0;i<size;i++) {
-        settings.setArrayIndex(i);
-        QString stepName = settings.value("stepName").toString();
-        QString userName = settings.value("userName").toString();
-        QString password = settings.value("password").toString();
-        int port = settings.value("port").toInt();
-        OneStepWindow::Config config(stepName,userName,password,port);
-        oneStepList.append(config);
-    }
-    settings.endArray();
-
     startTftpSeverWindow = new StartTftpSeverWindow(this);
     tftpServer = new QTftp;
 
@@ -798,21 +784,6 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
             QDesktopServices::openUrl(url);
         });
     }
-    if(!oneStepList.isEmpty()) {
-        menu->addSeparator();
-    }
-    foreach(OneStepWindow::Config data, oneStepList) {
-        QAction *action = new QAction(data.stepName,this);
-        action->setStatusTip(tr("One step to \"%1\"").arg(data.stepName));
-        menu->addAction(action);
-        connect(action,&QAction::triggered,this,[=](){
-            QString text = term->selectedText();
-            if(text.isEmpty()) {
-                return;
-            }
-            startSSH2Session(findCurrentFocusGroup(),text,data.port,data.userName,data.password);
-        });
-    }
     if(!pluginList.isEmpty()) {
         menu->addSeparator();
     }
@@ -1182,13 +1153,6 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
 
     sshScanningAction->setText(tr("SSH Scanning"));
     sshScanningAction->setStatusTip(tr("Display SSH scanning dialog"));
-    oneStepMenu->setTitle(tr("One Step"));
-    addOneStepAction->setText(tr("Add One Step"));
-    addOneStepAction->setStatusTip(tr("Add a one step"));
-    editOneStepAction->setText(tr("Edit One Step"));
-    editOneStepAction->setStatusTip(tr("Edit a one step"));
-    removeOneStepAction->setText(tr("Remove One Step"));
-    removeOneStepAction->setStatusTip(tr("Remove a one step"));
 }
 
 void CentralWidget::menuAndToolBarInit(void) {
@@ -1555,14 +1519,6 @@ void CentralWidget::menuAndToolBarInit(void) {
     
     sshScanningAction = new QAction(this);
     laboratoryMenu->addAction(sshScanningAction);
-    oneStepMenu = new QMenu(this);
-    laboratoryMenu->addMenu(oneStepMenu);
-    addOneStepAction = new QAction(this);
-    oneStepMenu->addAction(addOneStepAction);
-    editOneStepAction = new QAction(this);
-    oneStepMenu->addAction(editOneStepAction);
-    removeOneStepAction = new QAction(this);
-    oneStepMenu->addAction(removeOneStepAction);
     laboratoryMenu->addSeparator();
 
     QTimer::singleShot(200, this, [&](){
@@ -2258,87 +2214,6 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         netScanWindow->setScanPort(port);
         netScanWindow->show();
     });
-    connect(addOneStepAction,&QAction::triggered,this,[=](){
-        oneStepWindow->setConfig("","","",22);
-        oneStepWindow->show();
-    });
-    connect(editOneStepAction,&QAction::triggered,this,[=](){
-        QStringList stepNameList;
-        foreach(OneStepWindow::Config data, oneStepList) {
-            stepNameList.append(data.stepName);
-        }
-        if(stepNameList.isEmpty()) return;
-        bool isOk = false;
-        QString stepName = QInputDialog::getItem(this,tr("Edit One Step"),tr("Select a step"),stepNameList,0,false,&isOk);
-        if(!isOk || stepName.isEmpty()) return;
-        foreach(OneStepWindow::Config data, oneStepList) {
-            if(data.stepName == stepName) {
-                oneStepWindow->setConfig(data);
-                oneStepWindow->show();
-                break;
-            }
-        }
-    });
-    connect(removeOneStepAction,&QAction::triggered,this,[=](){
-        QStringList stepNameList;
-        foreach(OneStepWindow::Config data, oneStepList) {
-            stepNameList.append(data.stepName);
-        }
-        if(stepNameList.isEmpty()) return;
-        bool isOk = false;
-        QString stepName = QInputDialog::getItem(this,tr("Remove One Step"),tr("Select a step"),stepNameList,0,false,&isOk);
-        if(!isOk || stepName.isEmpty()) return;
-        foreach(OneStepWindow::Config data, oneStepList) {
-            if(data.stepName == stepName) {
-                oneStepList.removeOne(data);
-                break;
-            }
-        }
-        GlobalSetting settings;
-        settings.beginWriteArray("Global/OneStep");
-        settings.remove("");
-        settings.endArray();
-        foreach(OneStepWindow::Config data, oneStepList) {
-            settings.beginWriteArray("Global/OneStep");
-            settings.setArrayIndex(oneStepList.indexOf(data));
-            settings.setValue("stepName",data.stepName);
-            settings.setValue("userName",data.userName);
-            settings.setValue("password",data.password);
-            settings.setValue("port",data.port);
-            settings.endArray();
-        }
-    });
-    connect(oneStepWindow,&OneStepWindow::accepted,this,[=](){
-        OneStepWindow::Config newData = oneStepWindow->getConfig();
-        if(newData.stepName.isEmpty()) {
-            QMessageBox::warning(this,tr("One Step"),tr("Step name can not be empty!"));
-            return;
-        }
-        QString oldStepName = oneStepWindow->getStepInitName();
-        if(!oldStepName.isEmpty()) {
-            foreach(OneStepWindow::Config data, oneStepList) {
-                if(oldStepName == data.stepName) {
-                    oneStepList.removeOne(data);
-                    break;
-                }
-            }
-        }
-        oneStepList.append(newData);
-        GlobalSetting settings;
-        settings.beginWriteArray("Global/OneStep");
-        settings.remove("");
-        settings.endArray();
-        foreach(OneStepWindow::Config data, oneStepList) {
-            settings.beginWriteArray("Global/OneStep");
-            settings.setArrayIndex(oneStepList.indexOf(data));
-            settings.setValue("stepName",data.stepName);
-            settings.setValue("userName",data.userName);
-            settings.setValue("password",data.password);
-            settings.setValue("port",data.port);
-            settings.endArray();
-        }
-    });
-
     connect(sessionOptionsAction,&QAction::triggered,this,[=](){
         QString name;
         QuickConnectWindow::QuickConnectData data;

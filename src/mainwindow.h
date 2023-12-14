@@ -48,7 +48,6 @@
 #include "globalsetting.h"
 #include "qtftp.h"
 #include "sftpwindow.h"
-#include "onestepwindow.h"
 #include "netscanwindow.h"
 #include "keychainclass.h"
 #include "plugininterface.h"
@@ -146,7 +145,6 @@ private:
     LockSessionWindow *lockSessionWindow;
     SftpWindow *sftpWindow;
     NetScanWindow *netScanWindow;
-    OneStepWindow *oneStepWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -229,10 +227,6 @@ private:
     QAction *createPublicKeyAction;
     QAction *publickeyManagerAction;
     QAction *sshScanningAction;
-    QMenu *oneStepMenu;
-    QAction *addOneStepAction;
-    QAction *editOneStepAction;
-    QAction *removeOneStepAction;
     QActionGroup *windowActionGroup;
     QAction *tabAction;
     QAction *tileAction;
@@ -269,7 +263,6 @@ private:
 
     KeyChainClass keyChainClass;
     QList<SessionsWindow *> sessionList;
-    QList<OneStepWindow::Config> oneStepList;
     QList<PluginInterface *> pluginList;
     QTftp *tftpServer;
     qreal windowTransparency;

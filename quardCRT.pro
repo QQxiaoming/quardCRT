@@ -41,7 +41,6 @@ INCLUDEPATH += \
     src/hexviewwindow \
     src/sftpwindow \
     src/netscanwindow \
-    src/onestepwindow \
     src/plugin \
     src
 
@@ -71,7 +70,6 @@ SOURCES += \
     src/sessionoptions/sessionoptionswindow.cpp \
     src/commandwidget/commandwidget.cpp \
     src/keymapmanager/keymapmanager.cpp \
-    src/onestepwindow/onestepwindow.cpp \
     src/locksessionwindow/locksessionwindow.cpp \
     src/quickconnectwindow/quickconnectwindow.cpp \
     src/starttftpseverwindow/starttftpseverwindow.cpp \
@@ -113,7 +111,6 @@ HEADERS += \
     src/sessionoptions/sessionoptionswindow.h \
     src/commandwidget/commandwidget.h \
     src/keymapmanager/keymapmanager.h \
-    src/onestepwindow/onestepwindow.h \
     src/locksessionwindow/locksessionwindow.h \
     src/quickconnectwindow/quickconnectwindow.h \
     src/hexviewwindow/hexviewwindow.h \
@@ -130,7 +127,6 @@ FORMS += \
     src/globaloptions/globaloptionsappearancewidget.ui \
     src/globaloptions/globaloptionsterminalwidget.ui \
     src/globaloptions/globaloptionswindowwidget.ui \
-    src/onestepwindow/onestepwindow.ui \
     src/sessionmanagerwidget/sessionmanagerwidget.ui \
     src/globaloptions/globaloptionsgeneralwidget.ui \
     src/globaloptions/globaloptionswindow.ui \
