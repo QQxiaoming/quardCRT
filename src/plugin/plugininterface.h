@@ -10,6 +10,8 @@
 #include <QLocale>
 #include <QList>
 
+#define PLUGIN_API_VERSION 1
+
 class PluginInterface : public QObject
 {
     Q_OBJECT

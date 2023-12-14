@@ -9,7 +9,7 @@
 class HelloWorld : public PluginInterface
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.quardCRT.PluginInterface" FILE "helloworld.json")
+    Q_PLUGIN_METADATA(IID "org.quardCRT.PluginInterface" FILE "../plugininterface.json")
     Q_INTERFACES(PluginInterface)
 
 public:

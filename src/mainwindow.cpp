@@ -1535,6 +1535,21 @@ void CentralWidget::menuAndToolBarInit(void) {
     #endif
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
             QPluginLoader loader(pluginsDir.absoluteFilePath(fileName),this);
+            QJsonObject metaData = loader.metaData();
+            if(!metaData.contains("MetaData")) {
+                qInfo() << "plugin metaData not found:" << fileName;
+                continue;
+            }
+            QJsonObject metaDataObject = metaData.value("MetaData").toObject();
+            if(metaDataObject.contains("APIVersion")) {
+                qInfo() << "plugin api version not found:" << fileName;
+                continue;
+            } 
+            int apiVersion = metaDataObject.value("APIVersion").toInt();
+            if(apiVersion != PLUGIN_API_VERSION) {
+                qInfo() << "plugin api version [" << apiVersion << "] not match:" << fileName;
+                continue;
+            }
             QObject *plugin = loader.instance();
             if(plugin) {
                 PluginInterface *iface = qobject_cast<PluginInterface *>(plugin);
