@@ -8,6 +8,7 @@
 #include <QAction>
 #include <QVariant>
 #include <QLocale>
+#include <QList>
 
 class PluginInterface : public QObject
 {
@@ -17,12 +18,15 @@ public:
     virtual int init(QMap<QString, QString> params, QWidget *parent) = 0;
     virtual QString name() = 0;
     virtual QString version() = 0;
-    virtual QMenu *menu() = 0;
-    virtual QAction *action() = 0;
+    virtual QMenu *mainMenu() = 0;
+    virtual QAction *mainAction() = 0;
+    virtual QMenu *terminalContextMenu(QString selectedText, QString workingDirectory, QMenu *parentMenu) = 0;
+    virtual QList<QAction *> terminalContextAction(QString selectedText, QString workingDirectory, QMenu *parentMenu) = 0;
     virtual void setLanguage(const QLocale &language,QApplication *app) = 0;
     virtual void retranslateUi() = 0;
 
 signals:
+    void requestSSH2Connect(QString host, QString user, QString password, int port);
     void sendCommand(QString cmd);
     void writeSettings(QString path, QString key, QVariant value);
     void readSettings(QString path, QString key, QVariant &value);

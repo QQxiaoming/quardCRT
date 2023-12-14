@@ -23,9 +23,12 @@ public:
     QString name() { return PLUGIN_NAME; }
     QString version() { return PLUGIN_VERSION; }
 
-    QMenu *menu() { return m_menu; }
-    QAction *action() { return nullptr; }
+    QMenu *mainMenu() { return m_menu; }
+    QAction *mainAction() { return nullptr; }
 
+    QMenu *terminalContextMenu(QString selectedText, QString workingDirectory, QMenu *parentMenu) {Q_UNUSED(selectedText);Q_UNUSED(workingDirectory);Q_UNUSED(parentMenu); return nullptr;}
+    QList<QAction *> terminalContextAction(QString selectedText, QString workingDirectory, QMenu *parentMenu) {Q_UNUSED(selectedText);Q_UNUSED(workingDirectory);Q_UNUSED(parentMenu); return QList<QAction *>();}
+    
 private:
     void quickCompleteListChanged();
     QMenu *m_menu;

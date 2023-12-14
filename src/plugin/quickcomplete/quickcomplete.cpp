@@ -58,6 +58,9 @@ int QuickComplete::init(QMap<QString, QString> params, QWidget *parent)
             });
         }
     });
+
+    Q_UNUSED(params);
+    
     return 0;
 }
 

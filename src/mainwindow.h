@@ -120,6 +120,7 @@ private:
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
 
 private slots:
+    void onPluginRequestSSH2Connect(QString host, QString user, QString password, int port);
     void onPluginSendCommand(QString cmd);
     void onPluginWriteSettings(QString group, QString key, QVariant value);
     void onPluginReadSettings(QString group, QString key, QVariant &value);

@@ -813,6 +813,23 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
             startSSH2Session(findCurrentFocusGroup(),text,data.port,data.userName,data.password);
         });
     }
+    if(!pluginList.isEmpty()) {
+        menu->addSeparator();
+    }
+    foreach(PluginInterface *plugin, pluginList) {
+        QMenu *pluginMenu = plugin->terminalContextMenu(term->selectedText(),term->getWorkingDirectory(),menu);
+        if(pluginMenu != nullptr) {
+            menu->addMenu(pluginMenu);
+        } else {
+            QList<QAction *> pluginActionList = plugin->terminalContextAction(term->selectedText(),term->getWorkingDirectory(),menu);
+            if(pluginActionList.isEmpty()) {
+                continue;
+            }
+            foreach(QAction *action, pluginActionList) {
+                menu->addAction(action);
+            }
+        }
+    }
 }
 
 void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
@@ -1572,16 +1589,17 @@ void CentralWidget::menuAndToolBarInit(void) {
                     qDebug() << "we will load plugin:" << iface->name();
                     if(iface->init(params, this) == 0) {
                         pluginList.append(iface);
+                        connect(iface,SIGNAL(requestSSH2Connect(QString, QString, QString, int)),this,SLOT(onPluginRequestSSH2Connect(QString, QString, QString, int)));
                         connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                         connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
                         connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
-                        QAction *action = iface->action();
-                        if(action) {
-                            laboratoryMenu->addAction(action);
+                        QMenu *menu = iface->mainMenu();
+                        if(menu) {
+                            laboratoryMenu->addMenu(menu);
                         } else {
-                            QMenu *menu = iface->menu();
-                            if(menu) {
-                                laboratoryMenu->addMenu(menu);
+                            QAction *action = iface->mainAction();
+                            if(action) {
+                                laboratoryMenu->addAction(action);
                             }
                         }
                         iface->setLanguage(language,qApp);
@@ -1597,6 +1615,10 @@ void CentralWidget::menuAndToolBarInit(void) {
     menuAndToolBarRetranslateUi();
 
     setSessionClassActionEnable(false);
+}
+
+void CentralWidget::onPluginRequestSSH2Connect(QString host, QString user, QString password, int port) {
+    startSSH2Session(findCurrentFocusGroup(),host,port,user,password);
 }
 
 void CentralWidget::onPluginSendCommand(QString cmd){
@@ -1618,7 +1640,6 @@ void CentralWidget::onPluginReadSettings(QString group, QString key, QVariant &v
     PluginInterface *iface = qobject_cast<PluginInterface *>(sender());
     GlobalSetting settings;
     value = settings.value("Plugin/"+iface->name()+"/"+group+"/"+key);
-    qDebug() << value;
 }
 
 void CentralWidget::setSessionClassActionEnable(bool enable)
