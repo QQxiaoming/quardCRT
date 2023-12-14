@@ -1541,7 +1541,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                 continue;
             }
             QJsonObject metaDataObject = metaData.value("MetaData").toObject();
-            if(metaDataObject.contains("APIVersion")) {
+            if(!metaDataObject.contains("APIVersion")) {
                 qInfo() << "plugin api version not found:" << fileName;
                 continue;
             } 
