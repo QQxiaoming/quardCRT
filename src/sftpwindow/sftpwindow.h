@@ -24,10 +24,12 @@
 #include <QAbstractItemModel>
 #include <QThread>
 #include <QMutex>
+#include <QMenuBar>
 
 #include "qcustomfilesystemmodel.h"
 #include "sshsftp.h"
 #include "qfonticon.h"
+#include "sftpmenubookmarkwindow.h"
 
 namespace Ui {
 class SftpWindow;
@@ -201,6 +203,13 @@ private slots:
 
 private:
     Ui::SftpWindow *ui;
+    SFTPmenuBookmarkWindow *bookmarkWindow;
+    QMenuBar *menuBar;
+    QMenu *menuBookmarks;
+    QAction *actionAddBookmark;
+    QAction *actionEditBookmark;
+    QAction *actionRemoveBookmark;
+    QList<SFTPmenuBookmarkWindow::Config> bookmarkList;
     SshSFtp *sftp = nullptr;
     SftpTransferThread *transferThread = nullptr;
     QSshFileSystemModel *sshFileSystemModel;

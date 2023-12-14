@@ -45,6 +45,7 @@ INCLUDEPATH += \
     src
 
 SOURCES += \
+    src/sftpwindow/sftpmenubookmarkwindow.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
     src/util/keychainclass.cpp \
@@ -83,6 +84,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/sftpwindow/sftpmenubookmarkwindow.h \
     src/util/logger.h \
     src/util/argv_split.h \
     src/util/filedialog.h \
@@ -146,6 +148,7 @@ FORMS += \
     src/quickconnectwindow/quickconnectwindow.ui \
     src/hexviewwindow/hexviewwindow.ui \
     src/netscanwindow/netscanwindow.ui \
+    src/sftpwindow/sftpmenubookmarkwindow.ui \
     src/sftpwindow/sftpwindow.ui \
     src/starttftpseverwindow/starttftpseverwindow.ui \
     src/mainwindow.ui
