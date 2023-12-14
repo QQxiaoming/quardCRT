@@ -37,6 +37,7 @@ public:
     void      setAddTabButtonHidden(bool hidden) {
         addButton->setHidden(hidden);
     }
+    void retranslateUi(void);
 
 signals:
     void        tabAddRequested();

@@ -2293,6 +2293,9 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
         QFontIcon::instance()->setColor(Qt::black);
         menuAndToolBarRetranslateUi();
+        foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+            mainWidgetGroup->sessionTab->retranslateUi();
+        }
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","false");
     });
@@ -2301,6 +2304,9 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
         QFontIcon::instance()->setColor(Qt::white);
         menuAndToolBarRetranslateUi();
+        foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+            mainWidgetGroup->sessionTab->retranslateUi();
+        }
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","true");
     });

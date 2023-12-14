@@ -180,3 +180,8 @@ void FancyTabWidget::adjustTabLineEdit()
     // Reset an empty tab text to force a geometry update of the tab bar
     tabBar()->setTabText(m_editingTabIndex, "");
 }
+
+void FancyTabWidget::retranslateUi(void)
+{
+    addButton->retranslateUi();
+}

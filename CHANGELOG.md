@@ -11,6 +11,7 @@
 - 修复打开会话属性存在历史页面未刷新
 - 修复会话内line字符渲染错误
 - 修复打开SSH会话后未变化过窗口大小的情况下，默认的终端大小不正确
+- 修复切换主题时Tab Add New按钮样式未更新
 
 ## [[V0.3.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.1)] - 2023-12-05
 

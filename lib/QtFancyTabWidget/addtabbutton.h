@@ -33,6 +33,7 @@ public:
     void paintEvent(QPaintEvent *event) override;
 
     void setHoverEnabled(bool enabled);
+    void retranslateUi(void);
 
 protected:
     int     m_width;

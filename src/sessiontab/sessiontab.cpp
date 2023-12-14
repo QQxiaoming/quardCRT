@@ -374,6 +374,7 @@ void SessionTab::contextMenuEvent(QContextMenuEvent *event) {
 
 void SessionTab::retranslateUi(void) {
     emptyTab->retranslateUi();
+    FancyTabWidget::retranslateUi();
 }
 
 int SessionTab::addTab(QWidget *widget, const QString &text) {

@@ -68,3 +68,9 @@ void AddTabButton::setHoverEnabled(bool enabled)
 {
     m_hoverEnabled = enabled;
 }
+
+void AddTabButton::retranslateUi(void)
+{
+    m_newTabIcon = QFontIcon::icon(QChar(0xf067));
+    repaint();
+}
