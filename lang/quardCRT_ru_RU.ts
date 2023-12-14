@@ -26,11 +26,11 @@
         <location filename="../src/mainwindow.cpp" line="294"/>
         <location filename="../src/mainwindow.cpp" line="307"/>
         <location filename="../src/mainwindow.cpp" line="481"/>
-        <location filename="../src/mainwindow.cpp" line="2357"/>
-        <location filename="../src/mainwindow.cpp" line="2552"/>
-        <location filename="../src/mainwindow.cpp" line="2920"/>
-        <location filename="../src/mainwindow.cpp" line="3252"/>
-        <location filename="../src/mainwindow.cpp" line="3257"/>
+        <location filename="../src/mainwindow.cpp" line="2378"/>
+        <location filename="../src/mainwindow.cpp" line="2573"/>
+        <location filename="../src/mainwindow.cpp" line="2941"/>
+        <location filename="../src/mainwindow.cpp" line="3276"/>
+        <location filename="../src/mainwindow.cpp" line="3281"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
@@ -209,7 +209,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="501"/>
         <location filename="../src/mainwindow.cpp" line="603"/>
-        <location filename="../src/mainwindow.cpp" line="2266"/>
+        <location filename="../src/mainwindow.cpp" line="2281"/>
         <source>Ready</source>
         <translation>Готово</translation>
     </message>
@@ -314,7 +314,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="918"/>
         <location filename="../src/mainwindow.cpp" line="1138"/>
-        <location filename="../src/mainwindow.cpp" line="3216"/>
+        <location filename="../src/mainwindow.cpp" line="3240"/>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
@@ -932,7 +932,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1097"/>
-        <location filename="../src/mainwindow.cpp" line="2167"/>
+        <location filename="../src/mainwindow.cpp" line="2182"/>
         <source>Remove Bookmark</source>
         <translation>Удалить закладку</translation>
     </message>
@@ -943,7 +943,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1099"/>
-        <location filename="../src/mainwindow.cpp" line="2194"/>
+        <location filename="../src/mainwindow.cpp" line="2209"/>
         <source>Clean All Bookmark</source>
         <translation>Очистить все закладки</translation>
     </message>
@@ -989,7 +989,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1154"/>
-        <location filename="../src/mainwindow.cpp" line="2212"/>
+        <location filename="../src/mainwindow.cpp" line="2227"/>
         <source>SSH Scanning</source>
         <translation>Сканирование SSH</translation>
     </message>
@@ -1145,7 +1145,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1144"/>
-        <location filename="../src/mainwindow.cpp" line="3199"/>
+        <location filename="../src/mainwindow.cpp" line="3223"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
@@ -1165,208 +1165,208 @@
         <translation>Показать диалоговое окно &quot;О Qt&quot;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1951"/>
+        <location filename="../src/mainwindow.cpp" line="1966"/>
         <source>PrintScreen saved to %1</source>
         <translation>Снимок экрана сохранен в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1963"/>
+        <location filename="../src/mainwindow.cpp" line="1978"/>
         <source>Save Screenshot</source>
         <translation>Сохранить снимок экрана</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1963"/>
+        <location filename="../src/mainwindow.cpp" line="1978"/>
         <source>Image Files (*.jpg)</source>
         <translation>Файлы изображений (*.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1968"/>
+        <location filename="../src/mainwindow.cpp" line="1983"/>
         <source>Screenshot saved to %1</source>
         <translation>Снимок экрана сохранен в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1979"/>
+        <location filename="../src/mainwindow.cpp" line="1994"/>
         <source>Save Session Export</source>
         <translation>Сохранить экспорт сессии</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1979"/>
+        <location filename="../src/mainwindow.cpp" line="1994"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation>Текстовые файлы (*.txt);;HTML файлы (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1982"/>
+        <location filename="../src/mainwindow.cpp" line="1997"/>
         <source>Text Files (*.txt)</source>
         <translation>Текстовые файлы (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1985"/>
+        <location filename="../src/mainwindow.cpp" line="2000"/>
         <source>HTML Files (*.html)</source>
         <translation>HTML файлы (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1994"/>
+        <location filename="../src/mainwindow.cpp" line="2009"/>
         <source>Session Export saved to %1</source>
         <translation>Экспорт сессии сохранен в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1996"/>
+        <location filename="../src/mainwindow.cpp" line="2011"/>
         <source>Session Export failed to save to %1</source>
         <translation>Экспорт сессии не удалось сохранить в %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2140"/>
+        <location filename="../src/mainwindow.cpp" line="2155"/>
         <source>Select a directory</source>
         <translation>Выберите каталог</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2167"/>
+        <location filename="../src/mainwindow.cpp" line="2182"/>
         <source>Select a bookmark</source>
         <translation>Выберите закладку</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2194"/>
+        <location filename="../src/mainwindow.cpp" line="2209"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>Вы уверены, что хотите очистить все закладки?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2212"/>
+        <location filename="../src/mainwindow.cpp" line="2227"/>
         <source>Port</source>
         <translation>Порт</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2357"/>
+        <location filename="../src/mainwindow.cpp" line="2378"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>Включен видеофон, пожалуйста, включите анимацию в глобальных настройках (больше системных ресурсов) или измените фоновое изображение.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2552"/>
+        <location filename="../src/mainwindow.cpp" line="2573"/>
         <source>Session information get failed.</source>
         <translation>Не удалось получить информацию о сессии.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2635"/>
+        <location filename="../src/mainwindow.cpp" line="2656"/>
         <source>Telnet - </source>
         <translation>Телнет - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2636"/>
+        <location filename="../src/mainwindow.cpp" line="2657"/>
         <source>Telnet</source>
         <translation>Телнет</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2668"/>
+        <location filename="../src/mainwindow.cpp" line="2689"/>
         <source>Serial - </source>
         <translation>Серийный порт - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2669"/>
+        <location filename="../src/mainwindow.cpp" line="2690"/>
         <source>Serial</source>
         <translation>Серийный порт</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2700"/>
+        <location filename="../src/mainwindow.cpp" line="2721"/>
         <source>Raw - </source>
         <translation>Raw - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2701"/>
+        <location filename="../src/mainwindow.cpp" line="2722"/>
         <source>Raw</source>
         <translation>Raw</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2732"/>
+        <location filename="../src/mainwindow.cpp" line="2753"/>
         <source>NamePipe - </source>
         <translation>Именованный канал - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2733"/>
+        <location filename="../src/mainwindow.cpp" line="2754"/>
         <source>NamePipe</source>
         <translation>Именованный канал</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2801"/>
-        <location filename="../src/mainwindow.cpp" line="2805"/>
+        <location filename="../src/mainwindow.cpp" line="2822"/>
+        <location filename="../src/mainwindow.cpp" line="2826"/>
         <source>Local Shell</source>
         <translation>Локальная оболочка</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2803"/>
+        <location filename="../src/mainwindow.cpp" line="2824"/>
         <source>Local Shell - </source>
         <translation>Локальная оболочка - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2920"/>
+        <location filename="../src/mainwindow.cpp" line="2941"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>Вы уверены, что хотите отключить эту сессию?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3200"/>
+        <location filename="../src/mainwindow.cpp" line="3224"/>
         <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Версия&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;представлять на рассмотрение&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;автор&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Веб-сайт&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3218"/>
+        <location filename="../src/mainwindow.cpp" line="3242"/>
         <source>Global Shortcuts:</source>
         <translation>Глобальные ярлыки:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3219"/>
+        <location filename="../src/mainwindow.cpp" line="3243"/>
         <source>show/hide menu bar</source>
         <translation>показать/скрыть меню</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3220"/>
+        <location filename="../src/mainwindow.cpp" line="3244"/>
         <source>connect to LocalShell</source>
         <translation>подключиться к локальной оболочке</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3221"/>
+        <location filename="../src/mainwindow.cpp" line="3245"/>
         <source>clone current session</source>
         <translation>клонировать текущую сессию</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3222"/>
+        <location filename="../src/mainwindow.cpp" line="3246"/>
         <source>switch ui to STD mode</source>
         <translation>переключить интерфейс в режим STD</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3223"/>
+        <location filename="../src/mainwindow.cpp" line="3247"/>
         <source>switch ui to MINI mode</source>
         <translation>переключить интерфейс в режим MINI</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3224"/>
+        <location filename="../src/mainwindow.cpp" line="3248"/>
         <source>switch to previous session</source>
         <translation>переключиться на предыдущую сессию</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3225"/>
+        <location filename="../src/mainwindow.cpp" line="3249"/>
         <source>switch to next session</source>
         <translation>переключиться на следующую сессию</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3226"/>
+        <location filename="../src/mainwindow.cpp" line="3250"/>
         <source>switch to session [num]</source>
         <translation>переключиться на сессию [num]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3227"/>
+        <location filename="../src/mainwindow.cpp" line="3251"/>
         <source>Go to line start</source>
         <translation>Перейти в начало строки</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3228"/>
+        <location filename="../src/mainwindow.cpp" line="3252"/>
         <source>Go to line end</source>
         <translation>Перейти в конец строки</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3252"/>
+        <location filename="../src/mainwindow.cpp" line="3276"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>Есть сессии, которые еще не были разблокированы, пожалуйста, сначала разблокируйте их.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3257"/>
+        <location filename="../src/mainwindow.cpp" line="3281"/>
         <source>Are you sure to quit?</source>
         <translation>Вы уверены, что хотите выйти?</translation>
     </message>
@@ -2944,72 +2944,89 @@
 <context>
     <name>QKeychain::Job</name>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="29"/>
         <source>No error</source>
-        <translation type="vanished">Нет ошибки</translation>
+        <translation>Нет ошибки</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="31"/>
         <source>The specified item could not be found in the keychain</source>
-        <translation type="vanished">Указанный элемент не может быть найден в хранилище ключей</translation>
+        <translation>Указанный элемент не может быть найден в хранилище ключей</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="33"/>
         <source>User canceled the operation</source>
-        <translation type="vanished">Пользователь отменил операцию</translation>
+        <translation>Пользователь отменил операцию</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="35"/>
         <source>User interaction is not allowed</source>
-        <translation type="vanished">Взаимодействие с пользователем не разрешено</translation>
+        <translation>Взаимодействие с пользователем не разрешено</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="37"/>
         <source>No keychain is available. You may need to restart your computer</source>
-        <translation type="vanished">Нет доступного хранилища ключей. Возможно, вам нужно перезапустить компьютер</translation>
+        <translation>Нет доступного хранилища ключей. Возможно, вам нужно перезапустить компьютер</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="39"/>
         <source>The user name or passphrase you entered is not correct</source>
-        <translation type="vanished">Введенное вами имя пользователя или пароль неверны</translation>
+        <translation>Введенное вами имя пользователя или пароль неверны</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="41"/>
         <source>A cryptographic verification failure has occurred</source>
-        <translation type="vanished">Произошла ошибка криптографической проверки</translation>
+        <translation>Произошла ошибка криптографической проверки</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="43"/>
         <source>Function or operation not implemented</source>
-        <translation type="vanished">Функция или операция не реализована</translation>
+        <translation>Функция или операция не реализована</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="45"/>
         <source>I/O error</source>
-        <translation type="vanished">Ошибка ввода-вывода</translation>
+        <translation>Ошибка ввода-вывода</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="47"/>
         <source>Already open with with write permission</source>
-        <translation type="vanished">Уже открыто с разрешением на запись</translation>
+        <translation>Уже открыто с разрешением на запись</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="49"/>
         <source>Invalid parameters passed to a function</source>
-        <translation type="vanished">Недопустимые параметры, переданные функции</translation>
+        <translation>Недопустимые параметры, переданные функции</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="51"/>
         <source>Failed to allocate memory</source>
-        <translation type="vanished">Не удалось выделить память</translation>
+        <translation>Не удалось выделить память</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="53"/>
         <source>Bad parameter or invalid state for operation</source>
-        <translation type="vanished">Неверный параметр или недопустимое состояние для операции</translation>
+        <translation>Неверный параметр или недопустимое состояние для операции</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="55"/>
         <source>An internal component failed</source>
-        <translation type="vanished">Внутренний компонент не сработал</translation>
+        <translation>Внутренний компонент не сработал</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="57"/>
         <source>The specified item already exists in the keychain</source>
-        <translation type="vanished">Указанный элемент уже существует в хранилище ключей</translation>
+        <translation>Указанный элемент уже существует в хранилище ключей</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="59"/>
         <source>Unable to decode the provided data</source>
-        <translation type="vanished">Не удалось декодировать предоставленные данные</translation>
+        <translation>Не удалось декодировать предоставленные данные</translation>
     </message>
     <message>
+        <location filename="../lib/qtkeychain/keychain_apple.mm" line="62"/>
         <source>Unknown error</source>
-        <translation type="vanished">Неизвестная ошибка</translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
 </context>
 <context>
@@ -3482,6 +3499,34 @@
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="219"/>
         <source>e.g. /tmp/socket</source>
         <translation>например, /tmp/socket</translation>
+    </message>
+</context>
+<context>
+    <name>SFTPmenuBookmarkWindow</name>
+    <message>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwindow.ui" line="14"/>
+        <source>Bookmark</source>
+        <translation>Закладка</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwindow.ui" line="20"/>
+        <source>BookMarkName</source>
+        <translation>Имя закладки</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwindow.ui" line="38"/>
+        <source>LocalPath</source>
+        <translation>Локальный путь</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwindow.ui" line="65"/>
+        <source>RemotePath</source>
+        <translation>Удаленный путь</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwindow.cpp" line="13"/>
+        <source>Open Directory</source>
+        <translation>Открыть каталог</translation>
     </message>
 </context>
 <context>
@@ -3989,65 +4034,93 @@
         <translation>удаленный</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="65"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="43"/>
+        <source>Bookmarks</source>
+        <translation>Закладки</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="44"/>
+        <source>Add Bookmark</source>
+        <translation>Добавить закладку</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="45"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="64"/>
+        <source>Edit Bookmark</source>
+        <translation>Редактировать закладку</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="46"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="81"/>
+        <source>Remove Bookmark</source>
+        <translation>Удалить закладку</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="64"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="81"/>
+        <source>Bookmark Name:</source>
+        <translation>Имя закладки:</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="193"/>
         <source>No task!</source>
         <translation>Нет задач!</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="69"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="197"/>
         <source>All tasks finished!</source>
         <translation>Все задачи завершены!</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="74"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="202"/>
         <source>task %1/%2</source>
         <translation>задача %1/%2</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="91"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="219"/>
         <source>Open Directory</source>
         <translation>Открыть каталог</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="103"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="202"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="231"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="332"/>
         <source>Show/Hide Files</source>
         <translation>Показать/скрыть файлы</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="107"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="235"/>
         <source>Upload</source>
         <translation>Загрузить</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="156"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="264"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="286"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="396"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="160"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="290"/>
         <source>Open in System File Manager</source>
         <translation>Открыть в файловом менеджере системы</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="165"/>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="270"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="295"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="402"/>
         <source>refresh</source>
         <translation>обновить</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="206"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="336"/>
         <source>Download</source>
         <translation>Скачать</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="245"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
         <source>File exists</source>
         <translation>Файл существует</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="245"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>Файл %1 уже существует. Вы хотите перезаписать его?</translation>
     </message>
