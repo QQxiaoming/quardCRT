@@ -2291,6 +2291,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         ui->retranslateUi(this);
         sessionManagerWidget->retranslateUi();
         startTftpSeverWindow->retranslateUi();
+        pluginInfoWindow->retranslateUi();
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
             mainWidgetGroup->commandWidget->retranslateUi();

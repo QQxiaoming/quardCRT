@@ -6,12 +6,16 @@ PluginInfoWindow::PluginInfoWindow(QWidget *parent)
     , ui(new Ui::PluginInfoWindow)
 {
     ui->setupUi(this);
+
+    setWindowModality(Qt::ApplicationModal);
+    setWindowFlags(Qt::Tool);
+
     ui->lineEditAPIVersion->setText(QString::number(PLUGIN_API_VERSION));
     ui->lineEditAPIVersion->setReadOnly(true);
     ui->lineEditAPIVersion->setFocusPolicy(Qt::NoFocus);
 
     ui->tableWidget->setColumnCount(4);
-    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Name" << "Version" << "API Version" << "Enable");
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable"));
     ui->tableWidget->setColumnWidth(0, 200);
     ui->tableWidget->setColumnWidth(1, 80);
     ui->tableWidget->setColumnWidth(2, 100);
@@ -42,4 +46,9 @@ void PluginInfoWindow::addPluginInfo(QString name, QString version, uint32_t api
     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
     item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
     ui->tableWidget->setItem(i, 3, item);
+}
+
+void PluginInfoWindow::retranslateUi(void) {
+    ui->retranslateUi(this);
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable"));
 }

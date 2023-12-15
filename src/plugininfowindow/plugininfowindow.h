@@ -18,6 +18,7 @@ public:
     ~PluginInfoWindow();
     void addPluginInfo(PluginInterface *plugin, uint32_t apiVersion, bool enable);
     void addPluginInfo(QString name, QString version, uint32_t apiVersion, bool enable);
+    void retranslateUi(void);
 
 private:
     Ui::PluginInfoWindow *ui;
