@@ -96,7 +96,7 @@ jobs:
           ./build_setup.bat
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4.0.0
         with:
           name: quardCRT_windows
           path: |
@@ -168,7 +168,7 @@ jobs:
           cp ./InnoSetup/quardCRT_setup.exe ./InnoSetup/quardCRT_setup_msvc.exe
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4.0.0
         with:
           name: quardCRT_windows_msvc2019
           path: |
