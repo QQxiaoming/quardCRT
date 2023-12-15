@@ -41,10 +41,12 @@ INCLUDEPATH += \
     src/hexviewwindow \
     src/sftpwindow \
     src/netscanwindow \
+    src/plugininfowindow \
     src/plugin \
     src
 
 SOURCES += \
+    src/plugininfowindow/plugininfowindow.cpp \
     src/sftpwindow/sftpmenubookmarkwindow.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
@@ -84,6 +86,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/plugininfowindow/plugininfowindow.h \
     src/sftpwindow/sftpmenubookmarkwindow.h \
     src/util/logger.h \
     src/util/argv_split.h \
@@ -129,6 +132,7 @@ FORMS += \
     src/globaloptions/globaloptionsappearancewidget.ui \
     src/globaloptions/globaloptionsterminalwidget.ui \
     src/globaloptions/globaloptionswindowwidget.ui \
+    src/plugininfowindow/plugininfowindow.ui \
     src/sessionmanagerwidget/sessionmanagerwidget.ui \
     src/globaloptions/globaloptionsgeneralwidget.ui \
     src/globaloptions/globaloptionswindow.ui \

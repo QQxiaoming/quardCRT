@@ -104,6 +104,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     netScanWindow = new NetScanWindow(this);
 
+    pluginInfoWindow = new PluginInfoWindow(this);
+
     startTftpSeverWindow = new StartTftpSeverWindow(this);
     tftpServer = new QTftp;
 
@@ -1153,6 +1155,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
 
     sshScanningAction->setText(tr("SSH Scanning"));
     sshScanningAction->setStatusTip(tr("Display SSH scanning dialog"));
+    pluginInfoAction->setText(tr("Plugin Info"));
+    pluginInfoAction->setStatusTip(tr("Display plugin information dialog"));
 }
 
 void CentralWidget::menuAndToolBarInit(void) {
@@ -1520,11 +1524,20 @@ void CentralWidget::menuAndToolBarInit(void) {
     sshScanningAction = new QAction(this);
     laboratoryMenu->addAction(sshScanningAction);
     laboratoryMenu->addSeparator();
+    pluginInfoAction = new QAction(this);
 
     QTimer::singleShot(200, this, [&](){
         QDir pluginsDir(QCoreApplication::applicationDirPath());
-        pluginsDir.cd("plugins");
-        pluginsDir.cd("QuardCRT");
+        if(!pluginsDir.cd("plugins")) {
+            qInfo() << "plugins dir not exist:" << pluginsDir.absolutePath();
+            laboratoryMenu->addAction(pluginInfoAction);
+            return;
+        }
+        if(!pluginsDir.cd("QuardCRT")) {
+            qInfo() << "plugins/QuardCRT dir not exist:" << pluginsDir.absolutePath();
+            laboratoryMenu->addAction(pluginInfoAction);
+            return;
+        }
         qApp->addLibraryPath(pluginsDir.absolutePath());
     #if defined(Q_OS_WIN)
         qApp->addLibraryPath(QCoreApplication::applicationDirPath());
@@ -1538,16 +1551,19 @@ void CentralWidget::menuAndToolBarInit(void) {
             QJsonObject metaData = loader.metaData();
             if(!metaData.contains("MetaData")) {
                 qInfo() << "plugin metaData not found:" << fileName;
+                pluginInfoWindow->addPluginInfo(fileName,"",0,false);
                 continue;
             }
             QJsonObject metaDataObject = metaData.value("MetaData").toObject();
             if(!metaDataObject.contains("APIVersion")) {
                 qInfo() << "plugin api version not found:" << fileName;
+                pluginInfoWindow->addPluginInfo(fileName,"",0,false);
                 continue;
             } 
             int apiVersion = metaDataObject.value("APIVersion").toInt();
             if(apiVersion != PLUGIN_API_VERSION) {
-                qInfo() << "plugin api version [" << apiVersion << "] not match:" << fileName;
+                qInfo() << "plugin api version [" << apiVersion << "] not match:" << fileName;       
+                pluginInfoWindow->addPluginInfo(fileName,"",apiVersion,false);         
                 continue;
             }
             QObject *plugin = loader.instance();
@@ -1560,6 +1576,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                     qDebug() << "we will load plugin:" << iface->name();
                     if(iface->init(params, this) == 0) {
                         pluginList.append(iface);
+                        pluginInfoWindow->addPluginInfo(iface,apiVersion,true);
                         connect(iface,SIGNAL(requestSSH2Connect(QString, QString, QString, int)),this,SLOT(onPluginRequestSSH2Connect(QString, QString, QString, int)));
                         connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                         connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
@@ -1581,6 +1598,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                 }
             }
         }
+        laboratoryMenu->addAction(pluginInfoAction);
     });
 
     menuAndToolBarRetranslateUi();
@@ -2228,6 +2246,9 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         if(!isOk) return;
         netScanWindow->setScanPort(port);
         netScanWindow->show();
+    });
+    connect(pluginInfoAction,&QAction::triggered,this,[=](){
+        pluginInfoWindow->show();
     });
     connect(sessionOptionsAction,&QAction::triggered,this,[=](){
         QString name;

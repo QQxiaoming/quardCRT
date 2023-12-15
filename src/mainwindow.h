@@ -49,6 +49,7 @@
 #include "qtftp.h"
 #include "sftpwindow.h"
 #include "netscanwindow.h"
+#include "plugininfowindow.h"
 #include "keychainclass.h"
 #include "plugininterface.h"
 #include "QGoodWindow"
@@ -145,6 +146,7 @@ private:
     LockSessionWindow *lockSessionWindow;
     SftpWindow *sftpWindow;
     NetScanWindow *netScanWindow;
+    PluginInfoWindow *pluginInfoWindow;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -227,6 +229,7 @@ private:
     QAction *createPublicKeyAction;
     QAction *publickeyManagerAction;
     QAction *sshScanningAction;
+    QAction *pluginInfoAction;
     QActionGroup *windowActionGroup;
     QAction *tabAction;
     QAction *tileAction;
