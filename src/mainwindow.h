@@ -120,7 +120,13 @@ private:
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
 
 private slots:
+    void onPluginRequestTelnetConnect(QString host, int port, int type);
+    void onPluginRequestSerialConnect(QString portName, uint32_t baudRate, int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
+    void onPluginRequestLocalShellConnect(QString command, QString workingDirectory);
+    void onPluginRequestRawSocketConnect(QString host, int port);
+    void onPluginRequestNamePipeConnect(QString namePipe);
     void onPluginRequestSSH2Connect(QString host, QString user, QString password, int port);
+    void onPluginRequestVNCConnect(QString host, QString password, int port);
     void onPluginSendCommand(QString cmd);
     void onPluginWriteSettings(QString group, QString key, QVariant value);
     void onPluginReadSettings(QString group, QString key, QVariant &value);

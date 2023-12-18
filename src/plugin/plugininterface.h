@@ -28,7 +28,13 @@ public:
     virtual void retranslateUi() = 0;
 
 signals:
+    void requestTelnetConnect(QString host, int port, int type);
+    void requestSerialConnect(QString portName, uint32_t baudRate, int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
+    void requestLocalShellConnect(QString command, QString workingDirectory);
+    void requestRawSocketConnect(QString host, int port);
+    void requestNamePipeConnect(QString namePipe);
     void requestSSH2Connect(QString host, QString user, QString password, int port);
+    void requestVNCConnect(QString host, QString password, int port);
     void sendCommand(QString cmd);
     void writeSettings(QString path, QString key, QVariant value);
     void readSettings(QString path, QString key, QVariant &value);

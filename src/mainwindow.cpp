@@ -644,8 +644,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 }
 
 CentralWidget::~CentralWidget() {
-    stopAllSession(true);
     saveSettings();
+    stopAllSession(true);
     if(tftpServer->isRunning()) {
         tftpServer->stopServer();
     }
@@ -1577,7 +1577,13 @@ void CentralWidget::menuAndToolBarInit(void) {
                     if(iface->init(params, this) == 0) {
                         pluginList.append(iface);
                         pluginInfoWindow->addPluginInfo(iface,apiVersion,true);
+                        connect(iface,SIGNAL(requestTelnetConnect(QString, int, int)),this,SLOT(onPluginRequestTelnetConnect(QString, int, int)));
+                        connect(iface,SIGNAL(requestSerialConnect(QString, uint32_t, int, int, int, bool, bool)),this,SLOT(onPluginRequestSerialConnect(QString, uint32_t, int, int, int, bool, bool)));
+                        connect(iface,SIGNAL(requestLocalShellConnect(QString, QString)),this,SLOT(onPluginRequestLocalShellConnect(QString, QString)));
+                        connect(iface,SIGNAL(requestRawSocketConnect(QString, int)),this,SLOT(onPluginRequestRawSocketConnect(QString, int)));
+                        connect(iface,SIGNAL(requestNamePipeConnect(QString)),this,SLOT(onPluginRequestNamePipeConnect(QString)));
                         connect(iface,SIGNAL(requestSSH2Connect(QString, QString, QString, int)),this,SLOT(onPluginRequestSSH2Connect(QString, QString, QString, int)));
+                        connect(iface,SIGNAL(requestVNCConnect(QString, QString, int)),this,SLOT(onPluginRequestVNCConnect(QString, QString, int)));
                         connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                         connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
                         connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
@@ -1606,8 +1612,32 @@ void CentralWidget::menuAndToolBarInit(void) {
     setSessionClassActionEnable(false);
 }
 
+void CentralWidget::onPluginRequestTelnetConnect(QString host, int port, int type) {
+    startTelnetSession(findCurrentFocusGroup(),host,port,(QTelnet::SocketType)type);
+}
+
+void CentralWidget::onPluginRequestSerialConnect(QString portName, uint32_t baudRate, int dataBits, int parity, int stopBits, bool flowControl, bool xEnable) {
+    startSerialSession(findCurrentFocusGroup(),portName,baudRate,dataBits,parity,stopBits,flowControl,xEnable);
+}
+
+void CentralWidget::onPluginRequestLocalShellConnect(QString command, QString workingDirectory) {
+    startLocalShellSession(findCurrentFocusGroup(),command,workingDirectory);
+}
+
+void CentralWidget::onPluginRequestRawSocketConnect(QString host, int port) {
+    startRawSocketSession(findCurrentFocusGroup(),host,port);
+}
+
+void CentralWidget::onPluginRequestNamePipeConnect(QString namePipe) {
+    startNamePipeSession(findCurrentFocusGroup(),namePipe);
+}
+
 void CentralWidget::onPluginRequestSSH2Connect(QString host, QString user, QString password, int port) {
     startSSH2Session(findCurrentFocusGroup(),host,port,user,password);
+}
+
+void CentralWidget::onPluginRequestVNCConnect(QString host, QString password, int port) {
+    startVNCSession(findCurrentFocusGroup(),host,port,password);
 }
 
 void CentralWidget::onPluginSendCommand(QString cmd){
