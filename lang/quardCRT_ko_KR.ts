@@ -4149,19 +4149,35 @@
         <translation>새로고침</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="336"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="302"/>
+        <source>Upload All</source>
+        <translation>모두 업로드</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="346"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="522"/>
+        <source>Cancel Selection</source>
+        <translation>선택 취소</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="403"/>
         <source>Download</source>
         <translation>다운로드</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File exists</source>
         <translation>파일이 존재합니다</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>%1 파일이 이미 존재합니다. 덮어쓰시겠습니까?</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="474"/>
+        <source>Download All</source>
+        <translation>모두 다운로드</translation>
     </message>
 </context>
 <context>

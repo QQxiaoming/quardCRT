@@ -4149,19 +4149,35 @@
         <translation>actualizar</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="336"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="302"/>
+        <source>Upload All</source>
+        <translation>Cargar todo</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="346"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="522"/>
+        <source>Cancel Selection</source>
+        <translation>Cancelar selección</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="403"/>
         <source>Download</source>
         <translation>Descargar</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File exists</source>
         <translation>El archivo existe</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>El archivo %1 ya existe. ¿Quieres sobrescribirlo?</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="474"/>
+        <source>Download All</source>
+        <translation>Descargar todo</translation>
     </message>
 </context>
 <context>

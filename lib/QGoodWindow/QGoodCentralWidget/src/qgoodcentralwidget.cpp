@@ -135,7 +135,7 @@ int QGoodCentralWidget::execDialogWithWindow(QDialog *dialog, QGoodWindow *paren
     dialog->setWindowFlags(Qt::Widget);
 
     QGoodWindow *gw = new QGoodWindow(parent_gw);
-    gw->setGeometry(dialog->frameGeometry());
+    gw->resize(dialog->size());
     gw->setAttribute(Qt::WA_DeleteOnClose);
 
 #ifdef Q_OS_MAC

@@ -133,16 +133,6 @@ SftpWindow::SftpWindow(QWidget *parent) :
         out << bookmarkList;
         settings.setValue("SFTPmenuBookmarkWindow/bookmarkList", byteArray);
     });
-    connect(bookmarkWindow, &QDialog::finished, this, [=](int result) {
-        Q_UNUSED(result);
-        // FIXME: why need this? ugly hack 
-        this->activateWindow();
-        this->raise();
-        QTimer::singleShot(500, this, [=]() {
-            this->activateWindow();
-            this->raise();
-        });
-    });
 
     QByteArray byteArray;
     GlobalSetting settings;
@@ -212,6 +202,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
     ui->treeViewLocal->setColumnWidth(1, 60);
     ui->treeViewLocal->setColumnWidth(2, 100);
     ui->treeViewLocal->setColumnWidth(3, 100);
+    ui->treeViewLocal->setSelectionMode(QAbstractItemView::MultiSelection);
 
     ui->lineEditPathLocal->setText(QDir::homePath());
     ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(QDir::homePath()));
@@ -225,46 +216,119 @@ SftpWindow::SftpWindow(QWidget *parent) :
 
     ui->treeViewLocal->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeViewLocal, &QTreeView::customContextMenuRequested, [=](const QPoint &pos){
-        QModelIndex index = ui->treeViewLocal->indexAt(pos);
-        if (index.isValid()) {
-            QMenu *menu = new QMenu(this);
-            menu->addAction(tr("Show/Hide Files"), [=](){
-                fileSystemModel->setHideFiles(!fileSystemModel->hideFiles());
-                ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(fileSystemModel->rootPath()));
-            });
-            menu->addAction(tr("Upload"), [=](){
+        QMenu *menu = new QMenu(this);
+        QModelIndexList indexList = ui->treeViewLocal->selectionModel()->selectedIndexes();
+        QStringList pathList;
+        foreach (QModelIndex index, indexList) {
+            QString path = fileSystemModel->filePath(index);
+            if(pathList.contains(path)) 
+                continue;
+            pathList.append(path);
+        }
+        if (pathList.isEmpty() || pathList.count() == 1) {
+            QModelIndex index = ui->treeViewLocal->indexAt(pos);
+            ui->treeViewLocal->clearSelection();
+            if (index.isValid()) {
+                ui->treeViewLocal->setCurrentIndex(index);
+                menu->addAction(tr("Show/Hide Files"), [=](){
+                    fileSystemModel->setHideFiles(!fileSystemModel->hideFiles());
+                    ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(fileSystemModel->rootPath()));
+                });
+                menu->addAction(tr("Upload"), [=](){
+                    QString path = fileSystemModel->filePath(index);
+                    if (!path.isEmpty()) {
+                        QFileInfo fileInfo(path);
+                        if (fileInfo.isDir()) {
+                            std::function<void(const QString &, const QString &)> uploadDir =
+                            [&](const QString &path, const QString &dstPathR) {
+                                QString dirName = QFileInfo(path).fileName();
+                                QStringList dstlist = sftp->readdir(dstPathR);
+                                if (!dstlist.contains(dirName)) {
+                                    sftp->mkdir(dstPathR + "/" + dirName);
+                                }
+                                QStringList filelist = QDir(path).entryList(QDir::NoDotAndDotDot);
+                                foreach (QString file, filelist) {
+                                    QString srcPath = path + "/" + file;
+                                    QString dstPath = dstPathR + "/" + dirName;
+                                    QFileInfo fileInfo(srcPath);
+                                    if (fileInfo.isDir()) {
+                                        uploadDir(srcPath, dstPath);
+                                    } else {
+                                        SftpTransferThread::task_t task;
+                                        task.srcPath = srcPath;
+                                        task.dstPath = dstPath + "/" + file;
+                                        task.type = SftpTransferThread::Upload;
+                                        transferThread->addTask(task);
+                                        needDataSize += fileInfo.size();
+                                        ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                                        ui->listWidgetTransfer->scrollToBottom();
+                                        taskNum++;
+                                    }
+                                }
+                            };
+                            uploadDir(path, ui->lineEditPathRemote->text());
+                        } else {
+                            QString dstPath = ui->lineEditPathRemote->text() + "/" + fileInfo.fileName();
+                            SftpTransferThread::task_t task;
+                            task.srcPath = path;
+                            task.dstPath = dstPath;
+                            task.type = SftpTransferThread::Upload;
+                            transferThread->addTask(task);
+                            needDataSize += fileInfo.size();
+                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                            ui->listWidgetTransfer->scrollToBottom();
+                            taskNum++;
+                        }
+                    }
+                });
                 QString path = fileSystemModel->filePath(index);
                 if (!path.isEmpty()) {
                     QFileInfo fileInfo(path);
                     if (fileInfo.isDir()) {
-                        std::function<void(const QString &, const QString &)> uploadDir =
-                        [&](const QString &path, const QString &dstPathR) {
-                            QString dirName = QFileInfo(path).fileName();
-                            QStringList dstlist = sftp->readdir(dstPathR);
-                            if (!dstlist.contains(dirName)) {
-                                sftp->mkdir(dstPathR + "/" + dirName);
-                            }
-                            QStringList filelist = QDir(path).entryList(QDir::NoDotAndDotDot);
-                            foreach (QString file, filelist) {
-                                QString srcPath = path + "/" + file;
-                                QString dstPath = dstPathR + "/" + dirName;
-                                QFileInfo fileInfo(srcPath);
-                                if (fileInfo.isDir()) {
-                                    uploadDir(srcPath, dstPath);
-                                } else {
-                                    SftpTransferThread::task_t task;
-                                    task.srcPath = srcPath;
-                                    task.dstPath = dstPath + "/" + file;
-                                    task.type = SftpTransferThread::Upload;
-                                    transferThread->addTask(task);
-                                    needDataSize += fileInfo.size();
-                                    ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
-                                    ui->listWidgetTransfer->scrollToBottom();
-                                    taskNum++;
-                                }
-                            }
-                        };
-                        uploadDir(path, ui->lineEditPathRemote->text());
+                        menu->addAction(tr("Open"), [=](){
+                            ui->lineEditPathLocal->setText(path);
+                            ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(path));
+                        });
+                        menu->addAction(tr("Open in System File Manager"), [=](){
+                            QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+                        });
+                    }
+                }
+                menu->addAction(tr("refresh"), [=](){
+                    ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(fileSystemModel->rootPath()));
+                });
+            }
+        } else if(pathList.count() > 1) {
+            menu->addAction(tr("Upload All"), [=](){
+                std::function<void(const QStringList &, const QString &)> uploadDir =
+                [&](const QStringList &pathList, const QString &dstPathR) {
+                    QString dirName = QFileInfo(pathList.first()).fileName();
+                    QStringList dstlist = sftp->readdir(dstPathR);
+                    if (!dstlist.contains(dirName)) {
+                        sftp->mkdir(dstPathR + "/" + dirName);
+                    }
+                    foreach (QString path, pathList) {
+                        QFileInfo fileInfo(path);
+                        if (fileInfo.isDir()) {
+                            uploadDir(pathList, dstPathR + "/" + dirName);
+                        } else {
+                            SftpTransferThread::task_t task;
+                            task.srcPath = path;
+                            task.dstPath = dstPathR + "/" + dirName + "/" + fileInfo.fileName();
+                            task.type = SftpTransferThread::Upload;
+                            transferThread->addTask(task);
+                            needDataSize += fileInfo.size();
+                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                            ui->listWidgetTransfer->scrollToBottom();
+                            taskNum++;
+                        }
+                    }
+                };
+                foreach (QString path, pathList) {
+                    QFileInfo fileInfo(path);
+                    if (fileInfo.isDir()) {
+                        uploadDir(pathList, ui->lineEditPathRemote->text());
+                        break;
                     } else {
                         QString dstPath = ui->lineEditPathRemote->text() + "/" + fileInfo.fileName();
                         SftpTransferThread::task_t task;
@@ -279,25 +343,16 @@ SftpWindow::SftpWindow(QWidget *parent) :
                     }
                 }
             });
-            QString path = fileSystemModel->filePath(index);
-            if (!path.isEmpty()) {
-                QFileInfo fileInfo(path);
-                if (fileInfo.isDir()) {
-                    menu->addAction(tr("Open"), [=](){
-                        ui->lineEditPathLocal->setText(path);
-                        ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(path));
-                    });
-                    menu->addAction(tr("Open in System File Manager"), [=](){
-                        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-                    });
-                }
-            }
-            menu->addAction(tr("refresh"), [=](){
-                ui->treeViewLocal->setRootIndex(fileSystemModel->setRootPath(fileSystemModel->rootPath()));
+            menu->addAction(tr("Cancel Selection"), [=](){
+                ui->treeViewLocal->clearSelection();
             });
-            menu->move(cursor().pos()+QPoint(5,5));
-            menu->show();
         }
+        if(menu->isEmpty()) {
+            delete menu;
+            return;
+        }
+        menu->move(cursor().pos()+QPoint(5,5));
+        menu->show();
     });
 
     sshFileSystemModel = new QSshFileSystemModel(this);
@@ -306,6 +361,7 @@ SftpWindow::SftpWindow(QWidget *parent) :
     ui->treeViewRemote->setColumnWidth(1, 60);
     ui->treeViewRemote->setColumnWidth(2, 100);
     ui->treeViewRemote->setColumnWidth(3, 100);
+    ui->treeViewRemote->setSelectionMode(QAbstractItemView::MultiSelection);
 
     if(sftp) {
         ui->lineEditPathRemote->setText("/");
@@ -326,85 +382,153 @@ SftpWindow::SftpWindow(QWidget *parent) :
     ui->treeViewRemote->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeViewRemote, &QTreeView::customContextMenuRequested, [=](const QPoint &pos){
         if(sftp) {
-            QModelIndex index = ui->treeViewRemote->indexAt(pos);
-            if (index.isValid()) {
-                QMenu *menu = new QMenu(this);
-                menu->addAction(tr("Show/Hide Files"), [=](){
-                    sshFileSystemModel->setHideFiles(!sshFileSystemModel->hideFiles());
-                    ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(sshFileSystemModel->rootPath()));
-                });
-                menu->addAction(tr("Download"), [=](){
+            QMenu *menu = new QMenu(this);
+            QModelIndexList indexList = ui->treeViewRemote->selectionModel()->selectedIndexes();
+            QStringList pathList;
+            foreach (QModelIndex index, indexList) {
+                QString path = sshFileSystemModel->filePath(index);
+                if(pathList.contains(path)) 
+                    continue;
+                pathList.append(path);
+            }
+            if (pathList.isEmpty() || pathList.count() == 1) {
+                QModelIndex index = ui->treeViewRemote->indexAt(pos);
+                ui->treeViewRemote->clearSelection();
+                if (index.isValid()) {
+                    ui->treeViewRemote->setCurrentIndex(index);
+                    menu->addAction(tr("Show/Hide Files"), [=](){
+                        sshFileSystemModel->setHideFiles(!sshFileSystemModel->hideFiles());
+                        ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(sshFileSystemModel->rootPath()));
+                    });
+                    menu->addAction(tr("Download"), [=](){
+                        QString path = sshFileSystemModel->filePath(index);
+                        if (!path.isEmpty()) {
+                            if(sshFileSystemModel->isDir(index)) {
+                                std::function<void(const QString &, const QString &)> downloadDir = 
+                                [&](const QString &path, const QString &dstPathR) {
+                                    QString dirName = QFileInfo(path).fileName();
+                                    QDir dir(dstPathR);
+                                    if (!dir.exists(dirName)) {
+                                        dir.mkdir(dirName);
+                                    }
+                                    QStringList filelist = sftp->readdir(path);
+                                    filelist.removeOne(".");
+                                    filelist.removeOne("..");
+                                    foreach (QString file, filelist) {
+                                        QString srcPath = path + "/" + file;
+                                        QString dstPath = dstPathR + "/" + dirName;
+                                        LIBSSH2_SFTP_ATTRIBUTES fileinfo = sftp->getFileInfo(srcPath);
+                                        if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                                            if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                                                downloadDir(srcPath, dstPath);
+                                            } else {
+                                                SftpTransferThread::task_t task;
+                                                task.srcPath = srcPath;
+                                                task.dstPath = dstPath + "/" + file;
+                                                task.type = SftpTransferThread::Download;
+                                                transferThread->addTask(task);
+                                                needDataSize += fileinfo.filesize;
+                                                ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                                                ui->listWidgetTransfer->scrollToBottom();
+                                                taskNum++;
+                                            }
+                                        }
+                                    }
+                                };
+                                downloadDir(path, ui->lineEditPathLocal->text());
+                            } else {
+                                QString dstPath = ui->lineEditPathLocal->text() + QDir::separator() + QFileInfo(path).fileName();
+                                QFileInfo fileInfo(dstPath);
+                                if (fileInfo.exists()) {
+                                    bool ok = QMessageBox::question(this, tr("File exists"), tr("File %1 already exists. Do you want to overwrite it?").arg(dstPath)) == QMessageBox::Yes;
+                                    if (!ok) {
+                                        return;
+                                    }
+                                }
+                                SftpTransferThread::task_t task;
+                                task.srcPath = path;
+                                task.dstPath = dstPath;
+                                task.type = SftpTransferThread::Download;
+                                transferThread->addTask(task);
+                                needDataSize += sshFileSystemModel->filesize(index);
+                                ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                                ui->listWidgetTransfer->scrollToBottom();
+                                taskNum++;
+                            }
+                        }
+                    });
                     QString path = sshFileSystemModel->filePath(index);
                     if (!path.isEmpty()) {
                         if(sshFileSystemModel->isDir(index)) {
-                            std::function<void(const QString &, const QString &)> downloadDir = 
-                            [&](const QString &path, const QString &dstPathR) {
-                                QString dirName = QFileInfo(path).fileName();
-                                QDir dir(dstPathR);
-                                if (!dir.exists(dirName)) {
-                                    dir.mkdir(dirName);
-                                }
-                                QStringList filelist = sftp->readdir(path);
-                                filelist.removeOne(".");
-                                filelist.removeOne("..");
-                                foreach (QString file, filelist) {
-                                    QString srcPath = path + "/" + file;
-                                    QString dstPath = dstPathR + "/" + dirName;
-                                    LIBSSH2_SFTP_ATTRIBUTES fileinfo = sftp->getFileInfo(srcPath);
-                                    if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
-                                        if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
-                                            downloadDir(srcPath, dstPath);
-                                        } else {
-                                            SftpTransferThread::task_t task;
-                                            task.srcPath = srcPath;
-                                            task.dstPath = dstPath + "/" + file;
-                                            task.type = SftpTransferThread::Download;
-                                            transferThread->addTask(task);
-                                            needDataSize += fileinfo.filesize;
-                                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
-                                            ui->listWidgetTransfer->scrollToBottom();
-                                            taskNum++;
-                                        }
-                                    }
-                                }
-                            };
-                            downloadDir(path, ui->lineEditPathLocal->text());
-                        } else {
-                            QString dstPath = ui->lineEditPathLocal->text() + QDir::separator() + QFileInfo(path).fileName();
-                            QFileInfo fileInfo(dstPath);
-                            if (fileInfo.exists()) {
-                                bool ok = QMessageBox::question(this, tr("File exists"), tr("File %1 already exists. Do you want to overwrite it?").arg(dstPath)) == QMessageBox::Yes;
-                                if (!ok) {
-                                    return;
+                            menu->addAction(tr("Open"), [=](){
+                                ui->lineEditPathRemote->setText(path);
+                                ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(path));
+                            });
+                        }
+                    }
+                    menu->addAction(tr("refresh"), [=](){
+                        ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(sshFileSystemModel->rootPath()));
+                    });
+                }
+            } else if(pathList.count() > 1) {
+                menu->addAction(tr("Download All"), [=](){
+                    std::function<void(const QStringList &, const QString &)> downloadDir = 
+                    [&](const QStringList &pathList, const QString &dstPathR) {
+                        QString dirName = QFileInfo(pathList.first()).fileName();
+                        QDir dir(dstPathR);
+                        if (!dir.exists(dirName)) {
+                            dir.mkdir(dirName);
+                        }
+                        foreach (QString path, pathList) {
+                            LIBSSH2_SFTP_ATTRIBUTES fileinfo = sftp->getFileInfo(path);
+                            if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                                if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                                    downloadDir(pathList, dstPathR + "/" + dirName);
+                                } else {
+                                    SftpTransferThread::task_t task;
+                                    task.srcPath = path;
+                                    task.dstPath = dstPathR + "/" + dirName + "/" + QFileInfo(path).fileName();
+                                    task.type = SftpTransferThread::Download;
+                                    transferThread->addTask(task);
+                                    needDataSize += fileinfo.filesize;
+                                    ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                                    ui->listWidgetTransfer->scrollToBottom();
+                                    taskNum++;
                                 }
                             }
-                            SftpTransferThread::task_t task;
-                            task.srcPath = path;
-                            task.dstPath = dstPath;
-                            task.type = SftpTransferThread::Download;
-                            transferThread->addTask(task);
-                            needDataSize += sshFileSystemModel->filesize(index);
-                            ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
-                            ui->listWidgetTransfer->scrollToBottom();
-                            taskNum++;
+                        }
+                    };
+                    foreach (QString path, pathList) {
+                        LIBSSH2_SFTP_ATTRIBUTES fileinfo = sftp->getFileInfo(path);
+                        if (fileinfo.flags & LIBSSH2_SFTP_ATTR_PERMISSIONS) {
+                            if (fileinfo.permissions & LIBSSH2_SFTP_S_IFDIR) {
+                                downloadDir(pathList, ui->lineEditPathLocal->text());
+                                break;
+                            } else {
+                                QString dstPath = ui->lineEditPathLocal->text() + QDir::separator() + QFileInfo(path).fileName();
+                                SftpTransferThread::task_t task;
+                                task.srcPath = path;
+                                task.dstPath = dstPath;
+                                task.type = SftpTransferThread::Download;
+                                transferThread->addTask(task);
+                                needDataSize += fileinfo.filesize;
+                                ui->listWidgetTransfer->addItem(QString::number(task.id) + " : " + task.srcPath + " -> " + task.dstPath + " " + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + " transfering...");
+                                ui->listWidgetTransfer->scrollToBottom();
+                                taskNum++;
+                            }
                         }
                     }
                 });
-                QString path = sshFileSystemModel->filePath(index);
-                if (!path.isEmpty()) {
-                    if(sshFileSystemModel->isDir(index)) {
-                        menu->addAction(tr("Open"), [=](){
-                            ui->lineEditPathRemote->setText(path);
-                            ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(path));
-                        });
-                    }
-                }
-                menu->addAction(tr("refresh"), [=](){
-                    ui->treeViewRemote->setRootIndex(sshFileSystemModel->setRootPath(sshFileSystemModel->rootPath()));
+                menu->addAction(tr("Cancel Selection"), [=](){
+                    ui->treeViewRemote->clearSelection();
                 });
-                menu->move(cursor().pos()+QPoint(5,5));
-                menu->show();
             }
+            if(menu->isEmpty()) {
+                delete menu;
+                return;
+            }
+            menu->move(cursor().pos()+QPoint(5,5));
+            menu->show();
         }
     });
 

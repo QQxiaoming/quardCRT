@@ -1767,9 +1767,6 @@ bool QGoodWindow::event(QEvent *event)
         if (!widget->isWindow())
             break;
 
-        if (!FIXED_SIZE(widget))
-            break;
-
         if (!widget->isModal())
             break;
 
@@ -3130,13 +3127,6 @@ LRESULT QGoodWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
                     gw->updateScreen(gw->screenForWindow(hwnd));
                 };
 
-                auto func_flush = [=]
-                {
-                    //Fix native window frozen state
-                    gw->m_main_window->resize(gw->size() * 2);
-                    gw->m_main_window->resize(gw->size());
-                };
-
                 auto func_finish = [=]
                 {
                     gw->internalWidgetResize();
@@ -3152,7 +3142,6 @@ LRESULT QGoodWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
                 if (!gw->m_main_window->testAttribute(Qt::WA_NativeWindow))
                 {
                     func_init();
-                    func_flush();
                     func_finish();
                     func_show();
                 }
@@ -3161,7 +3150,6 @@ LRESULT QGoodWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
                     QTimer::singleShot(0, gw, [=]{
                         func_init();
                         func_show();
-                        func_flush();
                         func_finish();
                     });
                 }

@@ -4141,19 +4141,35 @@
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="336"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="302"/>
+        <source>Upload All</source>
+        <translation>上傳全部</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="346"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="522"/>
+        <source>Cancel Selection</source>
+        <translation>取消選擇</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="403"/>
         <source>Download</source>
         <translation>下載</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File exists</source>
         <translation>文件已存在</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>文件%1已經存在。 您要覆蓋它嗎？</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="474"/>
+        <source>Download All</source>
+        <translation>下載全部</translation>
     </message>
 </context>
 <context>

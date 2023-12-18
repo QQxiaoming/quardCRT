@@ -41,7 +41,7 @@ Shadow::Shadow(qintptr hwnd, QGoodWindow *gw, QWidget *parent) : QWidget(parent)
     m_parent = gw;
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint |
-                   (!m_parent ? Qt::Tool : Qt::WindowStaysOnTopHint));
+                   (!m_parent ? Qt::Tool : Qt::WindowFlags(0)));
 
     setAttribute(Qt::WA_NoSystemBackground);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -101,8 +101,7 @@ void Shadow::show()
     QWidget::show();
     QWidget::raise();
 
-    SetWindowPos(m_hwnd, !parentWidget() ? HWND_TOP : HWND_TOPMOST,
-                 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
+    SetWindowPos(m_hwnd, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
 #endif
 #ifdef Q_OS_LINUX
     if (m_timer->isActive())

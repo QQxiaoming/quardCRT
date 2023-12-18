@@ -4141,19 +4141,35 @@
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="336"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="302"/>
+        <source>Upload All</source>
+        <translation>全てアップロード</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="346"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="522"/>
+        <source>Cancel Selection</source>
+        <translation>選択をキャンセル</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="403"/>
         <source>Download</source>
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File exists</source>
         <translation>ファイルが存在します</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.cpp" line="376"/>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="443"/>
         <source>File %1 already exists. Do you want to overwrite it?</source>
         <translation>ファイル %1 は既に存在します。上書きしますか？</translation>
+    </message>
+    <message>
+        <location filename="../src/sftpwindow/sftpwindow.cpp" line="474"/>
+        <source>Download All</source>
+        <translation>全てダウンロード</translation>
     </message>
 </context>
 <context>

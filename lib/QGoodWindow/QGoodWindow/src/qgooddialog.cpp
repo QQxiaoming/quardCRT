@@ -78,9 +78,6 @@ int QGoodDialog::exec()
     bool is_input_dialog = qobject_cast<QInputDialog*>(m_dialog);
 
     auto func_center = [=]{
-        if (!is_message_box && !is_input_dialog)
-            return;
-
         QScreen *parent_screen = m_parent_gw->windowHandle()->screen();
 
         qreal pixel_ratio = parent_screen->devicePixelRatio();
