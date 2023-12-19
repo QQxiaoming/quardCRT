@@ -28,6 +28,7 @@
 #include <QMessageBox>
 #include <QFontDialog>
 #include <QDesktopServices>
+#include "qtermwidget.h"
 
 #include "filedialog.h"
 #include "globalsetting.h"
@@ -154,6 +155,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     settings.endArray();
     globalOptionsGeneralWidget->ui->comboBoxNewTabWorkPath->setCurrentText(settings.value("Global/Options/NewTabWorkPath",QDir::homePath()).toString());
 
+    setAvailableColorSchemes(QTermWidget::availableColorSchemes());
     buttonBoxAccepted();
 
     connect(globalOptionsAppearanceWidget->ui->spinBoxFontSize, &QSpinBox::valueChanged, this, &GlobalOptionsWindow::fontSizeChanged);

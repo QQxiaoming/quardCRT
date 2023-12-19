@@ -113,7 +113,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     keyMapManagerWindow->setAvailableKeyBindings(QTermWidget::availableKeyBindings());
 
     globalOptionsWindow = new GlobalOptionsWindow(this);
-    globalOptionsWindow->setAvailableColorSchemes(QTermWidget::availableColorSchemes());
 
     sessionOptionsWindow = new SessionOptionsWindow(this);
 
