@@ -38,7 +38,10 @@ SftpWindow::SftpWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::Window);
 
-    bookmarkWindow = new SFTPmenuBookmarkWindow(this);
+    bookmarkWindow = new SFTPmenuBookmarkWidget(this);
+    ui->verticalLayout_4->insertWidget(0, bookmarkWindow);
+    ui->splitter_2->setSizes(QList<int>() << 1 << 0);
+    ui->splitter_2->setStretchFactor(1, 0);
     menuBar = new QMenuBar(this);
     menuBookmarks = new QMenu(tr("Bookmarks"), menuBar);
     actionAddBookmark = new QAction(tr("Add Bookmark"), menuBookmarks);
@@ -52,35 +55,35 @@ SftpWindow::SftpWindow(QWidget *parent) :
     this->layout()->setMenuBar(menuBar);
     connect(actionAddBookmark, &QAction::triggered, [=](){
         bookmarkWindow->setConfig("","","");
-        bookmarkWindow->show();
+        ui->splitter_2->setSizes(QList<int>() << 1 << 1);
     });
     connect(actionEditBookmark, &QAction::triggered, [=](){
         QStringList bookmarkNameList;
-        foreach(SFTPmenuBookmarkWindow::Config data, bookmarkList) {
+        foreach(SFTPmenuBookmarkWidget::Config data, bookmarkList) {
             bookmarkNameList.append(data.bookmarkName);
         }
         if(bookmarkNameList.isEmpty()) return;
         bool isOk = false;
         QString bookmarkName = QInputDialog::getItem(this, tr("Edit Bookmark"), tr("Bookmark Name:"), bookmarkNameList, 0, false, &isOk);
         if(!isOk || bookmarkName.isEmpty()) return;
-        foreach(SFTPmenuBookmarkWindow::Config data, bookmarkList) {
+        foreach(SFTPmenuBookmarkWidget::Config data, bookmarkList) {
             if(data.bookmarkName == bookmarkName) {
                 bookmarkWindow->setConfig(data);
-                bookmarkWindow->show();
+                ui->splitter_2->setSizes(QList<int>() << 1 << 1);
                 break;
             }
         }
     });
     connect(actionRemoveBookmark, &QAction::triggered, [=](){
         QStringList bookmarkNameList;
-        foreach(SFTPmenuBookmarkWindow::Config data, bookmarkList) {
+        foreach(SFTPmenuBookmarkWidget::Config data, bookmarkList) {
             bookmarkNameList.append(data.bookmarkName);
         }
         if(bookmarkNameList.isEmpty()) return;
         bool isOk = false;
         QString bookmarkName = QInputDialog::getItem(this, tr("Remove Bookmark"), tr("Bookmark Name:"), bookmarkNameList, 0, false, &isOk);
         if(!isOk || bookmarkName.isEmpty()) return;
-        foreach(SFTPmenuBookmarkWindow::Config data, bookmarkList) {
+        foreach(SFTPmenuBookmarkWidget::Config data, bookmarkList) {
             if(data.bookmarkName == bookmarkName) {
                 bookmarkList.removeOne(data);
                 QList<QAction*> actions = menuBookmarks->actions();
@@ -97,14 +100,19 @@ SftpWindow::SftpWindow(QWidget *parent) :
         QByteArray byteArray;
         QDataStream out(&byteArray, QIODevice::WriteOnly);
         out << bookmarkList;
-        settings.setValue("SFTPmenuBookmarkWindow/bookmarkList", byteArray);
+        settings.setValue("SFTPmenuBookmarkWidget/bookmarkList", byteArray);
     });
-    connect(bookmarkWindow,&SFTPmenuBookmarkWindow::accepted,this,[&](){
-        SFTPmenuBookmarkWindow::Config newData = bookmarkWindow->getConfig();
-        if(newData.bookmarkName.isEmpty()) return;
+    connect(bookmarkWindow,&SFTPmenuBookmarkWidget::accepted,this,[&](){
+        ui->splitter_2->setSizes(QList<int>() << 1 << 0);
+        SFTPmenuBookmarkWidget::Config newData = bookmarkWindow->getConfig();
+        if(newData.bookmarkName.isEmpty())  {
+            QMessageBox::warning(this, tr("Warning"), tr("Bookmark Name can not be empty!"));
+            bookmarkWindow->setConfig("","","");
+            return;
+        }
         QString oldNmae = bookmarkWindow->getBookmarkInitName();
         if(!oldNmae.isEmpty()) {
-            foreach(SFTPmenuBookmarkWindow::Config data, bookmarkList) {
+            foreach(SFTPmenuBookmarkWidget::Config data, bookmarkList) {
                 if(data.bookmarkName == oldNmae) {
                     bookmarkList.removeOne(data);
                     QList<QAction*> actions = menuBookmarks->actions();
@@ -131,16 +139,21 @@ SftpWindow::SftpWindow(QWidget *parent) :
         QByteArray byteArray;
         QDataStream out(&byteArray, QIODevice::WriteOnly);
         out << bookmarkList;
-        settings.setValue("SFTPmenuBookmarkWindow/bookmarkList", byteArray);
+        settings.setValue("SFTPmenuBookmarkWidget/bookmarkList", byteArray);
+        bookmarkWindow->setConfig("","","");
+    });
+    connect(bookmarkWindow,&SFTPmenuBookmarkWidget::rejected,this,[&](){
+        ui->splitter_2->setSizes(QList<int>() << 1 << 0);
+        bookmarkWindow->setConfig("","","");
     });
 
     QByteArray byteArray;
     GlobalSetting settings;
-    byteArray = settings.value("SFTPmenuBookmarkWindow/bookmarkList").toByteArray();
+    byteArray = settings.value("SFTPmenuBookmarkWidget/bookmarkList").toByteArray();
     QDataStream in(&byteArray, QIODevice::ReadOnly);
     in >> bookmarkList;
 
-    foreach(SFTPmenuBookmarkWindow::Config data, bookmarkList) {
+    foreach(SFTPmenuBookmarkWidget::Config data, bookmarkList) {
         QAction *action = new QAction(data.bookmarkName, menuBookmarks);
         menuBookmarks->addAction(action);
         connect(action, &QAction::triggered, [=](){

@@ -1,13 +1,13 @@
-#ifndef SFTPMENUBOOKMARKWINDOW_H
-#define SFTPMENUBOOKMARKWINDOW_H
+#ifndef SFTPMENUBOOKMARKWIDGET_H
+#define SFTPMENUBOOKMARKWIDGET_H
 
-#include <QDialog>
+#include <QWidget>
 
 namespace Ui {
-class SFTPmenuBookmarkWindow;
+class SFTPmenuBookmarkWidget;
 }
 
-class SFTPmenuBookmarkWindow : public QDialog
+class SFTPmenuBookmarkWidget : public QWidget
 {
     Q_OBJECT
 
@@ -35,11 +35,11 @@ public:
         bool operator!=(const Config &config) const{
             return !(*this == config);
         }
-        friend QDataStream &operator<<(QDataStream &out, const SFTPmenuBookmarkWindow::Config &config);
-        friend QDataStream &operator>>(QDataStream &in, SFTPmenuBookmarkWindow::Config &config);
+        friend QDataStream &operator<<(QDataStream &out, const SFTPmenuBookmarkWidget::Config &config);
+        friend QDataStream &operator>>(QDataStream &in, SFTPmenuBookmarkWidget::Config &config);
     };
-    explicit SFTPmenuBookmarkWindow(QWidget *parent = nullptr);
-    ~SFTPmenuBookmarkWindow();
+    explicit SFTPmenuBookmarkWidget(QWidget *parent = nullptr);
+    ~SFTPmenuBookmarkWidget();
 
     void setConfig(const QString &bookmarkName,const QString &localPath, const QString &remotePath);
     void setConfig(const Config &config) {
@@ -55,9 +55,13 @@ public:
         return bookmarkInitName;
     }
 
+signals:
+    void accepted();
+    void rejected();
+
 private:
-    Ui::SFTPmenuBookmarkWindow *ui;
+    Ui::SFTPmenuBookmarkWidget *ui;
     QString bookmarkInitName;
 };
 
-#endif // SFTPMENUBOOKMARKWINDOW_H
+#endif // SFTPMENUBOOKMARKWIDGET_H
