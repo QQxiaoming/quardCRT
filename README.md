@@ -28,7 +28,7 @@ Light/dark theme switching:
 
 | ![img4](./docs/dark.png)    | ![img5](./docs/light.png)   |
 | :-------------------------: | :-------------------------: |
-| Light theme                 | Dark theme                  |
+| Dark theme                  | Light theme                 |
 
 Protocol selection interface:
 
