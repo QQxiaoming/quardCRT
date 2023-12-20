@@ -24,7 +24,13 @@ quardCRT is a terminal emulation and remote desktop software that supports multi
 | ![img3](./docs/linux.png)   |
 | Linux                       |
 
-Other protocol selection interface:
+Light/dark theme switching:
+
+| ![img4](./docs/dark.png)    | ![img5](./docs/light.png)   |
+| :-------------------------: | :-------------------------: |
+| Light theme                 | Dark theme                  |
+
+Protocol selection interface:
 
 ![img](./docs/img.png)
 
