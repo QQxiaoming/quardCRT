@@ -107,6 +107,7 @@ private:
     SessionTabBar* dragTabFrom = nullptr;
     SessionTabBarPreviewWidget *preview;
     bool previewEnabled = true;
+    bool mousePressDoing = false;
     int previewIndex = -1;
     static QList<SessionTabBar*> tabBarInstances;
 };

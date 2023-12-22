@@ -153,7 +153,7 @@ bool SessionTabBar::event(QEvent * event) {
         QPoint pos = mapFromGlobal(QCursor::pos());
         int index = tabAt(pos);
         if(index > 0) {
-            if(previewEnabled) {
+            if(previewEnabled && (!mousePressDoing)) {
                 SessionTab *tab = (SessionTab *)parentWidget();
                 QWidget *widget = (QWidget *)tab->widget(index);
                 SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
@@ -198,6 +198,8 @@ void SessionTabBar::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         int index = tabAt(event->pos());
         if(index > 0) {
+            mousePressDoing = true;
+            preview->hide();
             QRect rect = tabRect(index);
             QPixmap pixmap = grab(rect);
             dragLabel = new QLabel;
@@ -230,7 +232,7 @@ void SessionTabBar::mouseMoveEvent(QMouseEvent *event) {
             }
         }
     }
-    if (dragLabel) {
+    if (initializing_drag && dragLabel) {
         dragLabel->move(event->globalPosition().toPoint() + QPoint(3, 3));
         dragLabel->show();
     }
@@ -243,6 +245,7 @@ void SessionTabBar::mouseReleaseEvent(QMouseEvent* event) {
             unsetCursor();
             dragLabel->hide();
             dragLabel->deleteLater();
+            mousePressDoing = false;
             dragLabel = nullptr;
             initializing_drag = false;
             if(dragTabindex != -1) {

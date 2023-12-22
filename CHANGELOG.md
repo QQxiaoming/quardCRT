@@ -2,6 +2,10 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 修复在拖拽标签时预览窗口存在导致的窗口闪烁问题
+
+## [[V0.4.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.0)] - 2023-12-20
+
 - 主UI全面更新，整体风格更现代化，配套亮色/暗色主题更加美观
 - 增加设置选项里打开当前设置文件功能
 - 右上角增加实验室功能，SSH扫描迁移至实验室，未来将会开放插件接口，增加更多特定功能到实验室，访问[插件平台](https://github.com/QuardCRT-platform)
