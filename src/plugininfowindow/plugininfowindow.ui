@@ -32,6 +32,13 @@
      <item>
       <widget class="QLineEdit" name="lineEditAPIVersion"/>
      </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonInstallPlugin">
+       <property name="text">
+        <string>Install plugin</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

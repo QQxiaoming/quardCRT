@@ -28,6 +28,7 @@ cd ./build_release/out
 # 打包
 $QT_DIR/bin/macdeployqt quardCRT.app
 otool -L ./quardCRT.app/Contents/MacOS/quardCRT
+mkdir -p ./quardCRT.app/Contents/MacOS/plugins/QuardCRT
 ./build-dmg.sh quardCRT
 echo build success!
 ###############################################################################

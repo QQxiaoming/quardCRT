@@ -1,3 +1,6 @@
+#include <QDesktopServices>
+#include <QUrl>
+
 #include "plugininfowindow.h"
 #include "ui_plugininfowindow.h"
 
@@ -22,6 +25,11 @@ PluginInfoWindow::PluginInfoWindow(QWidget *parent)
     ui->tableWidget->setColumnWidth(3, 80);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    connect(ui->pushButtonInstallPlugin, &QPushButton::clicked, this, [=](){
+        QString pluginDir = QApplication::applicationDirPath() + "/plugins/QuardCRT";
+        QDesktopServices::openUrl(QUrl::fromLocalFile(pluginDir));
+    });
 }
 
 PluginInfoWindow::~PluginInfoWindow()

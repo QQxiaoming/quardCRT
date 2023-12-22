@@ -42,6 +42,7 @@ xcopy /y "D:\libssh2\bin\*.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty-agent.exe" ".\InnoSetup\build\"
 xcopy /y .\scripts\Profile.ps1 .\InnoSetup\build\
+mkdir ".\InnoSetup\plugins\QuardCRT"
 :: 打包
 echo "wait inno build setup..."
 iscc /q ".\InnoSetup\build_temp_setup.iss"
