@@ -180,7 +180,16 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         connect(mainWidgetGroup->sessionTab,&FancyTabWidget::tabAddRequested,this,[=](){
-            cloneCurrentSession(mainWidgetGroup);
+            int mode = globalOptionsWindow->getNewTabMode();
+            switch(mode) {
+                case 0:
+                    quickConnectWindow->show();
+                    break;
+                default:
+                case 1:
+                    cloneCurrentSession(mainWidgetGroup);
+                    break;
+            }
         });
         connect(mainWidgetGroup->sessionTab,&FancyTabWidget::tabCloseRequested,this,[=](int index){
             stopSession(mainWidgetGroup,index);

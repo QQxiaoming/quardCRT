@@ -134,6 +134,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
+    globalOptionsGeneralWidget->ui->comboBoxNewTabMode->setCurrentIndex(settings.value("newTabMode", 1).toInt());
     settings.endGroup();
 
     if(settings.contains("Global/Options/translateService")) {
@@ -373,6 +374,11 @@ int GlobalOptionsWindow::getTranslateService(void)
     return globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentIndex();
 }
 
+int GlobalOptionsWindow::getNewTabMode(void) 
+{
+    return globalOptionsGeneralWidget->ui->comboBoxNewTabMode->currentIndex();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -396,6 +402,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("tabPreviewWidth", globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->value());
     settings.setValue("wordCharacters", globalOptionsTerminalWidget->ui->lineEditWordCharacters->text());
     settings.setValue("translateService", globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentIndex());
+    settings.setValue("newTabMode", globalOptionsGeneralWidget->ui->comboBoxNewTabMode->currentIndex());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -426,6 +433,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
     globalOptionsAdvancedWidget->ui->comboBoxTranslateService->setCurrentIndex(settings.value("translateService", 0).toInt());
+    globalOptionsGeneralWidget->ui->comboBoxNewTabMode->setCurrentIndex(settings.value("newTabMode", 1).toInt());
     settings.endGroup();
     emit this->rejected();
 }

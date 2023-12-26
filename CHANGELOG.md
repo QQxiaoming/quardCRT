@@ -2,6 +2,7 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 增加设置标签页加号按钮位模式可选为 新建会话/克隆会话 两种方式
 - 修复在拖拽标签时预览窗口存在导致的窗口闪烁问题
 
 ## [[V0.4.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.0)] - 2023-12-20
