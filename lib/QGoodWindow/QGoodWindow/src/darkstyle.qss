@@ -103,6 +103,9 @@ QMainWindow::separator{
   height:5px;
   padding:2px;
 }
+QComboBox {
+  combobox-popup: 0;
+}
 QComboBox QAbstractItemView {
   border: 1px solid palette(shadow);
 }
