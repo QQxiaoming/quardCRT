@@ -204,7 +204,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 QWidget *widget = (QWidget *)mainWidgetGroup->sessionTab->widget(index);
                 foreach(SessionsWindow *sessionsWindow, sessionList) {
                     sessionsWindow->setScrollBarPosition(verticalScrollBarAction->isChecked()?QTermWidget::ScrollBarRight:QTermWidget::NoScrollBar);
-                    // use new style disconnect
                     disconnect(sessionsWindow,&SessionsWindow::hexDataDup,
                                 hexViewWindow,&HexViewWindow::recvData);
                     if(sessionsWindow->getMainWidget() == widget) {
@@ -1858,6 +1857,19 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(connectLocalShellAction,&QAction::triggered,this,[=](){
         startLocalShellSession(findCurrentFocusGroup(),QString(),globalOptionsWindow->getNewTabWorkPath());
+    });
+    connect(reconnectAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isLocked()) return;
+        sessionsWindow->reconnect();
+    });
+    connect(reconnectAllAction,&QAction::triggered,this,[=](){
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(sessionsWindow->isLocked()) continue;
+            sessionsWindow->reconnect();
+        }
     });
     connect(disconnectAction,&QAction::triggered,this,[=](){
         QWidget *widget = findCurrentFocusWidget();

@@ -93,6 +93,8 @@ public:
     int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password);
     int startVNCSession(const QString &hostname, quint16 port, const QString &password);
 
+    void reconnect(void);
+
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
     

@@ -168,6 +168,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 QMessageBox::warning(term, tr("Serial Error"), tr("Serial error:\n%1.").arg(serialPort->errorString()));
                 state = Error;
                 emit stateChanged(state);
+                serialPort->close();
                 Q_UNUSED(serialPortError);
             });
             break;
@@ -526,6 +527,37 @@ int SessionsWindow::startVNCSession(const QString &hostname, quint16 port, const
     m_port = port;
     m_password = password;
     return 0;
+}
+
+void SessionsWindow::reconnect(void) {
+    switch (type) {
+        case LocalShell:
+            //TODO: reconnect
+            break;
+        case Telnet:
+            if(telnet->isConnected()) telnet->disconnectFromHost();
+            startTelnetSession(m_hostname, m_port, m_type);
+            break;
+        case Serial:
+            if(serialPort->isOpen()) serialPort->close();
+            startSerialSession(m_portName, m_baudRate, m_dataBits, m_parity, m_stopBits, m_flowControl, m_xEnable);
+            break;
+        case RawSocket:
+            if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
+            startRawSocketSession(m_hostname, m_port);
+            break;
+        case NamePipe:
+            if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
+            startNamePipeSession(m_pipeName);
+            break;
+        case SSH2:
+            //TODO: reconnect
+            break;
+        case VNC:
+            vncClient->disconnectFromVncServer();
+            startVNCSession(m_hostname, m_port, m_password);
+            break;
+    }
 }
 
 void SessionsWindow::setWorkingDirectory(const QString &dir)
