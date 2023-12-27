@@ -88,6 +88,14 @@ private:
                 ""
             )
         },
+        {"start_know_session",
+            QCommandLineOption(
+                {"k","start_know_session"},
+                "start a known session",
+                "start_know_session",
+                ""
+            )
+        },
     };
 
 public:
@@ -191,6 +199,7 @@ int main(int argc, char *argv[])
     QString app_lang;
     bool isMiniUI = false;
     QString dir;
+    QString start_know_session;
 
     settings.beginGroup("Version");
     if(settings.contains("Version"))
@@ -246,6 +255,9 @@ int main(int argc, char *argv[])
         isMiniUI = AppComLineParser->getOpt("miniui") == "true"?true:false;
     if(AppComLineParser->isSetOpt("start_dir")) 
         dir = AppComLineParser->getOpt("start_dir");
+    if(AppComLineParser->isSetOpt("start_know_session")) {
+        start_know_session = AppComLineParser->getOpt("start_know_session");
+    }
     QFileInfo start_dir(dir);
     if(start_dir.isFile()) {
         dir = start_dir.absolutePath();
@@ -283,7 +295,11 @@ int main(int argc, char *argv[])
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    MainWindow window(dir,isMiniUI?CentralWidget::MINIUI_MODE:CentralWidget::STDUI_MODE,locale,isDarkTheme);
+    MainWindow window(dir,
+            isMiniUI?CentralWidget::MINIUI_MODE:CentralWidget::STDUI_MODE,
+            locale,
+            isDarkTheme,
+            start_know_session);
     window.show();
 
     return application.exec();

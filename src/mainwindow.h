@@ -72,7 +72,8 @@ public:
         STDUI_MODE = 0,
         MINIUI_MODE,
     };
-    CentralWidget(QString dir = QString(), StartupUIMode mode = STDUI_MODE, QLocale lang = QLocale(QLocale::English), bool isDark = true, QWidget *parent = nullptr);
+    CentralWidget(QString dir = QString(), StartupUIMode mode = STDUI_MODE, QLocale lang = QLocale(QLocale::English), 
+        bool isDark = true, QString start_know_session = QString(), QWidget *parent = nullptr);
     ~CentralWidget();
     static void appAbout(QWidget *parent = nullptr);
     static void appHelp(QWidget *parent = nullptr);
@@ -286,7 +287,8 @@ class MainWindow : public QGoodWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(QString dir = QString(), CentralWidget::StartupUIMode mode = CentralWidget::STDUI_MODE, QLocale lang = QLocale(QLocale::English), bool isDark = true, QWidget *parent = nullptr);
+    explicit MainWindow(QString dir = QString(), CentralWidget::StartupUIMode mode = CentralWidget::STDUI_MODE, 
+        QLocale lang = QLocale(QLocale::English), bool isDark = true, QString start_know_session = QString(), QWidget *parent = nullptr);
     ~MainWindow();
     void setLaboratoryButton(QToolButton *laboratoryButton) {
         QTimer::singleShot(0, this, [this, laboratoryButton](){

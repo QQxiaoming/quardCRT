@@ -65,7 +65,8 @@
 
 #include "ui_mainwindow.h"
 
-CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool isDark, QWidget *parent)
+CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool isDark,
+     QString start_know_session, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CentralWidget)
     , windowTransparency(1.0)
@@ -599,11 +600,11 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 } else if(type == "namepipe") {
                     startNamePipeSession(findCurrentFocusGroup(),hostname);
                 } else if(type == "ssh") {
-                    //TODO:
+                    //TODO:start in connectAddress cmd
                 } else if(type == "serial") {
-                    //TODO:
+                    //TODO:start in connectAddress cmd
                 } else if(type == "vnc") {
-                    //TODO:
+                    //TODO:start in connectAddress cmd
                 }
             }
         }
@@ -622,12 +623,17 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         toolBarAction->trigger();
         statusBarAction->trigger();
         sideWindowAction->trigger();
-        if(dir.isEmpty())
+        if(dir.isEmpty() && start_know_session.isEmpty()) {
             connectLocalShellAction->trigger();
+        }
     }
-    if(!dir.isEmpty()) {
-        startLocalShellSession(mainWidgetGroupList.at(0),QString(),dir);
-    }
+    QTimer::singleShot(500, this, [=](){
+        if(!start_know_session.isEmpty()) {
+            connectSessionFromSessionManager(start_know_session);
+        } else if(!dir.isEmpty()) {
+            startLocalShellSession(mainWidgetGroupList.at(0),QString(),dir);
+        }
+    });
 
     // TODO:Unimplemented functions are temporarily closed
     sendASCIIAction->setEnabled(false);
@@ -3474,9 +3480,9 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
     }
 }
 
-MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, QWidget *parent) 
+MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, QString start_know_session, QWidget *parent) 
     : QGoodWindow(parent) {
-    m_central_widget = new CentralWidget(dir,mode,lang,isDark,this);
+    m_central_widget = new CentralWidget(dir,mode,lang,isDark,start_know_session,this);
     m_central_widget->setWindowFlags(Qt::Widget);
 
     m_good_central_widget = new QGoodCentralWidget(this);

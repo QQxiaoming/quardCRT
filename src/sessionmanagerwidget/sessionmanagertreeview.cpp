@@ -87,6 +87,11 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
             });
             QAction *connectInNewWindowAction = new QAction(tr("Connect in New Window"), contextMenu);
             contextMenu->addAction(connectInNewWindowAction);
+            connect(connectInNewWindowAction, &QAction::triggered, this, [=](){
+                QStringList args;
+                args << "--start_know_session" << name;
+                QProcess::startDetached(QApplication::applicationFilePath(),args);
+            });
             QAction *connectInNewTabGroupAction = new QAction(tr("Connect in New Tab Group"), contextMenu);
             contextMenu->addAction(connectInNewTabGroupAction);
             contextMenu->addSeparator();
@@ -103,7 +108,6 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
             });
 
             // TODO:Unimplemented functions are temporarily closed
-            connectInNewWindowAction->setEnabled(false);
             connectInNewTabGroupAction->setEnabled(false);
         }
 
