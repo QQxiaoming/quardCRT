@@ -1547,7 +1547,22 @@
 <context>
     <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="19"/>
+        <source>New tab mode</source>
+        <translation>Modo de nueva pestaña</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="33"/>
+        <source>New session</source>
+        <translation>Nueva sesión</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
+        <source>Clone session</source>
+        <translation>Clonar sesión</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
         <source>New tab workpath</source>
         <translation>Nueva pestaña de trabajo</translation>
     </message>
@@ -2884,8 +2899,13 @@
         <translation>Versión de API</translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="18"/>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="53"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.ui" line="38"/>
+        <source>Install plugin</source>
+        <translation>Instalar complemento</translation>
+    </message>
+    <message>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="21"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="61"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>

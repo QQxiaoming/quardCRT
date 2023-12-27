@@ -94,6 +94,10 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
             });
             QAction *connectInNewTabGroupAction = new QAction(tr("Connect in New Tab Group"), contextMenu);
             contextMenu->addAction(connectInNewTabGroupAction);
+            connect(connectInNewTabGroupAction, &QAction::triggered, this, [=](){
+                //TODO:Connect in another tab group
+                emit sessionConnect(name);
+            });
             contextMenu->addSeparator();
             QAction *deleteAction = new QAction(tr("Delete"), contextMenu);
             contextMenu->addAction(deleteAction);
@@ -106,9 +110,6 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
             connect(propertiesAction, &QAction::triggered, this, [=](){
                 emit sessionShowProperties(name);
             });
-
-            // TODO:Unimplemented functions are temporarily closed
-            connectInNewTabGroupAction->setEnabled(false);
         }
 
         if(!contextMenu->isEmpty()) {

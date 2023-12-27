@@ -1547,7 +1547,22 @@
 <context>
     <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="19"/>
+        <source>New tab mode</source>
+        <translation>새 탭 모드</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="33"/>
+        <source>New session</source>
+        <translation>새 세션</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
+        <source>Clone session</source>
+        <translation>세션 복제</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
         <source>New tab workpath</source>
         <translation>새 탭 작업 경로</translation>
     </message>
@@ -2884,8 +2899,13 @@
         <translation>API 버전</translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="18"/>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="53"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.ui" line="38"/>
+        <source>Install plugin</source>
+        <translation>플러그인 설치</translation>
+    </message>
+    <message>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="21"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="61"/>
         <source>Name</source>
         <translation>이름</translation>
     </message>

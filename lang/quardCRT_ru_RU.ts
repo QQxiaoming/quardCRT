@@ -1547,7 +1547,22 @@
 <context>
     <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="19"/>
+        <source>New tab mode</source>
+        <translation>Режим новой вкладки</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="33"/>
+        <source>New session</source>
+        <translation>Новая сессия</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
+        <source>Clone session</source>
+        <translation>Клонировать сессию</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
         <source>New tab workpath</source>
         <translation>Рабочий каталог новой вкладки</translation>
     </message>
@@ -2892,8 +2907,13 @@
         <translation>Версия API</translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="18"/>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="53"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.ui" line="38"/>
+        <source>Install plugin</source>
+        <translation>Установить плагин</translation>
+    </message>
+    <message>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="21"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="61"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
