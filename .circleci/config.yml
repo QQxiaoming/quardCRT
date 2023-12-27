@@ -5,22 +5,46 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  say-hello:
+  build:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      - image: cimg/base:stable
+    macos:
+      xcode: "15.1.0"
+    resource_class: macos.m1.medium.gen1
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "install aqtinstall"
+          command: "pip3 install aqtinstall"
+      - run:
+          name: "install qt"
+          command: "aqt install-qt mac desktop 6.5.3 clang_64 -m qt5compat qtwebsockets qtserialport qtmultimedia"
+      - run:
+          name: "install create-dmg"
+          command: "brew install create-dmg"
+      - run:
+          name: "build libssh2"
+          command: |
+            cd depend
+            export PATH=$Qt6_DIR/bin:$PATH
+            ./build_libssh2.sh
+            sudo cp -R ./output /usr/local/
+      - run:
+          name: "build"
+          command: |
+            git fetch --tags --force
+            git describe --always --long --dirty --abbrev=10 --tags | awk '{print "\""$0"\""}' > git_tag.inc
+            sed -i'.original' -e 's/git_tag.inc/git_tag.ci.inc/g' quardCRT.pro
+            sed -i'.original' -e 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/macos/g' build_dmg.sh
+            sed -i'.original' -e 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
+            ./build_dmg.sh
+
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  build-workflow:
     jobs:
-      - say-hello
+      - build
