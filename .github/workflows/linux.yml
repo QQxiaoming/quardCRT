@@ -74,3 +74,55 @@ jobs:
           name: quardCRT_Ubuntu2004
           path: |
             ./dpkg/*.deb
+
+  appimage:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.5.3'
+          modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
+          aqtversion: ==3.1.7
+
+      - name: Install prerequisites
+        run: |
+          sudo apt update
+          sudo apt install -y make gcc patchelf chrpath qt5-default libxcb-cursor0 build-essential libgtk-3-dev
+
+      - name: build fcitx_qt6
+        run: |
+          cd depend
+          sudo apt install fcitx-libs-dev qtbase5-private-dev libxkbcommon-dev extra-cmake-modules tree
+          export PATH=$Qt6_DIR/bin:$PATH
+          export PATH=$Qt6_DIR/../../Qt/Tools/CMake/bin:$PATH
+          export Qt6GuiTools_DIR=$Qt6_DIR
+          ./build_fcitx_qt6_linux.sh
+          cp ./fcitx-qt5-1.2.7/build/qt6/platforminputcontext/libfcitxplatforminputcontextplugin-qt6.so ./
+
+      - name: build libssh2
+        run: |
+          cd depend
+          export PATH=$Qt6_DIR/bin:$PATH
+          ./build_libssh2.sh
+          sudo cp -R ./output /usr/local/
+
+      - name: Build all
+        run: |
+          git fetch --tags --force
+          git describe --always --long --dirty --abbrev=10 --tags | awk '{print "\""$0"\""}' > git_tag.inc
+          sed -i 's/git_tag.inc/git_tag.ci.inc/g' quardCRT.pro
+          sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_AppImage.sh
+          sed -i 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
+          ./build_AppImage.sh
+
+      - name: Upload build asserts
+        uses: actions/upload-artifact@v4.0.0
+        with:
+          name: quardCRT_AppImage
+          path: |
+            ./quardCRT-x86_64.AppImage
+            

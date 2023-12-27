@@ -83,3 +83,4 @@ build_*
 !build_setup.bat
 !build_deb.sh
 !build_dmg.sh
+!build_AppImage.sh
