@@ -96,7 +96,7 @@ quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协�
 - [ ] 终端样式自定义
 - [ ] 独立会话设置终端外观
 - [ ] GitHub Copilot插件支持
-- [ ] CI支持Appimage包
+- [x] CI支持Appimage包
 - [ ] CI支持windows on arm64
 
 ## 翻译
@@ -122,6 +122,8 @@ quardCRT将从V0.4.0版本开始支持插件，插件将以Qt Plug-in插件的�
 ## 贡献
 
 如果您对本项目有建议或想法，欢迎在GitHub或Gitee上提交issue和pull requests。
+
+如果您希望改进/修复目前已知的问题，您可以查看[TODO](./TODO.md)。
 
 目前项目建议使用版本Qt6.2.0及更高版本。
 

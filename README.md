@@ -96,7 +96,7 @@ Protocol selection interface:
 - [ ] Terminal style customization
 - [ ] Independent session set terminal appearance
 - [ ] GitHub Copilot plugin support
-- [ ] CI support Appimage package
+- [x] CI support Appimage package
 - [ ] CI support windows on arm64
 
 ## Translation
@@ -122,6 +122,8 @@ please refer to [DEVELOPNOTE.md](./DEVELOPNOTE.md).
 ## Contributing
 
 If you have suggestions or ideas for this project, please submit issues and pull requests on GitHub or Gitee.
+
+If you want to improve/fix the known issues, you can check [TODO](./TODO.md).
 
 The current project is recommended to use version Qt6.2.0 and above.
 

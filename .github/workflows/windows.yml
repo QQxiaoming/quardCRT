@@ -10,6 +10,7 @@ on:
       - 'README_zh_CN.md'
       - 'DEVELOPNOTE.md'
       - 'CHANGELOG.md'
+      - 'TODO.md'
       - '.readthedocs.yaml'
   pull_request:
     branches: [ main ]
@@ -20,6 +21,7 @@ on:
       - 'README_zh_CN.md'
       - 'DEVELOPNOTE.md'
       - 'CHANGELOG.md'
+      - 'TODO.md'
       - '.readthedocs.yaml'
   workflow_dispatch:
 
