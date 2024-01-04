@@ -59,6 +59,8 @@ public:
 	void info(const QModelIndex &index, int &type, QString &name);
 	QModelIndex findItems(QString str, QModelIndex &index);
 
+	void setFilter(QString str) ;
+
 	void dumpTreeItems() ;
 
 private:

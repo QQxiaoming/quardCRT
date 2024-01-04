@@ -118,3 +118,7 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
         }
     }
 }
+
+void SessionManagerTreeView::setFilter(QString str) {
+    mode->setFilter(str);
+}

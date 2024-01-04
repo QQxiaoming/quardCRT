@@ -365,6 +365,39 @@ QModelIndex SessionManagerTreeModel::findItems(QString str, QModelIndex &index)
 	return QModelIndex();
 }
 
+void SessionManagerTreeModel::setFilter(QString str)
+{
+	if(str.isEmpty()) {
+		std::function<void(TreeItem *)> setAllItemsShow = [&](TreeItem *p) {
+			for ( int i = 0 ; i < p->childCount() ; i ++ ) {
+				TreeItem *c = p->child(i);
+				if(c->type() != -1) {
+					QModelIndex parentIndex = createIndex(c->row(), 0, c->parent());
+					m_parent->setRowHidden(c->row(), parentIndex, false);
+				}
+				setAllItemsShow(c);
+			}
+		};
+		setAllItemsShow(m_pRootItem);
+		return;
+	}
+	std::function<void(TreeItem *)> filterItems = [&](TreeItem *p) {
+		for ( int i = 0 ; i < p->childCount() ; i ++ ) {
+			TreeItem *c = p->child(i);
+			if(c->type() != -1) {
+				QModelIndex parentIndex = createIndex(c->row(), 0, c->parent());
+				if(c->data().contains(str)) {
+					m_parent->setRowHidden(c->row(), parentIndex, false);
+				} else {
+					m_parent->setRowHidden(c->row(), parentIndex, true);
+				}
+			}
+			filterItems(c);
+		}
+	};
+	filterItems(m_pRootItem);
+}
+
 void SessionManagerTreeModel::dumpTreeItems()
 {
 	TreeItem *p = m_pRootItem ;

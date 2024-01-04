@@ -43,6 +43,7 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     tree = new SessionManagerTreeView(this);
     ui->verticalLayout->addWidget(tree);
 
+    connect(ui->lineEditFilter, &QLineEdit::textChanged, tree, &SessionManagerTreeView::setFilter);
     connect(tree, &SessionManagerTreeView::sessionConnect, this, &SessionManagerWidget::sessionConnect);
     connect(tree, &SessionManagerTreeView::sessionRemove, this, &SessionManagerWidget::sessionRemove);
     connect(tree, &SessionManagerTreeView::sessionShowProperties, this, &SessionManagerWidget::sessionShowProperties);
@@ -63,7 +64,7 @@ void SessionManagerWidget::addActionOnToolBar(QAction *action)
 
 void SessionManagerWidget::retranslateUi()
 {
-    ui->lineEdit->setPlaceholderText(tr("Filter by folder/session name"));
+    ui->lineEditFilter->setPlaceholderText(tr("Filter by folder/session name"));
     ui->retranslateUi(this);
     tree->retranslateUi();
 }

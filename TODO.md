@@ -6,5 +6,5 @@
 - [ ] sessionoptions需要增加更多选项配置以供用户调整
 - [ ] globaloptions右侧的选项树需要支持多级选项
 - [ ] qtermwidget在某些字体下渲染有问题，需要改进 [#I8RB90](https://gitee.com/QQxiaoming/quardCRT/issues/I8RB90)
-- [ ] sessionmanagerwidget的过滤功能需要完善
+- [x] sessionmanagerwidget的过滤功能需要完善
 - [ ] plugin功能需要增加用户自定义插件的目录并提供界面安装/卸载插件

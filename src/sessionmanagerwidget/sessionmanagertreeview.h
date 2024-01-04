@@ -38,6 +38,9 @@ public:
     bool checkSession(QString str);
     void retranslateUi();
 
+public slots:
+    void setFilter(QString str);
+
 signals:
     void sessionConnect(QString str);
     void sessionRemove(QString str);
