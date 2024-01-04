@@ -12,9 +12,9 @@
 
 # quardCRT
 
-English | [简体中文](./README_zh_CN.md) | [繁體中文](./README_zh_HK.md) | [日本語](./README_ja_JP.md)
+[English](./README.md) | [简体中文](./README_zh_CN.md) | [繁體中文](./README_zh_HK.md) | 日本語
 
-quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
+quardCRT は、複数のバックエンド プロトコルをサポートし、依存関係なくプラットフォーム間で使用でき、Windows/Linux/Mac 上で完全に一貫したユーザー エクスペリエンスを実現するターミナル エミュレーションおよびリモート デスクトップ ソフトウェアです。 マルチタブや履歴管理などの従来のターミナルソフトウェア機能をサポートし、いくつかの独自の詳細な機能をサポートします。
 
 | ![img2](./docs/windows.png) |
 | :-------------------------: |
@@ -24,82 +24,82 @@ quardCRT is a terminal emulation and remote desktop software that supports multi
 | ![img3](./docs/linux.png)   |
 | Linux                       |
 
-Light/dark theme switching:
+ライト/ダーク テーマ切り替え:
 
 | ![img4](./docs/dark.png)    | ![img5](./docs/light.png)   |
 | :-------------------------: | :-------------------------: |
-| Dark theme                  | Light theme                 |
+| ダーク テーマ                | ライト テーマ               |
 
-Protocol selection interface:
+プロトコル選択インターフェイス:
 
 ![img](./docs/img.png)
 
-## Feature
+## 機能
 
-### Currently supported terminal protocols
+### 現在サポートされているターミナル プロトコル
 
 - ssh
-- telnet (Support websocket wrapper)
+- telnet (websocket ラッパーをサポート)
 - serial
 - loaclshell
 - rawsocket
 - windows:NamedPipe（linux/macos:unix domain socket）
 
-### Currently supported remote desktop protocols
+### 現在サポートされているリモート デスクトップ プロトコル
 
 - vnc
 
-### Basic functions
+### 基本機能
 
-- Session history management
-- Multi-tab management, tab cloning, tab drag-and-drop sorting
-- Dual column split screen, tab drag-and-drop to split column
-- Terminal style configuration (color scheme, font)
-- HEX display
-- Terminal background image configuration
-- Terminal scroll line configuration
-- Support dark/light theme
-- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian)
+- セッション履歴管理
+- マルチタブ管理、タブ複製、タブドラッグアンドドロップソート
+- デュアル カラム分割画面、タブドラッグアンドドロップで列を分割
+- ターミナル スタイルの構成 (カラー スキーム、フォント)
+- HEX 表示
+- ターミナル背景画像の構成
+- ターミナル スクロール行の構成
+- ダーク/ライト テーマのサポート
+- 複数言語のサポート (簡体字中国語/繁体字中国語/英語/日本語/韓国語/スペイン語/フランス語/ロシア語)
 
-### Special functions
+### 特別な機能
 
-| Tab floating preview |
-| :------------------: |
+| タブ浮動プレビュー |
+| :----------------: |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/5ecc8560-94ed-4d6e-90c4-7c18cce0db63"></video> |
-| Floating window support, tab drag-and-drop to floating window |
+| 浮動ウィンドウのサポート、タブのドラッグアンドドロップで浮動ウィンドウ |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/15a9401a-5302-44c4-a693-e5e3043d8ca6"></video> |
-| SSH2 session one-click open SFTP file transfer window |
+| SSH2 セッションのワンクリックで SFTP ファイル転送ウィンドウを開く |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/3097025c-3279-4c5b-b5fe-166607211dd9"></video> |
-| Working directory bookmark |
+| 作業ディレクトリのブックマーク |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/82a2866e-cf45-4933-8638-777f6baff682"></video> |
-| Automated sending |
+| 自動送信 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/59d05a59-31fd-4133-8dbe-deb43122fe8c"></video> |
-| Terminal background image supports gif animation and video |
+| ターミナル背景画像は gif アニメーションとビデオをサポートします |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/4fdb10c3-b754-4b1c-8dc3-bbe83d3b0fcf"></video> |
-| Terminal keyword highlight matching |
+| ターミナル キーワードのハイライト一致 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/2d136273-8a53-4d4c-9cae-4609600bd32a"></video> |
-| Selected text translation function |
+| 選択したテキストの翻訳機能 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/aae7a324-808f-45e5-a86d-579d9002b28b"></video> |
-| Path matching and one-click direct |
+| パスの一致とワンクリック直接 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/4aea9223-babd-4715-a908-56227ba04fed"></video> |
-| Working path direct |
+| 作業パスの直接 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/616c1c09-ffa1-428d-b897-1966ecb7517b"></video> |
-| Windows local terminal enhancement (Tab key to select complete command, etc.) |
+| Windows ローカル ターミナルの強化 (Tab キーで完全なコマンドを選択など) |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/f60eed90-5c77-48c9-9c14-71f4a3d993b9"></video> |
 
-## Planned features
+## 計画された機能
 
-- [ ] Support xyzmodem protocol
-- [ ] Support operation script recording/loading
-- [ ] Support screen recording
-- [ ] session status query
-- [ ] Terminal style customization
-- [ ] Independent session set terminal appearance
-- [ ] GitHub Copilot plugin support
-- [x] CI support Appimage package
-- [ ] CI support windows on arm64
+- [ ] xyzmodemプロトコルをサポート
+- [ ] 操作スクリプトの記録/ロードをサポート
+- [ ] スクリーン録画をサポート
+- [ ] セッション状態のクエリ
+- [ ] ターミナル スタイルのカスタマイズ
+- [ ] 独立したセッションはターミナルの外観を設定します
+- [ ] GitHub Copilot プラグインのサポート
+- [x] CI サポート Appimage パッケージ
+- [ ] CI サポート windows on arm64
 
-## Translation
+## 翻訳
 
 | English  | ![en_US](./docs/en_US.svg) |
 | :------: | :------------------------: |
@@ -111,29 +111,29 @@ Protocol selection interface:
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
 
-## Plugin
+## プラグイン
 
-quardCRT will support plugins from version V0.4.0, plugins will be provided in the form of Qt plugins, loaded in the form of dynamic libraries, to learn more about plugin development information, please refer to the plugin open platform [https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform), This platform will provide template repositories and related examples for plugin development. At present, the plugin function is still in the early development stage. If you have good ideas or suggestions, please submit issues or discussions on GitHub or Gitee.
+quardCRT はバージョン V0.4.0 からプラグインをサポートします。プラグインは Qt プラグインの形式で提供され、動的ライブラリの形式でロードされます。プラグイン開発情報の詳細については、プラグインオープンプラットフォーム [https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform) を参照してください。このプラットフォームでは、プラグイン開発のテンプレートリポジトリと関連する例を提供します。現在、プラグイン機能はまだ開発初期の段階にあります。良いアイデアや提案があれば、GitHub または Gitee で issue または discussion を提出してください。
 
-## Build
+## ビルド
 
-please refer to [DEVELOPNOTE.md](./DEVELOPNOTE.md).
+[DEVELOPNOTE.md](./DEVELOPNOTE.md) を参照してください。
 
-## Contributing
+## 貢献
 
-If you have suggestions or ideas for this project, please submit issues and pull requests on GitHub or Gitee.
+このプロジェクトに対する提案やアイデアがある場合は、GitHub または Gitee で issue と pull request を提出してください。
 
-If you want to improve/fix the known issues, you can check [TODO](./TODO.md).
+既知の問題を改善/修正する場合は、[TODO](./TODO.md) を確認できます。
 
-The current project is recommended to use version Qt6.2.0 and above.
+現在のプロジェクトは、バージョン Qt6.2.0 以上を使用することをお勧めします。
 
-## Special
+## 特別な
 
-The project is currently developed in my spare time. In order to improve the development efficiency, this project uses GitHub Copilot to assist in code writing. The readability of some code may not be very good, and the author will try to optimize it in subsequent versions.
+このプロジェクトは現在、余暇時間で開発されています。開発効率を向上させるために、このプロジェクトでは GitHub Copilot を使用してコードを記述することが多く、一部のコードの可読性があまり良くないかもしれませんが、作者は後続のバージョンで最適化するように努めます。
 
-## Thanks
+## 感謝
 
-The code of this project references or partially refers to or depends on the following open source projects. The project fully respects the open source agreement of the original project and would like to express its gratitude.
+このプロジェクトのコードは、以下のオープンソース プロジェクトを参照または部分的に参照または依存しています。プロジェクトは、元のプロジェクトのオープンソース契約を完全に尊重し、感謝の意を表明します。
 
 - [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 - [QFontIcon](https://github.com/dridk/QFontIcon)

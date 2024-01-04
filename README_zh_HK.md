@@ -12,9 +12,9 @@
 
 # quardCRT
 
-English | [简体中文](./README_zh_CN.md) | [繁體中文](./README_zh_HK.md) | [日本語](./README_ja_JP.md)
+[English](./README.md) | [简体中文](./README_zh_CN.md) | 繁體中文 | [日本語](./README_ja_JP.md)
 
-quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
+quardCRT一款多功能終端模擬/圖形桌面軟體，支援多種後端協議，無依賴跨平台使用，windows/linux/mac使用體驗完全一致，支援多標籤頁和歷史記錄管理等傳統終端軟體功能，同時支援一些獨具特色的細節功能。
 
 | ![img2](./docs/windows.png) |
 | :-------------------------: |
@@ -24,82 +24,82 @@ quardCRT is a terminal emulation and remote desktop software that supports multi
 | ![img3](./docs/linux.png)   |
 | Linux                       |
 
-Light/dark theme switching:
+亮/暗主題切換：
 
 | ![img4](./docs/dark.png)    | ![img5](./docs/light.png)   |
 | :-------------------------: | :-------------------------: |
-| Dark theme                  | Light theme                 |
+| 暗主題                      | 亮主題                      |
 
-Protocol selection interface:
+協議選擇界面：
 
 ![img](./docs/img.png)
 
-## Feature
+## 功能描述
 
-### Currently supported terminal protocols
+### 目前支持的終端協議
 
 - ssh
-- telnet (Support websocket wrapper)
+- telnet (支援帶websocket封裝)
 - serial
 - loaclshell
 - rawsocket
 - windows:NamedPipe（linux/macos:unix domain socket）
 
-### Currently supported remote desktop protocols
+### 目前支持的圖形桌面協議
 
 - vnc
 
-### Basic functions
+### 基本功能
 
-- Session history management
-- Multi-tab management, tab cloning, tab drag-and-drop sorting
-- Dual column split screen, tab drag-and-drop to split column
-- Terminal style configuration (color scheme, font)
-- HEX display
-- Terminal background image configuration
-- Terminal scroll line configuration
-- Support dark/light theme
-- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian)
+- 會話記錄管理
+- 多標籤頁管理，標籤頁克隆，標籤頁拖拽排序
+- 雙列分屏顯示，標籤頁自由拖拽至分列
+- 終端樣式配置（配色方案，字體）
+- HEX顯示
+- 終端背景圖片配置
+- 終端滾動行數設置
+- 支持深色/淺色主題
+- UI支持多語言（簡體中文/繁體中文/英語/日語/韓語/西班牙語/法語/俄語）
 
-### Special functions
+### 特色功能 （帶視頻演示，需要前往github查看）
 
-| Tab floating preview |
-| :------------------: |
+| 標籤頁懸浮預覽 |
+| :------------: |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/5ecc8560-94ed-4d6e-90c4-7c18cce0db63"></video> |
-| Floating window support, tab drag-and-drop to floating window |
+| 浮動視窗支持，可將標籤頁拖曳至浮動窗口 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/15a9401a-5302-44c4-a693-e5e3043d8ca6"></video> |
-| SSH2 session one-click open SFTP file transfer window |
+| SSH2會話一鍵開啟SFTP檔案傳輸視窗 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/3097025c-3279-4c5b-b5fe-166607211dd9"></video> |
-| Working directory bookmark |
+| 本地終端工作目錄書籤 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/82a2866e-cf45-4933-8638-777f6baff682"></video> |
-| Automated sending |
+| 自動化發送 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/59d05a59-31fd-4133-8dbe-deb43122fe8c"></video> |
-| Terminal background image supports gif animation and video |
+| 終端機背景圖片支援gif動畫和視頻 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/4fdb10c3-b754-4b1c-8dc3-bbe83d3b0fcf"></video> |
-| Terminal keyword highlight matching |
+| 終端機關鍵詞高亮匹配 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/2d136273-8a53-4d4c-9cae-4609600bd32a"></video> |
-| Selected text translation function |
+| 選中文本翻譯功能 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/aae7a324-808f-45e5-a86d-579d9002b28b"></video> |
-| Path matching and one-click direct |
+| 路徑匹配與一鍵直達 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/4aea9223-babd-4715-a908-56227ba04fed"></video> |
-| Working path direct |
+| 工作路徑直達 |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/616c1c09-ffa1-428d-b897-1966ecb7517b"></video> |
-| Windows local terminal enhancement (Tab key to select complete command, etc.) |
+| windows本地端增強（Tab鍵選擇補全指令等） |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/f60eed90-5c77-48c9-9c14-71f4a3d993b9"></video> |
 
-## Planned features
+## 計劃中特性
 
-- [ ] Support xyzmodem protocol
-- [ ] Support operation script recording/loading
-- [ ] Support screen recording
-- [ ] session status query
-- [ ] Terminal style customization
-- [ ] Independent session set terminal appearance
-- [ ] GitHub Copilot plugin support
-- [x] CI support Appimage package
-- [ ] CI support windows on arm64
+- [ ] xyzmodem協議支持
+- [ ] 支持操作腳本錄制/加載
+- [ ] 支持終端顯示錄制
+- [ ] 會話狀態查詢
+- [ ] 終端樣式自定義
+- [ ] 獨立會話設置終端外觀
+- [ ] GitHub Copilot插件支持
+- [x] CI支持Appimage包
+- [ ] CI支持windows on arm64
 
-## Translation
+## 翻譯
 
 | English  | ![en_US](./docs/en_US.svg) |
 | :------: | :------------------------: |
@@ -113,27 +113,27 @@ Protocol selection interface:
 
 ## Plugin
 
-quardCRT will support plugins from version V0.4.0, plugins will be provided in the form of Qt plugins, loaded in the form of dynamic libraries, to learn more about plugin development information, please refer to the plugin open platform [https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform), This platform will provide template repositories and related examples for plugin development. At present, the plugin function is still in the early development stage. If you have good ideas or suggestions, please submit issues or discussions on GitHub or Gitee.
+quardCRT將從V0.4.0版本開始支持Plugin，以Qt Plug-in的形式提供，以動態庫的形式加載，想了解更多Plugin開發信息請參考Plugin開放平臺[https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform)，此平臺將提供Plugin開發的模板倉庫以及相關示例。目前Plugin功能仍處於早期開發階段，如果您有好的想法或建議，歡迎在GitHub或Gitee上提交issue或discussion。
 
-## Build
+## 編譯說明
 
-please refer to [DEVELOPNOTE.md](./DEVELOPNOTE.md).
+請參考[開發筆記](./DEVELOPNOTE.md)。
 
-## Contributing
+## 貢獻
 
-If you have suggestions or ideas for this project, please submit issues and pull requests on GitHub or Gitee.
+如果您對本項目有建議或想法，歡迎在GitHub或Gitee上提交issue和pull requests。
 
-If you want to improve/fix the known issues, you can check [TODO](./TODO.md).
+如果您希望改進/修復目前已知的問題，您可以查看[TODO](./TODO.md)。
 
-The current project is recommended to use version Qt6.2.0 and above.
+目前項目建議使用版本Qt6.2.0及更高版本。
 
-## Special
+## 特別
 
-The project is currently developed in my spare time. In order to improve the development efficiency, this project uses GitHub Copilot to assist in code writing. The readability of some code may not be very good, and the author will try to optimize it in subsequent versions.
+項目目前為個人業餘時間開發，為提高開發效率，本項目較為大量的使用了GitHub Copilot協助程式碼編寫，部分程式碼的人類可讀性可能不是很好，作者也會盡量在後續版本中進行最佳化。
 
-## Thanks
+## 感謝
 
-The code of this project references or partially refers to or depends on the following open source projects. The project fully respects the open source agreement of the original project and would like to express its gratitude.
+本項目程式碼引用或部份參考或依賴了以下開源項目，項目完全尊重原項目開源協議，並在此表示感謝。
 
 - [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)
 - [QFontIcon](https://github.com/dridk/QFontIcon)

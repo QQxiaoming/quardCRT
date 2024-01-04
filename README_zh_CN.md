@@ -12,7 +12,7 @@
 
 # quardCRT
 
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 | [繁體中文](./README_zh_HK.md) | [日本語](./README_ja_JP.md)
 
 quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协议，无依赖跨平台使用，windows/linux/mac使用体验完全一致，支持多标签页和历史记录管理等传统终端软件功能，同时支持一些独具特色的细节功能。
 
