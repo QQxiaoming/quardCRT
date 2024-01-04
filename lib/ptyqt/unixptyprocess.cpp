@@ -179,7 +179,6 @@ bool UnixPtyProcess::startProcess(const QString &shellPath, QStringList args,
     defaultVars.append("XPC_FLAGS=0x0");
     defaultVars.append("XPC_SERVICE_NAME=0");
     defaultVars.append("LANG=en_US.UTF-8");
-    defaultVars.append("LC_ALL=en_US.UTF-8");
     defaultVars.append("LC_CTYPE=UTF-8");
     defaultVars.append("INIT_CWD=" + workDir);
     defaultVars.append("COMMAND_MODE=unix2003");
