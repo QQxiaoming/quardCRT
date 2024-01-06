@@ -3,3 +3,4 @@
 !build_libssh2.sh
 !build_libssh2_msvc.bat
 !build_libssh2_mingw.sh
+output
