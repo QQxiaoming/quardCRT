@@ -16,23 +16,23 @@
 
 quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协议，无依赖跨平台使用，windows/linux/mac使用体验完全一致，支持多标签页和历史记录管理等传统终端软件功能，同时支持一些独具特色的细节功能。
 
-| ![img2](./docs/windows.png) |
+| ![img2](./docs/windows_zh_CN.png) |
 | :-------------------------: |
 | Windows                     |
-| ![img1](./docs/macos.png)   |
+| ![img1](./docs/macos_zh_CN.png)   |
 | MacOS                       |
-| ![img3](./docs/linux.png)   |
+| ![img3](./docs/linux_zh_CN.png)   |
 | Linux                       |
 
 亮/暗主题切换：
 
-| ![img4](./docs/dark.png)    | ![img5](./docs/light.png)   |
+| ![img4](./docs/dark_zh_CN.png)    | ![img5](./docs/light_zh_CN.png)   |
 | :-------------------------: | :-------------------------: |
 | 暗主题                      | 亮主题                      |
 
 协议选择界面：
 
-![img](./docs/img.png)
+![img](./docs/img_zh_CN.png)
 
 ## 功能描述
 
