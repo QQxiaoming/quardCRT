@@ -188,7 +188,18 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     break;
                 default:
                 case 1:
-                    cloneCurrentSession(mainWidgetGroup);
+                    cloneSessionAction->trigger();
+                    break;
+                case 2:
+                    QWidget *widget = findCurrentFocusWidget();
+                    if(widget != nullptr) {
+                        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
+                        if(SessionsWindow::LocalShell == sessionsWindow->getSessionType()) {
+                            cloneSessionAction->trigger();
+                            return;
+                        }
+                    }
+                    connectLocalShellAction->trigger();
                     break;
             }
         });

@@ -38,6 +38,11 @@
          <string>Clone session</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>LocalShell session</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
