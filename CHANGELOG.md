@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.4.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.1)] - 2024-01-13
+
 - 增加会话管理器中在新窗口打开会话功能
 - 增加设置标签页加号按钮位模式可选为 新建会话/克隆会话/本地Shell会话 三种方式
 - 增加会话管理器中过滤功能
