@@ -66,7 +66,7 @@ jobs:
           ./build_dmg.sh
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v4.1.0
         with:
           name: quardCRT_macos
           path: |
