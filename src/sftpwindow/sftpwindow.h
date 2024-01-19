@@ -25,6 +25,9 @@
 #include <QThread>
 #include <QMutex>
 #include <QMenuBar>
+#include <QQueue>
+#include <QMutexLocker>
+#include <QWaitCondition>
 
 #include "qcustomfilesystemmodel.h"
 #include "sshsftp.h"
@@ -55,21 +58,22 @@ public:
     }
     ~SftpTransferThread() {
         exit = true;
+        condition.wakeOne();
         wait();
     }
 
     void setSftpChannel(SshSFtp *sftp) {
-        mutex.lock();
+        QMutexLocker locker(&mutex);
         this->sftp = sftp;
-        mutex.unlock();
+        condition.wakeOne();
     }
-    void addTask(task_t &task) {
-        mutex.lock();
-        task.id = taskId++;
-        taskList.append(task);
-        mutex.unlock();
+    void addTask(const task_t& task) {
+        QMutexLocker locker(&mutex);
+        taskList.enqueue(task);
+        condition.wakeOne();
     }
     bool isBusy() {
+        QMutexLocker locker(&mutex);
         return !taskList.isEmpty();
     }
 
@@ -81,30 +85,34 @@ protected:
     void run() override {
         while (!exit) {
             mutex.lock();
-            if(sftp) {
-                if(taskList.isEmpty()) {
+            while((!sftp) || taskList.isEmpty()) {
+                condition.wait(&mutex);
+                if(exit) {
                     mutex.unlock();
-                    msleep(100);
-                    continue;
+                    return;
                 }
-                task_t task = taskList.takeFirst();
-                mutex.unlock();
-                if (task.type == Upload) {
-                    sftp->send(task.srcPath, task.dstPath);
-                } else if (task.type == Download) {
-                    sftp->get(task.srcPath, task.dstPath, true);
-                }
-                emit taskFinished(task.id, true);
-            } else {
-                mutex.unlock();
             }
+            if(exit) {
+                mutex.unlock();
+                break;
+            }
+            task_t task = taskList.dequeue();
+            SshSFtp *curr_sftp = sftp;
+            mutex.unlock();
+            if (task.type == Upload) {
+                curr_sftp->send(task.srcPath, task.dstPath);
+            } else if (task.type == Download) {
+                curr_sftp->get(task.srcPath, task.dstPath, true);
+            }
+            emit taskFinished(task.id, true);
         }
     }
 private:
     SshSFtp *sftp;
-    QMutex mutex;
     bool exit;
-    QList<task_t> taskList;
+    QMutex mutex;
+    QQueue<task_t> taskList;
+    QWaitCondition condition;
     uint64_t taskId = 0;
 };
 
