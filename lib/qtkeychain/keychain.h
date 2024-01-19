@@ -20,7 +20,7 @@
 
 class QSettings;
 
-#define QTKEYCHAIN_VERSION 0x000100
+#define QTKEYCHAIN_VERSION "0.14.2"
 
 namespace QKeychain {
 

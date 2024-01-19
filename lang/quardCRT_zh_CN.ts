@@ -1562,7 +1562,11 @@
         <translation>克隆会话</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="43"/>
+        <source>LocalShell session</source>
+        <translation>本机终端会话</translation>
+    </message>
+    <message>
         <source>New tab workpath</source>
         <translation>新标签工作目录</translation>
     </message>

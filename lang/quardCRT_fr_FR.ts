@@ -1562,7 +1562,11 @@
         <translation>Cloner la session</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="43"/>
+        <source>LocalShell session</source>
+        <translation>Session LocalShell</translation>
+    </message>
+    <message>
         <source>New tab workpath</source>
         <translation>Nouveau chemin de travail d&apos;onglet</translation>
     </message>

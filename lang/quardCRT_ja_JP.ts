@@ -1562,7 +1562,11 @@
         <translation>セッションを複製</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="43"/>
+        <source>LocalShell session</source>
+        <translation>ローカル端末セッション</translation>
+    </message>
+    <message>
         <source>New tab workpath</source>
         <translation>新しいタブの作業フォルダー</translation>
     </message>

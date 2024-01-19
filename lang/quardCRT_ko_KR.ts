@@ -1562,7 +1562,11 @@
         <translation>세션 복제</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="43"/>
+        <source>LocalShell session</source>
+        <translation>로컬 쉘 세션</translation>
+    </message>
+    <message>
         <source>New tab workpath</source>
         <translation>새 탭 작업 경로</translation>
     </message>

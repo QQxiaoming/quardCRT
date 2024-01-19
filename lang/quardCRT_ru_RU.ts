@@ -1562,7 +1562,11 @@
         <translation>Клонировать сессию</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="50"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="43"/>
+        <source>LocalShell session</source>
+        <translation>Локальная оболочка</translation>
+    </message>
+    <message>
         <source>New tab workpath</source>
         <translation>Рабочий каталог новой вкладки</translation>
     </message>
