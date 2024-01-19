@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 全屏模式下增加ESC退出全屏功能
+
 ## [[V0.4.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.1)] - 2024-01-13
 
 - 增加会话管理器中在新窗口打开会话功能

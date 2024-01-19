@@ -270,6 +270,7 @@ private:
     QShortcut *shortcutTabMinusSwitch;
     QShortcut *shortcutTabSwitch[9];
     QShortcut *shortcutConnectAddressEdit;
+    QShortcut *shortcutExitFullScreen;
 
     KeyChainClass keyChainClass;
     QList<SessionsWindow *> sessionList;

@@ -620,6 +620,12 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             }
         }
     });
+    shortcutExitFullScreen = new QShortcut(QKeySequence(Qt::Key_Escape),this);
+    connect(shortcutExitFullScreen,&QShortcut::activated,this,[=](){
+        if(fullScreenAction->isChecked()) {
+            fullScreenAction->trigger();
+        }
+    });
 
     ui->statusBar->showMessage(tr("Ready"));
 
