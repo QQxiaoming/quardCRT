@@ -1,8 +1,7 @@
-name: macos
+name: macos_arm64 
 
 on:
   push:
-    branches: [ main ]
     paths-ignore:
       - 'doc/**'
       - 'docs/**'
@@ -14,24 +13,13 @@ on:
       - 'CHANGELOG.md'
       - 'TODO.md'
       - '.readthedocs.yaml'
-  pull_request:
-    branches: [ main ]
-    paths-ignore:
-      - 'doc/**'
-      - 'docs/**'
-      - 'README.md'
-      - 'README_zh_CN.md'
-      - 'README_zh_HK.md'
-      - 'README_ja_JP.md'
-      - 'DEVELOPNOTE.md'
-      - 'CHANGELOG.md'
-      - 'TODO.md'
-      - '.readthedocs.yaml'
+    tags:
+      - V**
   workflow_dispatch:
 
 jobs:
-  macos:
-    runs-on: macos-12
+  macos_arm64:
+    runs-on: flyci-macos-large-latest-m1
 
     steps:
       - uses: actions/checkout@v4
@@ -64,15 +52,17 @@ jobs:
           sed -i'.original' -e 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/macos/g' build_dmg.sh
           sed -i'.original' -e 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
           ./build_dmg.sh
+          mv ./build_release/out/quardCRT.dmg ./build_release/out/quardCRT_arm64.dmg
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.0.0
         with:
-          name: quardCRT_macos
+          name: quardCRT_macos_arm64
           path: |
-            ./build_release/out/quardCRT.dmg
+            ./build_release/out/quardCRT_arm64.dmg
 
       - name: Run tests
         run: |
-          sudo hdiutil attach ./build_release/out/quardCRT.dmg
+          sudo hdiutil attach ./build_release/out/quardCRT_arm64.dmg
           /Volumes/quardCRT/quardCRT.app/Contents/MacOS/quardCRT --version
+        

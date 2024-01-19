@@ -75,7 +75,7 @@ jobs:
           ./build_deb.sh
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: quardCRT_Ubuntu2004
           path: |
@@ -126,7 +126,7 @@ jobs:
           ./build_AppImage.sh
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: quardCRT_AppImage
           path: |
