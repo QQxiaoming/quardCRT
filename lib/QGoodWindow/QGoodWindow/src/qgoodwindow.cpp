@@ -4256,7 +4256,9 @@ void QGoodWindow::setMacOSStyle(int style_type, bool forceActive)
 
 // FIXME: This is a special case for QuardCRT, remove it when possible.
 void QGoodWindow::fixWhenShowQuardCRTTabPreviewIssue() {
-    setMacOSStyle(int(macOSNative::StyleType::NoState),false);
+    // if not in fullscreen, setMacOSStyle
+    if(!isFullScreen())
+        setMacOSStyle(int(macOSNative::StyleType::NoState),false);
 }
 
 void QGoodWindow::notificationReceiver(const QByteArray &notification)
