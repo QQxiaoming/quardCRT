@@ -53,6 +53,6 @@ FOR /F "delims=. tokens=1-3" %%x IN ("%QUARDCRT_VERSION%") DO (
     set "QUARDCRT_REVISION=%%z"
 )
 mkdir ".\output"
-xcopy /f /y ".\InnoSetup\quardCRT_setup.exe" ".\output\quardCRT_windows_V%QUARDCRT_MAJARVERSION%%QUARDCRT_SUBVERSION%%QUARDCRT_REVISION%_x86_64_setup.exe"
+echo F|xcopy /S /Q /Y /F ".\InnoSetup\quardCRT_setup.exe" ".\output\quardCRT_windows_V%QUARDCRT_MAJARVERSION%%QUARDCRT_SUBVERSION%%QUARDCRT_REVISION%_x86_64_setup.exe"
 echo "build success!"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
