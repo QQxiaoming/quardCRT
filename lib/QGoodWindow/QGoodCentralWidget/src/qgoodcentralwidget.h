@@ -167,6 +167,7 @@ protected:
     //\cond HIDDEN_SYMBOLS
     //Functions
     bool eventFilter(QObject *watched, QEvent *event);
+    bool event(QEvent *event);
     //\endcond
 
 private:

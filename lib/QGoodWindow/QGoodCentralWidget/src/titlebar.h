@@ -72,6 +72,10 @@ public Q_SLOTS:
     void captionButtonStateChanged(const QGoodWindow::CaptionButtonState &state);
 
 private:
+    //Functions
+    bool event(QEvent *event);
+
+    //Variable
     QPointer<QGoodWindow> m_gw;
     QWidget *m_left_margin_widget_place_holder;
     IconWidget *m_icon_widget;

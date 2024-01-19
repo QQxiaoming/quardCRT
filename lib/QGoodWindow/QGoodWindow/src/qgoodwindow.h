@@ -494,6 +494,8 @@ private:
     void setWidgetFocus();
     void enableCaption();
     void disableCaption();
+    void disableMinimize();
+    void disableMaximize();
     void frameChanged();
     void sizeMoveWindow();
     void sizeMoveMainWindow();

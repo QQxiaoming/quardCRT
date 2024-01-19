@@ -425,6 +425,12 @@ QGoodWindow::QGoodWindow(QWidget *parent, const QColor &clear_color) : QMainWind
         qApp->installNativeEventFilter(m_native_event);
     }
 
+    if (m_parent)
+    {
+        disableMinimize();
+        disableMaximize();
+    }
+
     //Fix that hides native title bar.
     frameChanged();
 
@@ -992,9 +998,10 @@ void QGoodWindow::setFixedSize(int w, int h)
 
     if (!already_fixed)
     {
-        SetWindowLongW(m_hwnd, GWL_STYLE,
-                       WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME |
-                           (!m_parent ? WS_MINIMIZEBOX : 0));
+        if (!m_parent)
+            disableMinimize();
+
+        disableMaximize();
     }
 
     resize(w, h);
@@ -1837,7 +1844,7 @@ bool QGoodWindow::event(QEvent *event)
 
         if (isVisible() && windowState().testFlag(Qt::WindowNoState))
         {
-            const int radius = 10;
+            const int radius = 8;
 
             QBitmap bmp(size());
             bmp.clear();
@@ -2321,6 +2328,12 @@ bool QGoodWindow::eventFilter(QObject *watched, QEvent *event)
 
         break;
     }
+    case QEvent::Leave:
+    {
+        setCursorForCurrentPos();
+
+        break;
+    }
     case QEvent::Wheel:
     {
         switch (m_margin)
@@ -2619,10 +2632,11 @@ void QGoodWindow::closeGW()
 {
     if (m_shadow)
     {
-        if (!m_shadow->parentWidget())
-            delete m_shadow;
-        else
-            QTimer::singleShot(0, m_shadow, &QWidget::close);
+        m_shadow->hide();
+
+        qApp->processEvents();
+
+        delete m_shadow;
     }
 
     if (m_helper_widget)
@@ -3407,6 +3421,16 @@ void QGoodWindow::disableCaption()
     SetWindowLongW(m_hwnd, GWL_STYLE, GetWindowLongW(m_hwnd, GWL_STYLE) & ~WS_CAPTION);
 }
 
+void QGoodWindow::disableMinimize()
+{
+    SetWindowLongW(m_hwnd, GWL_STYLE, GetWindowLongW(m_hwnd, GWL_STYLE) & ~WS_MINIMIZEBOX);
+}
+
+void QGoodWindow::disableMaximize()
+{
+    SetWindowLongW(m_hwnd, GWL_STYLE, GetWindowLongW(m_hwnd, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+}
+
 void QGoodWindow::frameChanged()
 {
     SetWindowPos(m_hwnd, nullptr, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_FRAMECHANGED);
@@ -3952,8 +3976,11 @@ void QGoodWindow::setCursorForCurrentPos()
 
     QWidget *widget = QApplication::widgetAt(cursor_pos);
 
-    if (!widget)
+    if (!widget || (widget->window() != m_shadow && widget->window() != qApp->activeModalWidget()))
+    {
+        QApplication::restoreOverrideCursor();
         return;
+    }
 
     Display *dpy = QX11Info::display();
 

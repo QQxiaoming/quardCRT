@@ -52,11 +52,7 @@ TitleBar::TitleBar(QGoodWindow *gw, QWidget *parent) : QFrame(parent)
 
     m_gw = gw;
 
-    m_style = QString("TitleBar {background-color: %0;"
-                  #ifdef Q_OS_LINUX
-                      "border-top-left-radius: 10px; border-top-right-radius: 10px;"
-                  #endif
-                      "}");
+    m_style = QString("TitleBar {background-color: %0;}");
 
     connect(qGoodStateHolder, &QGoodStateHolder::currentThemeChanged, this, &TitleBar::setTheme);
 
@@ -582,4 +578,50 @@ void TitleBar::captionButtonStateChanged(const QGoodWindow::CaptionButtonState &
     default:
         break;
     }
+}
+
+bool TitleBar::event(QEvent *event)
+{
+#ifdef QGOODWINDOW
+#ifdef Q_OS_LINUX
+    switch (event->type())
+    {
+    case QEvent::Resize:
+    {
+        QRegion mask;
+
+        if (m_gw->windowState().testFlag(Qt::WindowNoState))
+        {
+            const int radius = 8;
+
+            QBitmap bmp(size());
+            bmp.clear();
+
+            QPainter painter;
+            painter.begin(&bmp);
+            painter.setRenderHints(QPainter::Antialiasing);
+            painter.setPen(Qt::color1);
+            painter.setBrush(Qt::color1);
+            QPainterPath path;
+            path.setFillRule(Qt::WindingFill);
+            path.addRoundedRect(rect(), radius, radius);
+            path.addRect(rect().adjusted(0, height() - radius, radius, radius));
+            path.addRect(rect().adjusted(width() - radius, height() - radius, radius, radius));
+            painter.drawPath(path.simplified());
+            painter.end();
+
+            mask = bmp;
+        }
+
+        setMask(mask);
+
+        break;
+    }
+    default:
+        break;
+    }
+#endif
+#endif
+
+    return QWidget::event(event);
 }

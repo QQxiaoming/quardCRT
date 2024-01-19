@@ -759,3 +759,54 @@ bool QGoodCentralWidget::eventFilter(QObject *watched, QEvent *event)
 #endif
     return QWidget::eventFilter(watched, event);
 }
+
+bool QGoodCentralWidget::event(QEvent *event)
+{
+#ifdef QGOODWINDOW
+#ifdef Q_OS_LINUX
+    switch (event->type())
+    {
+    case QEvent::Show:
+    case QEvent::Resize:
+    {
+        QTimer::singleShot(0, this, [=]{
+            if (!m_gw)
+                return;
+
+            if (!m_central_widget_place_holder)
+                return;
+
+            QRegion mask;
+
+            if (m_gw->isVisible() && m_gw->windowState().testFlag(Qt::WindowNoState))
+            {
+                const int radius = 8;
+
+                QBitmap bmp(m_central_widget_place_holder->size());
+                bmp.clear();
+
+                QPainter painter;
+                painter.begin(&bmp);
+                painter.setRenderHints(QPainter::Antialiasing);
+                painter.setPen(Qt::color1);
+                painter.setBrush(Qt::color1);
+                painter.drawRoundedRect(m_central_widget_place_holder->rect().adjusted(1, 1, -1, -1),
+                                        radius, radius, Qt::AbsoluteSize);
+                painter.end();
+
+                mask = bmp;
+            }
+
+            m_central_widget_place_holder->setMask(mask);
+        });
+
+        break;
+    }
+    default:
+        break;
+    }
+#endif
+#endif
+
+    return QWidget::event(event);
+}
