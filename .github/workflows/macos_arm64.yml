@@ -59,7 +59,7 @@ jobs:
         with:
           name: quardCRT_macos_arm64
           path: |
-            ./build_release/out/quardCRT_arm64.dmg
+            ./dmgOut/*.dmg
 
       - name: Run tests
         run: |

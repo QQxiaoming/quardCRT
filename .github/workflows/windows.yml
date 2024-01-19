@@ -106,7 +106,7 @@ jobs:
         with:
           name: quardCRT_windows
           path: |
-            ./InnoSetup/quardCRT_setup.exe
+            ./output/*.exe
 
       - name: Run tests
         run: |
@@ -171,14 +171,13 @@ jobs:
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
           ./build_setup_msvc.bat
-          cp ./InnoSetup/quardCRT_setup.exe ./InnoSetup/quardCRT_setup_msvc.exe
 
       - name: Upload build asserts
         uses: actions/upload-artifact@v4
         with:
           name: quardCRT_windows_msvc2019
           path: |
-            ./InnoSetup/quardCRT_setup_msvc.exe
+            ./output/*.exe
 
       - name: Run tests
         run: |

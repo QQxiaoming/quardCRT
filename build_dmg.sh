@@ -30,5 +30,14 @@ $QT_DIR/bin/macdeployqt quardCRT.app
 otool -L ./quardCRT.app/Contents/MacOS/quardCRT
 mkdir -p ./quardCRT.app/Contents/MacOS/plugins/QuardCRT
 ./build-dmg.sh quardCRT
+cd ../../
+mkdir dmgOut
+cpu=$(sysctl -n machdep.cpu.brand_string)
+ARCH="x86_64"
+case $cpu in
+  *Intel*) ARCH="x86_64" ;;
+  *Apple*) ARCH="arm64" ;;
+esac
+cp ./build_release/out/quardCRT.dmg ./dmgOut/quardCRT_macos_"$QUARDCRT_VERSION"_"$ARCH".dmg
 echo build success!
 ###############################################################################
