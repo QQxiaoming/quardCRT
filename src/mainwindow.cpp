@@ -464,7 +464,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::tabBarDoubleClicked,this,[=](int index){
             QWidget *widget = mainWidgetGroup->sessionTab->widget(index);
-            SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            if(sessionsWindow->isLocked()) return;
+            SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
+            if(sessionsWindow->isLocked()) return;
             sessionsWindow->setShowShortTitle(!sessionsWindow->getShowShortTitle());
             mainWidgetGroup->sessionTab->setTabText(index,sessionsWindow->getTitle());
         });
@@ -478,7 +479,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         connect(mainWidgetGroup->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
             if(mainWidgetGroup->sessionTab->count() != 0) {
                 QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
-                SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            if(sessionsWindow->isLocked()) return;
+                SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
                 if(sessionsWindow->isLocked()) return;
                 sessionsWindow->proxySendData(data);
             }
@@ -1603,6 +1604,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                     QMap<QString, QString> params;
                     params.insert("version",VERSION);
                     params.insert("git_tag",GIT_TAG);
+                    params.insert("build_date",DATE_TAG);
                     qDebug() << "we will load plugin:" << iface->name();
                     if(iface->init(params, this) == 0) {
                         pluginList.append(iface);
@@ -3316,17 +3318,18 @@ QMenu *CentralWidget::createPopupMenu()
 void CentralWidget::appAbout(QWidget *parent)
 {
     QMessageBox::about(parent, tr("About"),
-                       tr(
-                           "<p>Version</p>"
-                           "<p>&nbsp;%1</p>"
-                           "<p>Commit</p>"
-                           "<p>&nbsp;%2</p>"
-                           "<p>Author</p>"
-                           "<p>&nbsp;qiaoqm@aliyun.com</p>"
-                           "<p>Website</p>"
-                           "<p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</a></p>"
+                           QString("<p>") + 
+                           tr("Version") +
+                           QString("</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT/releases/tag/%0'>%0</a></p><p>").arg(VERSION) +
+                           tr("Commit") +
+                           QString("</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT/commit/%0'>%1</a></p><p>").arg(HASH_TAG).arg(GIT_TAG) +
+                           tr("Date") +
+                           QString("</p><p>&nbsp;%0</p><p>").arg(DATE_TAG) +
+                           tr("Author") +
+                           "</p><p>&nbsp;<a href='mailto:qiaoqm@aliyun.com'>qiaoqm@aliyun.com</a></p><p>" +
+                           tr("Website") +
+                           "</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</a></p>" +
                            "<p>&nbsp;<a href='https://gitee.com/QQxiaoming/quardCRT'>https://gitee.com/QQxiaoming</a></p>"
-                           ).arg(VERSION,GIT_TAG)
                        );
 }
 

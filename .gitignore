@@ -76,7 +76,7 @@ CMakeLists.txt.user*
 !upx.exe
 
 *build-*
-git_tag.inc
+build_info.inc
 build_*
 .vscode
 !build_setup_msvc.bat

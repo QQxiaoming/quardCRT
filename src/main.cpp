@@ -32,10 +32,13 @@
 #include "globalsetting.h"
 #include "logger.h"
 
+#include "build_info.inc"
+
 QString VERSION = APP_VERSION;
-QString GIT_TAG =
-#include "git_tag.inc"
-;
+QString GIT_TAG = BUILD_INFO;
+QString DATE_TAG = BUILD_DATE;
+QString HASH_TAG = BUILD_HASH;
+QString SHORT_HASH_TAG = BUILD_SHORT_HASH;
 
 class CommandLineParser
 {
@@ -172,7 +175,7 @@ int main(int argc, char *argv[])
     QApplication::setApplicationName("QuardCRT");
     QApplication::setOrganizationName("Copyright (c) 2023 Quard(QiaoQiming)");
     QApplication::setOrganizationDomain("https://github.com/QQxiaoming/quardCRT");
-    QApplication::setApplicationVersion(VERSION+" "+GIT_TAG);
+    QApplication::setApplicationVersion(VERSION + " " + GIT_TAG + " " + DATE_TAG);
 
     AppComLineParser->process(application);
 
@@ -208,8 +211,12 @@ int main(int argc, char *argv[])
     if(settings.contains("GitTag"))
         if(debugMode) qDebug() << "Setting GitTag: " << settings.value("GitTag").toString();
     if(debugMode) qDebug() << "GitTag: " << GIT_TAG;
+    if(settings.contains("BuildDate"))
+        if(debugMode) qDebug() << "Setting BuildDate: " << settings.value("BuildDate").toString();
+    if(debugMode) qDebug() << "BuildDate: " << DATE_TAG;
     settings.setValue("Version",VERSION);
     settings.setValue("GitTag",GIT_TAG);
+    settings.setValue("BuildDate",DATE_TAG);
     settings.setValue("os",QSysInfo::prettyProductName());
     settings.setValue("bootUniqueId",QSysInfo::bootUniqueId());
     settings.setValue("buildAbi",QSysInfo::buildAbi());

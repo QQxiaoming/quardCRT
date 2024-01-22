@@ -121,4 +121,16 @@ if __name__ == '__main__':
     print(dir_data)
     # sort by code_count
     file_data_list.sort(key=lambda x:x['code_count'], reverse=True)
+    total = {}
+    total['file_name'] = "total"
+    total['line_count'] = 0
+    total['comment_count'] = 0
+    total['blank_count'] = 0
+    total['code_count'] = 0
+    for file_data in file_data_list:
+        total['line_count'] += file_data['line_count']
+        total['comment_count'] += file_data['comment_count']
+        total['blank_count'] += file_data['blank_count']
+        total['code_count'] += file_data['code_count']
+    file_data_list.insert(0, total)
     generate_html(dir_data['dir_name'], file_data_list)

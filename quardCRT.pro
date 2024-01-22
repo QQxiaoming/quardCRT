@@ -196,7 +196,7 @@ win32:{
     QMAKE_TARGET_DESCRIPTION = "quardCRT based on Qt $$[QT_VERSION]"
     QMAKE_TARGET_COPYRIGHT = "GNU General Public License v3.0"
 
-    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | $$PWD/tools/awk/awk.exe \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
+    build_info.commands = $$quote("c:/Windows/system32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -File \"$$PWD/tools/generate_info.ps1\" > $$PWD/build_info.inc")
 }
 
 unix:!macx:{
@@ -206,7 +206,7 @@ unix:!macx:{
     QMAKE_LFLAGS += -no-pie 
     LIBS += -lutil
     
-    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
+    build_info.commands = $$quote("cd $$PWD && ./tools/generate_info.sh > build_info.inc")
 }
 
 macx:{
@@ -216,10 +216,10 @@ macx:{
     ICON = "icons\ico.icns"
     LIBS += -lutil
 
-    git_tag.commands = $$quote("cd $$PWD && git describe --always --long --dirty --abbrev=10 --tags | awk \'{print \"\\\"\"\$$0\"\\\"\"}\' > git_tag.inc")
+    build_info.commands = $$quote("cd $$PWD && ./tools/generate_info.sh > build_info.inc")
 }
 
-git_tag.target = $$PWD/git_tag.inc
-git_tag.depends = FORCE
-PRE_TARGETDEPS += $$PWD/git_tag.inc
-QMAKE_EXTRA_TARGETS += git_tag
+build_info.target = $$PWD/build_info.inc
+build_info.depends = FORCE
+PRE_TARGETDEPS += $$PWD/build_info.inc
+QMAKE_EXTRA_TARGETS += build_info

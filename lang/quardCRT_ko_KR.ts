@@ -999,6 +999,31 @@
         <translation>SSH 스캔 대화 상자 표시</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="3321"/>
+        <source>Version</source>
+        <translation>버전</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3323"/>
+        <source>Commit</source>
+        <translation>커밋</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3325"/>
+        <source>Date</source>
+        <translation>날짜</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3327"/>
+        <source>Author</source>
+        <translation>작성자</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3329"/>
+        <source>Website</source>
+        <translation>웹사이트</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="1141"/>
         <source>Tab</source>
         <translation>탭</translation>
@@ -1309,11 +1334,6 @@
         <location filename="../src/mainwindow.cpp" line="3036"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>이 세션을 연결 해제하시겠습니까?</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="3319"/>
-        <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;버전&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;제출하다&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;작가&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;웹사이트&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="3337"/>
@@ -2814,10 +2834,6 @@
     <message>
         <source>Are you sure to disconnect this session?</source>
         <translation type="vanished">이 세션을 연결 해제하시겠습니까?</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Version&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;Commit&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;Author&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;Website&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;버전&lt;/p&gt;&lt;p&gt;&amp;nbsp;%1&lt;/p&gt;&lt;p&gt;제출하다&lt;/p&gt;&lt;p&gt;&amp;nbsp;%2&lt;/p&gt;&lt;p&gt;작가&lt;/p&gt;&lt;p&gt;&amp;nbsp;qiaoqm@aliyun.com&lt;/p&gt;&lt;p&gt;웹사이트&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://github.com/QQxiaoming/quardCRT&apos;&gt;https://github.com/QQxiaoming&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;a href=&apos;https://gitee.com/QQxiaoming/quardCRT&apos;&gt;https://gitee.com/QQxiaoming&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Global Shortcuts:</source>

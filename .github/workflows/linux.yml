@@ -14,6 +14,8 @@ on:
       - 'CHANGELOG.md'
       - 'TODO.md'
       - '.readthedocs.yaml'
+    tags:
+      - V**
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -68,8 +70,7 @@ jobs:
       - name: Build all
         run: |
           git fetch --tags --force
-          git describe --always --long --dirty --abbrev=10 --tags | awk '{print "\""$0"\""}' > git_tag.inc
-          sed -i 's/git_tag.inc/git_tag.ci.inc/g' quardCRT.pro
+          sed -i 's/--long --dirty/--long/g' ./tools/generate_info.sh
           sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_deb.sh
           sed -i 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
           ./build_deb.sh
@@ -119,8 +120,7 @@ jobs:
       - name: Build all
         run: |
           git fetch --tags --force
-          git describe --always --long --dirty --abbrev=10 --tags | awk '{print "\""$0"\""}' > git_tag.inc
-          sed -i 's/git_tag.inc/git_tag.ci.inc/g' quardCRT.pro
+          sed -i 's/--long --dirty/--long/g' ./tools/generate_info.sh
           sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_AppImage.sh
           sed -i 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
           ./build_AppImage.sh

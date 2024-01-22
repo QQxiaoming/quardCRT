@@ -14,6 +14,8 @@ on:
       - 'CHANGELOG.md'
       - 'TODO.md'
       - '.readthedocs.yaml'
+    tags:
+      - V**
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -92,8 +94,7 @@ jobs:
       - name: Build all
         run: |
           git fetch --tags --force
-          git describe --always --long --abbrev=10 --tags | ./tools/awk/awk.exe '{print \"\\\"\"$0\"\\\"\"}'  > git_tag.inc
-          ./tools/sed/sed.exe -i "s/git_tag.inc/git_tag.ci.inc/g" quardCRT.pro
+          ./tools/sed/sed.exe -i 's/--long --dirty/--long/g' ./tools/generate_info.ps1
           ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/mingw81_32\/bin/QT_DIR=%Qt5_Dir%/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/mingw810_32\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/mingw64\/bin/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/mingw32-make -j8/mingw32-make -j1/g" ./build_setup.bat
@@ -164,12 +165,12 @@ jobs:
       - name: Build all
         run: |
           git fetch --tags --force
-          git describe --always --long --abbrev=10 --tags | ./tools/awk/awk.exe '{print \"\\\"\"$0\"\\\"\"}'  > git_tag.inc
-          ./tools/sed/sed.exe -i "s/git_tag.inc/git_tag.ci.inc/g" quardCRT.pro
+          ./tools/sed/sed.exe -i 's/--long --dirty/--long/g' ./tools/generate_info.ps1
           ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/msvc64\/bin/QT_DIR=%Qt6_DIR%/g" ./build_setup_msvc.bat
           ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/msvc64\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/msvc64\/bin/g" ./build_setup_msvc.bat
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
+          c:/Windows/system32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -File "./tools/generate_info.ps1" > ./build_info.inc
           ./build_setup_msvc.bat
 
       - name: Upload build asserts
