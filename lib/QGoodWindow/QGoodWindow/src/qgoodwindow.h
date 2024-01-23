@@ -575,6 +575,9 @@ private:
 public:
     // FIXME: This is a special case for QuardCRT, remove it when possible.
     void fixWhenShowQuardCRTTabPreviewIssue();
+signals:
+    void macosWindowWillEnterFullScreen();
+    void macosWindowDidEnterFullScreen();
 private:
     //Functions
     void notificationReceiver(const QByteArray &notification);

@@ -4268,6 +4268,8 @@ void QGoodWindow::notificationReceiver(const QByteArray &notification)
         m_on_animate_event = true;
 
         setMacOSStyle(int(macOSNative::StyleType::Fullscreen));
+
+        emit macosWindowWillEnterFullScreen();
     }
     else if (notification == "NSWindowWillExitFullScreenNotification")
     {
@@ -4278,6 +4280,8 @@ void QGoodWindow::notificationReceiver(const QByteArray &notification)
         setMacOSStyle(int(macOSNative::StyleType::NoState));
 
         m_on_animate_event = false;
+
+        emit macosWindowDidEnterFullScreen();
     }
     else if (notification == "AppleInterfaceThemeChangedNotification")
     {

@@ -627,6 +627,16 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             fullScreenAction->trigger();
         }
     });
+    #if defined(Q_OS_MACOS)
+    if(mainWindow) {
+        connect(mainWindow,&MainWindow::macosWindowWillEnterFullScreen,this,[=](){
+            fullScreenAction->setChecked(true);
+        });
+        connect(mainWindow,&MainWindow::macosWindowDidEnterFullScreen,this,[=](){
+            fullScreenAction->setChecked(false);
+        });
+    }
+    #endif
 
     ui->statusBar->showMessage(tr("Ready"));
 
