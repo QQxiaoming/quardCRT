@@ -3538,6 +3538,8 @@ MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale l
 
         m_good_central_widget->setLeftTitleBarWidget(m_menu_bar);
         setNativeCaptionButtonsVisibleOnMac(false);
+    } else {
+        setNativeCaptionButtonsVisibleOnMac(true);
     }
 
     connect(qGoodStateHolder, &QGoodStateHolder::currentThemeChanged, this, [](){

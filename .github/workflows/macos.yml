@@ -50,6 +50,7 @@ jobs:
           ruby - e  "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null  2 > /dev/null
           brew install --build-from-source cmake
           brew install create-dmg
+          brew install coreutils
 
       - name: build libssh2
         run: |
