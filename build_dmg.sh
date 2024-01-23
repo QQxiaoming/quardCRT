@@ -29,6 +29,9 @@ cd ./build_release/out
 $QT_DIR/bin/macdeployqt quardCRT.app
 otool -L ./quardCRT.app/Contents/MacOS/quardCRT
 mkdir -p ./quardCRT.app/Contents/MacOS/plugins/QuardCRT
+if [ -d "./prebuilt_plugins" ]; then
+    cp ./prebuilt_plugins/*.dylib ./quardCRT.app/Contents/MacOS/plugins/QuardCRT
+fi
 ./build-dmg.sh quardCRT
 cd ../../
 mkdir dmgOut

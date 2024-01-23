@@ -51,6 +51,9 @@ InstalledSize=$SIZE
 sed -i "s/#SIZE#/$InstalledSize/g" ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/DEBIAN/control
 chmod 755 ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/* -R
 mkdir -p ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/plugins/QuardCRT
+if [ -d "./prebuilt_plugins" ]; then
+    cp ./prebuilt_plugins/*.so ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/plugins/QuardCRT/
+fi
 # 打包
 dpkg -b ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64 ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64.deb
 echo build success!
