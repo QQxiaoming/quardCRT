@@ -47,11 +47,11 @@ void NetScanWindow::setScanPort(int port)
                 QString ip = gateway + QString::number(i);
                 QTelnet *telnet = new QTelnet(this);
                 telnet->connectToHost(ip,port);
-                connect(telnet,&QTelnet::error,this,[=](QAbstractSocket::SocketError err){
+                connect(telnet,&QTelnet::error,this,[telnet](QAbstractSocket::SocketError err){
                     telnet->deleteLater();
                     Q_UNUSED(err);
                 });
-                connect(telnet,&QTelnet::newData,this,[=](const char *buff, int len){
+                connect(telnet,&QTelnet::newData,this,[&,ip,port,telnet](const char *buff, int len){
                     QString data = QString::fromUtf8(buff,len);
                     if(data.contains("SSH-2.0")) {
                         addRow(ip,QString::number(port),"open");

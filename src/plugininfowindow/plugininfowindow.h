@@ -16,9 +16,12 @@ class PluginInfoWindow : public QDialog
 public:
     explicit PluginInfoWindow(QWidget *parent = nullptr);
     ~PluginInfoWindow();
-    void addPluginInfo(PluginInterface *plugin, uint32_t apiVersion, bool enable);
-    void addPluginInfo(QString name, QString version, uint32_t apiVersion, bool enable);
+    void addPluginInfo(PluginInterface *plugin, uint32_t apiVersion, bool enable, bool readOnly);
+    void addPluginInfo(QString name, QString version, uint32_t apiVersion, bool enable, bool readOnly);
     void retranslateUi(void);
+
+signals:
+    void pluginEnableStateChanged(QString name, bool enable);
 
 private:
     Ui::PluginInfoWindow *ui;

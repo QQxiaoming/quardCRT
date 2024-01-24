@@ -145,14 +145,14 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     /* connect signals */
     menuAndToolBarConnectSignals();
 
-    connect(sessionManagerPushButton,&QPushButton::clicked,this,[=](){
+    connect(sessionManagerPushButton,&QPushButton::clicked,this,[&](){
         if(sessionManagerWidget->isVisible() == false) {
             sessionManagerWidget->setVisible(true);
         } else {
             sessionManagerWidget->setVisible(false);
         }
     });
-    connect(startTftpSeverWindow,&StartTftpSeverWindow::setTftpInfo,this,[=](int port, const QString &upDir, const QString &downDir){
+    connect(startTftpSeverWindow,&StartTftpSeverWindow::setTftpInfo,this,[&](int port, const QString &upDir, const QString &downDir){
         if(tftpServer->isRunning()) {
             tftpServer->stopServer();
         }
@@ -161,10 +161,10 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         tftpServer->setPort(port);
         tftpServer->startServer();
     });
-    connect(tftpServer,&QTftp::serverRuning,this,[=](bool runing){
+    connect(tftpServer,&QTftp::serverRuning,this,[&](bool runing){
         startTFTPServerAction->setChecked(runing);
     });
-    connect(tftpServer,&QTftp::error,this,[=](int error){
+    connect(tftpServer,&QTftp::error,this,[&](int error){
         switch(error) {
         case QTftp::BindError:
             QMessageBox::warning(this, tr("Warning"), tr("TFTP server bind error!"));
@@ -177,6 +177,23 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             break;
         default:
             break;
+        }
+    });
+    connect(pluginInfoWindow, &PluginInfoWindow::pluginEnableStateChanged, this, [=](QString name, bool enable){
+        for(int i=0;i<pluginList.size();i++) {
+            pluginState_t *pluginStruct = &pluginList[i];
+            PluginInterface *iface = pluginStruct->iface;
+            if(iface->name() == name) {
+                pluginStruct->state = enable;
+                GlobalSetting settings;
+                settings.setValue("Global/Plugin/"+name+"/State",enable);
+                if(pluginStruct->iface->mainMenu()) {
+                    pluginStruct->iface->mainMenu()->menuAction()->setVisible(enable);
+                } else if(pluginStruct->iface->mainAction()) {
+                    pluginStruct->iface->mainAction()->setVisible(enable);
+                }
+                break;
+            }
         }
     });
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
@@ -243,7 +260,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     QAction *unlockAction = new QAction(tr("Unlock Session"),this);
                     unlockAction->setStatusTip(tr("Unlock current session"));
                     menu->addAction(unlockAction);
-                    connect(unlockAction,&QAction::triggered,this,[=](){
+                    connect(unlockAction,&QAction::triggered,this,[&](){
                         lockSessionWindow->showUnlock();
                     });
                 } else {
@@ -470,7 +487,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             mainWidgetGroup->sessionTab->setTabText(index,sessionsWindow->getTitle());
         });
     #if defined(Q_OS_MACOS)
-        connect(mainWidgetGroup->sessionTab,&SessionTab::tabPreviewShow,this,[=](int index){
+        connect(mainWidgetGroup->sessionTab,&SessionTab::tabPreviewShow,this,[&](int index){
             if(mainWindow) {
                 mainWindow->fixWhenShowQuardCRTTabPreviewIssue();
             }
@@ -485,10 +502,10 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             }
         });
     }
-    connect(sessionManagerWidget,&SessionManagerWidget::sessionConnect,this,[=](QString str){
+    connect(sessionManagerWidget,&SessionManagerWidget::sessionConnect,this,[&](QString str){
         connectSessionFromSessionManager(str);
     });
-    connect(sessionManagerWidget,&SessionManagerWidget::sessionRemove,this,[=](QString str){
+    connect(sessionManagerWidget,&SessionManagerWidget::sessionRemove,this,[&](QString str){
         removeSessionFromSessionManager(str);
     });
     connect(sessionManagerWidget,&SessionManagerWidget::sessionShowProperties,this,[=](QString str){
@@ -527,17 +544,17 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
 
     shortcutMenuBarView = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_U),this);
-    connect(shortcutMenuBarView,&QShortcut::activated,this,[=](){
+    connect(shortcutMenuBarView,&QShortcut::activated,this,[&](){
         menuBarAction->trigger();
     });
     shortcutMenuBarView->setEnabled(false);
     shortcutConnectLocalShell = new QShortcut(QKeySequence(Qt::ALT|Qt::Key_T),this);
-    connect(shortcutConnectLocalShell,&QShortcut::activated,this,[=](){
+    connect(shortcutConnectLocalShell,&QShortcut::activated,this,[&](){
         connectLocalShellAction->trigger();
     });
     shortcutConnectLocalShell->setEnabled(false);
     shortcutCloneSession = new QShortcut(QKeySequence(Qt::CTRL|Qt::SHIFT|Qt::Key_T),this);
-    connect(shortcutCloneSession,&QShortcut::activated,this,[=](){
+    connect(shortcutCloneSession,&QShortcut::activated,this,[&](){
         cloneSessionAction->trigger();
     });
     shortcutCloneSession->setEnabled(false);
@@ -830,7 +847,9 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     if(!pluginList.isEmpty()) {
         menu->addSeparator();
     }
-    foreach(PluginInterface *plugin, pluginList) {
+    foreach(pluginState_t pluginStruct, pluginList) {
+        if(!pluginStruct.state) continue;
+        PluginInterface *plugin = pluginStruct.iface;
         QMenu *pluginMenu = plugin->terminalContextMenu(term->selectedText(),term->getWorkingDirectory(),menu);
         if(pluginMenu != nullptr) {
             menu->addMenu(pluginMenu);
@@ -1570,9 +1589,12 @@ void CentralWidget::menuAndToolBarInit(void) {
     QTimer::singleShot(200, this, [&](){
         QDir pluginsDir(QCoreApplication::applicationDirPath());
         if(!pluginsDir.cd("plugins")) {
-            qInfo() << "plugins dir not exist:" << pluginsDir.absolutePath();
-            laboratoryMenu->addAction(pluginInfoAction);
-            return;
+            pluginsDir = QDir(QCoreApplication::applicationDirPath()+"/..");
+            if(!pluginsDir.cd("plugins")) {
+                qInfo() << "plugins dir not exist:" << pluginsDir.absolutePath();
+                laboratoryMenu->addAction(pluginInfoAction);
+                return;
+            }
         }
         if(!pluginsDir.cd("QuardCRT")) {
             qInfo() << "plugins/QuardCRT dir not exist:" << pluginsDir.absolutePath();
@@ -1586,25 +1608,26 @@ void CentralWidget::menuAndToolBarInit(void) {
         qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/../Frameworks");
     #elif defined(Q_OS_LINUX)
         qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/lib");
+        qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"../lib");
     #endif
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
             QPluginLoader loader(pluginsDir.absoluteFilePath(fileName),this);
             QJsonObject metaData = loader.metaData();
             if(!metaData.contains("MetaData")) {
                 qInfo() << "plugin metaData not found:" << fileName;
-                pluginInfoWindow->addPluginInfo(fileName,"",0,false);
+                pluginInfoWindow->addPluginInfo(fileName,"",0,false,true);
                 continue;
             }
             QJsonObject metaDataObject = metaData.value("MetaData").toObject();
             if(!metaDataObject.contains("APIVersion")) {
                 qInfo() << "plugin api version not found:" << fileName;
-                pluginInfoWindow->addPluginInfo(fileName,"",0,false);
+                pluginInfoWindow->addPluginInfo(fileName,"",0,false,true);
                 continue;
             } 
             int apiVersion = metaDataObject.value("APIVersion").toInt();
             if(apiVersion != PLUGIN_API_VERSION) {
                 qInfo() << "plugin api version [" << apiVersion << "] not match:" << fileName;       
-                pluginInfoWindow->addPluginInfo(fileName,"",apiVersion,false);         
+                pluginInfoWindow->addPluginInfo(fileName,"",apiVersion,false,true);         
                 continue;
             }
             QObject *plugin = loader.instance();
@@ -1617,8 +1640,13 @@ void CentralWidget::menuAndToolBarInit(void) {
                     params.insert("build_date",DATE_TAG);
                     qDebug() << "we will load plugin:" << iface->name();
                     if(iface->init(params, this) == 0) {
-                        pluginList.append(iface);
-                        pluginInfoWindow->addPluginInfo(iface,apiVersion,true);
+                        GlobalSetting settings;
+                        bool state = settings.value("Global/Plugin/"+iface->name()+"/State",true).toBool();
+                        pluginState_t pluginStruct;
+                        pluginStruct.iface = iface;
+                        pluginStruct.state = state;
+                        pluginList.append(pluginStruct);
+                        pluginInfoWindow->addPluginInfo(iface,apiVersion,state,false);
                         connect(iface,SIGNAL(requestTelnetConnect(QString, int, int)),this,SLOT(onPluginRequestTelnetConnect(QString, int, int)));
                         connect(iface,SIGNAL(requestSerialConnect(QString, uint32_t, int, int, int, bool, bool)),this,SLOT(onPluginRequestSerialConnect(QString, uint32_t, int, int, int, bool, bool)));
                         connect(iface,SIGNAL(requestLocalShellConnect(QString, QString)),this,SLOT(onPluginRequestLocalShellConnect(QString, QString)));
@@ -1632,10 +1660,12 @@ void CentralWidget::menuAndToolBarInit(void) {
                         QMenu *menu = iface->mainMenu();
                         if(menu) {
                             laboratoryMenu->addMenu(menu);
+                            menu->menuAction()->setVisible(state);
                         } else {
                             QAction *action = iface->mainAction();
                             if(action) {
                                 laboratoryMenu->addAction(action);
+                                action->setVisible(state);
                             }
                         }
                         iface->setLanguage(language,qApp);
@@ -2369,7 +2399,8 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
 
         setAppLangeuage(this->language);
-        foreach(PluginInterface *iface, pluginList) {
+        foreach(pluginState_t pluginStruct, pluginList) {
+            PluginInterface *iface = pluginStruct.iface;
             iface->setLanguage(this->language,qApp);
             iface->retranslateUi();
         }
@@ -2390,7 +2421,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         //       but this will cause the window flash, we will improve this in the future
         if(mainWindow) {
             mainWindow->hide();
-            QTimer::singleShot(100,this,[=](){
+            QTimer::singleShot(100,this,[&](){
                 mainWindow->show();
             });
         }
@@ -3303,7 +3334,7 @@ void CentralWidget::addBookmark(const QString &path)
     QAction *action = new QAction(path,bookmarkMenu);
     action->setStatusTip(path);
     bookmarkMenu->addAction(action);
-    connect(action,&QAction::triggered,this,[=](){
+    connect(action,&QAction::triggered,this,[&,path](){
         startLocalShellSession(findCurrentFocusGroup(),QString(),path);
     });
     GlobalSetting settings;
@@ -3534,7 +3565,7 @@ MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale l
     #endif
         m_menu_bar->setFont(font);
 
-        QTimer::singleShot(0, this, [=]{
+        QTimer::singleShot(0, this, [&]{
             const int title_bar_height = m_good_central_widget->titleBarHeight();
             m_menu_bar->setStyleSheet(QString("QMenuBar {height: %0px;}").arg(title_bar_height));
         });
@@ -3558,7 +3589,7 @@ MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale l
         else
             QGoodWindow::setAppLightTheme();
     });
-    connect(this, &QGoodWindow::systemThemeChanged, this, [=]{
+    connect(this, &QGoodWindow::systemThemeChanged, this, [&]{
         qGoodStateHolder->setCurrentThemeDark(QGoodWindow::isSystemThemeDark());
     });
     qGoodStateHolder->setCurrentThemeDark(isDark);

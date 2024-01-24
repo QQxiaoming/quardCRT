@@ -8,17 +8,17 @@ SFTPmenuBookmarkWidget::SFTPmenuBookmarkWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->toolButton, &QToolButton::clicked, this, [=](){
+    connect(ui->toolButton, &QToolButton::clicked, this, [&](){
         QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
                  ui->lineEditLocalPath->text().isEmpty() ? QDir::homePath() : ui->lineEditLocalPath->text());
         if (!dir.isEmpty())
             ui->lineEditLocalPath->setText(dir);
     });
 
-    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, [=](){
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, [&](){
         emit accepted();
     });
-    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, [=](){
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, [&](){
         emit rejected();
     });
 }

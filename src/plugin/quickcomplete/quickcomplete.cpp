@@ -18,7 +18,7 @@ int QuickComplete::init(QMap<QString, QString> params, QWidget *parent)
 
     addQuickCompleteAction = new QAction(tr("Add Quick Complete"), m_menu);
     m_menu->addAction(addQuickCompleteAction);
-    QObject::connect(addQuickCompleteAction,&QAction::triggered,this,[=](){
+    QObject::connect(addQuickCompleteAction,&QAction::triggered,this,[&,parent](){
         bool ok;
         QString inputCmd = QInputDialog::getText(parent,tr("Add Quick Complete"),tr("Input Command"),QLineEdit::Normal,"",&ok);
         if(inputCmd.isEmpty() || !ok)
@@ -29,7 +29,7 @@ int QuickComplete::init(QMap<QString, QString> params, QWidget *parent)
 
     removeQuickCompleteAction = new QAction(tr("Remove Quick Complete"), m_menu);
     m_menu->addAction(removeQuickCompleteAction);
-    QObject::connect(removeQuickCompleteAction,&QAction::triggered,this,[=](){
+    QObject::connect(removeQuickCompleteAction,&QAction::triggered,this,[&,parent](){
         bool ok;
         QString inputCmd = QInputDialog::getItem(parent,tr("Remove Quick Complete"),tr("Select Command"),m_quickCompleteList,0,false,&ok);
         if(inputCmd.isEmpty() || !ok)
@@ -40,20 +40,20 @@ int QuickComplete::init(QMap<QString, QString> params, QWidget *parent)
 
     clearQuickCompleteAction = new QAction(tr("Clear Quick Complete"), m_menu);
     m_menu->addAction(clearQuickCompleteAction);
-    QObject::connect(clearQuickCompleteAction,&QAction::triggered,this,[=](){
+    QObject::connect(clearQuickCompleteAction,&QAction::triggered,this,[&](){
         m_quickCompleteList.clear();
         quickCompleteListChanged();
     });
     m_menu->addSeparator();
 
-    QTimer::singleShot(100, this, [=](){
+    QTimer::singleShot(100, this, [&](){
         QVariant quickCompleteListVariant(m_quickCompleteList);
         emit readSettings("settings","quickCompleteList",quickCompleteListVariant);
         m_quickCompleteList = quickCompleteListVariant.toStringList();
         foreach (QString cmd, m_quickCompleteList) {
             QAction *action = new QAction(cmd,m_menu);
             m_menu->addAction(action);
-            QObject::connect(action,&QAction::triggered,this,[=](){
+            QObject::connect(action,&QAction::triggered,this,[&,cmd](){
                 emit sendCommand(cmd);
             });
         }
@@ -73,7 +73,7 @@ void QuickComplete::quickCompleteListChanged(void) {
     foreach (QString cmd, m_quickCompleteList) {
         QAction *action = new QAction(cmd,m_menu);
         m_menu->addAction(action);
-        QObject::connect(action,&QAction::triggered,this,[=](){
+        QObject::connect(action,&QAction::triggered,this,[&,cmd](){
             emit sendCommand(cmd);
         });
     }

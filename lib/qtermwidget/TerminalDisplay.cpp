@@ -428,7 +428,7 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
   _backgroundVideoSink = new QVideoSink;
   _backgroundVideoPlayer->setLoops(QMediaPlayer::Infinite);
   _backgroundVideoPlayer->setVideoOutput(_backgroundVideoSink);
-  connect(_backgroundVideoSink, &QVideoSink::videoFrameChanged, this, [=](const QVideoFrame &frame){
+  connect(_backgroundVideoSink, &QVideoSink::videoFrameChanged, this, [&](const QVideoFrame &frame){
     _backgroundVideoFrame = QPixmap::fromImage(frame.toImage());
     update();
   });
@@ -759,7 +759,7 @@ void TerminalDisplay::setBackgroundMovie(const QString &backgroundImage) {
         }
         _backgroundMovie = movie;
         QObject::connect(_backgroundMovie, &QMovie::frameChanged, this,
-                                         [=] { update(); });
+                                         [&] { update(); });
         setAttribute(Qt::WA_OpaquePaintEvent, false);
         _backgroundMovie->start();
     } else {

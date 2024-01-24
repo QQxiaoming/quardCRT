@@ -34,14 +34,14 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
     ui->uploadLineEdit->setText(QDir::homePath());
     ui->downloadLineEdit->setText(QDir::homePath());
 
-    connect(ui->uploadToolButton, &QToolButton::clicked, this, [=](){
+    connect(ui->uploadToolButton, &QToolButton::clicked, this, [&](){
         QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
                                 QDir::homePath(),
                                 QFileDialog::ShowDirsOnly
                                 | QFileDialog::DontResolveSymlinks);
         ui->uploadLineEdit->setText(dir);
     });
-    connect(ui->downloadToolButton, &QToolButton::clicked, this, [=](){
+    connect(ui->downloadToolButton, &QToolButton::clicked, this, [&](){
         QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
                                 QDir::homePath(),
                                 QFileDialog::ShowDirsOnly

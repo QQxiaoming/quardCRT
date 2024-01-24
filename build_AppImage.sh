@@ -30,6 +30,10 @@ rm -f ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64.deb
 cp -r ./dpkg/quardCRT ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64
 # 使用linuxdeployqt拷贝依赖so库到打包目录
 export QMAKE=$QT_DIR/bin/qmake
+mkdir -p ./AppDir/usr/plugins/QuardCRT
+if [ -d "./prebuilt_plugins" ]; then
+    cp ./prebuilt_plugins/*.so ./AppDir/usr/plugins/QuardCRT/
+fi
 ./tools/linuxdeploy-x86_64.AppImage --executable=./build_release/out/quardCRT --appdir=./AppDir --icon-file=./icons/ico.svg --desktop-file=./AppDirRes/quardCRT.desktop --plugin=qt --output appimage
 mkdir AppImageOut
 cp ./quardCRT-*.AppImage ./AppImageOut/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64.AppImage

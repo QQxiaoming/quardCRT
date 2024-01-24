@@ -3,10 +3,12 @@
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
 - 全屏模式下增加ESC退出全屏功能
+- 插件平台支持动态启用/禁用插件功能
 - 优化解决软件启动后固定占用CPU负载问题
 - 修复macos下全屏导致程序崩溃问题
 - 修复macos native UI模式下标题按钮没有切换为macos风格问题
 - 修复macos通过native UI样式标题按钮全屏后，无法显示界面上上下文菜单中退出全屏选项问题
+- 预构建版本增加对于[插件生态平台](https://github.com/QuardCRT-platform)的预构建插件的打包
 
 ## [[V0.4.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.1)] - 2024-01-13
 

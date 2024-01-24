@@ -39,8 +39,9 @@ SessionManagerTreeView::SessionManagerTreeView(QWidget *parent)
     rootIndex = mode->addTree(tr("Session"), -1, QModelIndex());
     expand(rootIndex);
 
-    connect(this, &SessionManagerTreeView::doubleClicked, this, [=](const QModelIndex &index){
-        int type; QString name;
+    connect(this, &SessionManagerTreeView::doubleClicked, this, [&](const QModelIndex &index){
+        int type; 
+        QString name;
         mode->info(index, type, name);
         if(type != -1) {
             emit sessionConnect(name);
@@ -82,32 +83,32 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
         if(type != -1) {
             QAction *connectTerminalAction = new QAction(tr("Connect Terminal"), contextMenu);
             contextMenu->addAction(connectTerminalAction);
-            connect(connectTerminalAction, &QAction::triggered, this, [=](){
+            connect(connectTerminalAction, &QAction::triggered, this, [&,name](){
                 emit sessionConnect(name);
             });
             QAction *connectInNewWindowAction = new QAction(tr("Connect in New Window"), contextMenu);
             contextMenu->addAction(connectInNewWindowAction);
-            connect(connectInNewWindowAction, &QAction::triggered, this, [=](){
+            connect(connectInNewWindowAction, &QAction::triggered, this, [&,name](){
                 QStringList args;
                 args << "--start_know_session" << name;
                 QProcess::startDetached(QApplication::applicationFilePath(),args);
             });
             QAction *connectInNewTabGroupAction = new QAction(tr("Connect in New Tab Group"), contextMenu);
             contextMenu->addAction(connectInNewTabGroupAction);
-            connect(connectInNewTabGroupAction, &QAction::triggered, this, [=](){
+            connect(connectInNewTabGroupAction, &QAction::triggered, this, [&,name](){
                 //TODO:Connect in another tab group
                 emit sessionConnect(name);
             });
             contextMenu->addSeparator();
             QAction *deleteAction = new QAction(tr("Delete"), contextMenu);
             contextMenu->addAction(deleteAction);
-            connect(deleteAction, &QAction::triggered, this, [=](){
+            connect(deleteAction, &QAction::triggered, this, [&,name](){
                 emit sessionRemove(name);
             });
             contextMenu->addSeparator();
             QAction *propertiesAction = new QAction(tr("Properties"), contextMenu);
             contextMenu->addAction(propertiesAction);
-            connect(propertiesAction, &QAction::triggered, this, [=](){
+            connect(propertiesAction, &QAction::triggered, this, [&,name](){
                 emit sessionShowProperties(name);
             });
         }

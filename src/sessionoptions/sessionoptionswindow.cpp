@@ -92,7 +92,7 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
 
     retranslateUi();
 
-    connect(treeView, &QTreeView::clicked, [=](const QModelIndex &index) {
+    connect(treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
         if (index.row() == 0) {
             sessionOptionsGeneralWidget->setVisible(true);
             setactiveProperties(-1);

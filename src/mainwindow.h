@@ -277,7 +277,11 @@ private:
 
     KeyChainClass keyChainClass;
     QList<SessionsWindow *> sessionList;
-    QList<PluginInterface *> pluginList;
+    struct pluginState_t {
+        PluginInterface *iface;
+        bool state;
+    };
+    QList<pluginState_t> pluginList;
     QTftp *tftpServer;
     qreal windowTransparency;
     bool windowTransparencyEnabled;
@@ -298,7 +302,7 @@ public:
         QTimer::singleShot(0, this, [this, laboratoryButton](){
             laboratoryButton->setFixedSize(m_good_central_widget->titleBarHeight(),m_good_central_widget->titleBarHeight());
             m_good_central_widget->setRightTitleBarWidget(laboratoryButton, false);
-            connect(m_good_central_widget,&QGoodCentralWidget::windowActiveChanged,this, [=](bool active){
+            connect(m_good_central_widget,&QGoodCentralWidget::windowActiveChanged,this, [laboratoryButton](bool active){
                 laboratoryButton->setEnabled(active);
             });
         });

@@ -29,11 +29,11 @@ CommandWidget::CommandWidget(QWidget *parent) :
     autoSendTimer = new QTimer(this);
     ui->asciiRadioButton->setChecked(true);
 
-    connect(ui->sendPushButton, &QPushButton::clicked, this, [=]() {
+    connect(ui->sendPushButton, &QPushButton::clicked, this, [&]() {
         sendCurrentData();
     });
 
-    connect(ui->autoSendCheckBox, &QCheckBox::stateChanged, this, [=](int state) {
+    connect(ui->autoSendCheckBox, &QCheckBox::stateChanged, this, [&](int state) {
         if(state == Qt::Checked) {
             ui->sendPushButton->setEnabled(false);
             ui->commandPlainEdit->setEnabled(false);
@@ -51,7 +51,7 @@ CommandWidget::CommandWidget(QWidget *parent) :
         }
     });
 
-    connect(autoSendTimer, &QTimer::timeout, this, [=]() {
+    connect(autoSendTimer, &QTimer::timeout, this, [&]() {
         sendCurrentData();
     });
 }

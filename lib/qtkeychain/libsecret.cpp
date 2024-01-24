@@ -14,7 +14,8 @@ const SecretSchema* qtkeychainSchema(void) {
             { "user", SECRET_SCHEMA_ATTRIBUTE_STRING },
             { "server", SECRET_SCHEMA_ATTRIBUTE_STRING },
             { "type", SECRET_SCHEMA_ATTRIBUTE_STRING }
-        }
+        },
+        0,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,
     };
 
     return &schema;

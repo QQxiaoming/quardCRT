@@ -26,7 +26,7 @@ PluginInfoWindow::PluginInfoWindow(QWidget *parent)
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    connect(ui->pushButtonInstallPlugin, &QPushButton::clicked, this, [=](){
+    connect(ui->pushButtonInstallPlugin, &QPushButton::clicked, this, [&](){
         QString pluginDir = QApplication::applicationDirPath() + "/plugins/QuardCRT";
         QDesktopServices::openUrl(QUrl::fromLocalFile(pluginDir));
     });
@@ -37,12 +37,12 @@ PluginInfoWindow::~PluginInfoWindow()
     delete ui;
 }
 
-void PluginInfoWindow::addPluginInfo(PluginInterface *plugin, uint32_t apiVersion, bool enable)
+void PluginInfoWindow::addPluginInfo(PluginInterface *plugin, uint32_t apiVersion, bool enable, bool readOnly)
 {
-    addPluginInfo(plugin->name(), plugin->version(), apiVersion, enable);
+    addPluginInfo(plugin->name(), plugin->version(), apiVersion, enable, readOnly);
 }
 
-void PluginInfoWindow::addPluginInfo(QString name, QString version, uint32_t apiVersion, bool enable)
+void PluginInfoWindow::addPluginInfo(QString name, QString version, uint32_t apiVersion, bool enable, bool readOnly)
 {
     uint32_t i = ui->tableWidget->rowCount();
     ui->tableWidget->setRowCount(i + 1);
@@ -52,8 +52,14 @@ void PluginInfoWindow::addPluginInfo(QString name, QString version, uint32_t api
     QTableWidgetItem *item = new QTableWidgetItem();
     item->setCheckState(enable ? Qt::Checked : Qt::Unchecked);
     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-    item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
+    if(readOnly) item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
     ui->tableWidget->setItem(i, 3, item);
+    if(!readOnly) {
+        connect(ui->tableWidget, &QTableWidget::itemChanged, this, [&,name,item](QTableWidgetItem * in) {
+            if(in == item)
+                emit pluginEnableStateChanged(name, in->checkState() == Qt::Checked);
+        });
+    }
 }
 
 void PluginInfoWindow::retranslateUi(void) {

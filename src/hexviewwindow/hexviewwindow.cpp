@@ -69,7 +69,7 @@ void HexViewWindow::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu *menu = new QMenu(this);
     QAction *copyAction = new QAction(tr("Copy"),this);
-    connect(copyAction,&QAction::triggered,this,[=](){
+    connect(copyAction,&QAction::triggered,this,[&](){
         QByteArray ba = hexEdit->getSelection();
         if(ba.isEmpty()) return;
         QClipboard *clipboard = QApplication::clipboard();
@@ -77,7 +77,7 @@ void HexViewWindow::contextMenuEvent(QContextMenuEvent *event)
     });
     menu->addAction(copyAction);
     QAction *copyHexAction = new QAction(tr("Copy Hex"),this);
-    connect(copyHexAction,&QAction::triggered,this,[=](){
+    connect(copyHexAction,&QAction::triggered,this,[&](){
         QByteArray ba = hexEdit->getSelection();
         if(ba.isEmpty()) return;
         QClipboard *clipboard = QApplication::clipboard();
@@ -85,7 +85,7 @@ void HexViewWindow::contextMenuEvent(QContextMenuEvent *event)
     });
     menu->addAction(copyHexAction);
     QAction *dumpAction = new QAction(tr("Dump"),this);
-    connect(dumpAction,&QAction::triggered,this,[=](){
+    connect(dumpAction,&QAction::triggered,this,[&](){
         QByteArray ba = hexEdit->getSelection();
         if(ba.isEmpty()) return;
         QString fileName = FileDialog::getSaveFileName(this,tr("Save As"),QString(),tr("Binary File (*.bin)"));
@@ -102,7 +102,7 @@ void HexViewWindow::contextMenuEvent(QContextMenuEvent *event)
     });
     menu->addAction(dumpAction);
     QAction *clearAction = new QAction(tr("Clear"),this);
-    connect(clearAction,&QAction::triggered,this,[=](){
+    connect(clearAction,&QAction::triggered,this,[&](){
         hexEdit->setData(QByteArray());
     });
     menu->addAction(clearAction);

@@ -169,7 +169,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(globalOptionsAppearanceWidget->ui->toolButtonClearBackgroundImage, &QToolButton::clicked, this, [&](){
         globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->setText("");
     });
-    connect(globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont, &QPushButton::clicked, this, [=](){
+    connect(globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont, &QPushButton::clicked, this, [&](){
         bool ok;
         QFont sfont = QFontDialog::getFont(&ok, this->font, this);
         if (ok) {
@@ -214,7 +214,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
 
-    connect(treeView, &QTreeView::clicked, [=](const QModelIndex &index) {
+    connect(treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
         setActiveWidget(index.row());
     });
 }

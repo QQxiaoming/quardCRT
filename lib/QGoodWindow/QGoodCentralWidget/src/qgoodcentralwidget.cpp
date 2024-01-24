@@ -572,7 +572,6 @@ void QGoodCentralWidget::updateWindowLater()
         return;
 
     bool window_active = m_gw->isActiveWindow();
-    bool window_no_state = m_gw->windowState().testFlag(Qt::WindowNoState);
     bool is_maximized = m_gw->isMaximized();
     bool is_full_screen = m_gw->isFullScreen();
     int title_bar_width = m_title_bar->width();
