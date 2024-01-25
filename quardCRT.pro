@@ -31,6 +31,7 @@ INCLUDEPATH += \
     src/sessionswindow \
     src/sessiontab \
     src/sessionmanagerwidget \
+    src/pluginviewerwidget \
     src/globaloptions \
     src/sessionoptions \
     src/commandwidget \
@@ -47,6 +48,8 @@ INCLUDEPATH += \
 
 SOURCES += \
     src/plugininfowindow/plugininfowindow.cpp \
+    src/pluginviewerwidget/pluginviewerhomewidget.cpp \
+    src/pluginviewerwidget/pluginviewerwidget.cpp \
     src/sftpwindow/sftpmenubookmarkwidget.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
@@ -87,6 +90,8 @@ SOURCES += \
 
 HEADERS += \
     src/plugininfowindow/plugininfowindow.h \
+    src/pluginviewerwidget/pluginviewerhomewidget.h \
+    src/pluginviewerwidget/pluginviewerwidget.h \
     src/sftpwindow/sftpmenubookmarkwidget.h \
     src/util/logger.h \
     src/util/argv_split.h \
@@ -133,6 +138,8 @@ FORMS += \
     src/globaloptions/globaloptionsterminalwidget.ui \
     src/globaloptions/globaloptionswindowwidget.ui \
     src/plugininfowindow/plugininfowindow.ui \
+    src/pluginviewerwidget/pluginviewerhomewidget.ui \
+    src/pluginviewerwidget/pluginviewerwidget.ui \
     src/sessionmanagerwidget/sessionmanagerwidget.ui \
     src/globaloptions/globaloptionsgeneralwidget.ui \
     src/globaloptions/globaloptionswindow.ui \

@@ -10,7 +10,7 @@
 #include <QLocale>
 #include <QList>
 
-#define PLUGIN_API_VERSION 1
+#define PLUGIN_API_VERSION 2
 
 class PluginInterface : public QObject
 {
@@ -20,8 +20,7 @@ public:
     virtual int init(QMap<QString, QString> params, QWidget *parent) = 0;
     virtual QString name() = 0;
     virtual QString version() = 0;
-    virtual QMenu *mainMenu() = 0;
-    virtual QAction *mainAction() = 0;
+    virtual QMap<QString,void *> metaObject() = 0;
     virtual QMenu *terminalContextMenu(QString selectedText, QString workingDirectory, QMenu *parentMenu) = 0;
     virtual QList<QAction *> terminalContextAction(QString selectedText, QString workingDirectory, QMenu *parentMenu) = 0;
     virtual void setLanguage(const QLocale &language,QApplication *app) = 0;

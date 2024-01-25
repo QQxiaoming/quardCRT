@@ -1,3 +1,22 @@
+/*
+ * This file is part of the https://github.com/QQxiaoming/quardCRT.git
+ * project.
+ *
+ * Copyright (C) 2023 Quard <2014500726@smail.xtu.edu.cn>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include <QDesktopServices>
 #include <QUrl>
 
@@ -65,4 +84,19 @@ void PluginInfoWindow::addPluginInfo(QString name, QString version, uint32_t api
 void PluginInfoWindow::retranslateUi(void) {
     ui->retranslateUi(this);
     ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable"));
+}
+
+QList<uint32_t> PluginInfoWindow::supportAPIVersionList(void) {
+    QList<uint32_t> list;
+    switch(PLUGIN_API_VERSION) {
+        case 1:
+            list.append(1);
+            break;
+        case 2:
+            list.append(2);
+            break;
+        default:
+            break;
+    }
+    return list;
 }

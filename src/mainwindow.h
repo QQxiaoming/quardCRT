@@ -41,6 +41,7 @@
 #include "globaloptionswindow.h"
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
+#include "pluginviewerwidget.h"
 #include "commandwidget.h"
 #include "starttftpseverwindow.h"
 #include "locksessionwindow.h"
@@ -144,6 +145,7 @@ private:
     Ui::CentralWidget *ui;
 
     SessionManagerWidget *sessionManagerWidget;
+    PluginViewerWidget *pluginViewerWidget;
     QList<MainWidgetGroup *> mainWidgetGroupList;
     QuickConnectWindow *quickConnectWindow;
     MainWidgetGroup *quickConnectMainWidgetGroup;
@@ -151,7 +153,9 @@ private:
     GlobalOptionsWindow *globalOptionsWindow;
     SessionOptionsWindow *sessionOptionsWindow;
     HexViewWindow *hexViewWindow;
+    QWidget *sideProxyWidget;
     QPushButton *sessionManagerPushButton;
+    QPushButton *pluginViewerPushButton;
     StartTftpSeverWindow *startTftpSeverWindow;
     LockSessionWindow *lockSessionWindow;
     SftpWindow *sftpWindow;

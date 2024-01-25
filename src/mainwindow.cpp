@@ -81,11 +81,14 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
-    /* Create the main UI */
     sessionManagerWidget = new SessionManagerWidget(this);
     ui->centralwidget->layout()->addWidget(sessionManagerWidget);
+    pluginViewerWidget = new PluginViewerWidget(this);
+    ui->centralwidget->layout()->addWidget(pluginViewerWidget);
+
     restoreSessionToSessionManager();
     sessionManagerWidget->setVisible(false);
+    pluginViewerWidget->setVisible(false);
 
     QSplitter *splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
@@ -120,17 +123,26 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     hexViewWindow = new HexViewWindow(this);
     hexViewWindow->setFont(globalOptionsWindow->getCurrentFont());
 
-    QGraphicsScene *scene = new QGraphicsScene(this);
     sessionManagerPushButton = new QPushButton();
-    QGraphicsProxyWidget *w = scene->addWidget(sessionManagerPushButton);
+    sessionManagerPushButton->setFixedSize(250,26);
+    pluginViewerPushButton = new QPushButton();
+    pluginViewerPushButton->setFixedSize(250,26);
+    QHBoxLayout *hboxLayout = new QHBoxLayout();
+    hboxLayout->setContentsMargins(0,0,0,0);
+    hboxLayout->setSpacing(2);
+    sideProxyWidget = new QWidget();
+    sideProxyWidget->setLayout(hboxLayout);
+    hboxLayout->addWidget(pluginViewerPushButton);
+    hboxLayout->addWidget(sessionManagerPushButton);
+    QGraphicsScene *scene = new QGraphicsScene(this);
+    QGraphicsProxyWidget *w = scene->addWidget(sideProxyWidget);
     w->setPos(0,0);
     w->setRotation(-90);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setFrameStyle(0);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    sessionManagerPushButton->setFixedSize(250,26);
-    ui->graphicsView->setFixedSize(30, 250);
+    ui->graphicsView->setFixedSize(30, 502);
     ui->sidewidget->setFixedWidth(30);
 
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
@@ -147,9 +159,18 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     connect(sessionManagerPushButton,&QPushButton::clicked,this,[&](){
         if(sessionManagerWidget->isVisible() == false) {
+            pluginViewerWidget->setVisible(false);
             sessionManagerWidget->setVisible(true);
         } else {
             sessionManagerWidget->setVisible(false);
+        }
+    });
+    connect(pluginViewerPushButton,&QPushButton::clicked,this,[&](){
+        if(pluginViewerWidget->isVisible() == false) {
+            sessionManagerWidget->setVisible(false);
+            pluginViewerWidget->setVisible(true);
+        } else {
+            pluginViewerWidget->setVisible(false);
         }
     });
     connect(startTftpSeverWindow,&StartTftpSeverWindow::setTftpInfo,this,[&](int port, const QString &upDir, const QString &downDir){
@@ -187,10 +208,15 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 pluginStruct->state = enable;
                 GlobalSetting settings;
                 settings.setValue("Global/Plugin/"+name+"/State",enable);
-                if(pluginStruct->iface->mainMenu()) {
-                    pluginStruct->iface->mainMenu()->menuAction()->setVisible(enable);
-                } else if(pluginStruct->iface->mainAction()) {
-                    pluginStruct->iface->mainAction()->setVisible(enable);
+                QMap<QString,void *> map = iface->metaObject();
+                foreach (QString key, map.keys()) {
+                    if(key == "QAction") {
+                        QAction *action = (QAction *)map.value(key);
+                        action->setVisible(enable);
+                    } else if(key == "QMenu") {
+                        QMenu *menu = (QMenu *)map.value(key);
+                        menu->menuAction()->setVisible(enable);
+                    }
                 }
                 break;
             }
@@ -709,6 +735,8 @@ CentralWidget::~CentralWidget() {
     }
     delete tftpServer;
     delete sessionManagerPushButton;
+    delete pluginViewerPushButton;
+    delete sideProxyWidget;
     delete hexViewWindow;
     delete ui;
 }
@@ -965,6 +993,7 @@ QWidget *CentralWidget::findCurrentFocusWidget(void) {
 
 void CentralWidget::menuAndToolBarRetranslateUi(void) {
     sessionManagerPushButton->setText(tr("Session Manager"));
+    pluginViewerPushButton->setText(tr("Plugin"));
 
     fileMenu->setTitle(tr("File"));
     editMenu->setTitle(tr("Edit"));
@@ -1625,7 +1654,8 @@ void CentralWidget::menuAndToolBarInit(void) {
                 continue;
             } 
             int apiVersion = metaDataObject.value("APIVersion").toInt();
-            if(apiVersion != PLUGIN_API_VERSION) {
+            QList<uint32_t> supportVersion = PluginInfoWindow::supportAPIVersionList();
+            if(!supportVersion.contains(apiVersion)) {
                 qInfo() << "plugin api version [" << apiVersion << "] not match:" << fileName;       
                 pluginInfoWindow->addPluginInfo(fileName,"",apiVersion,false,true);         
                 continue;
@@ -1657,15 +1687,19 @@ void CentralWidget::menuAndToolBarInit(void) {
                         connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                         connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
                         connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
-                        QMenu *menu = iface->mainMenu();
-                        if(menu) {
-                            laboratoryMenu->addMenu(menu);
-                            menu->menuAction()->setVisible(state);
-                        } else {
-                            QAction *action = iface->mainAction();
-                            if(action) {
+                        QMap<QString,void *> map = iface->metaObject();
+                        foreach (QString key, map.keys()) {
+                            if(key == "QAction") {
+                                QAction *action = (QAction *)map.value(key);
                                 laboratoryMenu->addAction(action);
                                 action->setVisible(state);
+                            } else if(key == "QMenu") {
+                                QMenu *menu = (QMenu *)map.value(key);
+                                laboratoryMenu->addMenu(menu);
+                                menu->menuAction()->setVisible(state);
+                            } else if(key == "QWidget") {
+                                QWidget *widget = (QWidget *)map.value(key);
+                                pluginViewerWidget->addPlugin(widget,iface->name());
                             }
                         }
                         iface->setLanguage(language,qApp);
