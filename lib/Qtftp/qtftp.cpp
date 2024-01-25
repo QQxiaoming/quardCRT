@@ -121,7 +121,8 @@ void QTftp::server_get()
 	int i;
 	for(i = 0; i < m_retries; i++) {
 		sock->writeDatagram(buffer, sizeof(struct tftp_header) + pktnum-2, rhost, rport);
-		if(waitForAck(block++)) {
+		if(waitForAck(block)) {
+			block++;
 			break;
 		}
 	}
@@ -139,8 +140,10 @@ void QTftp::server_get()
 
 		for(i = 0; i < m_retries; i++) {
 			sock->writeDatagram(buffer, readed + sizeof(struct tftp_header), rhost, rport);
-			if(waitForAck(block++))
+			if(waitForAck(block)) {
+				block++;
 				break;
+			}
 		}
 		if(i == m_retries)
 			return;
@@ -298,8 +301,10 @@ void QTftp::client_put(QString path, QString server)
 				emit error(NetworkError);
 				return;
 			}
-			if(waitForAck(block++))
+			if(waitForAck(block)) {
+				block++;
 				break;
+			}
 		}
 		if(i == m_retries) {
 			emit error(Timeout);
