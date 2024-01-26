@@ -12,11 +12,11 @@
 
 #define PLUGIN_API_VERSION 2
 
-class PluginInterface : public QObject
+class PluginInterfaceV2 : public QObject
 {
     Q_OBJECT
 public:
-    virtual ~PluginInterface() {}
+    virtual ~PluginInterfaceV2() {}
     virtual int init(QMap<QString, QString> params, QWidget *parent) = 0;
     virtual QString name() = 0;
     virtual QString version() = 0;
@@ -38,6 +38,36 @@ signals:
     void writeSettings(QString path, QString key, QVariant value);
     void readSettings(QString path, QString key, QVariant &value);
 };
+
+class PluginInterfaceV1 : public QObject
+{
+    Q_OBJECT
+public:
+    virtual ~PluginInterfaceV1() {}
+    virtual int init(QMap<QString, QString> params, QWidget *parent) = 0;
+    virtual QString name() = 0;
+    virtual QString version() = 0;
+    virtual QMenu *mainMenu() = 0;
+    virtual QAction *mainAction() = 0;
+    virtual QMenu *terminalContextMenu(QString selectedText, QString workingDirectory, QMenu *parentMenu) = 0;
+    virtual QList<QAction *> terminalContextAction(QString selectedText, QString workingDirectory, QMenu *parentMenu) = 0;
+    virtual void setLanguage(const QLocale &language,QApplication *app) = 0;
+    virtual void retranslateUi() = 0;
+
+signals:
+    void requestTelnetConnect(QString host, int port, int type);
+    void requestSerialConnect(QString portName, uint32_t baudRate, int dataBits, int parity, int stopBits, bool flowControl, bool xEnable);
+    void requestLocalShellConnect(QString command, QString workingDirectory);
+    void requestRawSocketConnect(QString host, int port);
+    void requestNamePipeConnect(QString namePipe);
+    void requestSSH2Connect(QString host, QString user, QString password, int port);
+    void requestVNCConnect(QString host, QString password, int port);
+    void sendCommand(QString cmd);
+    void writeSettings(QString path, QString key, QVariant value);
+    void readSettings(QString path, QString key, QVariant &value);
+};
+
+#define PluginInterface PluginInterfaceV2
 
 #define PluginInterface_iid "org.quardCRT.PluginInterface"
 

@@ -1648,14 +1648,15 @@ void CentralWidget::menuAndToolBarInit(void) {
                 continue;
             }
             QJsonObject metaDataObject = metaData.value("MetaData").toObject();
+            qInfo() << metaDataObject;
             if(!metaDataObject.contains("APIVersion")) {
                 qInfo() << "plugin api version not found:" << fileName;
                 pluginInfoWindow->addPluginInfo(fileName,"",0,false,true);
                 continue;
-            } 
+            }
             int apiVersion = metaDataObject.value("APIVersion").toInt();
             QList<uint32_t> supportVersion = PluginInfoWindow::supportAPIVersionList();
-            if(!supportVersion.contains(apiVersion)) {
+            if(!supportVersion.contains((uint32_t)apiVersion)) {
                 qInfo() << "plugin api version [" << apiVersion << "] not match:" << fileName;       
                 pluginInfoWindow->addPluginInfo(fileName,"",apiVersion,false,true);         
                 continue;

@@ -43,7 +43,12 @@ xcopy /y "D:\winpty\bin\winpty.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty-agent.exe" ".\InnoSetup\build\"
 xcopy /y .\scripts\Profile.ps1 .\InnoSetup\build\
 xcopy /y .\font\inziu-iosevkaCC-SC-regular.ttf .\InnoSetup\build\
-mkdir ".\InnoSetup\plugins\QuardCRT"
+mkdir ".\InnoSetup\build\plugins"
+mkdir ".\InnoSetup\build\plugins\QuardCRT"
+:: 判断是否存在prebuilt_plugins目录
+if exist ".\prebuilt_plugins" (
+    xcopy /y .\prebuilt_plugins\*.dll .\InnoSetup\build\plugins\QuardCRT\
+)
 :: 打包
 echo "wait inno build setup..."
 iscc /q ".\InnoSetup\build_temp_setup.iss"
