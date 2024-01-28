@@ -14,6 +14,7 @@ class PluginViewerHomeWidget : public QWidget
 public:
     explicit PluginViewerHomeWidget(QWidget *parent = nullptr);
     ~PluginViewerHomeWidget();
+    void retranslateUi(void);
 
 private:
     Ui::PluginViewerHomeWidget *ui;

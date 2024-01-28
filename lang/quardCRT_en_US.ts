@@ -13,1390 +13,1395 @@
     <name>CentralWidget</name>
     <message>
         <location filename="../src/mainwindow.ui" line="101"/>
-        <location filename="../src/mainwindow.cpp" line="1064"/>
+        <location filename="../src/mainwindow.cpp" line="1123"/>
         <source>Tool Bar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="170"/>
-        <location filename="../src/mainwindow.cpp" line="173"/>
-        <location filename="../src/mainwindow.cpp" line="176"/>
-        <location filename="../src/mainwindow.cpp" line="282"/>
-        <location filename="../src/mainwindow.cpp" line="298"/>
-        <location filename="../src/mainwindow.cpp" line="315"/>
-        <location filename="../src/mainwindow.cpp" line="328"/>
-        <location filename="../src/mainwindow.cpp" line="502"/>
-        <location filename="../src/mainwindow.cpp" line="2473"/>
-        <location filename="../src/mainwindow.cpp" line="2668"/>
-        <location filename="../src/mainwindow.cpp" line="3036"/>
-        <location filename="../src/mainwindow.cpp" line="3371"/>
-        <location filename="../src/mainwindow.cpp" line="3376"/>
+        <location filename="../src/mainwindow.cpp" line="191"/>
+        <location filename="../src/mainwindow.cpp" line="194"/>
+        <location filename="../src/mainwindow.cpp" line="197"/>
+        <location filename="../src/mainwindow.cpp" line="325"/>
+        <location filename="../src/mainwindow.cpp" line="341"/>
+        <location filename="../src/mainwindow.cpp" line="358"/>
+        <location filename="../src/mainwindow.cpp" line="371"/>
+        <location filename="../src/mainwindow.cpp" line="546"/>
+        <location filename="../src/mainwindow.cpp" line="2552"/>
+        <location filename="../src/mainwindow.cpp" line="2747"/>
+        <location filename="../src/mainwindow.cpp" line="3115"/>
+        <location filename="../src/mainwindow.cpp" line="3451"/>
+        <location filename="../src/mainwindow.cpp" line="3456"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="170"/>
+        <location filename="../src/mainwindow.cpp" line="191"/>
         <source>TFTP server bind error!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="173"/>
+        <location filename="../src/mainwindow.cpp" line="194"/>
         <source>TFTP server file error!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="176"/>
+        <location filename="../src/mainwindow.cpp" line="197"/>
         <source>TFTP server network error!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="243"/>
+        <location filename="../src/mainwindow.cpp" line="286"/>
         <source>Unlock Session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="244"/>
+        <location filename="../src/mainwindow.cpp" line="287"/>
         <source>Unlock current session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="250"/>
+        <location filename="../src/mainwindow.cpp" line="293"/>
         <source>Move to another Tab</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="251"/>
+        <location filename="../src/mainwindow.cpp" line="294"/>
         <source>Move to current session to another tab group</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="260"/>
+        <location filename="../src/mainwindow.cpp" line="303"/>
         <source>Floating Window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="261"/>
+        <location filename="../src/mainwindow.cpp" line="304"/>
         <source>Floating current session to a new window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="268"/>
+        <location filename="../src/mainwindow.cpp" line="311"/>
         <source>Copy Path</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="269"/>
+        <location filename="../src/mainwindow.cpp" line="312"/>
         <source>Copy current session working folder path</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="282"/>
-        <location filename="../src/mainwindow.cpp" line="298"/>
-        <location filename="../src/mainwindow.cpp" line="315"/>
+        <location filename="../src/mainwindow.cpp" line="325"/>
+        <location filename="../src/mainwindow.cpp" line="341"/>
+        <location filename="../src/mainwindow.cpp" line="358"/>
         <source>No working folder!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="284"/>
+        <location filename="../src/mainwindow.cpp" line="327"/>
         <source>Add Path to Bookmark</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="285"/>
+        <location filename="../src/mainwindow.cpp" line="328"/>
         <source>Add current session working folder path to bookmark</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="300"/>
+        <location filename="../src/mainwindow.cpp" line="343"/>
         <source>Open Working Folder</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="301"/>
+        <location filename="../src/mainwindow.cpp" line="344"/>
         <source>Open current session working folder in system file manager</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="319"/>
+        <location filename="../src/mainwindow.cpp" line="362"/>
         <source>Open SFTP</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="320"/>
+        <location filename="../src/mainwindow.cpp" line="363"/>
         <source>Open SFTP in a new window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="328"/>
+        <location filename="../src/mainwindow.cpp" line="371"/>
         <source>No SFTP channel!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="335"/>
+        <location filename="../src/mainwindow.cpp" line="378"/>
         <source>Save Session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="336"/>
+        <location filename="../src/mainwindow.cpp" line="379"/>
         <source>Save current session to session manager</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="346"/>
+        <location filename="../src/mainwindow.cpp" line="389"/>
         <source>Enter Session Name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="347"/>
+        <location filename="../src/mainwindow.cpp" line="390"/>
         <source>The session already exists, please rename the new session or cancel saving.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="353"/>
+        <location filename="../src/mainwindow.cpp" line="396"/>
         <source>Properties</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="354"/>
+        <location filename="../src/mainwindow.cpp" line="397"/>
         <source>Show current session properties</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="374"/>
+        <location filename="../src/mainwindow.cpp" line="417"/>
         <source>Close</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="375"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
         <source>Close current session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="380"/>
+        <location filename="../src/mainwindow.cpp" line="423"/>
         <source>Close Others</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="381"/>
+        <location filename="../src/mainwindow.cpp" line="424"/>
         <source>Close other sessions</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="391"/>
+        <location filename="../src/mainwindow.cpp" line="434"/>
         <source>Close to the Right</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="392"/>
+        <location filename="../src/mainwindow.cpp" line="435"/>
         <source>Close sessions to the right</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="400"/>
+        <location filename="../src/mainwindow.cpp" line="443"/>
         <source>Close All</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="401"/>
+        <location filename="../src/mainwindow.cpp" line="444"/>
         <source>Close all sessions</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="502"/>
+        <location filename="../src/mainwindow.cpp" line="546"/>
         <source>Session properties error!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="522"/>
-        <location filename="../src/mainwindow.cpp" line="630"/>
-        <location filename="../src/mainwindow.cpp" line="2376"/>
+        <location filename="../src/mainwindow.cpp" line="566"/>
+        <location filename="../src/mainwindow.cpp" line="684"/>
+        <location filename="../src/mainwindow.cpp" line="2455"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="721"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Highlight/Unhighlight</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="722"/>
+        <location filename="../src/mainwindow.cpp" line="778"/>
         <source>Highlight/Unhighlight selected text</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="782"/>
+        <location filename="../src/mainwindow.cpp" line="838"/>
         <source>Google Translate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="783"/>
-        <location filename="../src/mainwindow.cpp" line="796"/>
-        <location filename="../src/mainwindow.cpp" line="808"/>
+        <location filename="../src/mainwindow.cpp" line="839"/>
+        <location filename="../src/mainwindow.cpp" line="852"/>
+        <location filename="../src/mainwindow.cpp" line="864"/>
         <source>Translate selected text</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="795"/>
+        <location filename="../src/mainwindow.cpp" line="851"/>
         <source>Baidu Translate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="807"/>
+        <location filename="../src/mainwindow.cpp" line="863"/>
         <source>Microsoft Translate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="866"/>
+        <location filename="../src/mainwindow.cpp" line="924"/>
         <source>Back to Main Window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="937"/>
-        <location filename="../src/mainwindow.cpp" line="960"/>
+        <location filename="../src/mainwindow.cpp" line="995"/>
+        <location filename="../src/mainwindow.cpp" line="1019"/>
         <source>Session Manager</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="939"/>
-        <source>File</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="940"/>
-        <source>Edit</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="941"/>
-        <source>View</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="942"/>
-        <source>Options</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="943"/>
-        <source>Transfer</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="944"/>
-        <source>Script</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="945"/>
-        <source>Bookmark</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="946"/>
-        <source>Tools</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="947"/>
-        <source>Window</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="948"/>
-        <source>Language</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="949"/>
-        <source>Theme</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="950"/>
-        <location filename="../src/mainwindow.cpp" line="1170"/>
-        <location filename="../src/mainwindow.cpp" line="3335"/>
-        <source>Help</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="952"/>
-        <source>New Window</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="954"/>
-        <source>Open a new window &lt;Ctrl+Shift+N&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="956"/>
-        <source>Connect...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="958"/>
-        <source>Connect to a host &lt;Alt+C&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="962"/>
-        <source>Go to the Session Manager &lt;Alt+M&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="964"/>
-        <source>Quick Connect...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="966"/>
-        <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="968"/>
-        <source>Connect in Tab/Tile...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="969"/>
-        <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="971"/>
-        <source>Connect Local Shell</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="973"/>
-        <source>Connect to a local shell &lt;Alt+T&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="975"/>
-        <source>Reconnect</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="977"/>
-        <source>Reconnect current session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="978"/>
-        <source>Reconnect All</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="979"/>
-        <source>Reconnect all sessions &lt;Alt+A&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="981"/>
-        <source>Disconnect</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="983"/>
-        <source>Disconnect current session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="984"/>
-        <location filename="../src/mainwindow.cpp" line="985"/>
-        <source>Enter host &lt;Alt+R&gt; to connect</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="986"/>
-        <source>Disconnect All</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="987"/>
-        <source>Disconnect all sessions</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="988"/>
-        <source>Clone Session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="989"/>
-        <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="991"/>
-        <source>Lock Session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="992"/>
-        <source>Lock/Unlock current session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="993"/>
-        <source>Log Session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="994"/>
-        <source>Create a log file for current session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="995"/>
-        <source>Raw Log Session</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="996"/>
-        <source>Create a raw log file for current session</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="997"/>
-        <source>Hex View</source>
+        <source>Plugin</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="998"/>
-        <source>Show/Hide Hex View for current session</source>
+        <source>File</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="999"/>
-        <source>Exit</source>
+        <source>Edit</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1000"/>
-        <source>Quit the application</source>
+        <source>View</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1001"/>
+        <source>Options</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1002"/>
-        <source>Copy</source>
+        <source>Transfer</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1003"/>
+        <source>Script</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1004"/>
+        <source>Bookmark</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1005"/>
-        <source>Copy the selected text to the clipboard &lt;Command+C&gt;</source>
+        <source>Tools</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1006"/>
+        <source>Window</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1007"/>
+        <source>Language</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1008"/>
-        <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
+        <source>Theme</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1009"/>
+        <location filename="../src/mainwindow.cpp" line="1229"/>
+        <location filename="../src/mainwindow.cpp" line="3415"/>
+        <source>Help</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1011"/>
-        <source>Paste</source>
+        <source>New Window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1014"/>
-        <source>Paste the clipboard text to the current session &lt;Command+V&gt;</source>
+        <location filename="../src/mainwindow.cpp" line="1013"/>
+        <source>Open a new window &lt;Ctrl+Shift+N&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1015"/>
+        <source>Connect...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1017"/>
-        <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1020"/>
-        <source>Copy and Paste</source>
+        <source>Connect to a host &lt;Alt+C&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1021"/>
-        <source>Copy the selected text to the clipboard and paste to the current session</source>
+        <source>Go to the Session Manager &lt;Alt+M&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1022"/>
-        <source>Select All</source>
+        <location filename="../src/mainwindow.cpp" line="1023"/>
+        <source>Quick Connect...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1024"/>
-        <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
+        <location filename="../src/mainwindow.cpp" line="1025"/>
+        <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1026"/>
-        <source>Find...</source>
+        <location filename="../src/mainwindow.cpp" line="1027"/>
+        <source>Connect in Tab/Tile...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1028"/>
-        <source>Find text in the current session &lt;Ctrl+F&gt;</source>
+        <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1030"/>
-        <source>Print Screen</source>
+        <source>Connect Local Shell</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1032"/>
-        <source>Print current screen</source>
+        <source>Connect to a local shell &lt;Alt+T&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1033"/>
-        <source>Screen Shot</source>
+        <location filename="../src/mainwindow.cpp" line="1034"/>
+        <source>Reconnect</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1035"/>
-        <source>Screen shot current screen &lt;Alt+P&gt;</source>
+        <location filename="../src/mainwindow.cpp" line="1036"/>
+        <source>Reconnect current session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1037"/>
-        <source>Session Export</source>
+        <source>Reconnect All</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1039"/>
-        <source>Export current session to a file &lt;Alt+O&gt;</source>
+        <location filename="../src/mainwindow.cpp" line="1038"/>
+        <source>Reconnect all sessions &lt;Alt+A&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1041"/>
-        <source>Clear Scrollback</source>
+        <location filename="../src/mainwindow.cpp" line="1040"/>
+        <source>Disconnect</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1042"/>
-        <source>Clear the contents of the scrollback rows</source>
+        <source>Disconnect current session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1043"/>
-        <source>Clear Screen</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="1044"/>
-        <source>Clear the contents of the current screen</source>
+        <source>Enter host &lt;Alt+R&gt; to connect</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1045"/>
-        <source>Clear Screen and Scrollback</source>
+        <source>Disconnect All</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1046"/>
-        <source>Clear the contents of the screen and scrollback</source>
+        <source>Disconnect all sessions</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1047"/>
-        <source>Reset</source>
+        <source>Clone Session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1048"/>
-        <source>Reset terminal emulator</source>
+        <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1050"/>
-        <source>Zoom In</source>
+        <source>Lock Session</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1051"/>
+        <source>Lock/Unlock current session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1052"/>
-        <source>Zoom In &lt;Ctrl+&quot;=&quot;&gt;</source>
+        <source>Log Session</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1053"/>
+        <source>Create a log file for current session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1054"/>
-        <source>Zoom Out</source>
+        <source>Raw Log Session</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1055"/>
+        <source>Create a raw log file for current session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1056"/>
-        <source>Zoom Out &lt;Ctrl+&quot;-&quot;&gt;</source>
+        <source>Hex View</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1057"/>
+        <source>Show/Hide Hex View for current session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1058"/>
-        <location filename="../src/mainwindow.cpp" line="1060"/>
-        <source>Zoom Reset</source>
+        <source>Exit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1059"/>
+        <source>Quit the application</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1061"/>
-        <source>Menu Bar</source>
+        <source>Copy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1062"/>
-        <source>Show/Hide Menu Bar &lt;Alt+U&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1065"/>
-        <source>Show/Hide Tool Bar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1066"/>
-        <source>Status Bar</source>
+        <location filename="../src/mainwindow.cpp" line="1064"/>
+        <source>Copy the selected text to the clipboard &lt;Command+C&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1067"/>
-        <source>Show/Hide Status Bar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1068"/>
-        <source>Command Window</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1069"/>
-        <source>Show/Hide Command Window</source>
+        <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1070"/>
-        <source>Connect Bar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1071"/>
-        <source>Show/Hide Connect Bar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1072"/>
-        <source>Side Window</source>
+        <source>Paste</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1073"/>
-        <source>Show/Hide Side Window</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1074"/>
-        <source>Windows Transparency</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1075"/>
-        <source>Enable/Disable alpha transparency</source>
+        <source>Paste the clipboard text to the current session &lt;Command+V&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1076"/>
-        <source>Vertical Scroll Bar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1077"/>
-        <source>Show/Hide Vertical Scroll Bar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1078"/>
-        <source>Allways On Top</source>
+        <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1079"/>
-        <source>Show window always on top</source>
+        <source>Copy and Paste</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1080"/>
-        <source>Full Screen</source>
+        <source>Copy the selected text to the clipboard and paste to the current session</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1081"/>
-        <source>Toggle between full screen and normal mode &lt;Alt+Enter&gt;</source>
+        <source>Select All</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1084"/>
-        <source>Session Options...</source>
+        <location filename="../src/mainwindow.cpp" line="1083"/>
+        <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1086"/>
-        <source>Configure session options</source>
+        <location filename="../src/mainwindow.cpp" line="1085"/>
+        <source>Find...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1087"/>
-        <source>Global Options...</source>
+        <source>Find text in the current session &lt;Ctrl+F&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1089"/>
-        <source>Configure global options</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1090"/>
-        <source>Real-time Save Options</source>
+        <source>Print Screen</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1091"/>
-        <source>Real-time save session options and global options</source>
+        <source>Print current screen</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1092"/>
-        <source>Save Settings Now</source>
+        <source>Screen Shot</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1093"/>
-        <source>Save options configuration now</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1095"/>
-        <source>Send ASCII...</source>
+        <location filename="../src/mainwindow.cpp" line="1094"/>
+        <source>Screen shot current screen &lt;Alt+P&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1096"/>
-        <source>Send ASCII file</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1097"/>
-        <source>Receive ASCII...</source>
+        <source>Session Export</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1098"/>
-        <source>Receive ASCII file</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1099"/>
-        <source>Send Binary...</source>
+        <source>Export current session to a file &lt;Alt+O&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1100"/>
-        <source>Send Binary file</source>
+        <source>Clear Scrollback</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1101"/>
-        <source>Send Xmodem...</source>
+        <source>Clear the contents of the scrollback rows</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1102"/>
-        <source>Send a file using Xmodem</source>
+        <source>Clear Screen</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1103"/>
-        <source>Receive Xmodem...</source>
+        <source>Clear the contents of the current screen</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1104"/>
-        <source>Receive a file using Xmodem</source>
+        <source>Clear Screen and Scrollback</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1105"/>
-        <source>Send Ymodem...</source>
+        <source>Clear the contents of the screen and scrollback</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1106"/>
-        <source>Send a file using Ymodem</source>
+        <source>Reset</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1107"/>
-        <source>Receive Ymodem...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1108"/>
-        <source>Receive a file using Ymodem</source>
+        <source>Reset terminal emulator</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1109"/>
-        <source>Zmodem Upload List...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1110"/>
-        <source>Display Zmodem file upload list</source>
+        <source>Zoom In</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1111"/>
-        <source>Start Zmodem Upload</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1112"/>
-        <source>Start Zmodem file upload</source>
+        <source>Zoom In &lt;Ctrl+&quot;=&quot;&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1113"/>
-        <source>Start TFTP Server</source>
+        <source>Zoom Out</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1114"/>
-        <source>Start/Stop the TFTP server</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1116"/>
-        <source>Run...</source>
+        <location filename="../src/mainwindow.cpp" line="1115"/>
+        <source>Zoom Out &lt;Ctrl+&quot;-&quot;&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1117"/>
-        <source>Run a script</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1118"/>
-        <source>Cancel</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="1119"/>
-        <source>Cancel script execution</source>
+        <source>Zoom Reset</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1120"/>
-        <source>Start Recording Script</source>
+        <source>Menu Bar</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1121"/>
-        <source>Start recording script</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1122"/>
-        <source>Stop Recording Script...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1123"/>
-        <source>Stop recording script</source>
+        <source>Show/Hide Menu Bar &lt;Alt+U&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1124"/>
-        <source>Cancel Recording Script</source>
+        <source>Show/Hide Tool Bar</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1125"/>
-        <source>Cancel recording script</source>
+        <source>Status Bar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1126"/>
+        <source>Show/Hide Status Bar</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1127"/>
-        <source>Add Bookmark</source>
+        <source>Command Window</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1128"/>
-        <source>Add a bookmark</source>
+        <source>Show/Hide Command Window</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1129"/>
-        <location filename="../src/mainwindow.cpp" line="2273"/>
-        <source>Remove Bookmark</source>
+        <source>Connect Bar</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1130"/>
-        <source>Remove a bookmark</source>
+        <source>Show/Hide Connect Bar</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1131"/>
-        <location filename="../src/mainwindow.cpp" line="2300"/>
-        <source>Clean All Bookmark</source>
+        <source>Side Window</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1132"/>
-        <source>Clean all bookmark</source>
+        <source>Show/Hide Side Window</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1133"/>
+        <source>Windows Transparency</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1134"/>
-        <source>Keymap Manager</source>
+        <source>Enable/Disable alpha transparency</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1135"/>
-        <source>Display keymap editor</source>
+        <source>Vertical Scroll Bar</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1136"/>
-        <source>Create Public Key...</source>
+        <source>Show/Hide Vertical Scroll Bar</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1137"/>
-        <source>Create a public key</source>
+        <source>Allways On Top</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1138"/>
-        <source>Publickey Manager</source>
+        <source>Show window always on top</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1139"/>
-        <source>Display publickey manager</source>
+        <source>Full Screen</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1183"/>
-        <source>Laboratory</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1186"/>
-        <location filename="../src/mainwindow.cpp" line="2318"/>
-        <source>SSH Scanning</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1187"/>
-        <source>Display SSH scanning dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="3321"/>
-        <source>Version</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="3323"/>
-        <source>Commit</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="3325"/>
-        <source>Date</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="3327"/>
-        <source>Author</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="3329"/>
-        <source>Website</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1141"/>
-        <source>Tab</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1142"/>
-        <source>Arrange sessions in tabs</source>
+        <location filename="../src/mainwindow.cpp" line="1140"/>
+        <source>Toggle between full screen and normal mode &lt;Alt+Enter&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1143"/>
-        <source>Tile</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1144"/>
-        <source>Arrange sessions in non-overlapping tiles</source>
+        <source>Session Options...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1145"/>
-        <source>Cascade</source>
+        <source>Configure session options</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1146"/>
-        <source>Arrange sessions to overlap each other</source>
+        <source>Global Options...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1148"/>
-        <source>Simplified Chinese</source>
-        <translation>简体中文</translation>
+        <source>Configure global options</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1149"/>
-        <source>Switch to Simplified Chinese</source>
-        <translation>切换到简体中文</translation>
+        <source>Real-time Save Options</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1150"/>
-        <source>Traditional Chinese</source>
-        <translation>繁體中文</translation>
+        <source>Real-time save session options and global options</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1151"/>
-        <source>Switch to Traditional Chinese</source>
-        <translation>切換到繁體中文</translation>
+        <source>Save Settings Now</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1152"/>
-        <source>Russian</source>
-        <translation>Русский</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1153"/>
-        <source>Switch to Russian</source>
-        <translation>Переключиться на русский</translation>
+        <source>Save options configuration now</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1154"/>
-        <source>Korean</source>
-        <translation>한국어</translation>
+        <source>Send ASCII...</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1155"/>
-        <source>Switch to Korean</source>
-        <translation>한국어로 전환</translation>
+        <source>Send ASCII file</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1156"/>
-        <source>Japanese</source>
-        <translation>日本語</translation>
+        <source>Receive ASCII...</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1157"/>
-        <source>Switch to Japanese</source>
-        <translation>日本語に切り替える</translation>
+        <source>Receive ASCII file</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1158"/>
-        <source>French</source>
-        <translation>français</translation>
+        <source>Send Binary...</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1159"/>
-        <source>Switch to French</source>
-        <translation>Passer au français</translation>
+        <source>Send Binary file</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1160"/>
-        <source>Spanish</source>
-        <translation>español</translation>
+        <source>Send Xmodem...</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1161"/>
-        <source>Switch to Spanish</source>
-        <translation>Cambiar a español</translation>
+        <source>Send a file using Xmodem</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1162"/>
-        <source>English</source>
+        <source>Receive Xmodem...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1163"/>
-        <source>Switch to English</source>
+        <source>Receive a file using Xmodem</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1164"/>
+        <source>Send Ymodem...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1165"/>
-        <source>Light</source>
+        <source>Send a file using Ymodem</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1166"/>
-        <source>Switch to light theme</source>
+        <source>Receive Ymodem...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1167"/>
-        <source>Dark</source>
+        <source>Receive a file using Ymodem</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1168"/>
-        <source>Switch to dark theme</source>
+        <source>Zmodem Upload List...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1169"/>
+        <source>Display Zmodem file upload list</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1170"/>
+        <source>Start Zmodem Upload</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1171"/>
+        <source>Start Zmodem file upload</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1172"/>
-        <source>Display help</source>
+        <source>Start TFTP Server</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1173"/>
-        <source>Check Update</source>
+        <source>Start/Stop the TFTP server</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1175"/>
-        <source>Check for updates</source>
+        <source>Run...</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1176"/>
-        <location filename="../src/mainwindow.cpp" line="3318"/>
-        <source>About</source>
+        <source>Run a script</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1177"/>
+        <source>Cancel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1178"/>
-        <source>Display about dialog</source>
+        <source>Cancel script execution</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1179"/>
-        <source>About Qt</source>
+        <source>Start Recording Script</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1180"/>
+        <source>Start recording script</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1181"/>
-        <source>Display about Qt dialog</source>
+        <source>Stop Recording Script...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1182"/>
+        <source>Stop recording script</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1183"/>
+        <source>Cancel Recording Script</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1184"/>
+        <source>Cancel recording script</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1186"/>
+        <source>Add Bookmark</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1187"/>
+        <source>Add a bookmark</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1188"/>
-        <source>Plugin Info</source>
+        <location filename="../src/mainwindow.cpp" line="2350"/>
+        <source>Remove Bookmark</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1189"/>
+        <source>Remove a bookmark</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1190"/>
+        <location filename="../src/mainwindow.cpp" line="2377"/>
+        <source>Clean All Bookmark</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1191"/>
+        <source>Clean all bookmark</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1193"/>
+        <source>Keymap Manager</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1194"/>
+        <source>Display keymap editor</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1195"/>
+        <source>Create Public Key...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1196"/>
+        <source>Create a public key</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1197"/>
+        <source>Publickey Manager</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1198"/>
+        <source>Display publickey manager</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1242"/>
+        <source>Laboratory</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1245"/>
+        <location filename="../src/mainwindow.cpp" line="2395"/>
+        <source>SSH Scanning</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1246"/>
+        <source>Display SSH scanning dialog</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3399"/>
+        <source>Version</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3401"/>
+        <source>Commit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3403"/>
+        <source>Date</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3405"/>
+        <source>Author</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3407"/>
+        <source>Website</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1200"/>
+        <source>Tab</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1201"/>
+        <source>Arrange sessions in tabs</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1202"/>
+        <source>Tile</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1203"/>
+        <source>Arrange sessions in non-overlapping tiles</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1204"/>
+        <source>Cascade</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1205"/>
+        <source>Arrange sessions to overlap each other</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1207"/>
+        <source>Simplified Chinese</source>
+        <translation>简体中文</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1208"/>
+        <source>Switch to Simplified Chinese</source>
+        <translation>切换到简体中文</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1209"/>
+        <source>Traditional Chinese</source>
+        <translation>繁體中文</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1210"/>
+        <source>Switch to Traditional Chinese</source>
+        <translation>切換到繁體中文</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1211"/>
+        <source>Russian</source>
+        <translation>Русский</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1212"/>
+        <source>Switch to Russian</source>
+        <translation>Переключиться на русский</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1213"/>
+        <source>Korean</source>
+        <translation>한국어</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1214"/>
+        <source>Switch to Korean</source>
+        <translation>한국어로 전환</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1215"/>
+        <source>Japanese</source>
+        <translation>日本語</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1216"/>
+        <source>Switch to Japanese</source>
+        <translation>日本語に切り替える</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1217"/>
+        <source>French</source>
+        <translation>français</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1218"/>
+        <source>Switch to French</source>
+        <translation>Passer au français</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1219"/>
+        <source>Spanish</source>
+        <translation>español</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1220"/>
+        <source>Switch to Spanish</source>
+        <translation>Cambiar a español</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <source>English</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1222"/>
+        <source>Switch to English</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1224"/>
+        <source>Light</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1225"/>
+        <source>Switch to light theme</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1226"/>
+        <source>Dark</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1227"/>
+        <source>Switch to dark theme</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1231"/>
+        <source>Display help</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1232"/>
+        <source>Check Update</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1234"/>
+        <source>Check for updates</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1235"/>
+        <location filename="../src/mainwindow.cpp" line="3397"/>
+        <source>About</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1237"/>
+        <source>Display about dialog</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1238"/>
+        <source>About Qt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1240"/>
+        <source>Display about Qt dialog</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1247"/>
+        <source>Plugin Info</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1248"/>
         <source>Display plugin information dialog</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2057"/>
+        <location filename="../src/mainwindow.cpp" line="2134"/>
         <source>PrintScreen saved to %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2069"/>
+        <location filename="../src/mainwindow.cpp" line="2146"/>
         <source>Save Screenshot</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2069"/>
+        <location filename="../src/mainwindow.cpp" line="2146"/>
         <source>Image Files (*.jpg)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2074"/>
+        <location filename="../src/mainwindow.cpp" line="2151"/>
         <source>Screenshot saved to %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2085"/>
+        <location filename="../src/mainwindow.cpp" line="2162"/>
         <source>Save Session Export</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2085"/>
+        <location filename="../src/mainwindow.cpp" line="2162"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2088"/>
+        <location filename="../src/mainwindow.cpp" line="2165"/>
         <source>Text Files (*.txt)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2091"/>
+        <location filename="../src/mainwindow.cpp" line="2168"/>
         <source>HTML Files (*.html)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2100"/>
+        <location filename="../src/mainwindow.cpp" line="2177"/>
         <source>Session Export saved to %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2102"/>
+        <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Session Export failed to save to %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2246"/>
+        <location filename="../src/mainwindow.cpp" line="2323"/>
         <source>Select a directory</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2273"/>
+        <location filename="../src/mainwindow.cpp" line="2350"/>
         <source>Select a bookmark</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2300"/>
+        <location filename="../src/mainwindow.cpp" line="2377"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2318"/>
+        <location filename="../src/mainwindow.cpp" line="2395"/>
         <source>Port</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2473"/>
+        <location filename="../src/mainwindow.cpp" line="2552"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2668"/>
+        <location filename="../src/mainwindow.cpp" line="2747"/>
         <source>Session information get failed.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2751"/>
+        <location filename="../src/mainwindow.cpp" line="2830"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2752"/>
+        <location filename="../src/mainwindow.cpp" line="2831"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2784"/>
+        <location filename="../src/mainwindow.cpp" line="2863"/>
         <source>Serial - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2785"/>
+        <location filename="../src/mainwindow.cpp" line="2864"/>
         <source>Serial</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2816"/>
+        <location filename="../src/mainwindow.cpp" line="2895"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2817"/>
+        <location filename="../src/mainwindow.cpp" line="2896"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2848"/>
+        <location filename="../src/mainwindow.cpp" line="2927"/>
         <source>NamePipe - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2849"/>
+        <location filename="../src/mainwindow.cpp" line="2928"/>
         <source>NamePipe</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2917"/>
-        <location filename="../src/mainwindow.cpp" line="2921"/>
+        <location filename="../src/mainwindow.cpp" line="2996"/>
+        <location filename="../src/mainwindow.cpp" line="3000"/>
         <source>Local Shell</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2919"/>
+        <location filename="../src/mainwindow.cpp" line="2998"/>
         <source>Local Shell - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3036"/>
+        <location filename="../src/mainwindow.cpp" line="3115"/>
         <source>Are you sure to disconnect this session?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3337"/>
+        <location filename="../src/mainwindow.cpp" line="3417"/>
         <source>Global Shortcuts:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3338"/>
+        <location filename="../src/mainwindow.cpp" line="3418"/>
         <source>show/hide menu bar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3339"/>
+        <location filename="../src/mainwindow.cpp" line="3419"/>
         <source>connect to LocalShell</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3340"/>
+        <location filename="../src/mainwindow.cpp" line="3420"/>
         <source>clone current session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3341"/>
+        <location filename="../src/mainwindow.cpp" line="3421"/>
         <source>switch ui to STD mode</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3342"/>
+        <location filename="../src/mainwindow.cpp" line="3422"/>
         <source>switch ui to MINI mode</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3343"/>
+        <location filename="../src/mainwindow.cpp" line="3423"/>
         <source>switch to previous session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3344"/>
+        <location filename="../src/mainwindow.cpp" line="3424"/>
         <source>switch to next session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3345"/>
+        <location filename="../src/mainwindow.cpp" line="3425"/>
         <source>switch to session [num]</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3346"/>
+        <location filename="../src/mainwindow.cpp" line="3426"/>
         <source>Go to line start</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3347"/>
+        <location filename="../src/mainwindow.cpp" line="3427"/>
         <source>Go to line end</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3371"/>
+        <location filename="../src/mainwindow.cpp" line="3451"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3376"/>
+        <location filename="../src/mainwindow.cpp" line="3456"/>
         <source>Are you sure to quit?</source>
         <translation></translation>
     </message>
@@ -1913,27 +1918,48 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="21"/>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="61"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="40"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="86"/>
         <source>Name</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="21"/>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="61"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="40"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="86"/>
         <source>Version</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="21"/>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="61"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="40"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="86"/>
         <source>API Version</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="21"/>
-        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="61"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="40"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.cpp" line="86"/>
         <source>Enable</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>PluginViewerHomeWidget</name>
+    <message>
+        <location filename="../src/pluginviewerwidget/pluginviewerhomewidget.cpp" line="18"/>
+        <source>Welcome to use</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pluginviewerwidget/pluginviewerhomewidget.cpp" line="20"/>
+        <source>QuardCRT plugin system!</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>PluginViewerWidget</name>
+    <message>
+        <location filename="../src/pluginviewerwidget/pluginviewerwidget.cpp" line="37"/>
+        <source>Home</source>
         <translation></translation>
     </message>
 </context>
@@ -2385,7 +2411,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../lib/qtkeychain/libsecret.cpp" line="119"/>
+        <location filename="../lib/qtkeychain/libsecret.cpp" line="120"/>
         <source>Entry not found</source>
         <translation></translation>
     </message>
@@ -2584,7 +2610,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.cpp" line="12"/>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.cpp" line="31"/>
         <source>Open Directory</source>
         <translation></translation>
     </message>
@@ -2682,32 +2708,32 @@
     <name>SessionManagerTreeView</name>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="39"/>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="73"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="74"/>
         <source>Session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="83"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="84"/>
         <source>Connect Terminal</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="88"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="89"/>
         <source>Connect in New Window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="95"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="96"/>
         <source>Connect in New Tab Group</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="102"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="103"/>
         <source>Delete</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="108"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="109"/>
         <source>Properties</source>
         <translation></translation>
     </message>

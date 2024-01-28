@@ -2,6 +2,10 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 插件系统完成多语言支持
+
+## [[V0.4.2](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.2)] - 2024-01-28
+
 - 全屏模式下增加ESC退出全屏功能
 - 插件平台支持动态启用/禁用插件功能
 - 优化解决软件启动后固定占用CPU负载问题
