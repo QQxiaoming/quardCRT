@@ -773,119 +773,121 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     menu->addAction(pasteAction);
     menu->addAction(selectAllAction);
     menu->addAction(findAction);
-    menu->addSeparator();
-    QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
-    highlightAction->setStatusTip(tr("Highlight/Unhighlight selected text"));
-    menu->addAction(highlightAction);
-    connect(highlightAction,&QAction::triggered,this,[=](){
-        QString text = term->selectedText();
-        if(text.isEmpty()) {
-            return;
-        }
-        if(term->isContainHighLightText(text)) {
-            term->removeHighLightText(text);
-        } else {
-            term->addHighLightText(text, Qt::white);
-        }
-    });
-    int translateService  = globalOptionsWindow->getTranslateService();
-    QString targetLanguage[3];
-    switch (language.language()) {
-    case QLocale::Chinese:
-        if(language.script() == QLocale::SimplifiedChineseScript) {
-            targetLanguage[0] = "zh-CN";
-            targetLanguage[1] = "zh";
-            targetLanguage[2] = "zh-Hans";
-        } else if (language.script() == QLocale::TraditionalHanScript) {
-            targetLanguage[0] = "zh-TW";
-            targetLanguage[1] = "cht";
-            targetLanguage[2] = "zh-Hant";
-        }
-        break;
-    case QLocale::Russian:
-        targetLanguage[0] = "ru";
-        targetLanguage[1] = "ru";
-        targetLanguage[2] = "ru";
-        break;
-    case QLocale::Korean:
-        targetLanguage[0] = "ko";
-        targetLanguage[1] = "kor";
-        targetLanguage[2] = "ko";
-        break;
-    case QLocale::Japanese:
-        targetLanguage[0] = "ja";
-        targetLanguage[1] = "jp";
-        targetLanguage[2] = "ja";
-        break;
-    case QLocale::French:
-        targetLanguage[0] = "fr";
-        targetLanguage[1] = "fra";
-        targetLanguage[2] = "fr";
-        break;
-    case QLocale::Spanish:
-        targetLanguage[0] = "es";
-        targetLanguage[1] = "spa";
-        targetLanguage[2] = "es";
-        break;
-    default:
-    case QLocale::English:
-        targetLanguage[0] = "en";
-        targetLanguage[1] = "en";
-        targetLanguage[2] = "en";
-        break;
-    }
-    if(0 == translateService) {
-        QAction *translateAction = new QAction(tr("Google Translate"),this);
-        translateAction->setStatusTip(tr("Translate selected text"));
-        menu->addAction(translateAction);
-        connect(translateAction,&QAction::triggered,this,[=](){
-            QString text = term->selectedText();
-            if(text.isEmpty()) {
-                return;
-            }
-            
-            QUrl url("https://translate.google.com/?sl=auto&tl="+targetLanguage[0]+"&text="+text+"&op=translate");
-            QDesktopServices::openUrl(url);
-        });
-    } else if(1 == translateService) {
-        QAction *translateAction = new QAction(tr("Baidu Translate"),this);
-        translateAction->setStatusTip(tr("Translate selected text"));
-        menu->addAction(translateAction);
-        connect(translateAction,&QAction::triggered,this,[=](){
-            QString text = term->selectedText();
-            if(text.isEmpty()) {
-                return;
-            }
-            QUrl url("https://fanyi.baidu.com/#auto/"+targetLanguage[1]+"/"+text);
-            QDesktopServices::openUrl(url);
-        });
-    } else if(2 == translateService) {
-        QAction *translateAction = new QAction(tr("Microsoft Translate"),this);
-        translateAction->setStatusTip(tr("Translate selected text"));
-        menu->addAction(translateAction);
-        connect(translateAction,&QAction::triggered,this,[=](){
-            QString text = term->selectedText();
-            if(text.isEmpty()) {
-                return;
-            }
-            QUrl url("https://www.bing.com/translator/?from=auto&to="+targetLanguage[2]+"&text="+text);
-            QDesktopServices::openUrl(url);
-        });
-    }
-    if(!pluginList.isEmpty()) {
+    QString text = term->selectedText();
+    if(!text.isEmpty()) {
         menu->addSeparator();
+        QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
+        highlightAction->setStatusTip(tr("Highlight/Unhighlight selected text"));
+        menu->addAction(highlightAction);
+        connect(highlightAction,&QAction::triggered,this,[=](){
+            QString text = term->selectedText();
+            if(text.isEmpty()) {
+                return;
+            }
+            if(term->isContainHighLightText(text)) {
+                term->removeHighLightText(text);
+            } else {
+                term->addHighLightText(text, Qt::white);
+            }
+        });
+        int translateService  = globalOptionsWindow->getTranslateService();
+        QString targetLanguage[3];
+        switch (language.language()) {
+        case QLocale::Chinese:
+            if(language.script() == QLocale::SimplifiedChineseScript) {
+                targetLanguage[0] = "zh-CN";
+                targetLanguage[1] = "zh";
+                targetLanguage[2] = "zh-Hans";
+            } else if (language.script() == QLocale::TraditionalHanScript) {
+                targetLanguage[0] = "zh-TW";
+                targetLanguage[1] = "cht";
+                targetLanguage[2] = "zh-Hant";
+            }
+            break;
+        case QLocale::Russian:
+            targetLanguage[0] = "ru";
+            targetLanguage[1] = "ru";
+            targetLanguage[2] = "ru";
+            break;
+        case QLocale::Korean:
+            targetLanguage[0] = "ko";
+            targetLanguage[1] = "kor";
+            targetLanguage[2] = "ko";
+            break;
+        case QLocale::Japanese:
+            targetLanguage[0] = "ja";
+            targetLanguage[1] = "jp";
+            targetLanguage[2] = "ja";
+            break;
+        case QLocale::French:
+            targetLanguage[0] = "fr";
+            targetLanguage[1] = "fra";
+            targetLanguage[2] = "fr";
+            break;
+        case QLocale::Spanish:
+            targetLanguage[0] = "es";
+            targetLanguage[1] = "spa";
+            targetLanguage[2] = "es";
+            break;
+        default:
+        case QLocale::English:
+            targetLanguage[0] = "en";
+            targetLanguage[1] = "en";
+            targetLanguage[2] = "en";
+            break;
+        }
+        if(0 == translateService) {
+            QAction *translateAction = new QAction(tr("Google Translate"),this);
+            translateAction->setStatusTip(tr("Translate selected text"));
+            menu->addAction(translateAction);
+            connect(translateAction,&QAction::triggered,this,[=](){
+                QString text = term->selectedText();
+                if(text.isEmpty()) {
+                    return;
+                }
+                
+                QUrl url("https://translate.google.com/?sl=auto&tl="+targetLanguage[0]+"&text="+text+"&op=translate");
+                QDesktopServices::openUrl(url);
+            });
+        } else if(1 == translateService) {
+            QAction *translateAction = new QAction(tr("Baidu Translate"),this);
+            translateAction->setStatusTip(tr("Translate selected text"));
+            menu->addAction(translateAction);
+            connect(translateAction,&QAction::triggered,this,[=](){
+                QString text = term->selectedText();
+                if(text.isEmpty()) {
+                    return;
+                }
+                QUrl url("https://fanyi.baidu.com/#auto/"+targetLanguage[1]+"/"+text);
+                QDesktopServices::openUrl(url);
+            });
+        } else if(2 == translateService) {
+            QAction *translateAction = new QAction(tr("Microsoft Translate"),this);
+            translateAction->setStatusTip(tr("Translate selected text"));
+            menu->addAction(translateAction);
+            connect(translateAction,&QAction::triggered,this,[=](){
+                QString text = term->selectedText();
+                if(text.isEmpty()) {
+                    return;
+                }
+                QUrl url("https://www.bing.com/translator/?from=auto&to="+targetLanguage[2]+"&text="+text);
+                QDesktopServices::openUrl(url);
+            });
+        }
     }
     foreach(pluginState_t pluginStruct, pluginList) {
         if(!pluginStruct.state) continue;
         PluginInterface *plugin = pluginStruct.iface;
         QMenu *pluginMenu = plugin->terminalContextMenu(term->selectedText(),term->getWorkingDirectory(),menu);
         if(pluginMenu != nullptr) {
+            menu->addSeparator();
             menu->addMenu(pluginMenu);
         } else {
             QList<QAction *> pluginActionList = plugin->terminalContextAction(term->selectedText(),term->getWorkingDirectory(),menu);
             if(pluginActionList.isEmpty()) {
                 continue;
             }
+            menu->addSeparator();
             foreach(QAction *action, pluginActionList) {
                 menu->addAction(action);
             }
@@ -1711,6 +1713,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                 }
             }
         }
+        laboratoryMenu->addSeparator();
         laboratoryMenu->addAction(pluginInfoAction);
     });
 

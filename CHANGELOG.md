@@ -3,6 +3,7 @@
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
 - 插件系统完成多语言支持
+- 部分UI细节美化
 
 ## [[V0.4.2](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.2)] - 2024-01-28
 

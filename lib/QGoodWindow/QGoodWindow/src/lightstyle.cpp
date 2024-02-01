@@ -81,7 +81,7 @@ void LightStyle::polish(QPalette &palette)
     palette.setColor(QPalette::WindowText, QColor(0, 0, 0));
     palette.setColor(QPalette::Disabled, QPalette::WindowText, QColor(120, 120, 120));
     palette.setColor(QPalette::Base, QColor(255, 255, 255));
-    palette.setColor(QPalette::AlternateBase, QColor(233, 231, 227));
+    palette.setColor(QPalette::AlternateBase, QColor(167, 167, 167));
     palette.setColor(QPalette::ToolTipBase, QColor(255, 255, 220));
     palette.setColor(QPalette::ToolTipText, QColor(0, 0, 0));
     palette.setColor(QPalette::Text, QColor(0, 0, 0));
