@@ -303,6 +303,10 @@ int Filter::HotSpot::endColumn() const
 {
     return _endColumn;
 }
+QString Filter::HotSpot::toolTip() const
+{
+    return tr("Follow link (ctrl + click)");
+}
 Filter::HotSpot::Type Filter::HotSpot::type() const
 {
     return _type;

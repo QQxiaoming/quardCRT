@@ -50,6 +50,7 @@
 #include <QMediaPlayer>
 #include <QVideoSink>
 #include <QVideoFrame>
+#include <QToolTip>
 
 #include "Filter.h"
 #include "ScreenWindow.h"
@@ -2243,12 +2244,27 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent* ev)
     }
 
     update( _mouseOverHotspotArea | previousHotspotArea );
+    if ( _mouseOverHotspotArea.contains(ev->pos()) )
+    {
+        QPoint globalPos = mapToGlobal(ev->pos());
+        QToolTip::showText(globalPos, spot->toolTip());
+        if(!_ctrlDrag && ev->modifiers() & Qt::ControlModifier) {
+            setCursor(QCursor(Qt::PointingHandCursor));
+        } else {
+            setCursor(QCursor(_mouseMarks ? Qt::IBeamCursor : Qt::ArrowCursor));
+        }
+    } else {
+        QToolTip::hideText();
+        setCursor(QCursor(_mouseMarks ? Qt::IBeamCursor : Qt::ArrowCursor));
+    }
   }
   else if ( !_mouseOverHotspotArea.isEmpty() )
   {
         update( _mouseOverHotspotArea );
         // set hotspot area to an invalid rectangle
         _mouseOverHotspotArea = QRegion();
+        QToolTip::hideText();
+        setCursor(QCursor(_mouseMarks ? Qt::IBeamCursor : Qt::ArrowCursor));
   }
 
   // for auto-hiding the cursor, we need mouseTracking

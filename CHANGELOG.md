@@ -2,6 +2,7 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- 终端链接增加tooltip，以及按下ctrl后鼠标形状修改对应状
 - 插件系统完成多语言支持
 - 部分UI细节美化
 
