@@ -101,6 +101,8 @@ quardCRT は、複数のバックエンド プロトコルをサポートし、�
 
 ## 翻訳
 
+quardCRT は多言語をサポートし、現在以下の言語をサポートしています。翻訳カバレッジは以下の通りです：
+
 | English  | ![en_US](./docs/en_US.svg) |
 | :------: | :------------------------: |
 | 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
@@ -110,6 +112,11 @@ quardCRT は、複数のバックエンド プロトコルをサポートし、�
 | Español   | ![es_ES](./docs/es_ES.svg) |
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
+| Deutsch   | ![de_DE](./docs/de_DE.svg) |
+| Português   | ![pt_BR](./docs/pt_BR.svg) |
+| čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
+
+quartCRT の翻訳は github copilot によって支援されており、翻訳は非常に正確でないかもしれません。翻訳に問題がある場合は、issue または pull request を提出してください。
 
 ## プラグイン
 

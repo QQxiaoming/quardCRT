@@ -514,6 +514,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         });
     #if defined(Q_OS_MACOS)
         connect(mainWidgetGroup->sessionTab,&SessionTab::tabPreviewShow,this,[&](int index){
+            Q_UNUSED(index);
             if(mainWindow) {
                 mainWindow->fixWhenShowQuardCRTTabPreviewIssue();
             }
@@ -1212,6 +1213,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     chineseHKAction->setStatusTip(tr("Switch to Traditional Chinese"));
     russianAction->setText(tr("Russian"));
     russianAction->setStatusTip(tr("Switch to Russian"));
+    portugueseAction->setText(tr("Portuguese (Brazil)"));
+    portugueseAction->setStatusTip(tr("Switch to Portuguese (Brazil)"));
     koreanAction->setText(tr("Korean"));
     koreanAction->setStatusTip(tr("Switch to Korean"));
     japaneseAction->setText(tr("Japanese"));
@@ -1222,6 +1225,10 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     spanishAction->setStatusTip(tr("Switch to Spanish"));
     englishAction->setText(tr("English"));
     englishAction->setStatusTip(tr("Switch to English"));
+    germanAction->setText(tr("German"));
+    germanAction->setStatusTip(tr("Switch to German"));
+    czechAction->setText(tr("Czech"));
+    czechAction->setStatusTip(tr("Switch to Czech"));
 
     lightThemeAction->setText(tr("Light"));
     lightThemeAction->setStatusTip(tr("Switch to light theme"));
@@ -1545,6 +1552,11 @@ void CentralWidget::menuAndToolBarInit(void) {
     russianAction->setCheckable(true);
     russianAction->setChecked(language == QLocale::Russian);
     languageMenu->addAction(russianAction);
+    portugueseAction = new QAction(this);
+    portugueseAction->setActionGroup(languageActionGroup);
+    portugueseAction->setCheckable(true);
+    portugueseAction->setChecked(language == QLocale(QLocale::Portuguese, QLocale::Brazil));
+    languageMenu->addAction(portugueseAction);
     koreanAction = new QAction(this);
     koreanAction->setActionGroup(languageActionGroup);
     koreanAction->setCheckable(true);
@@ -1570,6 +1582,16 @@ void CentralWidget::menuAndToolBarInit(void) {
     englishAction->setCheckable(true);
     englishAction->setChecked(language == QLocale::English);
     languageMenu->addAction(englishAction);
+    germanAction = new QAction(this);
+    germanAction->setActionGroup(languageActionGroup);
+    germanAction->setCheckable(true);
+    germanAction->setChecked(language == QLocale::German);
+    languageMenu->addAction(germanAction);
+    czechAction = new QAction(this);
+    czechAction->setActionGroup(languageActionGroup);
+    czechAction->setCheckable(true);
+    czechAction->setChecked(language == QLocale::Czech);
+    languageMenu->addAction(czechAction);
 
     themeActionGroup = new QActionGroup(this);
     lightThemeAction = new QAction(this);
@@ -2424,6 +2446,8 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             this->language = QLocale(QLocale::Chinese, QLocale::TraditionalChineseScript);
         } else if(action == russianAction) {
             this->language = QLocale::Russian;
+        } else if(action == portugueseAction) {
+            this->language = QLocale(QLocale::Portuguese, QLocale::Brazil);
         } else if(action == koreanAction) {
             this->language = QLocale::Korean;
         } else if(action == japaneseAction) {
@@ -2434,6 +2458,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             this->language = QLocale::Spanish;
         } else if(action == englishAction) {
             this->language = QLocale::English;
+        } else if(action == germanAction) {
+            this->language = QLocale::German;
+        } else if(action == czechAction) {
+            this->language = QLocale::Czech;
         }
 
         setAppLangeuage(this->language);
@@ -3531,6 +3559,15 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
             qApp->installTranslator(appTranslator);
         settings.setValue("Global/Startup/language","ru_RU");
         break;
+    case QLocale::Portuguese:
+        if(qtTranslator->load("qt_pt_BR.qm",qlibpath))
+            qApp->installTranslator(qtTranslator);
+        if(qtbaseTranslator->load("qtbase_pt_BR.qm",qlibpath))
+            qApp->installTranslator(qtbaseTranslator);
+        if(appTranslator->load(":/lang/lang/quardCRT_pt_BR.qm"))
+            qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","pt_BR");
+        break;
     case QLocale::Korean:
         if(qtTranslator->load("qt_ko.qm",qlibpath))
             qApp->installTranslator(qtTranslator);
@@ -3576,6 +3613,24 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
         if(appTranslator->load(":/lang/lang/quardCRT_en_US.qm"))
             qApp->installTranslator(appTranslator);
         settings.setValue("Global/Startup/language","en_US");
+        break;
+    case QLocale::German:
+        if(qtTranslator->load("qt_de.qm",qlibpath))
+            qApp->installTranslator(qtTranslator);
+        if(qtbaseTranslator->load("qtbase_de.qm",qlibpath))
+            qApp->installTranslator(qtbaseTranslator);
+        if(appTranslator->load(":/lang/lang/quardCRT_de_DE.qm"))
+            qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","de_DE");
+        break;
+    case QLocale::Czech:
+        if(qtTranslator->load("qt_cs.qm",qlibpath))
+            qApp->installTranslator(qtTranslator);
+        if(qtbaseTranslator->load("qtbase_cs.qm",qlibpath))
+            qApp->installTranslator(qtbaseTranslator);
+        if(appTranslator->load(":/lang/lang/quardCRT_cs_CZ.qm"))
+            qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","cs_CZ");
         break;
     }
 }

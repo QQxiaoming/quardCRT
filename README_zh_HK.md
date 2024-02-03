@@ -101,6 +101,8 @@ quardCRT一款多功能終端模擬/圖形桌面軟體，支援多種後端協�
 
 ## 翻譯
 
+quardCRT支持多語言，目前支持以下語言，翻譯覆蓋率如下：
+
 | English  | ![en_US](./docs/en_US.svg) |
 | :------: | :------------------------: |
 | 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
@@ -110,6 +112,11 @@ quardCRT一款多功能終端模擬/圖形桌面軟體，支援多種後端協�
 | Español   | ![es_ES](./docs/es_ES.svg) |
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
+| Deutsch   | ![de_DE](./docs/de_DE.svg) |
+| Português   | ![pt_BR](./docs/pt_BR.svg) |
+| čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
+
+quardCRT的翻譯由github copilot協助翻譯，翻譯可能不是很準確，如果您發現翻譯有問題，歡迎提交issue或pull request。
 
 ## Plugin
 

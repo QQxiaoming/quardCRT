@@ -252,11 +252,14 @@ private:
     QAction *chineseAction;
     QAction *chineseHKAction;
     QAction *russianAction;
+    QAction *portugueseAction;
     QAction *koreanAction;
     QAction *japaneseAction;
     QAction *frenchAction;
     QAction *spanishAction;
     QAction *englishAction;
+    QAction *germanAction;
+    QAction *czechAction;
     QActionGroup *themeActionGroup;
     QAction *lightThemeAction;
     QAction *darkThemeAction;

@@ -72,9 +72,11 @@ if __name__ == '__main__':
                 ts_files.append(os.path.join(root, filename))
     for ts_file in ts_files:
         total_finished_count,total_message_count = get_language_progress(parse_ts_file(ts_file))
-        print(ts_file.split('/')[-1].split('.')[0].replace('quardCRT_',''),
-            total_finished_count, 
-            total_message_count, 
-            total_finished_count/total_message_count)
+        name = ts_file.split('/')[-1].split('.')[0].replace('quardCRT_','').replace(' ','')
+        value = str(total_finished_count)+'/'+str(total_message_count)
+        if len(str(total_finished_count)) < 3:
+            value = ' '+value
+        percentage = str(round(total_finished_count/total_message_count*100,2))+'%'
+        print(name+': '+value+' ('+percentage+')')
         generate_svg('../docs/'+ts_file.split('/')[-1].split('.')[0].replace('quardCRT_',''),total_finished_count,total_message_count)
     

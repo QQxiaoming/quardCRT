@@ -2247,7 +2247,7 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent* ev)
     if ( _mouseOverHotspotArea.contains(ev->pos()) )
     {
         QPoint globalPos = mapToGlobal(ev->pos());
-        QToolTip::showText(globalPos, spot->toolTip());
+        QToolTip::showText(globalPos, tr("Follow link (ctrl + click)"));
         if(!_ctrlDrag && ev->modifiers() & Qt::ControlModifier) {
             setCursor(QCursor(Qt::PointingHandCursor));
         } else {

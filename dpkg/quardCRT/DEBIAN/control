@@ -4,7 +4,7 @@ Architecture: amd64
 Section: utils
 Depends: 
 Recommends: 
-Source: quardCRT
+Source: quardcrt
 Installed-Size: #SIZE#
 Priority: extra
 Maintainer: QQxiaoming <2014500726@smail.xtu.edu.cn>

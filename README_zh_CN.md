@@ -101,6 +101,8 @@ quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协�
 
 ## 翻译
 
+quardCRT支持多语言，目前支持以下语言，翻译覆盖率如下：
+
 | English  | ![en_US](./docs/en_US.svg) |
 | :------: | :------------------------: |
 | 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
@@ -110,6 +112,11 @@ quardCRT一款多功能终端仿真/图形桌面软件，支持多种后端协�
 | Español   | ![es_ES](./docs/es_ES.svg) |
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
+| Deutsch   | ![de_DE](./docs/de_DE.svg) |
+| Português   | ![pt_BR](./docs/pt_BR.svg) |
+| čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
+
+quardCRT的翻译由github copilot协助翻译，翻译可能不是很准确，如果您发现翻译有问题，欢迎提交issue或pull request。
 
 ## 插件
 

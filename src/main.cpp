@@ -276,11 +276,14 @@ int main(int argc, char *argv[])
     if(app_lang == "zh_CN") locale = QLocale(QLocale::Chinese, QLocale::SimplifiedChineseScript);
     if(app_lang == "zh_HK") locale = QLocale(QLocale::Chinese, QLocale::TraditionalChineseScript);
     if(app_lang == "ru_RU") locale = QLocale::Russian;
+    if(app_lang == "pt_BR") locale = QLocale(QLocale::Portuguese, QLocale::Brazil);
     if(app_lang == "ko_KR") locale = QLocale::Korean;
     if(app_lang == "ja_JP") locale = QLocale::Japanese;
     if(app_lang == "fr_FR") locale = QLocale::French;
     if(app_lang == "es_ES") locale = QLocale::Spanish;
     if(app_lang == "en_US") locale = QLocale::English;
+    if(app_lang == "de_DE") locale = QLocale::German;
+    if(app_lang == "cs_CZ") locale = QLocale::Czech;
     CentralWidget::setAppLangeuage(locale);
 
 #if 0 // Now we always use the dark theme, Because the dark theme is more beautiful

@@ -101,6 +101,8 @@ Protocol selection interface:
 
 ## Translation
 
+quardCRT supports multiple languages, currently supports the following languages, translation coverage is as follows:
+
 | English  | ![en_US](./docs/en_US.svg) |
 | :------: | :------------------------: |
 | 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
@@ -110,6 +112,11 @@ Protocol selection interface:
 | Español   | ![es_ES](./docs/es_ES.svg) |
 | Français   | ![fr_FR](./docs/fr_FR.svg) |
 | Русский   | ![ru_RU](./docs/ru_RU.svg) |
+| Deutsch   | ![de_DE](./docs/de_DE.svg) |
+| Português   | ![pt_BR](./docs/pt_BR.svg) |
+| čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
+
+The translation of quartCRT is assisted by github copilot, and the translation may not be very accurate. If you find any problems with the translation, please submit an issue or pull request.
 
 ## Plugin
 
