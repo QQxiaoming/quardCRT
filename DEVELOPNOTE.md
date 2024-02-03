@@ -1,42 +1,42 @@
-# 开发笔记
+# Development Note
 
-## 编译说明
+## Build Instructions
 
-### 上游依赖
+### Upstream Dependencies
 
-目前上游依赖分为两种：一种是直接源码依赖，位于`lib`目录下，这类依赖库被本项目深度修改，以适应本项目的需求，与上游库同步时需要手动合并修改，但在编译时不需要额外的编译步骤；另一种是编译依赖，位于`depend`目录下，这类依赖库基本上是直接从上游库中提取出来的，与上游库同步时只需要重新提取即可，但在编译时需要先编译这些依赖库为动态链接库，再编译本项目。
+Currently there are two types of upstream dependencies: one is direct source code dependency, located in the `lib` directory, these dependencies have been deeply modified to meet the needs of this project, and need to be manually merged when synchronizing with the upstream library, but no additional compilation steps are required during compilation; the other is a compilation dependency, located in the `depend` directory, these dependencies are basically extracted directly from the upstream library, and only need to be re-extracted when synchronizing with the upstream library, but need to be compiled into dynamic link libraries before compiling this project.
 
-#### depend目录下的依赖库
+#### Dependencies under the `depend` directory
 
 - fcitx-qt5-1.2.7.tar.gz
 
-    linux下的输入法框架fcitx的Qt平台支持库，通过`build_fcitx_qt6_linux.sh`脚本编译，编译后将`libfcitxplatforminputcontextplugin-qt6.so`打包在`plugins/platforminputcontexts`目录下，如不需要fcitx支持则无需编译。非linux平台下亦无需编译。
+    Qt platform support library for the fcitx input method framework under linux, compiled using the `build_fcitx_qt6_linux.sh` script, and the `libfcitxplatforminputcontextplugin-qt6.so` is packaged in the `plugins/platforminputcontexts` directory after compilation. If fcitx support is not needed, no compilation is required. No compilation is required for non-linux platforms.
 
 - openssl-3.1.4.tar.gz和libssh2-1.11.0.tar.gz
 
-    用于支持ssh协议的会话，linux通过`build_libssh2.sh`脚本编译，windows mingw通过`build_libssh2_mingw.sh`脚本编译，windows msvc通过`build_libssh2_msvc.bat`脚本编译，编译后需要将安装目录配置到lib/qtssh/qtssh.pri的LIBSSH2_DIR变量中，再编译本项目。
+    Used to support ssh protocol sessions, linux is compiled using the `build_libssh2.sh` script, windows mingw is compiled using the `build_libssh2_mingw.sh` script, and windows msvc is compiled using the `build_libssh2_msvc.bat` script. After compilation, the installation directory needs to be configured to the LIBSSH2_DIR variable in lib/qtssh/qtssh.pri, and then compile this project.
 
 - winpty-0.4.3.tar.gz
 
-    用于支持windows下的伪终端，windows通过`build_winpty_ms.sh`脚本编译，编译后需要将安装目录配置到lib/ptyqt/ptyqt.pri的WINPTY_DIR变量中，再编译本项目。非windows平台下无需编译。
+    Used to support pseudo terminals under windows, compiled using the `build_winpty_ms.sh` script under windows, after compilation, the installation directory needs to be configured to the WINPTY_DIR variable in lib/ptyqt/ptyqt.pri, and then compile this project. No compilation is required for non-windows platforms.
 
-### 编译步骤
+### Compilation Steps
 
-完成上游依赖的编译后，即可编译本项目，可以选择通过Qt Creator打开`quardCRT.pro`文件，然后点击构建按钮进行编译调试；也可以使用项目中预置的编译脚本进行编译，使用编译脚本可以直接编译输出打包好的安装包文件。
+After completing the compilation of the upstream dependencies, you can compile this project. You can choose to open the `quardCRT.pro` file through Qt Creator, and then click the build button to compile and debug; or you can use the pre-set compilation script in the project to compile. Using the compilation script can directly compile and output the packaged installation package file.
 
 - windows（mingw）
 
-    修改build_setup.bat中QT_DIR、QT_TOOLS_DIR、INNO_SETUP_DIR变量的值，然后运行build_setup.bat脚本即可。输出quardCRT_setup.exe安装包。
+    Modify the values of the QT_DIR, QT_TOOLS_DIR, and INNO_SETUP_DIR variables in build_setup.bat, and then run the build_setup.bat script. The quardCRT_setup.exe installation package is output.
 
 - windows（msvc）
     
-    修改build_setup_msvc.bat中QT_DIR、QT_TOOLS_DIR、INNO_SETUP_DIR变量的值，然后运行build_setup.bat脚本即可。 输出quardCRT_setup.exe安装包。  
+    Modify the values of the QT_DIR, QT_TOOLS_DIR, and INNO_SETUP_DIR variables in build_setup_msvc.bat, and then run the build_setup.bat script. The quardCRT_setup.exe installation package is output.
 
 - linux
 
-    修改build_deb.sh中QT_DIR变量的值，然后运行build_deb.sh脚本即可。输出quardCRT.deb安装包。
+    Modify the value of the QT_DIR variable in build_deb.sh, and then run the build_deb.sh script. The quardCRT.deb installation package is output.
 
 - macos
 
-    修改build_dmg.sh中QT_DIR变量的值，然后运行build_dmg.sh脚本即可。输出quardCRT.dmg安装包。
+    Modify the value of the QT_DIR variable in build_dmg.sh, and then run the build_dmg.sh script. The quardCRT.dmg installation package is output.
     

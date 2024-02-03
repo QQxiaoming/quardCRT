@@ -124,7 +124,7 @@ quardCRT将从V0.4.0版本开始支持插件，插件将以Qt Plug-in插件的�
 
 ## 编译说明
 
-请参考[开发笔记](./DEVELOPNOTE.md)。
+请参考[开发笔记](./DEVELOPNOTE_zh_CN.md)。
 
 ## 贡献
 

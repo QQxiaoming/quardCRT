@@ -11,11 +11,26 @@ on:
       - 'README_zh_HK.md'
       - 'README_ja_JP.md'
       - 'DEVELOPNOTE.md'
+      - 'DEVELOPNOTE_zh_CN.md'
       - 'CHANGELOG.md'
       - 'TODO.md'
       - '.readthedocs.yaml'
     tags:
       - V**
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'doc/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'README_zh_CN.md'
+      - 'README_zh_HK.md'
+      - 'README_ja_JP.md'
+      - 'DEVELOPNOTE.md'
+      - 'DEVELOPNOTE_zh_CN.md'
+      - 'CHANGELOG.md'
+      - 'TODO.md'
+      - '.readthedocs.yaml'
   workflow_dispatch:
 
 jobs:
