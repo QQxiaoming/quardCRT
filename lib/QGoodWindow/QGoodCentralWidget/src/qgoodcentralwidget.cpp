@@ -705,9 +705,12 @@ void QGoodCentralWidget::updateWindowLater()
             QRect max_rect = m_title_bar->maximizeButtonRect();
             QRect cls_rect = m_title_bar->closeButtonRect();
 
-            min_rect.moveLeft(title_bar_width - cls_rect.width() - max_rect.width() - min_rect.width());
-            max_rect.moveLeft(title_bar_width - cls_rect.width() - max_rect.width());
-            cls_rect.moveLeft(title_bar_width - cls_rect.width());
+            if(qApp->isLeftToRight()) 
+            {
+                min_rect.moveLeft(title_bar_width - cls_rect.width() - max_rect.width() - min_rect.width());
+                max_rect.moveLeft(title_bar_width - cls_rect.width() - max_rect.width());
+                cls_rect.moveLeft(title_bar_width - cls_rect.width());
+            }
 
             m_gw->setMinimizeMask(min_rect);
             m_gw->setMaximizeMask(max_rect);

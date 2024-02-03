@@ -115,6 +115,7 @@ quardCRT支持多语言，目前支持以下语言，翻译覆盖率如下：
 | Deutsch   | ![de_DE](./docs/de_DE.svg) |
 | Português   | ![pt_BR](./docs/pt_BR.svg) |
 | čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
+| عربي    | ![ar_SA](./docs/ar_SA.svg) |
 
 quardCRT的翻译由github copilot协助翻译，翻译可能不是很准确，如果您发现翻译有问题，欢迎提交issue或pull request。
 

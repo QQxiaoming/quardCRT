@@ -123,6 +123,7 @@ private:
     void moveToAnotherTab(int src,int dst, int index);
     void floatingWindow(MainWidgetGroup *g, int index);
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
+    void swapSideHboxLayout(void);
 
 private slots:
     void onPluginRequestTelnetConnect(QString host, int port, int type);
@@ -156,6 +157,7 @@ private:
     QWidget *sideProxyWidget;
     QPushButton *sessionManagerPushButton;
     QPushButton *pluginViewerPushButton;
+    QHBoxLayout *sideHboxLayout;
     StartTftpSeverWindow *startTftpSeverWindow;
     LockSessionWindow *lockSessionWindow;
     SftpWindow *sftpWindow;
@@ -260,6 +262,7 @@ private:
     QAction *englishAction;
     QAction *germanAction;
     QAction *czechAction;
+    QAction *arabicAction;
     QActionGroup *themeActionGroup;
     QAction *lightThemeAction;
     QAction *darkThemeAction;

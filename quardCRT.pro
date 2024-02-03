@@ -178,7 +178,8 @@ TRANSLATIONS += \
     lang/quardCRT_es_ES.ts \
     lang/quardCRT_en_US.ts \
     lang/quardCRT_de_DE.ts \
-    lang/quardCRT_cs_CZ.ts
+    lang/quardCRT_cs_CZ.ts \
+    lang/quardCRT_ar_SA.ts
 
 build_type =
 CONFIG(debug, debug|release) {

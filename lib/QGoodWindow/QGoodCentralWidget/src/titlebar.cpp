@@ -106,7 +106,7 @@ TitleBar::TitleBar(QGoodWindow *gw, QWidget *parent) : QFrame(parent)
     stacked_layout->addWidget(m_title_widget);
 
     m_left_widget_place_holder = new QWidget(this);
-    m_left_widget_place_holder->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    m_left_widget_place_holder->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_left_widget_place_holder->setVisible(false);
     m_left_widget_place_holder->setEnabled(false);
 

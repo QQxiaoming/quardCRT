@@ -127,13 +127,13 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     sessionManagerPushButton->setFixedSize(250,26);
     pluginViewerPushButton = new QPushButton();
     pluginViewerPushButton->setFixedSize(250,26);
-    QHBoxLayout *hboxLayout = new QHBoxLayout();
-    hboxLayout->setContentsMargins(0,0,0,0);
-    hboxLayout->setSpacing(2);
+    sideHboxLayout = new QHBoxLayout();
+    sideHboxLayout->setContentsMargins(0,0,0,0);
+    sideHboxLayout->setSpacing(2);
     sideProxyWidget = new QWidget();
-    sideProxyWidget->setLayout(hboxLayout);
-    hboxLayout->addWidget(pluginViewerPushButton);
-    hboxLayout->addWidget(sessionManagerPushButton);
+    sideProxyWidget->setLayout(sideHboxLayout);
+    sideHboxLayout->addWidget(pluginViewerPushButton);
+    sideHboxLayout->addWidget(sessionManagerPushButton);
     QGraphicsScene *scene = new QGraphicsScene(this);
     QGraphicsProxyWidget *w = scene->addWidget(sideProxyWidget);
     w->setPos(0,0);
@@ -144,6 +144,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setFixedSize(30, 502);
     ui->sidewidget->setFixedWidth(30);
+    swapSideHboxLayout();
 
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         mainWidgetGroup->sessionTab->setScrollTitleMode((SessionTab::TitleScrollMode)globalOptionsWindow->getTabTitleMode());
@@ -1229,6 +1230,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     germanAction->setStatusTip(tr("Switch to German"));
     czechAction->setText(tr("Czech"));
     czechAction->setStatusTip(tr("Switch to Czech"));
+    arabicAction->setText(tr("Arabic"));
+    arabicAction->setStatusTip(tr("Switch to Arabic"));
 
     lightThemeAction->setText(tr("Light"));
     lightThemeAction->setStatusTip(tr("Switch to light theme"));
@@ -1592,6 +1595,11 @@ void CentralWidget::menuAndToolBarInit(void) {
     czechAction->setCheckable(true);
     czechAction->setChecked(language == QLocale::Czech);
     languageMenu->addAction(czechAction);
+    arabicAction = new QAction(this);
+    arabicAction->setActionGroup(languageActionGroup);
+    arabicAction->setCheckable(true);
+    arabicAction->setChecked(language == QLocale::Arabic);
+    languageMenu->addAction(arabicAction);
 
     themeActionGroup = new QActionGroup(this);
     lightThemeAction = new QAction(this);
@@ -2462,9 +2470,12 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             this->language = QLocale::German;
         } else if(action == czechAction) {
             this->language = QLocale::Czech;
+        } else if(action == arabicAction) {
+            this->language = QLocale::Arabic;
         }
 
         setAppLangeuage(this->language);
+        swapSideHboxLayout();
         foreach(pluginState_t pluginStruct, pluginList) {
             PluginInterface *iface = pluginStruct.iface;
             iface->setLanguage(this->language,qApp);
@@ -3503,6 +3514,18 @@ void CentralWidget::checkStatusTipEvent(QStatusTipEvent *event) {
     }
 }
 
+void CentralWidget::swapSideHboxLayout(void) {
+    sideHboxLayout->removeWidget(sessionManagerPushButton);
+    sideHboxLayout->removeWidget(pluginViewerPushButton);
+    if(qApp->isRightToLeft()) {
+        sideHboxLayout->addWidget(sessionManagerPushButton);
+        sideHboxLayout->addWidget(pluginViewerPushButton);
+    } else {
+        sideHboxLayout->addWidget(pluginViewerPushButton);
+        sideHboxLayout->addWidget(sessionManagerPushButton);
+    }
+}
+
 void CentralWidget::setAppLangeuage(QLocale lang) {
     GlobalSetting settings;
     static QTranslator *qtTranslator = nullptr;
@@ -3530,6 +3553,7 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
         delete appTranslator;
         appTranslator = new QTranslator(qApp);
     }
+    qApp->setLayoutDirection(Qt::LeftToRight);
     switch(lang.language()) {
     case QLocale::Chinese:
         if(lang.script() == QLocale::SimplifiedChineseScript) {
@@ -3631,6 +3655,16 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
         if(appTranslator->load(":/lang/lang/quardCRT_cs_CZ.qm"))
             qApp->installTranslator(appTranslator);
         settings.setValue("Global/Startup/language","cs_CZ");
+        break;
+    case QLocale::Arabic:
+        if(qtTranslator->load("qt_ar.qm",qlibpath))
+            qApp->installTranslator(qtTranslator);
+        if(qtbaseTranslator->load("qtbase_ar.qm",qlibpath))
+            qApp->installTranslator(qtbaseTranslator);
+        if(appTranslator->load(":/lang/lang/quardCRT_ar_SA.qm"))
+            qApp->installTranslator(appTranslator);
+        settings.setValue("Global/Startup/language","ar_SA");
+        qApp->setLayoutDirection(Qt::RightToLeft);
         break;
     }
 }

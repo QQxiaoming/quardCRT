@@ -115,6 +115,7 @@ quardCRT は多言語をサポートし、現在以下の言語をサポート�
 | Deutsch   | ![de_DE](./docs/de_DE.svg) |
 | Português   | ![pt_BR](./docs/pt_BR.svg) |
 | čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
+| عربي    | ![ar_SA](./docs/ar_SA.svg) |
 
 quartCRT の翻訳は github copilot によって支援されており、翻訳は非常に正確でないかもしれません。翻訳に問題がある場合は、issue または pull request を提出してください。
 

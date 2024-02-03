@@ -115,6 +115,7 @@ quardCRT supports multiple languages, currently supports the following languages
 | Deutsch   | ![de_DE](./docs/de_DE.svg) |
 | Português   | ![pt_BR](./docs/pt_BR.svg) |
 | čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
+| عربي    | ![ar_SA](./docs/ar_SA.svg) |
 
 The translation of quartCRT is assisted by github copilot, and the translation may not be very accurate. If you find any problems with the translation, please submit an issue or pull request.
 

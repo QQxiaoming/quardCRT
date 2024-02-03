@@ -89,22 +89,41 @@ void TitleWidget::paintEvent(QPaintEvent *event)
     QRect right_rect;
     QRect center_rect;
 
-    if (m_title_bar->m_left_margin_widget_place_holder->isVisible())
-        left_rect = left_rect.united(m_title_bar->m_left_margin_widget_place_holder->geometry());
-    if (m_title_bar->m_icon_widget->isVisible())
-        left_rect = left_rect.united(m_title_bar->m_icon_widget->geometry());
-    if (m_title_bar->m_left_widget_place_holder->isVisible())
-        left_rect = left_rect.united(m_title_bar->m_left_widget_place_holder->geometry());
+    if(qApp->isRightToLeft()) {
+        if (m_title_bar->m_right_widget_place_holder->isVisible())
+            left_rect = left_rect.united(m_title_bar->m_right_widget_place_holder->geometry());
+        if (m_title_bar->m_caption_buttons->isVisible())
+            left_rect = left_rect.united(m_title_bar->m_caption_buttons->geometry());
+        else
+            left_rect = left_rect.united(QRect(0, 0, 1, height()));
+        
+        if (m_title_bar->m_left_margin_widget_place_holder->isVisible())
+            right_rect = right_rect.united(m_title_bar->m_left_margin_widget_place_holder->geometry());
+        if (m_title_bar->m_icon_widget->isVisible())
+            right_rect = right_rect.united(m_title_bar->m_icon_widget->geometry());
+        if (m_title_bar->m_left_widget_place_holder->isVisible())
+            right_rect = right_rect.united(m_title_bar->m_left_widget_place_holder->geometry());
+        
+        if (m_title_bar->m_center_widget_place_holder->isVisible())
+            center_rect = center_rect.united(m_title_bar->m_center_widget_place_holder->geometry());
+    } else {
+        if (m_title_bar->m_left_margin_widget_place_holder->isVisible())
+            left_rect = left_rect.united(m_title_bar->m_left_margin_widget_place_holder->geometry());
+        if (m_title_bar->m_icon_widget->isVisible())
+            left_rect = left_rect.united(m_title_bar->m_icon_widget->geometry());
+        if (m_title_bar->m_left_widget_place_holder->isVisible())
+            left_rect = left_rect.united(m_title_bar->m_left_widget_place_holder->geometry());
 
-    if (m_title_bar->m_right_widget_place_holder->isVisible())
-        right_rect = right_rect.united(m_title_bar->m_right_widget_place_holder->geometry());
-    if (m_title_bar->m_caption_buttons->isVisible())
-        right_rect = right_rect.united(m_title_bar->m_caption_buttons->geometry());
-    else
-        right_rect = right_rect.united(QRect(width(), 0, 1, height()));
+        if (m_title_bar->m_right_widget_place_holder->isVisible())
+            right_rect = right_rect.united(m_title_bar->m_right_widget_place_holder->geometry());
+        if (m_title_bar->m_caption_buttons->isVisible())
+            right_rect = right_rect.united(m_title_bar->m_caption_buttons->geometry());
+        else
+            right_rect = right_rect.united(QRect(width(), 0, 1, height()));
 
-    if (m_title_bar->m_center_widget_place_holder->isVisible())
-        center_rect = center_rect.united(m_title_bar->m_center_widget_place_holder->geometry());
+        if (m_title_bar->m_center_widget_place_holder->isVisible())
+            center_rect = center_rect.united(m_title_bar->m_center_widget_place_holder->geometry());
+    }
 
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing);

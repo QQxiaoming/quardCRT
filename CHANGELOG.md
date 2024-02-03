@@ -7,14 +7,14 @@ en-US:
 - Add a tooltip to the terminal link, and change the mouse shape corresponding to the press of ctrl
 - The plugin system completes multi-language support
 - Partial UI details beautification
-- Add German/Portuguese (Brazil)/Czech language support
+- Add German/Portuguese (Brazil)/Czech/Arabic support
 
 zh-CN:
 
 - 终端链接增加tooltip，以及按下ctrl后鼠标形状修改对应状
 - 插件系统完成多语言支持
 - 部分UI细节美化
-- 增加德语/葡萄牙语(巴西)/捷克语支持
+- 增加德语/葡萄牙语(巴西)/捷克语/阿拉伯语支持
 
 ## [[V0.4.2](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.2)] - 2024-01-28
 
