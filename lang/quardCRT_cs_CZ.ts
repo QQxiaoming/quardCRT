@@ -1232,72 +1232,72 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Image Files (*.jpg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázkové soubory (*.jpg)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2184"/>
         <source>Screenshot saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Snímek obrazovky uložen do %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2195"/>
         <source>Save Session Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit export relace</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2195"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>Textové soubory (*.txt);;HTML soubory (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2198"/>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Textové soubory (*.txt)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2201"/>
         <source>HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML soubory (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2210"/>
         <source>Session Export saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Export relace uložen do %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2212"/>
         <source>Session Export failed to save to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Export relace se nepodařilo uložit do %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2356"/>
         <source>Select a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat adresář</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2383"/>
         <source>Select a bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat záložku</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2410"/>
         <source>Are you sure to clean all bookmark?</source>
-        <translation type="unfinished"></translation>
+        <translation>Opravdu chcete vymazat všechny záložky?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2428"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2594"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Video pozadí je povoleno, povolte animaci v globálních možnostech (více systémových prostředků) nebo změňte obrázek pozadí.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2789"/>
         <source>Session information get failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Načtení informací o relaci se nezdařilo.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2872"/>

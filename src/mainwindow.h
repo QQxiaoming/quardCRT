@@ -324,11 +324,10 @@ public:
              * please optimize this code */
             int width = 0;
             int itemSpacingPx = m_menu_bar->style()->pixelMetric(QStyle::PM_MenuBarItemSpacing);
-            qreal deviceratio = m_menu_bar->devicePixelRatio();
             for (int i = 0; i < m_menu_bar->actions().size(); i++) {
                 QString text = m_menu_bar->actions().at(i)->text();
                 QFontMetrics fm(m_menu_bar->font());
-                width += fm.size(0, text).width() + itemSpacingPx*deviceratio;
+                width += fm.size(0, text).width() + itemSpacingPx*1.5;
             }
             m_good_central_widget->setLeftTitleBarWidth(width);
         }

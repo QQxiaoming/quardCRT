@@ -1227,77 +1227,77 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Save Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar captura de tela</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Image Files (*.jpg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivos de imagem (*.jpg)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2184"/>
         <source>Screenshot saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Captura de tela salva em %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2195"/>
         <source>Save Session Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar exportação de sessão</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2195"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivos de texto (*.txt);;Arquivos HTML (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2198"/>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivos de texto (*.txt)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2201"/>
         <source>HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivos HTML (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2210"/>
         <source>Session Export saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportação de sessão salva em %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2212"/>
         <source>Session Export failed to save to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha ao salvar a exportação de sessão em %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2356"/>
         <source>Select a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione um diretório</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2383"/>
         <source>Select a bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione um favorito</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2410"/>
         <source>Are you sure to clean all bookmark?</source>
-        <translation type="unfinished"></translation>
+        <translation>Você tem certeza de que deseja limpar todos os favoritos?</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2428"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Porta</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2594"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
-        <translation type="unfinished"></translation>
+        <translation>O plano de fundo de vídeo está ativado, ative a animação nas opções globais (mais recursos do sistema) ou altere a imagem de fundo.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2789"/>
         <source>Session information get failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha ao obter informações da sessão.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2872"/>

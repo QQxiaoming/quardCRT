@@ -1222,82 +1222,82 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="2167"/>
         <source>PrintScreen saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>تم حفظ PrintScreen في %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Save Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>حفظ لقطة الشاشة</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2179"/>
         <source>Image Files (*.jpg)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات الصور (*.jpg)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2184"/>
         <source>Screenshot saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>تم حفظ لقطة الشاشة في %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2195"/>
         <source>Save Session Export</source>
-        <translation type="unfinished"></translation>
+        <translation>حفظ تصدير الجلسة</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2195"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات النص (*.txt);;ملفات HTML (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2198"/>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات النص (*.txt)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2201"/>
         <source>HTML Files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات HTML (*.html)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2210"/>
         <source>Session Export saved to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>تم حفظ تصدير الجلسة في %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2212"/>
         <source>Session Export failed to save to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>فشل حفظ تصدير الجلسة في %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2356"/>
         <source>Select a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>حدد دليلًا</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2383"/>
         <source>Select a bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>حدد إشارة مرجعية</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2410"/>
         <source>Are you sure to clean all bookmark?</source>
-        <translation type="unfinished"></translation>
+        <translation>هل أنت متأكد من تنظيف كل الإشارات المرجعية؟</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2428"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>منفذ</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2594"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
-        <translation type="unfinished"></translation>
+        <translation>تم تمكين الخلفية المتحركة، يرجى تمكين الرسوم المتحركة في الخيارات العامة (مزيد من موارد النظام) أو تغيير صورة الخلفية.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2789"/>
         <source>Session information get failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>فشل الحصول على معلومات الجلسة.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2872"/>
