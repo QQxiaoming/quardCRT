@@ -32,6 +32,7 @@
 #include <QShortcut>
 #include <QDir>
 #include <QStatusTipEvent>
+#include <QFontMetrics>
 
 #include "mainwidgetgroup.h"
 #include "sessiontab.h"
@@ -316,6 +317,21 @@ public:
                 laboratoryButton->setEnabled(active);
             });
         });
+    }
+    void fixMenuBarWidth(void) {
+        if (m_menu_bar) {
+            /* FIXME: Fix the width of the menu bar 
+             * please optimize this code */
+            int width = 0;
+            int itemSpacingPx = m_menu_bar->style()->pixelMetric(QStyle::PM_MenuBarItemSpacing);
+            qreal deviceratio = m_menu_bar->devicePixelRatio();
+            for (int i = 0; i < m_menu_bar->actions().size(); i++) {
+                QString text = m_menu_bar->actions().at(i)->text();
+                QFontMetrics fm(m_menu_bar->font());
+                width += fm.size(0, text).width() + itemSpacingPx*deviceratio;
+            }
+            m_good_central_widget->setLeftTitleBarWidth(width);
+        }
     }
 
 protected:

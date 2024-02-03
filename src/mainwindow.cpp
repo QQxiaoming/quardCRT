@@ -708,6 +708,10 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         }
     });
 
+    QTimer::singleShot(0, this, [&](){
+        if(mainWindow) mainWindow->fixMenuBarWidth();
+    });
+
     // TODO:Unimplemented functions are temporarily closed
     sendASCIIAction->setEnabled(false);
     receiveASCIIAction->setEnabled(false);
@@ -2476,6 +2480,9 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
 
         setAppLangeuage(this->language);
         swapSideHboxLayout();
+        QTimer::singleShot(0, this, [&](){
+            if(mainWindow) mainWindow->fixMenuBarWidth();
+        });
         foreach(pluginState_t pluginStruct, pluginList) {
             PluginInterface *iface = pluginStruct.iface;
             iface->setLanguage(this->language,qApp);

@@ -238,6 +238,10 @@ QWidget *QGoodCentralWidget::setLeftTitleBarWidget(QWidget *widget, bool transpa
 #endif
 }
 
+void QGoodCentralWidget::setLeftTitleBarWidth(int width) {
+    if (m_title_bar) m_title_bar->setLeftTitleBarWidth(width);
+}
+
 QWidget *QGoodCentralWidget::setRightTitleBarWidget(QWidget *widget, bool transparent_for_mouse)
 {
 #ifdef QGOODWINDOW

@@ -64,6 +64,7 @@ public Q_SLOTS:
     /** Set the left title bar widget and returns the previous widget or nullptr if none, delete this widget as needed.
         If the widget is transparent for mouse, but not it's children's set \e transparent_for_mouse to true. */
     QWidget *setLeftTitleBarWidget(QWidget *widget, bool transparent_for_mouse = false);
+    void setLeftTitleBarWidth(int width);
 
     /** Set the right title bar widget and returns the previous widget or nullptr if none, delete this widget as needed.
         If the widget is transparent for mouse, but not it's children's set \e transparent_for_mouse to true. */

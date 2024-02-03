@@ -54,6 +54,9 @@ public Q_SLOTS:
     void setMaximized(bool maximized);
     void setTheme();
     void setLeftTitleBarWidget(QWidget *widget);
+    void setLeftTitleBarWidth(int width) {
+        m_left_widget_place_holder->setFixedWidth(width);
+    }
     void setRightTitleBarWidget(QWidget *widget);
     void setCenterTitleBarWidget(QWidget *widget);
     void setCaptionButtonWidth(int width);
