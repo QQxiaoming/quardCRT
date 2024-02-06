@@ -12,7 +12,8 @@
 
 # quardCRT
 
-English | [简体中文](./README_zh_CN.md) | [繁體中文](./README_zh_HK.md) | [日本語](./README_ja_JP.md)
+
+🇺🇸 English | [🇨🇳 简体中文](./README_zh_CN.md) | [🇭🇰 繁體中文](./README_zh_HK.md) | [🇯🇵 日本語](./README_ja_JP.md)
 
 quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
 
@@ -103,19 +104,19 @@ Protocol selection interface:
 
 quardCRT supports multiple languages, currently supports the following languages, translation coverage is as follows:
 
-| English  | ![en_US](./docs/en_US.svg) |
-| :------: | :------------------------: |
-| 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
-| 繁體中文 | ![zh_HK](./docs/zh_HK.svg) |
-| 日本語   | ![ja_JP](./docs/ja_JP.svg) |
-| 한국어   | ![ko_KR](./docs/ko_KR.svg) |
-| Español   | ![es_ES](./docs/es_ES.svg) |
-| Français   | ![fr_FR](./docs/fr_FR.svg) |
-| Русский   | ![ru_RU](./docs/ru_RU.svg) |
-| Deutsch   | ![de_DE](./docs/de_DE.svg) |
-| Português   | ![pt_BR](./docs/pt_BR.svg) |
-| čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
-| عربي    | ![ar_SA](./docs/ar_SA.svg) |
+| 🇺🇸 English   | ![en_US](./docs/en_US.svg) |
+| :----------: | :------------------------: |
+| 🇨🇳 简体中文  | ![zh_CN](./docs/zh_CN.svg) |
+| 🇭🇰 繁體中文  | ![zh_HK](./docs/zh_HK.svg) |
+| 🇯🇵 日本語    | ![ja_JP](./docs/ja_JP.svg) |
+| 🇰🇷 한국어    | ![ko_KR](./docs/ko_KR.svg) |
+| 🇪🇸 Español   | ![es_ES](./docs/es_ES.svg) |
+| 🇫🇷 Français  | ![fr_FR](./docs/fr_FR.svg) |
+| 🇷🇺 Русский   | ![ru_RU](./docs/ru_RU.svg) |
+| 🇩🇪 Deutsch   | ![de_DE](./docs/de_DE.svg) |
+| 🇧🇷 Português | ![pt_BR](./docs/pt_BR.svg) |
+| 🇨🇿 čeština   | ![cs_CZ](./docs/cs_CZ.svg) |
+| 🇸🇦 عربي     | ![ar_SA](./docs/ar_SA.svg) |
 
 The translation of quartCRT is assisted by github copilot, and the translation may not be very accurate. If you find any problems with the translation, please submit an issue or pull request.
 
@@ -133,7 +134,7 @@ If you have suggestions or ideas for this project, please submit issues and pull
 
 If you want to improve/fix the known issues, you can check [TODO](./TODO.md).
 
-The current project is recommended to use version Qt6.2.0 and above.
+The current project is recommended to use version Qt6.5.0 and above.
 
 ## Special
 

@@ -12,7 +12,7 @@
 
 # quardCRT
 
-[English](./README.md) | [简体中文](./README_zh_CN.md) | 繁體中文 | [日本語](./README_ja_JP.md)
+[🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README_zh_CN.md) | 🇭🇰 繁體中文 | [🇯🇵 日本語](./README_ja_JP.md)
 
 quardCRT一款多功能終端模擬/圖形桌面軟體，支援多種後端協議，無依賴跨平台使用，windows/linux/mac使用體驗完全一致，支援多標籤頁和歷史記錄管理等傳統終端軟體功能，同時支援一些獨具特色的細節功能。
 
@@ -103,19 +103,19 @@ quardCRT一款多功能終端模擬/圖形桌面軟體，支援多種後端協�
 
 quardCRT支持多語言，目前支持以下語言，翻譯覆蓋率如下：
 
-| English  | ![en_US](./docs/en_US.svg) |
-| :------: | :------------------------: |
-| 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
-| 繁體中文 | ![zh_HK](./docs/zh_HK.svg) |
-| 日本語   | ![ja_JP](./docs/ja_JP.svg) |
-| 한국어   | ![ko_KR](./docs/ko_KR.svg) |
-| Español   | ![es_ES](./docs/es_ES.svg) |
-| Français   | ![fr_FR](./docs/fr_FR.svg) |
-| Русский   | ![ru_RU](./docs/ru_RU.svg) |
-| Deutsch   | ![de_DE](./docs/de_DE.svg) |
-| Português   | ![pt_BR](./docs/pt_BR.svg) |
-| čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
-| عربي    | ![ar_SA](./docs/ar_SA.svg) |
+| 🇺🇸 English   | ![en_US](./docs/en_US.svg) |
+| :----------: | :------------------------: |
+| 🇨🇳 简体中文  | ![zh_CN](./docs/zh_CN.svg) |
+| 🇭🇰 繁體中文  | ![zh_HK](./docs/zh_HK.svg) |
+| 🇯🇵 日本語    | ![ja_JP](./docs/ja_JP.svg) |
+| 🇰🇷 한국어    | ![ko_KR](./docs/ko_KR.svg) |
+| 🇪🇸 Español   | ![es_ES](./docs/es_ES.svg) |
+| 🇫🇷 Français  | ![fr_FR](./docs/fr_FR.svg) |
+| 🇷🇺 Русский   | ![ru_RU](./docs/ru_RU.svg) |
+| 🇩🇪 Deutsch   | ![de_DE](./docs/de_DE.svg) |
+| 🇧🇷 Português | ![pt_BR](./docs/pt_BR.svg) |
+| 🇨🇿 čeština   | ![cs_CZ](./docs/cs_CZ.svg) |
+| 🇸🇦 عربي     | ![ar_SA](./docs/ar_SA.svg) |
 
 quardCRT的翻譯由github copilot協助翻譯，翻譯可能不是很準確，如果您發現翻譯有問題，歡迎提交issue或pull request。
 
@@ -133,7 +133,7 @@ quardCRT將從V0.4.0版本開始支持Plugin，以Qt Plug-in的形式提供，�
 
 如果您希望改進/修復目前已知的問題，您可以查看[TODO](./TODO.md)。
 
-目前項目建議使用版本Qt6.2.0及更高版本。
+目前項目建議使用版本Qt6.5.0及更高版本。
 
 ## 特別
 

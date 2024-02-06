@@ -1,6 +1,6 @@
-!versionAtLeast(QT_VERSION, 6.2.0) {
+!versionAtLeast(QT_VERSION, 6.5.0) {
     message("Cannot use Qt $$QT_VERSION")
-    error("Use Qt 6.2.0 or newer")
+    error("Use Qt 6.5.0 or newer")
 }
 QT += core gui network widgets xml svgwidgets websockets serialport printsupport multimedia
 QT += core5compat

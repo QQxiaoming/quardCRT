@@ -12,7 +12,7 @@
 
 # quardCRT
 
-[English](./README.md) | [简体中文](./README_zh_CN.md) | [繁體中文](./README_zh_HK.md) | 日本語
+[🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README_zh_CN.md) | [🇭🇰 繁體中文](./README_zh_HK.md) | 🇯🇵 日本語
 
 quardCRT は、複数のバックエンド プロトコルをサポートし、依存関係なくプラットフォーム間で使用でき、Windows/Linux/Mac 上で完全に一貫したユーザー エクスペリエンスを実現するターミナル エミュレーションおよびリモート デスクトップ ソフトウェアです。 マルチタブや履歴管理などの従来のターミナルソフトウェア機能をサポートし、いくつかの独自の詳細な機能をサポートします。
 
@@ -103,19 +103,19 @@ quardCRT は、複数のバックエンド プロトコルをサポートし、�
 
 quardCRT は多言語をサポートし、現在以下の言語をサポートしています。翻訳カバレッジは以下の通りです：
 
-| English  | ![en_US](./docs/en_US.svg) |
-| :------: | :------------------------: |
-| 简体中文 | ![zh_CN](./docs/zh_CN.svg) |
-| 繁體中文 | ![zh_HK](./docs/zh_HK.svg) |
-| 日本語   | ![ja_JP](./docs/ja_JP.svg) |
-| 한국어   | ![ko_KR](./docs/ko_KR.svg) |
-| Español   | ![es_ES](./docs/es_ES.svg) |
-| Français   | ![fr_FR](./docs/fr_FR.svg) |
-| Русский   | ![ru_RU](./docs/ru_RU.svg) |
-| Deutsch   | ![de_DE](./docs/de_DE.svg) |
-| Português   | ![pt_BR](./docs/pt_BR.svg) |
-| čeština  | ![cs_CZ](./docs/cs_CZ.svg) |
-| عربي    | ![ar_SA](./docs/ar_SA.svg) |
+| 🇺🇸 English   | ![en_US](./docs/en_US.svg) |
+| :----------: | :------------------------: |
+| 🇨🇳 简体中文  | ![zh_CN](./docs/zh_CN.svg) |
+| 🇭🇰 繁體中文  | ![zh_HK](./docs/zh_HK.svg) |
+| 🇯🇵 日本語    | ![ja_JP](./docs/ja_JP.svg) |
+| 🇰🇷 한국어    | ![ko_KR](./docs/ko_KR.svg) |
+| 🇪🇸 Español   | ![es_ES](./docs/es_ES.svg) |
+| 🇫🇷 Français  | ![fr_FR](./docs/fr_FR.svg) |
+| 🇷🇺 Русский   | ![ru_RU](./docs/ru_RU.svg) |
+| 🇩🇪 Deutsch   | ![de_DE](./docs/de_DE.svg) |
+| 🇧🇷 Português | ![pt_BR](./docs/pt_BR.svg) |
+| 🇨🇿 čeština   | ![cs_CZ](./docs/cs_CZ.svg) |
+| 🇸🇦 عربي     | ![ar_SA](./docs/ar_SA.svg) |
 
 quartCRT の翻訳は github copilot によって支援されており、翻訳は非常に正確でないかもしれません。翻訳に問題がある場合は、issue または pull request を提出してください。
 
@@ -133,7 +133,7 @@ quardCRT はバージョン V0.4.0 からプラグインをサポートします
 
 既知の問題を改善/修正する場合は、[TODO](./TODO.md) を確認できます。
 
-現在のプロジェクトは、バージョン Qt6.2.0 以上を使用することをお勧めします。
+現在のプロジェクトは、バージョン Qt6.5.0 以上を使用することをお勧めします。
 
 ## 特別な
 

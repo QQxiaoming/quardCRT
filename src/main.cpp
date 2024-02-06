@@ -169,8 +169,12 @@ int main(int argc, char *argv[])
     QApplication::setAttribute(Qt::AA_DontUseNativeDialogs);
     QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
     QApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
-
+    QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     QApplication application(argc, argv);
+    QFont font = qApp->font();
+    font.setStyleStrategy(QFont::PreferAntialias);
+    font.setHintingPreference(QFont::PreferFullHinting);
+    qApp->setFont(font);
 
     QApplication::setApplicationName("QuardCRT");
     QApplication::setOrganizationName("Copyright (c) 2023 Quard(QiaoQiming)");

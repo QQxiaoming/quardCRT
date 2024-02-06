@@ -34,11 +34,15 @@ WizardStyle=modern
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
-Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
-Name: "korean"; MessagesFile: ".\Korean.isl"
+Name: "german"; MessagesFile: "compiler:Languages\German.isl"
+Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
+Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
+Name: "arabic"; MessagesFile: ".\Arabic.isl"
+Name: "korean"; MessagesFile: ".\Korean.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
 Name: "chinese"; MessagesFile: ".\ChineseSimplified.isl"
 Name: "chinese_hk"; MessagesFile: ".\ChineseTraditional.isl"
 
