@@ -732,6 +732,11 @@ void QTermWidget::screenShot(QPixmap *pixmap)
     *pixmap = currPixmap.scaled(pixmap->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
+void QTermWidget::repaintDisplay(void)
+{
+    m_impl->m_terminalDisplay->repaintDisplay();
+}
+
 void QTermWidget::screenShot(const QString &fileName)
 {
     qreal deviceratio = m_impl->m_terminalDisplay->devicePixelRatio();

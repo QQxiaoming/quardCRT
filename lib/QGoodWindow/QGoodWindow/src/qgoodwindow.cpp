@@ -1936,6 +1936,14 @@ bool QGoodWindow::event(QEvent *event)
         break;
     }
 #endif
+    switch (event->type()) {
+        case QEvent::WindowStateChange: {
+            emit windowStateChanged(windowState());
+            break;
+        }
+        default:
+            break;
+    }
     return QMainWindow::event(event);
 }
 

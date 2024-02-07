@@ -328,6 +328,7 @@ public slots:
     void saveHistory(QTextStream *stream, int format = 0);
     void screenShot(QPixmap *pixmap);
     void screenShot(const QString &fileName);
+    void repaintDisplay(void);
 
 protected:
     void resizeEvent(QResizeEvent *) override;

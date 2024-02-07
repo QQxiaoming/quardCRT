@@ -542,6 +542,14 @@ public slots:
     void selectionChanged();
 
     void setLocked(bool enabled) { _isLocked = enabled; }
+    void repaintDisplay(void) {
+        // FIXME: we must call hide() and show() to force a repaint,
+        // this is a bad hack, but it works
+    #if defined(Q_OS_LINUX)
+        this->hide();
+        QTimer::singleShot(100, this, SLOT(show()));
+    #endif
+    }
 
 signals:
 

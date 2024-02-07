@@ -709,7 +709,16 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
 
     QTimer::singleShot(0, this, [&](){
-        if(mainWindow) mainWindow->fixMenuBarWidth();
+        if(mainWindow) {
+            mainWindow->fixMenuBarWidth();
+            connect(mainWindow,&QGoodWindow::windowStateChanged,this,[&](Qt::WindowStates state){
+                if(state == Qt::WindowMaximized) {
+                    foreach(SessionsWindow *sessionsWindow, sessionList) {
+                        sessionsWindow->repaintDisplay();
+                    }
+                }
+            });
+        }
     });
 
     // TODO:Unimplemented functions are temporarily closed

@@ -257,6 +257,9 @@ public:
     void clearHighLightTexts(void) {
         if(term) term->clearHighLightTexts();
     }
+    void repaintDisplay(void) {
+        if(term) term->repaintDisplay();
+    }
 
 signals:
     void hexDataDup(const char *data, int size);
