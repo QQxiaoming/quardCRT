@@ -5,6 +5,7 @@
 en-US:
 
 - Add a tooltip to the terminal link, and modify the mouse shape to the corresponding shape after pressing ctrl
+- Modify the default LC_CTYPE configuration to UTF-8 on macos, and do not make default configuration on other platforms. You can modify whether to make configuration through the setting file
 - Fix the problem that the terminal interface rendering is not refreshed in time when the window is maximized on linux
 - The plugin system completes multi-language support
 - Partial UI details beautification
@@ -13,6 +14,7 @@ en-US:
 zh-CN:
 
 - 终端链接增加tooltip，以及按下ctrl后鼠标形状修改对应形状
+- 修改macos上默认LC_CTYPE配置为UTF-8，其他平台不做默认配置，可通过setting文件修改是否做配置
 - 修复linux上最大化窗口终端界面渲染未及时刷新问题
 - 插件系统完成多语言支持
 - 部分UI细节美化

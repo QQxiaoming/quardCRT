@@ -32,6 +32,7 @@
 #include "filedialog.h"
 #include "sessionswindow.h"
 #include "globaloptionswindow.h"
+#include "globalsetting.h"
 #include "argv_split.h"
 
 SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
@@ -427,7 +428,18 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         args.insert(0, fi.fileName());
     #endif
     }
-    bool ret = localShell->startProcess(shellPath, args, QProcessEnvironment::systemEnvironment().toStringList(), workingDirectory, term->screenColumnsCount(), term->screenLinesCount());
+    QStringList envs = QProcessEnvironment::systemEnvironment().toStringList();
+    GlobalSetting setting;
+#if defined(Q_OS_MACOS)
+    bool defaultForceUTF8 = true;
+#else
+    bool defaultForceUTF8 = false;
+#endif
+    bool forceUTF8 = setting.value("Global/misc/forceUTF8", defaultForceUTF8).toBool();
+    if(forceUTF8) {
+        envs.append("LC_CTYPE=UTF-8");
+    }
+    bool ret = localShell->startProcess(shellPath, args, envs, workingDirectory, term->screenColumnsCount(), term->screenLinesCount());
     if(!ret) {
         state = Error;
         emit stateChanged(state);
