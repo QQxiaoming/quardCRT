@@ -62,21 +62,24 @@ def generate_svg(name, finished_count, total_count):
     tree = ET.ElementTree(root)
     tree.write(name + '.svg')
 
-    
-
 if __name__ == '__main__':
     ts_files = []
     for root, dirs, files in os.walk('.'):
         for filename in files:
             if filename.endswith('.ts'):
                 ts_files.append(os.path.join(root, filename))
+    ts_files.sort()
+    total_finished_count = 0
+    total_message_count = 0
     for ts_file in ts_files:
-        total_finished_count,total_message_count = get_language_progress(parse_ts_file(ts_file))
+        finished_count,message_count = get_language_progress(parse_ts_file(ts_file))
         name = ts_file.split('/')[-1].split('.')[0].replace('quardCRT_','').replace(' ','')
-        value = str(total_finished_count)+'/'+str(total_message_count)
-        if len(str(total_finished_count)) < 3:
+        value = str(finished_count)+'/'+str(message_count)
+        if len(str(finished_count)) < 3:
             value = ' '+value
-        percentage = str(round(total_finished_count/total_message_count*100,2))+'%'
-        print(name+': '+value+' ('+percentage+')')
-        generate_svg('../docs/'+ts_file.split('/')[-1].split('.')[0].replace('quardCRT_',''),total_finished_count,total_message_count)
-    
+        percentage = str(round(finished_count/message_count*100,2))+'%'
+        print(name+':  '+value+'  ('+percentage+')')
+        generate_svg('../docs/'+ts_file.split('/')[-1].split('.')[0].replace('quardCRT_',''),finished_count,message_count)
+        total_finished_count += finished_count
+        total_message_count += message_count
+    print('Total: '+str(total_finished_count)+'/'+str(total_message_count)+' ('+str(round(total_finished_count/total_message_count*100,2))+'%)')
