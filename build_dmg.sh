@@ -28,6 +28,9 @@ cd ./build_release/out
 # 打包
 $QT_DIR/bin/macdeployqt quardCRT.app
 otool -L ./quardCRT.app/Contents/MacOS/quardCRT
+mkdir -p ./quardCRT.app/Contents/Translations
+cp $QT_DIR/translations/qt_*.qm ./quardCRT.app/Contents/Translations/
+cp $QT_DIR/translations/qtbase_*.qm ./quardCRT.app/Contents/Translations/
 mkdir -p ./quardCRT.app/Contents/MacOS/plugins/QuardCRT
 if [ -d "../../prebuilt_plugins" ]; then
     cp ../../prebuilt_plugins/*.dylib ./quardCRT.app/Contents/MacOS/plugins/QuardCRT/
