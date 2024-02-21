@@ -22,6 +22,7 @@
 #include <QStyleOptionTabBarBase>
 #include <QStylePainter>
 #include <QLineEdit>
+#include <QApplication>
 
 #include <QDebug>
 
@@ -77,7 +78,13 @@ FancyTabWidget::FancyTabWidget(QWidget *parent)
 
     connect(tabBar(), &QTabBar::tabBarDoubleClicked, this, &FancyTabWidget::onTabBarDoubleClick);
 
-    setCornerWidget(addButton);
+    if(qApp->isLeftToRight()) {
+        setCornerWidget(addButton,Qt::TopRightCorner);
+        setCornerWidget(nullptr,Qt::TopLeftCorner);
+    } else {
+        setCornerWidget(addButton,Qt::TopLeftCorner);
+        setCornerWidget(nullptr,Qt::TopRightCorner);
+    }
 
     setFocusPolicy(Qt::StrongFocus);
 }
@@ -183,5 +190,12 @@ void FancyTabWidget::adjustTabLineEdit()
 
 void FancyTabWidget::retranslateUi(void)
 {
+    if(qApp->isLeftToRight()) {
+        setCornerWidget(addButton,Qt::TopRightCorner);
+        setCornerWidget(nullptr,Qt::TopLeftCorner);
+    } else {
+        setCornerWidget(addButton,Qt::TopLeftCorner);
+        setCornerWidget(nullptr,Qt::TopRightCorner);
+    }
     addButton->retranslateUi();
 }
