@@ -56,16 +56,17 @@ PluginInfoWindow::~PluginInfoWindow()
     delete ui;
 }
 
-void PluginInfoWindow::addPluginInfo(PluginInterface *plugin, uint32_t apiVersion, bool enable, bool readOnly)
+void PluginInfoWindow::addPluginInfo(PluginInterface *plugin, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly)
 {
-    addPluginInfo(plugin->name(), plugin->version(), apiVersion, enable, readOnly);
+    addPluginInfo(plugin->name(), plugin->version(), tooltip, apiVersion, enable, readOnly);
 }
 
-void PluginInfoWindow::addPluginInfo(QString name, QString version, uint32_t apiVersion, bool enable, bool readOnly)
+void PluginInfoWindow::addPluginInfo(QString name, QString version, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly)
 {
     uint32_t i = ui->tableWidget->rowCount();
     ui->tableWidget->setRowCount(i + 1);
     ui->tableWidget->setItem(i, 0, new QTableWidgetItem(name));
+    ui->tableWidget->item(i, 0)->setToolTip(tooltip);
     ui->tableWidget->setItem(i, 1, new QTableWidgetItem(version));
     ui->tableWidget->setItem(i, 2, new QTableWidgetItem(apiVersion?QString::number(apiVersion):""));
     QTableWidgetItem *item = new QTableWidgetItem();

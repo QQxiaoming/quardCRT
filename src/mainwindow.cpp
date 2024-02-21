@@ -1685,25 +1685,23 @@ void CentralWidget::menuAndToolBarInit(void) {
         qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"../lib");
     #endif
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-            QPluginLoader loader(pluginsDir.absoluteFilePath(fileName),this);
+            QString absoluteFilePath = pluginsDir.absoluteFilePath(fileName);
+            QPluginLoader loader(absoluteFilePath,this);
             QJsonObject metaData = loader.metaData();
             if(!metaData.contains("MetaData")) {
-                qInfo() << "plugin metaData not found:" << fileName;
-                pluginInfoWindow->addPluginInfo(fileName,"",0,false,true);
+                pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin metaData not found!"),0,false,true);
                 continue;
             }
             QJsonObject metaDataObject = metaData.value("MetaData").toObject();
             qInfo() << metaDataObject;
             if(!metaDataObject.contains("APIVersion")) {
-                qInfo() << "plugin api version not found:" << fileName;
-                pluginInfoWindow->addPluginInfo(fileName,"",0,false,true);
+                pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin api version not found!"),0,false,true);
                 continue;
             }
             int apiVersion = metaDataObject.value("APIVersion").toInt();
             QList<uint32_t> supportVersion = PluginInfoWindow::supportAPIVersionList();
             if(!supportVersion.contains((uint32_t)apiVersion)) {
-                qInfo() << "plugin api version [" << apiVersion << "] not match:" << fileName;       
-                pluginInfoWindow->addPluginInfo(fileName,"",apiVersion,false,true);         
+                pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin api version not match!"),apiVersion,false,true);         
                 continue;
             }
             QObject *plugin = loader.instance();
@@ -1722,7 +1720,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                         pluginStruct.iface = iface;
                         pluginStruct.state = state;
                         pluginList.append(pluginStruct);
-                        pluginInfoWindow->addPluginInfo(iface,apiVersion,state,false);
+                        pluginInfoWindow->addPluginInfo(iface,absoluteFilePath,apiVersion,state,false);
                         connect(iface,SIGNAL(requestTelnetConnect(QString, int, int)),this,SLOT(onPluginRequestTelnetConnect(QString, int, int)));
                         connect(iface,SIGNAL(requestSerialConnect(QString, uint32_t, int, int, int, bool, bool)),this,SLOT(onPluginRequestSerialConnect(QString, uint32_t, int, int, int, bool, bool)));
                         connect(iface,SIGNAL(requestLocalShellConnect(QString, QString)),this,SLOT(onPluginRequestLocalShellConnect(QString, QString)));
@@ -1750,10 +1748,14 @@ void CentralWidget::menuAndToolBarInit(void) {
                         }
                         iface->setLanguage(language,qApp);
                         iface->retranslateUi();
+                    } else {
+                        pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin init failed!"),apiVersion,false,true);
                     }
                 } else {
-                    qInfo() << "load plugin failed:" << loader.errorString();
+                    pluginInfoWindow->addPluginInfo(fileName,"",loader.errorString(),apiVersion,false,true);
                 }
+            } else {
+                pluginInfoWindow->addPluginInfo(fileName,"",loader.errorString(),apiVersion,false,true);
             }
         }
         laboratoryMenu->addSeparator();

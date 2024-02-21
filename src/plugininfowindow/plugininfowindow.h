@@ -35,8 +35,8 @@ class PluginInfoWindow : public QDialog
 public:
     explicit PluginInfoWindow(QWidget *parent = nullptr);
     ~PluginInfoWindow();
-    void addPluginInfo(PluginInterface *plugin, uint32_t apiVersion, bool enable, bool readOnly);
-    void addPluginInfo(QString name, QString version, uint32_t apiVersion, bool enable, bool readOnly);
+    void addPluginInfo(PluginInterface *plugin, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly);
+    void addPluginInfo(QString name, QString version, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly);
     void retranslateUi(void);
 
     static QList<uint32_t> supportAPIVersionList(void);
