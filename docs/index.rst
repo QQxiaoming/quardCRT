@@ -42,9 +42,61 @@ quardCRT
    :target: https://gitee.com/QQxiaoming/quardCRT
    :alt: Gitee forks
 
-.. image:: ./img/windows.png
-.. image:: ./img/macos.png
-.. image:: ./img/linux.png
+quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
+
+.. list-table:: 
+   :widths: 33 33 33
+   :header-rows: 0
+
+   * - .. image:: ./img/windows.png
+          :align: center
+          :height: 160px
+     - .. image:: ./img/macos.png
+          :align: center
+          :height: 160px
+     - .. image:: ./img/linux.png
+          :align: center
+          :height: 160px
+   * - Windows
+     - MacOS
+     - Linux
+
+----------------------------------
+Features
+----------------------------------
+
+- **Cross-platform**: Windows, MacOS, Linux
+- **Multiple protocols**: SSH, Telnet, SFTP, Serial, VNC, LocalShell, RawSocket, NamedPipe
+- **Multiple sessions**: Multi-tab, multi-window, multi-monitor, floating window
+- **Multiple languages**: English, Simple Chinese, Traditional Chinese, Japanese, Korean, Spanish, French, Russian
+- **Multiple themes**: Light, Dark
+- **Session history management**: Session history management, session history search
+- **Session management**: Session management, session import and export
+- **HEX display**: HEX display
+- **Script**: Script recording, script playback
+- **Terminal customization**: Terminal font, color, size, cursor, scrollback, background, etc.
+
+----------------------------------
+Special functions
+----------------------------------
+
+- Tab floating preview
+- Floating window support, tab drag-and-drop to floating window
+- SSH2 session one-click open SFTP file transfer window
+- Working directory bookmark
+- Automated sending
+- Terminal background image supports gif animation and video
+- Terminal keyword highlight matching
+- Selected text translation function
+- Path matching and one-click direct
+- Working path direct
+- Windows local terminal enhancement (Tab key to select complete command, etc.)
+
+----------------------------------
+Plugin
+----------------------------------
+
+quardCRT will support plugins from version V0.4.0, plugins will be provided in the form of Qt plugins, loaded in the form of dynamic libraries, to learn more about plugin development information, please refer to the plugin open `platform <https://github.com/QuardCRT-platform>`_. This platform will provide template repositories and related examples for plugin development. At present, the plugin function is still in the early development stage. If you have good ideas or suggestions, please submit issues or discussions on `GitHub <https://github.com/QQxiaoming/quardCRT>`_ or `Gitee <https://gitee.com/QQxiaoming/quardCRT>`_
 
 .. toctree::
    :maxdepth: 3
@@ -59,3 +111,4 @@ quardCRT
    License<license.md>
    Roadmap<roadmap.md>
    Acknowledgements<acknowledgements.md>
+ 
