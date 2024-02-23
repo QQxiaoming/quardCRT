@@ -2,6 +2,7 @@
 [![Linux ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/linux.yml?branch=main&logo=linux)](https://github.com/QQxiaoming/quardCRT/actions/workflows/linux.yml)
 [![Macos ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/macos.yml?branch=main&logo=apple)](https://github.com/QQxiaoming/quardCRT/actions/workflows/macos.yml)
 [![CodeFactor](https://img.shields.io/codefactor/grade/github/qqxiaoming/quardCRT.svg?logo=codefactor)](https://www.codefactor.io/repository/github/qqxiaoming/quardCRT)
+[![Documentation Status](https://readthedocs.org/projects/quardcrt/badge/?version=latest)](https://quardcrt.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/github/license/qqxiaoming/quardCRT.svg?colorB=f48041&logo=gnu)](https://github.com/QQxiaoming/quardCRT)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/QQxiaoming/quardCRT.svg?logo=git)](https://github.com/QQxiaoming/quardCRT/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/QQxiaoming/quardCRT/total.svg?logo=pinboard)](https://github.com/QQxiaoming/quardCRT/releases)
@@ -16,23 +17,23 @@
 
 quardCRT は、複数のバックエンド プロトコルをサポートし、依存関係なくプラットフォーム間で使用でき、Windows/Linux/Mac 上で完全に一貫したユーザー エクスペリエンスを実現するターミナル エミュレーションおよびリモート デスクトップ ソフトウェアです。 マルチタブや履歴管理などの従来のターミナルソフトウェア機能をサポートし、いくつかの独自の詳細な機能をサポートします。
 
-| ![img2](./docs/windows.png) |
+| ![img2](./docs/img/windows.png) |
 | :-------------------------: |
 | Windows                     |
-| ![img1](./docs/macos.png)   |
+| ![img1](./docs/img/macos.png)   |
 | MacOS                       |
-| ![img3](./docs/linux.png)   |
+| ![img3](./docs/img/linux.png)   |
 | Linux                       |
 
 ライト/ダーク テーマ切り替え:
 
-| ![img4](./docs/dark.png)    | ![img5](./docs/light.png)   |
+| ![img4](./docs/img/dark.png)    | ![img5](./docs/img/light.png)   |
 | :-------------------------: | :-------------------------: |
 | ダーク テーマ                | ライト テーマ               |
 
 プロトコル選択インターフェイス:
 
-![img](./docs/img.png)
+![img](./docs/img/img.png)
 
 ## 機能
 
@@ -103,19 +104,19 @@ quardCRT は、複数のバックエンド プロトコルをサポートし、�
 
 quardCRT は多言語をサポートし、現在以下の言語をサポートしています。翻訳カバレッジは以下の通りです：
 
-| 🇺🇸 English   | ![en_US](./docs/en_US.svg) |
+| 🇺🇸 English   | ![en_US](./docs/img/en_US.svg) |
 | :----------: | :------------------------: |
-| 🇨🇳 简体中文  | ![zh_CN](./docs/zh_CN.svg) |
-| 🇭🇰 繁體中文  | ![zh_HK](./docs/zh_HK.svg) |
-| 🇯🇵 日本語    | ![ja_JP](./docs/ja_JP.svg) |
-| 🇰🇷 한국어    | ![ko_KR](./docs/ko_KR.svg) |
-| 🇪🇸 Español   | ![es_ES](./docs/es_ES.svg) |
-| 🇫🇷 Français  | ![fr_FR](./docs/fr_FR.svg) |
-| 🇷🇺 Русский   | ![ru_RU](./docs/ru_RU.svg) |
-| 🇩🇪 Deutsch   | ![de_DE](./docs/de_DE.svg) |
-| 🇧🇷 Português | ![pt_BR](./docs/pt_BR.svg) |
-| 🇨🇿 čeština   | ![cs_CZ](./docs/cs_CZ.svg) |
-| 🇸🇦 عربي     | ![ar_SA](./docs/ar_SA.svg) |
+| 🇨🇳 简体中文  | ![zh_CN](./docs/img/zh_CN.svg) |
+| 🇭🇰 繁體中文  | ![zh_HK](./docs/img/zh_HK.svg) |
+| 🇯🇵 日本語    | ![ja_JP](./docs/img/ja_JP.svg) |
+| 🇰🇷 한국어    | ![ko_KR](./docs/img/ko_KR.svg) |
+| 🇪🇸 Español   | ![es_ES](./docs/img/es_ES.svg) |
+| 🇫🇷 Français  | ![fr_FR](./docs/img/fr_FR.svg) |
+| 🇷🇺 Русский   | ![ru_RU](./docs/img/ru_RU.svg) |
+| 🇩🇪 Deutsch   | ![de_DE](./docs/img/de_DE.svg) |
+| 🇧🇷 Português | ![pt_BR](./docs/img/pt_BR.svg) |
+| 🇨🇿 čeština   | ![cs_CZ](./docs/img/cs_CZ.svg) |
+| 🇸🇦 عربي     | ![ar_SA](./docs/img/ar_SA.svg) |
 
 quartCRT の翻訳は github copilot によって支援されており、翻訳は非常に正確でないかもしれません。翻訳に問題がある場合は、issue または pull request を提出してください。
 

@@ -81,7 +81,7 @@ public:
         bool isDark = true, QString start_know_session = QString(), QWidget *parent = nullptr);
     ~CentralWidget();
     static void appAbout(QWidget *parent = nullptr);
-    static void appHelp(QWidget *parent = nullptr);
+    static void appKeyboradShortcutsReference(QWidget *parent = nullptr);
     static void setAppLangeuage(QLocale lang);
     void checkCloseEvent(QCloseEvent *event);
     void checkStatusTipEvent(QStatusTipEvent *event);
@@ -268,6 +268,7 @@ private:
     QAction *lightThemeAction;
     QAction *darkThemeAction;
     QAction *helpAction;
+    QAction *keyboradShortcutsReferenceAction;
     QAction *checkUpdateAction;
     QAction *aboutAction;
     QAction *aboutQtAction;

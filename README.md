@@ -2,6 +2,7 @@
 [![Linux ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/linux.yml?branch=main&logo=linux)](https://github.com/QQxiaoming/quardCRT/actions/workflows/linux.yml)
 [![Macos ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/macos.yml?branch=main&logo=apple)](https://github.com/QQxiaoming/quardCRT/actions/workflows/macos.yml)
 [![CodeFactor](https://img.shields.io/codefactor/grade/github/qqxiaoming/quardCRT.svg?logo=codefactor)](https://www.codefactor.io/repository/github/qqxiaoming/quardCRT)
+[![Documentation Status](https://readthedocs.org/projects/quardcrt/badge/?version=latest)](https://quardcrt.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/github/license/qqxiaoming/quardCRT.svg?colorB=f48041&logo=gnu)](https://github.com/QQxiaoming/quardCRT)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/QQxiaoming/quardCRT.svg?logo=git)](https://github.com/QQxiaoming/quardCRT/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/QQxiaoming/quardCRT/total.svg?logo=pinboard)](https://github.com/QQxiaoming/quardCRT/releases)
@@ -17,23 +18,23 @@
 
 quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
 
-| ![img2](./docs/windows.png) |
+| ![img2](./docs/img/windows.png) |
 | :-------------------------: |
 | Windows                     |
-| ![img1](./docs/macos.png)   |
+| ![img1](./docs/img/macos.png)   |
 | MacOS                       |
-| ![img3](./docs/linux.png)   |
+| ![img3](./docs/img/linux.png)   |
 | Linux                       |
 
 Light/dark theme switching:
 
-| ![img4](./docs/dark.png)    | ![img5](./docs/light.png)   |
+| ![img4](./docs/img/dark.png)    | ![img5](./docs/img/light.png)   |
 | :-------------------------: | :-------------------------: |
 | Dark theme                  | Light theme                 |
 
 Protocol selection interface:
 
-![img](./docs/img.png)
+![img](./docs/img/img.png)
 
 ## Feature
 
@@ -104,19 +105,19 @@ Protocol selection interface:
 
 quardCRT supports multiple languages, currently supports the following languages, translation coverage is as follows:
 
-| 🇺🇸 English   | ![en_US](./docs/en_US.svg) |
+| 🇺🇸 English   | ![en_US](./docs/img/en_US.svg) |
 | :----------: | :------------------------: |
-| 🇨🇳 简体中文  | ![zh_CN](./docs/zh_CN.svg) |
-| 🇭🇰 繁體中文  | ![zh_HK](./docs/zh_HK.svg) |
-| 🇯🇵 日本語    | ![ja_JP](./docs/ja_JP.svg) |
-| 🇰🇷 한국어    | ![ko_KR](./docs/ko_KR.svg) |
-| 🇪🇸 Español   | ![es_ES](./docs/es_ES.svg) |
-| 🇫🇷 Français  | ![fr_FR](./docs/fr_FR.svg) |
-| 🇷🇺 Русский   | ![ru_RU](./docs/ru_RU.svg) |
-| 🇩🇪 Deutsch   | ![de_DE](./docs/de_DE.svg) |
-| 🇧🇷 Português | ![pt_BR](./docs/pt_BR.svg) |
-| 🇨🇿 čeština   | ![cs_CZ](./docs/cs_CZ.svg) |
-| 🇸🇦 عربي     | ![ar_SA](./docs/ar_SA.svg) |
+| 🇨🇳 简体中文  | ![zh_CN](./docs/img/zh_CN.svg) |
+| 🇭🇰 繁體中文  | ![zh_HK](./docs/img/zh_HK.svg) |
+| 🇯🇵 日本語    | ![ja_JP](./docs/img/ja_JP.svg) |
+| 🇰🇷 한국어    | ![ko_KR](./docs/img/ko_KR.svg) |
+| 🇪🇸 Español   | ![es_ES](./docs/img/es_ES.svg) |
+| 🇫🇷 Français  | ![fr_FR](./docs/img/fr_FR.svg) |
+| 🇷🇺 Русский   | ![ru_RU](./docs/img/ru_RU.svg) |
+| 🇩🇪 Deutsch   | ![de_DE](./docs/img/de_DE.svg) |
+| 🇧🇷 Português | ![pt_BR](./docs/img/pt_BR.svg) |
+| 🇨🇿 čeština   | ![cs_CZ](./docs/img/cs_CZ.svg) |
+| 🇸🇦 عربي     | ![ar_SA](./docs/img/ar_SA.svg) |
 
 The translation of quartCRT is assisted by github copilot, and the translation may not be very accurate. If you find any problems with the translation, please submit an issue or pull request.
 
@@ -140,7 +141,7 @@ The current project is recommended to use version Qt6.5.0 and above.
 
 The project is currently developed in my spare time. In order to improve the development efficiency, this project uses GitHub Copilot to assist in code writing. The readability of some code may not be very good, and the author will try to optimize it in subsequent versions.
 
-## Thanks
+## Acknowledgements
 
 The code of this project references or partially refers to or depends on the following open source projects. The project fully respects the open source agreement of the original project and would like to express its gratitude.
 

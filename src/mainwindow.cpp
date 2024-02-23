@@ -1254,6 +1254,9 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     helpAction->setText(tr("Help"));
     helpAction->setIcon(QFontIcon::icon(QChar(0xf128)));
     helpAction->setStatusTip(tr("Display help"));
+    keyboradShortcutsReferenceAction->setText(tr("Keyborad Shortcuts Reference"));
+    keyboradShortcutsReferenceAction->setIcon(QFontIcon::icon(QChar(0xf128)));
+    keyboradShortcutsReferenceAction->setStatusTip(tr("Display keyborad shortcuts reference"));
     checkUpdateAction->setText(tr("Check Update"));
     checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf09b)));
     checkUpdateAction->setStatusTip(tr("Check for updates"));
@@ -1630,6 +1633,8 @@ void CentralWidget::menuAndToolBarInit(void) {
     helpMenu->addAction(helpAction);
     ui->toolBar->addAction(helpAction);
     sessionManagerWidget->addActionOnToolBar(helpAction);
+    keyboradShortcutsReferenceAction = new QAction(this);
+    helpMenu->addAction(keyboradShortcutsReferenceAction);
     checkUpdateAction = new QAction(this);
     helpMenu->addAction(checkUpdateAction);
     helpMenu->addSeparator();
@@ -2548,10 +2553,13 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         qApp->quit();
     });
     connect(helpAction, &QAction::triggered, this, [&]() {
+        QDesktopServices::openUrl(QUrl("https://quardcrt.rtfd.io"));
+    });
+    connect(keyboradShortcutsReferenceAction, &QAction::triggered, this, [&]() {
         if(mainWindow) {
-            CentralWidget::appHelp(mainWindow);
+            CentralWidget::appKeyboradShortcutsReference(mainWindow);
         } else {
-            CentralWidget::appHelp(this);
+            CentralWidget::appKeyboradShortcutsReference(this);
         }
     });
     connect(checkUpdateAction, &QAction::triggered, this, [&]() {
@@ -3470,9 +3478,9 @@ void CentralWidget::appAbout(QWidget *parent)
                        );
 }
 
-void CentralWidget::appHelp(QWidget *parent)
+void CentralWidget::appKeyboradShortcutsReference(QWidget *parent)
 {
-    QMessageBox::about(parent, tr("Help"), 
+    QMessageBox::about(parent, tr("Keyborad Shortcuts Reference"),
         QString() + "<table border='0' width='100%'>" + 
         "<tr><td width='30%'>" + tr("Global Shortcuts:") + "</td><td width='50%'></td></tr>" + 
         "<tr><td>ALT+\"U\"</td><td>" + tr("show/hide menu bar") + "</td></tr>" +

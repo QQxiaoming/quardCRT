@@ -79,7 +79,7 @@ if __name__ == '__main__':
             value = ' '+value
         percentage = str(round(finished_count/message_count*100,2))+'%'
         print(name+':  '+value+'  ('+percentage+')')
-        generate_svg('../docs/'+ts_file.split('/')[-1].split('.')[0].replace('quardCRT_',''),finished_count,message_count)
+        generate_svg('../docs/img/'+ts_file.split('/')[-1].split('.')[0].replace('quardCRT_',''),finished_count,message_count)
         total_finished_count += finished_count
         total_message_count += message_count
     print('Total: '+str(total_finished_count)+'/'+str(total_message_count)+' ('+str(round(total_finished_count/total_message_count*100,2))+'%)')

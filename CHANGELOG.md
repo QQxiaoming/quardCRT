@@ -10,6 +10,7 @@ en-US:
 - Fix the problem that the terminal interface rendering is not refreshed in time when the window is maximized on linux
 - The plugin system completes multi-language support
 - Partial UI details beautification
+- Add a new help document
 - Add German/Portuguese (Brazil)/Czech/Arabic support
 
 zh-CN:
@@ -20,6 +21,7 @@ zh-CN:
 - 修复linux上最大化窗口终端界面渲染未及时刷新问题
 - 插件系统完成多语言支持
 - 部分UI细节美化
+- 新增一个新的帮助文档界面
 - 增加德语/葡萄牙语(巴西)/捷克语/阿拉伯语支持
 
 ## [[V0.4.2](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.2)] - 2024-01-28
