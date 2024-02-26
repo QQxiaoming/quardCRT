@@ -75,9 +75,14 @@ chmod +x quardCRT_Linux_Vxxx_x86_64.AppImage
 You can install the deb package by double-clicking the package, and then follow the prompts to complete the installation.
 
 1. Double-click the package.
-2. Click `Install`.
+2. Click `Install Package`.
+
+![](./img/installation_1.png)
+
 3. Enter the password, and click `Authenticate`.
 4. Click `Close`.
+
+![](./img/installation_2.png)
 
 Or you can install the deb package by running the following command:
 

@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.4.3](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.3)] - 2024-02-26
+
 en-US:
 
 - Add a tooltip to the terminal link, and modify the mouse shape to the corresponding shape after pressing ctrl
