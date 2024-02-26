@@ -61,7 +61,7 @@ Protocol selection interface:
 - Terminal background image configuration
 - Terminal scroll line configuration
 - Support dark/light theme
-- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian)
+- Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian/German/Portuguese (Brazil)/Czech/Arabic)
 
 ### Special functions
 

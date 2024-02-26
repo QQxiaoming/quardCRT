@@ -68,7 +68,7 @@ Features
 - **Cross-platform**: Windows, MacOS, Linux
 - **Multiple protocols**: SSH, Telnet, SFTP, Serial, VNC, LocalShell, RawSocket, NamedPipe
 - **Multiple sessions**: Multi-tab, multi-window, multi-monitor, floating window
-- **Multiple languages**: English, Simple Chinese, Traditional Chinese, Japanese, Korean, Spanish, French, Russian
+- **Multiple languages**: English, Simple Chinese, Traditional Chinese, Japanese, Korean, Spanish, French, Russian, German, Portuguese (Brazil), Czech, Arabic
 - **Multiple themes**: Light, Dark
 - **Session history management**: Session history management, session history search
 - **Session management**: Session management, session import and export
