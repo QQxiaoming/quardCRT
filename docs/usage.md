@@ -246,7 +246,7 @@ Menu bar includes File, Edit, View, Options, Transfer, Script, Bookmark, Tools, 
 
 ### Language
 
-- Simple Chinese
+- Simplified Chinese
 
     Instantly switch to Simplified Chinese language.
 
