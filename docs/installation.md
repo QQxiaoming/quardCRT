@@ -38,10 +38,28 @@ If you are using Windows, you can download the `quardCRT_windows_Vxxx_x86_64_set
 You can install QuardCRT by double-clicking the package, and then follow the prompts to complete the installation.
 
 1. Select the language, and click `OK`.
+
+![Install example under Windows](./img/installation_4.png)
+
 2. Click `Next`.
+
+![Install example under Windows](./img/installation_5.png)
+
 3. Select the installation directory, and click `Next`.
-4. Click `Install`.
-5. Click `Finish`.
+
+![Install example under Windows](./img/installation_8.png)
+
+4. Select the create shortcuts, and click `Next`.
+
+![Install example under Windows](./img/installation_6.png)
+
+5. Click `Install`.
+
+![Install example under Windows](./img/installation_7.png)
+
+6. Click `Finish`.
+
+![Install example under Windows](./img/installation_9.png)
 
 ### MacOS
 
@@ -53,6 +71,8 @@ You can install QuardCRT by double-clicking the package, and then follow the pro
 
 1. Double-click the `quardCRT` icon.
 2. Drag the `quardCRT` icon to the `Applications` folder.
+
+![Install example under MacOS](./img/installation_3.png)
 
 > Note: Because the pre-built binary packages we currently release are not officially signed by Apple, when you open the program for the first time, you maybe receive a warning message that the program is from an unidentified developer. If you trust our program, you may need to open terminal and run `xattr -cr /Applications/quardCRT.app` to remove the quarantine attribute. But if you don't trust our program, you shouldn't run it. You can choose to source compile the program by yourself.
 
@@ -77,12 +97,12 @@ You can install the deb package by double-clicking the package, and then follow 
 1. Double-click the package.
 2. Click `Install Package`.
 
-![](./img/installation_1.png)
+![Install example under Linux](./img/installation_1.png)
 
 3. Enter the password, and click `Authenticate`.
 4. Click `Close`.
 
-![](./img/installation_2.png)
+![Install example under Linux](./img/installation_2.png)
 
 Or you can install the deb package by running the following command:
 
