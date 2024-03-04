@@ -163,3 +163,4 @@ quardCRT はバージョン V0.4.0 からプラグインをサポートします
 - [qvncclient](https://bitbucket.org/amahta/qvncclient)
 - [qhexedit](https://github.com/Simsys/qhexedit2)
 - [QGoodWindow](https://github.com/antonypro/QGoodWindow)
+- [qzmodem](https://github.com/QQxiaoming/qzmodem)

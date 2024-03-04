@@ -13,7 +13,6 @@ DEFINES += APP_VERSION="\\\"V$${BUILD_VERSION}\\\""
 
 include(./lib/QFontIcon/QFontIcon.pri)
 include(./lib/qtermwidget/qtermwidget.pro)
-include(./lib/qtxyzmodem/qtxyzmodem.pro)
 include(./lib/QTelnet/QTelnet.pri)
 include(./lib/ptyqt/ptyqt.pri)
 include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
@@ -25,6 +24,8 @@ include(./lib/QVNCClient/QVNCClient.pri)
 include(./lib/qhexedit/qhexedit.pri)
 include(./lib/QGoodWindow/QGoodWindow/QGoodWindow.pri)
 include(./lib/QGoodWindow/QGoodCentralWidget/QGoodCentralWidget.pri)
+include(./lib/qxymodem/qxymodem.pro)
+include(./lib/qzmodem/qzmodem.pri)
 
 INCLUDEPATH += \
     src/util \

@@ -62,6 +62,8 @@
 #include "globalsetting.h"
 #include "sessionoptionswindow.h"
 #include "sshsftp.h"
+#include "qsendzmodem.h"
+#include "qrecvzmodem.h"
 
 #include "ui_mainwindow.h"
 

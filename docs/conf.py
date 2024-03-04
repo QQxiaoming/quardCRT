@@ -16,7 +16,7 @@
 
 
 project = 'quardCRT'
-copyright = '2023, Quard(qiaoqiming)'
+copyright = '2023-2024, Quard(qiaoqiming)'
 author = 'Quard(qiaoqiming)'
 
 extensions = ['myst_parser', 'sphinxcontrib.googleanalytics']
