@@ -6,7 +6,7 @@
 #include "qtftp.h"
 
 QTftp::QTftp(QObject *parent) :
-	QThread(parent), m_port(69),m_timeout(1000),m_retries(3),m_segsize(512)
+	QThread(parent),sever_running(false),m_port(69),m_timeout(1000),m_retries(3),m_segsize(512)
 {
 }
 

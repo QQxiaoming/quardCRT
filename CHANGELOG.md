@@ -2,6 +2,14 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+en-US:
+
+- Fix the problem that the status indicated by the start tftp menu item may be incorrect
+
+zh-CN:
+
+- 修复启动tftp菜单项指示的状态可能出现错误问题
+
 ## [[V0.4.3](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.3)] - 2024-02-26
 
 en-US:

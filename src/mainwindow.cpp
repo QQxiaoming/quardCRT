@@ -2364,6 +2364,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(startTFTPServerAction,&QAction::triggered,this,[=](bool checked){
+        startTFTPServerAction->setChecked(tftpServer->isRunning());
         if(checked) {
             startTftpSeverWindow->show();
         } else {
