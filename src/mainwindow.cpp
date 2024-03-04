@@ -732,7 +732,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     sendYmodemAction->setEnabled(false);
     receiveYmodemAction->setEnabled(false);
     zmodemUploadListAction->setEnabled(false);
-    //startZmodemUploadAction->setEnabled(false);
+    startZmodemUploadAction->setEnabled(false);
     runAction->setEnabled(false);
     cancelAction->setEnabled(false);
     startRecordingScriptAction->setEnabled(false);
@@ -2364,43 +2364,6 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
                 showNormal();
             }
         }
-    });
-    connect(startZmodemUploadAction,&QAction::triggered,this,[=](){
-        QSendZmodem *s = new QSendZmodem(this);
-        QRecvZmodem *r = new QRecvZmodem(this);
-        connect(s,&QSendZmodem::sendData,r,&QRecvZmodem::onRecvData);
-        connect(r,&QRecvZmodem::sendData,s,&QSendZmodem::onRecvData);
-
-        connect(s,&QSendZmodem::complete,this,[=](const char *filename, int result, size_t size, time_t date){
-            if (result == 0)
-                qDebug("'%s (%zu bytes)': successful send", filename, size);
-            else
-                qDebug("'%s': failed to send", filename);
-        });
-        connect(r,&QRecvZmodem::complete,this,[=](const char *filename, int result, size_t size, time_t date) {
-            if (result == 0)
-                qDebug("'%s (%zu bytes)': successful recv", filename, size);
-            else
-                qDebug("'%s': failed to recv", filename);
-        });
-
-        connect(s,&QSendZmodem::tick,this,[=](const char *fname, long bytes_sent, long bytes_total, long last_bps,
-                                                int min_left, int sec_left, bool *ret){
-            *ret = true;
-        },Qt::BlockingQueuedConnection);
-        connect(r,&QRecvZmodem::tick,this,[=](const char *fname, long bytes_sent, long bytes_total, long last_bps,
-                                                int min_left, int sec_left, bool *ret) {
-            *ret = true;
-        },Qt::BlockingQueuedConnection);
-        connect(r,&QRecvZmodem::approver,this,[=](const char *filename, size_t size, time_t date, bool *ret) {
-            qDebug("Sender requests to send %s: %zu bytes", filename, size);
-            *ret = true;
-        },Qt::BlockingQueuedConnection);
-        QStringList tests = {"/home/qqm/Downloads/work/quardCRT/quardCRT/build_deb.sh"};
-        QStringList testr = {"t.sh"};
-        s->setFilePath(tests,testr);
-        s->start();
-        r->start();
     });
     connect(startTFTPServerAction,&QAction::triggered,this,[=](bool checked){
         startTFTPServerAction->setChecked(tftpServer->isRunning());
