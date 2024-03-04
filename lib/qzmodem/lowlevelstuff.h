@@ -39,6 +39,7 @@
 
 class LowLevelStuff : public QObject {
   Q_OBJECT
+
 public:
   explicit LowLevelStuff(size_t readnum, size_t bufsize, int no_timeout,
                          int rxtimeout, int znulls, int eflag, int baudrate,

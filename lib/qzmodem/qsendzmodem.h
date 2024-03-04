@@ -31,6 +31,7 @@
 
 class QSendZmodem : public QThread {
   Q_OBJECT
+
 public:
   explicit QSendZmodem(QObject *parent = nullptr);
   void setFilePath(QStringList filePathList, QStringList remotePathList);

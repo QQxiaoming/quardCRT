@@ -557,7 +557,6 @@ int QRecvZmodem::rz_receive_sector(size_t *Blklen, char *rxbuf,
 
   lastrx = 0;
   for (errors = 0; errors < RETRYMAX; errors++) {
-
     if ((firstch = zm->zreadline_getc(maxtime)) == STX) {
       *Blklen = 1024;
       goto get2;

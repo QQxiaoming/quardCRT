@@ -27,6 +27,7 @@
 
 class QRecvZmodem : public QThread {
   Q_OBJECT
+
 public:
   explicit QRecvZmodem(QObject *parent = nullptr);
 

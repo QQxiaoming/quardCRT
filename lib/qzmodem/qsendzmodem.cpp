@@ -272,7 +272,6 @@ int QSendZmodem::sz_getnak(void) {
   for (;;) {
     tries++;
     switch (firstch = zm->zreadline_getc(100)) {
-
     case ZPAD:
       /* Spec 7.3.1: "A binary header begins with
        * the sequence ZPAD, ZDLE, ZBIN. */
@@ -406,9 +405,8 @@ int QSendZmodem::sz_transmit_file(QString oname, QString remotename) {
   /* First we do many checks to ensure that the filename is
    * valid and that the user is permitted to send these
    * files. */
-  if (restricted) {
-
-  }
+  //if (restricted) {
+  //}
 
   /* [mlg] I guess it was a feature that a filename of '-'
    * would mean that the file data could be piped in

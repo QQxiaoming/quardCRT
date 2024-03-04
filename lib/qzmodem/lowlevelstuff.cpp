@@ -891,7 +891,6 @@ fifi:
   /* **** FALL THRU TO **** */
   default:
     if (c >= -3 && c <= FRTYPES) {
-
 #ifdef DEBUGZ
       qDebug("zm_get_header: %s %lx", frametypes[c + FTOFFSET],
              (unsigned long)rxpos);
