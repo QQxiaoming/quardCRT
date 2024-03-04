@@ -33,7 +33,11 @@
 #include <time.h>
 
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#include <utime.h>
 #include <sys/stat.h>
+#elif defined(Q_OS_WIN)
+#include <windows.h>
+#define PATH_MAX _MAX_PATH
 #endif
 
 #include "crctab.h"
@@ -86,7 +90,7 @@ QSendZmodem::QSendZmodem(QObject *parent) : QThread{parent} {
   connect(this->zm, &LowLevelStuff::resetRecv, this, &QSendZmodem::resetRecv);
 }
 
-int QSendZmodem::setFilePath(QStringList filePathList, QStringList remotePathList) {
+void QSendZmodem::setFilePath(QStringList filePathList, QStringList remotePathList) {
     m_filePathList = filePathList;
     m_remotePathList = remotePathList;
 }
@@ -588,8 +592,10 @@ int QSendZmodem::sz_getzrxinit(void) {
         blklen = rxbuflen;
       if (blkopt && blklen > blkopt)
         blklen = blkopt;
+#ifdef DEBUGZ
       qDebug("Rxbuflen=%d blklen=%ld", rxbuflen, blklen);
       qDebug("Txwindow = %u Txwspac = %d", txwindow, txwspac);
+#endif
       zm->rxtimeout = old_timeout;
       return (sz_sendzsinit());
     case ZCAN:

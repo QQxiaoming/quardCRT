@@ -29,10 +29,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <utime.h>
 
 #include "crctab.h"
 #include "timing.h"
+
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#include <utime.h>
+#include <sys/stat.h>
+#elif defined(Q_OS_WIN)
+#include <windows.h>
+#define PATH_MAX _MAX_PATH
+#endif
 
 QRecvZmodem::QRecvZmodem(QObject *parent) : QThread{parent} {
   this->zm = new LowLevelStuff(8192, 16384, 1, 600, 0, 0, 2400, 0, 1400, this);
@@ -968,10 +975,12 @@ int QRecvZmodem::rz_receive_file(struct zm_fileinfo *zi) {
 int QRecvZmodem::rz_closeit(struct zm_fileinfo *zi) {
   fout->close();
   if (zi->modtime) {
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
     struct utimbuf timep;
     timep.actime = time(NULL);
     timep.modtime = zi->modtime;
     utime(pathname, &timep);
+#endif
   }
   return OK;
 }

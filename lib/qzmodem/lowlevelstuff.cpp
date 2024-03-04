@@ -614,9 +614,10 @@ void LowLevelStuff::zm_send_hex_header(int type) {
 }
 void LowLevelStuff::zm_send_data(const char *buf, size_t length, int frameend) {
   unsigned short crc;
-
+#ifdef DEBUGZ
   qDebug("zm_send_data: %lu %s", (unsigned long)length,
          Zendnames[(frameend - ZCRCE) & 3]);
+#endif
   crc = 0;
   for (size_t i = 0; i < length; i++) {
     zm_put_escaped_char(buf[i]);
@@ -732,8 +733,10 @@ int LowLevelStuff::zm_receive_data(char *buf, int length,
         }
         *bytes_received = i;
         COUNT_BLK(*bytes_received);
+#ifdef DEBUGZ
         qDebug("zm_receive_data: %lu  %s", (unsigned long)(*bytes_received),
                Zendnames[(d - GOTCRCE) & 3]);
+#endif
         return d;
       }
       case GOTCAN:

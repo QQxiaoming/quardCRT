@@ -21,6 +21,12 @@
 
 #if defined(Q_OS_WIN)
 #include <windows.h>
+#if defined(Q_CC_MSVC)
+struct timezone {
+  int tz_minuteswest; /* minutes W of Greenwich */
+  int tz_dsttime;     /* type of dst correction */
+};
+#endif
 int gettimeofday(struct timeval *tv, struct timezone *tz) {
     time_t rawtime;
 
