@@ -28,6 +28,8 @@
 #include <QUrl>
 #include <QCryptographicHash>
 
+#include "qsendzmodem.h"
+#include "qrecvzmodem.h"
 #include "sshshell.h"
 #include "filedialog.h"
 #include "sessionswindow.h"
@@ -117,13 +119,26 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             telnet = new QTelnet(QTelnet::TCP, this);
             connect(telnet,&QTelnet::newData,this,
                 [=](const char *data, int size){
+                if(modemProxy) {
+                    emit modemProxyRecvData(QByteArray(data,size));
+                    return;
+                }
                 term->recvData(data, size);
                 rx_total += size;
                 saveRawLog(data, size);
                 emit hexDataDup(data, size);
             });
+            connect(this,&SessionsWindow::modemProxySendData,this,
+                [=](QByteArray data){
+                if(modemProxy) {
+                    telnet->sendData(data.data(), data.size());
+                }
+            });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
+                if(modemProxy) {
+                    return;
+                }
                 if(telnet->isConnected()) {
                     telnet->sendData(data, size);
                     tx_total += size;
@@ -151,13 +166,28 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(serialPort,&QSerialPort::readyRead,this,
                 [=](){
                 QByteArray data = serialPort->readAll();
+                if(modemProxy) {
+                    emit modemProxyRecvData(data);
+                    return;
+                }
                 term->recvData(data.data(), data.size());
                 rx_total += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
             });
+            connect(this,&SessionsWindow::modemProxySendData,this,
+                [=](QByteArray data){
+                if(modemProxy) {
+                    if(serialPort->isOpen()) {
+                        serialPort->write(data.data(), data.size());
+                    }
+                }
+            });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
+                if(modemProxy) {
+                    return;
+                }
                 if(serialPort->isOpen()) {
                     serialPort->write(data, size);
                     tx_total += size;
@@ -179,13 +209,28 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(rawSocket,&QTcpSocket::readyRead,this,
                 [=](){
                 QByteArray data = rawSocket->readAll();
+                if(modemProxy) {
+                    emit modemProxyRecvData(data);
+                    return;
+                }
                 term->recvData(data.data(), data.size());
                 rx_total += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
             });
+            connect(this,&SessionsWindow::modemProxySendData,this,
+                [=](QByteArray data){
+                if(modemProxy) {
+                    if(rawSocket->state() == QAbstractSocket::ConnectedState) {
+                        rawSocket->write(data.data(), data.size());
+                    }
+                }
+            });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
+                if(modemProxy) {
+                    return;
+                }
                 if(rawSocket->state() == QAbstractSocket::ConnectedState) {
                     rawSocket->write(data, size);
                     tx_total += size;
@@ -212,12 +257,27 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             namePipe = new QLocalSocket(this);
             connect(namePipe,&QLocalSocket::readyRead,this,[=](){
                 QByteArray data = namePipe->readAll();
+                if(modemProxy) {
+                    emit modemProxyRecvData(data);
+                    return;
+                }
                 term->recvData(data.data(), data.size());
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
             });
+            connect(this,&SessionsWindow::modemProxySendData,this,
+                [=](QByteArray data){
+                if(modemProxy) {
+                    if(namePipe->state() == QLocalSocket::ConnectedState) {
+                        namePipe->write(data.data(), data.size());
+                    }
+                }
+            });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
+                if(modemProxy) {
+                    return;
+                }
                 if(namePipe->state() == QLocalSocket::ConnectedState) {
                     namePipe->write(data, size);
                 }
@@ -256,12 +316,25 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     shell->resize(columns,lines);
                 });
                 connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
+                    if(modemProxy) {
+                        emit modemProxyRecvData(QByteArray(data, size));
+                        return;
+                    }
                     term->recvData(data, size);
                     rx_total += size;
                     saveRawLog(data, size);
                     emit hexDataDup(data, size);
                 });
+                connect(this,&SessionsWindow::modemProxySendData,this,
+                    [=](QByteArray data){
+                    if(modemProxy) {
+                        shell->sendData(data.data(), data.size());
+                    }
+                });
                 connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+                    if(modemProxy) {
+                        return;
+                    }
                     shell->sendData(data, size);
                     tx_total += size;
                 });
@@ -448,11 +521,24 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     }
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
+        if(modemProxy) {
+            emit modemProxyRecvData(data);
+            return;
+        }
         term->recvData(data.data(), data.size());
         saveRawLog(data.data(), data.size());
         emit hexDataDup(data.data(), data.size());
     });
+    connect(this,&SessionsWindow::modemProxySendData,this,
+        [=](QByteArray data){
+        if(modemProxy) {
+            localShell->write(data);
+        }
+    });
     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+        if(modemProxy) {
+            return;
+        }
         localShell->write(QByteArray(data, size));
     });
     m_command = command;
@@ -695,6 +781,55 @@ void SessionsWindow::unlockSession(QString password) {
         emit stateChanged(Locked);
     } else {
         QMessageBox::warning(term, tr("Unlock Session"), tr("Wrong password!"));
+    }
+}
+
+void SessionsWindow::sendFileUseZModem(QStringList fileList) {
+    if(term) {
+        QSendZmodem *sz = new QSendZmodem(-1,this);
+        connect(sz,&QSendZmodem::sendData,this,&SessionsWindow::modemProxySendData);
+        connect(this,&SessionsWindow::modemProxyRecvData,sz,&QSendZmodem::onRecvData);
+
+        connect(sz,&QSendZmodem::transferring,this,[=](QString filename){
+            QFileInfo info(filename);
+            QString msg = QString("Transferring: %1...\r\n").arg(info.fileName());
+            QByteArray data = msg.toUtf8();
+            term->recvData(data.data(), data.size());
+        });
+        connect(sz,&QSendZmodem::complete,this,[=](QString filename, int result, size_t size, time_t date){
+            QString msg = QString("\r\n%1\r\n").arg(result == 0 ? "successful" : "failed");
+            QByteArray data = msg.toUtf8();
+            term->recvData(data.data(), data.size());
+        });
+        connect(sz,&QSendZmodem::tick,this,[=](const char *fname, long bytes_sent, long bytes_total, long last_bps,
+                                                int min_left, int sec_left, bool *ret){
+            QString msg;
+            float progress = (float)bytes_sent / (float)bytes_total * 100;
+            if(progress > 100) progress = 100;
+            long last_bs = last_bps/8;
+            if(last_bs < 1024) {
+                msg = QString("\033[2K\r%1\% %4B/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs).arg(min_left).arg(sec_left);
+            } else if(last_bs < 1024*1024) {
+                msg = QString("\033[2K\r%1\% %4KB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024).arg(min_left).arg(sec_left);                
+            } else if(last_bs < 1024*1024*1024) {
+                msg = QString("\033[2K\r%1\% %4MB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024).arg(min_left).arg(sec_left);
+            } else {
+                msg = QString("\033[2K\r%1\% %4GB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024/1024).arg(min_left).arg(sec_left);
+            }
+            QByteArray data = msg.toUtf8();
+            term->recvData(data.data(), data.size());
+            *ret = true;
+        },Qt::BlockingQueuedConnection);
+
+        sz->setFilePath(fileList,fileList);
+        connect(sz,&QSendZmodem::finished,this,[=]{
+            modemProxy = false;
+            sz->deleteLater();
+        });
+        modemProxy = true;
+        char test[] = "\r\nStarting zmodem transfer...\r\n";
+        term->recvData(test,2);
+        sz->start();
     }
 }
 

@@ -62,8 +62,7 @@
 #include "globalsetting.h"
 #include "sessionoptionswindow.h"
 #include "sshsftp.h"
-#include "qsendzmodem.h"
-#include "qrecvzmodem.h"
+
 
 #include "ui_mainwindow.h"
 
@@ -731,8 +730,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     receiveXmodemAction->setEnabled(false);
     sendYmodemAction->setEnabled(false);
     receiveYmodemAction->setEnabled(false);
-    zmodemUploadListAction->setEnabled(false);
-    startZmodemUploadAction->setEnabled(false);
     runAction->setEnabled(false);
     cancelAction->setEnabled(false);
     startRecordingScriptAction->setEnabled(false);
@@ -1853,6 +1850,9 @@ void CentralWidget::setSessionClassActionEnable(bool enable)
 
     sessionOptionsAction->setEnabled(enable);
 
+    zmodemUploadListAction->setEnabled(enable);
+    startZmodemUploadAction->setEnabled(enable&&(!zmodemUploadList.isEmpty()));
+
     // TODO: these actions are not implemented yet
     //sendASCIIAction->setEnabled(enable);
     //receiveASCIIAction->setEnabled(enable);
@@ -1861,8 +1861,6 @@ void CentralWidget::setSessionClassActionEnable(bool enable)
     //receiveXmodemAction->setEnabled(enable);
     //sendYmodemAction->setEnabled(enable);
     //receiveYmodemAction->setEnabled(enable);
-    //zmodemUploadListAction->setEnabled(enable);
-    //startZmodemUploadAction->setEnabled(enable);
 }
 
 void CentralWidget::menuAndToolBarConnectSignals(void) {
@@ -2364,6 +2362,26 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
                 showNormal();
             }
         }
+    });
+    connect(zmodemUploadListAction,&QAction::triggered,this,[=](){
+        //QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Zmodem"));
+        QStringList files = FileDialog::getOpenFileNames(this, tr("Select Files to Send using Zmodem"));
+        if(files.isEmpty()){
+            return;
+        }
+        zmodemUploadList.append(files);
+        startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
+    });
+    connect(startZmodemUploadAction,&QAction::triggered,this,[=](){
+        if(zmodemUploadList.isEmpty()){
+            return;
+        }
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        sessionsWindow->sendFileUseZModem(zmodemUploadList);
+        zmodemUploadList.clear();
+        startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
     });
     connect(startTFTPServerAction,&QAction::triggered,this,[=](bool checked){
         startTFTPServerAction->setChecked(tftpServer->isRunning());

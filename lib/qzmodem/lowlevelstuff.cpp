@@ -66,12 +66,9 @@ static const char *frametypes[] = {
 
 const char *LowLevelStuff::Zendnames[4] = {"ZCRCE", "ZCRCG", "ZCRCQ", "ZCRCW"};
 
-LowLevelStuff::LowLevelStuff(size_t readnum, size_t bufsize, int no_timeout,
-                             int rxtimeout, int znulls, int eflag, int baudrate,
+LowLevelStuff::LowLevelStuff(int no_timeout, int rxtimeout, int znulls, int eflag, int baudrate,
                              int zctlesc, int zrwindow, QObject *parent)
     : QObject{parent} {
-  this->readnum = readnum;
-  this->bufsize = bufsize;
   this->no_timeout = no_timeout;
   this->rxtimeout = rxtimeout;
   this->znulls = znulls;
@@ -96,6 +93,7 @@ int LowLevelStuff::zm_get_ascii_char(void) {
     default:
       if (zctlesc && (c < ' '))
         continue;
+      FALLTHROUGH();
     case '\r':
     case '\n':
     case ZDLE:
@@ -188,7 +186,7 @@ again2:
     break;
   }
   qDebug("Bad escape sequence %x", c);
-  return ERROR;
+  return ZM_ERROR;
 }
 int LowLevelStuff::zm_get_hex_encoded_byte(void) {
   int c, n;
@@ -199,14 +197,14 @@ int LowLevelStuff::zm_get_hex_encoded_byte(void) {
   if (n > 9)
     n -= ('a' - ':');
   if (n & ~0xF)
-    return ERROR;
+    return ZM_ERROR;
   if ((c = zm_get_ascii_char()) < 0)
     return c;
   c -= '0';
   if (c > 9)
     c -= ('a' - ':');
   if (c & ~0xF)
-    return ERROR;
+    return ZM_ERROR;
   c += (n << 4);
 #ifdef DEBUGZ
   qDebug("zm_get_hex_encoded_byte: %02X", c);
@@ -245,7 +243,7 @@ int LowLevelStuff::zm_read_binary_header(void) {
   crc = updcrc(c, crc);
   if (crc & 0xFFFF) {
     qCritical(badcrc);
-    return ERROR;
+    return ZM_ERROR;
   }
   zmodem_requested = TRUE;
   return rxtype;
@@ -282,7 +280,7 @@ int LowLevelStuff::zm_read_binary_header32(void) {
   }
   if (crc != 0xDEBB20E3) {
     qCritical(badcrc);
-    return ERROR;
+    return ZM_ERROR;
   }
   zmodem_requested = TRUE;
   return rxtype;
@@ -310,7 +308,7 @@ int LowLevelStuff::zm_read_hex_header(void) {
   crc = updcrc(c, crc);
   if (crc & 0xFFFF) {
     qCritical(badcrc);
-    return ERROR;
+    return ZM_ERROR;
   }
   switch (c = zreadline_getc(1)) {
   case 0215:
@@ -355,7 +353,7 @@ int LowLevelStuff::zm_read_data32(char *buf, int length,
         crc = UPDC32(c, crc);
         if (crc != 0xDEBB20E3) {
           qCritical(badcrc);
-          return ERROR;
+          return ZM_ERROR;
         }
         *bytes_received = i;
         COUNT_BLK(*bytes_received);
@@ -379,7 +377,7 @@ int LowLevelStuff::zm_read_data32(char *buf, int length,
     crc = UPDC32(c, crc);
   }
   qCritical("Data subpacket too long");
-  return ERROR;
+  return ZM_ERROR;
 }
 void LowLevelStuff::zm_send_binary_header32(int type) {
   unsigned long crc;
@@ -729,7 +727,7 @@ int LowLevelStuff::zm_receive_data(char *buf, int length,
         crc = updcrc(c, crc);
         if (crc & 0xFFFF) {
           qCritical(badcrc);
-          return ERROR;
+          return ZM_ERROR;
         }
         *bytes_received = i;
         COUNT_BLK(*bytes_received);
@@ -754,7 +752,7 @@ int LowLevelStuff::zm_receive_data(char *buf, int length,
     crc = updcrc(c, crc);
   }
   qCritical("Data subpacket too long");
-  return ERROR;
+  return ZM_ERROR;
 }
 int LowLevelStuff::zm_get_header(uint32_t *payload) {
   int c, cancount;
@@ -790,7 +788,7 @@ again:
       goto again;
       break;
     case ZCRCW:
-      c = ERROR;
+      c = ZM_ERROR;
       /* **** FALL THRU TO **** */
     case RCDO:
       goto fifi;
@@ -804,12 +802,12 @@ again:
       }
       goto again;
     }
-    /* **** FALL THRU TO **** */
+    FALLTHROUGH();
   default:
   agn2:
     if (intro_msg_len > max_intro_msg_len) {
       qCritical("Intro message length exceeded");
-      return (ERROR);
+      return (ZM_ERROR);
     }
     if (eflag == 1 && isprint(c))
       intro_msg[intro_msg_len++] = c;
@@ -881,14 +879,14 @@ fifi:
   switch (c) {
   case GOTCAN:
     c = ZCAN;
-  /* **** FALL THRU TO **** */
+    FALLTHROUGH();
   case ZNAK:
   case ZCAN:
-  case ERROR:
+  case ZM_ERROR:
   case TIMEOUT:
   case RCDO:
     qCritical("Got %s", frametypes[c + FTOFFSET]);
-  /* **** FALL THRU TO **** */
+    FALLTHROUGH();
   default:
     if (c >= -3 && c <= FRTYPES) {
 #ifdef DEBUGZ
@@ -989,12 +987,12 @@ int LowLevelStuff::zm_do_crc_check(QFile *f, size_t remote_bytes,
       default: /* ignore */
         break;
       case ZFIN:
-        return ERROR;
+        return ZM_ERROR;
       case ZRINIT:
-        return ERROR;
+        return ZM_ERROR;
       case ZCAN:
         qInfo("got ZCAN");
-        return ERROR;
+        return ZM_ERROR;
         break;
       case ZCRC:
         if (crc != rcrc)
@@ -1004,5 +1002,5 @@ int LowLevelStuff::zm_do_crc_check(QFile *f, size_t remote_bytes,
       }
     }
   }
-  return ERROR;
+  return ZM_ERROR;
 }

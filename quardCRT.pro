@@ -55,6 +55,7 @@ SOURCES += \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
     src/util/keychainclass.cpp \
+    src/util/filedialog.cpp \
     src/plugin/plugininterface.cpp \
     src/globaloptions/globaloptionsadvancedwidget.cpp \
     src/globaloptions/globaloptionsappearancewidget.cpp \
@@ -163,6 +164,7 @@ FORMS += \
     src/sftpwindow/sftpmenubookmarkwidget.ui \
     src/sftpwindow/sftpwindow.ui \
     src/starttftpseverwindow/starttftpseverwindow.ui \
+    src/util/filedialog.ui \
     src/mainwindow.ui
 
 RESOURCES += \

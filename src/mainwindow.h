@@ -287,6 +287,8 @@ private:
     QShortcut *shortcutConnectAddressEdit;
     QShortcut *shortcutExitFullScreen;
 
+    QStringList zmodemUploadList;
+
     KeyChainClass keyChainClass;
     QList<SessionsWindow *> sessionList;
     struct pluginState_t {

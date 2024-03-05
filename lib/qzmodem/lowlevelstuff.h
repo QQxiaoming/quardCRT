@@ -29,8 +29,8 @@
 
 #include <stddef.h>
 
-#define ZCRC_DIFFERS (ERROR + 1)
-#define ZCRC_EQUAL (ERROR + 2)
+#define ZCRC_DIFFERS (ZM_ERROR + 1)
+#define ZCRC_EQUAL (ZM_ERROR + 2)
 
 /* These are the values for the escape sequence table. */
 #define ZM_ESCAPE_NEVER ((char)0)
@@ -41,8 +41,7 @@ class LowLevelStuff : public QObject {
   Q_OBJECT
 
 public:
-  explicit LowLevelStuff(size_t readnum, size_t bufsize, int no_timeout,
-                         int rxtimeout, int znulls, int eflag, int baudrate,
+  explicit LowLevelStuff(int no_timeout, int rxtimeout, int znulls, int eflag, int baudrate,
                          int zctlesc, int zrwindow, QObject *parent = nullptr);
 
   int zm_get_zctlesc(void);
@@ -125,11 +124,9 @@ public:
    *  0: restore original tty mode
    * Returns the output baudrate, or zero on failure
    */
-  int io_mode(int n) { return 0; }
+  int io_mode(int n) { Q_UNUSED(n);return 0; }
 
   int no_timeout; /* when true, readline does not timeout */
-  size_t readnum;
-  size_t bufsize;
 
 signals:
   void sendData(QByteArray data);

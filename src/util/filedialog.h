@@ -20,11 +20,26 @@
 #ifndef FILEDIALOG_H
 #define FILEDIALOG_H
 
+#include <QDialog>
 #include <QFileDialog>
 #include <QStandardPaths>
 
-class FileDialog
+namespace Ui {
+class FileDialog;
+}
+
+class FileDialog : public QDialog
 {
+    Q_OBJECT
+
+public:
+    explicit FileDialog(QWidget *parent = nullptr, const QString &caption = QString());
+    ~FileDialog();
+    QStringList selectedFiles() const;
+
+private:
+    Ui::FileDialog *ui;
+
 private:
     static QList<QUrl> getSiderbarUrls(void) {
         QList<QUrl> sidebarUrls;
@@ -119,6 +134,20 @@ public:
         if (dialog.exec() == QDialog::Accepted)
             return dialog.selectedFiles().value(0);
         return QString();
+    }
+
+    static QStringList getItemsPathsWithPickBox(QWidget *parent = nullptr,
+                                    const QString &caption = QString(),
+                                    const QString &dir = QString(),
+                                    const QString &filter = QString(),
+                                    QString *selectedFilter = nullptr,
+                                    QFileDialog::Options options = QFileDialog::Options()) {
+        FileDialog dialog(parent, caption);
+        //TODO:
+        if (dialog.exec() == QDialog::Accepted) {
+            return dialog.selectedFiles();
+        }
+        return QStringList();
     }
 };
 

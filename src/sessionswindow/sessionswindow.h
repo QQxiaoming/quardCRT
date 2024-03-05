@@ -98,6 +98,8 @@ public:
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
     
+    void sendFileUseZModem(QStringList fileList);
+
     int setLog(bool enable);
     bool isLog(void) { return enableLog; }
     int setRawLog(bool enable);
@@ -265,6 +267,8 @@ signals:
     void hexDataDup(const char *data, int size);
     void stateChanged(SessionsState state);
     void titleChanged(int title,const QString& newTitle);
+    void modemProxySendData(QByteArray data);
+    void modemProxyRecvData(const QByteArray &data);
 
 private:
     int saveLog(const char *data, int size);
@@ -297,6 +301,7 @@ private:
     SessionsState state = Disconnected;
     uint64_t tx_total = 0;
     uint64_t rx_total = 0;
+    bool modemProxy = false;
 
     QString m_hostname;
     quint16 m_port;

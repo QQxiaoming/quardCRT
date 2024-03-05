@@ -33,11 +33,12 @@ class QSendZmodem : public QThread {
   Q_OBJECT
 
 public:
-  explicit QSendZmodem(QObject *parent = nullptr);
+  explicit QSendZmodem(int32_t timeout = -1, QObject *parent = nullptr);
   void setFilePath(QStringList filePathList, QStringList remotePathList);
 
 signals:
-  void complete(const char *filename, int result, size_t size, time_t date);
+  void transferring(QString filename);
+  void complete(QString filename, int result, size_t size, time_t date);
   void tick(const char *fname, long bytes_sent, long bytes_total, long last_bps,
             int min_left, int sec_left, bool *ret);
   void sendData(QByteArray data);

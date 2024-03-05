@@ -113,7 +113,6 @@ private:
     QMutex mutex;
     QQueue<task_t> taskList;
     QWaitCondition condition;
-    uint64_t taskId = 0;
 };
 
 class QSshFileSystemModel : public QCustomFileSystemModel

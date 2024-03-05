@@ -25,7 +25,6 @@
 
 #include <fcntl.h>
 #include <setjmp.h>
-#include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +36,9 @@
 #include <sys/stat.h>
 #elif defined(Q_OS_WIN)
 #include <windows.h>
+#if defined(Q_CC_MSVC)
 #define PATH_MAX _MAX_PATH
+#endif
 #endif
 
 #include "crctab.h"
@@ -56,10 +57,10 @@
   } while (0)
 #define DATAADR (txbuf)
 
-static void onintr(int n) { Q_UNUSED(n);signal(SIGINT, SIG_IGN); }
-
-QSendZmodem::QSendZmodem(QObject *parent) : QThread{parent} {
-  this->zm = new LowLevelStuff(128, 256, 1, 600, 0, 0, 2400, 1, 1400, this);
+QSendZmodem::QSendZmodem(int32_t timeout,QObject *parent) : QThread{parent} {
+  int32_t no_timeout = timeout==-1?1:0;
+  timeout = timeout==-1?1000:timeout;
+  this->zm = new LowLevelStuff(no_timeout, timeout, 0, 0, 115200, 1, 1400, this);
   this->lzconv = 0;
   this->lzmanag = 0;
   this->lskipnocor = 0;
@@ -134,7 +135,7 @@ void QSendZmodem::run(void) {
   zm->flush_sendlines();
 
   /* This is the main loop.  */
-  if (sz_transmit_files(m_filePathList,m_remotePathList) == ERROR) {
+  if (sz_transmit_files(m_filePathList,m_remotePathList) == ZM_ERROR) {
     exitcode = 0200;
     zm->zreadline_canit();
   }
@@ -190,16 +191,16 @@ int QSendZmodem::sz_transmit_file_by_zmodem(struct zm_fileinfo *zi,
       continue;
     case ZRQINIT: /* remote site is sender! */
       qInfo("got ZRQINIT");
-      return ERROR;
+      return ZM_ERROR;
     case ZCAN:
       qInfo("got ZCAN");
-      return ERROR;
+      return ZM_ERROR;
     case TIMEOUT:
-      return ERROR;
+      return ZM_ERROR;
     case ZABORT:
-      return ERROR;
+      return ZM_ERROR;
     case ZFIN:
-      return ERROR;
+      return ZM_ERROR;
     case ZCRC:
       /* Spec 8.2: "[if] the receiver has a file
        * with the same name and length, [it] may
@@ -249,7 +250,7 @@ int QSendZmodem::sz_transmit_file_by_zmodem(struct zm_fileinfo *zi,
        */
       if (rxpos && (!input->seek(rxpos))) {
         qCritical() << "seek failed: " << input->errorString();
-        return ERROR;
+        return ZM_ERROR;
       }
       if (rxpos)
         zi->bytes_skipped = rxpos;
@@ -278,7 +279,7 @@ int QSendZmodem::sz_getnak(void) {
       /* Spec 7.3.3: "A hex header begins with the
        * sequence ZPAD ZPAD ZDLE ZHEX." */
       if (sz_getzrxinit())
-        return ERROR;
+        return ZM_ERROR;
 
       return FALSE;
     case TIMEOUT:
@@ -305,8 +306,10 @@ int QSendZmodem::sz_getnak(void) {
       zm->io_mode(2);
       optiong = TRUE;
       blklen = 1024;
+      FALLTHROUGH();
     case WANTCRC:
       crcflg = TRUE;
+      FALLTHROUGH();
     case NAK:
       /* Spec 8.1: "The sending program awaits a
        * command from the receiving port to start
@@ -334,7 +337,7 @@ int QSendZmodem::sz_transmit_pathname(struct zm_fileinfo *zi) {
   if (!zm->zmodem_requested)
     if (sz_getnak()) {
       qDebug("sz_getnak failed");
-      return ERROR;
+      return ZM_ERROR;
     }
 
   q = (char *)0;
@@ -373,6 +376,7 @@ int QSendZmodem::sz_transmit_pathname(struct zm_fileinfo *zi) {
     }
   }
   qInfo("Sending: %s", txbuf);
+  emit transferring(QString(txbuf));
   totalleft -= fi.size();
   if (--filesleft <= 0)
     totalleft = 0;
@@ -392,9 +396,9 @@ int QSendZmodem::sz_transmit_pathname(struct zm_fileinfo *zi) {
     return sz_transmit_file_by_zmodem(zi, txbuf, 1 + strlen(p) + (p - txbuf));
 
   /* We'll have to send the file by YModem, I guess.  */
-  if (sz_transmit_sector(txbuf, 0, 128) == ERROR) {
+  if (sz_transmit_sector(txbuf, 0, 128) == ZM_ERROR) {
     qDebug("sz_transmit_sector failed");
-    return ERROR;
+    return ZM_ERROR;
   }
   return OK;
 }
@@ -449,14 +453,14 @@ int QSendZmodem::sz_transmit_file(QString oname, QString remotename) {
   /* Now that the file information is validated and is in a ZI
    * structure, we try to transmit the file. */
   switch (sz_transmit_pathname(&zi)) {
-  case ERROR:
-    return ERROR;
+  case ZM_ERROR:
+    return ZM_ERROR;
   case ZSKIP:
     qCritical() << "skipped: " << oname;
     return OK;
   }
-  if (!zm->zmodem_requested && sz_transmit_file_contents(&zi) == ERROR) {
-    return ERROR;
+  if (!zm->zmodem_requested && sz_transmit_file_contents(&zi) == ZM_ERROR) {
+    return ZM_ERROR;
   }
 
   /* Here we make a log message the transmission of a single
@@ -466,8 +470,12 @@ int QSendZmodem::sz_transmit_file(QString oname, QString remotename) {
   if (d == 0) /* can happen if timing() uses time() */
     d = 0.5;
   bps = zi.bytes_sent / d;
+#ifdef DEBUGZ
   qDebug("Bytes Sent:%7ld   BPS:%-8ld", (long)zi.bytes_sent, bps);
-  emit complete(zi.fname, 0, zi.bytes_sent, zi.modtime);
+#else
+  Q_UNUSED(bps);
+#endif
+  emit complete(oname, 0, zi.bytes_sent, zi.modtime);
 
   return 0;
 }
@@ -600,16 +608,17 @@ int QSendZmodem::sz_getzrxinit(void) {
     case TIMEOUT:
       if (timeouts++ == 0)
         continue; /* force one other ZRQINIT to be sent */
-      return ERROR;
+      return ZM_ERROR;
     case ZRQINIT:
       if (zm->Rxhdr[ZF0] == ZCOMMAND)
         continue;
+      FALLTHROUGH();
     default:
       zm->zm_send_hex_header(ZNAK);
       continue;
     }
   }
-  return ERROR;
+  return ZM_ERROR;
 }
 int QSendZmodem::sz_calculate_block_length(long total_sent) {
   static long total_bytes = 0;
@@ -745,12 +754,12 @@ int QSendZmodem::sz_sendzsinit(void) {
     c = zm->zm_get_header(NULL);
     switch (c) {
     case ZCAN:
-      return ERROR;
+      return ZM_ERROR;
     case ZACK:
       return OK;
     default:
       if (++errors > 19)
-        return ERROR;
+        return ZM_ERROR;
       continue;
     }
   }
@@ -769,7 +778,7 @@ int QSendZmodem::sz_transmit_file_contents(struct zm_fileinfo *zi) {
     ;
   if (firstch == CAN) {
     qCritical("Receiver Cancelled");
-    return ERROR;
+    return ZM_ERROR;
   }
   if (firstch == WANTCRC)
     crcflg = TRUE;
@@ -781,8 +790,8 @@ int QSendZmodem::sz_transmit_file_contents(struct zm_fileinfo *zi) {
       thisblklen = 128;
     if (!sz_filbuf(txbuf, thisblklen))
       break;
-    if (sz_transmit_sector(txbuf, ++sectnum, thisblklen) == ERROR)
-      return ERROR;
+    if (sz_transmit_sector(txbuf, ++sectnum, thisblklen) == ZM_ERROR)
+      return ZM_ERROR;
     zi->bytes_sent += thisblklen;
   }
   input->close();
@@ -796,7 +805,7 @@ int QSendZmodem::sz_transmit_file_contents(struct zm_fileinfo *zi) {
            attempts < RETRYMAX);
   if (attempts == RETRYMAX) {
     qCritical("No ACK on EOT");
-    return ERROR;
+    return ZM_ERROR;
   } else
     return OK;
 }
@@ -824,11 +833,11 @@ somemore:
     default:
       if(input)
         input->close();
-      return ERROR;
+      return ZM_ERROR;
     case ZCAN:
       if(input)
         input->close();
-      return ERROR;
+      return ZM_ERROR;
     case ZSKIP:
       if(input)
         input->close();
@@ -878,6 +887,8 @@ somemore:
 #ifdef DEBUGZ
     if (blklen != old)
       qDebug("blklen now %ld", blklen);
+#else
+    Q_UNUSED(old);
 #endif
     n = sz_zfilbuf(zi);
     if (zi->eof_seen) {
@@ -943,7 +954,7 @@ somemore:
               /* too bad */
               qInfo("sz_transmit_file_contents_by_zmodem: bps rate %ld below min %ld",
                     last_bps, min_bps);
-              return ERROR;
+              return ZM_ERROR;
             }
           } else
             low_bps = 0;
@@ -954,19 +965,21 @@ somemore:
       if (stop_time && now >= stop_time) {
         /* too bad */
         qInfo("sz_transmit_file_contents_by_zmodem: reached stop time");
-        return ERROR;
+        return ZM_ERROR;
       }
 
+#ifdef DEBUGZ
       qDebug("Bytes Sent:%7ld/%7ld   BPS:%-8ld ETA %02d:%02d  ",
              (long)zi->bytes_sent, (long)zi->bytes_total, last_bps, minleft,
              secleft);
+#endif
       bool more = true;
       emit tick(zi->fname, (long)zi->bytes_sent, (long)zi->bytes_total,
                 last_bps, minleft, secleft, &more);
       if (!more) {
         qInfo("sz_transmit_file_contents_by_zmodem: tick callback returns "
                 "FALSE");
-        return ERROR;
+        return ZM_ERROR;
       }
       last_txpos = zi->bytes_sent;
     } else
@@ -997,6 +1010,7 @@ somemore:
       case XOFF: /* Wait a while for an XON */
       case XOFF | 0200:
         zm->zreadline_getc(100);
+        FALLTHROUGH();
       default:
         ++junkcount;
       }
@@ -1044,7 +1058,7 @@ somemore:
     default:
       if(input)
         input->close();
-      return ERROR;
+      return ZM_ERROR;
     }
   }
 }
@@ -1059,11 +1073,11 @@ int QSendZmodem::sz_getinsync(struct zm_fileinfo *zi, int flag) {
     case ZABORT:
     case ZFIN:
     case TIMEOUT:
-      return ERROR;
+      return ZM_ERROR;
     case ZRPOS:
       if (input){
         if(!input->seek(rxpos)) {
-          return ERROR;
+          return ZM_ERROR;
         }
       }
       zi->eof_seen = 0;
@@ -1083,7 +1097,7 @@ int QSendZmodem::sz_getinsync(struct zm_fileinfo *zi, int flag) {
       if (input)
         input->close();
       return c;
-    case ERROR:
+    case ZM_ERROR:
     default:
       error_count++;
       zm->zm_send_binary_header(ZNAK);
@@ -1102,14 +1116,14 @@ int QSendZmodem::sz_transmit_files(QStringList filePathList, QStringList remoteP
     int index = filePathList.indexOf(file);
     totsecs = 0;
     /* The files are transmitted one at a time, here. */
-    if (sz_transmit_file(file, remotePathList[index]) == ERROR)
-      return ERROR;
+    if (sz_transmit_file(file, remotePathList[index]) == ZM_ERROR)
+      return ZM_ERROR;
   }
   totsecs = 0;
   if (filcnt == 0) { /* bitch if we couldn't open ANY files */
     zm->zreadline_canit();
     qInfo("Can't open any requested files.");
-    return ERROR;
+    return ZM_ERROR;
   }
   if (zm->zmodem_requested)
     /* The session to the receiver is terminated here. */
@@ -1170,7 +1184,7 @@ int QSendZmodem::sz_transmit_sector(char *buf, int sectnum, size_t cseclen) {
       if (lastrx == CAN) {
       cancan:
         qCritical("Cancelled");
-        return ERROR;
+        return ZM_ERROR;
       }
       break;
     case TIMEOUT:
@@ -1179,6 +1193,7 @@ int QSendZmodem::sz_transmit_sector(char *buf, int sectnum, size_t cseclen) {
     case WANTCRC:
       if (firstsec)
         crcflg = TRUE;
+      FALLTHROUGH();
     case NAK:
       qCritical("NAK on sector");
       continue;
@@ -1186,7 +1201,7 @@ int QSendZmodem::sz_transmit_sector(char *buf, int sectnum, size_t cseclen) {
       firstsec = FALSE;
       totsecs += (cseclen >> 7);
       return OK;
-    case ERROR:
+    case ZM_ERROR:
       qCritical("Got burst for sector ACK");
       break;
     default:
@@ -1204,5 +1219,5 @@ int QSendZmodem::sz_transmit_sector(char *buf, int sectnum, size_t cseclen) {
     }
   }
   qCritical("Retry Count Exceeded");
-  return ERROR;
+  return ZM_ERROR;
 }
