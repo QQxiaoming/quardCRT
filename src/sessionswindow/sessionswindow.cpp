@@ -786,13 +786,13 @@ void SessionsWindow::unlockSession(QString password) {
 
 void SessionsWindow::sendFileUseZModem(QStringList fileList) {
     if(term) {
-        QSendZmodem *sz = new QSendZmodem(-1,this);
+        QSendZmodem *sz = new QSendZmodem(10,this); //10s timeout
         connect(sz,&QSendZmodem::sendData,this,&SessionsWindow::modemProxySendData);
         connect(this,&SessionsWindow::modemProxyRecvData,sz,&QSendZmodem::onRecvData);
 
         connect(sz,&QSendZmodem::transferring,this,[=](QString filename){
             QFileInfo info(filename);
-            QString msg = QString("Transferring: %1...\r\n").arg(info.fileName());
+            QString msg = QString("Transferring: %1... Use Ctrl+C to cancel\r\n").arg(info.fileName());
             QByteArray data = msg.toUtf8();
             term->recvData(data.data(), data.size());
         });
@@ -800,32 +800,49 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
             QString msg = QString("\r\n%1\r\n").arg(result == 0 ? "successful" : "failed");
             QByteArray data = msg.toUtf8();
             term->recvData(data.data(), data.size());
+            Q_UNUSED(filename);
+            Q_UNUSED(size);
+            Q_UNUSED(date);
         });
         connect(sz,&QSendZmodem::tick,this,[=](const char *fname, long bytes_sent, long bytes_total, long last_bps,
                                                 int min_left, int sec_left, bool *ret){
             QString msg;
-            float progress = (float)bytes_sent / (float)bytes_total * 100;
-            if(progress > 100) progress = 100;
-            long last_bs = last_bps/8;
-            if(last_bs < 1024) {
-                msg = QString("\033[2K\r%1\% %4B/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs).arg(min_left).arg(sec_left);
-            } else if(last_bs < 1024*1024) {
-                msg = QString("\033[2K\r%1\% %4KB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024).arg(min_left).arg(sec_left);                
-            } else if(last_bs < 1024*1024*1024) {
-                msg = QString("\033[2K\r%1\% %4MB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024).arg(min_left).arg(sec_left);
+            *ret = !stopModemProxy;
+            if(stopModemProxy) {
+                msg = QString("\033[2K\rTransfer aborted\r\n");
             } else {
-                msg = QString("\033[2K\r%1\% %4GB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024/1024).arg(min_left).arg(sec_left);
-            }
+                float progress = (float)bytes_sent / (float)bytes_total * 100;
+                if(progress > 100) progress = 100;
+                long last_bs = last_bps/8;
+                if(last_bs < 1024) {
+                    msg = QString("\033[2K\r%1\% %4B/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs).arg(min_left).arg(sec_left);
+                } else if(last_bs < 1024*1024) {
+                    msg = QString("\033[2K\r%1\% %4KB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024).arg(min_left).arg(sec_left);                
+                } else if(last_bs < 1024*1024*1024) {
+                    msg = QString("\033[2K\r%1\% %4MB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024).arg(min_left).arg(sec_left);
+                } else {
+                    msg = QString("\033[2K\r%1\% %4GB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024/1024).arg(min_left).arg(sec_left);
+                }
+            } 
             QByteArray data = msg.toUtf8();
             term->recvData(data.data(), data.size());
-            *ret = true;
+            Q_UNUSED(fname);
         },Qt::BlockingQueuedConnection);
-
+        connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+            if(modemProxy) {
+                QByteArray s = QByteArray(data, size);
+                if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
+                    stopModemProxy = true;
+                }
+            }
+        });
         sz->setFilePath(fileList,fileList);
         connect(sz,&QSendZmodem::finished,this,[=]{
             modemProxy = false;
+            stopModemProxy = false;
             sz->deleteLater();
         });
+        stopModemProxy = false;
         modemProxy = true;
         char test[] = "\r\nStarting zmodem transfer...\r\n";
         term->recvData(test,2);

@@ -46,7 +46,7 @@
 
 QRecvZmodem::QRecvZmodem(int32_t timeout, QObject *parent) : QThread{parent} {
   int32_t no_timeout = timeout==-1?1:0;
-  timeout = timeout==-1?1000:timeout;
+  timeout = timeout==-1?1000:timeout*10;
   this->zm = new LowLevelStuff(no_timeout, timeout, 0, 0, 115200, 0, 1400, this);
   this->under_rsh = 0;
   this->restricted = 1;

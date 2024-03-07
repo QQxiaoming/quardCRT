@@ -20,9 +20,12 @@
 #include "filedialog.h"
 #include "ui_filedialog.h"
 
-FileDialog::FileDialog(QWidget *parent, const QString &caption)
+FileDialog::FileDialog(QWidget *parent, const QString &caption,
+                        const QString &dir, const QString &filter)
     : QDialog(parent)
     , ui(new Ui::FileDialog)
+    , m_dir(dir)
+    , m_filter(filter)
 {
     ui->setupUi(this);
 
@@ -37,4 +40,32 @@ FileDialog::~FileDialog()
 QStringList FileDialog::selectedFiles() const
 {
     return QStringList();
+}
+
+void FileDialog::setFileMode(QFileDialog::FileMode mode) {
+    m_mode = mode;
+}
+
+void FileDialog::setAcceptMode(QFileDialog::AcceptMode mode) {
+    m_acceptMode = mode;
+}
+
+void FileDialog::setDefaultSuffix(const QString &suffix) {
+    m_defaultSuffix = suffix;
+}
+
+void FileDialog::setSidebarUrls(const QList<QUrl> &urls) {
+    m_sidebarUrls = urls;
+}
+
+void FileDialog::setOptions(QFileDialog::Options options) {
+    m_options = options;
+}
+
+void FileDialog::selectNameFilter(const QString &filter) {
+    ui->fileTypeCombo->setCurrentText(filter);
+}
+
+QString FileDialog::selectedNameFilter() const {
+    return ui->fileTypeCombo->currentText();
 }

@@ -302,6 +302,7 @@ private:
     uint64_t tx_total = 0;
     uint64_t rx_total = 0;
     bool modemProxy = false;
+    bool stopModemProxy = false;
 
     QString m_hostname;
     quint16 m_port;
