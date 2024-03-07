@@ -26,6 +26,7 @@
 #include <QSerialPort>
 #include <QLocalSocket>
 #include <QMutex>
+#include <QMutexLocker>
 
 #include "sshclient.h"
 #include "sshtunnelout.h"
@@ -104,6 +105,11 @@ public:
     bool isLog(void) { return enableLog; }
     int setRawLog(bool enable);
     bool isRawLog(void) { return enableRawLog; }
+
+    int writeReceiveASCIIFile(const char *data, int size);
+    int startReceiveASCIIFile(const QString &fileName);
+    int stopReceiveASCIIFile(void);
+    bool isReceiveASCIIFile(void);
 
     QWidget *getMainWidget() const { 
         if(type == VNC)
@@ -239,6 +245,10 @@ public:
     void proxySendData(QByteArray data) {
         if(term) term->proxySendData(data);
     }
+    void proxyRecvData(QByteArray data) {
+        if(term) term->recvData(data.data(),data.size());
+    }
+    void reverseProxySendData(QByteArray data);
     QList<QAction*> filterActions(const QPoint& position) {
         if(term) {
             QPoint maptermWidgetPos = term->mapFromGlobal(position);
@@ -301,8 +311,14 @@ private:
     SessionsState state = Disconnected;
     uint64_t tx_total = 0;
     uint64_t rx_total = 0;
-    bool modemProxy = false;
+    
+    QMutex modemProxyChannelMutex;
+    bool modemProxyChannel = false;
     bool stopModemProxy = false;
+
+    QMutex receiveASCIIFileMutex;
+    bool receiveASCIIFile = false;
+    QFile *receiveASCIIFileFd = nullptr;
 
     QString m_hostname;
     quint16 m_port;

@@ -4,7 +4,9 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- Add ascii send/receive, zmodem send/receive function
 - Fix the problem that the status indicated by the start tftp menu item may be incorrect
+- Fix the problem that the program crashes when the terminal displays Unicode characters beyond the first plane
 
 ## [[V0.4.3](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.3)] - 2024-02-26
 

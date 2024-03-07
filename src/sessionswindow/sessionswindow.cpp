@@ -119,7 +119,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             telnet = new QTelnet(QTelnet::TCP, this);
             connect(telnet,&QTelnet::newData,this,
                 [=](const char *data, int size){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     emit modemProxyRecvData(QByteArray(data,size));
                     return;
                 }
@@ -130,13 +130,13 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     telnet->sendData(data.data(), data.size());
                 }
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     return;
                 }
                 if(telnet->isConnected()) {
@@ -166,7 +166,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(serialPort,&QSerialPort::readyRead,this,
                 [=](){
                 QByteArray data = serialPort->readAll();
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     emit modemProxyRecvData(data);
                     return;
                 }
@@ -177,7 +177,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     if(serialPort->isOpen()) {
                         serialPort->write(data.data(), data.size());
                     }
@@ -185,7 +185,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     return;
                 }
                 if(serialPort->isOpen()) {
@@ -209,7 +209,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(rawSocket,&QTcpSocket::readyRead,this,
                 [=](){
                 QByteArray data = rawSocket->readAll();
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     emit modemProxyRecvData(data);
                     return;
                 }
@@ -220,7 +220,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     if(rawSocket->state() == QAbstractSocket::ConnectedState) {
                         rawSocket->write(data.data(), data.size());
                     }
@@ -228,7 +228,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     return;
                 }
                 if(rawSocket->state() == QAbstractSocket::ConnectedState) {
@@ -257,7 +257,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             namePipe = new QLocalSocket(this);
             connect(namePipe,&QLocalSocket::readyRead,this,[=](){
                 QByteArray data = namePipe->readAll();
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     emit modemProxyRecvData(data);
                     return;
                 }
@@ -267,7 +267,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     if(namePipe->state() == QLocalSocket::ConnectedState) {
                         namePipe->write(data.data(), data.size());
                     }
@@ -275,7 +275,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(term, &QTermWidget::sendData,this,
                 [=](const char *data, int size){
-                if(modemProxy) {
+                if(modemProxyChannel) {
                     return;
                 }
                 if(namePipe->state() == QLocalSocket::ConnectedState) {
@@ -316,7 +316,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     shell->resize(columns,lines);
                 });
                 connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
-                    if(modemProxy) {
+                    if(modemProxyChannel) {
                         emit modemProxyRecvData(QByteArray(data, size));
                         return;
                     }
@@ -327,12 +327,12 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 });
                 connect(this,&SessionsWindow::modemProxySendData,this,
                     [=](QByteArray data){
-                    if(modemProxy) {
+                    if(modemProxyChannel) {
                         shell->sendData(data.data(), data.size());
                     }
                 });
                 connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-                    if(modemProxy) {
+                    if(modemProxyChannel) {
                         return;
                     }
                     shell->sendData(data, size);
@@ -360,6 +360,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         connect(term, &QTermWidget::titleChanged, this, &SessionsWindow::titleChanged);
         connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
             saveLog(data, size);
+            writeReceiveASCIIFile(data, size);
         });
         connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, bool fromContextMenu){
             QUrl u = url;
@@ -521,7 +522,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     }
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
-        if(modemProxy) {
+        if(modemProxyChannel) {
             emit modemProxyRecvData(data);
             return;
         }
@@ -531,12 +532,12 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     });
     connect(this,&SessionsWindow::modemProxySendData,this,
         [=](QByteArray data){
-        if(modemProxy) {
+        if(modemProxyChannel) {
             localShell->write(data);
         }
     });
     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-        if(modemProxy) {
+        if(modemProxyChannel) {
             return;
         }
         localShell->write(QByteArray(data, size));
@@ -784,6 +785,59 @@ void SessionsWindow::unlockSession(QString password) {
     }
 }
 
+int SessionsWindow::writeReceiveASCIIFile(const char *data, int size) {
+    if(receiveASCIIFile) {
+        QMutexLocker locker(&receiveASCIIFileMutex);
+        if(receiveASCIIFileFd == nullptr) {
+            return -1;
+        }
+        receiveASCIIFileFd->write(data, size);
+        return 0;
+    }
+    return -1;
+}
+
+int SessionsWindow::startReceiveASCIIFile(const QString &fileName) {
+    QMutexLocker locker(&receiveASCIIFileMutex);
+    if(receiveASCIIFile) {
+        return -1;
+    }
+    receiveASCIIFile = true;
+    receiveASCIIFileFd = new QFile(fileName);
+    if(!receiveASCIIFileFd->open(QIODevice::WriteOnly)) {
+        QMessageBox::warning(term, tr("Receive ASCII File"), tr("Cannot write file %1:\n%2.").arg(fileName).arg(receiveASCIIFileFd->errorString()));
+        receiveASCIIFile = false;
+        return -1;
+    }
+    return 0;
+}
+
+int SessionsWindow::stopReceiveASCIIFile(void) {
+    QMutexLocker locker(&receiveASCIIFileMutex);
+    if(receiveASCIIFile) {
+        receiveASCIIFileFd->close();
+        delete receiveASCIIFileFd;
+        receiveASCIIFile = false;
+        return 0;
+    }
+    return -1;
+}
+
+bool SessionsWindow::isReceiveASCIIFile(void) {
+    return receiveASCIIFile;
+}
+
+void SessionsWindow::reverseProxySendData(QByteArray data) {
+    if(term) {
+        QMutexLocker locker(&modemProxyChannelMutex);
+        if(!modemProxyChannel) {
+            modemProxyChannel = true;
+            emit modemProxySendData(data);
+            modemProxyChannel = false;
+        }
+    }
+}
+
 void SessionsWindow::sendFileUseZModem(QStringList fileList) {
     if(term) {
         QSendZmodem *sz = new QSendZmodem(10,this); //10s timeout
@@ -799,7 +853,7 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
         connect(sz,&QSendZmodem::complete,this,[=](QString filename, int result, size_t size, time_t date){
             QString msg = QString("\r\n%1\r\n").arg(result == 0 ? "successful" : "failed");
             QByteArray data = msg.toUtf8();
-            term->recvData(data.data(), data.size());
+            proxyRecvData(data);
             Q_UNUSED(filename);
             Q_UNUSED(size);
             Q_UNUSED(date);
@@ -825,11 +879,11 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
                 }
             } 
             QByteArray data = msg.toUtf8();
-            term->recvData(data.data(), data.size());
+            proxyRecvData(data);
             Q_UNUSED(fname);
         },Qt::BlockingQueuedConnection);
         connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-            if(modemProxy) {
+            if(modemProxyChannel) {
                 QByteArray s = QByteArray(data, size);
                 if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
                     stopModemProxy = true;
@@ -838,14 +892,16 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
         });
         sz->setFilePath(fileList,fileList);
         connect(sz,&QSendZmodem::finished,this,[=]{
-            modemProxy = false;
+            QMutexLocker locker(&modemProxyChannelMutex);
+            modemProxyChannel = false;
             stopModemProxy = false;
             sz->deleteLater();
         });
+        QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
-        modemProxy = true;
-        char test[] = "\r\nStarting zmodem transfer...\r\n";
-        term->recvData(test,2);
+        modemProxyChannel = true;
+        QByteArray test("\r\nStarting zmodem transfer...\r\n");
+        proxyRecvData(test);
         sz->start();
     }
 }

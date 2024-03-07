@@ -271,6 +271,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             connect(sessionsWindow,&SessionsWindow::hexDataDup,
                                         hexViewWindow,&HexViewWindow::recvData);
                         }
+                        receiveASCIIAction->setChecked(sessionsWindow->isReceiveASCIIFile());
                     }
                 }
             }
@@ -723,8 +724,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
 
     // TODO:Unimplemented functions are temporarily closed
-    sendASCIIAction->setEnabled(false);
-    receiveASCIIAction->setEnabled(false);
     sendBinaryAction->setEnabled(false);
     sendXmodemAction->setEnabled(false);
     receiveXmodemAction->setEnabled(false);
@@ -1850,12 +1849,12 @@ void CentralWidget::setSessionClassActionEnable(bool enable)
 
     sessionOptionsAction->setEnabled(enable);
 
+    sendASCIIAction->setEnabled(enable);
+    receiveASCIIAction->setEnabled(enable);
     zmodemUploadListAction->setEnabled(enable);
     startZmodemUploadAction->setEnabled(enable&&(!zmodemUploadList.isEmpty()));
 
     // TODO: these actions are not implemented yet
-    //sendASCIIAction->setEnabled(enable);
-    //receiveASCIIAction->setEnabled(enable);
     //sendBinaryAction->setEnabled(enable);
     //sendXmodemAction->setEnabled(enable);
     //receiveXmodemAction->setEnabled(enable);
@@ -2361,6 +2360,35 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             } else {
                 showNormal();
             }
+        }
+    });
+    connect(sendASCIIAction,&QAction::triggered,this,[=](){
+        QString file = FileDialog::getOpenFileName(this, tr("Select Files to Send as ASCII"), QDir::homePath(), tr("Text Files (*.txt);;All Files (*)"));
+        if(file.isEmpty()) return;
+        QFile f(file);
+        if(f.open(QIODevice::ReadOnly)) {
+            QByteArray data = f.readAll();
+            f.close();
+            QWidget *widget = findCurrentFocusWidget();
+            if(widget == nullptr) return;
+            SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+            sessionsWindow->reverseProxySendData(data);
+        }
+    });
+    connect(receiveASCIIAction,&QAction::triggered,this,[=](){
+        receiveASCIIAction->setChecked(!receiveASCIIAction->isChecked());
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr)  return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isReceiveASCIIFile()) {
+            sessionsWindow->stopReceiveASCIIFile();
+            receiveASCIIAction->setChecked(false);
+        } else {
+            QString file = FileDialog::getSaveFileName(this, tr("Save Received Data as ASCII"), QDir::homePath(), tr("Text Files (*.txt);;All Files (*)"));
+            if(file.isEmpty()) return;
+            if(file.endsWith(".txt") == false) file.append(".txt");
+            sessionsWindow->startReceiveASCIIFile(file);
+            receiveASCIIAction->setChecked(true);
         }
     });
     connect(zmodemUploadListAction,&QAction::triggered,this,[=](){
