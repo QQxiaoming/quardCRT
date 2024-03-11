@@ -23,10 +23,30 @@
 #include <QDialog>
 #include <QFileDialog>
 #include <QStandardPaths>
+#include <QListView>
+#include <QDialogButtonBox>
 
 namespace Ui {
 class FileDialog;
 }
+
+class SFDFileDialog : public QFileDialog
+{
+    Q_OBJECT
+public:
+    explicit SFDFileDialog(QWidget *parent = nullptr, const QString &caption = QString(),
+                            const QString &dir = QString(), const QString &filter = QString())
+        : QFileDialog(parent, caption, dir, filter) { }
+
+signals:
+    void acceptFile(const QString &file);
+
+protected:
+    void accept() override {
+        emit acceptFile(selectedFiles().value(0));
+    }
+    void reject() override {}
+};
 
 class FileDialog : public QDialog
 {
@@ -50,13 +70,9 @@ public:
 
 private:
     Ui::FileDialog *ui;
-    QString m_dir;
-    QString m_filter;
-    QFileDialog::FileMode m_mode;
-    QFileDialog::AcceptMode m_acceptMode;
-    QString m_defaultSuffix;
-    QList<QUrl> m_sidebarUrls;
-    QFileDialog::Options m_options;
+    SFDFileDialog *m_fileDialog;
+    QListView *m_listView;
+    QDialogButtonBox *m_buttonBox;
 
 private:
     static QList<QUrl> getSiderbarUrls(void) {
@@ -161,7 +177,7 @@ public:
                                     QString *selectedFilter = nullptr,
                                     QFileDialog::Options options = QFileDialog::Options()) {
         FileDialog dialog(parent, caption, dir, filter);
-        dialog.setFileMode(QFileDialog::ExistingFiles);
+        dialog.setFileMode(QFileDialog::ExistingFile);
         dialog.setAcceptMode(QFileDialog::AcceptOpen);
         dialog.setDefaultSuffix("txt");
         dialog.setSidebarUrls(FileDialog::getSiderbarUrls());

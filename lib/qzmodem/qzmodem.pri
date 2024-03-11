@@ -7,8 +7,7 @@ SOURCES +=                  \
     $$PWD/util/timing.cpp   \
     $$PWD/lowlevelstuff.cpp \
     $$PWD/qrecvzmodem.cpp   \
-    $$PWD/qsendzmodem.cpp   \
-    $$PWD/qzmodem.cpp
+    $$PWD/qsendzmodem.cpp   
 
 HEADERS +=                \
     $$PWD/util/crctab.h   \
@@ -16,7 +15,6 @@ HEADERS +=                \
     $$PWD/util/timing.h   \
     $$PWD/lowlevelstuff.h \
     $$PWD/qrecvzmodem.h   \
-    $$PWD/qsendzmodem.h   \
-    $$PWD/qzmodem.h
+    $$PWD/qsendzmodem.h   
 
 #DEFINES += DEBUGZ

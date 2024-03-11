@@ -26,6 +26,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QWaitCondition>
 
 #include <stddef.h>
 
@@ -74,27 +75,34 @@ public:
   int zreadline_getc(int timeout) {
     uint8_t c;
     bool ok = false;
-    if(no_timeout) {
-      while(dataRecv.size() < 1) {
-        QThread::msleep(10);
-      }
+    mutex.lock();
+    size_t size = dataRecv.size();
+    if(size >= 1) {
       ok = true;
     } else {
-      QDateTime start = QDateTime::currentDateTime();
-      do {
-        size_t size = dataRecv.size();
+      if(no_timeout) {
+      retry:
+        condition.wait(&mutex);
+        size = dataRecv.size();
+        if(size < 1) {
+          goto retry;
+        }
+      } else {
+        QDeadlineTimer timer(timeout*100);
+        condition.wait(&mutex, timer);
+        size = dataRecv.size();
         if(size >= 1) {
           ok = true;
-          break;
         }
-      }while(start.msecsTo(QDateTime::currentDateTime()) < timeout*100);
+      }
     }
     if(ok) {
-      QMutexLocker locker(&mutex);
       memcpy(&c,dataRecv.data(),1);
       dataRecv.remove(0,1);
+      mutex.unlock();
       return c;
     }
+    mutex.unlock();
     return -1;
   }
   void zreadline_flushline(void) {
@@ -139,6 +147,7 @@ public slots:
   void onRecvData(const QByteArray &data) {
     QMutexLocker locker(&mutex);
     dataRecv.append(data);
+    condition.wakeOne();
   }
 
 private:
@@ -160,6 +169,7 @@ private:
 public:
   QByteArray dataRecv;
   QMutex mutex;
+  QWaitCondition condition;
   char Rxhdr[4]; /* Received header */
   char Txhdr[4]; /* Transmitted header */
   int rxtimeout; /* Constant: tenths of seconds to wait for something */

@@ -99,6 +99,12 @@ public:
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
     
+    void sendFileUseKermit(QStringList fileList);
+    void recvFileUseKermit(void);
+    void sendFileUseXModem(QString file);
+    void recvFileUseXModem(QString file);
+    void sendFileUseYModem(QStringList fileList);
+    void recvFileUseYModem(void);
     void sendFileUseZModem(QStringList fileList);
 
     int setLog(bool enable);

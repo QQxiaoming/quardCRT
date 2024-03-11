@@ -227,6 +227,8 @@ private:
     QAction *sendASCIIAction;
     QAction *receiveASCIIAction;
     QAction *sendBinaryAction;
+    QAction *sendKermitAction;
+    QAction *receiveKermitAction;
     QAction *sendXmodemAction;
     QAction *receiveXmodemAction;
     QAction *sendYmodemAction;

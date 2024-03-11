@@ -724,11 +724,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
 
     // TODO:Unimplemented functions are temporarily closed
-    sendBinaryAction->setEnabled(false);
-    sendXmodemAction->setEnabled(false);
-    receiveXmodemAction->setEnabled(false);
-    sendYmodemAction->setEnabled(false);
-    receiveYmodemAction->setEnabled(false);
     runAction->setEnabled(false);
     cancelAction->setEnabled(false);
     startRecordingScriptAction->setEnabled(false);
@@ -1172,6 +1167,10 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     receiveASCIIAction->setStatusTip(tr("Receive ASCII file"));
     sendBinaryAction->setText(tr("Send Binary..."));
     sendBinaryAction->setStatusTip(tr("Send Binary file"));
+    sendKermitAction->setText(tr("Send Kermit..."));
+    sendKermitAction->setStatusTip(tr("Send a file using Kermit"));
+    receiveKermitAction->setText(tr("Receive Kermit..."));
+    receiveKermitAction->setStatusTip(tr("Receive a file using Kermit"));
     sendXmodemAction->setText(tr("Send Xmodem..."));
     sendXmodemAction->setStatusTip(tr("Send a file using Xmodem"));
     receiveXmodemAction->setText(tr("Receive Xmodem..."));
@@ -1478,6 +1477,11 @@ void CentralWidget::menuAndToolBarInit(void) {
     transferMenu->addSeparator();
     sendBinaryAction = new QAction(this);
     transferMenu->addAction(sendBinaryAction);
+    transferMenu->addSeparator();
+    sendKermitAction = new QAction(this);
+    transferMenu->addAction(sendKermitAction);
+    receiveKermitAction = new QAction(this);
+    transferMenu->addAction(receiveKermitAction);
     transferMenu->addSeparator();
     sendXmodemAction = new QAction(this);
     transferMenu->addAction(sendXmodemAction);
@@ -1851,15 +1855,15 @@ void CentralWidget::setSessionClassActionEnable(bool enable)
 
     sendASCIIAction->setEnabled(enable);
     receiveASCIIAction->setEnabled(enable);
+    sendBinaryAction->setEnabled(enable);
+    sendKermitAction->setEnabled(enable);
+    receiveKermitAction->setEnabled(enable);
+    sendXmodemAction->setEnabled(enable);
+    receiveXmodemAction->setEnabled(enable);
+    sendYmodemAction->setEnabled(enable);
+    receiveYmodemAction->setEnabled(enable);
     zmodemUploadListAction->setEnabled(enable);
     startZmodemUploadAction->setEnabled(enable&&(!zmodemUploadList.isEmpty()));
-
-    // TODO: these actions are not implemented yet
-    //sendBinaryAction->setEnabled(enable);
-    //sendXmodemAction->setEnabled(enable);
-    //receiveXmodemAction->setEnabled(enable);
-    //sendYmodemAction->setEnabled(enable);
-    //receiveYmodemAction->setEnabled(enable);
 }
 
 void CentralWidget::menuAndToolBarConnectSignals(void) {
@@ -2366,7 +2370,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QString file = FileDialog::getOpenFileName(this, tr("Select Files to Send as ASCII"), QDir::homePath(), tr("Text Files (*.txt);;All Files (*)"));
         if(file.isEmpty()) return;
         QFile f(file);
-        if(f.open(QIODevice::ReadOnly)) {
+        if(f.open(QIODevice::ReadOnly|QIODevice::Text)) {
             QByteArray data = f.readAll();
             f.close();
             QWidget *widget = findCurrentFocusWidget();
@@ -2391,19 +2395,71 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             receiveASCIIAction->setChecked(true);
         }
     });
-    connect(zmodemUploadListAction,&QAction::triggered,this,[=](){
-        //QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Zmodem"));
-        QStringList files = FileDialog::getOpenFileNames(this, tr("Select Files to Send using Zmodem"));
-        if(files.isEmpty()){
-            return;
+    connect(sendBinaryAction,&QAction::triggered,this,[=](){
+        QString file = FileDialog::getOpenFileName(this, tr("Select Files to Send as BINARY"), QDir::homePath(), tr("All Files (*)"));
+        if(file.isEmpty()) return;
+        QFile f(file);
+        if(f.open(QIODevice::ReadOnly)) {
+            QByteArray data = f.readAll();
+            f.close();
+            QWidget *widget = findCurrentFocusWidget();
+            if(widget == nullptr) return;
+            SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+            sessionsWindow->reverseProxySendData(data);
         }
+    });
+    connect(sendKermitAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Kermit"), QDir::homePath(), tr("All Files (*)"));
+        if(files.isEmpty()) return;
+        sessionsWindow->sendFileUseKermit(files);
+    });
+    connect(receiveKermitAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        sessionsWindow->recvFileUseKermit();
+    });
+    connect(sendXmodemAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        QString file = FileDialog::getOpenFileName(this, tr("Select Files to Send using Xmodem"), QDir::homePath(), tr("All Files (*)"));
+        if(file.isEmpty()) return;
+        sessionsWindow->sendFileUseXModem(file);
+    });
+    connect(receiveXmodemAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr)  return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        QString file = FileDialog::getSaveFileName(this, tr("Save Received Files using Xmodem"), QDir::homePath(), tr("All Files (*)"));
+        if(file.isEmpty()) return;
+        sessionsWindow->recvFileUseXModem(file);
+    });
+    connect(sendYmodemAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Ymodem"), QDir::homePath(), tr("All Files (*)"));
+        if(files.isEmpty()) return;
+        sessionsWindow->sendFileUseYModem(files);
+    });
+    connect(receiveYmodemAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        sessionsWindow->recvFileUseYModem();
+    });
+    connect(zmodemUploadListAction,&QAction::triggered,this,[=](){
+        QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Zmodem"), QDir::homePath(), tr("All Files (*)"));
+        if(files.isEmpty()) return;
         zmodemUploadList.append(files);
         startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
     });
     connect(startZmodemUploadAction,&QAction::triggered,this,[=](){
-        if(zmodemUploadList.isEmpty()){
-            return;
-        }
+        if(zmodemUploadList.isEmpty()) return;
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();

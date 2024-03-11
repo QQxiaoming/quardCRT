@@ -24,8 +24,9 @@ include(./lib/QVNCClient/QVNCClient.pri)
 include(./lib/qhexedit/qhexedit.pri)
 include(./lib/QGoodWindow/QGoodWindow/QGoodWindow.pri)
 include(./lib/QGoodWindow/QGoodCentralWidget/QGoodCentralWidget.pri)
-include(./lib/qxymodem/qxymodem.pro)
+include(./lib/qxymodem/qxymodem.pri)
 include(./lib/qzmodem/qzmodem.pri)
+include(./lib/qkermit/qkermit.pri)
 
 INCLUDEPATH += \
     src/util \

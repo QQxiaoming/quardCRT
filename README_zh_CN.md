@@ -163,4 +163,5 @@ quardCRT将从V0.4.0版本开始支持插件，插件将以Qt Plug-in插件的�
 - [qvncclient](https://bitbucket.org/amahta/qvncclient)
 - [qhexedit](https://github.com/Simsys/qhexedit2)
 - [QGoodWindow](https://github.com/antonypro/QGoodWindow)
+- [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)

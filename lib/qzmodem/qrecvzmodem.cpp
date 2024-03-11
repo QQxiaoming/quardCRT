@@ -66,6 +66,7 @@ QRecvZmodem::QRecvZmodem(int32_t timeout, QObject *parent) : QThread{parent} {
   this->tryzhdrtype = ZRINIT;
   this->rxclob = 0;
   this->skip_if_not_found = 0;
+	m_fileDirPath = QDir::homePath();
   connect(this->zm, &LowLevelStuff::sendData, this, &QRecvZmodem::sendData);
   connect(this->zm, &LowLevelStuff::flushRecv, this, &QRecvZmodem::flushRecv);
   connect(this->zm, &LowLevelStuff::flushSend, this, &QRecvZmodem::flushSend);

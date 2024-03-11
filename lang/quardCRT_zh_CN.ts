@@ -13,1465 +13,1541 @@
     <name>CentralWidget</name>
     <message>
         <location filename="../src/mainwindow.ui" line="101"/>
-        <location filename="../src/mainwindow.cpp" line="1140"/>
+        <location filename="../src/mainwindow.cpp" line="1133"/>
         <source>Tool Bar</source>
         <translation>工具栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
-        <location filename="../src/mainwindow.cpp" line="195"/>
-        <location filename="../src/mainwindow.cpp" line="198"/>
-        <location filename="../src/mainwindow.cpp" line="326"/>
-        <location filename="../src/mainwindow.cpp" line="342"/>
-        <location filename="../src/mainwindow.cpp" line="359"/>
-        <location filename="../src/mainwindow.cpp" line="372"/>
-        <location filename="../src/mainwindow.cpp" line="548"/>
-        <location filename="../src/mainwindow.cpp" line="2620"/>
-        <location filename="../src/mainwindow.cpp" line="2815"/>
-        <location filename="../src/mainwindow.cpp" line="3183"/>
-        <location filename="../src/mainwindow.cpp" line="3519"/>
-        <location filename="../src/mainwindow.cpp" line="3524"/>
+        <location filename="../src/mainwindow.cpp" line="193"/>
+        <location filename="../src/mainwindow.cpp" line="196"/>
+        <location filename="../src/mainwindow.cpp" line="199"/>
+        <location filename="../src/mainwindow.cpp" line="328"/>
+        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="361"/>
+        <location filename="../src/mainwindow.cpp" line="374"/>
+        <location filename="../src/mainwindow.cpp" line="550"/>
+        <location filename="../src/mainwindow.cpp" line="2728"/>
+        <location filename="../src/mainwindow.cpp" line="2923"/>
+        <location filename="../src/mainwindow.cpp" line="3291"/>
+        <location filename="../src/mainwindow.cpp" line="3627"/>
+        <location filename="../src/mainwindow.cpp" line="3632"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
+        <location filename="../src/mainwindow.cpp" line="193"/>
         <source>TFTP server bind error!</source>
         <translation>TFTP 服务器绑定错误！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="195"/>
+        <location filename="../src/mainwindow.cpp" line="196"/>
         <source>TFTP server file error!</source>
         <translation>TFTP 服务器文件错误！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="198"/>
+        <location filename="../src/mainwindow.cpp" line="199"/>
         <source>TFTP server network error!</source>
         <translation>TFTP 服务器网络错误！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="287"/>
+        <location filename="../src/mainwindow.cpp" line="289"/>
         <source>Unlock Session</source>
         <translation>解锁会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="288"/>
+        <location filename="../src/mainwindow.cpp" line="290"/>
         <source>Unlock current session</source>
         <translation>解锁当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="294"/>
+        <location filename="../src/mainwindow.cpp" line="296"/>
         <source>Move to another Tab</source>
         <translation>移动到另一个标签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="295"/>
+        <location filename="../src/mainwindow.cpp" line="297"/>
         <source>Move to current session to another tab group</source>
         <translation>将当前会话移动到另一个标签组</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="304"/>
+        <location filename="../src/mainwindow.cpp" line="306"/>
         <source>Floating Window</source>
         <translation>浮动窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="305"/>
+        <location filename="../src/mainwindow.cpp" line="307"/>
         <source>Floating current session to a new window</source>
         <translation>将当前会话浮动到一个新窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="312"/>
+        <location filename="../src/mainwindow.cpp" line="314"/>
         <source>Copy Path</source>
         <translation>复制路径</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="313"/>
+        <location filename="../src/mainwindow.cpp" line="315"/>
         <source>Copy current session working folder path</source>
         <translation>复制当前会话工作文件夹路径</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="326"/>
-        <location filename="../src/mainwindow.cpp" line="342"/>
-        <location filename="../src/mainwindow.cpp" line="359"/>
+        <location filename="../src/mainwindow.cpp" line="328"/>
+        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="361"/>
         <source>No working folder!</source>
         <translation>没有工作目录！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="328"/>
+        <location filename="../src/mainwindow.cpp" line="330"/>
         <source>Add Path to Bookmark</source>
         <translation>添加路径到书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="329"/>
+        <location filename="../src/mainwindow.cpp" line="331"/>
         <source>Add current session working folder path to bookmark</source>
         <translation>将当前会话工作文件夹路径添加到书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="344"/>
+        <location filename="../src/mainwindow.cpp" line="346"/>
         <source>Open Working Folder</source>
         <translation>打开当前工作中文件夹</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="345"/>
+        <location filename="../src/mainwindow.cpp" line="347"/>
         <source>Open current session working folder in system file manager</source>
         <translation>在系统文件管理器中打开当前会话工作文件夹</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="363"/>
+        <location filename="../src/mainwindow.cpp" line="365"/>
         <source>Open SFTP</source>
         <translation>打开 SFTP</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="364"/>
+        <location filename="../src/mainwindow.cpp" line="366"/>
         <source>Open SFTP in a new window</source>
         <translation>在新窗口中打开 SFTP</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="372"/>
+        <location filename="../src/mainwindow.cpp" line="374"/>
         <source>No SFTP channel!</source>
         <translation>没有 SFTP 通道！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="379"/>
+        <location filename="../src/mainwindow.cpp" line="381"/>
         <source>Save Session</source>
         <translation>保存会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="380"/>
+        <location filename="../src/mainwindow.cpp" line="382"/>
         <source>Save current session to session manager</source>
         <translation>将当前会话保存到会话管理器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="390"/>
+        <location filename="../src/mainwindow.cpp" line="392"/>
         <source>Enter Session Name</source>
         <translation>输入会话名称</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="391"/>
+        <location filename="../src/mainwindow.cpp" line="393"/>
         <source>The session already exists, please rename the new session or cancel saving.</source>
         <translation>会话已经存在，请重命名新会话或取消保存。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="397"/>
+        <location filename="../src/mainwindow.cpp" line="399"/>
         <source>Properties</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="398"/>
+        <location filename="../src/mainwindow.cpp" line="400"/>
         <source>Show current session properties</source>
         <translation>显示当前会话属性</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="418"/>
+        <location filename="../src/mainwindow.cpp" line="420"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="419"/>
+        <location filename="../src/mainwindow.cpp" line="421"/>
         <source>Close current session</source>
         <translation>关闭当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="424"/>
+        <location filename="../src/mainwindow.cpp" line="426"/>
         <source>Close Others</source>
         <translation>关闭其他</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="425"/>
+        <location filename="../src/mainwindow.cpp" line="427"/>
         <source>Close other sessions</source>
         <translation>关闭其他会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="435"/>
+        <location filename="../src/mainwindow.cpp" line="437"/>
         <source>Close to the Right</source>
         <translation>关闭右侧</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="436"/>
+        <location filename="../src/mainwindow.cpp" line="438"/>
         <source>Close sessions to the right</source>
         <translation>关闭右侧会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="444"/>
+        <location filename="../src/mainwindow.cpp" line="446"/>
         <source>Close All</source>
         <translation>关闭全部</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="445"/>
+        <location filename="../src/mainwindow.cpp" line="447"/>
         <source>Close all sessions</source>
         <translation>关闭所有会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="548"/>
+        <location filename="../src/mainwindow.cpp" line="550"/>
         <source>Session properties error!</source>
         <translation>会话属性错误！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="568"/>
-        <location filename="../src/mainwindow.cpp" line="686"/>
-        <location filename="../src/mainwindow.cpp" line="2520"/>
+        <location filename="../src/mainwindow.cpp" line="570"/>
+        <location filename="../src/mainwindow.cpp" line="688"/>
+        <location filename="../src/mainwindow.cpp" line="2628"/>
         <source>Ready</source>
         <translation>就绪</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="794"/>
+        <location filename="../src/mainwindow.cpp" line="787"/>
         <source>Highlight/Unhighlight</source>
         <translation>高亮/取消高亮</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="795"/>
+        <location filename="../src/mainwindow.cpp" line="788"/>
         <source>Highlight/Unhighlight selected text</source>
         <translation>高亮/取消高亮选中的文本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="855"/>
+        <location filename="../src/mainwindow.cpp" line="848"/>
         <source>Google Translate</source>
         <translation>谷歌翻译</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="856"/>
-        <location filename="../src/mainwindow.cpp" line="869"/>
-        <location filename="../src/mainwindow.cpp" line="881"/>
+        <location filename="../src/mainwindow.cpp" line="849"/>
+        <location filename="../src/mainwindow.cpp" line="862"/>
+        <location filename="../src/mainwindow.cpp" line="874"/>
         <source>Translate selected text</source>
         <translation>翻译选中的文本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="868"/>
+        <location filename="../src/mainwindow.cpp" line="861"/>
         <source>Baidu Translate</source>
         <translation>百度翻译</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="880"/>
+        <location filename="../src/mainwindow.cpp" line="873"/>
         <source>Microsoft Translate</source>
         <translation>微软翻译</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="941"/>
+        <location filename="../src/mainwindow.cpp" line="934"/>
         <source>Back to Main Window</source>
         <translation>移回主窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1012"/>
-        <location filename="../src/mainwindow.cpp" line="1036"/>
+        <location filename="../src/mainwindow.cpp" line="1005"/>
+        <location filename="../src/mainwindow.cpp" line="1029"/>
         <source>Session Manager</source>
         <translation>会话管理器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1013"/>
+        <location filename="../src/mainwindow.cpp" line="1006"/>
         <source>Plugin</source>
         <translation>插件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1015"/>
+        <location filename="../src/mainwindow.cpp" line="1008"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1016"/>
+        <location filename="../src/mainwindow.cpp" line="1009"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1017"/>
+        <location filename="../src/mainwindow.cpp" line="1010"/>
         <source>View</source>
         <translation>视图</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1018"/>
+        <location filename="../src/mainwindow.cpp" line="1011"/>
         <source>Options</source>
         <translation>选项</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1019"/>
+        <location filename="../src/mainwindow.cpp" line="1012"/>
         <source>Transfer</source>
         <translation>传输</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1020"/>
+        <location filename="../src/mainwindow.cpp" line="1013"/>
         <source>Script</source>
         <translation>脚本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1021"/>
+        <location filename="../src/mainwindow.cpp" line="1014"/>
         <source>Bookmark</source>
         <translation>书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1022"/>
+        <location filename="../src/mainwindow.cpp" line="1015"/>
         <source>Tools</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1023"/>
+        <location filename="../src/mainwindow.cpp" line="1016"/>
         <source>Window</source>
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1024"/>
+        <location filename="../src/mainwindow.cpp" line="1017"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1025"/>
+        <location filename="../src/mainwindow.cpp" line="1018"/>
         <source>Theme</source>
         <translation>主题</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1026"/>
-        <location filename="../src/mainwindow.cpp" line="1254"/>
+        <location filename="../src/mainwindow.cpp" line="1019"/>
+        <location filename="../src/mainwindow.cpp" line="1251"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1028"/>
+        <location filename="../src/mainwindow.cpp" line="1021"/>
         <source>New Window</source>
         <translation>新窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1030"/>
+        <location filename="../src/mainwindow.cpp" line="1023"/>
         <source>Open a new window &lt;Ctrl+Shift+N&gt;</source>
         <translation>打开一个新窗口 &lt;Ctrl+Shift+N&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1032"/>
+        <location filename="../src/mainwindow.cpp" line="1025"/>
         <source>Connect...</source>
         <translation>连接...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1034"/>
+        <location filename="../src/mainwindow.cpp" line="1027"/>
         <source>Connect to a host &lt;Alt+C&gt;</source>
         <translation>连接到主机 &lt;Alt+C&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1038"/>
+        <location filename="../src/mainwindow.cpp" line="1031"/>
         <source>Go to the Session Manager &lt;Alt+M&gt;</source>
         <translation>进入会话管理器 &lt;Alt+M&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1040"/>
+        <location filename="../src/mainwindow.cpp" line="1033"/>
         <source>Quick Connect...</source>
         <translation>快速连接...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1042"/>
+        <location filename="../src/mainwindow.cpp" line="1035"/>
         <source>Quick Connect to a host &lt;Alt+Q&gt;</source>
         <translation>快速连接到主机 &lt;Alt+Q&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1044"/>
+        <location filename="../src/mainwindow.cpp" line="1037"/>
         <source>Connect in Tab/Tile...</source>
         <translation>在标签/平铺中连接...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1045"/>
+        <location filename="../src/mainwindow.cpp" line="1038"/>
         <source>Connect to a host in a new tab &lt;Alt+B&gt;</source>
         <translation>在新标签中连接到主机 &lt;Alt+B&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1047"/>
+        <location filename="../src/mainwindow.cpp" line="1040"/>
         <source>Connect Local Shell</source>
         <translation>连接本机终端</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1049"/>
+        <location filename="../src/mainwindow.cpp" line="1042"/>
         <source>Connect to a local shell &lt;Alt+T&gt;</source>
         <translation>连接到本机终端 &lt;Alt+T&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1051"/>
+        <location filename="../src/mainwindow.cpp" line="1044"/>
         <source>Reconnect</source>
         <translation>重新连接</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1053"/>
+        <location filename="../src/mainwindow.cpp" line="1046"/>
         <source>Reconnect current session</source>
         <translation>重新连接当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1054"/>
+        <location filename="../src/mainwindow.cpp" line="1047"/>
         <source>Reconnect All</source>
         <translation>重新连接所有</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1055"/>
+        <location filename="../src/mainwindow.cpp" line="1048"/>
         <source>Reconnect all sessions &lt;Alt+A&gt;</source>
         <translation>重新连接所有会话 &lt;Alt+A&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1057"/>
+        <location filename="../src/mainwindow.cpp" line="1050"/>
         <source>Disconnect</source>
         <translation>断开连接</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1059"/>
+        <location filename="../src/mainwindow.cpp" line="1052"/>
         <source>Disconnect current session</source>
         <translation>断开当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1060"/>
-        <location filename="../src/mainwindow.cpp" line="1061"/>
+        <location filename="../src/mainwindow.cpp" line="1053"/>
+        <location filename="../src/mainwindow.cpp" line="1054"/>
         <source>Enter host &lt;Alt+R&gt; to connect</source>
         <translation>输入主机地址 &lt;Alt+R&gt; 连接</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1062"/>
+        <location filename="../src/mainwindow.cpp" line="1055"/>
         <source>Disconnect All</source>
         <translation>断开所有连接</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1063"/>
+        <location filename="../src/mainwindow.cpp" line="1056"/>
         <source>Disconnect all sessions</source>
         <translation>断开所有会话连接</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1064"/>
+        <location filename="../src/mainwindow.cpp" line="1057"/>
         <source>Clone Session</source>
         <translation>克隆会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1065"/>
+        <location filename="../src/mainwindow.cpp" line="1058"/>
         <source>Clone current session &lt;Ctrl+Shift+T&gt;</source>
         <translation>克隆当前会话 &lt;Ctrl+Shift+T&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1067"/>
+        <location filename="../src/mainwindow.cpp" line="1060"/>
         <source>Lock Session</source>
         <translation>锁定会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1068"/>
+        <location filename="../src/mainwindow.cpp" line="1061"/>
         <source>Lock/Unlock current session</source>
         <translation>锁定/解锁当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1069"/>
+        <location filename="../src/mainwindow.cpp" line="1062"/>
         <source>Log Session</source>
         <translation>记录日志</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1070"/>
+        <location filename="../src/mainwindow.cpp" line="1063"/>
         <source>Create a log file for current session</source>
         <translation>为当前会话创建日志文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1071"/>
+        <location filename="../src/mainwindow.cpp" line="1064"/>
         <source>Raw Log Session</source>
         <translation>记录原始日志</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1072"/>
+        <location filename="../src/mainwindow.cpp" line="1065"/>
         <source>Create a raw log file for current session</source>
         <translation>为当前会话创建原始日志文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1073"/>
+        <location filename="../src/mainwindow.cpp" line="1066"/>
         <source>Hex View</source>
         <translation>十六进制视图</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1074"/>
+        <location filename="../src/mainwindow.cpp" line="1067"/>
         <source>Show/Hide Hex View for current session</source>
         <translation>显示/隐藏当前会话的十六进制视图</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1075"/>
+        <location filename="../src/mainwindow.cpp" line="1068"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1076"/>
+        <location filename="../src/mainwindow.cpp" line="1069"/>
         <source>Quit the application</source>
         <translation>退出应用程序</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1078"/>
+        <location filename="../src/mainwindow.cpp" line="1071"/>
         <source>Copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1081"/>
+        <location filename="../src/mainwindow.cpp" line="1074"/>
         <source>Copy the selected text to the clipboard &lt;Command+C&gt;</source>
         <translation>复制选中的文本到剪贴板 &lt;Command+C&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1084"/>
+        <location filename="../src/mainwindow.cpp" line="1077"/>
         <source>Copy the selected text to the clipboard &lt;Ctrl+Ins&gt;</source>
         <translation>复制选中的文本到剪贴板 &lt;Ctrl+Ins&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1087"/>
+        <location filename="../src/mainwindow.cpp" line="1080"/>
         <source>Paste</source>
         <translation>粘贴</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1090"/>
+        <location filename="../src/mainwindow.cpp" line="1083"/>
         <source>Paste the clipboard text to the current session &lt;Command+V&gt;</source>
         <translation>粘贴剪贴板文本到当前会话 &lt;Command+V&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1093"/>
+        <location filename="../src/mainwindow.cpp" line="1086"/>
         <source>Paste the clipboard text to the current session &lt;Shift+Ins&gt;</source>
         <translation>粘贴剪贴板文本到当前会话 &lt;Shift+Ins&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1096"/>
+        <location filename="../src/mainwindow.cpp" line="1089"/>
         <source>Copy and Paste</source>
         <translation>复制并粘贴</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1097"/>
+        <location filename="../src/mainwindow.cpp" line="1090"/>
         <source>Copy the selected text to the clipboard and paste to the current session</source>
         <translation>复制选中的文本到剪贴板并粘贴到当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1098"/>
+        <location filename="../src/mainwindow.cpp" line="1091"/>
         <source>Select All</source>
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1100"/>
+        <location filename="../src/mainwindow.cpp" line="1093"/>
         <source>Select all text in the current session &lt;Ctrl+Shift+A&gt;</source>
         <translation>选择当前会话中的所有文本 &lt;Ctrl+Shift+A&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1102"/>
+        <location filename="../src/mainwindow.cpp" line="1095"/>
         <source>Find...</source>
         <translation>查找...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1104"/>
+        <location filename="../src/mainwindow.cpp" line="1097"/>
         <source>Find text in the current session &lt;Ctrl+F&gt;</source>
         <translation>在当前会话中查找文本 &lt;Ctrl+F&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1106"/>
+        <location filename="../src/mainwindow.cpp" line="1099"/>
         <source>Print Screen</source>
         <translation>打印屏幕</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1108"/>
+        <location filename="../src/mainwindow.cpp" line="1101"/>
         <source>Print current screen</source>
         <translation>打印当前屏幕</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1109"/>
+        <location filename="../src/mainwindow.cpp" line="1102"/>
         <source>Screen Shot</source>
         <translation>屏幕截图</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1111"/>
+        <location filename="../src/mainwindow.cpp" line="1104"/>
         <source>Screen shot current screen &lt;Alt+P&gt;</source>
         <translation>截屏当前屏幕 &lt;Alt+P&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1113"/>
+        <location filename="../src/mainwindow.cpp" line="1106"/>
         <source>Session Export</source>
         <translation>会话导出</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1115"/>
+        <location filename="../src/mainwindow.cpp" line="1108"/>
         <source>Export current session to a file &lt;Alt+O&gt;</source>
         <translation>导出当前会话到文件 &lt;Alt+O&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1117"/>
+        <location filename="../src/mainwindow.cpp" line="1110"/>
         <source>Clear Scrollback</source>
         <translation>清除滚动行</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1118"/>
+        <location filename="../src/mainwindow.cpp" line="1111"/>
         <source>Clear the contents of the scrollback rows</source>
         <translation>清除滚动行的内容</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1119"/>
+        <location filename="../src/mainwindow.cpp" line="1112"/>
         <source>Clear Screen</source>
         <translation>清除屏幕</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1120"/>
+        <location filename="../src/mainwindow.cpp" line="1113"/>
         <source>Clear the contents of the current screen</source>
         <translation>清除当前屏幕的内容</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1121"/>
+        <location filename="../src/mainwindow.cpp" line="1114"/>
         <source>Clear Screen and Scrollback</source>
         <translation>清除屏幕和滚动行</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1122"/>
+        <location filename="../src/mainwindow.cpp" line="1115"/>
         <source>Clear the contents of the screen and scrollback</source>
         <translation>清除屏幕和滚动行的内容</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1123"/>
+        <location filename="../src/mainwindow.cpp" line="1116"/>
         <source>Reset</source>
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1124"/>
+        <location filename="../src/mainwindow.cpp" line="1117"/>
         <source>Reset terminal emulator</source>
         <translation>重置终端仿真器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1126"/>
+        <location filename="../src/mainwindow.cpp" line="1119"/>
         <source>Zoom In</source>
         <translation>放大</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1128"/>
+        <location filename="../src/mainwindow.cpp" line="1121"/>
         <source>Zoom In &lt;Ctrl+&quot;=&quot;&gt;</source>
         <translation>放大 &lt;Ctrl+&quot;=&quot;&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1130"/>
+        <location filename="../src/mainwindow.cpp" line="1123"/>
         <source>Zoom Out</source>
         <translation>缩小</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1132"/>
+        <location filename="../src/mainwindow.cpp" line="1125"/>
         <source>Zoom Out &lt;Ctrl+&quot;-&quot;&gt;</source>
         <translation>缩小 &lt;Ctrl+&quot;-&quot;&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1134"/>
-        <location filename="../src/mainwindow.cpp" line="1136"/>
+        <location filename="../src/mainwindow.cpp" line="1127"/>
+        <location filename="../src/mainwindow.cpp" line="1129"/>
         <source>Zoom Reset</source>
         <translation>重置缩放</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1137"/>
+        <location filename="../src/mainwindow.cpp" line="1130"/>
         <source>Menu Bar</source>
         <translation>菜单栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1138"/>
+        <location filename="../src/mainwindow.cpp" line="1131"/>
         <source>Show/Hide Menu Bar &lt;Alt+U&gt;</source>
         <translation>显示/隐藏菜单栏 &lt;Alt+U&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1141"/>
+        <location filename="../src/mainwindow.cpp" line="1134"/>
         <source>Show/Hide Tool Bar</source>
         <translation>显示/隐藏工具栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1142"/>
+        <location filename="../src/mainwindow.cpp" line="1135"/>
         <source>Status Bar</source>
         <translation>状态栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1143"/>
+        <location filename="../src/mainwindow.cpp" line="1136"/>
         <source>Show/Hide Status Bar</source>
         <translation>显示/隐藏状态栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1144"/>
+        <location filename="../src/mainwindow.cpp" line="1137"/>
         <source>Command Window</source>
         <translation>命令窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1145"/>
+        <location filename="../src/mainwindow.cpp" line="1138"/>
         <source>Show/Hide Command Window</source>
         <translation>显示/隐藏命令窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1146"/>
+        <location filename="../src/mainwindow.cpp" line="1139"/>
         <source>Connect Bar</source>
         <translation>连接栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1147"/>
+        <location filename="../src/mainwindow.cpp" line="1140"/>
         <source>Show/Hide Connect Bar</source>
         <translation>显示/隐藏连接栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1148"/>
+        <location filename="../src/mainwindow.cpp" line="1141"/>
         <source>Side Window</source>
         <translation>侧边窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1149"/>
+        <location filename="../src/mainwindow.cpp" line="1142"/>
         <source>Show/Hide Side Window</source>
         <translation>显示/隐藏侧边窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1150"/>
+        <location filename="../src/mainwindow.cpp" line="1143"/>
         <source>Windows Transparency</source>
         <translation>窗口透明度</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1151"/>
+        <location filename="../src/mainwindow.cpp" line="1144"/>
         <source>Enable/Disable alpha transparency</source>
         <translation>启用/禁用透明度</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1152"/>
+        <location filename="../src/mainwindow.cpp" line="1145"/>
         <source>Vertical Scroll Bar</source>
         <translation>垂直滚动条</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1153"/>
+        <location filename="../src/mainwindow.cpp" line="1146"/>
         <source>Show/Hide Vertical Scroll Bar</source>
         <translation>显示/隐藏垂直滚动条</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1154"/>
+        <location filename="../src/mainwindow.cpp" line="1147"/>
         <source>Allways On Top</source>
         <translation>总在最前</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1155"/>
+        <location filename="../src/mainwindow.cpp" line="1148"/>
         <source>Show window always on top</source>
         <translation>总在最前显示窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1156"/>
+        <location filename="../src/mainwindow.cpp" line="1149"/>
         <source>Full Screen</source>
         <translation>全屏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1157"/>
+        <location filename="../src/mainwindow.cpp" line="1150"/>
         <source>Toggle between full screen and normal mode &lt;Alt+Enter&gt;</source>
         <translation>在全屏和正常模式之间切换 &lt;Alt+Enter&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1160"/>
+        <location filename="../src/mainwindow.cpp" line="1153"/>
         <source>Session Options...</source>
         <translation>会话选项...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1162"/>
+        <location filename="../src/mainwindow.cpp" line="1155"/>
         <source>Configure session options</source>
         <translation>配置会话选项</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1163"/>
+        <location filename="../src/mainwindow.cpp" line="1156"/>
         <source>Global Options...</source>
         <translation>全局选项...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1165"/>
+        <location filename="../src/mainwindow.cpp" line="1158"/>
         <source>Configure global options</source>
         <translation>配置全局选项</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1166"/>
+        <location filename="../src/mainwindow.cpp" line="1159"/>
         <source>Real-time Save Options</source>
         <translation>实时保存选项</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1167"/>
+        <location filename="../src/mainwindow.cpp" line="1160"/>
         <source>Real-time save session options and global options</source>
         <translation>实时保存会话选项和全局选项</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1168"/>
+        <location filename="../src/mainwindow.cpp" line="1161"/>
         <source>Save Settings Now</source>
         <translation>立即保存设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1169"/>
+        <location filename="../src/mainwindow.cpp" line="1162"/>
         <source>Save options configuration now</source>
         <translation>立即保存选项配置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1171"/>
+        <location filename="../src/mainwindow.cpp" line="1164"/>
         <source>Send ASCII...</source>
         <translation>发送 ASCII...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1172"/>
+        <location filename="../src/mainwindow.cpp" line="1165"/>
         <source>Send ASCII file</source>
         <translation>发送 ASCII 文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1173"/>
+        <location filename="../src/mainwindow.cpp" line="1166"/>
         <source>Receive ASCII...</source>
         <translation>接收 ASCII...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1174"/>
+        <location filename="../src/mainwindow.cpp" line="1167"/>
         <source>Receive ASCII file</source>
         <translation>接收 ASCII 文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1175"/>
+        <location filename="../src/mainwindow.cpp" line="1168"/>
         <source>Send Binary...</source>
         <translation>发送二进制...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1176"/>
+        <location filename="../src/mainwindow.cpp" line="1169"/>
         <source>Send Binary file</source>
         <translation>发送二进制文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1177"/>
+        <location filename="../src/mainwindow.cpp" line="1170"/>
+        <source>Send Kermit...</source>
+        <translation>发送 Kermit...</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1171"/>
+        <source>Send a file using Kermit</source>
+        <translation>使用 Kermit 发送文件</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1172"/>
+        <source>Receive Kermit...</source>
+        <translation>接收 Kermit...</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1173"/>
+        <source>Receive a file using Kermit</source>
+        <translation>使用 Kermit 接收文件</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1174"/>
         <source>Send Xmodem...</source>
         <translation>发送 Xmodem...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1178"/>
+        <location filename="../src/mainwindow.cpp" line="1175"/>
         <source>Send a file using Xmodem</source>
         <translation>使用 Xmodem 发送文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1179"/>
+        <location filename="../src/mainwindow.cpp" line="1176"/>
         <source>Receive Xmodem...</source>
         <translation>接收 Xmodem...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1180"/>
+        <location filename="../src/mainwindow.cpp" line="1177"/>
         <source>Receive a file using Xmodem</source>
         <translation>使用 Xmodem 接收文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1181"/>
+        <location filename="../src/mainwindow.cpp" line="1178"/>
         <source>Send Ymodem...</source>
         <translation>发送 Ymodem...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1182"/>
+        <location filename="../src/mainwindow.cpp" line="1179"/>
         <source>Send a file using Ymodem</source>
         <translation>使用 Ymodem 发送文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1183"/>
+        <location filename="../src/mainwindow.cpp" line="1180"/>
         <source>Receive Ymodem...</source>
         <translation>接收 Ymodem...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1184"/>
+        <location filename="../src/mainwindow.cpp" line="1181"/>
         <source>Receive a file using Ymodem</source>
         <translation>使用 Ymodem 接收文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1185"/>
+        <location filename="../src/mainwindow.cpp" line="1182"/>
         <source>Zmodem Upload List...</source>
         <translation>Zmodem 上传列表...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1186"/>
+        <location filename="../src/mainwindow.cpp" line="1183"/>
         <source>Display Zmodem file upload list</source>
         <translation>显示 Zmodem 文件上传列表</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1187"/>
+        <location filename="../src/mainwindow.cpp" line="1184"/>
         <source>Start Zmodem Upload</source>
         <translation>开始 Zmodem 上传</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1188"/>
+        <location filename="../src/mainwindow.cpp" line="1185"/>
         <source>Start Zmodem file upload</source>
         <translation>开始 Zmodem 文件上传</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1189"/>
+        <location filename="../src/mainwindow.cpp" line="1186"/>
         <source>Start TFTP Server</source>
         <translation>启动 TFTP 服务器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1190"/>
+        <location filename="../src/mainwindow.cpp" line="1187"/>
         <source>Start/Stop the TFTP server</source>
         <translation>启动/停止 TFTP 服务器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1192"/>
+        <location filename="../src/mainwindow.cpp" line="1189"/>
         <source>Run...</source>
         <translation>运行...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1193"/>
+        <location filename="../src/mainwindow.cpp" line="1190"/>
         <source>Run a script</source>
         <translation>运行脚本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1194"/>
+        <location filename="../src/mainwindow.cpp" line="1191"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1195"/>
+        <location filename="../src/mainwindow.cpp" line="1192"/>
         <source>Cancel script execution</source>
         <translation>取消脚本执行</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1196"/>
+        <location filename="../src/mainwindow.cpp" line="1193"/>
         <source>Start Recording Script</source>
         <translation>开始录制脚本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1197"/>
+        <location filename="../src/mainwindow.cpp" line="1194"/>
         <source>Start recording script</source>
         <translation>开始录制脚本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1198"/>
+        <location filename="../src/mainwindow.cpp" line="1195"/>
         <source>Stop Recording Script...</source>
         <translation>停止录制脚本...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1199"/>
+        <location filename="../src/mainwindow.cpp" line="1196"/>
         <source>Stop recording script</source>
         <translation>停止录制脚本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1200"/>
+        <location filename="../src/mainwindow.cpp" line="1197"/>
         <source>Cancel Recording Script</source>
         <translation>取消录制脚本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1201"/>
+        <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>Cancel recording script</source>
         <translation>取消录制脚本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1203"/>
+        <location filename="../src/mainwindow.cpp" line="1200"/>
         <source>Add Bookmark</source>
         <translation>添加书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1204"/>
+        <location filename="../src/mainwindow.cpp" line="1201"/>
         <source>Add a bookmark</source>
         <translation>添加书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1205"/>
-        <location filename="../src/mainwindow.cpp" line="2403"/>
+        <location filename="../src/mainwindow.cpp" line="1202"/>
+        <location filename="../src/mainwindow.cpp" line="2511"/>
         <source>Remove Bookmark</source>
         <translation>删除书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1206"/>
+        <location filename="../src/mainwindow.cpp" line="1203"/>
         <source>Remove a bookmark</source>
         <translation>删除书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1207"/>
-        <location filename="../src/mainwindow.cpp" line="2430"/>
+        <location filename="../src/mainwindow.cpp" line="1204"/>
+        <location filename="../src/mainwindow.cpp" line="2538"/>
         <source>Clean All Bookmark</source>
         <translation>清除所有书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1208"/>
+        <location filename="../src/mainwindow.cpp" line="1205"/>
         <source>Clean all bookmark</source>
         <translation>清除所有书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1210"/>
+        <location filename="../src/mainwindow.cpp" line="1207"/>
         <source>Keymap Manager</source>
         <translation>键盘映射管理器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1211"/>
+        <location filename="../src/mainwindow.cpp" line="1208"/>
         <source>Display keymap editor</source>
         <translation>显示键盘映射编辑器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1212"/>
+        <location filename="../src/mainwindow.cpp" line="1209"/>
         <source>Create Public Key...</source>
         <translation>创建公钥...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1213"/>
+        <location filename="../src/mainwindow.cpp" line="1210"/>
         <source>Create a public key</source>
         <translation>创建公钥</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1214"/>
+        <location filename="../src/mainwindow.cpp" line="1211"/>
         <source>Publickey Manager</source>
         <translation>公钥管理器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1215"/>
+        <location filename="../src/mainwindow.cpp" line="1212"/>
         <source>Display publickey manager</source>
         <translation>显示公钥管理器</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1230"/>
+        <location filename="../src/mainwindow.cpp" line="1227"/>
         <source>Portuguese (Brazil)</source>
         <translation>Português (Brasil)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1231"/>
+        <location filename="../src/mainwindow.cpp" line="1228"/>
         <source>Switch to Portuguese (Brazil)</source>
         <translation>Mudar para Português (Brasil)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1242"/>
+        <location filename="../src/mainwindow.cpp" line="1239"/>
         <source>German</source>
         <translation>Deutsch</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1243"/>
+        <location filename="../src/mainwindow.cpp" line="1240"/>
         <source>Switch to German</source>
         <translation>Wechseln Sie zu Deutsch</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1244"/>
+        <location filename="../src/mainwindow.cpp" line="1241"/>
         <source>Czech</source>
         <translation>čeština</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1245"/>
+        <location filename="../src/mainwindow.cpp" line="1242"/>
         <source>Switch to Czech</source>
         <translation>Přepnout do češtiny</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1246"/>
+        <location filename="../src/mainwindow.cpp" line="1243"/>
         <source>Arabic</source>
         <translation>عربي</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1247"/>
+        <location filename="../src/mainwindow.cpp" line="1244"/>
         <source>Switch to Arabic</source>
         <translation>التبديل إلى العربية</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1257"/>
-        <location filename="../src/mainwindow.cpp" line="3483"/>
+        <location filename="../src/mainwindow.cpp" line="1254"/>
+        <location filename="../src/mainwindow.cpp" line="3591"/>
         <source>Keyborad Shortcuts Reference</source>
         <translation>键盘快捷键参考</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1259"/>
+        <location filename="../src/mainwindow.cpp" line="1256"/>
         <source>Display keyborad shortcuts reference</source>
         <translation>显示键盘快捷键参考</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1270"/>
+        <location filename="../src/mainwindow.cpp" line="1267"/>
         <source>Laboratory</source>
         <translation>实验室</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1273"/>
-        <location filename="../src/mainwindow.cpp" line="2448"/>
+        <location filename="../src/mainwindow.cpp" line="1270"/>
+        <location filename="../src/mainwindow.cpp" line="2556"/>
         <source>SSH Scanning</source>
         <translation>SSH 扫描</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1274"/>
+        <location filename="../src/mainwindow.cpp" line="1271"/>
         <source>Display SSH scanning dialog</source>
         <translation>显示 SSH 扫描对话框</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1697"/>
+        <location filename="../src/mainwindow.cpp" line="1699"/>
         <source>Plugin metaData not found!</source>
         <translation>未找到插件元数据！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1703"/>
+        <location filename="../src/mainwindow.cpp" line="1705"/>
         <source>Plugin api version not found!</source>
         <translation>未找到插件 API 版本！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1709"/>
+        <location filename="../src/mainwindow.cpp" line="1711"/>
         <source>Plugin api version not match!</source>
         <translation>插件 API 版本不匹配！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1757"/>
+        <location filename="../src/mainwindow.cpp" line="1759"/>
         <source>Plugin init failed!</source>
         <translation>插件初始化失败！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3467"/>
+        <location filename="../src/mainwindow.cpp" line="2370"/>
+        <source>Select Files to Send as ASCII</source>
+        <translation>选择要发送的文件为 ASCII</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2370"/>
+        <location filename="../src/mainwindow.cpp" line="2391"/>
+        <source>Text Files (*.txt);;All Files (*)</source>
+        <translation>文本文件 (*.txt);;所有文件 (*)</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2391"/>
+        <source>Save Received Data as ASCII</source>
+        <translation>将接收的数据保存为 ASCII</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2399"/>
+        <source>Select Files to Send as BINARY</source>
+        <translation>选择要发送的文件为二进制</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2399"/>
+        <location filename="../src/mainwindow.cpp" line="2416"/>
+        <location filename="../src/mainwindow.cpp" line="2430"/>
+        <location filename="../src/mainwindow.cpp" line="2438"/>
+        <location filename="../src/mainwindow.cpp" line="2446"/>
+        <location filename="../src/mainwindow.cpp" line="2459"/>
+        <source>All Files (*)</source>
+        <translation>所有文件 (*)</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2416"/>
+        <source>Select Files to Send using Kermit</source>
+        <translation>选择要使用 Kermit 发送的文件</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2430"/>
+        <source>Select Files to Send using Xmodem</source>
+        <translation>选择要使用 Xmodem 发送的文件</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2438"/>
+        <source>Save Received Files using Xmodem</source>
+        <translation>使用 Xmodem 保存接收的文件</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2446"/>
+        <source>Select Files to Send using Ymodem</source>
+        <translation>选择要使用 Ymodem 发送的文件</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2459"/>
+        <source>Select Files to Send using Zmodem</source>
+        <translation>选择要使用 Zmodem 发送的文件</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="3575"/>
         <source>Version</source>
         <translation>版本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3469"/>
+        <location filename="../src/mainwindow.cpp" line="3577"/>
         <source>Commit</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3471"/>
+        <location filename="../src/mainwindow.cpp" line="3579"/>
         <source>Date</source>
         <translation>日期</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3473"/>
+        <location filename="../src/mainwindow.cpp" line="3581"/>
         <source>Author</source>
         <translation>作者</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3475"/>
+        <location filename="../src/mainwindow.cpp" line="3583"/>
         <source>Website</source>
         <translation>网站</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1217"/>
+        <location filename="../src/mainwindow.cpp" line="1214"/>
         <source>Tab</source>
         <translation>标签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1218"/>
+        <location filename="../src/mainwindow.cpp" line="1215"/>
         <source>Arrange sessions in tabs</source>
         <translation>在标签中排列会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1219"/>
+        <location filename="../src/mainwindow.cpp" line="1216"/>
         <source>Tile</source>
         <translation>平铺</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1220"/>
+        <location filename="../src/mainwindow.cpp" line="1217"/>
         <source>Arrange sessions in non-overlapping tiles</source>
         <translation>在不重叠的平铺中排列会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <location filename="../src/mainwindow.cpp" line="1218"/>
         <source>Cascade</source>
         <translation>层叠</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1222"/>
+        <location filename="../src/mainwindow.cpp" line="1219"/>
         <source>Arrange sessions to overlap each other</source>
         <translation>排列会话以彼此重叠</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1224"/>
+        <location filename="../src/mainwindow.cpp" line="1221"/>
         <source>Simplified Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1225"/>
+        <location filename="../src/mainwindow.cpp" line="1222"/>
         <source>Switch to Simplified Chinese</source>
         <translation>切换到简体中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1226"/>
+        <location filename="../src/mainwindow.cpp" line="1223"/>
         <source>Traditional Chinese</source>
         <translation>繁體中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1227"/>
+        <location filename="../src/mainwindow.cpp" line="1224"/>
         <source>Switch to Traditional Chinese</source>
         <translation>切換到繁體中文</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1228"/>
+        <location filename="../src/mainwindow.cpp" line="1225"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1229"/>
+        <location filename="../src/mainwindow.cpp" line="1226"/>
         <source>Switch to Russian</source>
         <translation>Переключиться на русский</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1232"/>
+        <location filename="../src/mainwindow.cpp" line="1229"/>
         <source>Korean</source>
         <translation>한국어</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1233"/>
+        <location filename="../src/mainwindow.cpp" line="1230"/>
         <source>Switch to Korean</source>
         <translation>한국어로 전환</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1234"/>
+        <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Japanese</source>
         <translation>日本語</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1235"/>
+        <location filename="../src/mainwindow.cpp" line="1232"/>
         <source>Switch to Japanese</source>
         <translation>日本語に切り替える</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1236"/>
+        <location filename="../src/mainwindow.cpp" line="1233"/>
         <source>French</source>
         <translation>français</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1237"/>
+        <location filename="../src/mainwindow.cpp" line="1234"/>
         <source>Switch to French</source>
         <translation>Passer au français</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1238"/>
+        <location filename="../src/mainwindow.cpp" line="1235"/>
         <source>Spanish</source>
         <translation>español</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1239"/>
+        <location filename="../src/mainwindow.cpp" line="1236"/>
         <source>Switch to Spanish</source>
         <translation>Cambiar a español</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1240"/>
+        <location filename="../src/mainwindow.cpp" line="1237"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1241"/>
+        <location filename="../src/mainwindow.cpp" line="1238"/>
         <source>Switch to English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1249"/>
+        <location filename="../src/mainwindow.cpp" line="1246"/>
         <source>Light</source>
         <translation>明亮</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1250"/>
+        <location filename="../src/mainwindow.cpp" line="1247"/>
         <source>Switch to light theme</source>
         <translation>切换到明亮主题</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1251"/>
+        <location filename="../src/mainwindow.cpp" line="1248"/>
         <source>Dark</source>
         <translation>暗黑</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1252"/>
+        <location filename="../src/mainwindow.cpp" line="1249"/>
         <source>Switch to dark theme</source>
         <translation>切换到暗黑主题</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1256"/>
+        <location filename="../src/mainwindow.cpp" line="1253"/>
         <source>Display help</source>
         <translation>显示帮助</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1260"/>
+        <location filename="../src/mainwindow.cpp" line="1257"/>
         <source>Check Update</source>
         <translation>检查更新</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1262"/>
+        <location filename="../src/mainwindow.cpp" line="1259"/>
         <source>Check for updates</source>
         <translation>检查更新</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1263"/>
-        <location filename="../src/mainwindow.cpp" line="3465"/>
+        <location filename="../src/mainwindow.cpp" line="1260"/>
+        <location filename="../src/mainwindow.cpp" line="3573"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1265"/>
+        <location filename="../src/mainwindow.cpp" line="1262"/>
         <source>Display about dialog</source>
         <translation>显示关于对话框</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1266"/>
+        <location filename="../src/mainwindow.cpp" line="1263"/>
         <source>About Qt</source>
         <translation>关于 Qt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1268"/>
+        <location filename="../src/mainwindow.cpp" line="1265"/>
         <source>Display about Qt dialog</source>
         <translation>显示关于 Qt 对话框</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1275"/>
+        <location filename="../src/mainwindow.cpp" line="1272"/>
         <source>Plugin Info</source>
         <translation>插件信息</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1276"/>
+        <location filename="../src/mainwindow.cpp" line="1273"/>
         <source>Display plugin information dialog</source>
         <translation>显示插件信息窗口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2187"/>
+        <location filename="../src/mainwindow.cpp" line="2190"/>
         <source>PrintScreen saved to %1</source>
         <translation>打印屏幕保存到 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2199"/>
+        <location filename="../src/mainwindow.cpp" line="2202"/>
         <source>Save Screenshot</source>
         <translation>保存屏幕截图</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2199"/>
+        <location filename="../src/mainwindow.cpp" line="2202"/>
         <source>Image Files (*.jpg)</source>
         <translation>图像文件 (*.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2204"/>
+        <location filename="../src/mainwindow.cpp" line="2207"/>
         <source>Screenshot saved to %1</source>
         <translation>屏幕截图保存到 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2215"/>
+        <location filename="../src/mainwindow.cpp" line="2218"/>
         <source>Save Session Export</source>
         <translation>保存会话导出</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2215"/>
+        <location filename="../src/mainwindow.cpp" line="2218"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation>文本文件 (*.txt);;HTML 文件 (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2218"/>
+        <location filename="../src/mainwindow.cpp" line="2221"/>
         <source>Text Files (*.txt)</source>
         <translation>文本文件 (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2221"/>
+        <location filename="../src/mainwindow.cpp" line="2224"/>
         <source>HTML Files (*.html)</source>
         <translation>HTML 文件 (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2230"/>
+        <location filename="../src/mainwindow.cpp" line="2233"/>
         <source>Session Export saved to %1</source>
         <translation>会话导出保存到 %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2232"/>
+        <location filename="../src/mainwindow.cpp" line="2235"/>
         <source>Session Export failed to save to %1</source>
         <translation>会话导出保存到 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2376"/>
+        <location filename="../src/mainwindow.cpp" line="2484"/>
         <source>Select a directory</source>
         <translation>选择一个目录</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2403"/>
+        <location filename="../src/mainwindow.cpp" line="2511"/>
         <source>Select a bookmark</source>
         <translation>选择一个书签</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2430"/>
+        <location filename="../src/mainwindow.cpp" line="2538"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>您确定要清除所有书签吗？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2448"/>
+        <location filename="../src/mainwindow.cpp" line="2556"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2620"/>
+        <location filename="../src/mainwindow.cpp" line="2728"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>视频背景已启用，请在全局选项中启用动画（更多系统资源）或更改背景图像。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2815"/>
+        <location filename="../src/mainwindow.cpp" line="2923"/>
         <source>Session information get failed.</source>
         <translation>会话信息获取失败。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2898"/>
+        <location filename="../src/mainwindow.cpp" line="3006"/>
         <source>Telnet - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2899"/>
+        <location filename="../src/mainwindow.cpp" line="3007"/>
         <source>Telnet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2931"/>
+        <location filename="../src/mainwindow.cpp" line="3039"/>
         <source>Serial - </source>
         <translation>串行通讯 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2932"/>
+        <location filename="../src/mainwindow.cpp" line="3040"/>
         <source>Serial</source>
         <translation>串行通讯</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2963"/>
+        <location filename="../src/mainwindow.cpp" line="3071"/>
         <source>Raw - </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2964"/>
+        <location filename="../src/mainwindow.cpp" line="3072"/>
         <source>Raw</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2995"/>
+        <location filename="../src/mainwindow.cpp" line="3103"/>
         <source>NamePipe - </source>
         <translation>命名管道 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2996"/>
+        <location filename="../src/mainwindow.cpp" line="3104"/>
         <source>NamePipe</source>
         <translation>命名管道</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3064"/>
-        <location filename="../src/mainwindow.cpp" line="3068"/>
+        <location filename="../src/mainwindow.cpp" line="3172"/>
+        <location filename="../src/mainwindow.cpp" line="3176"/>
         <source>Local Shell</source>
         <translation>本机终端</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3066"/>
+        <location filename="../src/mainwindow.cpp" line="3174"/>
         <source>Local Shell - </source>
         <translation>本机终端 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3183"/>
+        <location filename="../src/mainwindow.cpp" line="3291"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>确定要断开此会话吗？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3485"/>
+        <location filename="../src/mainwindow.cpp" line="3593"/>
         <source>Global Shortcuts:</source>
         <translation>全局快捷键：</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3486"/>
+        <location filename="../src/mainwindow.cpp" line="3594"/>
         <source>show/hide menu bar</source>
         <translation>显示/隐藏菜单栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3487"/>
+        <location filename="../src/mainwindow.cpp" line="3595"/>
         <source>connect to LocalShell</source>
         <translation>连接到本机终端</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3488"/>
+        <location filename="../src/mainwindow.cpp" line="3596"/>
         <source>clone current session</source>
         <translation>克隆当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3489"/>
+        <location filename="../src/mainwindow.cpp" line="3597"/>
         <source>switch ui to STD mode</source>
         <translation>切换 UI 到标准模式</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3490"/>
+        <location filename="../src/mainwindow.cpp" line="3598"/>
         <source>switch ui to MINI mode</source>
         <translation>切换 UI 到迷你模式</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3491"/>
+        <location filename="../src/mainwindow.cpp" line="3599"/>
         <source>switch to previous session</source>
         <translation>切换到上一个会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3492"/>
+        <location filename="../src/mainwindow.cpp" line="3600"/>
         <source>switch to next session</source>
         <translation>切换到下一个会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3493"/>
+        <location filename="../src/mainwindow.cpp" line="3601"/>
         <source>switch to session [num]</source>
         <translation>切换到会话 [num]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3494"/>
+        <location filename="../src/mainwindow.cpp" line="3602"/>
         <source>Go to line start</source>
         <translation>跳转到行首</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3495"/>
+        <location filename="../src/mainwindow.cpp" line="3603"/>
         <source>Go to line end</source>
         <translation>跳转到行尾</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3519"/>
+        <location filename="../src/mainwindow.cpp" line="3627"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>有会话尚未解锁，请先解锁。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3524"/>
+        <location filename="../src/mainwindow.cpp" line="3632"/>
         <source>Are you sure to quit?</source>
         <translation>确定要退出吗？</translation>
     </message>
@@ -1520,6 +1596,19 @@
         <location filename="../src/sessiontab/sessiontab.cpp" line="69"/>
         <source>No session</source>
         <translation>无会话</translation>
+    </message>
+</context>
+<context>
+    <name>FileDialog</name>
+    <message>
+        <location filename="../src/util/filedialog.cpp" line="51"/>
+        <source>Remove</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <location filename="../src/util/filedialog.cpp" line="60"/>
+        <source>Files to send:</source>
+        <translation>要发送的文件：</translation>
     </message>
 </context>
 <context>
@@ -3033,126 +3122,132 @@
 <context>
     <name>SessionsWindow</name>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="142"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="160"/>
         <source>Telnet Error</source>
         <translation>TELNET 错误</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="142"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="160"/>
         <source>Telnet error:
 %1.</source>
         <translation>TELNET 错误:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="169"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="202"/>
         <source>Serial Error</source>
         <translation>串行通讯错误</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="169"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="202"/>
         <source>Serial error:
 %1.</source>
         <translation>串行通讯错误:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="204"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="252"/>
         <source>Raw Socket Error</source>
         <translation>原始套接字错误</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="204"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="252"/>
         <source>Raw Socket error:
 %1.</source>
         <translation>原始套接字错误:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="235"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="298"/>
         <source>Name Pipe Error</source>
         <translation>命名管道错误</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="235"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="298"/>
         <source>Name Pipe error:
 %1.</source>
         <translation>命名管道错误:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="247"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="276"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="310"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="352"/>
         <source>SSH2 Error</source>
         <translation>SSH2 错误</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="247"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="276"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="310"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="352"/>
         <source>SSH2 error:
 %1.</source>
         <translation>SSH2 错误:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="446"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="523"/>
         <source>Start Local Shell</source>
         <translation>启动本机终端</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="446"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="523"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>无法启动本机终端:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="585"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="675"/>
         <source>Save log...</source>
         <translation>保存日志...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="586"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="676"/>
         <source>log files (*.log)</source>
         <translation>日志文件 (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="590"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="680"/>
         <source>Save log</source>
         <translation>保存日志</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="590"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="625"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="680"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="715"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="811"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>无法写入文件 %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="620"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
         <source>Save Raw log...</source>
         <translation>保存原始日志...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="621"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="711"/>
         <source>binary files (*.bin)</source>
         <translation>二进制文件 (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="625"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="715"/>
         <source>Save Raw log</source>
         <translation>保存原始日志</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="697"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="787"/>
         <source>Unlock Session</source>
         <translation>解锁会话</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="697"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="787"/>
         <source>Wrong password!</source>
         <translation>密码错误！</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="811"/>
+        <source>Receive ASCII File</source>
+        <translation>接收 ASCII 文件</translation>
     </message>
 </context>
 <context>

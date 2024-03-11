@@ -28,6 +28,9 @@
 #include <QUrl>
 #include <QCryptographicHash>
 
+#include "qsendkermit.h"
+#include "qrecvkermit.h"
+#include "qxymodem.h"
 #include "qsendzmodem.h"
 #include "qrecvzmodem.h"
 #include "sshshell.h"
@@ -838,6 +841,127 @@ void SessionsWindow::reverseProxySendData(QByteArray data) {
     }
 }
 
+void SessionsWindow::sendFileUseKermit(QStringList fileList) {
+    if(term) {
+        QSendKermit *sk = new QSendKermit(10,this); //10s timeout
+        connect(sk,&QSendKermit::sendData,this,&SessionsWindow::modemProxySendData);
+        connect(this,&SessionsWindow::modemProxyRecvData,sk,&QSendKermit::onRecvData);
+        sk->setFilePathList(fileList);
+        connect(sk,&QSendKermit::finished,this,[=]{
+            QMutexLocker locker(&modemProxyChannelMutex);
+            modemProxyChannel = false;
+            stopModemProxy = false;
+            sk->deleteLater();
+        });
+        QMutexLocker locker(&modemProxyChannelMutex);
+        stopModemProxy = false;
+        modemProxyChannel = true;
+        QByteArray test("\r\nStarting Kermit transfer...\r\n");
+        proxyRecvData(test);
+        sk->start();
+    }
+}
+
+void SessionsWindow::recvFileUseKermit(void) {
+    if(term) {
+        QRecvKermit *rk = new QRecvKermit(10,this); //10s timeout
+        connect(rk,&QRecvKermit::sendData,this,&SessionsWindow::modemProxySendData);
+        connect(this,&SessionsWindow::modemProxyRecvData,rk,&QRecvKermit::onRecvData);
+        connect(rk,&QRecvKermit::finished,this,[=]{
+            QMutexLocker locker(&modemProxyChannelMutex);
+            modemProxyChannel = false;
+            stopModemProxy = false;
+            rk->deleteLater();
+        });
+        QMutexLocker locker(&modemProxyChannelMutex);
+        stopModemProxy = false;
+        modemProxyChannel = true;
+        QByteArray test("\r\nStarting Kermit transfer...\r\n");
+        proxyRecvData(test);
+        rk->start();
+    }
+}
+
+void SessionsWindow::sendFileUseXModem(QString file) {
+    if(term) {
+        QXmodemFile *xs = new QXmodemFile(file,this);
+        connect(xs,&QXmodemFile::send,this,&SessionsWindow::modemProxySendData);
+        connect(this,&SessionsWindow::modemProxyRecvData,xs,&QXmodemFile::receive);
+        connect(xs,&QRecvKermit::finished,this,[=]{
+            QMutexLocker locker(&modemProxyChannelMutex);
+            modemProxyChannel = false;
+            stopModemProxy = false;
+            xs->deleteLater();
+        });
+        QMutexLocker locker(&modemProxyChannelMutex);
+        stopModemProxy = false;
+        modemProxyChannel = true;
+        QByteArray test("\r\nStarting XModem transfer...\r\n");
+        proxyRecvData(test);
+        xs->startSend();
+    }
+}
+
+void SessionsWindow::recvFileUseXModem(QString file) {
+    if(term) {
+        QXmodemFile *xr = new QXmodemFile(file,this);
+        connect(xr,&QXmodemFile::send,this,&SessionsWindow::modemProxySendData);
+        connect(this,&SessionsWindow::modemProxyRecvData,xr,&QXmodemFile::receive);
+        connect(xr,&QRecvKermit::finished,this,[=]{
+            QMutexLocker locker(&modemProxyChannelMutex);
+            modemProxyChannel = false;
+            stopModemProxy = false;
+            xr->deleteLater();
+        });
+        QMutexLocker locker(&modemProxyChannelMutex);
+        stopModemProxy = false;
+        modemProxyChannel = true;
+        QByteArray test("\r\nStarting XModem transfer...\r\n");
+        proxyRecvData(test);
+        xr->startRecv();
+    }
+}
+
+void SessionsWindow::sendFileUseYModem(QStringList fileList) {
+    if(term) {
+        QYmodemFile *ys = new QYmodemFile(fileList,this);
+        connect(ys,&QYmodemFile::send,this,&SessionsWindow::modemProxySendData);
+        connect(this,&SessionsWindow::modemProxyRecvData,ys,&QYmodemFile::receive);
+        connect(ys,&QRecvKermit::finished,this,[=]{
+            QMutexLocker locker(&modemProxyChannelMutex);
+            modemProxyChannel = false;
+            stopModemProxy = false;
+            ys->deleteLater();
+        });
+        QMutexLocker locker(&modemProxyChannelMutex);
+        stopModemProxy = false;
+        modemProxyChannel = true;
+        QByteArray test("\r\nStarting YModem transfer...\r\n");
+        proxyRecvData(test);
+        ys->startSend();
+    }
+}
+
+void SessionsWindow::recvFileUseYModem(void) {
+    if(term) {
+        QYmodemFile *yr = new QYmodemFile(QDir::homePath(),this);
+        connect(yr,&QYmodemFile::send,this,&SessionsWindow::modemProxySendData);
+        connect(this,&SessionsWindow::modemProxyRecvData,yr,&QYmodemFile::receive);
+        connect(yr,&QRecvKermit::finished,this,[=]{
+            QMutexLocker locker(&modemProxyChannelMutex);
+            modemProxyChannel = false;
+            stopModemProxy = false;
+            yr->deleteLater();
+        });
+        QMutexLocker locker(&modemProxyChannelMutex);
+        stopModemProxy = false;
+        modemProxyChannel = true;
+        QByteArray test("\r\nStarting YModem transfer...\r\n");
+        proxyRecvData(test);
+        yr->startRecv();
+    }
+}
+
 void SessionsWindow::sendFileUseZModem(QStringList fileList) {
     if(term) {
         QSendZmodem *sz = new QSendZmodem(10,this); //10s timeout
@@ -882,7 +1006,7 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
             proxyRecvData(data);
             Q_UNUSED(fname);
         },Qt::BlockingQueuedConnection);
-        connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+        connect(term, &QTermWidget::sendData, sz, [=](const char *data, int size){
             if(modemProxyChannel) {
                 QByteArray s = QByteArray(data, size);
                 if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c

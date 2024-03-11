@@ -194,6 +194,50 @@ Menu bar includes File, Edit, View, Options, Transfer, Script, Bookmark, Tools, 
 
 ### Transfer
 
+- Send ASCII...
+
+    Send ASCII text to the session.
+
+- Receive ASCII...
+
+    Receive ASCII text from the session.
+
+- Send Binary...
+
+    Send binary data to the session.
+
+- Send Kermit...
+
+    Send files using the Kermit protocol.
+
+- Receive Kermit...
+
+    Receive files using the Kermit protocol.
+
+- Send Xmodem...
+
+    Send a file using the Xmodem protocol.
+
+- Receive Xmodem...
+
+    Receive a file using the Xmodem protocol.
+
+- Send Ymodem...
+
+    Send files using the Ymodem protocol.
+
+- Receive Ymodem...
+
+    Receive files using the Ymodem protocol.
+
+- Zmodem Upload List...
+
+    Pop up the Zmodem upload list window.
+
+- Start Zmodem Upload
+
+    Start Zmodem upload.
+
 - Start TFTP Server
 
     Pop up the TFTP server settings window and start the TFTP server.

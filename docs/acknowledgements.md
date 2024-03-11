@@ -23,4 +23,5 @@ The code of this project references or partially refers to or depends on the fol
 - [qvncclient](https://bitbucket.org/amahta/qvncclient)
 - [qhexedit](https://github.com/Simsys/qhexedit2)
 - [QGoodWindow](https://github.com/antonypro/QGoodWindow)
+- [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
