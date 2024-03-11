@@ -165,3 +165,4 @@ quardCRT はバージョン V0.4.0 からプラグインをサポートします
 - [QGoodWindow](https://github.com/antonypro/QGoodWindow)
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
+- [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)

@@ -166,3 +166,4 @@ The code of this project references or partially refers to or depends on the fol
 - [QGoodWindow](https://github.com/antonypro/QGoodWindow)
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
+- [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)

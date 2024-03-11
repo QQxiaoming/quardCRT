@@ -165,3 +165,4 @@ quardCRT將從V0.4.0版本開始支持Plugin，以Qt Plug-in的形式提供，�
 - [QGoodWindow](https://github.com/antonypro/QGoodWindow)
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
+- [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)

@@ -4,13 +4,13 @@
 
 en-US:
 
-- Add ascii send/receive, zmodem send/receive function
+- Add ascii send/receive, Kermit send/receive, xyzmodem send/receive functions
 - Fix the problem that the status indicated by the start tftp menu item may be incorrect
 - Fix the problem that the program crashes when the terminal displays Unicode characters beyond the first plane
 
 zh-CN:
 
-- 增加ascii发送/接收、zmodem发送/接收功能
+- 增加ascii发送/接收、Kermit发送/接收、xyzmodem发送/接收功能
 - 修复启动tftp菜单项指示的状态可能出现错误问题
 - 修复终端显示超过第一平面的Unicode字符时程序崩溃的问题
 

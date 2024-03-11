@@ -36,7 +36,9 @@ class SFDFileDialog : public QFileDialog
 public:
     explicit SFDFileDialog(QWidget *parent = nullptr, const QString &caption = QString(),
                             const QString &dir = QString(), const QString &filter = QString())
-        : QFileDialog(parent, caption, dir, filter) { }
+        : QFileDialog(parent, caption, dir, filter) { 
+            setOption(QFileDialog::DontUseNativeDialog, true);
+        }
 
 signals:
     void acceptFile(const QString &file);
