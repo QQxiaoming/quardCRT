@@ -1178,6 +1178,7 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
                 QByteArray s = QByteArray(data, size);
                 if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
                     stopModemProxy = true;
+                    sz->requestStop();
                 }
             }
         });

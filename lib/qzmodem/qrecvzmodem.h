@@ -30,8 +30,19 @@ class QRecvZmodem : public QThread {
 
 public:
   explicit QRecvZmodem(int32_t timeout = -1, QObject *parent = nullptr);
+  ~QRecvZmodem(){
+    requestStop();
+    wait();
+  };
   void setFileDirPath(const QString &path) {
     m_fileDirPath = path;
+  }
+  void requestStop(void) {
+      m_abort = true;
+      zm->requestStop();
+  }
+  bool getStopFlag(void) {
+      return m_abort;
   }
 
 signals:
@@ -140,6 +151,8 @@ private:
                           * running under a restricted
                           * environment. When true, files save
                           * as 'rw' not 'rwx' */
+
+  bool m_abort = false;
 };
 
 #endif // QRECVZMODEM_H

@@ -34,7 +34,18 @@ class QSendZmodem : public QThread {
 
 public:
   explicit QSendZmodem(int32_t timeout = -1, QObject *parent = nullptr);
+  ~QSendZmodem(){
+    requestStop();
+    wait();
+  };
   void setFilePath(QStringList filePathList, QStringList remotePathList);
+  void requestStop(void) {
+      m_abort = true;
+      zm->requestStop();
+  }
+  bool getStopFlag(void) {
+      return m_abort;
+  }
 
 signals:
   void transferring(QString filename);
@@ -125,6 +136,7 @@ private:
   long min_bps;
   long min_bps_time;
   int hyperterm;
+  bool m_abort = false;
 };
 
 #endif // QSENDZMODEM_H

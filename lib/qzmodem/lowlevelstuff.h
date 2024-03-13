@@ -44,7 +44,16 @@ class LowLevelStuff : public QObject {
 public:
   explicit LowLevelStuff(int no_timeout, int rxtimeout, int znulls, int eflag, int baudrate,
                          int zctlesc, int zrwindow, QObject *parent = nullptr);
-
+  ~LowLevelStuff(){
+    requestStop();
+  };
+  void requestStop(void) {
+      m_abort = true;
+      condition.wakeOne();
+  }
+  bool getStopFlag(void) {
+      return m_abort;
+  }
   int zm_get_zctlesc(void);
   void zm_set_zctlesc(int zctlesc);
   void zm_escape_sequence_update(void);
@@ -75,6 +84,9 @@ public:
   int zreadline_getc(int timeout) {
     uint8_t c;
     bool ok = false;
+    if(getStopFlag()) {
+      return -2;
+    }
     mutex.lock();
     size_t size = dataRecv.size();
     if(size >= 1) {
@@ -83,6 +95,10 @@ public:
       if(no_timeout) {
       retry:
         condition.wait(&mutex);
+        if(getStopFlag()) {
+          mutex.unlock();
+          return -2;
+        }
         size = dataRecv.size();
         if(size < 1) {
           goto retry;
@@ -91,6 +107,10 @@ public:
         QDeadlineTimer timer(timeout*100);
         do {
           condition.wait(&mutex, timer.remainingTime());
+          if(getStopFlag()) {
+            mutex.unlock();
+            return -2;
+          }
           size = dataRecv.size();
           if(size >= 1) {
             ok = true;
@@ -105,7 +125,7 @@ public:
       return c;
     }
     mutex.unlock();
-    return -1;
+    return -2;
   }
   void zreadline_flushline(void) {
     emit flushRecv();
@@ -194,6 +214,7 @@ public:
   int crc32;      /* State: display flag indicating 32 bit CRC being received */
   int rxframeind; /* State: ZBIN, ZBIN32, or ZHEX type of frame received */
   int zmodem_requested;
+  bool m_abort = false;
 };
 
 #endif // LOWLEVELSTUFF_H
