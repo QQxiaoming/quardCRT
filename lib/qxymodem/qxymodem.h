@@ -15,7 +15,10 @@ class QXYmodem: public QThread {
 public:
     explicit QXYmodem(int type, unsigned short sendPktSize = 128, int timeout = 1000, int retry_limit = 16, bool no_timeout = true,QObject *parent = nullptr):
         QThread(parent),m_type(type),m_sendPktSize(sendPktSize),m_timeout(timeout),m_retry_limit(retry_limit),m_no_timeout(no_timeout) {};
-    ~QXYmodem(){};
+    ~QXYmodem(){
+        requestStop();
+        wait();
+    };
 
     enum {
         SEND,
@@ -39,6 +42,7 @@ public:
 
     /* error return codes */
     enum {
+        XMODEM_ABORT = 2,
         XMODEM_END = 1,
         XMODEM_OK = 0,
         XMODEM_ERROR_REMOTECANCEL = -1,
@@ -56,6 +60,14 @@ public:
         start();
     }
 
+    void requestStop(void) {
+        m_abort = true;
+    }
+
+    bool getStopFlag(void) {
+        return m_abort;
+    }
+
 protected:
     void run() {
         _start();
@@ -71,12 +83,14 @@ protected:
                 do {
                     ret = ymodemTransmit(m_sendPktSize);
                     transferOnce();
+                    if(getStopFlag()) break;
                 } while(ret == 0);
             } else {
                 int ret = 0;
                 do {
                     ret = ymodemReceive();
                     transferOnce();
+                    if(getStopFlag()) break;
                 } while(ret == 0);
             }
         }
@@ -127,6 +141,7 @@ private:
     int m_timeout = 1000;
     int m_retry_limit = 16;
     bool m_no_timeout = true;
+    bool m_abort = false;
 };
 
 class QXmodemFile: public QXYmodem {
@@ -158,6 +173,9 @@ public:
     }
     
 signals:
+    void transferring(QString filename);
+    void tick(long bytes_sent, long bytes_total, bool *ret);
+    void complete(QString filename, int result, size_t size);
     void send(QByteArray ba);
 
 public slots:
@@ -170,18 +188,31 @@ public slots:
 private:
     void _start(void) {
         m_file->open(QIODevice::ReadWrite);
+        QFileInfo info(m_file->fileName());
+        emit transferring(info.fileName());
     }
 
     void _end(void) {
+        QFileInfo info(m_file->fileName());
+        emit complete(info.fileName(),getStopFlag()?-1:0,m_file->size());
         m_file->close();
     }
 
     int writefile(const char* buffer, int size) {
-        return m_file->write(buffer,size);
+        bool ret = true;
+        emit tick(m_file->pos(),-1,&ret);
+        if(ret)
+            return m_file->write(buffer,size);
+        else
+            return -1;
     }
     int readfile(char* buffer, int size) {
-        int r = m_file->read(buffer,size);
-        return r;
+        bool ret = true;
+        emit tick(m_file->pos(),m_file->size(),&ret);
+        if(ret)
+            return m_file->read(buffer,size);
+        else
+            return -1;
     }
     int flushfile(void)
     {
@@ -255,6 +286,9 @@ public:
     
 signals:
     void send(QByteArray ba);
+    void transferring(QString filename);
+    void tick(long bytes_sent, long bytes_total, bool *ret);
+    void complete(QString filename,int result, size_t size);
 
 public slots:
     void receive(QByteArray ba) {
@@ -274,14 +308,26 @@ private:
         if(m_currentSize+size > m_fileSize) {
             size = m_fileSize - m_currentSize;
         }
-        int w = m_file->write(buffer,size);
-        m_currentSize += w;
-        return w;
+        bool ret = true;
+        emit tick(m_currentSize,m_fileSize,&ret);
+        if(ret) {
+            int w = m_file->write(buffer,size);
+            m_currentSize += w;
+            return w;
+        } else {
+            return -1;
+        }
     }
     int readfile(char* buffer, int size) {
-        int r = m_file->read(buffer,size);
-        m_currentSize += r;
-        return r;
+        bool ret = true;
+        emit tick(m_currentSize,m_fileSize,&ret);
+        if(ret) {
+            int r = m_file->read(buffer,size);
+            m_currentSize += r;
+            return r;
+        } else {
+            return -1;
+        }
     }
     int flushfile(void)
     {
@@ -302,6 +348,7 @@ private:
             m_fileSize  = fileInfo.size();
             m_currentSize = 0;
             m_fileIndex++;
+            emit transferring(fileInfo.fileName());
             return size;
         } else {
             return 0;
@@ -329,6 +376,7 @@ private:
 
             m_file = new QFile(m_filePathDir + QDir::separator() + fileName);
             m_file->open(QIODevice::ReadWrite);
+            emit transferring(fileName);
             return s;
         } else {
             return 0;
@@ -337,6 +385,7 @@ private:
     int transferOnce(void) {
         if(m_file){
             if(m_file->isOpen()) {
+                emit complete(m_file->fileName(), getStopFlag()?-1:0, m_file->size());
                 m_file->close();
                 delete m_file;
                 m_file = nullptr;

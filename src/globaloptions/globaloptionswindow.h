@@ -26,6 +26,7 @@
 #include "globaloptionsappearancewidget.h"
 #include "globaloptionsterminalwidget.h"
 #include "globaloptionswindowwidget.h"
+#include "globaloptionstransferwidget.h"
 #include "globaloptionsadvancedwidget.h"
 
 namespace Ui {
@@ -60,6 +61,10 @@ public:
     QString getWordCharacters(void);
     int getTranslateService(void);
     int getNewTabMode(void);
+    QString getModemDownloadPath(void);
+    QString getModemUploadPath(void);
+    bool getDisableZmodemOnline(void);
+    bool getXYModem1K(void);
 
     const static QString defaultColorScheme;
 
@@ -84,6 +89,7 @@ private:
     GlobalOptionsAppearanceWidget *globalOptionsAppearanceWidget;
     GlobalOptionsTerminalWidget *globalOptionsTerminalWidget;
     GlobalOptionsWindowWidget *globalOptionsWindowWidget;
+    GlobalOptionsTransferWidget *globalOptionsTransferWidget;
     GlobalOptionsAdvancedWidget *globalOptionsAdvancedWidget;
     QStringListModel *model;
     QFont font;

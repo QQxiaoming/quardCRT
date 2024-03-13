@@ -91,7 +91,7 @@ Protocol selection interface:
 
 ## Planned features
 
-- [ ] Support xyzmodem protocol
+- [x] Support xyzmodem protocol
 - [ ] Support operation script recording/loading
 - [ ] Support screen recording
 - [ ] session status query

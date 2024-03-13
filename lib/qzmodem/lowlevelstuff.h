@@ -89,11 +89,13 @@ public:
         }
       } else {
         QDeadlineTimer timer(timeout*100);
-        condition.wait(&mutex, timer);
-        size = dataRecv.size();
-        if(size >= 1) {
-          ok = true;
-        }
+        do {
+          condition.wait(&mutex, timer.remainingTime());
+          size = dataRecv.size();
+          if(size >= 1) {
+            ok = true;
+          }
+        } while(size < 1 && timer.remainingTime() > 0);
       }
     }
     if(ok) {

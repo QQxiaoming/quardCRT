@@ -37,7 +37,26 @@ FileDialog::FileDialog(QWidget *parent, const QString &caption,
     m_fileDialog = new SFDFileDialog(this, caption, dir, filter);
     m_fileDialog->setWindowFlags(Qt::Widget);
     m_fileDialog->setSizeGripEnabled(false);
-    m_fileDialog->findChild<QDialogButtonBox*>("buttonBox")->hide();
+    QDialogButtonBox* oldbox = m_fileDialog->findChild<QDialogButtonBox*>("buttonBox");
+    QDialogButtonBox* newbox = new QDialogButtonBox(Qt::Vertical, m_fileDialog);
+    newbox->addButton(tr("Add"),QDialogButtonBox::AcceptRole);
+    newbox->addButton(tr("Remove"),QDialogButtonBox::RejectRole);
+    QGridLayout *layout = static_cast<QGridLayout*>(m_fileDialog->layout());
+    int r = 0, c = 0, rs = 0, cs = 0;
+    auto getLayoutPosition = [layout, oldbox,&r,&c,&rs,&cs](){
+        for(int i=0; i<layout->count(); i++) {
+            layout->getItemPosition(i, &r, &c, &rs, &cs);
+            if(layout->itemAt(i)->widget() == oldbox) {
+                break;
+            }
+        }
+    };
+    getLayoutPosition();
+    layout->removeWidget(oldbox);
+    oldbox->hide();
+    layout->addWidget(newbox, r, c, rs, cs);
+    connect(newbox, &QDialogButtonBox::accepted, m_fileDialog, &SFDFileDialog::accept);
+    connect(newbox, &QDialogButtonBox::rejected, m_fileDialog, &SFDFileDialog::reject);
 
     m_listView = new QListView(this);
     m_listView->setMinimumHeight(100);
@@ -54,19 +73,31 @@ FileDialog::FileDialog(QWidget *parent, const QString &caption,
         menu.addAction(tr("Remove"), [this]() {
             static_cast<QStringListModel*>(m_listView->model())->removeRow(m_listView->currentIndex().row());
         });
+        menu.addAction(tr("Clear All"), [this]() {
+            static_cast<QStringListModel*>(m_listView->model())->removeRows(0, m_listView->model()->rowCount());
+        });
         menu.exec(m_listView->mapToGlobal(pos)+QPoint(5,5));
     });
+
+    QDialogButtonBox *listViewButtonBox = new QDialogButtonBox(Qt::Vertical, this);
+    QPushButton *removeButton = new QPushButton(tr("Remove"), this);
+    QPushButton *clearButton = new QPushButton(tr("Clear All"), this);
+    listViewButtonBox->addButton(removeButton,QDialogButtonBox::ActionRole);
+    listViewButtonBox->addButton(clearButton,QDialogButtonBox::ActionRole);
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
 
     this->layout()->addWidget(m_fileDialog);
     this->layout()->addWidget(new QLabel(tr("Files to send:"),this));
-    this->layout()->addWidget(m_listView);
+    QHBoxLayout *layout1 = new QHBoxLayout;
+    layout1->addWidget(m_listView);
+    layout1->addWidget(listViewButtonBox);
+    this->layout()->addItem(layout1);
     this->layout()->addWidget(m_buttonBox);
 
     setWindowTitle(caption);
 
-    connect(m_fileDialog, &SFDFileDialog::acceptFile, this, [this](const QString &file) {
+    connect(m_fileDialog, &SFDFileDialog::addFile, this, [this](const QString &file) {
         if (file.isEmpty()) {
             return;
         }
@@ -77,11 +108,30 @@ FileDialog::FileDialog(QWidget *parent, const QString &caption,
         m_listView->model()->insertRow(m_listView->model()->rowCount());
         m_listView->model()->setData(m_listView->model()->index(m_listView->model()->rowCount()-1, 0), file);
     });
+    connect(m_fileDialog, &SFDFileDialog::removeFile, this, [this](const QString &file) {
+        if (file.isEmpty()) {
+            return;
+        }
+        QStringList files = static_cast<QStringListModel*>(m_listView->model())->stringList();
+        if (!files.contains(file)) {
+            return;
+        }
+        m_listView->model()->removeRow(files.indexOf(file));
+    });
     connect(m_buttonBox, &QDialogButtonBox::accepted, this, [this]() {
         accept();
     });
     connect(m_buttonBox, &QDialogButtonBox::rejected, this, [this]() {
         reject();
+    });
+    connect(removeButton, &QPushButton::clicked, this, [this]() {
+        if (m_listView->currentIndex().row() < 0) {
+            return;
+        }
+        static_cast<QStringListModel*>(m_listView->model())->removeRow(m_listView->currentIndex().row());
+    });
+    connect(clearButton, &QPushButton::clicked, this, [this]() {
+        static_cast<QStringListModel*>(m_listView->model())->removeRows(0, m_listView->model()->rowCount());
     });
 }
 

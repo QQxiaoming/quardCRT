@@ -20,6 +20,9 @@ void QSendKermit::run(void) {
 		/* Receive ACK for init package. */
 		receive_message = receive_message_timeout(timeout * 1000);
 		if (receive_message == NULL) {
+			if(getStopFlag()) {
+				return;
+			}
 			qDebug("[ksender] Timeout error.");
 			error_counter++;
 		} else if (receive_message->payload[3] == 'Y') {
@@ -54,7 +57,7 @@ void QSendKermit::run(void) {
         QByteArray fileNameData(fileName.toUtf8());
 		result = send_to_receiver(seq, fileNameData.data(), fileNameData.size(), 'F');
         if(result == -1) {
-            return;
+			return;
 		}
 		seq = (result + 1) % 64;
         count_packages = file_size / MAXL;
@@ -64,7 +67,7 @@ void QSendKermit::run(void) {
 			result = send_to_receiver(seq, data + current_package * MAXL, MAXL, 'D');
 		
 			if(result == -1) {
-                return;
+				return;
 			}
 			
 			seq = (result + 1) % 64;
@@ -74,7 +77,7 @@ void QSendKermit::run(void) {
 		result = send_to_receiver(seq, data + count_packages * MAXL, rest, 'D');
 		
 		if (result == -1) {
-            return;
+			return;
 		}
 			
 		seq = (result + 1) % 64;
@@ -113,6 +116,9 @@ int QSendKermit::send_to_receiver(int seq, char *data, int size, char type) {
 		receive_message = receive_message_timeout(TIME * 1000);
 
 		if (receive_message == NULL) {
+			if(getStopFlag()) {
+				return -1;
+			}
 			qDebug("[ksender] Didn't receive the message. Timeout error.");
 			error_counter++;
 

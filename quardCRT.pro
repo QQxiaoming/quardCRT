@@ -49,6 +49,7 @@ INCLUDEPATH += \
     src
 
 SOURCES += \
+    src/globaloptions/globaloptionstransferwidget.cpp \
     src/plugininfowindow/plugininfowindow.cpp \
     src/pluginviewerwidget/pluginviewerhomewidget.cpp \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
@@ -92,6 +93,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/globaloptions/globaloptionstransferwidget.h \
     src/plugininfowindow/plugininfowindow.h \
     src/pluginviewerwidget/pluginviewerhomewidget.h \
     src/pluginviewerwidget/pluginviewerwidget.h \
@@ -139,6 +141,7 @@ FORMS += \
     src/globaloptions/globaloptionsadvancedwidget.ui \
     src/globaloptions/globaloptionsappearancewidget.ui \
     src/globaloptions/globaloptionsterminalwidget.ui \
+    src/globaloptions/globaloptionstransferwidget.ui \
     src/globaloptions/globaloptionswindowwidget.ui \
     src/plugininfowindow/plugininfowindow.ui \
     src/pluginviewerwidget/pluginviewerhomewidget.ui \

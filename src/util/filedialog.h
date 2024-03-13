@@ -40,14 +40,16 @@ public:
             setOption(QFileDialog::DontUseNativeDialog, true);
         }
 
-signals:
-    void acceptFile(const QString &file);
-
-protected:
     void accept() override {
-        emit acceptFile(selectedFiles().value(0));
+        emit addFile(selectedFiles().value(0));
     }
-    void reject() override {}
+    void reject() override {
+        emit removeFile(selectedFiles().value(0));
+    }
+
+signals:
+    void addFile(const QString &file);
+    void removeFile(const QString &file);
 };
 
 class FileDialog : public QDialog

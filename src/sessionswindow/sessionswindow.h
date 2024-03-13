@@ -100,11 +100,11 @@ public:
     const QString getWorkingDirectory(void) { return workingDirectory; }
     
     void sendFileUseKermit(QStringList fileList);
-    void recvFileUseKermit(void);
-    void sendFileUseXModem(QString file);
+    void recvFileUseKermit(const QString &downloadPath);
+    void sendFileUseXModem(QString file, bool modem1KMode);
     void recvFileUseXModem(QString file);
-    void sendFileUseYModem(QStringList fileList);
-    void recvFileUseYModem(void);
+    void sendFileUseYModem(QStringList fileList, bool modem1KMode);
+    void recvFileUseYModem(const QString &downloadPath);
     void sendFileUseZModem(QStringList fileList);
 
     int setLog(bool enable);

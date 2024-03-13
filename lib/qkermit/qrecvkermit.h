@@ -17,8 +17,19 @@ class QRecvKermit : public QThread {
 
 public:
     explicit QRecvKermit(int32_t timeout = -1, QObject *parent = nullptr);
+    ~QRecvKermit(){
+        requestStop();
+        wait();
+    };
     void setFileDirPath(const QString &path) {
         m_fileDirPath = path;
+    }
+    void requestStop(void) {
+        m_abort = true;
+        condition.wakeOne();
+    }
+    bool getStopFlag(void) {
+        return m_abort;
     }
 
 signals:
@@ -45,14 +56,24 @@ private:
             if(timeout<0) {
             retry:
                 condition.wait(&mutex);
+                if(getStopFlag()) {
+                    mutex.unlock();
+                    return nullptr;
+                }
                 size = dataRecv.size();
                 if(size < sizeof(msg)) {
                     goto retry;
                 }
             } else {
                 QDeadlineTimer timer(timeout);
-                condition.wait(&mutex, timer);
-                size = dataRecv.size();
+                do {
+                    condition.wait(&mutex, timer.remainingTime());
+                    if(getStopFlag()) {
+                        mutex.unlock();
+                        return nullptr;
+                    }
+                    size = dataRecv.size();
+                } while(size < sizeof(msg) && timer.remainingTime() > 0);
                 if(size >= sizeof(msg)) {
                     ok = true;
                 }
@@ -80,6 +101,7 @@ private:
 
     QString m_fileDirPath;
     int32_t timeout;
+    bool m_abort = false;
 };
 
 #endif // QRECVKERMIT_H

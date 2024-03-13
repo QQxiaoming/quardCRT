@@ -847,6 +847,15 @@ void SessionsWindow::sendFileUseKermit(QStringList fileList) {
         connect(sk,&QSendKermit::sendData,this,&SessionsWindow::modemProxySendData);
         connect(this,&SessionsWindow::modemProxyRecvData,sk,&QSendKermit::onRecvData);
         sk->setFilePathList(fileList);
+        connect(term, &QTermWidget::sendData, sk, [=](const char *data, int size){
+            if(modemProxyChannel) {
+                QByteArray s = QByteArray(data, size);
+                if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
+                    stopModemProxy = true;
+                    sk->requestStop();
+                }
+            }
+        });
         connect(sk,&QSendKermit::finished,this,[=]{
             QMutexLocker locker(&modemProxyChannelMutex);
             modemProxyChannel = false;
@@ -856,17 +865,29 @@ void SessionsWindow::sendFileUseKermit(QStringList fileList) {
         QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
         modemProxyChannel = true;
-        QByteArray test("\r\nStarting Kermit transfer...\r\n");
+        QByteArray test("\r\nStarting Kermit transfer... Use Ctrl+C to cancel\r\n");
         proxyRecvData(test);
-        sk->start();
+        QTimer::singleShot(100, [=](){
+            sk->start();
+        });
     }
 }
 
-void SessionsWindow::recvFileUseKermit(void) {
+void SessionsWindow::recvFileUseKermit(const QString &downloadPath) {
     if(term) {
         QRecvKermit *rk = new QRecvKermit(10,this); //10s timeout
+        rk->setFileDirPath(downloadPath);
         connect(rk,&QRecvKermit::sendData,this,&SessionsWindow::modemProxySendData);
         connect(this,&SessionsWindow::modemProxyRecvData,rk,&QRecvKermit::onRecvData);
+        connect(term, &QTermWidget::sendData, rk, [=](const char *data, int size){
+            if(modemProxyChannel) {
+                QByteArray s = QByteArray(data, size);
+                if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
+                    stopModemProxy = true;
+                    rk->requestStop();
+                }
+            }
+        });
         connect(rk,&QRecvKermit::finished,this,[=]{
             QMutexLocker locker(&modemProxyChannelMutex);
             modemProxyChannel = false;
@@ -876,17 +897,53 @@ void SessionsWindow::recvFileUseKermit(void) {
         QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
         modemProxyChannel = true;
-        QByteArray test("\r\nStarting Kermit transfer...\r\n");
+        QByteArray test("\r\nStarting Kermit transfer... Use Ctrl+C to cancel\r\n");
         proxyRecvData(test);
-        rk->start();
+        QTimer::singleShot(100, [=](){
+            rk->start();
+        });
     }
 }
 
-void SessionsWindow::sendFileUseXModem(QString file) {
+void SessionsWindow::sendFileUseXModem(QString file, bool modem1KMode) {
     if(term) {
-        QXmodemFile *xs = new QXmodemFile(file,this);
+        QXmodemFile *xs = new QXmodemFile(file,modem1KMode?1024:128,10*1000,16,false,this);
         connect(xs,&QXmodemFile::send,this,&SessionsWindow::modemProxySendData);
         connect(this,&SessionsWindow::modemProxyRecvData,xs,&QXmodemFile::receive);
+        connect(xs,&QXmodemFile::transferring,this,[=](QString filename){
+            QString msg = QString("Transferring: %1...\r\n").arg(filename);
+            QByteArray data = msg.toUtf8();
+            term->recvData(data.data(), data.size());
+        });
+        connect(xs,&QXmodemFile::complete,this,[=](QString filename,int result, size_t size){
+            QString msg = QString("\r\n%1\r\n").arg(result == 0 ? "successful" : "failed");
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+            Q_UNUSED(filename);
+            Q_UNUSED(size);
+        });
+        connect(xs,&QXmodemFile::tick,this,[=](long bytes_sent, long bytes_total, bool *ret){
+            QString msg;
+            *ret = !stopModemProxy;
+            if(stopModemProxy) {
+                msg = QString("\033[2K\rTransfer aborted\r\n");
+            } else {
+                float progress = (float)bytes_sent / (float)bytes_total * 100;
+                if(progress > 100) progress = 100;
+                msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+            } 
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+        },Qt::BlockingQueuedConnection);
+        connect(term, &QTermWidget::sendData, xs, [=](const char *data, int size){
+            if(modemProxyChannel) {
+                QByteArray s = QByteArray(data, size);
+                if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
+                    stopModemProxy = true;
+                    xs->requestStop();
+                }
+            }
+        });
         connect(xs,&QRecvKermit::finished,this,[=]{
             QMutexLocker locker(&modemProxyChannelMutex);
             modemProxyChannel = false;
@@ -896,15 +953,17 @@ void SessionsWindow::sendFileUseXModem(QString file) {
         QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
         modemProxyChannel = true;
-        QByteArray test("\r\nStarting XModem transfer...\r\n");
+        QByteArray test("\r\nStarting XModem transfer... Use Ctrl+C to cancel\r\n");
         proxyRecvData(test);
-        xs->startSend();
+        QTimer::singleShot(100, [=](){
+            xs->startSend();
+        });
     }
 }
 
 void SessionsWindow::recvFileUseXModem(QString file) {
     if(term) {
-        QXmodemFile *xr = new QXmodemFile(file,this);
+        QXmodemFile *xr = new QXmodemFile(file,128,10*1000,16,false,this);
         connect(xr,&QXmodemFile::send,this,&SessionsWindow::modemProxySendData);
         connect(this,&SessionsWindow::modemProxyRecvData,xr,&QXmodemFile::receive);
         connect(xr,&QRecvKermit::finished,this,[=]{
@@ -913,20 +972,90 @@ void SessionsWindow::recvFileUseXModem(QString file) {
             stopModemProxy = false;
             xr->deleteLater();
         });
+        connect(xr,&QXmodemFile::transferring,this,[=](QString filename){
+            QString msg = QString("Transferring: %1...\r\n").arg(filename);
+            QByteArray data = msg.toUtf8();
+            term->recvData(data.data(), data.size());
+        });
+        connect(xr,&QXmodemFile::complete,this,[=](QString filename,int result, size_t size){
+            QString msg = QString("\r\n%1\r\n").arg(result == 0 ? "successful" : "failed");
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+            Q_UNUSED(filename);
+            Q_UNUSED(size);
+        });
+        connect(xr,&QXmodemFile::tick,this,[=](long bytes_sent, long bytes_total, bool *ret){
+            QString msg;
+            *ret = !stopModemProxy;
+            if(stopModemProxy) {
+                msg = QString("\033[2K\rTransfer aborted\r\n");
+            } else {
+                float progress = (float)bytes_sent / (float)bytes_total * 100;
+                if(progress > 100) progress = 100;
+                msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+            } 
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+        },Qt::BlockingQueuedConnection);
+        connect(term, &QTermWidget::sendData, xr, [=](const char *data, int size){
+            if(modemProxyChannel) {
+                QByteArray s = QByteArray(data, size);
+                if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
+                    stopModemProxy = true;
+                    xr->requestStop();
+                }
+            }
+        });
         QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
         modemProxyChannel = true;
-        QByteArray test("\r\nStarting XModem transfer...\r\n");
+        QByteArray test("\r\nStarting XModem transfer... Use Ctrl+C to cancel\r\n");
         proxyRecvData(test);
-        xr->startRecv();
+        QTimer::singleShot(100, [=](){
+            xr->startRecv();
+        });
     }
 }
 
-void SessionsWindow::sendFileUseYModem(QStringList fileList) {
+void SessionsWindow::sendFileUseYModem(QStringList fileList, bool modem1KMode) {
     if(term) {
-        QYmodemFile *ys = new QYmodemFile(fileList,this);
+        QYmodemFile *ys = new QYmodemFile(fileList,modem1KMode?1024:128,10*1000,16,false,this);
         connect(ys,&QYmodemFile::send,this,&SessionsWindow::modemProxySendData);
         connect(this,&SessionsWindow::modemProxyRecvData,ys,&QYmodemFile::receive);
+        connect(ys,&QYmodemFile::transferring,this,[=](QString filename){
+            QString msg = QString("Transferring: %1...\r\n").arg(filename);
+            QByteArray data = msg.toUtf8();
+            term->recvData(data.data(), data.size());
+        });
+        connect(ys,&QYmodemFile::complete,this,[=](QString filename,int result, size_t size){
+            QString msg = QString("\r\n%1\r\n").arg(result == 0 ? "successful" : "failed");
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+            Q_UNUSED(filename);
+            Q_UNUSED(size);
+        });
+        connect(ys,&QYmodemFile::tick,this,[=](long bytes_sent, long bytes_total, bool *ret){
+            QString msg;
+            *ret = !stopModemProxy;
+            if(stopModemProxy) {
+                msg = QString("\033[2K\rTransfer aborted\r\n");
+            } else {
+                float progress = (float)bytes_sent / (float)bytes_total * 100;
+                if(progress > 100) progress = 100;
+                msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+            } 
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+        },Qt::BlockingQueuedConnection);
+        connect(term, &QTermWidget::sendData, ys, [=](const char *data, int size){
+            if(modemProxyChannel) {
+                QByteArray s = QByteArray(data, size);
+                if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
+                    stopModemProxy = true;
+                    ys->requestStop();
+                }
+            }
+        });
         connect(ys,&QRecvKermit::finished,this,[=]{
             QMutexLocker locker(&modemProxyChannelMutex);
             modemProxyChannel = false;
@@ -936,17 +1065,53 @@ void SessionsWindow::sendFileUseYModem(QStringList fileList) {
         QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
         modemProxyChannel = true;
-        QByteArray test("\r\nStarting YModem transfer...\r\n");
+        QByteArray test("\r\nStarting YModem transfer... Use Ctrl+C to cancel\r\n");
         proxyRecvData(test);
-        ys->startSend();
+        QTimer::singleShot(100, [=](){
+            ys->startSend();
+        });
     }
 }
 
-void SessionsWindow::recvFileUseYModem(void) {
+void SessionsWindow::recvFileUseYModem(const QString &downloadPath) {
     if(term) {
-        QYmodemFile *yr = new QYmodemFile(QDir::homePath(),this);
+        QYmodemFile *yr = new QYmodemFile(downloadPath,128,10*1000,16,false,this);//10s
         connect(yr,&QYmodemFile::send,this,&SessionsWindow::modemProxySendData);
         connect(this,&SessionsWindow::modemProxyRecvData,yr,&QYmodemFile::receive);
+        connect(yr,&QYmodemFile::transferring,this,[=](QString filename){
+            QString msg = QString("Transferring: %1...\r\n").arg(filename);
+            QByteArray data = msg.toUtf8();
+            term->recvData(data.data(), data.size());
+        });
+        connect(yr,&QYmodemFile::complete,this,[=](QString filename,int result, size_t size){
+            QString msg = QString("\r\n%1\r\n").arg(result == 0 ? "successful" : "failed");
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+            Q_UNUSED(filename);
+            Q_UNUSED(size);
+        });
+        connect(yr,&QYmodemFile::tick,this,[=](long bytes_sent, long bytes_total, bool *ret){
+            QString msg;
+            *ret = !stopModemProxy;
+            if(stopModemProxy) {
+                msg = QString("\033[2K\rTransfer aborted\r\n");
+            } else {
+                float progress = (float)bytes_sent / (float)bytes_total * 100;
+                if(progress > 100) progress = 100;
+                msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+            } 
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+        },Qt::BlockingQueuedConnection);
+        connect(term, &QTermWidget::sendData, yr, [=](const char *data, int size){
+            if(modemProxyChannel) {
+                QByteArray s = QByteArray(data, size);
+                if(s.contains(3)) { //TODO: check if it is a good way to check ctrl+c
+                    stopModemProxy = true;
+                    yr->requestStop();
+                }
+            }
+        });
         connect(yr,&QRecvKermit::finished,this,[=]{
             QMutexLocker locker(&modemProxyChannelMutex);
             modemProxyChannel = false;
@@ -956,9 +1121,11 @@ void SessionsWindow::recvFileUseYModem(void) {
         QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
         modemProxyChannel = true;
-        QByteArray test("\r\nStarting YModem transfer...\r\n");
+        QByteArray test("\r\nStarting YModem transfer... Use Ctrl+C to cancel\r\n");
         proxyRecvData(test);
-        yr->startRecv();
+        QTimer::singleShot(100, [=](){
+            yr->startRecv();
+        });
     }
 }
 
@@ -970,7 +1137,7 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
 
         connect(sz,&QSendZmodem::transferring,this,[=](QString filename){
             QFileInfo info(filename);
-            QString msg = QString("Transferring: %1... Use Ctrl+C to cancel\r\n").arg(info.fileName());
+            QString msg = QString("Transferring: %1...\r\n").arg(info.fileName());
             QByteArray data = msg.toUtf8();
             term->recvData(data.data(), data.size());
         });
@@ -1024,9 +1191,11 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
         QMutexLocker locker(&modemProxyChannelMutex);
         stopModemProxy = false;
         modemProxyChannel = true;
-        QByteArray test("\r\nStarting zmodem transfer...\r\n");
+        QByteArray test("\r\nStarting zmodem transfer... Use Ctrl+C to cancel\r\n");
         proxyRecvData(test);
-        sz->start();
+        QTimer::singleShot(100, [=](){
+            sz->start();
+        });
     }
 }
 

@@ -29,6 +29,14 @@ void QRecvKermit::run(void) {
         received_message =  receive_message_timeout(timeout*1000);
 
         if (received_message == NULL) {
+			if(getStopFlag()) {
+				if(file != nullptr) {
+					file->close();
+					delete file;
+					file = nullptr;
+				}
+				return;
+			}
         	qDebug("Didn't receive init message. Timeout error. End of transmission.");
 			error_counter++;
 		} else if (seq != received_message->payload[2]) {
@@ -71,16 +79,24 @@ void QRecvKermit::run(void) {
 		while (received_message == NULL) {
 			received_message = receive_message_timeout(time);
 
-    			if (received_message == NULL) {
+			if (received_message == NULL) {
+				if(getStopFlag()) {
+					if(file != nullptr) {
+						file->close();
+						delete file;
+						file = nullptr;
+					}
+					return;
+				}
 				error_counter++;
-				
+			
 				if (error_counter == 3) {
 					qDebug("[kreceiver] Too many errors. End of transmission.");
-                    if(file != nullptr) {
-                        file->close();
-                        delete file;
-                        file = nullptr;
-                    }
+					if(file != nullptr) {
+						file->close();
+						delete file;
+						file = nullptr;
+					}
 					return;
 				}
 				

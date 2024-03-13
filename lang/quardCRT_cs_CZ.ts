@@ -26,11 +26,11 @@
         <location filename="../src/mainwindow.cpp" line="361"/>
         <location filename="../src/mainwindow.cpp" line="374"/>
         <location filename="../src/mainwindow.cpp" line="550"/>
-        <location filename="../src/mainwindow.cpp" line="2728"/>
-        <location filename="../src/mainwindow.cpp" line="2923"/>
-        <location filename="../src/mainwindow.cpp" line="3291"/>
-        <location filename="../src/mainwindow.cpp" line="3627"/>
-        <location filename="../src/mainwindow.cpp" line="3632"/>
+        <location filename="../src/mainwindow.cpp" line="2725"/>
+        <location filename="../src/mainwindow.cpp" line="2920"/>
+        <location filename="../src/mainwindow.cpp" line="3288"/>
+        <location filename="../src/mainwindow.cpp" line="3624"/>
+        <location filename="../src/mainwindow.cpp" line="3629"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
@@ -209,7 +209,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="570"/>
         <location filename="../src/mainwindow.cpp" line="688"/>
-        <location filename="../src/mainwindow.cpp" line="2628"/>
+        <location filename="../src/mainwindow.cpp" line="2625"/>
         <source>Ready</source>
         <translation>Připraveno</translation>
     </message>
@@ -956,7 +956,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1202"/>
-        <location filename="../src/mainwindow.cpp" line="2511"/>
+        <location filename="../src/mainwindow.cpp" line="2508"/>
         <source>Remove Bookmark</source>
         <translation>Odstranit záložku</translation>
     </message>
@@ -967,7 +967,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1204"/>
-        <location filename="../src/mainwindow.cpp" line="2538"/>
+        <location filename="../src/mainwindow.cpp" line="2535"/>
         <source>Clean All Bookmark</source>
         <translation>Vymazat všechny záložky</translation>
     </message>
@@ -1183,7 +1183,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1254"/>
-        <location filename="../src/mainwindow.cpp" line="3591"/>
+        <location filename="../src/mainwindow.cpp" line="3588"/>
         <source>Keyborad Shortcuts Reference</source>
         <translation>Reference klávesových zkratek</translation>
     </message>
@@ -1204,7 +1204,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1260"/>
-        <location filename="../src/mainwindow.cpp" line="3573"/>
+        <location filename="../src/mainwindow.cpp" line="3570"/>
         <source>About</source>
         <translation>O programu</translation>
     </message>
@@ -1230,7 +1230,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1270"/>
-        <location filename="../src/mainwindow.cpp" line="2556"/>
+        <location filename="../src/mainwindow.cpp" line="2553"/>
         <source>SSH Scanning</source>
         <translation>SSH skenování</translation>
     </message>
@@ -1342,212 +1342,212 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2399"/>
-        <location filename="../src/mainwindow.cpp" line="2416"/>
-        <location filename="../src/mainwindow.cpp" line="2430"/>
-        <location filename="../src/mainwindow.cpp" line="2438"/>
-        <location filename="../src/mainwindow.cpp" line="2446"/>
-        <location filename="../src/mainwindow.cpp" line="2459"/>
+        <location filename="../src/mainwindow.cpp" line="2415"/>
+        <location filename="../src/mainwindow.cpp" line="2429"/>
+        <location filename="../src/mainwindow.cpp" line="2437"/>
+        <location filename="../src/mainwindow.cpp" line="2445"/>
+        <location filename="../src/mainwindow.cpp" line="2456"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2416"/>
+        <location filename="../src/mainwindow.cpp" line="2415"/>
         <source>Select Files to Send using Kermit</source>
         <translation>Vybrat soubory k odeslání pomocí Kermitu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2430"/>
+        <location filename="../src/mainwindow.cpp" line="2429"/>
         <source>Select Files to Send using Xmodem</source>
         <translation>Vybrat soubory k odeslání pomocí Xmodemu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2438"/>
+        <location filename="../src/mainwindow.cpp" line="2437"/>
         <source>Save Received Files using Xmodem</source>
         <translation>Uložit přijaté soubory pomocí Xmodemu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2446"/>
+        <location filename="../src/mainwindow.cpp" line="2445"/>
         <source>Select Files to Send using Ymodem</source>
         <translation>Vybrat soubory k odeslání pomocí Ymodemu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2459"/>
+        <location filename="../src/mainwindow.cpp" line="2456"/>
         <source>Select Files to Send using Zmodem</source>
         <translation>Vybrat soubory k odeslání pomocí Zmodemu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2484"/>
+        <location filename="../src/mainwindow.cpp" line="2481"/>
         <source>Select a directory</source>
         <translation>Vybrat adresář</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2511"/>
+        <location filename="../src/mainwindow.cpp" line="2508"/>
         <source>Select a bookmark</source>
         <translation>Vybrat záložku</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2538"/>
+        <location filename="../src/mainwindow.cpp" line="2535"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>Opravdu chcete vymazat všechny záložky?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2556"/>
+        <location filename="../src/mainwindow.cpp" line="2553"/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2728"/>
+        <location filename="../src/mainwindow.cpp" line="2725"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>Video pozadí je povoleno, povolte animaci v globálních možnostech (více systémových prostředků) nebo změňte obrázek pozadí.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2923"/>
+        <location filename="../src/mainwindow.cpp" line="2920"/>
         <source>Session information get failed.</source>
         <translation>Načtení informací o relaci se nezdařilo.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3006"/>
+        <location filename="../src/mainwindow.cpp" line="3003"/>
         <source>Telnet - </source>
         <translation>Telnet - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3007"/>
+        <location filename="../src/mainwindow.cpp" line="3004"/>
         <source>Telnet</source>
         <translation>Telnet</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3039"/>
+        <location filename="../src/mainwindow.cpp" line="3036"/>
         <source>Serial - </source>
         <translation>Sériový port - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3040"/>
+        <location filename="../src/mainwindow.cpp" line="3037"/>
         <source>Serial</source>
         <translation>Sériový port</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3071"/>
+        <location filename="../src/mainwindow.cpp" line="3068"/>
         <source>Raw - </source>
         <translation>Raw - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3072"/>
+        <location filename="../src/mainwindow.cpp" line="3069"/>
         <source>Raw</source>
         <translation>Raw</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3103"/>
+        <location filename="../src/mainwindow.cpp" line="3100"/>
         <source>NamePipe - </source>
         <translation>NamePipe - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3104"/>
+        <location filename="../src/mainwindow.cpp" line="3101"/>
         <source>NamePipe</source>
         <translation>NamePipe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3172"/>
-        <location filename="../src/mainwindow.cpp" line="3176"/>
+        <location filename="../src/mainwindow.cpp" line="3169"/>
+        <location filename="../src/mainwindow.cpp" line="3173"/>
         <source>Local Shell</source>
         <translation>Lokální shell</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3174"/>
+        <location filename="../src/mainwindow.cpp" line="3171"/>
         <source>Local Shell - </source>
         <translation>Lokální shell - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3291"/>
+        <location filename="../src/mainwindow.cpp" line="3288"/>
         <source>Are you sure to disconnect this session?</source>
         <translation>Opravdu chcete odpojit tuto relaci?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3575"/>
+        <location filename="../src/mainwindow.cpp" line="3572"/>
         <source>Version</source>
         <translation>Verze</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3577"/>
+        <location filename="../src/mainwindow.cpp" line="3574"/>
         <source>Commit</source>
         <translation>Commit</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3579"/>
+        <location filename="../src/mainwindow.cpp" line="3576"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3581"/>
+        <location filename="../src/mainwindow.cpp" line="3578"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3583"/>
+        <location filename="../src/mainwindow.cpp" line="3580"/>
         <source>Website</source>
         <translation>Webová stránka</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3593"/>
+        <location filename="../src/mainwindow.cpp" line="3590"/>
         <source>Global Shortcuts:</source>
         <translation>Globální klávesové zkratky:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3594"/>
+        <location filename="../src/mainwindow.cpp" line="3591"/>
         <source>show/hide menu bar</source>
         <translation>zobrazit/skrýt menu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3595"/>
+        <location filename="../src/mainwindow.cpp" line="3592"/>
         <source>connect to LocalShell</source>
         <translation>připojit k lokálnímu shellu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3596"/>
+        <location filename="../src/mainwindow.cpp" line="3593"/>
         <source>clone current session</source>
         <translation>klonovat aktuální relaci</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3597"/>
+        <location filename="../src/mainwindow.cpp" line="3594"/>
         <source>switch ui to STD mode</source>
         <translation>přepnout UI do STD režimu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3598"/>
+        <location filename="../src/mainwindow.cpp" line="3595"/>
         <source>switch ui to MINI mode</source>
         <translation>přepnout UI do MINI režimu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3599"/>
+        <location filename="../src/mainwindow.cpp" line="3596"/>
         <source>switch to previous session</source>
         <translation>přepnout na předchozí relaci</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3600"/>
+        <location filename="../src/mainwindow.cpp" line="3597"/>
         <source>switch to next session</source>
         <translation>přepnout na další relaci</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3601"/>
+        <location filename="../src/mainwindow.cpp" line="3598"/>
         <source>switch to session [num]</source>
         <translation>přepnout na relaci [číslo]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3602"/>
+        <location filename="../src/mainwindow.cpp" line="3599"/>
         <source>Go to line start</source>
         <translation>Jít na začátek řádku</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3603"/>
+        <location filename="../src/mainwindow.cpp" line="3600"/>
         <source>Go to line end</source>
         <translation>Jít na konec řádku</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3627"/>
+        <location filename="../src/mainwindow.cpp" line="3624"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>Existují relace, které ještě nebyly odemčeny, nejprve je odemkněte.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3632"/>
+        <location filename="../src/mainwindow.cpp" line="3629"/>
         <source>Are you sure to quit?</source>
         <translation>Opravdu chcete skončit?</translation>
     </message>
@@ -1601,12 +1601,25 @@
 <context>
     <name>FileDialog</name>
     <message>
-        <location filename="../src/util/filedialog.cpp" line="51"/>
+        <location filename="../src/util/filedialog.cpp" line="42"/>
+        <source>Add</source>
+        <translation>Přidat</translation>
+    </message>
+    <message>
+        <location filename="../src/util/filedialog.cpp" line="43"/>
+        <location filename="../src/util/filedialog.cpp" line="72"/>
+        <location filename="../src/util/filedialog.cpp" line="82"/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
     <message>
-        <location filename="../src/util/filedialog.cpp" line="60"/>
+        <location filename="../src/util/filedialog.cpp" line="75"/>
+        <location filename="../src/util/filedialog.cpp" line="83"/>
+        <source>Clear All</source>
+        <translation>Vymazat všechny</translation>
+    </message>
+    <message>
+        <location filename="../src/util/filedialog.cpp" line="90"/>
         <source>Files to send:</source>
         <translation>Soubory k odeslání:</translation>
     </message>
@@ -1830,6 +1843,45 @@
     </message>
 </context>
 <context>
+    <name>GlobalOptionsTransferWidget</name>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="17"/>
+        <source>Directories</source>
+        <translation>Adresáře</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="26"/>
+        <source>Download</source>
+        <translation>Stáhnout</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="36"/>
+        <source>Upload</source>
+        <translation>Nahrát</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="62"/>
+        <source>X/Ymodem send packet size</source>
+        <translation>Velikost odesílacího balíčku X/Ymodemu</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="100"/>
+        <source>Zmodem Online</source>
+        <translation>Zmodem Online</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="107"/>
+        <source>Disable</source>
+        <translation>Zakázat</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.cpp" line="24"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.cpp" line="34"/>
+        <source>Select Directory</source>
+        <translation>Vybrat adresář</translation>
+    </message>
+</context>
+<context>
     <name>GlobalOptionsWindow</name>
     <message>
         <location filename="../src/globaloptions/globaloptionswindow.ui" line="14"/>
@@ -1837,55 +1889,60 @@
         <translation>Globální možnosti</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="164"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="175"/>
         <source>Select Background Image</source>
         <translation>Vybrat obrázek pozadí</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="164"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="175"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation>Obrázkové soubory (*.png *.jpg *.jpeg *.bmp *.gif);;Video soubory (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="202"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="207"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="218"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="202"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation>Tato funkce potřebuje více systémových prostředků, používejte ji opatrně!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="207"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="218"/>
         <source>This feature is not implemented yet!</source>
         <translation>Tato funkce zatím není implementována!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="229"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="240"/>
         <source>General</source>
         <translation>Obecné</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="229"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="240"/>
         <source>Appearance</source>
         <translation>Vzhled</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="229"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="240"/>
         <source>Terminal</source>
         <translation>Terminál</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="229"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="240"/>
         <source>Window</source>
         <translation>Okno</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="229"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="240"/>
         <source>Advanced</source>
         <translation>Pokročilé</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="240"/>
+        <source>Transfer</source>
+        <translation>Přenos</translation>
     </message>
 </context>
 <context>

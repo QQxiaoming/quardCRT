@@ -109,14 +109,19 @@ long QXYmodem::xmodemReceive(void)
 			/* is this the packet we were waiting for? */
 			if(xmbuf[1] == seqnum) {
                 /* write/deliver data */
-                writefile((const char*)&xmbuf[3], pktsize);
-				totalbytes += pktsize;
-				/* next sequence number */
-				seqnum++;
-				/* reset retries */
-                retry = m_retry_limit;
-				/* reply with ACK */
-				response = ACK;
+                int w = writefile((const char*)&xmbuf[3], pktsize);
+				if(w == -1) {
+					xmodemOut(NAK);
+					return XMODEM_ABORT;
+				} else {
+					totalbytes += pktsize;
+					/* next sequence number */
+					seqnum++;
+					/* reset retries */
+					retry = m_retry_limit;
+					/* reply with ACK */
+					response = ACK;
+				}
 				continue;
 			} else if(xmbuf[1] == (unsigned char)(seqnum-1)) {
 				/* 
@@ -235,6 +240,11 @@ long QXYmodem::xmodemTransmit(unsigned short pktsize)
 					return XMODEM_ERROR_RETRYEXCEED;
 				}
 			}
+		} else if(read_size == -1) {
+			xmodemOut(CAN);
+			xmodemOut(CAN);
+			xmodemOut(CAN);
+			return XMODEM_ABORT;
 		}
 		xmodemOut(SOH);
 		xmodemOut(seqnum);
@@ -391,6 +401,11 @@ long QXYmodem::ymodemTransmit(unsigned short pktsize)
 					return XMODEM_ERROR_RETRYEXCEED;
 				}
 			}
+		} else if(read_size == -1) {
+			xmodemOut(CAN);
+			xmodemOut(CAN);
+			xmodemOut(CAN);
+			return XMODEM_ABORT;
 		}
 		if(pktsize == 1024)
 			xmodemOut(STX);
@@ -540,7 +555,11 @@ long QXYmodem::ymodemReceive(void)
 					}
 				} else {
                 	/* write/deliver data */
-                	writefile((const char*)&xmbuf[3], pktsize);
+					int w = writefile((const char*)&xmbuf[3], pktsize);
+					if(w == -1) {
+						xmodemOut(NAK);
+						return XMODEM_ABORT;
+					}
 				}
 				totalbytes += pktsize;
 				/* next sequence number */
@@ -623,8 +642,13 @@ int QXYmodem::xmodemInTime(unsigned char *c, unsigned short timeout)
 	int ret=-1;
 
 retry:
-	while( (timeout--) && ((ret = xmodemIn(c)) <= 0) ) 
+	while( (timeout--) && ((ret = xmodemIn(c)) <= 0) ) {
+        if(m_abort) break;
 		timerPause(1);
+	}
+
+    if(m_abort)
+		return -1;
 
 	if(ret <= 0) {
         if(m_no_timeout) {

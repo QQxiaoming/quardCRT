@@ -39,6 +39,7 @@
 #include "ui_globaloptionsappearancewidget.h"
 #include "ui_globaloptionsterminalwidget.h"
 #include "ui_globaloptionswindowwidget.h"
+#include "ui_globaloptionstransferwidget.h"
 #include "ui_globaloptionsadvancedwidget.h"
 
 const QString GlobalOptionsWindow::defaultColorScheme = "QuardCRT";
@@ -77,6 +78,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     widget->layout()->addWidget(globalOptionsTerminalWidget);
     globalOptionsWindowWidget = new GlobalOptionsWindowWidget(widget);
     widget->layout()->addWidget(globalOptionsWindowWidget);
+    globalOptionsTransferWidget = new GlobalOptionsTransferWidget(widget);
+    widget->layout()->addWidget(globalOptionsTransferWidget);
     globalOptionsAdvancedWidget = new GlobalOptionsAdvancedWidget(widget);
     widget->layout()->addWidget(globalOptionsAdvancedWidget);
 
@@ -135,6 +138,14 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
     globalOptionsGeneralWidget->ui->comboBoxNewTabMode->setCurrentIndex(settings.value("newTabMode", 1).toInt());
+    globalOptionsTransferWidget->ui->lineEditDownload->setText(settings.value("modemDownloadPath", QDir::homePath()).toString());
+    globalOptionsTransferWidget->ui->lineEditUpload->setText(settings.value("modemUploadPath", QDir::homePath()).toString());
+    globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
+    if(settings.value("xyModem1K", false).toBool()) {
+        globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
+    } else {
+        globalOptionsTransferWidget->ui->radioButton128Bytes->setChecked(true);
+    }
     settings.endGroup();
 
     if(settings.contains("Global/Options/translateService")) {
@@ -226,13 +237,14 @@ GlobalOptionsWindow::~GlobalOptionsWindow()
 
 void GlobalOptionsWindow::retranslateUi()
 {
-    model->setStringList(QStringList() << tr("General") << tr("Appearance") << tr("Terminal") << tr("Window") << tr("Advanced"));
+    model->setStringList(QStringList() << tr("General") << tr("Appearance") << tr("Terminal") << tr("Window") << tr("Transfer") << tr("Advanced"));
     ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
     globalOptionsAppearanceWidget->ui->retranslateUi(this);
     globalOptionsTerminalWidget->ui->retranslateUi(this);
     globalOptionsWindowWidget->ui->retranslateUi(this);
+    globalOptionsTransferWidget->ui->retranslateUi(this);
     globalOptionsAdvancedWidget->ui->retranslateUi(this);
 }
 
@@ -242,6 +254,7 @@ void GlobalOptionsWindow::setActiveWidget(int index)
     globalOptionsAppearanceWidget->setVisible(false);
     globalOptionsTerminalWidget->setVisible(false);
     globalOptionsWindowWidget->setVisible(false);
+    globalOptionsTransferWidget->setVisible(false);
     globalOptionsAdvancedWidget->setVisible(false);
 
     switch(index) {
@@ -258,6 +271,9 @@ void GlobalOptionsWindow::setActiveWidget(int index)
         globalOptionsWindowWidget->setVisible(true);
         break;
     case 4:
+        globalOptionsTransferWidget->setVisible(true);
+        break;
+    case 5:
         globalOptionsAdvancedWidget->setVisible(true);
         break;
     }
@@ -379,6 +395,26 @@ int GlobalOptionsWindow::getNewTabMode(void)
     return globalOptionsGeneralWidget->ui->comboBoxNewTabMode->currentIndex();
 }
 
+QString GlobalOptionsWindow::getModemDownloadPath(void) 
+{
+    return globalOptionsTransferWidget->ui->lineEditDownload->text();
+}
+
+QString GlobalOptionsWindow::getModemUploadPath(void) 
+{
+    return globalOptionsTransferWidget->ui->lineEditUpload->text();
+}
+
+bool GlobalOptionsWindow::getDisableZmodemOnline(void) 
+{
+    return globalOptionsTransferWidget->ui->checkBoxZmodemOnline->isChecked();
+}
+
+bool GlobalOptionsWindow::getXYModem1K(void) 
+{
+    return globalOptionsTransferWidget->ui->radioButton1KBytes->isChecked();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -403,6 +439,10 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("wordCharacters", globalOptionsTerminalWidget->ui->lineEditWordCharacters->text());
     settings.setValue("translateService", globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentIndex());
     settings.setValue("newTabMode", globalOptionsGeneralWidget->ui->comboBoxNewTabMode->currentIndex());
+    settings.setValue("modemDownloadPath", globalOptionsTransferWidget->ui->lineEditDownload->text());
+    settings.setValue("modemUploadPath", globalOptionsTransferWidget->ui->lineEditUpload->text());
+    settings.setValue("disableZmodemOnline", globalOptionsTransferWidget->ui->checkBoxZmodemOnline->isChecked());
+    settings.setValue("xyModem1K", globalOptionsTransferWidget->ui->radioButton1KBytes->isChecked());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -434,6 +474,14 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
     globalOptionsAdvancedWidget->ui->comboBoxTranslateService->setCurrentIndex(settings.value("translateService", 0).toInt());
     globalOptionsGeneralWidget->ui->comboBoxNewTabMode->setCurrentIndex(settings.value("newTabMode", 1).toInt());
+    globalOptionsTransferWidget->ui->lineEditDownload->setText(settings.value("modemDownloadPath", QDir::homePath()).toString());
+    globalOptionsTransferWidget->ui->lineEditUpload->setText(settings.value("modemUploadPath", QDir::homePath()).toString());
+    globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
+    if(settings.value("xyModem1K", false).toBool()) {
+        globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
+    } else {
+        globalOptionsTransferWidget->ui->radioButton128Bytes->setChecked(true);
+    }
     settings.endGroup();
     emit this->rejected();
 }

@@ -17,7 +17,18 @@ class QSendKermit : public QThread {
 
 public:
     explicit QSendKermit(int32_t timeout = -1, QObject *parent = nullptr);
+    ~QSendKermit(){
+        requestStop();
+        wait();
+    };
     void setFilePathList(QStringList filePathList);
+    void requestStop(void) {
+        m_abort = true;
+        condition.wakeOne();
+    }
+    bool getStopFlag(void) {
+        return m_abort;
+    }
 
 signals:
     void sendData(QByteArray data);
@@ -43,14 +54,24 @@ private:
             if(timeout<0) {
             retry:
                 condition.wait(&mutex);
+                if(getStopFlag()) {
+                    mutex.unlock();
+                    return nullptr;
+                }
                 size = dataRecv.size();
                 if(size < sizeof(msg)) {
                     goto retry;
                 }
             } else {
                 QDeadlineTimer timer(timeout);
-                condition.wait(&mutex, timer);
-                size = dataRecv.size();
+                do {
+                    condition.wait(&mutex, timer.remainingTime());
+                    if(getStopFlag()) {
+                        mutex.unlock();
+                        return nullptr;
+                    }
+                    size = dataRecv.size();
+                } while(size < sizeof(msg) && timer.remainingTime() > 0);
                 if(size >= sizeof(msg)) {
                     ok = true;
                 }
@@ -79,6 +100,7 @@ private:
 
     int32_t timeout;
     QStringList filePathList;
+    bool m_abort = false;
 };
 
 #endif // QSENDKERMIT_H
