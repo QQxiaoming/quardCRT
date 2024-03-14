@@ -324,8 +324,9 @@ signals:
    */
   void stateSet(int state);
 
-  /** TODO Document me */
-  void zmodemDetected();
+  /** ZModem file transfer detected */
+  void zmodemSendDetected();
+  void zmodemRecvDetected();
 
 
   /**

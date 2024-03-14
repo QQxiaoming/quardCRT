@@ -254,8 +254,12 @@ void Emulation::receiveData(const char* text, int length)
     {
         if (text[i] == '\030')
         {
-            if ((length-i-1 > 3) && (strncmp(text+i+1, "B00", 3) == 0))
-                emit zmodemDetected();
+            if ((length-i-1 > 3) && (strncmp(text+i+1, "B00", 3) == 0)) {
+                emit zmodemSendDetected();
+            }
+            if ((length-i-1 > 5) && (strncmp(text+i+1, "B0100", 5) == 0)) {
+                emit zmodemRecvDetected();
+            }
         }
     }
 }
@@ -326,7 +330,9 @@ void Emulation::dupDisplayCharacter(wchar_t cc)
     if (s[i] == '\030')
     {
       if ((len-i-1 > 3) && (strncmp(s+i+1, "B00", 3) == 0))
-          emit zmodemDetected();
+          emit zmodemSendDetected();
+      if ((length-i-1 > 5) && (strncmp(text+i+1, "B0100", 5) == 0))
+          emit zmodemRecvDetected();
     }
   }
 }*/

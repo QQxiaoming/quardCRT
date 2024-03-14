@@ -363,9 +363,6 @@ signals:
     /** TODO: Document me. */
     void openUrlRequest(const QString & url);
 
-    /** TODO: Document me. */
-//  void zmodemDetected();
-
     /**
      * Emitted when the terminal process requests a change
      * in the size of the terminal window.

@@ -218,7 +218,9 @@ void QTermWidget::init(void)
     connect(m_impl->m_session, SIGNAL(silence()), this, SIGNAL(silence()));
     connect(m_impl->m_session, &Session::profileChangeCommandReceived, this, &QTermWidget::profileChanged);
     connect(m_impl->m_session, &Session::receivedData, this, &QTermWidget::receivedData);
-
+    connect(m_impl->m_session->emulation(), SIGNAL(zmodemRecvDetected()), this, SIGNAL(zmodemRecvDetected()) );
+    connect(m_impl->m_session->emulation(), SIGNAL(zmodemSendDetected()), this, SIGNAL(zmodemSendDetected()) );
+             
     // That's OK, FilterChain's dtor takes care of UrlFilter.
     UrlFilter *urlFilter = new UrlFilter();
     connect(urlFilter, &UrlFilter::activated, this, &QTermWidget::urlActivated);

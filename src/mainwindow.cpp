@@ -563,6 +563,11 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             mainWidgetGroup->sessionTab->setPreviewEnabled(globalOptionsWindow->getEnableTabPreview());
             mainWidgetGroup->sessionTab->setPreviewWidth(globalOptionsWindow->getTabPreviewWidth());
         }
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            sessionsWindow->setZmodemOnlie(!globalOptionsWindow->getDisableZmodemOnline());
+            sessionsWindow->setZmodemUploadPath(globalOptionsWindow->getModemUploadPath());
+            sessionsWindow->setZmodemDownloadPath(globalOptionsWindow->getModemDownloadPath());
+        }
     });
 
     connect(ui->statusBar,&QStatusBar::messageChanged,this,[&](const QString &message){
@@ -2736,6 +2741,9 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
             QMessageBox::warning(this,tr("Warning"),tr("Video background is enabled, please enable animation in global options (more system resources) or change background image."),QMessageBox::Ok);
         }
     }
+    window->setZmodemOnlie(!globalOptionsWindow->getDisableZmodemOnline());
+    window->setZmodemUploadPath(globalOptionsWindow->getModemUploadPath());
+    window->setZmodemDownloadPath(globalOptionsWindow->getModemDownloadPath());
 }
 
 void CentralWidget::restoreSessionToSessionManager(void)

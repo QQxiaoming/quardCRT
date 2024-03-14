@@ -292,6 +292,9 @@ signals:
      */
     void receivedData(const QString &text);
 
+    void zmodemSendDetected();
+    void zmodemRecvDetected();
+
 public slots:
     // Copy selection to clipboard
     void copyClipboard();

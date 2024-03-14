@@ -106,6 +106,7 @@ public:
     void sendFileUseYModem(QStringList fileList, bool modem1KMode);
     void recvFileUseYModem(const QString &downloadPath);
     void sendFileUseZModem(QStringList fileList);
+    void recvFileUseZModem(const QString &downloadPath);
 
     int setLog(bool enable);
     bool isLog(void) { return enableLog; }
@@ -278,6 +279,15 @@ public:
     void repaintDisplay(void) {
         if(term) term->repaintDisplay();
     }
+    void setZmodemUploadPath(const QString &path) {
+        zmodemUploadPath = path;
+    }
+    void setZmodemDownloadPath(const QString &path) {
+        zmodemDownloadPath = path;
+    }
+    void setZmodemOnlie(bool enable) {
+        zmodemOnlie = enable;
+    }
 
 signals:
     void hexDataDup(const char *data, int size);
@@ -321,6 +331,9 @@ private:
     QMutex modemProxyChannelMutex;
     bool modemProxyChannel = false;
     bool stopModemProxy = false;
+    bool zmodemOnlie = true;
+    QString zmodemUploadPath;
+    QString zmodemDownloadPath;
 
     QMutex receiveASCIIFileMutex;
     bool receiveASCIIFile = false;
