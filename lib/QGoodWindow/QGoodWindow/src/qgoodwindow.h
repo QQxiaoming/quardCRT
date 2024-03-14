@@ -176,7 +176,7 @@ Q_SIGNALS:
     /** Notify that the visibility of caption buttons have changed on macOS. */
     void captionButtonsVisibilityChangedOnMacOS();
 
-    void windowStateChanged(Qt::WindowStates state);
+    void fixIssueWindowEvent(QEvent::Type type);
     
     /*** QGOODWINDOW FUNCTIONS BEGIN ***/
 

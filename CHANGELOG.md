@@ -7,12 +7,14 @@ en-US:
 - Add ascii send/receive, Kermit send/receive, xyzmodem send/receive functions
 - Fix the problem that the status indicated by the start tftp menu item may be incorrect
 - Fix the problem that the program crashes when the terminal displays Unicode characters beyond the first plane
+- Fix the problem that the terminal area rendering does not refresh after drag the window to the screen edge to trigger the window size adjustment on linux
 
 zh-CN:
 
 - 增加ascii发送/接收、Kermit发送/接收、xyzmodem发送/接收功能
 - 修复启动tftp菜单项指示的状态可能出现错误问题
 - 修复终端显示超过第一平面的Unicode字符时程序崩溃的问题
+- 修复linux上拖拽窗口到屏幕边缘触发窗口大小调整后终端界面渲染不刷新的问题
 
 ## [[V0.4.3](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.3)] - 2024-02-26
 
@@ -21,7 +23,7 @@ en-US:
 - Add a tooltip to the terminal link, and modify the mouse shape to the corresponding shape after pressing ctrl
 - Modify the default LC_CTYPE configuration to UTF-8 on macos, and do not make default configuration on other platforms. You can modify whether to make configuration through the setting file
 - Fix the problem that the pre-built version on macos missed part of the packaged translation files
-- Fix the problem that the terminal interface rendering is not refreshed in time when the window is maximized on linux
+- Fix the problem that the terminal area rendering is not refreshed in time when the window is maximized on linux
 - The plugin system completes multi-language support
 - Partial UI details beautification
 - Add a new help document
@@ -49,7 +51,7 @@ en-US:
 - Fix the possible error ack processing problem of tftpsever
 - Fix the crash problem under full screen on macos
 - Fix the title button does not switch to the macos style problem in the native UI mode on macos
-- Fix the problem that the title button full screen on macos through the native UI style cannot display the exit full screen option in the context menu on the interface
+- Fix the problem that the title button full screen on macos through the native UI style cannot display the exit full screen option in the context menu on the main window
 - Pre-built versions add pre-built plugin packaging for the [plugin ecosystem platform](https://github.com/QuardCRT-platform)
 
 zh-CN:
@@ -222,8 +224,8 @@ en-US:
 - Add setting cursor shape and blink function
 - Terminal background supports Gif animation format files (need to enable animation support in advanced settings)
 - Terminal background supports mp4/avi/mkv/mov video format files (need to enable animation support in advanced settings)
-- Update the global settings interface, and display the settings in categories
-- Add session settings interface, now you can modify and edit session properties
+- Update the global settings window, categorize the settings
+- Add session settings window, now you can modify and edit session properties
 - Add separate start new window function
 - Add software's own debugging information log system, which is not turned on by default, and must be manually written to the config file to start
 
@@ -271,8 +273,8 @@ en-US:
 - Add lock session function
 - Add configuration to start a new local terminal with the default working path
 - Terminal background image supports tile mode
-- Persistently store the main interface layout information
-- Optimize the context menu on the interface
+- Persistently store the main window layout information
+- Optimize the context menu on the main window
 - Optimize the open file dialog UI
 - Modify the rendering bold font on windows to cause the cursor to be abnormal, temporarily not supporting bold rendering to ensure that the cursor position is correct
 - Fix the problem that the working path set after executing the command on windows is incorrect
@@ -322,7 +324,7 @@ en-US:
 
 - Add the function of switching simple/standard UI with alt+n/alt+J
 - Add the practical function of starting tfftp server
-- Optimize hex view display interface
+- Optimize hex view display window
 - The window installation program adds the system-integrated right-click menu opened with quardCRT
 - The tab bar right-click menu adds multiple practical functions
 - Fix the position error of wide characters such as Chinese on window
@@ -353,7 +355,7 @@ en-US:
 - Add terminal right scroll bar
 - Fix the problem that the middle mouse button cannot execute copy and paste on window/mac
 - Add dual terminal session split display
-- Add simple UI interface options
+- Add simple UI options
 
 zh-CN:
 
@@ -436,8 +438,8 @@ zh-CN:
 
 en-US:
 
-- Add menu bar and toolbar to the main interface, and improve more right-click menus
-- Add more terminal interface color styles
+- Add menu bar and toolbar to the main window, and improve more right-click menus
+- Add more terminal theme styles
 - Add dynamic switching language function
 - Add dynamic switching theme function
 
@@ -452,13 +454,13 @@ zh-CN:
 
 en-US:
 
-- Realize the main interface terminal function
+- Realize the main window terminal function
 - Add label tab paging management
 - Support telnet protocol
 - Support serial port protocol
 - Support RAW protocol
 - Support local Shell
-- Interface supports Simplified Chinese/English/Japanese
+- UI supports simplified Chinese/English/Japanese
 
 zh-CN:
 

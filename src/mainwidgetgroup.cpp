@@ -22,8 +22,8 @@
 #include "mainwidgetgroup.h"
 #include "sessionswindow.h"
 
-MainWidgetGroup::MainWidgetGroup(QWidget *parent)
-    : QObject(parent)
+MainWidgetGroup::MainWidgetGroup(Type type, QWidget *parent)
+    : QObject(parent), m_type(type)
 {
     splitter = new QSplitter(Qt::Vertical, parent);
     sessionTab = new SessionTab(parent);

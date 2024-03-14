@@ -29,13 +29,20 @@ class MainWidgetGroup: public QObject
 {
     Q_OBJECT
 public:
-    MainWidgetGroup(QWidget *parent = nullptr);
+    enum Type {
+        EMBEDDED,
+        FLOATING,
+    };
+    MainWidgetGroup(Type type, QWidget *parent = nullptr);
     ~MainWidgetGroup();
+
+    Type type() const { return m_type; }
 
 public:
     QSplitter *splitter;
     SessionTab *sessionTab;
     CommandWidget *commandWidget;
+    Type m_type;
 };
 
 #endif // MAINWIDGETGROUP_H

@@ -94,9 +94,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     QSplitter *splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
     ui->centralwidget->layout()->addWidget(splitter);
-    mainWidgetGroupList.append(new MainWidgetGroup(this));
+    mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
     splitter->addWidget(mainWidgetGroupList.at(0)->splitter);
-    mainWidgetGroupList.append(new MainWidgetGroup(this));
+    mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
     splitter->addWidget(mainWidgetGroupList.at(1)->splitter);
     splitter->setSizes(QList<int>() << 1 << 0);
     
@@ -713,13 +713,24 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     QTimer::singleShot(0, this, [&](){
         if(mainWindow) {
             mainWindow->fixMenuBarWidth();
-            connect(mainWindow,&QGoodWindow::windowStateChanged,this,[&](Qt::WindowStates state){
-                if(state == Qt::WindowMaximized) {
-                    foreach(SessionsWindow *sessionsWindow, sessionList) {
-                        sessionsWindow->repaintDisplay();
+        #if defined(Q_OS_LINUX)
+            // FIXME: only for linux, this is a bad hack, but it works
+            connect(mainWindow,&QGoodWindow::fixIssueWindowEvent,this,[&](QEvent::Type type){
+                if(type == QEvent::Resize) {
+                    foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                        if(mainWidgetGroup->type() == MainWidgetGroup::EMBEDDED) {
+                            QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
+                            if(widget != nullptr) {
+                                SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+                                if(sessionsWindow != nullptr) {
+                                    sessionsWindow->repaintDisplay();
+                                }
+                            }
+                        }
                     }
                 }
             });
+        #endif
         }
     });
 
@@ -908,7 +919,7 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
     dialog->setWindowFlags(Qt::Window);
     dialog->resize(800,480);
     dialog->setLayout(new QVBoxLayout);
-    MainWidgetGroup *group = new MainWidgetGroup(dialog);
+    MainWidgetGroup *group = new MainWidgetGroup(MainWidgetGroup::FLOATING,dialog);
     mainWidgetGroupList.append(group);
     int newGroup = mainWidgetGroupList.count()-1;
     if(g == mainWidgetGroupList.at(0)) {
