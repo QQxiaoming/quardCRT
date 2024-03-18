@@ -254,9 +254,11 @@ void Emulation::receiveData(const char* text, int length)
     {
         if (text[i] == '\030')
         {
+            // ZRQINIT 0 Request receive init
             if ((length-i-1 > 3) && (strncmp(text+i+1, "B00", 3) == 0)) {
                 emit zmodemSendDetected();
             }
+            // ZRINIT	1	 Receive init
             if ((length-i-1 > 5) && (strncmp(text+i+1, "B0100", 5) == 0)) {
                 emit zmodemRecvDetected();
             }

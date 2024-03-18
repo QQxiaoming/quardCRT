@@ -65,7 +65,7 @@ void SshScpSend::sshDataReceived()
             setChannelState(ChannelState::Exec);
         }
 
-        FALLTHROUGH; case Exec:
+        SSH2FALLTHROUGH(); case Exec:
         {
             m_file.setFileName(m_source);
             if(!m_file.open(QIODevice::ReadOnly))
@@ -85,7 +85,7 @@ void SshScpSend::sshDataReceived()
             /* OK, next step */
         }
 
-        FALLTHROUGH; case Ready:
+        SSH2FALLTHROUGH(); case Ready:
         {
             while(!m_file.atEnd())
             {
@@ -125,7 +125,7 @@ void SshScpSend::sshDataReceived()
             setChannelState(ChannelState::Close);
         }
 
-        FALLTHROUGH; case Close:
+        SSH2FALLTHROUGH(); case Close:
         {
             m_file.close();
             if(m_sent != m_file.size())
@@ -156,7 +156,7 @@ void SshScpSend::sshDataReceived()
             setChannelState(ChannelState::WaitClose);
         }
 
-        FALLTHROUGH; case WaitClose:
+        SSH2FALLTHROUGH(); case WaitClose:
         {
             qCDebug(logscpsend) << "Wait close channel:" << m_name;
             int ret = libssh2_channel_wait_closed(m_sshChannel);
@@ -176,7 +176,7 @@ void SshScpSend::sshDataReceived()
             setChannelState(ChannelState::Freeing);
         }
 
-        FALLTHROUGH; case Freeing:
+        SSH2FALLTHROUGH(); case Freeing:
         {
             qCDebug(logscpsend) << "free Channel:" << m_name;
 

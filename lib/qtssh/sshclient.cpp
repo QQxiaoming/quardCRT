@@ -370,7 +370,7 @@ void SshClient::_ssh_processEvent()
             setSshState(SshState::WaitingSocketConnection);
         }
 
-        FALLTHROUGH; case SshState::WaitingSocketConnection:
+        SSH2FALLTHROUGH(); case SshState::WaitingSocketConnection:
         {
             return;
         }
@@ -401,7 +401,7 @@ void SshClient::_ssh_processEvent()
             setSshState(SshState::HandShake);
         }
 
-        FALLTHROUGH; case SshState::HandShake:
+        SSH2FALLTHROUGH(); case SshState::HandShake:
         {
             int ret = libssh2_session_handshake(m_session, static_cast<int>(m_socket.socketDescriptor()));
             if(ret == LIBSSH2_ERROR_EAGAIN)
@@ -447,7 +447,7 @@ void SshClient::_ssh_processEvent()
             setSshState(SshState::GetAuthenticationMethodes);
         }
 
-        FALLTHROUGH; case SshState::GetAuthenticationMethodes:
+        SSH2FALLTHROUGH(); case SshState::GetAuthenticationMethodes:
         {
             if(m_authenticationMethodes.length() == 0)
             {
@@ -474,7 +474,7 @@ void SshClient::_ssh_processEvent()
             setSshState(SshState::Authentication);
         }
 
-        FALLTHROUGH; case SshState::Authentication:
+        SSH2FALLTHROUGH(); case SshState::Authentication:
         {
             while(m_authenticationMethodes.length() != 0)
             {
@@ -555,7 +555,7 @@ void SshClient::_ssh_processEvent()
                 setSshState(SshState::Error);
                 return;
             }
-            FALLTHROUGH;
+            SSH2FALLTHROUGH();
         }
 
         case SshState::Ready:
@@ -617,7 +617,7 @@ void SshClient::_ssh_processEvent()
             }
         }
 
-        FALLTHROUGH; case SshState::FreeSession:
+        SSH2FALLTHROUGH(); case SshState::FreeSession:
         {
             m_keepalive.stop();
             if (m_knownHosts)

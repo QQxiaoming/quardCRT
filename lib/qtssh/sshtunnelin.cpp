@@ -104,7 +104,7 @@ void SshTunnelIn::sshDataReceived()
             setChannelState(ChannelState::Ready);
         }
 
-        FALLTHROUGH; case Ready:
+        SSH2FALLTHROUGH(); case Ready:
         {
             LIBSSH2_CHANNEL *newChannel;
             if ( ! m_sshClient->takeChannelCreationMutex(this) )
@@ -149,7 +149,7 @@ void SshTunnelIn::sshDataReceived()
                 m_sshListener = nullptr;
             }
             setChannelState(ChannelState::WaitClose);
-            FALLTHROUGH;
+            SSH2FALLTHROUGH();
         }
 
         case WaitClose:
@@ -160,7 +160,7 @@ void SshTunnelIn::sshDataReceived()
                 return;
             }
             setChannelState(ChannelState::Freeing);
-            FALLTHROUGH;
+            SSH2FALLTHROUGH();
         }
 
         case Freeing:
@@ -169,7 +169,7 @@ void SshTunnelIn::sshDataReceived()
             setChannelState(ChannelState::Free);
         }
 
-        FALLTHROUGH; case Free:
+        SSH2FALLTHROUGH(); case Free:
         {
             qCDebug(logsshtunnelin) << "Channel" << m_name << "is free";
             return;

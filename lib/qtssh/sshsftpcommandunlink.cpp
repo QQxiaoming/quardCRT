@@ -38,7 +38,7 @@ void SshSftpCommandUnlink::process()
             break;
         }
         setState(CommandState::Terminate);
-        FALLTHROUGH;
+        SSH2FALLTHROUGH();
     case Terminate:
         break;
 

@@ -828,7 +828,7 @@ int QRecvZmodem::rz_receive_file(struct zm_fileinfo *zi) {
         qDebug("rz_receive_file: zm_get_header returned %d", c);
         return ZM_ERROR;
       }
-      FALLTHROUGH();
+      ZM_FALLTHROUGH();
     case ZFILE:
       zm->zm_receive_data(secbuf, MAX_BLOCK, &bytes_in_block);
       continue;

@@ -71,6 +71,7 @@ public:
     void setOptions(QFileDialog::Options options);
     void selectNameFilter(const QString &filter);
     QString selectedNameFilter() const;
+    void setInitList(const QStringList &initList);
 
 private:
     Ui::FileDialog *ui;
@@ -178,6 +179,8 @@ public:
                                     const QString &caption = QString(),
                                     const QString &dir = QString(),
                                     const QString &filter = QString(),
+                                    const QStringList &initList = QStringList(),
+                                    bool *accepted = nullptr,
                                     QString *selectedFilter = nullptr,
                                     QFileDialog::Options options = QFileDialog::Options()) {
         FileDialog dialog(parent, caption, dir, filter);
@@ -186,9 +189,12 @@ public:
         dialog.setDefaultSuffix("txt");
         dialog.setSidebarUrls(FileDialog::getSiderbarUrls());
         dialog.setOptions(options);
+        dialog.setInitList(initList);
+        if(accepted) *accepted = false;
         if (selectedFilter && !selectedFilter->isEmpty())
             dialog.selectNameFilter(*selectedFilter);
         if (dialog.exec() == QDialog::Accepted) {
+            if(accepted) *accepted = true;
             if (selectedFilter)
                 *selectedFilter = dialog.selectedNameFilter();
             return dialog.selectedFiles();

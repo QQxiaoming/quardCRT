@@ -4,6 +4,6 @@
 
 If you have suggestions or ideas for this project, please submit issues and pull requests on GitHub or Gitee.
 
-If you want to improve/fix the known issues, you can check [TODO](./TODO.md).
+If you want to improve/fix the known issues, you can check [TODO](https://github.com/QQxiaoming/quardCRT/blob/main/TODO.md).
 
 The current project is recommended to use version Qt6.5.0 and above.

@@ -42,11 +42,11 @@ void SshTunnelOut::sshDataReceived()
             setChannelState(ChannelState::Exec);
         }
 
-        FALLTHROUGH; case Exec:
+        SSH2FALLTHROUGH(); case Exec:
         {
             /* OK, next step */
             setChannelState(ChannelState::Ready);
-            FALLTHROUGH;
+            SSH2FALLTHROUGH();
         }
 
         case Ready:
@@ -62,7 +62,7 @@ void SshTunnelOut::sshDataReceived()
             setChannelState(ChannelState::WaitClose);
         }
 
-        FALLTHROUGH; case WaitClose:
+        SSH2FALLTHROUGH(); case WaitClose:
         {
             qCDebug(logsshtunnelout) << "Wait close channel:" << m_name << " (connections:"<< m_connection.count() << ")";
             if(m_connection.count() == 0)
@@ -75,7 +75,7 @@ void SshTunnelOut::sshDataReceived()
             }
         }
 
-        FALLTHROUGH; case Freeing:
+        SSH2FALLTHROUGH(); case Freeing:
         {
             qCDebug(logsshtunnelout) << "free Channel:" << m_name;
             setChannelState(ChannelState::Free);

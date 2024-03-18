@@ -2469,9 +2469,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         sessionsWindow->recvFileUseYModem(globalOptionsWindow->getModemDownloadPath());
     });
     connect(zmodemUploadListAction,&QAction::triggered,this,[=](){
-        QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Zmodem"), globalOptionsWindow->getModemUploadPath(), tr("All Files (*)"));
-        if(files.isEmpty()) return;
-        zmodemUploadList.append(files);
+        bool accepted = false;
+        QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Zmodem"), globalOptionsWindow->getModemUploadPath(), tr("All Files (*)"), zmodemUploadList, &accepted);
+        if(accepted)  
+            zmodemUploadList = files;
         startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
     });
     connect(startZmodemUploadAction,&QAction::triggered,this,[=](){
@@ -3662,6 +3663,13 @@ void CentralWidget::checkStatusTipEvent(QStatusTipEvent *event) {
     if (!event->tip().isEmpty()) {
         ui->statusBar->showMessage(event->tip(), 2000);
     }
+}
+
+QStringList CentralWidget::requestZmodemUploadList(void) {
+    QStringList list = zmodemUploadList;
+    zmodemUploadList.clear();
+    startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
+    return list;
 }
 
 void CentralWidget::swapSideHboxLayout(void) {

@@ -225,13 +225,13 @@ void SshSFtp::_eventLoop()
             setChannelState(ChannelState::Exec);
         }
 
-        FALLTHROUGH; case Exec:
+        SSH2FALLTHROUGH(); case Exec:
         {
             setChannelState(ChannelState::Ready);
         }
 
 
-        FALLTHROUGH; case Ready:
+        SSH2FALLTHROUGH(); case Ready:
         {
             if(m_currentCmd == nullptr && m_cmd.size() > 0)
             {
@@ -270,12 +270,12 @@ void SshSFtp::_eventLoop()
             setChannelState(ChannelState::WaitClose);
         }
 
-        FALLTHROUGH; case WaitClose:
+        SSH2FALLTHROUGH(); case WaitClose:
         {
             setChannelState(ChannelState::Freeing);
         }
 
-        FALLTHROUGH; case Freeing:
+        SSH2FALLTHROUGH(); case Freeing:
         {
             DEBUGCH << "free Channel";
             setChannelState(ChannelState::Free);

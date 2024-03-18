@@ -28,6 +28,7 @@
 #include <QUrl>
 #include <QCryptographicHash>
 
+#include "mainwindow.h"
 #include "qsendkermit.h"
 #include "qrecvkermit.h"
 #include "qxymodem.h"
@@ -411,7 +412,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 recvFileUseZModem(zmodemDownloadPath);
             }
         });
-        connect(term, &QTermWidget::zmodemRecvDetected, this, [&](){
+        connect(term, &QTermWidget::zmodemRecvDetected, this, [&,parent](){
             if(zmodemOnlie) {
                 modemProxyChannelMutex.lock();
                 if(modemProxyChannel) {
@@ -423,7 +424,13 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 QString msg = QString("\033[2K\rZModem transfer detected");
                 QByteArray data = msg.toUtf8();
                 proxyRecvData(data);
-                QStringList files = FileDialog::getItemsPathsWithPickBox(term, tr("Select Files to Send using Zmodem"), zmodemUploadPath, tr("All Files (*)"));
+
+                // FIXME: we should not use CentralWidget here
+                CentralWidget *mainwindow = static_cast<CentralWidget*>(parent);
+                QStringList files = mainwindow->requestZmodemUploadList();
+
+                if(files.isEmpty())
+                    files = FileDialog::getItemsPathsWithPickBox(term, tr("Select Files to Send using Zmodem"), zmodemUploadPath, tr("All Files (*)"));
                 // if files is empty, we also start zmodem send, it will fast abort
                 modemProxyChannelMutex.lock();
                 modemProxyChannel = false;

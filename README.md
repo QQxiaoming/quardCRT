@@ -60,6 +60,7 @@ Protocol selection interface:
 - HEX display
 - Terminal background image configuration
 - Terminal scroll line configuration
+- Support x\y\zmodem protocol
 - Support dark/light theme
 - Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian/German/Portuguese (Brazil)/Czech/Arabic)
 
@@ -91,14 +92,12 @@ Protocol selection interface:
 
 ## Planned features
 
-- [x] Support xyzmodem protocol
 - [ ] Support operation script recording/loading
 - [ ] Support screen recording
 - [ ] session status query
 - [ ] Terminal style customization
 - [ ] Independent session set terminal appearance
 - [ ] GitHub Copilot plugin support
-- [x] CI support Appimage package
 - [ ] CI support windows on arm64
 
 ## Translation

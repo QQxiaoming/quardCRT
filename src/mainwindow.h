@@ -85,6 +85,7 @@ public:
     static void setAppLangeuage(QLocale lang);
     void checkCloseEvent(QCloseEvent *event);
     void checkStatusTipEvent(QStatusTipEvent *event);
+    QStringList requestZmodemUploadList(void);
 
 private:
     void menuAndToolBarInit(void);

@@ -175,3 +175,7 @@ void FileDialog::selectNameFilter(const QString &filter) {
 QString FileDialog::selectedNameFilter() const {
     return m_fileDialog->selectedNameFilter();
 }
+
+void FileDialog::setInitList(const QStringList &initList) {
+    static_cast<QStringListModel*>(m_listView->model())->setStringList(initList);
+}

@@ -306,10 +306,10 @@ int QSendZmodem::sz_getnak(void) {
       zm->io_mode(2);
       optiong = TRUE;
       blklen = 1024;
-      FALLTHROUGH();
+      ZM_FALLTHROUGH();
     case WANTCRC:
       crcflg = TRUE;
-      FALLTHROUGH();
+      ZM_FALLTHROUGH();
     case NAK:
       /* Spec 8.1: "The sending program awaits a
        * command from the receiving port to start
@@ -612,7 +612,7 @@ int QSendZmodem::sz_getzrxinit(void) {
     case ZRQINIT:
       if (zm->Rxhdr[ZF0] == ZCOMMAND)
         continue;
-      FALLTHROUGH();
+      ZM_FALLTHROUGH();
     default:
       zm->zm_send_hex_header(ZNAK);
       continue;
@@ -1010,7 +1010,7 @@ somemore:
       case XOFF: /* Wait a while for an XON */
       case XOFF | 0200:
         zm->zreadline_getc(100);
-        FALLTHROUGH();
+        ZM_FALLTHROUGH();
       default:
         ++junkcount;
       }
@@ -1193,7 +1193,7 @@ int QSendZmodem::sz_transmit_sector(char *buf, int sectnum, size_t cseclen) {
     case WANTCRC:
       if (firstsec)
         crcflg = TRUE;
-      FALLTHROUGH();
+      ZM_FALLTHROUGH();
     case NAK:
       qCritical("NAK on sector");
       continue;

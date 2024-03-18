@@ -9,14 +9,22 @@
 #include "sshkey.h"
 #include <QSharedPointer>
 
-#ifndef FALLTHROUGH
-#if __has_cpp_attribute(fallthrough)
-#define FALLTHROUGH [[fallthrough]]
-#elif __has_cpp_attribute(clang::fallthrough)
-#define FALLTHROUGH [[clang::fallthrough]]
+#ifdef __has_cpp_attribute
+#  define SSH2_HAS_CPP_ATTRIBUTE(x)       __has_cpp_attribute(x)
 #else
-#define FALLTHROUGH
+#  define SSH2_HAS_CPP_ATTRIBUTE(x)       0
 #endif
+#if defined(__cplusplus)
+#if SSH2_HAS_CPP_ATTRIBUTE(clang::fallthrough)
+#    define SSH2FALLTHROUGH() [[clang::fallthrough]]
+#elif SSH2_HAS_CPP_ATTRIBUTE(gnu::fallthrough)
+#    define SSH2FALLTHROUGH() [[gnu::fallthrough]]
+#elif SSH2_HAS_CPP_ATTRIBUTE(fallthrough)
+#  define SSH2FALLTHROUGH() [[fallthrough]]
+#endif
+#endif
+#ifndef SSH2FALLTHROUGH
+#    define SSH2FALLTHROUGH() (void)0
 #endif
 
 Q_DECLARE_LOGGING_CATEGORY(sshclient)

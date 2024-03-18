@@ -111,6 +111,24 @@ Window configuration includes the window settings of QuardCRT.
 
     The transparency of the entire application window, the value range is 0-100, 0 means completely transparent, 100 means completely opaque.
 
+### Transfer
+
+- Upload Directory
+
+    The default upload directory of the file transfer function, which is the directory where the file is uploaded by default when the user uses the file transfer function.
+
+- Download Directory
+
+    The default download directory of the file transfer function, which is the directory where the file is downloaded by default when the user uses the file transfer function.
+
+- X/Ymodem Send Packet Size
+
+    The size of the data packet sent by X/Ymodem, the default value is 128.
+
+- Zmodem Online
+
+    Check to indicate that Zmodem is online, and the file transfer function will use Zmodem to transfer files.
+
 ### Advanced
 
 Advanced configuration includes some advanced settings of QuardCRT.

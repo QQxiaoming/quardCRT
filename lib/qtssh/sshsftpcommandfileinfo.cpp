@@ -65,7 +65,7 @@ void SshSftpCommandFileInfo::process()
         else
         {
             setState(CommandState::Terminate);
-            FALLTHROUGH;
+            SSH2FALLTHROUGH();
         }
     case Terminate:
         break;

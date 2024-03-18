@@ -45,7 +45,7 @@ void SshSftpCommandReadDir::process()
         else
         {
             setState(CommandState::Exec);
-            FALLTHROUGH;
+            SSH2FALLTHROUGH();
         }
     case Exec:
         while(1)
@@ -91,7 +91,7 @@ void SshSftpCommandReadDir::process()
             break;
         }
         else setState(CommandState::Terminate);
-        FALLTHROUGH;
+        SSH2FALLTHROUGH();
     }
     case Terminate:
         break;

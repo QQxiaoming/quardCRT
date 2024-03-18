@@ -113,7 +113,7 @@ void SshShell::sshDataReceived()
             setChannelState(ChannelState::Exec);
         }
 
-        FALLTHROUGH; case Exec:
+        SSH2FALLTHROUGH(); case Exec:
         {
             if(!m_pty) {
                 int ret = libssh2_channel_request_pty_ex(m_sshChannel, "xterm", sizeof("xterm") - 1, nullptr, 0, 80, 24, 0, 0);
@@ -210,7 +210,7 @@ void SshShell::sshDataReceived()
             setChannelState(ChannelState::WaitClose);
         }
 
-        FALLTHROUGH; case WaitClose:
+        SSH2FALLTHROUGH(); case WaitClose:
         {
             qCDebug(logsshprocess) << "Wait close channel:" << m_name;
             int ret = libssh2_channel_wait_closed(m_sshChannel);
@@ -231,7 +231,7 @@ void SshShell::sshDataReceived()
             setChannelState(ChannelState::Freeing);
         }
 
-        FALLTHROUGH; case Freeing:
+        SSH2FALLTHROUGH(); case Freeing:
         {
             qCDebug(logsshprocess) << "free Channel:" << m_name;
 

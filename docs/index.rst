@@ -66,13 +66,14 @@ Features
 ----------------------------------
 
 - **Cross-platform**: Windows, MacOS, Linux
-- **Multiple protocols**: SSH, Telnet, SFTP, Serial, VNC, LocalShell, RawSocket, NamedPipe
+- **Multiple protocols**: SSH, Telnet, Serial, LocalShell, RawSocket, NamedPipe, VNC
 - **Multiple sessions**: Multi-tab, multi-window, multi-monitor, floating window
 - **Multiple languages**: English, Simple Chinese, Traditional Chinese, Japanese, Korean, Spanish, French, Russian, German, Portuguese (Brazil), Czech, Arabic
 - **Multiple themes**: Light, Dark
 - **Session history management**: Session history management, session history search
 - **Session management**: Session management, session import and export
 - **HEX display**: HEX display
+- **File transfer**: SFTP, Xmodem, Ymodem, Zmodem, Kermit
 - **Script**: Script recording, script playback
 - **Terminal customization**: Terminal font, color, size, cursor, scrollback, background, etc.
 

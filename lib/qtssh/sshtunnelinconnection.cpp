@@ -73,7 +73,7 @@ void SshTunnelInConnection::_eventLoop()
             setChannelState(ChannelState::WaitClose);
         }
 
-        FALLTHROUGH; case WaitClose:
+        SSH2FALLTHROUGH(); case WaitClose:
         {
             DEBUGCH << "Wait close channel";
             if(m_connector.isClosed())
@@ -82,7 +82,7 @@ void SshTunnelInConnection::_eventLoop()
             }
         }
 
-        FALLTHROUGH; case Freeing:
+        SSH2FALLTHROUGH(); case Freeing:
         {
             DEBUGCH << "Freeing Channel";
 

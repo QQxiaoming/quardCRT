@@ -95,7 +95,7 @@ void SshTunnelOutConnection::_eventLoop()
             setChannelState(ChannelState::Exec);
         }
 
-        FALLTHROUGH; case Exec:
+        SSH2FALLTHROUGH(); case Exec:
         {
             m_sock = m_server->nextPendingConnection();
             if(!m_sock)
@@ -116,7 +116,7 @@ void SshTunnelOutConnection::_eventLoop()
             /* OK, next step */
         }
 
-        FALLTHROUGH; case Ready:
+        SSH2FALLTHROUGH(); case Ready:
         {
             if(!m_connector.process())
             {
@@ -132,7 +132,7 @@ void SshTunnelOutConnection::_eventLoop()
             setChannelState(ChannelState::WaitClose);
         }
 
-        FALLTHROUGH; case WaitClose:
+        SSH2FALLTHROUGH(); case WaitClose:
         {
             DEBUGCH << "Wait close channel";
             if(m_connector.isClosed())
@@ -146,7 +146,7 @@ void SshTunnelOutConnection::_eventLoop()
             }
         }
 
-        FALLTHROUGH; case Freeing:
+        SSH2FALLTHROUGH(); case Freeing:
         {
             DEBUGCH << "free Channel";
 

@@ -93,7 +93,7 @@ int LowLevelStuff::zm_get_ascii_char(void) {
     default:
       if (zctlesc && (c < ' '))
         continue;
-      FALLTHROUGH();
+      ZM_FALLTHROUGH();
     case '\r':
     case '\n':
     case ZDLE:
@@ -802,7 +802,7 @@ again:
       }
       goto again;
     }
-    FALLTHROUGH();
+    ZM_FALLTHROUGH();
   default:
   agn2:
     if (intro_msg_len > max_intro_msg_len) {
@@ -879,14 +879,14 @@ fifi:
   switch (c) {
   case GOTCAN:
     c = ZCAN;
-    FALLTHROUGH();
+    ZM_FALLTHROUGH();
   case ZNAK:
   case ZCAN:
   case ZM_ERROR:
   case TIMEOUT:
   case RCDO:
     qCritical("Got %s", frametypes[c + FTOFFSET]);
-    FALLTHROUGH();
+    ZM_FALLTHROUGH();
   default:
     if (c >= -3 && c <= FRTYPES) {
 #ifdef DEBUGZ
@@ -912,17 +912,21 @@ fifi:
   return c;
 }
 void LowLevelStuff::zm_ackbibi(void) {
-  int n;
+  int n = 1; // modfied from 3 by QuardCRT
 
+#ifdef DEBUGZ
   qDebug("ackbibi:");
+#endif
   zm_set_header_payload(0);
-  for (n = 3; --n >= 0;) {
+  for (; --n >= 0;) {
     zreadline_flushline();
     zm_send_hex_header(ZFIN);
     switch (zreadline_getc(100)) {
     case 'O':
       zreadline_getc(1); /* Discard 2nd 'O' */
+#ifdef DEBUGZ
       qDebug("ackbibi complete");
+#endif
       return;
     case RCDO:
       return;

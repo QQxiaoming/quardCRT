@@ -76,7 +76,7 @@ void SshProcess::sshDataReceived()
             setChannelState(ChannelState::Exec);
         }
 
-        FALLTHROUGH; case Exec:
+        SSH2FALLTHROUGH(); case Exec:
         {
             if(m_cmd.size() == 0)
             {
@@ -106,7 +106,7 @@ void SshProcess::sshDataReceived()
             /* OK, next step */
         }
 
-        FALLTHROUGH; case Ready:
+        SSH2FALLTHROUGH(); case Ready:
         {
             ssize_t retsz;
             char buffer[16*1024];
@@ -170,7 +170,7 @@ void SshProcess::sshDataReceived()
             }
         }
 
-        FALLTHROUGH; case Close:
+        SSH2FALLTHROUGH(); case Close:
         {
             qCDebug(logsshprocess) << "closeChannel:" << m_name;
             int ret = libssh2_channel_close(m_sshChannel);
@@ -191,7 +191,7 @@ void SshProcess::sshDataReceived()
             setChannelState(ChannelState::WaitClose);
         }
 
-        FALLTHROUGH; case WaitClose:
+        SSH2FALLTHROUGH(); case WaitClose:
         {
             qCDebug(logsshprocess) << "Wait close channel:" << m_name;
             int ret = libssh2_channel_wait_closed(m_sshChannel);
@@ -212,7 +212,7 @@ void SshProcess::sshDataReceived()
             setChannelState(ChannelState::Freeing);
         }
 
-        FALLTHROUGH; case Freeing:
+        SSH2FALLTHROUGH(); case Freeing:
         {
             qCDebug(logsshprocess) << "free Channel:" << m_name;
 

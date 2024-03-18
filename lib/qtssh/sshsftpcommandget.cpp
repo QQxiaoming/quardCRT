@@ -45,7 +45,7 @@ void SshSftpCommandGet::process()
             setState(CommandState::Closing);
         }
         setState(CommandState::Exec);
-        FALLTHROUGH;
+        SSH2FALLTHROUGH();
     case Exec:
         while(1)
         {
@@ -104,7 +104,7 @@ void SshSftpCommandGet::process()
             break;
         }
         else setState(CommandState::Terminate);
-        FALLTHROUGH;
+        SSH2FALLTHROUGH();
     }
     case Terminate:
         break;
