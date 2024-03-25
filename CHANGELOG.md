@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
+
 en-US:
 
 - Add ascii send/receive, Kermit send/receive, xyzmodem send/receive functions
@@ -323,7 +325,7 @@ zh-CN:
 en-US:
 
 - Add the function of switching simple/standard UI with alt+n/alt+J
-- Add the practical function of starting tfftp server
+- Add the practical function of starting tftp server
 - Optimize hex view display window
 - The window installation program adds the system-integrated right-click menu opened with quardCRT
 - The tab bar right-click menu adds multiple practical functions
@@ -337,7 +339,7 @@ en-US:
 zh-CN:
 
 - 增加使用alt+n/alt+J切换简约/标准UI
-- 增加启动tfftp服务器实用功能
+- 增加启动tftp服务器实用功能
 - 优化hex view显示界面
 - window安装程序增加使用quardCRT打开的系统集成的右键菜单
 - 标签栏右键菜单增加个多个实用功能

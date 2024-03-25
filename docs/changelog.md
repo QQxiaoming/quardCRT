@@ -151,7 +151,7 @@
 ## [[V0.2.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.0)] - 2023-10-18
 
 - Add the function of switching simple/standard UI with alt+n/alt+J
-- Add the practical function of starting tfftp server
+- Add the practical function of starting tftp server
 - Optimize hex view display window
 - The window installation program adds the system-integrated right-click menu opened with quardCRT
 - The tab bar right-click menu adds multiple practical functions
