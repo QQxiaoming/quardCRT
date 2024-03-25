@@ -2,7 +2,7 @@ name: windows
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, download_a10_fw ]
     paths-ignore:
       - 'doc/**'
       - 'docs/**'
@@ -15,8 +15,6 @@ on:
       - 'CHANGELOG.md'
       - 'TODO.md'
       - '.readthedocs.yaml'
-    tags:
-      - V**
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -102,90 +100,20 @@ jobs:
           ./tools/sed/sed.exe -i "s/mingw32-make -j8/mingw32-make -j1/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
-          mkdir prebuilt_plugins
-          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.csv ./prebuilt_plugins
           ./build_setup.bat
-
-      - name: Upload build asserts
-        uses: actions/upload-artifact@v4
+          mv ./InnoSetup/build/quardCRT.exe ./InnoSetup/build/a10_fw_loader.exe
+          mv ./InnoSetup/quardCRT_Appacker.exe ./InnoSetup/a10_fw_loader_Appacker.exe
+          
+      - name: Upload a10_fw_loader_zip
+        uses: actions/upload-artifact@v4.0.0
         with:
-          name: quardCRT_windows
+          name: a10_fw_loader
           path: |
-            ./output/*.exe
+            ./InnoSetup/build
 
-      - name: Run tests
-        run: |
-          ./InnoSetup/build/quardCRT.exe --version
-
-  windows_msvc2019:
-    runs-on: windows-2022
-
-    steps:
-      - uses: actions/checkout@v4
-    
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+      - name: Upload a10_fw_loader_Appacker 
+        uses: actions/upload-artifact@v4.0.0
         with:
-          arch: 'win64_msvc2019_64'
-          version: '6.5.3'
-          modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
-          aqtversion: '==3.1.7'
-
-      - name: Install cmake
-        uses: crazy-max/ghaction-chocolatey@v3
-        with:
-          args: install cmake --no-progress
-
-      - name: Install innosetup
-        uses: crazy-max/ghaction-chocolatey@v3
-        with:
-          args: install innosetup --no-progress
-
-      - name: Setup MSVC
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
-          toolset: 14.29
-
-      - name: Install libssh2
-        run: |
-          cd depend
-          ./build_libssh2_msvc.bat
-          mkdir D:\\libssh2
-          mkdir D:\\libssh2\\include
-          mkdir D:\\libssh2\\lib
-          mkdir D:\\libssh2\\bin
-          cp -r ./output/include/* D:\\libssh2\\include/
-          cp -r ./output/lib/* D:\\libssh2\\lib/
-          cp -r ./output/bin/* D:\\libssh2\\bin/
-
-      - name: Install winpty
-        run: |
-          cd D:/
-          curl -L https://github.com/rprichard/winpty/releases/download/0.4.3/winpty-0.4.3-msys2-2.7.0-x64.tar.gz -o winpty-0.4.3-msys2-2.7.0-x64.tar.gz
-          tar -xvf winpty-0.4.3-msys2-2.7.0-x64.tar.gz
-          mv winpty-0.4.3-msys2-2.7.0-x64 winpty
-    
-      - name: Build all
-        run: |
-          git fetch --tags --force
-          ./tools/sed/sed.exe -i 's/--long --dirty/--long/g' ./tools/generate_info.ps1
-          ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/msvc64\/bin/QT_DIR=%Qt6_DIR%/g" ./build_setup_msvc.bat
-          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/msvc64\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/msvc64\/bin/g" ./build_setup_msvc.bat
-          ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
-          ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
-          c:/Windows/system32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -File "./tools/generate_info.ps1" > ./build_info.inc
-          mkdir prebuilt_plugins
-          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.csv ./prebuilt_plugins msvc
-          ./build_setup_msvc.bat
-
-      - name: Upload build asserts
-        uses: actions/upload-artifact@v4
-        with:
-          name: quardCRT_windows_msvc2019
+          name: a10_fw_loader_Appacker
           path: |
-            ./output/*.exe
-
-      - name: Run tests
-        run: |
-          ./InnoSetup/build/quardCRT.exe --version
+            ./InnoSetup/a10_fw_loader_Appacker.exe

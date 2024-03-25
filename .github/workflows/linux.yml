@@ -2,7 +2,7 @@ name: linux
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, download_a10_fw ]
     paths-ignore:
       - 'doc/**'
       - 'docs/**'
@@ -15,8 +15,6 @@ on:
       - 'CHANGELOG.md'
       - 'TODO.md'
       - '.readthedocs.yaml'
-    tags:
-      - V**
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -75,16 +73,17 @@ jobs:
           sed -i 's/--long --dirty/--long/g' ./tools/generate_info.sh
           sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_deb.sh
           sed -i 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
-          mkdir prebuilt_plugins
-          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.csv ./prebuilt_plugins
           ./build_deb.sh
+          rm ./dpkg/*.deb
+          cd dpkg
+          tar -czvf quardCRT_Linux.tar.gz ./quardCRT_Linux_*_x86_64
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.0.0
         with:
-          name: quardCRT_Ubuntu2004
+          name: a10_fw_loader
           path: |
-            ./dpkg/*.deb
+            ./dpkg/quardCRT_Linux.tar.gz
 
   appimage:
     runs-on: ubuntu-20.04
@@ -127,14 +126,13 @@ jobs:
           sed -i 's/--long --dirty/--long/g' ./tools/generate_info.sh
           sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_AppImage.sh
           sed -i 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
-          mkdir prebuilt_plugins
-          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.csv ./prebuilt_plugins
           ./build_AppImage.sh
+          cp ./AppImageOut/quardCRT_Linux_*.AppImage ./AppImageOut/a10_fw_loader.AppImage
 
       - name: Upload build asserts
         uses: actions/upload-artifact@v4
         with:
-          name: quardCRT_AppImage
+          name: a10_fw_loader_AppImage
           path: |
-            ./AppImageOut/*.AppImage
+            ./AppImageOut/a10_fw_loader.AppImage
             

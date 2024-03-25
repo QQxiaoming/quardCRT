@@ -63,6 +63,8 @@
 #include "sessionoptionswindow.h"
 #include "sshsftp.h"
 
+#include <QNetworkInterface>
+#include <QRandomGenerator>
 
 #include "ui_mainwindow.h"
 
@@ -749,6 +751,70 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     publickeyManagerAction->setEnabled(false);
     tileAction->setEnabled(false);
     cascadeAction->setEnabled(false);
+    
+    // 此处代码为下载A10固件工具专用定制代码
+    if(mode != MINIUI_MODE) {
+        if(!mainWindow) menuBarAction->trigger();
+        toolBarAction->trigger();
+        statusBarAction->trigger();
+        sideWindowAction->trigger();
+    }
+    resize(1200,600);
+    setWindowTitle("A10固件下载工具");
+    QTimer::singleShot(100, this, [=]{
+        QStringList ipaddrList;
+        QList<QHostAddress> list = QNetworkInterface::allAddresses();
+        foreach(QHostAddress address,list) {
+            if(address.protocol() == QAbstractSocket::IPv4Protocol) {
+                if(address.toString() == "127.0.0.1") {
+                    continue;
+                }
+                ipaddrList.append(address.toString());
+            }
+        }
+        bool isOK = false;
+        QString severip = QInputDialog::getItem(this,"选择IP地址","选择连接相机网卡的IP地址",ipaddrList,0,false,&isOK);
+        if(!isOK || severip.isEmpty()) {
+            QMessageBox::critical(this, "错误", "未选择IP地址");
+            exit(0);
+        }
+        QString boardip;
+        do {
+            boardip = severip.left(severip.lastIndexOf(".")+1)+QString::number(QRandomGenerator::global()->bounded(50,200));
+        }while(boardip == severip);
+        QString fwDir = FileDialog::getExistingDirectory(this, "选择固件路径", QDir::homePath());
+        if(fwDir.isEmpty()) {
+            QMessageBox::critical(this, "错误", "未选择固件路径");
+            exit(0);
+        }
+        QTftp *a10fwTftpServer = new QTftp;
+        int port = 20000+QRandomGenerator::global()->bounded(1000);
+        a10fwTftpServer->setPort(port);
+        a10fwTftpServer->setUpDir(fwDir);
+        a10fwTftpServer->setDownDir(fwDir);
+        a10fwTftpServer->startServer();
+        splitter->setSizes(QList<int>() << 1 << 1);
+        splitter->setCollapsible(0,false);
+        splitter->setCollapsible(1,false);
+        mainWidgetGroupList[0]->splitter->setCollapsible(0,false);
+        mainWidgetGroupList[0]->splitter->setCollapsible(1,false);
+        mainWidgetGroupList[1]->splitter->setCollapsible(0,false);
+        mainWidgetGroupList[1]->splitter->setCollapsible(1,false);
+        mainWidgetGroupList[1]->splitter->setSizes(QList<int>() << 10000 << 1);
+        mainWidgetGroupList[0]->splitter->setSizes(QList<int>() << 10000 << 1);
+    #if defined(Q_OS_WIN)
+        mainWidgetGroupList[0]->commandWidget->setCmd("./down_uboot_use_jtag.ps1\n");
+    #else
+        mainWidgetGroupList[0]->commandWidget->setCmd("./down_uboot_use_jtag.sh\n");
+    #endif
+        mainWidgetGroupList[1]->commandWidget->setCmd(" setenv ipaddr "+boardip+";setenv serverip "+severip+";setenv tftpdstp " + QString::number(port) + ";if ping "+severip+";then run  percipioload;echo \"Succeeded! Please reboot!\";else echo \"ERROR! Maybe network is broken!\";fi\n");
+
+        startLocalShellSession(mainWidgetGroupList[0],QString(),fwDir);
+        quickConnectMainWidgetGroup = mainWidgetGroupList[1];
+        quickConnectWindow->setProtocol(QuickConnectWindow::Serial);
+        quickConnectWindow->setSaveSession(false);
+        quickConnectWindow->show();
+    });
 }
 
 CentralWidget::~CentralWidget() {
