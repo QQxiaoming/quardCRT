@@ -137,6 +137,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
+    globalOptionsTerminalWidget->ui->horizontalSliderSelectedTextAccentColorTransparency->setValue(settings.value("selectedTextAccentColorTransparency", 50).toInt());
     globalOptionsGeneralWidget->ui->comboBoxNewTabMode->setCurrentIndex(settings.value("newTabMode", 1).toInt());
     globalOptionsTransferWidget->ui->lineEditDownload->setText(settings.value("modemDownloadPath", QDir::homePath()).toString());
     globalOptionsTransferWidget->ui->lineEditUpload->setText(settings.value("modemUploadPath", QDir::homePath()).toString());
@@ -385,6 +386,11 @@ QString GlobalOptionsWindow::getWordCharacters(void)
     return globalOptionsTerminalWidget->ui->lineEditWordCharacters->text();
 }
 
+int GlobalOptionsWindow::getSelectedTextAccentColorTransparency(void) 
+{
+    return globalOptionsTerminalWidget->ui->horizontalSliderSelectedTextAccentColorTransparency->value();
+}
+
 int GlobalOptionsWindow::getTranslateService(void) 
 {
     return globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentIndex();
@@ -437,6 +443,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("enableTabPreview", globalOptionsGeneralWidget->ui->checkBoxTabPreview->isChecked());
     settings.setValue("tabPreviewWidth", globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->value());
     settings.setValue("wordCharacters", globalOptionsTerminalWidget->ui->lineEditWordCharacters->text());
+    settings.setValue("selectedTextAccentColorTransparency", globalOptionsTerminalWidget->ui->horizontalSliderSelectedTextAccentColorTransparency->value());
     settings.setValue("translateService", globalOptionsAdvancedWidget->ui->comboBoxTranslateService->currentIndex());
     settings.setValue("newTabMode", globalOptionsGeneralWidget->ui->comboBoxNewTabMode->currentIndex());
     settings.setValue("modemDownloadPath", globalOptionsTransferWidget->ui->lineEditDownload->text());
@@ -472,6 +479,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsGeneralWidget->ui->checkBoxTabPreview->setChecked(settings.value("enableTabPreview", true).toBool());
     globalOptionsGeneralWidget->ui->spinBoxTabPreviewWidth->setValue(settings.value("tabPreviewWidth", 300).toInt());
     globalOptionsTerminalWidget->ui->lineEditWordCharacters->setText(settings.value("wordCharacters", ":@-./_~").toString());
+    globalOptionsTerminalWidget->ui->horizontalSliderSelectedTextAccentColorTransparency->setValue(settings.value("selectedTextAccentColorTransparency", 50).toInt());
     globalOptionsAdvancedWidget->ui->comboBoxTranslateService->setCurrentIndex(settings.value("translateService", 0).toInt());
     globalOptionsGeneralWidget->ui->comboBoxNewTabMode->setCurrentIndex(settings.value("newTabMode", 1).toInt());
     globalOptionsTransferWidget->ui->lineEditDownload->setText(settings.value("modemDownloadPath", QDir::homePath()).toString());

@@ -2,6 +2,14 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+en-US:
+
+- Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
+
+zh-CN:
+
+- 修改终端选中后文本强调色透明度50%，而非原本的100%
+
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 
 en-US:

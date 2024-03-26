@@ -59,6 +59,7 @@ public:
     bool getEnableTabPreview(void);
     int getTabPreviewWidth(void);
     QString getWordCharacters(void);
+    int getSelectedTextAccentColorTransparency(void);
     int getTranslateService(void);
     int getNewTabMode(void);
     QString getModemDownloadPath(void);

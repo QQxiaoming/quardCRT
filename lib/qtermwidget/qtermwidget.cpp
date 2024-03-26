@@ -840,6 +840,10 @@ int QTermWidget::columns() {
     return m_impl->m_terminalDisplay->columns();
 }
 
+void QTermWidget::setSelectionOpacity(qreal opacity) {
+    m_impl->m_terminalDisplay->setSelectionOpacity(opacity);
+}
+
 void QTermWidget::reTranslateUi(void) {
     m_searchBar->retranslateUi();
 }

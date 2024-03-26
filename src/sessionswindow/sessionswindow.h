@@ -192,6 +192,16 @@ public:
     void setWordCharacters(const QString &wordCharacters) {
         if(term) term->setWordCharacters(wordCharacters);
     }
+    void setSelectedTextAccentColorTransparency(int transparency) {
+        if(term) {
+            if(transparency >= 100)
+                term->setSelectionOpacity(1.0);
+            else if(transparency <= 10)
+                term->setSelectionOpacity(0.1);
+            else
+                term->setSelectionOpacity(transparency / 100.0);
+        }
+    }
     void setTerminalBackgroundImage(const QString& backgroundImage) {
         if(term) term->setTerminalBackgroundImage(backgroundImage);
     }

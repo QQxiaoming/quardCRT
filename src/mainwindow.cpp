@@ -2719,6 +2719,7 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setKeyboardCursorShape(globalOptionsWindow->getCursorShape());
     window->setBlinkingCursor(globalOptionsWindow->getCursorBlink());
     window->setWordCharacters(globalOptionsWindow->getWordCharacters());
+    window->setSelectedTextAccentColorTransparency(globalOptionsWindow->getSelectedTextAccentColorTransparency());
     window->setTerminalBackgroundImage("");
     window->setTerminalBackgroundMovie("");
     window->setTerminalBackgroundVideo("");

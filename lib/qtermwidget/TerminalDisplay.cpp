@@ -352,6 +352,7 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
 ,_colorsInverted(false)
 ,_opacity(static_cast<qreal>(1))
 ,_backgroundMode(None)
+,_selectedTextOpacity(static_cast<qreal>(1))
 ,_filterChain(new TerminalImageFilterChain())
 ,_cursorShape(Emulation::KeyboardCursorShape::BlockCursor)
 ,mMotionAfterPasting(NoMoveScreenWindow)
@@ -972,18 +973,31 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
 void TerminalDisplay::drawTextFragment(QPainter& painter ,
                                        const QRect& rect,
                                        const std::wstring& text,
-                                       const Character* style)
+                                       Character* style,
+                                       bool isSelection)
 {
     painter.save();
+
+    // when the selected text is not opaque, the text is drawn with inverted colors
+    // but else the text is drawn with the normal colors
+    if(_selectedTextOpacity < 1.0) {
+      if (isSelection) {
+        CharacterColor f = style->foregroundColor;
+        CharacterColor b = style->backgroundColor;
+        style->foregroundColor = b;
+        style->backgroundColor = f;
+      }
+    }
 
     // setup painter
     const QColor foregroundColor = style->foregroundColor.color(_colorTable);
     const QColor backgroundColor = style->backgroundColor.color(_colorTable);
-
+    
     // draw background if different from the display's background color
-    if ( backgroundColor != _colorTable[DEFAULT_BACK_COLOR].color )
-        drawBackground(painter,rect,backgroundColor,
-                       false /* do not use transparency */);
+    if ( backgroundColor != _colorTable[DEFAULT_BACK_COLOR].color ) {
+          drawBackground(painter,rect,backgroundColor,
+                        false /* do not use transparency */);
+    }
 
     // draw cursor shape if the current character is the cursor
     // this may alter the foreground and background colors
@@ -995,6 +1009,20 @@ void TerminalDisplay::drawTextFragment(QPainter& painter ,
     drawCharacters(painter,rect,text,style,invertCharacterColor);
 
     painter.restore();
+
+    if(_selectedTextOpacity < 1.0) {
+      if (isSelection) {
+        painter.save();
+        painter.setOpacity(_selectedTextOpacity);
+        painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+        painter.fillRect(rect, CharacterColor(COLOR_SPACE_DEFAULT, DEFAULT_FORE_COLOR).color(_colorTable));
+        painter.restore();
+        CharacterColor f = style->foregroundColor;
+        CharacterColor b = style->backgroundColor;
+        style->foregroundColor = b;
+        style->backgroundColor = f;
+      }
+    }
 }
 
 void TerminalDisplay::setRandomSeed(uint randomSeed) { _randomSeed = randomSeed; }
@@ -1893,12 +1921,12 @@ void TerminalDisplay::drawContents(QPainter &paint, const QRect &rect)
          textArea.moveTopLeft( textScale.inverted().map(textArea.topLeft()) );
 
          //paint text fragment
-         drawTextFragment(    paint,
+         drawTextFragment(  paint,
                             textArea,
                             unistr,
-                            &_image[loc(x,y)] ); //,
-                            //0,
-                            //!_isPrinting );
+                            &_image[loc(x,y)] ,
+                            _screenWindow->isSelected(x,y) 
+                          );
 
          _fixedFont = save__fixedFont;
 

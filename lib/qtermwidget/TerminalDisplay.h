@@ -541,6 +541,10 @@ public slots:
     void setColorTableColor(const int colorId, const QColor &color);
     void selectionChanged();
 
+    void setSelectionOpacity(qreal opacity) {
+        _selectedTextOpacity = opacity;
+    }
+
     void setLocked(bool enabled) { _isLocked = enabled; }
     void repaintDisplay(void) {
         // FIXME: we must call hide() and show() to force a repaint,
@@ -681,7 +685,7 @@ private:
     // draws a section of text, all the text in this section
     // has a common color and style
     void drawTextFragment(QPainter& painter, const QRect& rect,
-                          const std::wstring& text, const Character* style);
+                          const std::wstring& text, Character* style,bool isSelection);
     // draws the background for a text fragment
     // if useOpacitySetting is true then the color's alpha value will be set to
     // the display's transparency (set with setOpacity()), otherwise the background
@@ -859,6 +863,8 @@ private:
     bool _isLocked;
     QPixmap _lockbackgroundImage;
     BackgroundMode _backgroundMode;
+
+    qreal _selectedTextOpacity;
 
     // list of filters currently applied to the display.  used for links and
     // search highlight

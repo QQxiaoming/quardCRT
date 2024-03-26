@@ -239,6 +239,8 @@ public:
 
     void setLocked(bool enabled);
 
+    void setSelectionOpacity(qreal opacity);
+
     void addHighLightText(const QString &text, const QColor &color);
     bool isContainHighLightText(const QString &text);
     void removeHighLightText(const QString &text);
