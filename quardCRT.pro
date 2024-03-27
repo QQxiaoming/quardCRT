@@ -29,6 +29,7 @@ include(./lib/qzmodem/qzmodem.pri)
 include(./lib/qkermit/qkermit.pri)
 
 INCLUDEPATH += \
+    src/scriptengine \
     src/util \
     src/sessionswindow \
     src/sessiontab \
@@ -49,10 +50,22 @@ INCLUDEPATH += \
     src
 
 SOURCES += \
+    src/scriptengine/pysessionconfiguration.cpp \
+    src/scriptengine/pycommandwindow.cpp \
+    src/scriptengine/pyarguments.cpp \
+    src/scriptengine/pyclipboard.cpp \
+    src/scriptengine/pycore.cpp \
+    src/scriptengine/pydialog.cpp \
+    src/scriptengine/pyfiletransfer.cpp \
+    src/scriptengine/pyrun.cpp \
     src/globaloptions/globaloptionstransferwidget.cpp \
     src/plugininfowindow/plugininfowindow.cpp \
     src/pluginviewerwidget/pluginviewerhomewidget.cpp \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
+    src/scriptengine/pyscreen.cpp \
+    src/scriptengine/pysession.cpp \
+    src/scriptengine/pytab.cpp \
+    src/scriptengine/pywindow.cpp \
     src/sftpwindow/sftpmenubookmarkwidget.cpp \
     src/util/logger.cpp \
     src/util/globalsetting.cpp \
@@ -93,10 +106,22 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/scriptengine/pysessionconfiguration.h \
+    src/scriptengine/pycommandwindow.h \
+    src/scriptengine/pyarguments.h \
+    src/scriptengine/pyclipboard.h \
+    src/scriptengine/pycore.h \
+    src/scriptengine/pydialog.h \
+    src/scriptengine/pyfiletransfer.h \
+    src/scriptengine/pyrun.h \
     src/globaloptions/globaloptionstransferwidget.h \
     src/plugininfowindow/plugininfowindow.h \
     src/pluginviewerwidget/pluginviewerhomewidget.h \
     src/pluginviewerwidget/pluginviewerwidget.h \
+    src/scriptengine/pyscreen.h \
+    src/scriptengine/pysession.h \
+    src/scriptengine/pytab.h \
+    src/scriptengine/pywindow.h \
     src/sftpwindow/sftpmenubookmarkwidget.h \
     src/util/logger.h \
     src/util/argv_split.h \
@@ -202,11 +227,16 @@ RCC_DIR     = $$build_type/rcc
 UI_DIR      = $$build_type/ui
 
 win32:{
+    Python3_DIR=/python3_root_dir
     win32-g++ {
         QMAKE_CXXFLAGS += -Wno-deprecated-copy
         RESOURCES += res/terminalfont.qrc
+        INCLUDEPATH += $${Python3_DIR}/include
+        LIBS += -L$${Python3_DIR}/lib -lpython311
     }
     win32-msvc*{
+        INCLUDEPATH += $${Python3_DIR}\include
+        LIBS += $${Python3_DIR}\lib\python311.lib
     }
     VERSION = $${BUILD_VERSION}.000
     RC_ICONS = "icons\ico.ico"
@@ -223,7 +253,9 @@ unix:!macx:{
     QMAKE_RPATHDIR=$ORIGIN
     QMAKE_LFLAGS += -no-pie 
     LIBS += -lutil
-    
+    QMAKE_CXXFLAGS += $$system("python3-config --cflags")
+    LIBS += $$system("python3-config --ldflags --embed")
+
     build_info.commands = $$quote("cd $$PWD && ./tools/generate_info.sh > build_info.inc")
 }
 
@@ -233,6 +265,8 @@ macx:{
     QMAKE_RPATHDIR=$ORIGIN
     ICON = "icons\ico.icns"
     LIBS += -lutil
+    QMAKE_CXXFLAGS += $$system("python3-config --cflags")
+    LIBS += $$system("python3-config --ldflags --embed")
 
     build_info.commands = $$quote("cd $$PWD && ./tools/generate_info.sh > build_info.inc")
 }

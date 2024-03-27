@@ -3518,6 +3518,18 @@ void TerminalDisplay::setMargin(int i)
     _leftBaseMargin = i;
 }
 
+int TerminalDisplay::getCursorX() const {
+    return _screenWindow.isNull() ? 0 : _screenWindow->getCursorX();
+}
+
+int TerminalDisplay::getCursorY() const {
+    return _screenWindow.isNull() ? 0 : _screenWindow->getCursorY();
+}
+
+QString TerminalDisplay::screenGet(int row1, int col1, int row2, int col2, int mode) {
+  return _screenWindow.isNull() ? QString() : _screenWindow->getScreenText(row1, col1, row2, col2, mode);
+}
+
 AutoScrollHandler::AutoScrollHandler(QWidget* parent)
 : QObject(parent)
 , _timerId(0)
@@ -3575,5 +3587,6 @@ bool AutoScrollHandler::eventFilter(QObject* watched,QEvent* event)
 
     return false;
 }
+
 
 //#include "TerminalDisplay.moc"

@@ -65,6 +65,10 @@ void CommandWidget::setCmd(QString cmd) {
     ui->commandPlainEdit->setPlainText(cmd);
 }
 
+QString CommandWidget::getCmd(void) {
+    return ui->commandPlainEdit->toPlainText();
+}
+
 void CommandWidget::sendCurrentData(void) {
     if(ui->asciiRadioButton->isChecked()) {
     #if defined(Q_OS_WIN)

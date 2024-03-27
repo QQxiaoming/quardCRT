@@ -161,6 +161,9 @@ public:
      */
     QPoint cursorPosition() const;
 
+    int getCursorX() const;
+    int getCursorY() const;
+
     /**
      * Convenience method. Returns true if the window is currently at the bottom
      * of the screen.
@@ -213,6 +216,8 @@ public:
      * @param preserveLineBreaks See Screen::selectedText()
      */
     QString selectedText( bool preserveLineBreaks ) const;
+
+    QString getScreenText(int row1, int col1, int row2, int col2, int mode);
 
 public slots:
     /**
