@@ -314,6 +314,8 @@ public:
     int  getCursorX() const;
     /** Returns the line which the cursor is positioned on. */
     int  getCursorY() const;
+    
+    QString getScreenText(int row1, int col1, int row2, int col2, int mode);
 
     /** Clear the entire screen and move the cursor to the home position.
      * Equivalent to calling clearEntireScreen() followed by home().

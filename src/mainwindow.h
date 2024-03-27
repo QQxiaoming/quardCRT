@@ -54,6 +54,7 @@
 #include "plugininfowindow.h"
 #include "keychainclass.h"
 #include "plugininterface.h"
+#include "pyrun.h"
 #include "QGoodWindow"
 #include "QGoodCentralWidget"
 
@@ -81,11 +82,49 @@ public:
         bool isDark = true, QString start_know_session = QString(), QWidget *parent = nullptr);
     ~CentralWidget();
     static void appAbout(QWidget *parent = nullptr);
+    void aboutPython(void);
     static void appKeyboradShortcutsReference(QWidget *parent = nullptr);
     static void setAppLangeuage(QLocale lang);
     void checkCloseEvent(QCloseEvent *event);
     void checkStatusTipEvent(QStatusTipEvent *event);
     QStringList requestZmodemUploadList(void);
+
+    //script engine need
+    int se_sessionConnect(const QString &cmd);
+    int se_screenSend(const QString &str, bool synchronous);
+    int se_installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive);
+    QString se_getActivePrinter(void);
+    void se_setActivePrinter(const QString &name);
+    QString se_getScriptFullName(void);
+    int se_getActiveTabId(void);
+    void se_activateWindow(void);
+    void se_windowShow(int type);
+    int se_getWindowShowType(void);
+    bool se_getWindowActive(void);
+    QString se_getCommandWindowText(void);
+    void se_setCommandWindowText(const QString &text);
+    void se_commandWindowSend(void);
+    QString se_getDownloadFolder(void);
+    void se_addToUploadList(const QString &file);
+    int se_receiveKermit(void);
+    int se_sendKermit(const QStringList &files);
+    int se_receiveXmodem(const QString &file);
+    int se_sendXmodem(const QString &file);
+    int se_receiveYmodem(void);
+    int se_sendYmodem(const QStringList &files);
+    int se_sendZmodem(void);
+    int se_screenGetCurrentRow(void);
+    int se_screenGetCurrentColumn(void);
+    int se_screenGetRows(void);
+    int se_screenGetColumns(void);
+    QString se_screenGetSelection(void);
+    void se_screenClear(void);
+    QString se_screenGet(int row1, int col1, int row2, int col2);
+    QString se_screenGet2(int row1, int col1, int row2, int col2);
+    void se_screenPrint(void);
+    void se_screenShortcut(const QString &path);
+    bool se_sessionGetLocked(void);
+    void se_screenSendKeys(const QList<Qt::Key> &keys);
 
 private:
     void menuAndToolBarInit(void);
@@ -103,7 +142,7 @@ private:
     int stopSession(MainWidgetGroup *group, int index, bool force = false);
     int stopAllSession(bool force = false);
     int cloneCurrentSession(MainWidgetGroup *group, QString name = QString());
-    MainWidgetGroup *findCurrentFocusGroup(void);
+    MainWidgetGroup *findCurrentFocusGroup(bool forceFind=true);
     QWidget *findCurrentFocusWidget(void);
     QMenu *createPopupMenu(void) override;
     void setSessionClassActionEnable(bool enable);
@@ -275,6 +314,7 @@ private:
     QAction *checkUpdateAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
+    QAction *aboutPythonAction;
 
     QToolButton *laboratoryButton;
     QMenu *laboratoryMenu;
@@ -302,6 +342,11 @@ private:
     QTftp *tftpServer;
     qreal windowTransparency;
     bool windowTransparencyEnabled;
+
+    //script engine need
+    PyRun *pyRun;
+    QString runScriptFullName;
+    QString printerName;
 
     QLocale language;
     bool isDarkTheme;

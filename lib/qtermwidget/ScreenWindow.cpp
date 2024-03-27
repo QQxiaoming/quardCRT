@@ -189,6 +189,18 @@ QPoint ScreenWindow::cursorPosition() const
     return position;
 }
 
+int ScreenWindow::getCursorX() const {
+    return _screen->getCursorX();
+}
+
+int ScreenWindow::getCursorY() const {
+    return _screen->getCursorY();
+}
+
+QString ScreenWindow::getScreenText(int row1, int col1, int row2, int col2, int mode) {
+    return _screen->getScreenText( row1, col1, row2, col2, mode );
+}
+
 int ScreenWindow::currentLine() const
 {
     return qBound(0,_currentLine,lineCount()-windowLines());

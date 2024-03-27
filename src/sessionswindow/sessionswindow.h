@@ -118,6 +118,13 @@ public:
     int stopReceiveASCIIFile(void);
     bool isReceiveASCIIFile(void);
 
+    int installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive) {
+        m_waitStringList = strList;
+        m_waitStringTimeout = timeout;
+        m_waitStringCaseInsensitive = bcaseInsensitive;
+        return 0;
+    }
+
     QWidget *getMainWidget() const { 
         if(type == VNC)
             return static_cast<QWidget *>(vncClient);
@@ -250,6 +257,10 @@ public:
     void clearScreen() {
         if(term) term->clearScreen();
     }
+    QString screenGet(int row1, int col1, int row2, int col2, int mode) {
+        if(term) return term->screenGet(row1, col1, row2, col2, mode);
+        return QString();
+    }
     void clear() {
         if(term) term->clear();
     }
@@ -289,6 +300,22 @@ public:
     void repaintDisplay(void) {
         if(term) term->repaintDisplay();
     }
+    int getLineCount(void) {
+        if(term) return term->lines();
+        return -1;
+    }
+    int getColumnCount(void) {
+        if(term) return term->columns();
+        return -1;
+    }
+    int getCursorLineCount(void) {
+        if(term) return term->getCursorY();
+        return -1;
+    }
+    int getCursorColumnCount(void){
+        if(term) return term->getCursorX();
+        return -1;
+    }
     void setZmodemUploadPath(const QString &path) {
         zmodemUploadPath = path;
     }
@@ -305,10 +332,12 @@ signals:
     void titleChanged(int title,const QString& newTitle);
     void modemProxySendData(QByteArray data);
     void modemProxyRecvData(const QByteArray &data);
+    void waitForStringFinished(const QString &str, int matchIndex);
 
 private:
     int saveLog(const char *data, int size);
     int saveRawLog(const char *data, int size);
+    void matchString(QByteArray data);
 
 private:
     SessionType type;
@@ -348,6 +377,10 @@ private:
     QMutex receiveASCIIFileMutex;
     bool receiveASCIIFile = false;
     QFile *receiveASCIIFileFd = nullptr;
+
+    QStringList m_waitStringList;
+    int m_waitStringTimeout;
+    bool m_waitStringCaseInsensitive;
 
     QString m_hostname;
     quint16 m_port;

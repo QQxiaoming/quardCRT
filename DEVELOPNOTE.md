@@ -6,6 +6,8 @@
 
 Currently there are two types of upstream dependencies: one is direct source code dependency, located in the `lib` directory, these dependencies have been deeply modified to meet the needs of this project, and need to be manually merged when synchronizing with the upstream library, but no additional compilation steps are required during compilation; the other is a compilation dependency, located in the `depend` directory, these dependencies are basically extracted directly from the upstream library, and only need to be re-extracted when synchronizing with the upstream library, but need to be compiled into dynamic link libraries before compiling this project.
 
+In addition to the above two types of dependencies, this project uses a dynamically linked Python interpreter to support script extension functionality, so you need to install Python 3.8 or later. On linux and macos, use `python3-config --cflags` and `python3-config --ldflags --embed` to obtain the compilation parameters of Python. If you use mingw to compile, you need to use the gendef and dlltool tools to generate the libpython.a file, and if you use msvc to compile, you can directly use the libpython.lib file provided by the official Python.
+
 #### Dependencies under the `depend` directory
 
 - fcitx-qt5-1.2.7.tar.gz
