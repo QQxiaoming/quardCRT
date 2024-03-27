@@ -41,7 +41,10 @@ public:
     QString fileSaveDialog(const QString &titleStr, const QString &buttonLabelStr, const QString &directoryStr, const QString &filterStr);
     int screenSend(const QString &str, bool synchronous);
     QString screenWaitForString(const QStringList &strList, int timeout, bool bcaseInsensitive, int &matchIndex);
+    QString screenReadString(const QStringList &strList, int timeout, bool bcaseInsensitive, int &matchIndex);
     int sessionConnect(const QString &cmd);
+    void sessionDisconnect(void);
+    void sessionLog(int enable);
     void windowActivate(void);
     void windowShow(int type);
     int getWindowShowType(void);
@@ -70,7 +73,11 @@ public:
     void screenPrint(void);
     void screenShortcut(const QString &path);
     bool sessionGetLocked(void);
+    bool sessionGetConnected(void);
+    bool sessionGetLogging(void);
     void screenSendKeys(const QStringList &keys);
+    int sessionLock(const QString &prompt, const QString &password, int lockallsessions);
+    int sessionUnlock(const QString &prompt, const QString &password, int lockallsessions);
 
 signals:
     void runScriptStarted(void);

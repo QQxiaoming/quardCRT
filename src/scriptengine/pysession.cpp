@@ -22,17 +22,62 @@ static PyObject* Session_Connect(Session* self, PyObject* args) {
     return Py_BuildValue("i", ret);
 }
 
+// Session.Disconnect() -> None
+static PyObject* Session_Disconnect(Session* self) {
+    Q_UNUSED(self);
+    PyCore::getCore()->sessionDisconnect();
+    Py_RETURN_NONE;
+}
+
+// Session.Log(enable: bool) -> None
+static PyObject* Session_Log(Session* self, PyObject* args) {
+    int enable;
+    Q_UNUSED(self);
+    if (!PyArg_ParseTuple(args, "i", &enable)) {
+        return NULL;
+    }
+    PyCore::getCore()->sessionLog(enable);
+    Py_RETURN_NONE;
+}
+
+// Session.Lock(prompt: str, password: str, lockallsessions: int) -> int
+static PyObject* Session_Lock(Session* self, PyObject* args, PyObject* kwds) {
+    const char* prompt = "";
+    const char* password = "";
+    int lockallsessions = 0;
+    Q_UNUSED(self);
+    static const char* kwlist[] = {"prompt", "password", "lockallsessions", NULL};
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|ssi", (char**)kwlist, &prompt, &password, &lockallsessions)) {
+        return NULL;
+    }
+    QString promptStr = QString::fromUtf8(prompt);
+    QString passwordStr = QString::fromUtf8(password);
+    int ret = PyCore::getCore()->sessionLock(promptStr, passwordStr, lockallsessions);
+    return Py_BuildValue("i", ret);
+}
+
+// Session.Unlock(prompt: str, password: str, lockallsessions: int) -> int
+static PyObject* Session_Unlock(Session* self, PyObject* args, PyObject* kwds) {
+    const char* prompt = "";
+    const char* password = "";
+    int lockallsessions = 0;
+    Q_UNUSED(self);
+    static const char* kwlist[] = {"prompt", "password", "lockallsessions", NULL};
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|ssi", (char**)kwlist, &prompt, &password, &lockallsessions)) {
+        return NULL;
+    }
+    QString promptStr = QString::fromUtf8(prompt);
+    QString passwordStr = QString::fromUtf8(password);
+    int ret = PyCore::getCore()->sessionUnlock(promptStr, passwordStr, lockallsessions);
+    return Py_BuildValue("i", ret);
+}
+
 static PyMethodDef Session_methods[] = {
     {"Connect", (PyCFunction)Session_Connect, METH_VARARGS, "Connect"},
-    // TODO:not implemented
-    // "ConnectInTab"
-    // "Disconnect"
-    // "Lock"
-    // "Log"
-    // "LogUsingSessionOptions"
-    // "Print"
-    // "SetStatusText"
-    // "Unlock"
+    {"Disconnect", (PyCFunction)Session_Disconnect, METH_NOARGS, "Disconnect"},
+    {"Log", (PyCFunction)Session_Log, METH_VARARGS, "Log"},
+    {"Lock", (PyCFunction)Session_Lock, METH_VARARGS|METH_KEYWORDS, "Lock"},
+    {"Unlock", (PyCFunction)Session_Unlock, METH_VARARGS|METH_KEYWORDS, "Unlock"},
     {NULL,NULL,0,NULL}  // Sentinel
 };
 
@@ -43,17 +88,26 @@ static PyObject* Session_getLocked(Session* self, void* closure) {
     return Py_BuildValue("i", ret);
 }
 
+static PyObject* Session_getConnected(Session* self, void* closure) {
+    Q_UNUSED(self);
+    Q_UNUSED(closure);
+    bool ret = PyCore::getCore()->sessionGetConnected();
+    return Py_BuildValue("i", ret);
+}
+
+static PyObject* Session_getLogging(Session* self, void* closure) {
+    Q_UNUSED(self);
+    Q_UNUSED(closure);
+    bool ret = PyCore::getCore()->sessionGetLogging();
+    return Py_BuildValue("i", ret);
+}
+
 static PyGetSetDef Session_getseters[] = {
     {"Locked", (getter)Session_getLocked, NULL, "Locked", NULL},
+    {"Connected", (getter)Session_getConnected, NULL, "Connected", NULL},
+    {"Logging", (getter)Session_getLogging, NULL, "Logging", NULL},
     // TODO:not implemented
     // "Config"
-    // "Connected"
-    // "LocalAddress"
-    // "LogFileName"
-    // "Logging"
-    // "Path"
-    // "RemoteAddress"
-    // "RemotePort"
     {NULL,NULL,NULL,NULL,NULL}  // Sentinel
 };
 

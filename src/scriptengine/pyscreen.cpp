@@ -175,6 +175,42 @@ static PyObject* Screen_SendKeys(Screen* self, PyObject* args) {
     Py_RETURN_NONE;
 }
 
+static PyObject* Screen_ReadString(Screen* self, PyObject* args, PyObject* kwargs) {
+    static const char* kwlist[] = {"strlist", "timeout", "bcaseInsensitive", NULL};
+    PyObject* strlist;
+    int timeout = 0;
+    bool bcaseInsensitive = self->ignoreCase;
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "O|ip", (char**)kwlist, &strlist, &timeout, &bcaseInsensitive)) {
+        return NULL;
+    }
+    QStringList qstrlist;
+    if (!PyList_Check(strlist)) {
+        PyCore::CrtScriptErrorException_SetMessage("The strlist parameter must be a list of strings");
+        PyErr_SetString(PyCore::getQuardCRTException(), "The strlist parameter must be a list of strings");
+        return NULL;
+    } else {
+        int size = PyList_Size(strlist);
+        for (int i = 0; i < size; i++) {
+            PyObject* item = PyList_GetItem(strlist, i);
+            if (!PyUnicode_Check(item)) {
+                PyCore::CrtScriptErrorException_SetMessage("The strlist parameter must be a list of strings");
+                PyErr_SetString(PyCore::getQuardCRTException(), "The strlist parameter must be a list of strings");
+                return NULL;
+            }
+            const char* str = PyUnicode_AsUTF8(item);
+            qstrlist.append(QString::fromUtf8(str));
+        }
+    }
+    if(self->ignoreEscape) {
+        foreach (QString str, qstrlist) {
+            str.remove(QChar(27));
+            str.remove(QChar(7));
+        }
+    }
+    QString ret = PyCore::getCore()->screenReadString(qstrlist,timeout,bcaseInsensitive,self->matchIndex);
+    return PyUnicode_FromString(ret.toUtf8().constData());
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-function-type"
@@ -190,8 +226,8 @@ static PyMethodDef Screen_methods[] = {
     {"Print", (PyCFunction)Screen_Print, METH_NOARGS, "Print"},
     {"Shortcut", (PyCFunction)Screen_Shortcut, METH_VARARGS, "Shortcut"},
     {"SendKeys", (PyCFunction)Screen_SendKeys, METH_VARARGS, "SendKeys"},
+    {"ReadString", (PyCFunction)Screen_ReadString, METH_VARARGS|METH_KEYWORDS, "ReadString"},
     // TODO:not implemented
-    // "ReadString"
     // "WaitForCursor" 
     // "WaitForKey" 
     {NULL,NULL,0,NULL}  // Sentinel

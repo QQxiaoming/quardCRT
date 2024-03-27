@@ -89,15 +89,21 @@ PyRun::PyRun(QObject *parent)
         } else if (cmd == "installWaitString") {
             QString timeout = cmdList.at(1);
             bool bcaseInsensitive = cmdList.at(2) == "True";
-            int size = cmdList.at(3).toInt();
+            int mode = cmdList.at(3) == "Wait string" ? 0 : 1;
+            int size = cmdList.at(4).toInt();
             QStringList strList;
             for (int i = 0; i < size; i++) {
-                strList.append(cmdList.at(4 + i));
+                strList.append(cmdList.at(5 + i));
             }
-            centralWidget->se_installWaitString(strList,timeout.toInt(),bcaseInsensitive);
+            centralWidget->se_installWaitString(strList,timeout.toInt(),bcaseInsensitive,mode);
         } else if (cmd == "sessionConnect") {
             QString cmd = cmdList.at(1);
             centralWidget->se_sessionConnect(cmd);
+        } else if (cmd == "sessionDisconnect") {
+            centralWidget->se_sessionDisconnect();
+        } else if (cmd == "sessionLog") {
+            int enable = cmdList.at(1).toInt();
+            centralWidget->se_sessionLog(enable);
         } else if (cmd == "windowActivate") {
             centralWidget->se_activateWindow();
         } else if (cmd == "windowShow") {
@@ -187,6 +193,12 @@ PyRun::PyRun(QObject *parent)
         } else if (cmd == "sessionGetLocked") {
             if(resultList != nullptr)
                 resultList->append(QString::number(centralWidget->se_sessionGetLocked()));
+        } else if (cmd == "sessionGetConnected") {
+            if(resultList != nullptr)
+                resultList->append(QString::number(centralWidget->se_sessionGetConnected()));
+        } else if (cmd == "sessionGetLogging") {
+            if(resultList != nullptr)
+                resultList->append(QString::number(centralWidget->se_sessionGetLogging()));
         } else if (cmd == "screenSendKeys") {
             QStringList keys;
             int size = cmdList.at(1).toInt();
@@ -198,6 +210,18 @@ PyRun::PyRun(QObject *parent)
                 keyList.append(keyMap.value(keys.at(i), Qt::Key_unknown));
             }
             centralWidget->se_screenSendKeys(keyList);
+        } else if (cmd == "sessionLock") {
+            QString prompt = cmdList.at(1);
+            QString password = cmdList.at(2);
+            int lockallsessions = cmdList.at(3).toInt();
+            if(resultList != nullptr)
+                resultList->append(QString::number(centralWidget->se_sessionLock(prompt,password,lockallsessions)));
+        } else if (cmd == "sessionUnlock") {
+            QString prompt = cmdList.at(1);
+            QString password = cmdList.at(2);
+            int lockallsessions = cmdList.at(3).toInt();
+            if(resultList != nullptr)
+                resultList->append(QString::number(centralWidget->se_sessionUnlock(prompt,password,lockallsessions)));
         } else if (cmd == "specialCmd") {
             int ret = -1;
             QString specialCmd = cmdList.at(1);
@@ -379,6 +403,29 @@ QString PyRun::screenWaitForString(const QStringList &strList, int timeout, bool
     cmdList.append("installWaitString");
     cmdList.append(QString::number(timeout));
     cmdList.append(bcaseInsensitive ? "True" : "False");
+    cmdList.append("Wait string");
+    cmdList.append(QString::number(strList.size()));
+    for (int i = 0; i < strList.size(); i++) {
+        cmdList.append(strList.at(i));
+    }
+    emit requestCmd(cmdList,nullptr);
+
+    QMutexLocker locker(&waitForStringMutex);
+    waitForStringCondition.wait(&waitForStringMutex);
+    if(m_userStop) {
+        matchIndex = -1;
+        return "";
+    }
+    matchIndex = waitForStringMatchIndex;
+    return waitForStringStrResult;
+}
+
+QString PyRun::screenReadString(const QStringList &strList, int timeout, bool bcaseInsensitive, int &matchIndex) {
+    QStringList cmdList;
+    cmdList.append("installWaitString");
+    cmdList.append(QString::number(timeout));
+    cmdList.append(bcaseInsensitive ? "True" : "False");
+    cmdList.append("Read string");
     cmdList.append(QString::number(strList.size()));
     for (int i = 0; i < strList.size(); i++) {
         cmdList.append(strList.at(i));
@@ -401,6 +448,19 @@ int PyRun::sessionConnect(const QString &cmd) {
     cmdList.append(cmd);
     emit requestCmd(cmdList,nullptr);
     return 0;
+}
+
+void PyRun::sessionDisconnect(void) {
+    QStringList cmdList;
+    cmdList.append("sessionDisconnect");
+    emit requestCmd(cmdList,nullptr);
+}
+
+void PyRun::sessionLog(int enable) {
+    QStringList cmdList;
+    cmdList.append("sessionLog");
+    cmdList.append(QString::number(enable));
+    emit requestCmd(cmdList,nullptr);
 }
 
 void PyRun::windowActivate(void) {
@@ -624,6 +684,22 @@ bool PyRun::sessionGetLocked(void) {
     return result.at(0).toInt();
 }
 
+bool PyRun::sessionGetConnected(void) {
+    QStringList result;
+    QStringList cmdList;
+    cmdList.append("sessionGetConnected");
+    emit requestCmd(cmdList,&result);
+    return result.at(0).toInt();
+}
+
+bool PyRun::sessionGetLogging(void) {
+    QStringList result;
+    QStringList cmdList;
+    cmdList.append("sessionGetLogging");
+    emit requestCmd(cmdList,&result);
+    return result.at(0).toInt();
+}
+
 void PyRun::screenSendKeys(const QStringList &keys) {
     QStringList cmdList;
     cmdList.append("screenSend");
@@ -632,6 +708,28 @@ void PyRun::screenSendKeys(const QStringList &keys) {
         cmdList.append(keys.at(i));
     }
     emit requestCmd(cmdList,nullptr);
+}
+
+int PyRun::sessionLock(const QString &prompt, const QString &password, int lockallsessions) {
+    QStringList result;
+    QStringList cmdList;
+    cmdList.append("sessionLock");
+    cmdList.append(prompt);
+    cmdList.append(password);
+    cmdList.append(QString::number(lockallsessions));
+    emit requestCmd(cmdList,&result);
+    return result.at(0).toInt();
+}
+
+int PyRun::sessionUnlock(const QString &prompt, const QString &password, int lockallsessions) {
+    QStringList result;
+    QStringList cmdList;
+    cmdList.append("sessionUnlock");
+    cmdList.append(prompt);
+    cmdList.append(password);
+    cmdList.append(QString::number(lockallsessions));
+    emit requestCmd(cmdList,&result);
+    return result.at(0).toInt();
 }
 
 int PyRun::runSpecialCmd(const QString &cmd, const QStringList &arg) {

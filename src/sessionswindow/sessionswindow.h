@@ -95,6 +95,7 @@ public:
     int startVNCSession(const QString &hostname, quint16 port, const QString &password);
 
     void reconnect(void);
+    void disconnect(void);
 
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
@@ -118,10 +119,11 @@ public:
     int stopReceiveASCIIFile(void);
     bool isReceiveASCIIFile(void);
 
-    int installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive) {
+    int installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive, int mode) {
         m_waitStringList = strList;
         m_waitStringTimeout = timeout;
         m_waitStringCaseInsensitive = bcaseInsensitive;
+        m_waitStringMode = mode;
         return 0;
     }
 
@@ -381,6 +383,8 @@ private:
     QStringList m_waitStringList;
     int m_waitStringTimeout;
     bool m_waitStringCaseInsensitive;
+    int m_waitStringMode;
+    QByteArray m_waitStringDate;
 
     QString m_hostname;
     quint16 m_port;

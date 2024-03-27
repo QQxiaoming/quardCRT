@@ -91,8 +91,10 @@ public:
 
     //script engine need
     int se_sessionConnect(const QString &cmd);
+    void se_sessionDisconnect(void);
+    void se_sessionLog(int enable);
     int se_screenSend(const QString &str, bool synchronous);
-    int se_installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive);
+    int se_installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive, int mode);
     QString se_getActivePrinter(void);
     void se_setActivePrinter(const QString &name);
     QString se_getScriptFullName(void);
@@ -124,7 +126,11 @@ public:
     void se_screenPrint(void);
     void se_screenShortcut(const QString &path);
     bool se_sessionGetLocked(void);
+    bool se_sessionGetConnected(void);
+    bool se_sessionGetLogging(void);
     void se_screenSendKeys(const QList<Qt::Key> &keys);
+    int se_sessionLock(const QString &prompt, const QString &password, int lockallsessions);
+    int se_sessionUnlock(const QString &prompt, const QString &password, int lockallsessions);
 
 private:
     void menuAndToolBarInit(void);

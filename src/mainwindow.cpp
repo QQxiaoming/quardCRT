@@ -3940,6 +3940,27 @@ int CentralWidget::se_sessionConnect(const QString &cmd) {
     return -1;
 }
 
+void CentralWidget::se_sessionDisconnect(void) {
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    if(sessionsWindow->isLocked()) return;
+    if(sessionsWindow->getState() == SessionsWindow::Connected) {
+        if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
+            sftpWindow->hide();
+        }
+        sessionsWindow->disconnect();
+    }
+}
+
+void CentralWidget::se_sessionLog(int enable) {
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    if(sessionsWindow->isLog() == enable) return;
+    sessionsWindow->setLog(enable);
+}
+
 int CentralWidget::se_screenSend(const QString &str, bool synchronous) {
     auto proxySendCommand = [&](const QString &str){
         QWidget *widget = findCurrentFocusWidget();
@@ -3959,7 +3980,7 @@ int CentralWidget::se_screenSend(const QString &str, bool synchronous) {
     }
 }
 
-int CentralWidget::se_installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive) {
+int CentralWidget::se_installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive, int mode) {
     QWidget *widget = findCurrentFocusWidget();
     if(widget == nullptr) return -1;
     SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
@@ -3969,7 +3990,7 @@ int CentralWidget::se_installWaitString(const QStringList &strList, int timeout,
         disconnect(sessionsWindow,&SessionsWindow::waitForStringFinished,0,0);
     });
     // TODO:not implemented timeout
-    return sessionsWindow->installWaitString(strList,timeout,bcaseInsensitive);
+    return sessionsWindow->installWaitString(strList,timeout,bcaseInsensitive,mode);
 }
 
 QString CentralWidget::se_getActivePrinter(void) {
@@ -4220,6 +4241,20 @@ bool CentralWidget::se_sessionGetLocked(void) {
     return sessionsWindow->isLocked();
 }
 
+bool CentralWidget::se_sessionGetConnected(void) {
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return false;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    return sessionsWindow->getState() == SessionsWindow::Connected;
+}
+
+bool CentralWidget::se_sessionGetLogging(void) {
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return false;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    return sessionsWindow->isLog();
+}
+
 void CentralWidget::se_screenSendKeys(const QList<Qt::Key> &keys) {
     QWidget *widget = findCurrentFocusWidget();
     if(widget == nullptr) return;
@@ -4249,6 +4284,38 @@ void CentralWidget::se_screenSendKeys(const QList<Qt::Key> &keys) {
         keyEvent = new QKeyEvent(QEvent::KeyRelease,key,modifiers);
         QCoreApplication::postEvent(widget,keyEvent);
     }
+}
+
+int CentralWidget::se_sessionLock(const QString &prompt, const QString &password, int lockallsessions) {
+    if(lockallsessions) {
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(sessionsWindow->isLocked()) continue;
+            sessionsWindow->lockSession(password);
+        }
+        return 0;
+    }
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    if(sessionsWindow->isLocked()) return -1;
+    sessionsWindow->lockSession(password);
+    return 0;
+}
+
+int CentralWidget::se_sessionUnlock(const QString &prompt, const QString &password, int lockallsessions) {
+    if(lockallsessions) {
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(!sessionsWindow->isLocked()) continue;
+            sessionsWindow->unlockSession(password);
+        }
+        return 0;
+    }
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    if(!sessionsWindow->isLocked()) return -1;
+    sessionsWindow->unlockSession(password);
+    return 0;
 }
 
 MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, QString start_know_session, QWidget *parent) 

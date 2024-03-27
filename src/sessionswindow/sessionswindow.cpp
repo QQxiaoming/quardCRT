@@ -503,18 +503,50 @@ void SessionsWindow::matchString(QByteArray data) {
             foreach(const QString &waitString, m_waitStringList) {
                 QString dataStr = QString::fromUtf8(data).toLower();
                 if(dataStr.contains(waitString.toLower())) {
-                    emit waitForStringFinished(waitString, m_waitStringList.indexOf(waitString));
-                    m_waitStringList.clear();
-                    break;
+                    if(m_waitStringMode == 0) {
+                        int matchIndex = m_waitStringList.indexOf(waitString);
+                        QString matchString = waitString;
+                        m_waitStringList.clear();
+                        emit waitForStringFinished(matchString, matchIndex);
+                        break;
+                    } else {
+                        int index = dataStr.indexOf(waitString.toLower());
+                        m_waitStringDate.append(data.left(index + waitString.length()));
+                        int matchIndex = m_waitStringList.indexOf(waitString);
+                        QString matchString(m_waitStringDate);
+                        m_waitStringList.clear();
+                        m_waitStringDate.clear();
+                        emit waitForStringFinished(matchString, matchIndex);
+                        break;
+                    }
                 }
+            }
+            if(m_waitStringMode == 1) {
+                m_waitStringDate.append(data);
             }
         } else {
             foreach(const QString &waitString, m_waitStringList) {
                 if(data.contains(waitString.toUtf8())) {
-                    emit waitForStringFinished(waitString, m_waitStringList.indexOf(waitString));
-                    m_waitStringList.clear();
-                    break;
+                    if(m_waitStringMode == 0) {
+                        int matchIndex = m_waitStringList.indexOf(waitString);
+                        QString matchString = waitString;
+                        m_waitStringList.clear();
+                        emit waitForStringFinished(matchString, matchIndex);
+                        break;
+                    } else {
+                        int index = data.indexOf(waitString.toUtf8());
+                        m_waitStringDate.append(data.left(index + waitString.length()));
+                        int matchIndex = m_waitStringList.indexOf(waitString);
+                        QString matchString(m_waitStringDate);
+                        m_waitStringList.clear();
+                        m_waitStringDate.clear();
+                        emit waitForStringFinished(matchString, matchIndex);
+                        break;
+                    }
                 }
+            }
+            if(m_waitStringMode == 1) {
+                m_waitStringDate.append(data);
             }
         }
     }
@@ -735,6 +767,32 @@ void SessionsWindow::reconnect(void) {
         case VNC:
             vncClient->disconnectFromVncServer();
             startVNCSession(m_hostname, m_port, m_password);
+            break;
+    }
+}
+
+void SessionsWindow::disconnect(void) {
+    switch (type) {
+        case LocalShell:
+        //TODO: disconnect
+        break;
+        case Telnet:
+            if(telnet->isConnected()) telnet->disconnectFromHost();
+            break;
+        case Serial:
+            if(serialPort->isOpen()) serialPort->close();
+            break;
+        case RawSocket:
+            if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
+            break;
+        case NamePipe:
+            if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
+            break;
+        case SSH2:
+            ssh2Client->disconnectFromHost();
+            break;
+        case VNC:
+            vncClient->disconnectFromVncServer();
             break;
     }
 }
