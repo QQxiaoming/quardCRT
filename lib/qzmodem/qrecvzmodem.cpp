@@ -389,9 +389,9 @@ int QRecvZmodem::rz_process_header(char *name, struct zm_fileinfo *zi) {
 
   nameend = name + 1 + strlen(name);
   if (*nameend) { /* file coming from Unix or DOS system */
-    long modtime;
     long bytes_total;
-    int mode;
+    unsigned long modtime;
+    unsigned int mode;
     sscanf(nameend, "%ld%lo%o", &bytes_total, &modtime, &mode);
     zi->modtime = modtime;
     zi->bytes_total = bytes_total;
@@ -794,7 +794,7 @@ int QRecvZmodem::rz_receive_file(struct zm_fileinfo *zi) {
   nxthdr:
     if (anker) {
       oosb_t *akt, *last, *next;
-      for (akt = anker, last = NULL; akt; last = akt ? akt : last, akt = next) {
+      for (akt = anker, last = NULL, next = NULL; akt; last = akt ? akt : last, akt = next) {
         if (akt->pos == zi->bytes_received) {
           rz_write_string_to_file(zi, akt->data, akt->len);
           zi->bytes_received += akt->len;

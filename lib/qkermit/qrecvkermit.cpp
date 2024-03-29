@@ -30,11 +30,6 @@ void QRecvKermit::run(void) {
 
         if (received_message == NULL) {
 			if(getStopFlag()) {
-				if(file != nullptr) {
-					file->close();
-					delete file;
-					file = nullptr;
-				}
 				return;
 			}
         	qDebug("Didn't receive init message. Timeout error. End of transmission.");

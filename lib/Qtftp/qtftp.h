@@ -106,7 +106,7 @@ private:
 		};
 	};
 
-	char buffer[9000 + sizeof(tftp_header)];
+	char buffer[9000 + sizeof(tftp_header)] = {0};
 
 	void server();
 	void server_get();

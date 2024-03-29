@@ -495,10 +495,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             if(from <= 0) return;
             if(toTab == mainWidgetGroup->sessionTab) {
                 if(from == to) return;
-                if(from > 0) {
-                    if(to == -1) {
-                        floatingWindow(mainWidgetGroup,from);
-                    }
+                if(to == -1) {
+                    floatingWindow(mainWidgetGroup,from);
                 }
             } else {
                 if(mainWidgetGroupList[0]->sessionTab == toTab) {

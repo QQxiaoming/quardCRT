@@ -47,8 +47,8 @@ public:
 private:
     QList<QCustomFileSystemItem*> m_childItems;
     QString m_path;
-    uint64_t m_size;
-    bool m_isDir;
+    uint64_t m_size = 0;
+    bool m_isDir = false;
     QDateTime m_lastModified;
     QCustomFileSystemItem *m_parentItem;
 };

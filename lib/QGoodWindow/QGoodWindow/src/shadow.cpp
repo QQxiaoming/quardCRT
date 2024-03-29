@@ -109,7 +109,7 @@ void Shadow::show()
 
     QWidget *modal_widget = qApp->activeModalWidget();
 
-    if (!modal_widget || (modal_widget && modal_widget->window() == m_parent))
+    if (!modal_widget || (modal_widget->window() == m_parent))
     {
         if (!m_parent->isMinimized() && m_parent->isVisible())
         {
