@@ -5,6 +5,7 @@
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
 - Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
+- Fix the problem of abnormal width of rendering symbols "×" and "÷"
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

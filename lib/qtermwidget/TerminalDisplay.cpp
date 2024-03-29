@@ -938,6 +938,8 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
           if(_charWidth->string_font_width(line_char_string) != CharWidth::string_unicode_width(line_char_string)) {
             if(line_char_string == L"“" || line_char_string == L"‘") {
               offset = single_rect_width*(_charWidth->string_font_width(line_char_string)-CharWidth::string_unicode_width(line_char_string));
+            } else if( line_char_string == L"×" || line_char_string == L"÷") {
+              offset = single_rect_width*(_charWidth->string_font_width(line_char_string)-CharWidth::string_unicode_width(line_char_string))/2;
             } else if( line_char_string == L"”" || line_char_string == L"’") {
               // do nothing
             }
