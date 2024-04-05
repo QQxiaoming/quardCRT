@@ -1016,7 +1016,8 @@ void TerminalDisplay::drawTextFragment(QPainter& painter ,
       if (isSelection) {
         painter.save();
         painter.setOpacity(_selectedTextOpacity);
-        painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
+        painter.setRenderHint(QPainter::Antialiasing, false);
         painter.fillRect(rect, CharacterColor(COLOR_SPACE_DEFAULT, DEFAULT_FORE_COLOR).color(_colorTable));
         painter.restore();
         CharacterColor f = style->foregroundColor;

@@ -9,7 +9,7 @@ quardCRT's development plan and roadmap.
 
 - Version 0.4.x
     - [x] Modern and elegant main UI
-    - [ ] XYZmodem file transfer
+    - [x] XYZmodem file transfer
     - [x] Plugins system
     - [x] German/Portuguese(Brazil)/Czech/Arabic
 
