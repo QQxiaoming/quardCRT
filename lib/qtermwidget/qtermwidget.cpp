@@ -784,6 +784,7 @@ void QTermWidget::addHighLightText(const QString &text, const QColor &color)
     m_highLightTexts.append(highLightText);
     m_impl->m_terminalDisplay->filterChain()->addFilter(highLightText->regExpFilter);
     m_impl->m_terminalDisplay->updateFilters();
+    m_impl->m_terminalDisplay->repaintDisplay();
 }
 
 bool QTermWidget::isContainHighLightText(const QString &text)
@@ -807,6 +808,7 @@ void QTermWidget::removeHighLightText(const QString &text)
             break;
         }
     }
+    m_impl->m_terminalDisplay->repaintDisplay();
 }
 
 void QTermWidget::clearHighLightTexts(void)
@@ -817,6 +819,7 @@ void QTermWidget::clearHighLightTexts(void)
     }
     m_impl->m_terminalDisplay->updateFilters();
     m_highLightTexts.clear();
+    m_impl->m_terminalDisplay->repaintDisplay();
 }
 
 void QTermWidget::setWordCharacters(const QString &wordCharacters)
