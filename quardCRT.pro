@@ -3,7 +3,6 @@
     error("Use Qt 6.5.0 or newer")
 }
 QT += core gui network widgets xml svgwidgets websockets serialport printsupport multimedia
-QT += core5compat
 
 BUILD_VERSION="$$cat(./version.txt)"
 TARGET_ARCH=$${QT_ARCH}

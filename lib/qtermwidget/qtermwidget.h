@@ -81,9 +81,6 @@ public:
     void setTerminalBackgroundVideo(const QString& backgroundVideo);
     void setTerminalBackgroundMode(int mode);
 
-    //Text codec, default is UTF-8
-    void setTextCodec(QTextCodec * codec);
-
     /** @brief Sets the color scheme, default is white on black
      *
      * @param[in] name The name of the color scheme, either returned from
@@ -362,7 +359,7 @@ private:
     public:
         HighLightText(const QString& text, const QColor& color) : text(text), color(color) {
             regExpFilter = new Konsole::RegExpFilter();
-            regExpFilter->setRegExp(QRegExp(text));
+            regExpFilter->setRegExp(QRegularExpression(text));
             regExpFilter->setColor(color);
         }
         ~HighLightText() {

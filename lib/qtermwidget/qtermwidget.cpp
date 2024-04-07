@@ -71,8 +71,6 @@ Session *TermWidgetImpl::createSession(QWidget* parent)
 
     QStringList args = QStringList(QString());
 
-    session->setCodec(QTextCodec::codecForName("UTF-8"));
-
     session->setFlowControlEnabled(true);
     session->setHistoryType(HistoryTypeBuffer(1000));
 
@@ -309,13 +307,6 @@ void QTermWidget::setTerminalBackgroundVideo(const QString& backgroundVideo)
 void QTermWidget::setTerminalBackgroundMode(int mode)
 {
     m_impl->m_terminalDisplay->setBackgroundMode((Konsole::BackgroundMode)mode);
-}
-
-void QTermWidget::setTextCodec(QTextCodec *codec)
-{
-    if (!m_impl->m_session)
-        return;
-    m_impl->m_session->setCodec(codec);
 }
 
 void QTermWidget::setColorScheme(const QString& origName)

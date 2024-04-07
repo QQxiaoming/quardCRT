@@ -6,11 +6,17 @@ en-US:
 
 - Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
 - Fix the problem of abnormal width of rendering symbols "×" and "÷"
+- Fix the problem of program crash in a small probability situation
+- Fix issue cursor positioning issues
+- Remove the dependency on core5compat in Qt
 
 zh-CN:
 
 - 修改终端选中后文本强调色透明度50%，而非原本的100%
 - 修复渲染符号"×" "÷"宽度异常问题
+- 修复存在一小概率情况下程序崩溃的问题
+- 修复光标定位问题 [#I8RB90](https://gitee.com/QQxiaoming/quardCRT/issues/I8RB90)
+- 删除对Qt中core5compat的依赖
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

@@ -190,7 +190,8 @@ private:
   QHash<int,QString> _pendingTitleUpdates;
   QTimer* _titleUpdateTimer;
 
-    bool _reportFocusEvents;
+  bool _reportFocusEvents;
+  QStringEncoder _toUtf8;
 };
 
 }

@@ -45,7 +45,7 @@ jobs:
         with:
           arch: win64_mingw
           version: '6.5.3'
-          modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
+          modules: 'qtwebsockets qtserialport qtmultimedia'
           aqtversion: ==3.1.7
 
       - name: Install cmake
@@ -128,7 +128,7 @@ jobs:
         with:
           arch: 'win64_msvc2019_64'
           version: '6.5.3'
-          modules: 'qt5compat qtwebsockets qtserialport qtmultimedia'
+          modules: 'qtwebsockets qtserialport qtmultimedia'
           aqtversion: '==3.1.7'
 
       - name: Install cmake

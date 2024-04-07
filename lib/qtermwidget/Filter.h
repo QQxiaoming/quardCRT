@@ -26,7 +26,7 @@
 #include <QObject>
 #include <QStringList>
 #include <QHash>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QColor>
 
 namespace Konsole
@@ -215,9 +215,9 @@ public:
      * Regular expressions which match the empty string are treated as not matching
      * anything.
      */
-    void setRegExp(const QRegExp& text);
+    void setRegExp(const QRegularExpression& text);
     /** Returns the regular expression which the filter searches for in blocks of text */
-    QRegExp regExp() const;
+    QRegularExpression regExp() const;
 
     /** Sets the color used to highlight text which matches the filter's regular expression */
     void setColor(const QColor& color) { _color = color;}
@@ -241,7 +241,7 @@ protected:
                                     int endLine,int endColumn);
 
 private:
-    QRegExp _searchText;
+    QRegularExpression _searchText;
     QColor _color;
 };
 
@@ -294,14 +294,14 @@ protected:
     RegExpFilter::HotSpot* newHotSpot(int,int,int,int) override;
 
 private:
-    static const QRegExp FullUrlRegExp;
-    static const QRegExp EmailAddressRegExp;
-    static const QRegExp WindowsFilePathRegExp;
-    static const QRegExp UnixFilePathRegExp;
-    static const QRegExp FilePathRegExp;
+    static const QRegularExpression FullUrlRegExp;
+    static const QRegularExpression EmailAddressRegExp;
+    static const QRegularExpression WindowsFilePathRegExp;
+    static const QRegularExpression UnixFilePathRegExp;
+    static const QRegularExpression FilePathRegExp;
 
     // combined OR of FullUrlRegExp and EmailAddressRegExp and FilePathRegExp
-    static const QRegExp CompleteUrlRegExp;
+    static const QRegularExpression CompleteUrlRegExp;
 
 signals:
     void activated(const QUrl& url, bool fromContextMenu);
