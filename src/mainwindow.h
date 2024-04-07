@@ -60,6 +60,7 @@
 extern QString VERSION;
 extern QString GIT_TAG;
 extern QString DATE_TAG;
+extern QString DATE_TIMESTAMPS_TAG;
 extern QString HASH_TAG;
 extern QString SHORT_HASH_TAG;
 

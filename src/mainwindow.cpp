@@ -3586,6 +3586,9 @@ QMenu *CentralWidget::createPopupMenu()
 
 void CentralWidget::appAbout(QWidget *parent)
 {
+    uint32_t timestamps = DATE_TIMESTAMPS_TAG.toUInt();
+    uint32_t current = QDateTime::currentDateTimeUtc().toSecsSinceEpoch();
+    uint32_t days = (current - timestamps) / 86400;
     QMessageBox::about(parent, tr("About"),
                            QString("<p>") + 
                            tr("Version") +
@@ -3593,7 +3596,7 @@ void CentralWidget::appAbout(QWidget *parent)
                            tr("Commit") +
                            QString("</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT/commit/%0'>%1</a></p><p>").arg(HASH_TAG).arg(GIT_TAG) +
                            tr("Date") +
-                           QString("</p><p>&nbsp;%0</p><p>").arg(DATE_TAG) +
+                           QString("</p><p>&nbsp;%0 (%1 days ago)</p><p>").arg(DATE_TAG).arg(days) +
                            tr("Author") +
                            "</p><p>&nbsp;<a href='mailto:qiaoqm@aliyun.com'>qiaoqm@aliyun.com</a></p><p>" +
                            tr("Website") +

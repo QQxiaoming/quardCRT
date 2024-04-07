@@ -2,10 +2,12 @@
 UNAMEOUT="$(uname -s)"
 case "${UNAMEOUT}" in
     Linux*)    
-        date_info=$(date +"%Y-%m-%dT%H:%M:%S.%3NZ")
+        date_timestamps=$(date -u +%s)
+        date_info=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
         ;;
     Darwin*)    
-        date_info=$(gdate +"%Y-%m-%dT%H:%M:%S.%3NZ")
+        date_timestamps=$(gdate -u +%s)
+        date_info=$(gdate -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
         ;;
 esac
 
@@ -24,5 +26,7 @@ echo "#define BUILD_SHORT_HASH \"${git_short_hash}\""
 echo "#define BUILD_SHORT_HASH_LEN ${#git_short_hash}"
 echo "#define BUILD_DATE \"${date_info}\""
 echo "#define BUILD_DATE_LEN ${#date_info}"
+echo "#define BUILD_DATE_TIMESTAMPS \"${date_timestamps}\""
+echo "#define BUILD_DATE_TIMESTAMPS_LEN ${#date_timestamps}"
 echo
 echo "#endif /* __BUILD_INFO_H__ */"
