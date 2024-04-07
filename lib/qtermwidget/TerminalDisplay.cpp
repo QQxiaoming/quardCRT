@@ -1754,8 +1754,15 @@ void TerminalDisplay::paintFilters(QPainter& painter)
                                         // display in _columns
 
             // ignore whitespace at the end of the lines
-            while ( QChar(_image[loc(endColumn,line)].character).isSpace() && endColumn > 0 )
-                endColumn--;
+            do {
+              if(endColumn <= 0)
+                break;
+              if( _image[loc(startColumn,line)].character > 0xffff )
+                break;
+              if( QChar(_image[loc(startColumn,line)].character).isSpace() )
+                break;
+              endColumn--;
+            } while ( true );
 
             // increment here because the column which we want to set 'endColumn' to
             // is the first whitespace character at the end of the line
@@ -3541,8 +3548,9 @@ void AutoScrollHandler::timerEvent(QTimerEvent* event)
     if (event->timerId() != _timerId)
         return;
 
-    QMouseEvent mouseEvent(    QEvent::MouseMove,QCursor::pos(),
+    QMouseEvent mouseEvent(   QEvent::MouseMove,
                               widget()->mapFromGlobal(QCursor::pos()),
+                              QCursor::pos(),
                               Qt::NoButton,
                               Qt::LeftButton,
                               Qt::NoModifier);
