@@ -55,6 +55,10 @@ int CharWidth::unicode_width(wchar_t ucs)
         // assumes them to be width 1, and glibc's default width is also 1
         return 1;
     }
+    // Override width of YiJing Hexagram Symbols unicode characters (0x4dc0-0x4dff)
+    if(ucs >= 0x4dc0 && ucs <= 0x4dff) {
+        return 2;
+    }
     return utf8proc_charwidth( ucs );
 }
 

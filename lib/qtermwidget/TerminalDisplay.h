@@ -710,6 +710,8 @@ private:
     // draws a string of line graphics
     void drawLineCharString(QPainter& painter, int x, int y,
                             const std::wstring& str, const Character* attributes) const;
+    void drawLineCharString(QPainter& painter, int x, int y, 
+                            wchar_t ch, const Character* attributes) const;
 
     // draws the preedit string for input methods
     void drawInputMethodPreeditString(QPainter& painter , const QRect& rect);

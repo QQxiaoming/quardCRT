@@ -700,6 +700,29 @@ void TerminalDisplay::drawLineCharString(    QPainter& painter, int x, int y, co
         painter.setPen( currentPen );
 }
 
+void TerminalDisplay::drawLineCharString(    QPainter& painter, int x, int y, wchar_t ch,
+                                    const Character* attributes) const
+{
+      const QPen& currentPen = painter.pen();
+
+      #if !defined(Q_OS_WIN)
+        if ( (attributes->rendition & RE_BOLD) && _boldIntense )
+        {
+            QPen boldPen(currentPen);
+            boldPen.setWidth(3);
+            painter.setPen( boldPen );
+        }
+      #endif
+
+        uint8_t code = static_cast<uint8_t>(ch & 0xffU);
+        if (LineChars[code])
+            drawLineChar(painter, x, y, _fontWidth, _fontHeight, code);
+        else
+            drawOtherChar(painter, x, y, _fontWidth, _fontHeight, code);
+
+        painter.setPen( currentPen );
+}
+
 void TerminalDisplay::setKeyboardCursorShape(QTermWidget::KeyboardCursorShape shape)
 {
     _cursorShape = shape;
@@ -943,21 +966,28 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
     if(font_width != width) {
       int single_rect_width = rect.width() / width;
         for (size_t i=0 ; i < text.length(); i++) {
-          std::wstring line_char_string = text.substr(i, 1);
+          wchar_t line_char = text[i];
           int offset = 0;
-          if(_charWidth->string_font_width(line_char_string) != CharWidth::string_unicode_width(line_char_string)) {
-            if(line_char_string == L"“" || line_char_string == L"‘") {
-              offset = single_rect_width*(_charWidth->string_font_width(line_char_string)-CharWidth::string_unicode_width(line_char_string));
-            } else if( line_char_string == L"×" || line_char_string == L"÷") {
-              offset = single_rect_width*(_charWidth->string_font_width(line_char_string)-CharWidth::string_unicode_width(line_char_string))/2;
-            } else if( line_char_string == L"”" || line_char_string == L"’") {
+          if(_charWidth->font_width(line_char) != CharWidth::unicode_width(line_char)) {
+            // https://github.com/QQxiaoming/quardCRT/issues/33#issuecomment-2044020900
+            // | left         | center       | right        |
+            // | ------------ | ------------ | ------------ |
+            // | L'’' U+2019 | L'×' U+00D7 | L'‘' U+2018 |
+            // | L'”' U+201D | L'÷' U+00F7 | L'“' U+201C |
+            // |              | L'‖' U+2016  | L'‚' U+201A |
+            // |              |              | L'‛' U+201B |
+            if(line_char == 0x201C || line_char == 0x2018 || line_char == 0x201A || line_char == 0x201B) {
+              offset = single_rect_width*(_charWidth->font_width(line_char)-CharWidth::unicode_width(line_char));
+            } else if( line_char == 0x00D7 || line_char == 0x00F7 || line_char == 0x2016) {
+              offset = single_rect_width*(_charWidth->font_width(line_char)-CharWidth::unicode_width(line_char))/2;
+            } else if( line_char == 0x201D || line_char == 0x2019) {
               // do nothing
             }
           }
-          if ( isLineCharString(text) ) {
-            drawLineCharString(painter, rect.x() + single_rect_width * i - offset, rect.y(), line_char_string, style);
+          if ( isLineChar(line_char) ) {
+            drawLineCharString(painter, rect.x() + single_rect_width * i - offset, rect.y(), line_char, style);
           } else {
-            painter.drawText(rect.x() + single_rect_width * i - offset, rect.y() + _fontAscent + _lineSpacing, QString::fromStdWString(line_char_string));
+            painter.drawText(rect.x() + single_rect_width * i - offset, rect.y() + _fontAscent + _lineSpacing, QString::fromWCharArray(&line_char,1));
           }
         }
     } else {
