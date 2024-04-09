@@ -27,6 +27,8 @@
 
 #include <QEvent>
 #include <QKeyEvent>
+#include <QClipboard>
+#include <QApplication>
 #include <QDebug>
 
 #include "KeyboardTranslator.h"
@@ -297,7 +299,7 @@ void Vt102Emulation::receiveChar(wchar_t cc)
     if (lec(1,0,ESC)) { return; }
     if (lec(1,0,ESC+128)) { s[0] = ESC; receiveChar('['); return; }
     if (les(2,1,GRP)) { return; }
-    if (Xte         ) { processWindowAttributeChange(); resetTokenizer(); return; }
+    if (Xte         ) { processOSC(); resetTokenizer(); return; }
     if (Xpe         ) { prevCC = cc; return; }
     if (lec(3,2,'?')) { return; }
     if (lec(3,2,'>')) { return; }
@@ -375,30 +377,83 @@ void Vt102Emulation::receiveChar(wchar_t cc)
     return;
   }
 }
-void Vt102Emulation::processWindowAttributeChange()
+
+void Vt102Emulation::processOSC()
 {
-  // Describes the window or terminal session attribute to change
-  // See Session::UserTitleChange for possible values
-  int attributeToChange = 0;
-  int i;
-  for (i = 2; i < tokenBufferPos     &&
-              tokenBuffer[i] >= '0'  &&
-              tokenBuffer[i] <= '9'; i++)
-  {
-    attributeToChange = 10 * attributeToChange + (tokenBuffer[i]-'0');
-  }
+    QString token = QString::fromWCharArray(tokenBuffer, tokenBufferPos);
+    int i = 2;
+    while (i < tokenBufferPos && tokenBuffer[i] != ';')
+        i++;
+    if (i == tokenBufferPos) {
+        reportDecodingError();
+        return;
+    }
 
-  if (tokenBuffer[i] != ';')
-  {
-    reportDecodingError();
-    return;
-  }
+    int command = -1;
+    switch (i-1) {
+        case 2:
+            command = tokenBuffer[2] - L'0';
+            break;
+        case 3:
+            command = 10 * (tokenBuffer[2] - L'0') + (tokenBuffer[3] - L'0');
+            break;
+        default:
+            reportDecodingError();
+            return;
+    }
 
-  // copy from the first char after ';', and skipping the ending delimiter
-  // 0x07 or 0x92. Note that as control characters in OSC text parts are
-  // ignored, only the second char in ST ("\e\\") is appended to tokenBuffer.
-  QString newValue = QString::fromWCharArray(tokenBuffer + i + 1, tokenBufferPos-i-2);
+    switch (command) {
+        /* 
+         * Operating System Controls https://www.xfree86.org/current/ctlseqs.html
+         *
+         * Ps = 0 → Change Icon Name and Window Title to Pt
+         * Ps = 1 → Change Icon Name to Pt
+         * Ps = 2 → Change Window Title to Pt
+         */
+        case 0:
+        case 1:
+        case 2: {
+            QString newValue = QString::fromWCharArray(tokenBuffer + 3 + 1, tokenBufferPos-3-2);
+            processWindowAttributeChange(command,newValue);
+            break;
+        }
+        //  Ps = 52 → Manipulate Selection Data. These controls may be disabled using the allowWindowOps resource. 
+        case 52: {
+            /* The first, Pc , may contain any character from the set c p s 0 1 2 3 4 5 6 7 . It is used to construct a list of selection parameters for clipboard, primary, select, or cut buffers 0 through 8 respectively, in the order given. If the parameter is empty, xterm uses s 0 , to specify the configurable primary/clipboard selection and cut buffer 0.
+             * The second parameter, Pd , gives the selection data. Normally this is a string encoded in base64. The data becomes the new selection, which is then available for pasting by other applications.
+             * If the second parameter is a ? , xterm replies to the host with the selection data encoded using the same protocol.
+             */
+            QString arg = QString::fromWCharArray(tokenBuffer + 4 + 1, tokenBufferPos-4-2);
+            QStringList args = arg.split(";", Qt::SkipEmptyParts);
+            auto processOSC52Text = [&](QString base64, QClipboard::Mode mode) {
+                QClipboard *clipboard = QApplication::clipboard();
+                if(base64 == "!") {
+                    clipboard->clear(mode);
+                } else {
+                    QByteArray data = QByteArray::fromBase64(base64.toUtf8());
+                    clipboard->setText(QString::fromUtf8(data), mode);
+                }
+            };
+            if(args.size() == 1 && args.at(0) != "?") {
+                processOSC52Text(args.at(0), QClipboard::Clipboard);
+            } else if(args.size() == 2) {
+              if(args.at(0) == "c" && args.at(1) != "?") {
+                processOSC52Text(args.at(1), QClipboard::Clipboard);
+              }
+              if(args.at(0) == "p" && args.at(1) != "?") {
+                processOSC52Text(args.at(1), QClipboard::Selection);
+              }
+            }
+            break;
+        }
+        default:
+            reportDecodingError();
+            break;
+    }
+}
 
+void Vt102Emulation::processWindowAttributeChange(int attributeToChange, QString newValue)
+{
   _pendingTitleUpdates[attributeToChange] = newValue;
   _titleUpdateTimer->start(20);
 }

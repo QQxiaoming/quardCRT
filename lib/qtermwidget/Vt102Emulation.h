@@ -130,7 +130,7 @@ private:
   void resetModes();
 
   void resetTokenizer();
-  #define MAX_TOKEN_LENGTH 256 // Max length of tokens (e.g. window title)
+  #define MAX_TOKEN_LENGTH 100000 // Max length of tokens (e.g. window title)
   void addToCurrentToken(wchar_t cc);
   wchar_t tokenBuffer[MAX_TOKEN_LENGTH]; //FIXME: overflow?
   int tokenBufferPos;
@@ -150,7 +150,8 @@ private:
   void reportDecodingError();
 
   void processToken(int code, wchar_t p, int q);
-  void processWindowAttributeChange();
+  void processOSC();
+  void processWindowAttributeChange(int attributeToChange, QString newValue);
   void requestWindowAttribute(int);
 
   void reportTerminalType();

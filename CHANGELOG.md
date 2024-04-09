@@ -8,7 +8,10 @@ en-US:
 - Fix the problem of abnormal width of rendering symbols "×" and "÷"
 - Fix the problem of program crash in a small probability situation
 - Fix issue cursor positioning issues
-- Remove the dependency on core5compat in Qt
+- Remove the dependency on core5compat in Qt (Refer to the pr upstream of qtermwidget, but with modifications).
+- Prohibit to look up the historical information with the middle mouse scrolling (Refer to the pr upstream of qtermwidget, but with modifications).
+- Fix rendering issue with abnormal width of some symbols
+- Add ANSI OSC52 sequence support
 
 zh-CN:
 
@@ -16,7 +19,10 @@ zh-CN:
 - 修复渲染符号"×" "÷"宽度异常问题
 - 修复存在一小概率情况下程序崩溃的问题
 - 修复光标定位问题 [#I8RB90](https://gitee.com/QQxiaoming/quardCRT/issues/I8RB90)
-- 删除对Qt中core5compat的依赖
+- 删除对Qt中core5compat的依赖（参考qtermwidget上游pr，但有修改）
+- 禁止使用中键滚动查看历史信息（参考qtermwidget上游pr，但有修改）
+- 修复渲染某些符号宽度异常问题
+- 增加 ANSI OSC52 sequence 支持
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

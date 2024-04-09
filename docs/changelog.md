@@ -6,6 +6,12 @@
 
 - Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
 - Fix the problem of abnormal width of rendering symbols "×" and "÷"
+- Fix the problem of program crash in a small probability situation
+- Fix issue cursor positioning issues
+- Remove the dependency on core5compat in Qt (Refer to the pr upstream of qtermwidget, but with modifications).
+- Prohibit to look up the historical information with the middle mouse scrolling (Refer to the pr upstream of qtermwidget, but with modifications).
+- Fix rendering issue with abnormal width of some symbols
+- Add ANSI OSC52 sequence support
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 
