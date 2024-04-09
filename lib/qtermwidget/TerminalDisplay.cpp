@@ -3058,14 +3058,14 @@ void TerminalDisplay::setSelection(const QString& t)
     }
 }
 
-void TerminalDisplay::copyClipboard()
+void TerminalDisplay::copyClipboard(QClipboard::Mode mode)
 {
   if ( !_screenWindow )
       return;
 
   QString text = _screenWindow->selectedText(_preserveLineBreaks);
   if (!text.isEmpty())
-    QApplication::clipboard()->setText(text);
+    QApplication::clipboard()->setText(text,mode);
 }
 
 void TerminalDisplay::pasteClipboard()

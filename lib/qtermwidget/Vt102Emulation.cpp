@@ -440,8 +440,10 @@ void Vt102Emulation::processOSC()
               if(args.at(0) == "c" && args.at(1) != "?") {
                 processOSC52Text(args.at(1), QClipboard::Clipboard);
               }
-              if(args.at(0) == "p" && args.at(1) != "?") {
-                processOSC52Text(args.at(1), QClipboard::Selection);
+              if(QApplication::clipboard()->supportsSelection()) {
+                if(args.at(0) == "p" && args.at(1) != "?") {
+                  processOSC52Text(args.at(1), QClipboard::Selection);
+                }
               }
             }
             break;

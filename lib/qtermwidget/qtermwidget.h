@@ -23,6 +23,7 @@
 #include <QTranslator>
 #include <QLocale>
 #include <QWidget>
+#include <QClipboard>
 #include "Emulation.h"
 #include "Filter.h"
 
@@ -296,7 +297,7 @@ signals:
 
 public slots:
     // Copy selection to clipboard
-    void copyClipboard();
+    void copyClipboard(QClipboard::Mode mode = QClipboard::Clipboard);
 
     // Paste clipboard to terminal
     void pasteClipboard();

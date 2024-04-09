@@ -5,9 +5,9 @@
 en-US:
 
 - Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
-- Fix the problem of abnormal width of rendering symbols "×" and "÷"
-- Fix the problem of program crash in a small probability situation
-- Fix issue cursor positioning issues
+- Fix the issue of abnormal width of rendering symbols '×' '÷' and '‖'
+- Fix the issue of program crash in a small probability situation
+- Fix cursor positioning issues
 - Remove the dependency on core5compat in Qt (Refer to the pr upstream of qtermwidget, but with modifications).
 - Prohibit to look up the historical information with the middle mouse scrolling (Refer to the pr upstream of qtermwidget, but with modifications).
 - Fix rendering issue with abnormal width of some symbols
@@ -16,7 +16,7 @@ en-US:
 zh-CN:
 
 - 修改终端选中后文本强调色透明度50%，而非原本的100%
-- 修复渲染符号"×" "÷"宽度异常问题
+- 修复渲染符号'×' '÷' '‖'宽度异常问题
 - 修复存在一小概率情况下程序崩溃的问题
 - 修复光标定位问题 [#I8RB90](https://gitee.com/QQxiaoming/quardCRT/issues/I8RB90)
 - 删除对Qt中core5compat的依赖（参考qtermwidget上游pr，但有修改）

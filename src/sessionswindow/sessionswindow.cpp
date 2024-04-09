@@ -384,17 +384,16 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             QDesktopServices::openUrl(u);
             Q_UNUSED(fromContextMenu);
         });
-        connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event){
-            // only windows and macos need do this
-        #if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
-            if(event->button() == Qt::MiddleButton) {
-                term->copyClipboard();
-                term->pasteClipboard();
-            }
-        #else
-            Q_UNUSED(event);
-        #endif
-        });
+        // only windows and macos need do this, because linux support Selection Clipboard by default
+        bool supportSelection = QApplication::clipboard()->supportsSelection();
+        if(!supportSelection) {
+            connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event) {
+                if(event->button() == Qt::MiddleButton) {
+                    term->copyClipboard();
+                    term->pasteClipboard();
+                }
+            });
+        }
         connect(term, &QTermWidget::zmodemSendDetected, this, [&](){
             if(zmodemOnlie) {
                 modemProxyChannelMutex.lock();

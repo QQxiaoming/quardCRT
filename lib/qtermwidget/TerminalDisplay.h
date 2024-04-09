@@ -24,6 +24,7 @@
 #include <QColor>
 #include <QPointer>
 #include <QWidget>
+#include <QClipboard>
 #include <QMovie>
 #include <QMediaPlayer>
 #include <QVideoSink>
@@ -460,7 +461,7 @@ public slots:
     void updateLineProperties();
 
     /** Copies the selected text to the clipboard. */
-    void copyClipboard();
+    void copyClipboard(QClipboard::Mode mode = QClipboard::Clipboard);
     /**
      * Pastes the content of the clipboard into the
      * display.

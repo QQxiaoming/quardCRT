@@ -461,9 +461,9 @@ bool QTermWidget::bracketedPasteModeIsDisabled() const
     return m_impl->m_terminalDisplay->bracketedPasteModeIsDisabled();
 }
 
-void QTermWidget::copyClipboard()
+void QTermWidget::copyClipboard(QClipboard::Mode mode)
 {
-    m_impl->m_terminalDisplay->copyClipboard();
+    m_impl->m_terminalDisplay->copyClipboard(mode);
 }
 
 void QTermWidget::pasteClipboard()
