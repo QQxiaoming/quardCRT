@@ -712,8 +712,10 @@ void SessionsWindow::reconnect(void) {
 void SessionsWindow::disconnect(void) {
     switch (type) {
         case LocalShell:
-        //TODO: disconnect
-        break;
+            localShell->kill();
+            state = Disconnected;
+            emit stateChanged(state);
+            break;
         case Telnet:
             if(telnet->isConnected()) telnet->disconnectFromHost();
             break;
@@ -1395,7 +1397,9 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
             info.serial.rx_total = rx_total;
             break;
         case LocalShell:
-            info.localShell.tree = localShell->processInfoTree();
+            if(state == Connected) {
+                info.localShell.tree = localShell->processInfoTree();
+            }
             break;
         case RawSocket:
             info.rawSocket.tx_total = tx_total;

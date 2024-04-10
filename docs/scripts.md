@@ -638,13 +638,12 @@ It includes the following parts:
 
 #### Method
 
-- `CommandWindow.Send(str: str) -> int`：Send text to the command window.
-    - Parameter:
-        - `str`: The text to send.
+- `CommandWindow.Send()`：Send text to the command window.
     - Example:
 
         ```python
-        commandwindow.Send("Hello, quardCRT!")
+        commandwindow.Text = 'Hello, quardCRT!'
+        commandwindow.Send()
         ```
 
 #### Attribute

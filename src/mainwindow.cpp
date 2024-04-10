@@ -2046,10 +2046,15 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     connect(disconnectAction,&QAction::triggered,this,[=](){
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
-        stopSession(findCurrentFocusGroup(),findCurrentFocusGroup()->sessionTab->indexOf(widget));
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isLocked()) return;
+        sessionsWindow->disconnect();
     });
     connect(disconnectAllAction,&QAction::triggered,this,[=](){
-        stopAllSession();
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(sessionsWindow->isLocked()) continue;
+            sessionsWindow->disconnect();
+        }
     });
     connect(cloneSessionAction,&QAction::triggered,this,[=](){
         cloneCurrentSession(findCurrentFocusGroup());

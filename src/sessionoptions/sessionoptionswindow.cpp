@@ -254,27 +254,28 @@ void SessionOptionsWindow::setSessionState(SessionsWindow::StateInfo state)
 {
     switch(state.type) {
         case SessionsWindow::LocalShell: {
-            QStandardItemModel *model = (QStandardItemModel *)sessionOptionsLocalShellState->ui->treeViewInfo->model();
-            std::function<void(IPtyProcess::pidTree_t, QStandardItem *)> addNode = [&](IPtyProcess::pidTree_t tree, QStandardItem *parent) {
-                qint64 pid = tree.pidInfo.pid;
-                QString path = tree.pidInfo.command;
-                QFileInfo fileInfo(path);
-                QString name = fileInfo.fileName();
-                QList<QStandardItem *> items = { new QStandardItem(), new QStandardItem() };
-                items[0]->setData(pid, Qt::DisplayRole);
-                items[1]->setData(name, Qt::DisplayRole);
-                items[1]->setData(path, Qt::ToolTipRole);
-                parent->appendRow(items);
-                foreach(IPtyProcess::pidTree_t child, tree.children) {
-                    addNode(child, items[0]);
-                }
-            };
-            addNode(state.localShell.tree, model->invisibleRootItem());
-            sessionOptionsLocalShellState->ui->treeViewInfo->expandToDepth(2);
             switch(state.state) {
-                case SessionsWindow::Connected:
+                case SessionsWindow::Connected: {
                     sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf0c1), Qt::green).pixmap(16,16)));
+                    QStandardItemModel *model = (QStandardItemModel *)sessionOptionsLocalShellState->ui->treeViewInfo->model();
+                    std::function<void(IPtyProcess::pidTree_t, QStandardItem *)> addNode = [&](IPtyProcess::pidTree_t tree, QStandardItem *parent) {
+                        qint64 pid = tree.pidInfo.pid;
+                        QString path = tree.pidInfo.command;
+                        QFileInfo fileInfo(path);
+                        QString name = fileInfo.fileName();
+                        QList<QStandardItem *> items = { new QStandardItem(), new QStandardItem() };
+                        items[0]->setData(pid, Qt::DisplayRole);
+                        items[1]->setData(name, Qt::DisplayRole);
+                        items[1]->setData(path, Qt::ToolTipRole);
+                        parent->appendRow(items);
+                        foreach(IPtyProcess::pidTree_t child, tree.children) {
+                            addNode(child, items[0]);
+                        }
+                    };
+                    addNode(state.localShell.tree, model->invisibleRootItem());
+                    sessionOptionsLocalShellState->ui->treeViewInfo->expandToDepth(2);
                     break;
+                }
                 case SessionsWindow::Disconnected:
                 case SessionsWindow::Error:
                     sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf127), Qt::red).pixmap(16,16)));

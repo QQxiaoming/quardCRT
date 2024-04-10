@@ -12,6 +12,7 @@ en-US:
 - Prohibit to look up the historical information with the middle mouse scrolling (Refer to the pr upstream of qtermwidget, but with modifications).
 - Fix rendering issue with abnormal width of some symbols
 - Add ANSI OSC52 sequence support
+- Fix issue that disconnecting the session will directly close the tab instead of disconnecting the session
 
 zh-CN:
 
@@ -23,6 +24,7 @@ zh-CN:
 - 禁止使用中键滚动查看历史信息（参考qtermwidget上游pr，但有修改）
 - 修复渲染某些符号宽度异常问题
 - 增加 ANSI OSC52 sequence 支持
+- 修复断开会话会直接关闭标签而不是断开会话的问题
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 
