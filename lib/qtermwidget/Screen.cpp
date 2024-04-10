@@ -857,18 +857,26 @@ QString Screen::getScreenText(int row1, int col1, int row2, int col2, int mode) 
 
     if (mode == 1) {
         for (int i = startLine; i <= endLine; i++) {
+            if(screenLines->size() <= i) break;
             for (int j = startCol; j <= endCol; j++) {
+                if(screenLines[i].count() <= j) break;
                 wchar_t c = screenLines[i][j].character;
                 text += QChar(c);
             }
         }
     } else if (mode == 2) {
         for (int i = startLine; i <= endLine; i++) {
+            if(screenLines->size() <= i) break;
+            int size = 0;
             for (int j = startCol; j <= endCol; j++) {
+                if(screenLines[i].count() <= j) break;
                 wchar_t c = screenLines[i][j].character;
                 text += QChar(c);
+                size++;
             }
-            text += '\n';
+            if(size != 0) {
+                text += '\n';
+            }
         }
     }
 

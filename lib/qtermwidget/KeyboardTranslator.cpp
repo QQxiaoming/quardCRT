@@ -664,7 +664,6 @@ QByteArray KeyboardTranslator::Entry::unescape(const QByteArray& input) const
 
     for ( int i = 0 ; i < result.size()-1 ; i++ )
     {
-
         char ch = result[i];
         if ( ch == '\\' )
         {
