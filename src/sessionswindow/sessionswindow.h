@@ -95,6 +95,7 @@ public:
     int startVNCSession(const QString &hostname, quint16 port, const QString &password);
 
     void reconnect(void);
+    void disconnect(void);
 
     void setWorkingDirectory(const QString &dir);
     const QString getWorkingDirectory(void) { return workingDirectory; }
@@ -250,6 +251,10 @@ public:
     void clearScreen() {
         if(term) term->clearScreen();
     }
+    QString screenGet(int row1, int col1, int row2, int col2, int mode) {
+        if(term) return term->screenGet(row1, col1, row2, col2, mode);
+        return QString();
+    }
     void clear() {
         if(term) term->clear();
     }
@@ -288,6 +293,22 @@ public:
     }
     void repaintDisplay(void) {
         if(term) term->repaintDisplay();
+    }
+    int getLineCount(void) {
+        if(term) return term->lines();
+        return -1;
+    }
+    int getColumnCount(void) {
+        if(term) return term->columns();
+        return -1;
+    }
+    int getCursorLineCount(void) {
+        if(term) return term->getCursorY();
+        return -1;
+    }
+    int getCursorColumnCount(void){
+        if(term) return term->getCursorX();
+        return -1;
     }
     void setZmodemUploadPath(const QString &path) {
         zmodemUploadPath = path;

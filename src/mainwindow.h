@@ -103,8 +103,9 @@ private:
     QString startVNCSession(MainWidgetGroup *group, QString hostname, quint16 port, QString password, QString name = QString());
     int stopSession(MainWidgetGroup *group, int index, bool force = false);
     int stopAllSession(bool force = false);
+    int cloneTargetSession(MainWidgetGroup *group, QString name,SessionsWindow *sessionsWindow);
     int cloneCurrentSession(MainWidgetGroup *group, QString name = QString());
-    MainWidgetGroup *findCurrentFocusGroup(void);
+    MainWidgetGroup *findCurrentFocusGroup(bool forceFind=true);
     QWidget *findCurrentFocusWidget(void);
     QMenu *createPopupMenu(void) override;
     void setSessionClassActionEnable(bool enable);
@@ -303,6 +304,7 @@ private:
     QTftp *tftpServer;
     qreal windowTransparency;
     bool windowTransparencyEnabled;
+    QString printerName;
 
     QLocale language;
     bool isDarkTheme;

@@ -63,7 +63,6 @@
 #include "sessionoptionswindow.h"
 #include "sshsftp.h"
 
-
 #include "ui_mainwindow.h"
 
 CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool isDark,
@@ -995,7 +994,7 @@ void CentralWidget::restoreSettings(void) {
     }
 }
 
-MainWidgetGroup* CentralWidget::findCurrentFocusGroup(void) {
+MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         if(mainWidgetGroup->sessionTab->currentWidget()->hasFocus()) {
             return mainWidgetGroup;
@@ -1006,7 +1005,10 @@ MainWidgetGroup* CentralWidget::findCurrentFocusGroup(void) {
             return mainWidgetGroup;
         }
     }
-    return mainWidgetGroupList[0];
+    if(forceFind)
+        return mainWidgetGroupList[0];
+    else 
+        return nullptr;
 }
 
 QWidget *CentralWidget::findCurrentFocusWidget(void) {
@@ -2186,13 +2188,14 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         GlobalSetting settings;
         QString printerPDFPath = settings.value("Global/Options/PrinterPDFPath",QDir::homePath()).toString();
         QString willsaveName = printerPDFPath + "/quartCRT-" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".pdf";
-        printer.setPrinterName("QuartCRT");
+        printer.setPrinterName(printerName.isEmpty()?"QuartCRT":printerName);
         printer.setPageSize(QPageSize::A4);
         printer.setOutputFileName(willsaveName);
     #endif
 
         QPrintDialog dlg(&printer, this);
         if (dlg.exec() == QDialog::Accepted) {
+            printerName = printer.printerName();
             QString buffer;
             QTextStream out(&buffer);
             sessionsWindow->saveHistory(&out,1);
@@ -3339,6 +3342,12 @@ int CentralWidget::cloneCurrentSession(MainWidgetGroup *group, QString name)
     if(group->sessionTab->count() == 0) return -1;
     QWidget *widget = group->sessionTab->currentWidget();
     SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    return cloneTargetSession(group,name,sessionsWindow);
+}
+
+int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,SessionsWindow *sessionsWindow)
+{
+    QWidget *widget = sessionsWindow->getMainWidget();
     SessionsWindow::SessionType type = sessionsWindow->getSessionType();
     switch(type) {
         case SessionsWindow::Serial:

@@ -555,6 +555,13 @@ public slots:
         _selectedTextOpacity = opacity;
     }
 
+    /** Returns the column which the cursor is positioned at. */
+    int  getCursorX() const;
+    /** Returns the line which the cursor is positioned on. */
+    int  getCursorY() const;
+
+    QString screenGet(int row1, int col1, int row2, int col2, int mode);
+
     void setLocked(bool enabled) { _isLocked = enabled; }
     void repaintDisplay(void) {
         // FIXME: we must call hide() and show() to force a repaint,

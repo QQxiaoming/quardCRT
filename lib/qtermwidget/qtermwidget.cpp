@@ -834,6 +834,18 @@ int QTermWidget::columns() {
     return m_impl->m_terminalDisplay->columns();
 }
 
+int QTermWidget::getCursorX() {
+    return m_impl->m_terminalDisplay->getCursorX();
+}
+
+int QTermWidget::getCursorY() {
+    return m_impl->m_terminalDisplay->getCursorY();
+}
+
+QString QTermWidget::screenGet(int row1, int col1, int row2, int col2, int mode) {
+    return m_impl->m_terminalDisplay->screenGet(row1, col1, row2, col2, mode);
+}
+
 void QTermWidget::setSelectionOpacity(qreal opacity) {
     m_impl->m_terminalDisplay->setSelectionOpacity(opacity);
 }

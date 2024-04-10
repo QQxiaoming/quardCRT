@@ -35,6 +35,7 @@ public:
     explicit CommandWidget(QWidget *parent = nullptr);
     ~CommandWidget();
     void setCmd(QString cmd);
+    QString getCmd(void);
     void sendCurrentData(void);
     void retranslateUi(void);
 

@@ -709,6 +709,32 @@ void SessionsWindow::reconnect(void) {
     }
 }
 
+void SessionsWindow::disconnect(void) {
+    switch (type) {
+        case LocalShell:
+        //TODO: disconnect
+        break;
+        case Telnet:
+            if(telnet->isConnected()) telnet->disconnectFromHost();
+            break;
+        case Serial:
+            if(serialPort->isOpen()) serialPort->close();
+            break;
+        case RawSocket:
+            if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
+            break;
+        case NamePipe:
+            if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
+            break;
+        case SSH2:
+            ssh2Client->disconnectFromHost();
+            break;
+        case VNC:
+            vncClient->disconnectFromVncServer();
+            break;
+    }
+}
+
 void SessionsWindow::setWorkingDirectory(const QString &dir)
 {
     workingDirectory = dir;
