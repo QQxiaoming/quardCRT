@@ -47,7 +47,7 @@ SessionManagerWidget::SessionManagerWidget(QWidget *parent) :
     connect(tree, &SessionManagerTreeView::sessionConnect, this, &SessionManagerWidget::sessionConnect);
     connect(tree, &SessionManagerTreeView::sessionRemove, this, &SessionManagerWidget::sessionRemove);
     connect(tree, &SessionManagerTreeView::sessionShowProperties, this, &SessionManagerWidget::sessionShowProperties);
-    connect(ui->toolButtonClose, &QToolButton::clicked, this, &SessionManagerWidget::hide);
+    connect(ui->toolButtonClose, &QToolButton::clicked, this, &SessionManagerWidget::sessionManagerHide);
 
     retranslateUi();
 }

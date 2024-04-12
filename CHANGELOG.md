@@ -13,6 +13,7 @@ en-US:
 - Fix rendering issue with abnormal width of some symbols
 - Add ANSI OSC52 sequence support
 - Fix issue that disconnecting the session will directly close the tab instead of disconnecting the session
+- Improve the session manager page width can be freely adjusted
 
 zh-CN:
 
@@ -25,6 +26,7 @@ zh-CN:
 - 修复渲染某些符号宽度异常问题
 - 增加 ANSI OSC52 sequence 支持
 - 修复断开会话会直接关闭标签而不是断开会话的问题
+- 改进会话管理器页面宽度可自由调整
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

@@ -150,6 +150,8 @@ protected:
 private:
     Ui::CentralWidget *ui;
 
+    QSplitter *splitter;
+    QStackedWidget *stackedWidget;
     SessionManagerWidget *sessionManagerWidget;
     PluginViewerWidget *pluginViewerWidget;
     QList<MainWidgetGroup *> mainWidgetGroupList;

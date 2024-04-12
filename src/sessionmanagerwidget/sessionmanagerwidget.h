@@ -48,6 +48,7 @@ signals:
     void sessionConnect(QString str);
     void sessionRemove(QString str);
     void sessionShowProperties(QString str);
+    void sessionManagerHide();
 
 private:
     Ui::SessionManagerWidget *ui;

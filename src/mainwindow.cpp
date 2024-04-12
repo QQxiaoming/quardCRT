@@ -81,23 +81,25 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
-    sessionManagerWidget = new SessionManagerWidget(this);
-    ui->centralwidget->layout()->addWidget(sessionManagerWidget);
-    pluginViewerWidget = new PluginViewerWidget(this);
-    ui->centralwidget->layout()->addWidget(pluginViewerWidget);
-
-    restoreSessionToSessionManager();
-    sessionManagerWidget->setVisible(false);
-    pluginViewerWidget->setVisible(false);
-
-    QSplitter *splitter = new QSplitter(Qt::Horizontal,this);
+    splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
     ui->centralwidget->layout()->addWidget(splitter);
+    stackedWidget = new QStackedWidget(this);
+    splitter->addWidget(stackedWidget);
+    sessionManagerWidget = new SessionManagerWidget(this);
+    stackedWidget->addWidget(sessionManagerWidget);
+    pluginViewerWidget = new PluginViewerWidget(this);
+    stackedWidget->addWidget(pluginViewerWidget);
+    stackedWidget->hide();
+
+    restoreSessionToSessionManager();
+
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
     splitter->addWidget(mainWidgetGroupList.at(0)->splitter);
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
     splitter->addWidget(mainWidgetGroupList.at(1)->splitter);
-    splitter->setSizes(QList<int>() << 1 << 0);
+    splitter->setSizes(QList<int>() << 1 << 100000 << 0);
+    splitter->setCollapsible(0,false);
     
     quickConnectWindow = new QuickConnectWindow(this);
     quickConnectMainWidgetGroup = mainWidgetGroupList.at(0);
@@ -159,19 +161,27 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     menuAndToolBarConnectSignals();
 
     connect(sessionManagerPushButton,&QPushButton::clicked,this,[&](){
-        if(sessionManagerWidget->isVisible() == false) {
-            pluginViewerWidget->setVisible(false);
-            sessionManagerWidget->setVisible(true);
+        if(stackedWidget->isHidden()) {
+            stackedWidget->setCurrentWidget(sessionManagerWidget);
+            stackedWidget->show();
         } else {
-            sessionManagerWidget->setVisible(false);
+            if(stackedWidget->currentWidget() == sessionManagerWidget) {
+                stackedWidget->hide();
+            } else {
+                stackedWidget->setCurrentWidget(sessionManagerWidget);
+            }
         }
     });
     connect(pluginViewerPushButton,&QPushButton::clicked,this,[&](){
-        if(pluginViewerWidget->isVisible() == false) {
-            sessionManagerWidget->setVisible(false);
-            pluginViewerWidget->setVisible(true);
+        if(stackedWidget->isHidden()) {
+            stackedWidget->setCurrentWidget(pluginViewerWidget);
+            stackedWidget->show();
         } else {
-            pluginViewerWidget->setVisible(false);
+            if(stackedWidget->currentWidget() == pluginViewerWidget) {
+                stackedWidget->hide();
+            } else {
+                stackedWidget->setCurrentWidget(pluginViewerWidget);
+            }
         }
     });
     connect(startTftpSeverWindow,&StartTftpSeverWindow::setTftpInfo,this,[&](int port, const QString &upDir, const QString &downDir){
@@ -529,6 +539,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             }
         });
     }
+    connect(sessionManagerWidget,&SessionManagerWidget::sessionManagerHide,this,[&](){
+        stackedWidget->hide();
+    });
     connect(sessionManagerWidget,&SessionManagerWidget::sessionConnect,this,[&](QString str){
         connectSessionFromSessionManager(str);
     });
@@ -1893,14 +1906,16 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QProcess::startDetached(QApplication::applicationFilePath(),QApplication::arguments().mid(1));
     });
     connect(connectAction,&QAction::triggered,this,[=](){
-        sessionManagerWidget->setVisible(true);
+        if(stackedWidget->currentWidget() != sessionManagerWidget) {
+            stackedWidget->setCurrentWidget(sessionManagerWidget);
+        }
+        stackedWidget->show();
     });
     connect(sessionManagerAction,&QAction::triggered,this,[=](){
-        if(sessionManagerWidget->isVisible() == false) {
-            sessionManagerWidget->setVisible(true);
-        } else {
-            sessionManagerWidget->setVisible(false);
+        if(stackedWidget->currentWidget() != sessionManagerWidget) {
+            stackedWidget->setCurrentWidget(sessionManagerWidget);
         }
+        stackedWidget->show();
     });
     connect(quickConnectAction,&QAction::triggered,this,[=](){
         quickConnectMainWidgetGroup = findCurrentFocusGroup();
@@ -2031,7 +2046,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
 
     connect(connectInTabAction,&QAction::triggered,this,[=](){
-        sessionManagerWidget->setVisible(true);
+        if(stackedWidget->currentWidget() != sessionManagerWidget) {
+            stackedWidget->setCurrentWidget(sessionManagerWidget);
+        }
+        stackedWidget->show();
     });
     connect(connectLocalShellAction,&QAction::triggered,this,[=](){
         startLocalShellSession(findCurrentFocusGroup(),QString(),globalOptionsWindow->getNewTabWorkPath());
