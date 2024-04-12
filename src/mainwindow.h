@@ -81,6 +81,7 @@ public:
     CentralWidget(QString dir = QString(), StartupUIMode mode = STDUI_MODE, QLocale lang = QLocale(QLocale::English), 
         bool isDark = true, QString start_know_session = QString(), QWidget *parent = nullptr);
     ~CentralWidget();
+    static void appPrivacyStatement(QWidget *parent = nullptr);
     static void appAbout(QWidget *parent = nullptr);
     static void appKeyboradShortcutsReference(QWidget *parent = nullptr);
     static void setAppLangeuage(QLocale lang);
@@ -275,6 +276,7 @@ private:
     QAction *helpAction;
     QAction *keyboradShortcutsReferenceAction;
     QAction *checkUpdateAction;
+    QAction *privacyStatementAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
 

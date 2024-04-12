@@ -114,4 +114,5 @@ quardCRT supports plugins from version V0.4.0, plugins will be provided in the f
    License<license.md>
    Roadmap<roadmap.md>
    Acknowledgements<acknowledgements.md>
+   Privacy<privacy.md>
  

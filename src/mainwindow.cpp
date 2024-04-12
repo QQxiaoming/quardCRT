@@ -1273,6 +1273,9 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     checkUpdateAction->setText(tr("Check Update"));
     checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf09b)));
     checkUpdateAction->setStatusTip(tr("Check for updates"));
+    privacyStatementAction->setText(tr("Privacy Statement"));
+    privacyStatementAction->setIcon(QFontIcon::icon(QChar(0xf023)));
+    privacyStatementAction->setStatusTip(tr("Display privacy statement"));
     aboutAction->setText(tr("About"));
     aboutAction->setIcon(QIcon(":/icons/icons/about.png"));
     aboutAction->setStatusTip(tr("Display about dialog"));
@@ -1655,6 +1658,9 @@ void CentralWidget::menuAndToolBarInit(void) {
     helpMenu->addAction(keyboradShortcutsReferenceAction);
     checkUpdateAction = new QAction(this);
     helpMenu->addAction(checkUpdateAction);
+    helpMenu->addSeparator();
+    privacyStatementAction = new QAction(this);
+    helpMenu->addAction(privacyStatementAction);
     helpMenu->addSeparator();
     aboutAction = new QAction(this);
     helpMenu->addAction(aboutAction);
@@ -2699,6 +2705,13 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             QDesktopServices::openUrl(QUrl("https://github.com/QQxiaoming/quardCRT/releases"));
         }
     });
+    connect(privacyStatementAction, &QAction::triggered, this, [&]() {
+        if(mainWindow) {
+            CentralWidget::appPrivacyStatement(mainWindow);
+        } else {
+            CentralWidget::appPrivacyStatement(this);
+        }
+    });
     connect(aboutAction, &QAction::triggered, this, [&]() {
         if (mainWindow) {
             CentralWidget::appAbout(mainWindow);
@@ -3598,6 +3611,28 @@ QMenu *CentralWidget::createPopupMenu()
     return menu;
 }
 
+void CentralWidget::appPrivacyStatement(QWidget *parent)
+{
+    QMessageBox::about(parent, tr("Privacy Statement"),
+                           QString("<p>") + 
+                           tr("This software is a terminal emulator that provides a secure shell (SSH) connection, telnet connection, serial port connection, and other functions.") +
+                           QString("</p><p>") + 
+                           tr("This software does not collect any personal information, and does not send any information to the server.") +
+                           QString("</p><p>") + 
+                           tr("This software does not contain any malicious code, and does not contain any backdoors.") +
+                           QString("</p><p>") + 
+                           tr("This software is open source software, you can view the source code on the github website.") +
+                           QString("</p><p>") + 
+                           tr("This software is provided as is, without any warranty.") +
+                           QString("</p><p>") + 
+                           tr("If you have any questions or suggestions, please contact the author.") +
+                           QString("</p><p></p><p>") + tr("Author") +
+                           QString(":<a href='mailto:2014500726@smail.xtu.edu.cn'>2014500726@smail.xtu.edu.cn</a></p>") +
+                           "<p>Github:<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</a></p>" +
+                           "<p>Gitee:<a href='https://gitee.com/QQxiaoming/quardCRT'>https://gitee.com/QQxiaoming</a></p>"
+                       );
+}
+
 void CentralWidget::appAbout(QWidget *parent)
 {
     uint32_t timestamps = DATE_TIMESTAMPS_TAG.toUInt();
@@ -3612,7 +3647,7 @@ void CentralWidget::appAbout(QWidget *parent)
                            tr("Date") +
                            QString("</p><p>&nbsp;%0 (%1 days ago)</p><p>").arg(DATE_TAG).arg(days) +
                            tr("Author") +
-                           "</p><p>&nbsp;<a href='mailto:qiaoqm@aliyun.com'>qiaoqm@aliyun.com</a></p><p>" +
+                           "</p><p>&nbsp;<a href='mailto:2014500726@smail.xtu.edu.cn'>2014500726@smail.xtu.edu.cn</a></p><p>" +
                            tr("Website") +
                            "</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</a></p>" +
                            "<p>&nbsp;<a href='https://gitee.com/QQxiaoming/quardCRT'>https://gitee.com/QQxiaoming</a></p>"

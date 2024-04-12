@@ -300,9 +300,12 @@ signals:
     void zmodemRecvDetected();
 
 public slots:
-    // Copy selection to clipboard
-    void copyClipboard(QClipboard::Mode mode = QClipboard::Clipboard);
+    // Copy terminal to clipboard
+    void copyClipboard();
 
+    // Copy terminal to selection
+    void copySelection();
+    
     // Paste clipboard to terminal
     void pasteClipboard();
 
