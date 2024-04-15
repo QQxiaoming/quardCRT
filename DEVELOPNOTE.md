@@ -18,7 +18,7 @@ Currently there are two types of upstream dependencies: one is direct source cod
 
 - winpty-0.4.3.tar.gz
 
-    Used to support pseudo terminals under windows, compiled using the `build_winpty_ms.sh` script under windows, after compilation, the installation directory needs to be configured to the WINPTY_DIR variable in lib/ptyqt/ptyqt.pri, and then compile this project. No compilation is required for non-windows platforms.
+    Used to support pseudo terminals under windows(Mingw), compiled using the `build_winpty_ms.sh` script under windows, after compilation, the installation directory needs to be configured to the WINPTY_DIR variable in lib/ptyqt/ptyqt.pri, and then compile this project. No compilation is required for MSVC environment and non-windows platforms.
 
 ### Compilation Steps
 

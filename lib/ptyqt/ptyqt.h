@@ -6,7 +6,7 @@
 class PtyQt
 {
 public:
-    static IPtyProcess *createPtyProcess(IPtyProcess::PtyType ptyType);
+    static IPtyProcess *createPtyProcess(IPtyProcess::PtyType ptyType = IPtyProcess::AutoPty);
 };
 
 #endif // PTYQT_H

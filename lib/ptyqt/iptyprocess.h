@@ -16,10 +16,10 @@ class IPtyProcess
 public:
     enum PtyType
     {
-        UnixPty = 0,
-        WinPty = 1,
-        ConPty = 2,
-        AutoPty = 3
+        AutoPty = 0,
+        UnixPty = 1,
+        WinPty = 2,
+        ConPty = 3,
     };
     struct psInfo_t{
         qint64 pid;

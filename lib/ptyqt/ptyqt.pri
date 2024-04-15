@@ -9,17 +9,18 @@ SOURCES += \
 INCLUDEPATH += $$PWD
 
 win32:{
-    HEADERS += \
-        $$PWD/conptyprocess.h \
-        $$PWD/winptyprocess.h
+    win32-g++ {
+        HEADERS += $$PWD/winptyprocess.h
+        SOURCES += $$PWD/winptyprocess.cpp
 
-    SOURCES += \
-        $$PWD/conptyprocess.cpp \
-        $$PWD/winptyprocess.cpp
-
-    WINPTY_DIR=D:\quardCRT\depend\winpty
-    INCLUDEPATH += $${WINPTY_DIR}\include\winpty
-    LIBS += $${WINPTY_DIR}\lib\winpty.lib
+        WINPTY_DIR=D:\quardCRT\depend\winpty
+        INCLUDEPATH += $${WINPTY_DIR}\include\winpty
+        LIBS += $${WINPTY_DIR}\lib\winpty.lib
+    }
+    win32-msvc*{
+        HEADERS += $$PWD/conptyprocess.h
+        SOURCES += $$PWD/conptyprocess.cpp
+    }
 
     LIBS += -lwsock32 -lws2_32 -lcrypt32 -liphlpapi -lnetapi32 -lversion -lwinmm -luserenv
 }

@@ -14,6 +14,7 @@ en-US:
 - Add ANSI OSC52 sequence support
 - Fix issue that disconnecting the session will directly close the tab instead of disconnecting the session
 - Improve the session manager page width can be freely adjusted
+- The version built with MSVC on Windows uses ConPty instead of WinPty, and the version built with Mingw continues to use WinPty
 
 zh-CN:
 
@@ -27,6 +28,7 @@ zh-CN:
 - 增加 ANSI OSC52 sequence 支持
 - 修复断开会话会直接关闭标签而不是断开会话的问题
 - 改进会话管理器页面宽度可自由调整
+- Windows下通过MSVC构建的版本采用ConPty代替WinPty，Mingw构建版本继续使用WinPty
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

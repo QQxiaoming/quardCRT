@@ -107,16 +107,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     switch (type) {
         case LocalShell: {
             showShortTitle = true;
-        #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
-            IPtyProcess::PtyType ptyType = IPtyProcess::UnixPty;
-        #elif defined(Q_OS_WIN)
-            IPtyProcess::PtyType ptyType = IPtyProcess::WinPty;
-            //qint32 buildNumber = QSysInfo::kernelVersion().split(".").last().toInt();
-            //if (buildNumber >= CONPTY_MINIMAL_WINDOWS_VERSION) {
-            //    ptyType = IPtyProcess::ConPty;
-            //}
-        #endif
-            localShell = PtyQt::createPtyProcess(ptyType);
+            localShell = PtyQt::createPtyProcess();
             connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
                 localShell->resize(columns,lines);
             });
@@ -529,7 +520,6 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     #elif defined(Q_OS_WIN)
         shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
         args =  {
-            "powershell.exe",
             "-ExecutionPolicy",
             "Bypass",
             "-NoLogo",
@@ -547,10 +537,6 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         }
         shellPath = args.first();
         args.removeFirst();
-    #if defined(Q_OS_WIN)
-        QFileInfo fi(shellPath);
-        args.insert(0, fi.fileName());
-    #endif
     }
     QStringList envs = QProcessEnvironment::systemEnvironment().toStringList();
     GlobalSetting setting;

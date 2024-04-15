@@ -18,7 +18,7 @@
 
 - winpty-0.4.3.tar.gz
 
-    用于支持windows下的伪终端，windows通过`build_winpty_ms.sh`脚本编译，编译后需要将安装目录配置到lib/ptyqt/ptyqt.pri的WINPTY_DIR变量中，再编译本项目。非windows平台下无需编译。
+    用于支持windows下Mingw编译环境的伪终端，windows通过`build_winpty_ms.sh`脚本编译，编译后需要将安装目录配置到lib/ptyqt/ptyqt.pri的WINPTY_DIR变量中，再编译本项目。MSVC环境以及非windows平台下无需编译。
 
 ### 编译步骤
 

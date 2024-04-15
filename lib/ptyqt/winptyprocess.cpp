@@ -103,7 +103,7 @@ bool WinPtyProcess::startProcess(const QString &shellPath, QStringList args,
     }
     winpty_error_free(errorPtr);
 
-    QString commandLine = args.join(" ");
+    QString commandLine = fi.fileName() + " " + args.join(" ");
     //create spawn config
     winpty_spawn_config_t* spawnConfig = winpty_spawn_config_new(WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN, 
                                                                  m_shellPath.toStdWString().c_str(),

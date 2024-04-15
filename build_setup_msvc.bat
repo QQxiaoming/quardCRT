@@ -39,8 +39,6 @@ xcopy /y .\build_release\out\quardCRT.exe .\InnoSetup\build\
 :: 使用windeployqt拷贝依赖dll库到打包目录
 windeployqt --dir .\InnoSetup\build .\InnoSetup\build\quardCRT.exe
 xcopy /y "D:\libssh2\bin\*.dll" ".\InnoSetup\build\"
-xcopy /y "D:\winpty\bin\winpty.dll" ".\InnoSetup\build\"
-xcopy /y "D:\winpty\bin\winpty-agent.exe" ".\InnoSetup\build\"
 xcopy /y .\scripts\Profile.ps1 .\InnoSetup\build\
 xcopy /y .\font\inziu-iosevkaCC-SC-regular.ttf .\InnoSetup\build\
 mkdir ".\InnoSetup\build\plugins"

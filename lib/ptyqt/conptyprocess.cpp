@@ -128,9 +128,11 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
     auto envV = vectorFromString(env);
     LPSTR envArg = envV.empty() ? nullptr : envV.data();
 
-    LPSTR cmdArg = new char[m_shellPath.toStdString().length() + 1];
-    std::strcpy(cmdArg, m_shellPath.toStdString().c_str());
-    //qDebug() << "m_shellPath" << m_shellPath << cmdArg << m_shellPath.toStdString().c_str();
+    QString fullCmdArg = m_shellPath + " " + args.join(" ");
+    LPSTR cmdArg = new char[fullCmdArg.toStdString().length() + 1];
+    std::strcpy(cmdArg, fullCmdArg.toStdString().c_str());
+    LPSTR workDirArg = new char[workDir.toStdString().length() + 1];
+    std::strcpy(workDirArg, workDir.toStdString().c_str());
 
     HRESULT hr{ E_UNEXPECTED };
 
@@ -160,8 +162,8 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
                 NULL,                           // Thread handle not inheritable
                 FALSE,                          // Inherit handles
                 EXTENDED_STARTUPINFO_PRESENT,   // Creation flags
-                envArg, //NULL,                           // Use parent's environment block
-                NULL,                           // Use parent's starting directory
+                envArg,                         // Use parent's environment block
+                workDirArg,                     // Use parent's starting directory
                 &startupInfo.StartupInfo,       // Pointer to STARTUPINFO
                 &piClient)                      // Pointer to PROCESS_INFORMATION
             ? S_OK
@@ -169,6 +171,8 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
 
     if (S_OK != hr)
     {
+        delete[] cmdArg;
+        delete[] workDirArg;
         m_lastError = QString("ConPty Error: Cannot create process -> %1").arg(hr);
         return false;
     }
@@ -210,6 +214,9 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
         DeleteProcThreadAttributeList(startupInfo.lpAttributeList);
         //free(startupInfo.lpAttributeList);
     });
+    
+    delete[] cmdArg;
+    delete[] workDirArg;
 
     //start read thread
     m_readThread->start();
@@ -219,7 +226,7 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
 
 bool ConPtyProcess::resize(qint16 cols, qint16 rows)
 {
-    if (m_ptyHandler == nullptr)
+    if (m_ptyHandler == INVALID_HANDLE_VALUE)
     {
         return false;
     }
