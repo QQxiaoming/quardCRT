@@ -2910,13 +2910,26 @@ bool TerminalDisplay::focusNextPrevChild( bool next )
   return QWidget::focusNextPrevChild( next );
 }
 
-
 QChar TerminalDisplay::charClass(QChar qch) const
 {
+    // check if the character is a space
     if ( qch.isSpace() ) return QLatin1Char(' ');
 
+    // check if the character is a letter or a number
     if ( qch.isLetterOrNumber() || _wordCharacters.contains(qch, Qt::CaseInsensitive ) )
-    return QLatin1Char('a');
+        return QLatin1Char('a');
+
+    // check if the code point is in the ranges for CJK characters
+    uint32_t cp = qch.unicode();
+    if ((cp >= 0x4E00 && cp <= 0x9FFF)   ||    // CJK Unified Ideographs
+        (cp >= 0x3400 && cp <= 0x4DBF)   ||    // CJK Unified Ideographs Extension A
+        (cp >= 0x20000 && cp <= 0x2A6DF) ||    // CJK Unified Ideographs Extension B
+        (cp >= 0xF900 && cp <= 0xFAFF)   ||    // CJK Compatibility Ideographs
+        (cp >= 0x2F800 && cp <= 0x2FA1F) ||    // CJK Compatibility Ideographs Supplement
+        (cp == 0x0)  //FIXME: if the character is a null character, becase it is CJK character's dummy               
+        ) {  
+        return QLatin1Char('a');
+    }
 
     return qch;
 }

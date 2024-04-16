@@ -15,6 +15,7 @@
 - Fix issue that disconnecting the session will directly close the tab instead of disconnecting the session
 - Improve the session manager page width can be freely adjusted
 - The version built with MSVC on Windows uses ConPty instead of WinPty, and the version built with Mingw continues to use WinPty
+- Improve the behavior of selecting CJK characters when double-clicking
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 
