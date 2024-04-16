@@ -25,6 +25,31 @@ GlobalOptionsAppearanceWidget::GlobalOptionsAppearanceWidget(QWidget *parent) :
     ui(new Ui::GlobalOptionsAppearanceWidget)
 {
     ui->setupUi(this);
+
+    colorButtons.append(ui->pushButtonColor1);
+    colorButtons.append(ui->pushButtonColor2);
+    colorButtons.append(ui->pushButtonColor3);
+    colorButtons.append(ui->pushButtonColor4);
+    colorButtons.append(ui->pushButtonColor5);
+    colorButtons.append(ui->pushButtonColor6);
+    colorButtons.append(ui->pushButtonColor7);
+    colorButtons.append(ui->pushButtonColor8);
+    colorButtons.append(ui->pushButtonColor9);
+    colorButtons.append(ui->pushButtonColor10);
+    colorButtons.append(ui->pushButtonColor11);
+    colorButtons.append(ui->pushButtonColor12);
+    colorButtons.append(ui->pushButtonColor13);
+    colorButtons.append(ui->pushButtonColor14);
+    colorButtons.append(ui->pushButtonColor15);
+    colorButtons.append(ui->pushButtonColor16);
+    colorButtons.append(ui->pushButtonColor17);
+    colorButtons.append(ui->pushButtonColor18);
+    colorButtons.append(ui->pushButtonColor19);
+    colorButtons.append(ui->pushButtonColor20);
+
+    foreach (QPushButton *button, colorButtons) {
+        button->setAutoFillBackground(true);
+    }
 }
 
 GlobalOptionsAppearanceWidget::~GlobalOptionsAppearanceWidget()

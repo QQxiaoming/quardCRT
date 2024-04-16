@@ -17,6 +17,7 @@ en-US:
 - The version built with MSVC on Windows uses ConPty instead of WinPty, and the version built with Mingw continues to use WinPty
 - Improve the behavior of selecting CJK characters when double-clicking
 - Improve the display of the input method pre-edit area
+- Add preview terminal color scheme display in settings
 
 zh-CN:
 
@@ -33,6 +34,7 @@ zh-CN:
 - Windows下通过MSVC构建的版本采用ConPty代替WinPty，Mingw构建版本继续使用WinPty
 - 改进双击选中CJK字符时的表现
 - 改进输入法预编辑区域的显示表现
+- 设置中增加预览终端配色方案显示
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

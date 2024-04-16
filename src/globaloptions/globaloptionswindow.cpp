@@ -29,6 +29,8 @@
 #include <QFontDialog>
 #include <QDesktopServices>
 #include "qtermwidget.h"
+#include "ColorScheme.h"
+#include "ColorTables.h"
 
 #include "filedialog.h"
 #include "globalsetting.h"
@@ -223,6 +225,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(globalOptionsAdvancedWidget->ui->toolButtonOpenConfigFile,&QToolButton::clicked, this, [&](){
         QDesktopServices::openUrl(QUrl::fromLocalFile(globalOptionsAdvancedWidget->ui->lineEditConfigFile->text()));
     });
+    connect(globalOptionsAppearanceWidget->ui->comBoxColorSchemes, &QComboBox::currentTextChanged, this, [&](const QString &text){
+        updateColorButtons(text);
+    });
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
 
@@ -294,6 +299,7 @@ void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
         settings.setValue("colorScheme", defaultColorScheme);
     }
     settings.endGroup();
+    updateColorButtons(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
 }
 
 QString GlobalOptionsWindow::getCurrentColorScheme(void)
@@ -499,5 +505,24 @@ void GlobalOptionsWindow::showEvent(QShowEvent *event)
     retranslateUi();
     GlobalSetting settings;
     globalOptionsAppearanceWidget->ui->comboBoxBackgroundMode->setCurrentIndex(settings.value("Global/Options/backgroundImageMode", 1).toInt());
+    updateColorButtons(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     QDialog::showEvent(event);
+}
+
+bool GlobalOptionsWindow::updateColorButtons(const QString &text) {
+    if (QTermWidget::availableColorSchemes().contains(text)) {
+        const Konsole::ColorScheme *cs = Konsole::ColorSchemeManager::instance()->findColorScheme(text);
+        if (cs) {
+            Konsole::ColorEntry table[TABLE_COLORS];
+            cs->getColorTable(table);
+            for(int i = 0; i < TABLE_COLORS; i++) {
+                QPushButton *button = globalOptionsAppearanceWidget->colorButtons.at(i);
+                QPalette palette = button->palette();
+                palette.setColor(QPalette::Button, table[i].color);
+                button->setPalette(palette);
+            }
+            return true;
+        }
+    }
+    return false;
 }

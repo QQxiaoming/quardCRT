@@ -21,6 +21,8 @@
 #define GLOBALOPTIONSAPPEARANCEWIDGET_H
 
 #include <QWidget>
+#include <QPushButton>
+#include <QList>
 
 namespace Ui {
 class GlobalOptionsAppearanceWidget;
@@ -35,6 +37,7 @@ public:
     ~GlobalOptionsAppearanceWidget();
 
     Ui::GlobalOptionsAppearanceWidget *ui;
+    QList<QPushButton *> colorButtons;
 };
 
 #endif // GLOBALOPTIONSAPPEARANCEWIDGET_H

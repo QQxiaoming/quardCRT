@@ -67,6 +67,8 @@ public:
     bool getDisableZmodemOnline(void);
     bool getXYModem1K(void);
 
+    bool updateColorButtons(const QString &text);
+
     const static QString defaultColorScheme;
 
 private:
