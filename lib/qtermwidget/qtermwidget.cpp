@@ -384,6 +384,11 @@ void QTermWidget::setANSIColor(const int ansiColorId, const QColor &color)
     m_impl->m_terminalDisplay->setColorTableColor(ansiColorId, color);
 }
 
+void QTermWidget::setPreeditColorIndex(int index)
+{
+    m_impl->m_terminalDisplay->setPreeditColorIndex(index);
+}
+
 void QTermWidget::setSize(const QSize &size)
 {
     m_impl->m_terminalDisplay->setSize(size.width(), size.height());

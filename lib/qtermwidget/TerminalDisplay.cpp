@@ -865,7 +865,8 @@ void TerminalDisplay::drawCursor(QPainter& painter,
                                  const QRect& rect,
                                  const QColor& foregroundColor,
                                  const QColor& /*backgroundColor*/,
-                                 bool& invertCharacterColor)
+                                 bool& invertCharacterColor,
+                                 bool preedit)
 {
     QRectF cursorRect = rect;
     cursorRect.setHeight(_fontHeight - _lineSpacing - 1);
@@ -883,16 +884,19 @@ void TerminalDisplay::drawCursor(QPainter& painter,
             // it is draw entirely inside 'rect'
             float penWidth = qMax(1,painter.pen().width());
 
+            if(preedit) {
+                // with is single character, so the cursor width should be the same as the character width
+                cursorRect.setWidth( _fontWidth );
+            }
+
             painter.drawRect(cursorRect.adjusted(penWidth/2,
                                                  penWidth/2,
                                                  - penWidth/2,
                                                  - penWidth/2));
-            if ( hasFocus() )
-            {
-                painter.fillRect(cursorRect, _cursorColor.isValid() ? _cursorColor : foregroundColor);
 
-                if ( !_cursorColor.isValid() )
-                {
+            if ( preedit || hasFocus() ) {
+                painter.fillRect(cursorRect, _cursorColor.isValid() ? _cursorColor : foregroundColor);
+                if ( !_cursorColor.isValid() ) {
                     // invert the colour used to draw the text to ensure that the character at
                     // the cursor position is readable
                     invertCharacterColor = true;
@@ -1702,16 +1706,18 @@ void TerminalDisplay::drawInputMethodPreeditString(QPainter& painter , const QRe
     if ( _inputMethodData.preeditString.empty() )
         return;
 
-    const QPoint cursorPos = cursorPosition();
-
     bool invertColors = false;
-    const QColor background = _colorTable[DEFAULT_BACK_COLOR].color;
-    const QColor foreground = _colorTable[DEFAULT_FORE_COLOR].color;
-    const Character* style = &_image[loc(cursorPos.x(),cursorPos.y())];
-
+    QColor background = _colorTable[DEFAULT_BACK_COLOR].color;
+    QColor foreground = _colorTable[DEFAULT_FORE_COLOR].color;
+    Character style;
+    style.character = ' ';
+    style.foregroundColor = CharacterColor(COLOR_SPACE_RGB,_colorTable[_preeditColorIndex].color);
+    style.backgroundColor = CharacterColor(COLOR_SPACE_RGB,_colorTable[DEFAULT_BACK_COLOR].color);
+    style.rendition = DEFAULT_RENDITION;
     drawBackground(painter,rect,background,true);
-    drawCursor(painter,rect,foreground,background,invertColors);
-    drawCharacters(painter,rect,_inputMethodData.preeditString,style,invertColors);
+    drawCursor(painter,rect,foreground,background,invertColors,true);
+    invertColors = false;
+    drawCharacters(painter,rect,_inputMethodData.preeditString,&style,invertColors);
 
     _inputMethodData.previousPreeditRect = rect;
 }
@@ -2798,8 +2804,8 @@ void TerminalDisplay::mouseDoubleClickEvent(QMouseEvent* ev)
 
 void TerminalDisplay::wheelEvent( QWheelEvent* ev )
 {
-  if (ev->angleDelta().y() == 0)
-    return;
+    if (ev->angleDelta().y() == 0)
+        return;
 
     if (_mouseMarks && _scrollBar->maximum() > 0)
     {

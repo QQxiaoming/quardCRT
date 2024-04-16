@@ -442,6 +442,9 @@ public:
 
     void setShowResizeNotificationEnabled(bool enabled) { _showResizeNotificationEnabled = enabled; }
 
+    void setPreeditColorIndex(int index) {
+        _preeditColorIndex = index;
+    }
 public slots:
 
     /**
@@ -711,7 +714,8 @@ private:
                         bool useOpacitySetting);
     // draws the cursor character
     void drawCursor(QPainter& painter, const QRect& rect , const QColor& foregroundColor,
-                                       const QColor& backgroundColor , bool& invertColors);
+                                       const QColor& backgroundColor , bool& invertColors,
+                                       bool preedit = false);
     // draws the characters or line graphics in a text fragment
     void drawCharacters(QPainter& painter, const QRect& rect,  const std::wstring& text,
                                            const Character* style, bool invertCharacterColor);
@@ -918,6 +922,8 @@ private:
     int _topBaseMargin;
 
     bool _drawLineChars;
+
+    int _preeditColorIndex = 16; //Color4Intense
 
 public:
     static void setTransparencyEnabled(bool enable)

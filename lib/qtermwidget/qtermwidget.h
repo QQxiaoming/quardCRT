@@ -104,6 +104,7 @@ public:
     void setForegroundColor(const QColor &color);
     void setANSIColor(const int ansiColorId, const QColor &color);
 
+    void setPreeditColorIndex(int index);
 
     /** Sets the history size (in lines)
      *

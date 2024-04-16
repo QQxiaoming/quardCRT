@@ -16,6 +16,7 @@ en-US:
 - Improve the session manager page width can be freely adjusted
 - The version built with MSVC on Windows uses ConPty instead of WinPty, and the version built with Mingw continues to use WinPty
 - Improve the behavior of selecting CJK characters when double-clicking
+- Improve the display of the input method pre-edit area
 
 zh-CN:
 
@@ -31,6 +32,7 @@ zh-CN:
 - 改进会话管理器页面宽度可自由调整
 - Windows下通过MSVC构建的版本采用ConPty代替WinPty，Mingw构建版本继续使用WinPty
 - 改进双击选中CJK字符时的表现
+- 改进输入法预编辑区域的显示表现
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

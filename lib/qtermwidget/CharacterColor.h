@@ -183,6 +183,24 @@ public:
     }
   }
 
+  CharacterColor(quint8 colorSpace, QColor color)
+      : _colorSpace(colorSpace),
+        _u(0),
+        _v(0),
+        _w(0)
+  {
+    switch (colorSpace)
+    {
+        case COLOR_SPACE_RGB:
+            _u = color.red();
+            _v = color.green();
+            _w = color.blue();
+            break;
+        default:
+            _colorSpace = COLOR_SPACE_UNDEFINED;
+    }
+  }
+
   /**
    * Returns true if this character color entry is valid.
    */
