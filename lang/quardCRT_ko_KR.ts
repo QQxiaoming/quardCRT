@@ -1717,7 +1717,17 @@
         <translation>색상 테마</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="44"/>
+        <source>Auto Switch Light</source>
+        <translation>자동 전환 밝게</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="455"/>
+        <source>Pre-edit Color Index</source>
+        <translation>사전 편집 색인</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="475"/>
         <source>Font</source>
         <translation>글꼴</translation>
     </message>
@@ -1781,6 +1791,11 @@
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="171"/>
         <source>Background opacity</source>
         <translation>배경 불투명도</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.cpp" line="61"/>
+        <source>Select color</source>
+        <translation>색상 선택</translation>
     </message>
 </context>
 <context>

@@ -1,3 +1,5 @@
+<div style="text-align: right"><a href="../../en/latest/privacy.html">🇺🇸 English</a> | <a href="../../zh-cn/latest/privacy.html">🇨🇳 简体中文</a> | <a href="../../zh-tw/latest/privacy.html">🇭🇰 繁體中文</a> | <a href="../../ja/latest/privacy.html">🇯🇵 日本語</a></div>
+
 # Privacy Statement
 
 This software is a terminal emulator that provides a secure shell (SSH) connection, telnet connection, serial port connection, and other functions.

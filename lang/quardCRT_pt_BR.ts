@@ -1717,7 +1717,17 @@
         <translation>Esquemas de cores</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="44"/>
+        <source>Auto Switch Light</source>
+        <translation>Alternar automaticamente para claro</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="455"/>
+        <source>Pre-edit Color Index</source>
+        <translation>Índice de cor de pré-edição</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="475"/>
         <source>Font</source>
         <translation>Fonte</translation>
     </message>
@@ -1781,6 +1791,11 @@
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="171"/>
         <source>Background opacity</source>
         <translation>Opacidade do fundo</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.cpp" line="61"/>
+        <source>Select color</source>
+        <translation>Selecionar cor</translation>
     </message>
 </context>
 <context>

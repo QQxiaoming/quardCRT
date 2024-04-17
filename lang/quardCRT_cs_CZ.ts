@@ -1717,7 +1717,17 @@
         <translation>Barevné schémata</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="27"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="44"/>
+        <source>Auto Switch Light</source>
+        <translation>Automatické přepnutí na světlé</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="455"/>
+        <source>Pre-edit Color Index</source>
+        <translation>Přededitovat index barev</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="475"/>
         <source>Font</source>
         <translation>Písmo</translation>
     </message>
@@ -1781,6 +1791,11 @@
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="171"/>
         <source>Background opacity</source>
         <translation>Průhlednost pozadí</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.cpp" line="61"/>
+        <source>Select color</source>
+        <translation>Vybrat barvu</translation>
     </message>
 </context>
 <context>

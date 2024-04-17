@@ -28,6 +28,10 @@ GlobalOptionsAppearanceWidget::GlobalOptionsAppearanceWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->comBoxColorSchemesBak->setDisabled(false);
+    ui->comBoxColorSchemesBak->setEditable(true);
+    ui->comBoxColorSchemesBak->setInsertPolicy(QComboBox::NoInsert);
+
     colorButtons.append(ui->pushButtonColor1);
     colorButtons.append(ui->pushButtonColor2);
     colorButtons.append(ui->pushButtonColor3);
@@ -65,6 +69,9 @@ GlobalOptionsAppearanceWidget::GlobalOptionsAppearanceWidget(QWidget *parent) :
             }
         });
     }
+    connect(ui->checkBoxColorSchemesBak,&QCheckBox::stateChanged,this,[&]{
+        ui->comBoxColorSchemesBak->setDisabled(!ui->checkBoxColorSchemesBak->isChecked());
+    });
 }
 
 GlobalOptionsAppearanceWidget::~GlobalOptionsAppearanceWidget()

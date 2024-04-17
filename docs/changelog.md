@@ -17,11 +17,12 @@
 - The version built with MSVC on Windows uses ConPty instead of WinPty, and the version built with Mingw continues to use WinPty
 - Improve the behavior of selecting CJK characters when double-clicking
 - Improve the display of the input method pre-edit area
-- Add terminal color scheme color palette function in settings
+- Add terminal color scheme color palette feature in settings
+- Add the feature of switching terminal color scheme automatically when switching themes
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 
-- Add ascii send/receive, Kermit send/receive, xyzmodem send/receive functions
+- Add ascii send/receive, Kermit send/receive, xyzmodem send/receive features
 - Fix the problem that the status indicated by the start tftp menu item may be incorrect
 - Fix the problem that the program crashes when the terminal displays Unicode characters beyond the first plane
 - Fix the problem that the terminal area rendering does not refresh after drag the window to the screen edge to trigger the window size adjustment on linux
@@ -40,7 +41,7 @@
 ## [[V0.4.2](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.2)] - 2024-01-28
 
 - Add ESC to exit full screen mode in full screen mode
-- The plugin platform supports dynamic enable/disable plugin functions
+- The plugin platform supports dynamic enable/disable plugin features
 - Optimize and solve the problem of fixed CPU load after software startup
 - Optimize the problem of incorrect cursor position when searching up and down the history command in the local terminal under windows
 - Fix the possible error ack processing problem of tftpsever
@@ -51,19 +52,19 @@
 
 ## [[V0.4.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.1)] - 2024-01-13
 
-- Add the function of opening a session in a new window in the session manager
+- Add the feature of opening a session in a new window in the session manager
 - Add the setting label tab plus button mode optional for new session/clone session/local shell session three ways
-- Add filtering function in session manager
+- Add filtering feature in session manager
 - Fix the window flashing problem caused by the preview window when dragging the label
 
 ## [[V0.4.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.0)] - 2023-12-20
 
 - The main UI is fully updated, the overall style is more modern, and the matching light/dark theme is more beautiful
-- Add the function of opening the current setting file in the setting option
-- Add the experimental function in the upper right corner, and the SSH scan is migrated to the laboratory, and the plugin interface is opened to add more specific functions to the laboratory, visit [plugin platform](https://github.com/QuardCRT-platform)
-- The SFTP window adds a bookmark function and improves the SFTP operation logic.
+- Add the feature of opening the current setting file in the setting option
+- Add the experimental feature in the upper right corner, and the SSH scan is migrated to the laboratory, and the plugin interface is opened to add more specific features to the laboratory, visit [plugin platform](https://github.com/QuardCRT-platform)
+- The SFTP window adds a bookmark feature and improves the SFTP operation logic.
 - Improve and optimize the HexView window
-- Improve the session cloning function, the session type that can be cloned (SSH, Telent, etc.) is directly cloned, and the session type that cannot be cloned (serial port, etc.) will pop up the session setting window
+- Improve the session cloning feature, the session type that can be cloned (SSH, Telent, etc.) is directly cloned, and the session type that cannot be cloned (serial port, etc.) will pop up the session setting window
 - Improve the style when dragging the label, now the mouse can be correctly displayed as a grip gesture
 - Fix the problem that the history page is not refreshed when opening the session properties
 - Fix the rendering error of the line character in the session
@@ -73,9 +74,9 @@
 
 ## [[V0.3.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.1)] - 2023-12-05
 
-- Add password input box support display/hide function
+- Add password input box support display/hide feature
 - Add common baud rate prompt
-- Add right-click menu request translation function
+- Add right-click menu request translation feature
 - Add practical tools, scan local network SSH service
 - SFTP file transfer window adds transfer progress display
 - Add vnc protocol support
@@ -86,9 +87,9 @@
 ## [[V0.3.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.3.0)] - 2023-11-28
 
 - Add SSH2 protocol support (currently only supports password authentication, user passwords are stored in the local system keychain, not stored in the software configuration file)
-- Add SSH2 session open SFTP file transfer window function
-- Add custom setting word characters function, you can set which characters are considered as word characters, which is convenient for quickly selecting words
-- Add double-click session management session to connect function
+- Add SSH2 session open SFTP file transfer window feature
+- Add custom setting word characters feature, you can set which characters are considered as word characters, which is convenient for quickly selecting words
+- Add double-click session management session to connect feature
 - Add session manager close button
 - Fix the problem that the session manager session sorting is rearranged after modifying the session properties
 - Fix the problem that the serial port connection is normal but an error prompt "No Error" pops up
@@ -96,11 +97,11 @@
 
 ## [[V0.2.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.6)] - 2023-11-15
 
-- Add label tab hover preview function
+- Add label tab hover preview feature
 - Windows local terminal enhancement, now you can use the Tab key to complete the command like linux
 - Add session status query, view session status through session settings/properties-status, currently only support local Shell session query process information
 - Terminal content matching supports path matching, you can right-click to quickly open files/directories
-- Add highlight matching content function
+- Add highlight matching content feature
 - Fix the problem of rendering position error of Chinese full-width quotation marks
 - Fix the problem that macOS incorrectly binds the copy and paste shortcut keys, causing the terminal to be unable to kill the process
 - Add more language (Spanish/French/Korean/Russian/Traditional Chinese) support (provided by GitHub Copilot)
@@ -112,7 +113,7 @@
 - Fix the serious crash problem caused by moving the label/label title display error problem
 - Add advanced settings to select the UI style as the native style (single platform users may want to use the native style, multi-platform users may want to use the unified style)
 - Add one-click cleaning of selected background images in settings
-- Optimize the secondary confirmation function when exiting the application/closing the session, now the local Shell session will decide whether to require secondary confirmation based on whether there are child processes, and other session types remain unchanged
+- Optimize the secondary confirmation feature when exiting the application/closing the session, now the local Shell session will decide whether to require secondary confirmation based on whether there are child processes, and other session types remain unchanged
 - Add setting label title mode, you can choose to display the session title in brief/complete/scrolling, three ways
 
 ## [[V0.2.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.4)] - 2023-11-03
@@ -120,16 +121,16 @@
 - Add windows NamedPipe protocol support (unix domain socket corresponding to linux/macos)
 - Fix the problem that the printer service cannot be started on windows
 - Fix the problem that part of the memory is not released when closing the tab
-- Add secondary confirmation function when exiting the application/closing the session
-- Add session link status display function (the tab displays in the form of an icon)
-- Add terminal font setting function
+- Add secondary confirmation feature when exiting the application/closing the session
+- Add session link status display feature (the tab displays in the form of an icon)
+- Add terminal font setting feature
 - Add terminal scroll line number setting
-- Add setting cursor shape and blink function
+- Add setting cursor shape and blink feature
 - Terminal background supports Gif animation format files (need to enable animation support in advanced settings)
 - Terminal background supports mp4/avi/mkv/mov video format files (need to enable animation support in advanced settings)
 - Update the global settings window, categorize the settings
 - Add session settings window, now you can modify and edit session properties
-- Add separate start new window function
+- Add separate start new window feature
 - Add software's own debugging information log system, which is not turned on by default, and must be manually written to the config file to start
 
 ## [[V0.2.3](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.3)] - 2023-10-26
@@ -140,15 +141,15 @@
 
 - Fix the session information storage error that caused the right session manager to fail to connect correctly [#I8AJN1](https://gitee.com/QQxiaoming/quardCRT/issues/I8AJN1)
 - Quick connection supports selecting only open session and only save session
-- Improve bookmark management function
-- Implement save settings and real-time save settings button function
+- Improve bookmark management feature
+- Implement save settings and real-time save settings button feature
 - Add ALT+'-' and ALT+'=' global shortcut keys to switch the current tab
 - Add ALT+'{num}' global shortcut key to switch to the specified tab
 - Add ALT+LEFT, ALT+RIGHT global shortcut keys mapped to home and end keys (considering that macbook does not have home and end keys)
-- Add high-definition screenshot current terminal function
-- Add export current terminal session content (pdf/txt) function
-- Add printer print current terminal session function
-- Add lock session function
+- Add high-definition screenshot current terminal feature
+- Add export current terminal session content (pdf/txt) feature
+- Add printer print current terminal session feature
+- Add lock session feature
 - Add configuration to start a new local terminal with the default working path
 - Terminal background image supports tile mode
 - Persistently store the main window layout information
@@ -156,7 +157,7 @@
 - Optimize the open file dialog UI
 - Modify the rendering bold font on windows to cause the cursor to be abnormal, temporarily not supporting bold rendering to ensure that the cursor position is correct
 - Fix the problem that the working path set after executing the command on windows is incorrect
-- Add cmd+delete as delete key function on macos (because the delete key is backspace on macos)
+- Add cmd+delete as delete key feature on macos (because the delete key is backspace on macos)
 
 ## [[V0.2.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.1)] - 2023-10-19
 
@@ -167,15 +168,15 @@
 
 ## [[V0.2.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.2.0)] - 2023-10-18
 
-- Add the function of switching simple/standard UI with alt+n/alt+J
-- Add the practical function of starting tftp server
+- Add the feature of switching simple/standard UI with alt+n/alt+J
+- Add the practical feature of starting tftp server
 - Optimize hex view display window
 - The window installation program adds the system-integrated right-click menu opened with quardCRT
-- The tab bar right-click menu adds multiple practical functions
+- The tab bar right-click menu adds multiple practical features
 - Fix the position error of wide characters such as Chinese on window
-- Add terminal background image configuration function
-- Add directory bookmark function
-- Add persistent storage of user settings function
+- Add terminal background image configuration feature
+- Add directory bookmark feature
+- Add persistent storage of user settings feature
 - Fix some UI details error
 - Fix some small probability of possible crash problems
 
@@ -191,7 +192,7 @@
 - Add sidebar session manager
 - Add status bar prompt information
 - Add command input bar
-- Improve shortcut key function
+- Improve shortcut key feature
 - Fix the problem that the session clone has inconsistent working paths
 - Add dynamic parsing of terminal URL content
 - Fix possible crash problems
@@ -210,8 +211,8 @@
 
 ## [[V0.1.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.1.0)] - 2023-09-29
 
-- Add the function of switching long/short names by double-clicking the label tab name
-- Add storage log function
+- Add the feature of switching long/short names by double-clicking the label tab name
+- Add storage log feature
 - Add quick open local Shell shortcut key and clone session shortcut key
 - Add windows to perceive the current real-time working path (the same experience as linux and mac)
 - Add HEX viewer
@@ -220,12 +221,12 @@
 
 - Add menu bar and toolbar to the main window, and improve more right-click menus
 - Add more terminal theme styles
-- Add dynamic switching language function
-- Add dynamic switching theme function
+- Add dynamic switching language feature
+- Add dynamic switching theme feature
 
 ## [[V0.0.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.0.1)] - 2023-09-26
 
-- Realize the main window terminal function
+- Realize the main window terminal feature
 - Add label tab paging management
 - Support telnet protocol
 - Support serial port protocol

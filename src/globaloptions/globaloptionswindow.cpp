@@ -46,6 +46,7 @@
 #include "ui_globaloptionsadvancedwidget.h"
 
 const QString GlobalOptionsWindow::defaultColorScheme = "QuardCRT";
+const QString GlobalOptionsWindow::defaultColorSchemeBak = "QuardCRT Light";
 
 GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     QDialog(parent),
@@ -146,6 +147,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTransferWidget->ui->lineEditUpload->setText(settings.value("modemUploadPath", QDir::homePath()).toString());
     globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
     globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->setValue(settings.value("preeditColorIndex", 16).toInt());
+    globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setChecked(settings.value("enableColorSchemeBak", true).toBool());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {
@@ -235,6 +237,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     });
     connect(globalOptionsAppearanceWidget->ui->comBoxColorSchemes, &QComboBox::currentTextChanged, this, [&](const QString &text){
         if(text == "Custom") {
+            globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setEnabled(false);
             return;
         } 
         updateColorButtons(text);
@@ -302,6 +305,8 @@ void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
     globalOptionsAppearanceWidget->ui->comBoxColorSchemes->clear();
     globalOptionsAppearanceWidget->ui->comBoxColorSchemes->addItem("Custom");
     globalOptionsAppearanceWidget->ui->comBoxColorSchemes->addItems(colorSchemes);
+    globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->clear();
+    globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->addItems(colorSchemes);
     const Konsole::ColorScheme *cs = Konsole::ColorSchemeManager::instance()->findColorScheme(defaultColorScheme);
     if(cs) cs->getColorTable(table);
 
@@ -312,7 +317,7 @@ void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
         if(colorScheme == "Custom") {
             globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText("Custom");
         } else if(colorSchemes.contains(colorScheme)) {
-            globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+            globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(colorScheme);
         } else {
             globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
             settings.setValue("colorScheme", defaultColorScheme);
@@ -320,6 +325,18 @@ void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
     } else {
         globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
         settings.setValue("colorScheme", defaultColorScheme);
+    }
+    if(settings.contains("colorSchemeBak")) {
+        QString colorScheme = settings.value("colorSchemeBak").toString();
+        if(colorSchemes.contains(colorScheme)) {
+            globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->setCurrentText(colorScheme);
+        } else {
+            globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->setCurrentText(defaultColorSchemeBak);
+            settings.setValue("colorSchemeBak", defaultColorSchemeBak);
+        }
+    } else {
+        globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->setCurrentText(defaultColorSchemeBak);
+        settings.setValue("colorSchemeBak", defaultColorSchemeBak);
     }
     settings.endGroup();
 
@@ -476,10 +493,12 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
             settings.setValue(QString("CustomColor%1").arg(i), colorv);
         }
         globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText("Custom");
+        globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setEnabled(false);
         settings.setValue("colorScheme", "Custom");
     } else {
         settings.setValue("colorScheme", globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     }
+    settings.setValue("colorSchemeBak", globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->currentText());
     settings.setValue("fontFamily", globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->text());
     settings.setValue("fontPointSize", font.pointSize());
     settings.setValue("transparency", globalOptionsWindowWidget->ui->horizontalSliderTransparent->value());
@@ -505,6 +524,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("disableZmodemOnline", globalOptionsTransferWidget->ui->checkBoxZmodemOnline->isChecked());
     settings.setValue("xyModem1K", globalOptionsTransferWidget->ui->radioButton1KBytes->isChecked());
     settings.setValue("preeditColorIndex", globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->value());
+    settings.setValue("enableColorSchemeBak", globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->isChecked());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -520,9 +540,11 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
             table[i].color = QColor(color>>16, (color>>8)&0xFF, color&0xFF);
         }
         globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText("Custom");
+        globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setEnabled(false);
     } else {
         globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
     }
+    globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->setCurrentText(settings.value("colorSchemeBak").toString());
     globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText(settings.value("fontFamily").toString());
     font.setFamily(settings.value("fontFamily").toString());
     font.setPointSize(settings.value("fontPointSize").toInt());
@@ -549,6 +571,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTransferWidget->ui->lineEditUpload->setText(settings.value("modemUploadPath", QDir::homePath()).toString());
     globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
     globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->setValue(settings.value("preeditColorIndex", 16).toInt());
+    globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setChecked(settings.value("enableColorSchemeBak", true).toBool());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {
@@ -607,4 +630,18 @@ bool GlobalOptionsWindow::updateColorButtons(const QString &text) {
         }
     }
     return false;
+}
+
+void GlobalOptionsWindow::switchTheme(void) {
+    if(!globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->isChecked()) {
+        return;
+    }
+    if(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText() == "Custom") {
+        return;
+    }
+    QString colorScheme = globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText();
+    QString colorSchemeBak = globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->currentText();
+    globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->setCurrentText(colorScheme);
+    globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(colorSchemeBak);
+    buttonBoxAccepted();
 }

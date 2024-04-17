@@ -2699,6 +2699,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
         }
+        globalOptionsWindow->switchTheme();
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","false");
     });
@@ -2710,6 +2711,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
         }
+        globalOptionsWindow->switchTheme();
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","true");
     });

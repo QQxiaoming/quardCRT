@@ -73,8 +73,10 @@ public:
     int getPreeditColorIndex(void);
 
     bool updateColorButtons(const QString &text);
+    void switchTheme(void);
 
     const static QString defaultColorScheme;
+    const static QString defaultColorSchemeBak;
 
 private:
     void setActiveWidget(int index);
