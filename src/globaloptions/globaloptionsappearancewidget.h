@@ -38,6 +38,9 @@ public:
 
     Ui::GlobalOptionsAppearanceWidget *ui;
     QList<QPushButton *> colorButtons;
+
+signals:
+    void colorChanged(int index, const QColor &color);
 };
 
 #endif // GLOBALOPTIONSAPPEARANCEWIDGET_H

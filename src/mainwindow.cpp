@@ -2141,8 +2141,20 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         hexViewAction->setChecked(false);
     });
     connect(globalOptionsWindow,&GlobalOptionsWindow::colorSchemeChanged,this,[=](QString colorScheme){
-        foreach(SessionsWindow *sessionsWindow, sessionList) {
-            sessionsWindow->setColorScheme(colorScheme);
+        if(colorScheme == "Custom") {
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                sessionsWindow->setColorScheme(GlobalOptionsWindow::defaultColorScheme);
+                QList<QColor> colorTable = globalOptionsWindow->getColorTable();
+                int i = 0;
+                foreach(const QColor &color, colorTable) {
+                    sessionsWindow->setANSIColor(i,color);
+                    i++;
+                }
+            }
+        } else {
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                sessionsWindow->setColorScheme(colorScheme);
+            }
         }
     });
     connect(globalOptionsWindow,&GlobalOptionsWindow::transparencyChanged,this,[=](int transparency){
@@ -2748,7 +2760,18 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
 
 void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setKeyBindings(keyMapManagerWindow->getCurrentKeyBinding());
-    window->setColorScheme(globalOptionsWindow->getCurrentColorScheme());
+    QString colorScheme = globalOptionsWindow->getCurrentColorScheme();
+    if(colorScheme == "Custom") {
+        window->setColorScheme(GlobalOptionsWindow::defaultColorScheme);
+        QList<QColor> colorTable = globalOptionsWindow->getColorTable();
+        int i = 0;
+        foreach(const QColor &color, colorTable) {
+            window->setANSIColor(i,color);
+            i++;
+        }
+    } else {
+        window->setColorScheme(colorScheme);
+    }
     window->setTerminalFont(globalOptionsWindow->getCurrentFont());
     window->setTerminalBackgroundMode(globalOptionsWindow->getBackgroundImageMode());
     window->setTerminalOpacity(globalOptionsWindow->getBackgroundImageOpacity());
@@ -2756,6 +2779,7 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setKeyboardCursorShape(globalOptionsWindow->getCursorShape());
     window->setBlinkingCursor(globalOptionsWindow->getCursorBlink());
     window->setWordCharacters(globalOptionsWindow->getWordCharacters());
+    window->setPreeditColorIndex(globalOptionsWindow->getPreeditColorIndex());
     window->setSelectedTextAccentColorTransparency(globalOptionsWindow->getSelectedTextAccentColorTransparency());
     window->setTerminalBackgroundImage("");
     window->setTerminalBackgroundMovie("");

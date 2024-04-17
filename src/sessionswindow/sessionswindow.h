@@ -172,6 +172,9 @@ public:
     void setColorScheme(const QString & name) {
         if(term) term->setColorScheme(name);
     }
+    void setANSIColor(int index, const QColor & color) {
+        if(term) term->setANSIColor(index,color);
+    }
     void setTerminalFont(const QFont & font) {
         if(term) term->setTerminalFont(font);
     }
@@ -192,6 +195,9 @@ public:
     }
     void setWordCharacters(const QString &wordCharacters) {
         if(term) term->setWordCharacters(wordCharacters);
+    }
+    void setPreeditColorIndex(int index) {
+        if(term) term->setPreeditColorIndex(index);
     }
     void setSelectedTextAccentColorTransparency(int transparency) {
         if(term) {

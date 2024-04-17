@@ -22,12 +22,15 @@
 
 #include <QDialog>
 #include <QStringListModel>
+#include <QColor>
+#include <QList>
 #include "globaloptionsgeneralwidget.h"
 #include "globaloptionsappearancewidget.h"
 #include "globaloptionsterminalwidget.h"
 #include "globaloptionswindowwidget.h"
 #include "globaloptionstransferwidget.h"
 #include "globaloptionsadvancedwidget.h"
+#include "ColorTables.h"
 
 namespace Ui {
 class GlobalOptionsWindow;
@@ -44,6 +47,7 @@ public:
     void retranslateUi();
     void setAvailableColorSchemes(QStringList colorSchemes);
     QString getCurrentColorScheme(void);
+    QList<QColor> getColorTable(void);
     QFont getCurrentFont(void);
     int getTransparency(void);
     QString getBackgroundImage(void);
@@ -66,6 +70,7 @@ public:
     QString getModemUploadPath(void);
     bool getDisableZmodemOnline(void);
     bool getXYModem1K(void);
+    int getPreeditColorIndex(void);
 
     bool updateColorButtons(const QString &text);
 
@@ -96,6 +101,7 @@ private:
     GlobalOptionsAdvancedWidget *globalOptionsAdvancedWidget;
     QStringListModel *model;
     QFont font;
+    Konsole::ColorEntry table[TABLE_COLORS];
 };
 
 #endif //GLOBALOPTIONSWINDOW_H

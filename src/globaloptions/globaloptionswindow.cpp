@@ -28,6 +28,7 @@
 #include <QMessageBox>
 #include <QFontDialog>
 #include <QDesktopServices>
+#include <QToolTip>
 #include "qtermwidget.h"
 #include "ColorScheme.h"
 #include "ColorTables.h"
@@ -144,6 +145,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTransferWidget->ui->lineEditDownload->setText(settings.value("modemDownloadPath", QDir::homePath()).toString());
     globalOptionsTransferWidget->ui->lineEditUpload->setText(settings.value("modemUploadPath", QDir::homePath()).toString());
     globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
+    globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->setValue(settings.value("preeditColorIndex", 16).toInt());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {
@@ -173,6 +175,12 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     setAvailableColorSchemes(QTermWidget::availableColorSchemes());
     buttonBoxAccepted();
 
+    connect(globalOptionsAppearanceWidget, &GlobalOptionsAppearanceWidget::colorChanged, this, [&](int index, const QColor &color){
+        if(index < TABLE_COLORS) {
+            globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText("Custom");
+            table[index].color = color;
+        }
+    });
     connect(globalOptionsAppearanceWidget->ui->spinBoxFontSize, &QSpinBox::valueChanged, this, &GlobalOptionsWindow::fontSizeChanged);
     connect(globalOptionsAppearanceWidget->ui->toolButtonBackgroundImage, &QToolButton::clicked, this, [&](){
         QString imgPath = FileDialog::getOpenFileName(this, tr("Select Background Image"), globalOptionsAppearanceWidget->ui->lineEditBackgroundImage->text(), tr("Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)"));
@@ -226,6 +234,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         QDesktopServices::openUrl(QUrl::fromLocalFile(globalOptionsAdvancedWidget->ui->lineEditConfigFile->text()));
     });
     connect(globalOptionsAppearanceWidget->ui->comBoxColorSchemes, &QComboBox::currentTextChanged, this, [&](const QString &text){
+        if(text == "Custom") {
+            return;
+        } 
         updateColorButtons(text);
     });
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
@@ -289,22 +300,44 @@ void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
 {
     colorSchemes.sort();
     globalOptionsAppearanceWidget->ui->comBoxColorSchemes->clear();
+    globalOptionsAppearanceWidget->ui->comBoxColorSchemes->addItem("Custom");
     globalOptionsAppearanceWidget->ui->comBoxColorSchemes->addItems(colorSchemes);
+    const Konsole::ColorScheme *cs = Konsole::ColorSchemeManager::instance()->findColorScheme(defaultColorScheme);
+    if(cs) cs->getColorTable(table);
+
     GlobalSetting settings;
     settings.beginGroup("Global/Options");
-    if((settings.contains("colorScheme")) &&(colorSchemes.contains(settings.value("colorScheme").toString()))) {
-        globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+    if(settings.contains("colorScheme")) {
+        QString colorScheme = settings.value("colorScheme").toString();
+        if(colorScheme == "Custom") {
+            globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText("Custom");
+        } else if(colorSchemes.contains(colorScheme)) {
+            globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+        } else {
+            globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
+            settings.setValue("colorScheme", defaultColorScheme);
+        }
     } else {
         globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(defaultColorScheme);
         settings.setValue("colorScheme", defaultColorScheme);
     }
     settings.endGroup();
+
     updateColorButtons(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
 }
 
 QString GlobalOptionsWindow::getCurrentColorScheme(void)
 {
     return globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText();
+}
+
+QList<QColor> GlobalOptionsWindow::getColorTable(void)
+{
+    QList<QColor> colors;
+    for(int i = 0; i < TABLE_COLORS; i++) {
+        colors.append(table[i].color);
+    }
+    return colors;
 }
 
 QFont GlobalOptionsWindow::getCurrentFont(void)
@@ -427,11 +460,26 @@ bool GlobalOptionsWindow::getXYModem1K(void)
     return globalOptionsTransferWidget->ui->radioButton1KBytes->isChecked();
 }
 
+int GlobalOptionsWindow::getPreeditColorIndex(void) 
+{
+    return globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->value();
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
     settings.beginGroup("Global/Options");
-    settings.setValue("colorScheme", globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
+    if(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText() == "Custom") {
+        for(int i = 0; i < TABLE_COLORS; i++) {
+            QColor color = table[i].color;
+            int colorv = color.red()<<16 | color.green()<<8 | color.blue();
+            settings.setValue(QString("CustomColor%1").arg(i), colorv);
+        }
+        globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText("Custom");
+        settings.setValue("colorScheme", "Custom");
+    } else {
+        settings.setValue("colorScheme", globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
+    }
     settings.setValue("fontFamily", globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->text());
     settings.setValue("fontPointSize", font.pointSize());
     settings.setValue("transparency", globalOptionsWindowWidget->ui->horizontalSliderTransparent->value());
@@ -456,6 +504,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("modemUploadPath", globalOptionsTransferWidget->ui->lineEditUpload->text());
     settings.setValue("disableZmodemOnline", globalOptionsTransferWidget->ui->checkBoxZmodemOnline->isChecked());
     settings.setValue("xyModem1K", globalOptionsTransferWidget->ui->radioButton1KBytes->isChecked());
+    settings.setValue("preeditColorIndex", globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->value());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -465,7 +514,15 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
 {
     GlobalSetting settings;
     settings.beginGroup("Global/Options");
-    globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+    if(settings.value("colorScheme").toString() == "Custom") {
+        for(int i = 0; i < TABLE_COLORS; i++) {
+            int color = settings.value(QString("CustomColor%1").arg(i),0x0).toInt();
+            table[i].color = QColor(color>>16, (color>>8)&0xFF, color&0xFF);
+        }
+        globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText("Custom");
+    } else {
+        globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setCurrentText(settings.value("colorScheme").toString());
+    }
     globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText(settings.value("fontFamily").toString());
     font.setFamily(settings.value("fontFamily").toString());
     font.setPointSize(settings.value("fontPointSize").toInt());
@@ -491,6 +548,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTransferWidget->ui->lineEditDownload->setText(settings.value("modemDownloadPath", QDir::homePath()).toString());
     globalOptionsTransferWidget->ui->lineEditUpload->setText(settings.value("modemUploadPath", QDir::homePath()).toString());
     globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
+    globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->setValue(settings.value("preeditColorIndex", 16).toInt());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {
@@ -510,16 +568,40 @@ void GlobalOptionsWindow::showEvent(QShowEvent *event)
 }
 
 bool GlobalOptionsWindow::updateColorButtons(const QString &text) {
+    if (text == "Custom") {
+        GlobalSetting settings;
+        settings.beginGroup("Global/Options");
+        for(int i = 0; i < TABLE_COLORS; i++) {
+            if(settings.contains(QString("CustomColor%1").arg(i))) {
+                int colorv = settings.value(QString("CustomColor%1").arg(i)).toInt();
+                table[i].color = QColor(colorv>>16, (colorv>>8)&0xFF, colorv&0xFF);
+                QPushButton *button = globalOptionsAppearanceWidget->colorButtons.at(i);
+                QColor color = table[i].color;
+                QPalette palette = button->palette();
+                palette.setColor(QPalette::Button, color);
+                button->setPalette(palette);
+                button->setToolTip(QString("#%1%2%3").arg(color.red(), 2, 16, QLatin1Char('0')).arg(color.green(), 2, 16, QLatin1Char('0')).arg(color.blue(), 2, 16, QLatin1Char('0')));
+            } else {
+                QColor color = table[i].color;
+                int colorv = color.red()<<16 | color.green()<<8 | color.blue();
+                settings.setValue(QString("CustomColor%1").arg(i), colorv);
+            }
+        }
+        settings.endGroup();
+        return true;
+    }
+
     if (QTermWidget::availableColorSchemes().contains(text)) {
         const Konsole::ColorScheme *cs = Konsole::ColorSchemeManager::instance()->findColorScheme(text);
         if (cs) {
-            Konsole::ColorEntry table[TABLE_COLORS];
             cs->getColorTable(table);
             for(int i = 0; i < TABLE_COLORS; i++) {
                 QPushButton *button = globalOptionsAppearanceWidget->colorButtons.at(i);
+                QColor color = table[i].color;
                 QPalette palette = button->palette();
-                palette.setColor(QPalette::Button, table[i].color);
+                palette.setColor(QPalette::Button, color);
                 button->setPalette(palette);
+                button->setToolTip(QString("%1-#%2%3%4").arg(i).arg(color.red(), 2, 16, QLatin1Char('0')).arg(color.green(), 2, 16, QLatin1Char('0')).arg(color.blue(), 2, 16, QLatin1Char('0')));
             }
             return true;
         }

@@ -20,6 +20,8 @@
 #include "globaloptionsappearancewidget.h"
 #include "ui_globaloptionsappearancewidget.h"
 
+#include <QColorDialog>
+
 GlobalOptionsAppearanceWidget::GlobalOptionsAppearanceWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GlobalOptionsAppearanceWidget)
@@ -49,6 +51,19 @@ GlobalOptionsAppearanceWidget::GlobalOptionsAppearanceWidget(QWidget *parent) :
 
     foreach (QPushButton *button, colorButtons) {
         button->setAutoFillBackground(true);
+        button->setFocusPolicy(Qt::NoFocus);
+        button->setFlat(true);
+        connect(button, &QPushButton::clicked, this, [&, button] {
+            QColor color = QColorDialog::getColor(button->palette().color(QPalette::Button), this, tr("Select color"));
+            if (color.isValid()) {
+                QPalette palette = button->palette();
+                palette.setColor(QPalette::Button, color);
+                button->setPalette(palette);
+                int index = colorButtons.indexOf(button);
+                button->setToolTip(QString("%1-#%2%3%4").arg(index).arg(color.red(), 2, 16, QChar('0')).arg(color.green(), 2, 16, QChar('0')).arg(color.blue(), 2, 16, QChar('0')));
+                emit colorChanged(index,color);
+            }
+        });
     }
 }
 
