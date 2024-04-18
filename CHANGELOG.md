@@ -12,7 +12,8 @@ en-US:
 - Prohibit to look up the historical information with the middle mouse scrolling (Refer to the pr upstream of qtermwidget, but with modifications).
 - Fix rendering issue with abnormal width of some symbols
 - Add ANSI OSC52 sequence support
-- Fix issue that disconnecting the session will directly close the tab instead of disconnecting the session
+- Fix the issue that disconnecting the session will directly close the tab instead of disconnecting the session
+- Fix the issue that some UI in the quick connection window does not refresh when switching languages
 - Improve the session manager page width can be freely adjusted
 - The version built with MSVC on Windows uses ConPty instead of WinPty, and the version built with Mingw continues to use WinPty
 - Improve the behavior of selecting CJK characters when double-clicking
@@ -31,6 +32,7 @@ zh-CN:
 - 修复渲染某些符号宽度异常问题
 - 增加 ANSI OSC52 sequence 支持
 - 修复断开会话会直接关闭标签而不是断开会话的问题
+- 修复切换语言时快速连接窗口部分UI未能刷新问题
 - 改进会话管理器页面宽度可自由调整
 - Windows下通过MSVC构建的版本采用ConPty代替WinPty，Mingw构建版本继续使用WinPty
 - 改进双击选中CJK字符时的表现

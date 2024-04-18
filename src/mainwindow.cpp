@@ -2669,6 +2669,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             iface->retranslateUi();
         }
         ui->retranslateUi(this);
+        quickConnectWindow->retranslateUi();
         sessionManagerWidget->retranslateUi();
         startTftpSeverWindow->retranslateUi();
         pluginInfoWindow->retranslateUi();

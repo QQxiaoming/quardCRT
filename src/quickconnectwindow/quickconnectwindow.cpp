@@ -30,7 +30,6 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
     lineEditPassword = new PasswordEdit(true,this);
     ui->horizontalLayout_5->addWidget(lineEditPassword);
 
-    setWindowTitle(tr("Quick Connect"));
     setWindowModality(Qt::ApplicationModal);
     setWindowFlags(Qt::Tool);
 
@@ -42,6 +41,8 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
     connect(ui->comboBoxProtocol, &QComboBox::currentIndexChanged, this, &QuickConnectWindow::comboBoxProtocolChanged);
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &QuickConnectWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QuickConnectWindow::buttonBoxRejected);
+
+    retranslateUi();
 }
 
 QuickConnectWindow::~QuickConnectWindow()
@@ -398,4 +399,10 @@ void QuickConnectWindow::setQuickConnectData(QuickConnectData data)
         default:
             break;
     }
+}
+
+void QuickConnectWindow::retranslateUi()
+{
+    setWindowTitle(tr("Quick Connect"));
+    ui->retranslateUi(this);
 }

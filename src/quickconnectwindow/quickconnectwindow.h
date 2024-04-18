@@ -92,6 +92,7 @@ public:
     void setOpenInTab(bool enable);
     void reset(void);
     void setQuickConnectData(QuickConnectData data);
+    void retranslateUi();
 
 signals:
     void sendQuickConnectData(QuickConnectData);
