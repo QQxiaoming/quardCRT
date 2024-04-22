@@ -3239,9 +3239,19 @@ QString CentralWidget::getDirAndcheckeSysName(const QString &title)
         QString sysUsername = qEnvironmentVariable("USER");
         QString sysHostname = QHostInfo::localHostName();
     #endif
+    #if defined(Q_OS_WIN)
+        QByteArray usernameArray = username.toLocal8Bit();
+        QByteArray hostnameArray = hostname.toLocal8Bit();
+        QByteArray sysUsernameArray = sysUsername.toLocal8Bit();
+        QByteArray sysHostnameArray = sysHostname.toLocal8Bit();
+        if((usernameArray == sysUsernameArray) && (hostnameArray == sysHostnameArray)) {
+            return dir;
+        }
+    #else
         if((username == sysUsername) && (hostname == sysHostname)) {
             return dir;
         }
+    #endif
     }
 
     return QString();
