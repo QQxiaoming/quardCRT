@@ -62,6 +62,7 @@
 #include "globalsetting.h"
 #include "sessionoptionswindow.h"
 #include "sshsftp.h"
+#include "misc.h"
 
 #include "ui_mainwindow.h"
 
@@ -3228,8 +3229,8 @@ QString CentralWidget::getDirAndcheckeSysName(const QString &title)
         QString dir = stdTitleFormat.match(title).captured(3);
 #endif
     #if defined(Q_OS_WIN)
-        QString sysUsername = qEnvironmentVariable("USERNAME");
-        QString sysHostname = qEnvironmentVariable("COMPUTERNAME");
+        QString sysUsername = MiscWin32::getUserName();
+        QString sysHostname = MiscWin32::getComputerName();
         hostname = hostname.left(hostname.indexOf(":"));
     #elif defined(Q_OS_MAC)
         QString sysUsername = qEnvironmentVariable("USER");

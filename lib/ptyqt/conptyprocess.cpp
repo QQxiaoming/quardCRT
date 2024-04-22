@@ -38,7 +38,7 @@ HRESULT ConPtyProcess::createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn
 
 // Initializes the specified startup info struct with the required properties and
 // updates its thread attribute list with the specified ConPTY handle
-HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEXA* pStartupInfo, HPCON hPC)
+HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEXW* pStartupInfo, HPCON hPC)
 {
     HRESULT hr{ E_UNEXPECTED };
 
@@ -46,7 +46,7 @@ HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOE
     {
         SIZE_T attrListSize{};
 
-        pStartupInfo->StartupInfo.cb = sizeof(STARTUPINFOEX);
+        pStartupInfo->StartupInfo.cb = sizeof(STARTUPINFOEXW);
 
         // Get the size of the thread attribute list.
         InitializeProcThreadAttributeList(NULL, 1, 0, &attrListSize);
@@ -121,7 +121,9 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
     std::stringstream envBlock;
     foreach (QString line, environment)
     {
-        envBlock << line.toStdString() << '\0';
+        QByteArray localEncodedBa = line.toLocal8Bit();
+        std::string localEncodedLine = localEncodedBa.constData();
+        envBlock << localEncodedLine << '\0';
     }
     envBlock << '\0';
     std::string env = envBlock.str();
@@ -129,10 +131,17 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
     LPSTR envArg = envV.empty() ? nullptr : envV.data();
 
     QString fullCmdArg = m_shellPath + " " + args.join(" ");
-    LPSTR cmdArg = new char[fullCmdArg.toStdString().length() + 1];
-    std::strcpy(cmdArg, fullCmdArg.toStdString().c_str());
-    LPSTR workDirArg = new char[workDir.toStdString().length() + 1];
-    std::strcpy(workDirArg, workDir.toStdString().c_str());
+    std::wstring wcmdArg = fullCmdArg.toStdWString();
+    int cmdArgLen = wcmdArg.length() + 1;
+    LPWSTR cmdArg = new wchar_t[cmdArgLen];
+    memset(cmdArg, 0, cmdArgLen * sizeof(wchar_t));
+    std::wcscpy(cmdArg, wcmdArg.c_str());
+
+    std::wstring wworkDirArg = workDir.toStdWString();
+    int workDirArgLen = wworkDirArg.length() + 1;
+    LPWSTR workDirArg = new wchar_t[workDirArgLen];
+    memset(workDirArg, 0, workDirArgLen * sizeof(wchar_t));
+    std::wcscpy(workDirArg, wworkDirArg.c_str());
 
     HRESULT hr{ E_UNEXPECTED };
 
@@ -146,7 +155,7 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
     }
 
     // Initialize the necessary startup info struct
-    STARTUPINFOEXA startupInfo{};
+    STARTUPINFOEXW startupInfo{};
     if (S_OK != initializeStartupInfoAttachedToPseudoConsole(&startupInfo, m_ptyHandler))
     {
         m_lastError = QString("ConPty Error: InitializeStartupInfoAttachedToPseudoConsole fail");
@@ -155,7 +164,7 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
 
     // Launch ping to emit some text back via the pipe
     PROCESS_INFORMATION piClient{};
-    hr = CreateProcessA(
+    hr = CreateProcessW(
                 NULL,                           // No module name - use Command Line
                 cmdArg,                         // Command Line
                 NULL,                           // Process handle not inheritable

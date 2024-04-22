@@ -11,6 +11,12 @@
 [![Gitee stars](https://gitee.com/QQxiaoming/quardCRT/badge/star.svg?theme=dark)](https://gitee.com/QQxiaoming/quardCRT)
 [![Gitee forks](https://gitee.com/QQxiaoming/quardCRT/badge/fork.svg?theme=dark)](https://gitee.com/QQxiaoming/quardCRT)
 
+<div style="text-align: right">
+    <a href="https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct">
+        <img src="https://get.microsoft.com/images/ja-jp%20dark.svg" width="200"/>
+    </a>
+</div>
+
 # quardCRT
 
 [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README_zh_CN.md) | [🇭🇰 繁體中文](./README_zh_HK.md) | 🇯🇵 日本語

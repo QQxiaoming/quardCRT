@@ -99,6 +99,14 @@ Plugin
 
 quardCRT supports plugins from version V0.4.0, plugins will be provided in the form of Qt plugins, loaded in the form of dynamic libraries, to learn more about plugin development information, please refer to the plugin open `platform <https://github.com/QuardCRT-platform>`_. This platform will provide template repositories and related examples for plugin development. At present, the plugin function is still in the early development stage. If you have good ideas or suggestions, please submit issues or discussions on `GitHub <https://github.com/QQxiaoming/quardCRT>`_ or `Gitee <https://gitee.com/QQxiaoming/quardCRT>`_
 
+----------------------------------
+Install from store
+----------------------------------
+
+.. image:: https://get.microsoft.com/images/en-us%20dark.svg
+   :target: https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct
+   :alt: Microsoft Store
+
 .. toctree::
    :maxdepth: 3
    :caption: Contents:

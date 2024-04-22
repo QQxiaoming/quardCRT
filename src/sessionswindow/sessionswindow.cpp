@@ -40,6 +40,7 @@
 #include "globaloptionswindow.h"
 #include "globalsetting.h"
 #include "argv_split.h"
+#include "misc.h"
 
 SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     : QObject(parent)
@@ -539,6 +540,18 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
         args.removeFirst();
     }
     QStringList envs = QProcessEnvironment::systemEnvironment().toStringList();
+    #if defined(Q_OS_WIN)
+    if(envs.contains("quardcrt_computername")) {
+        envs.replaceInStrings("quardcrt_computername", MiscWin32::getComputerName());
+    } else {
+        envs.append("quardcrt_computername=" + MiscWin32::getComputerName());
+    }
+    if(envs.contains("quardcrt_username")) {
+        envs.replaceInStrings("quardcrt_username", MiscWin32::getUserName());
+    } else {
+        envs.append("quardcrt_username=" + MiscWin32::getUserName());
+    }
+    #endif
     GlobalSetting setting;
 #if defined(Q_OS_MACOS)
     bool defaultForceUTF8 = true;

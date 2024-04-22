@@ -147,7 +147,7 @@ public:
 
 private:
     HRESULT createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn, HANDLE* phPipeOut, qint16 cols, qint16 rows);
-    HRESULT initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEXA* pStartupInfo, HPCON hPC);
+    HRESULT initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEXW* pStartupInfo, HPCON hPC);
 
 private:
     WindowsContext m_winContext;

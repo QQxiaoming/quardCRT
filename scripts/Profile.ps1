@@ -32,8 +32,8 @@ function prompt {
 
 
   $loc = $($executionContext.SessionState.Path.CurrentLocation);
-  $hostname = $env:computername | Select-Object
-  $username = $env:username | Select-Object
+  $hostname = $env:quardcrt_computername | Select-Object
+  $username = $env:quardcrt_username | Select-Object
 
   # Prompt started
   $out += "$esc";

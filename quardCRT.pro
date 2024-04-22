@@ -54,6 +54,7 @@ SOURCES += \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
     src/sftpwindow/sftpmenubookmarkwidget.cpp \
     src/util/logger.cpp \
+    src/util/misc.cpp \
     src/util/globalsetting.cpp \
     src/util/keychainclass.cpp \
     src/util/filedialog.cpp \
@@ -98,6 +99,7 @@ HEADERS += \
     src/pluginviewerwidget/pluginviewerwidget.h \
     src/sftpwindow/sftpmenubookmarkwidget.h \
     src/util/logger.h \
+    src/util/misc.h \
     src/util/argv_split.h \
     src/util/filedialog.h \
     src/util/globalsetting.h \
@@ -207,6 +209,7 @@ win32:{
     }
     win32-msvc*{
     }
+
     VERSION = $${BUILD_VERSION}.000
     RC_ICONS = "icons\ico.ico"
     QMAKE_TARGET_PRODUCT = "quardCRT"
