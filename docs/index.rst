@@ -23,7 +23,7 @@ quardCRT
 .. image:: https://img.shields.io/github/license/qqxiaoming/quardCRT.svg?colorB=f48041&logo=gnu
    :target: https://github.com/QQxiaoming/quardCRT
    :alt: License
-.. image:: https://img.shields.io/github/tag/QQxiaoming/quardCRT.svg?logo=git
+.. image:: https://img.shields.io/github/v/tag/QQxiaoming/quardCRT?filter=V*&logo=git
    :target: https://github.com/QQxiaoming/quardCRT/releases
    :alt: GitHub tag (latest SemVer)
 .. image:: https://img.shields.io/github/downloads/QQxiaoming/quardCRT/total.svg?logo=pinboard
@@ -42,7 +42,7 @@ quardCRT
    :target: https://gitee.com/QQxiaoming/quardCRT
    :alt: Gitee forks
 
-quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.
+quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions. The design purpose of quardCRT is to create a terminal software that is as user-friendly, feature-rich, and cross-platform consistent as possible. Compared to many professional high-performance terminals, quardCRT will be more suitable for beginners and light users to quickly configure the required terminal environment, but this does not mean that quardCRT does not pursue high performance.
 
 .. list-table:: 
    :widths: 33 33 33
