@@ -20,6 +20,7 @@ en-US:
 - Improve the display of the input method pre-edit area
 - Add terminal color scheme color palette feature setting
 - Add the feature of switching terminal color scheme automatically when switching themes
+- Add confirmation dialog when deleting a session
 
 zh-CN:
 
@@ -39,6 +40,7 @@ zh-CN:
 - 改进输入法预编辑区域的显示表现
 - 增加终端配色方案调色板设置功能
 - 增加切换主题时自动切换终端配色方案功能
+- 增加删除会话时的确认对话框
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

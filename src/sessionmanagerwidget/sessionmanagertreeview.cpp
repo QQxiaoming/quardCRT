@@ -19,6 +19,7 @@
  */
 #include <QTreeView>
 #include <QMenu>
+#include <QMessageBox>
 
 #include "qfonticon.h"
 
@@ -103,7 +104,9 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
             QAction *deleteAction = new QAction(tr("Delete"), contextMenu);
             contextMenu->addAction(deleteAction);
             connect(deleteAction, &QAction::triggered, this, [&,name](){
-                emit sessionRemove(name);
+                if(QMessageBox::question(this, tr("Delete Session"), tr("Are you sure you want to delete the session?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+                    emit sessionRemove(name);
+                }
             });
             contextMenu->addSeparator();
             QAction *propertiesAction = new QAction(tr("Properties"), contextMenu);

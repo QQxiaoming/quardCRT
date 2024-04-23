@@ -215,12 +215,19 @@ void ReadPasswordJobPrivate::scheduledStart() {
     } break;
     case Backend_GnomeKeyring:
         this->mode = JobPrivate::Text;
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#endif
         if ( !GnomeKeyring::find_network_password( key.toUtf8().constData(),
                                                    q->service().toUtf8().constData(),
                                                    "plaintext",
                                                    reinterpret_cast<GnomeKeyring::OperationGetStringCallback>( &JobPrivate::gnomeKeyring_readCb ),
                                                    this, 0 ) )
             q->emitFinishedWithError( OtherError, tr("Unknown error") );
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
         break;
 
     case Backend_Kwallet4:
@@ -286,11 +293,18 @@ void JobPrivate::gnomeKeyring_readCb( int result, const char* string, JobPrivate
         self->q->emitFinished();
     } else if (self->mode == JobPrivate::Text) {
         self->mode = JobPrivate::Binary;
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#endif
         if ( !GnomeKeyring::find_network_password( self->key.toUtf8().constData(),
                                                    self->q->service().toUtf8().constData(),
                                                    "base64",
                                                    reinterpret_cast<GnomeKeyring::OperationGetStringCallback>( &JobPrivate::gnomeKeyring_readCb ),
                                                    self, 0 ) )
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
             self->q->emitFinishedWithError( OtherError, tr("Unknown error") );
     } else {
         const QPair<Error, QString> errorResult = mapGnomeKeyringError( result );

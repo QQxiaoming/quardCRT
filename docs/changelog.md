@@ -20,6 +20,7 @@
 - Improve the display of the input method pre-edit area
 - Add terminal color scheme color palette feature in settings
 - Add the feature of switching terminal color scheme automatically when switching themes
+- Add confirmation dialog when deleting a session
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 
