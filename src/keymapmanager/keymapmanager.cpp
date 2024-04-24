@@ -46,7 +46,17 @@ void keyMapManager::setAvailableKeyBindings(QStringList keyBindings)
     if((settings.contains("keyBinding")) &&(keyBindings.contains(settings.value("keyBinding").toString()))) {
         ui->comboBoxKeyBinding->setCurrentText(settings.value("keyBinding").toString());
     } else {
-        QString defaultKeyBinding = "default";
+    #if defined(Q_OS_WIN)
+    #if defined(Q_CC_MSVC)
+        QString defaultKeyBinding = "windows_conpty";
+    #else
+        QString defaultKeyBinding = "windows_winpty";
+    #endif
+    #elif defined(Q_OS_MAC)
+        QString defaultKeyBinding = "macos_default";
+    #else
+        QString defaultKeyBinding = "linux_default";
+    #endif
         ui->comboBoxKeyBinding->setCurrentText(defaultKeyBinding);
         settings.setValue("keyBinding", defaultKeyBinding);
     }

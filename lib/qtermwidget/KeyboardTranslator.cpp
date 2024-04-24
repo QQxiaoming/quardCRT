@@ -130,7 +130,17 @@ const KeyboardTranslator* KeyboardTranslatorManager::defaultTranslator()
 {
     // Try to find the default.keytab file if it exists, otherwise
     // fall back to the hard-coded one
-    const KeyboardTranslator* translator = findTranslator(QLatin1String("default"));
+#if defined(Q_OS_WIN)
+#if defined(Q_CC_MSVC)
+    const KeyboardTranslator* translator = findTranslator(QLatin1String("windows_conpty"));
+#else
+    const KeyboardTranslator* translator = findTranslator(QLatin1String("windows_winpty"));
+#endif
+#elif defined(Q_OS_MAC)
+    const KeyboardTranslator* translator = findTranslator(QLatin1String("macos_default"));
+#else
+    const KeyboardTranslator* translator = findTranslator(QLatin1String("linux_default"));
+#endif
     if (!translator)
     {
         QBuffer textBuffer;
