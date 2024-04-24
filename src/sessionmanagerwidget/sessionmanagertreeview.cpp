@@ -117,8 +117,15 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
         }
 
         if(!contextMenu->isEmpty()) {
-            contextMenu->move(cursor().pos()+QPoint(5,5));
-            contextMenu->show();
+            QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
+            QPoint pos = cursor().pos() + QPoint(5,5);
+            if (pos.x() + contextMenu->width() > screenGeometry.width()) {
+                pos.setX(screenGeometry.width() - contextMenu->width());
+            }
+            if (pos.y() + contextMenu->height() > screenGeometry.height()) {
+                pos.setY(screenGeometry.height() - contextMenu->height());
+            }
+            contextMenu->popup(pos);
         }
     }
 }

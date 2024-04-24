@@ -106,8 +106,15 @@ void HexViewWindow::contextMenuEvent(QContextMenuEvent *event)
         hexEdit->setData(QByteArray());
     });
     menu->addAction(clearAction);
-    menu->move(cursor().pos()+QPoint(5,5));
-    menu->show();
+    QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
+    QPoint pos = cursor().pos() + QPoint(5,5);
+    if (pos.x() + menu->width() > screenGeometry.width()) {
+        pos.setX(screenGeometry.width() - menu->width());
+    }
+    if (pos.y() + menu->height() > screenGeometry.height()) {
+        pos.setY(screenGeometry.height() - menu->height());
+    }
+    menu->popup(pos);
     Q_UNUSED(event);
 }
 

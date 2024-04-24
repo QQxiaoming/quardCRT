@@ -25,6 +25,8 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QInputDialog>
+#include <QScreen>
+#include <QPoint>
 
 #include "filedialog.h"
 #include "sftpwindow.h"
@@ -364,8 +366,15 @@ SftpWindow::SftpWindow(QWidget *parent) :
             delete menu;
             return;
         }
-        menu->move(cursor().pos()+QPoint(5,5));
-        menu->show();
+        QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
+        QPoint popupPos = cursor().pos() + QPoint(5,5);
+        if (pos.x() + menu->width() > screenGeometry.width()) {
+            popupPos.setX(screenGeometry.width() - menu->width());
+        }
+        if (pos.y() + menu->height() > screenGeometry.height()) {
+            popupPos.setY(screenGeometry.height() - menu->height());
+        }
+        menu->popup(pos);
     });
 
     sshFileSystemModel = new QSshFileSystemModel(this);
@@ -540,8 +549,15 @@ SftpWindow::SftpWindow(QWidget *parent) :
                 delete menu;
                 return;
             }
-            menu->move(cursor().pos()+QPoint(5,5));
-            menu->show();
+            QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
+            QPoint pos = cursor().pos() + QPoint(5,5);
+            if (pos.x() + menu->width() > screenGeometry.width()) {
+                pos.setX(screenGeometry.width() - menu->width());
+            }
+            if (pos.y() + menu->height() > screenGeometry.height()) {
+                pos.setY(screenGeometry.height() - menu->height());
+            }
+            menu->popup(pos);
         }
     });
 
