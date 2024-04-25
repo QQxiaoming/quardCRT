@@ -2,6 +2,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
+
 en-US:
 
 - Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
