@@ -22,6 +22,7 @@
 - Add the feature of switching terminal color scheme automatically when switching themes
 - Add confirmation dialog when deleting a session
 - Fix the issue that the context menu is too long to display completely and difficult to operate
+- Fix the display abnormality caused by some theme switching on Windows
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 

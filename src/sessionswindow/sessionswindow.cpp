@@ -47,6 +47,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , type(tp)
     , workingDirectory(QDir::homePath())
     , showShortTitle(false)
+    , messageParentWidget(parent)
     , term(nullptr)
     , telnet(nullptr)
     , serialPort(nullptr)
@@ -74,7 +75,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             }
         });
     } else {
-        term = new QTermWidget(parent);
+        term = new QTermWidget(parent,parent);
         term->setProperty("session", QVariant::fromValue(this));
 
         term->setScrollBarPosition(QTermWidget::ScrollBarRight);
@@ -153,7 +154,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 }
             });
             connect(telnet, &QTelnet::error, this, [=](QAbstractSocket::SocketError socketError){
-                QMessageBox::warning(term, tr("Telnet Error"), tr("Telnet error:\n%1.").arg(telnet->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Telnet Error"), tr("Telnet error:\n%1.").arg(telnet->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 Q_UNUSED(socketError);
@@ -195,7 +196,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
                 if(serialPort->error() == QSerialPort::NoError) return;
                 if(state == Error) return;
-                QMessageBox::warning(term, tr("Serial Error"), tr("Serial error:\n%1.").arg(serialPort->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Serial Error"), tr("Serial error:\n%1.").arg(serialPort->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 serialPort->close();
@@ -245,7 +246,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 }
             });
             connect(rawSocket, &QTcpSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError){
-                QMessageBox::warning(term, tr("Raw Socket Error"), tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Raw Socket Error"), tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 Q_UNUSED(socketError);
@@ -291,7 +292,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 }
             });
             connect(namePipe, &QLocalSocket::errorOccurred, this, [=](QLocalSocket::LocalSocketError socketError){
-                QMessageBox::warning(term, tr("Name Pipe Error"), tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Name Pipe Error"), tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 Q_UNUSED(socketError);
@@ -303,7 +304,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
                 SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
                 if(shell == nullptr) {
-                    QMessageBox::warning(term, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
+                    QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
                     state = Error;
                     emit stateChanged(state);
                     return;
@@ -345,7 +346,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 emit stateChanged(state);
             });
             connect(ssh2Client, &SshClient::sshError, this, [=](){
-                QMessageBox::warning(term, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
+                QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
                 state = Error;
                 emit stateChanged(state);
             });
@@ -566,7 +567,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     if(!ret) {
         state = Error;
         emit stateChanged(state);
-        QMessageBox::warning(term, tr("Start Local Shell"), tr("Cannot start local shell:\n%1.").arg(localShell->lastError()));
+        QMessageBox::warning(messageParentWidget, tr("Start Local Shell"), tr("Cannot start local shell:\n%1.").arg(localShell->lastError()));
         return -1;
     }
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
@@ -751,7 +752,7 @@ int SessionsWindow::setLog(bool enable) {
             if (!savefile_name.isEmpty()) {
                 log_file = new QFile(savefile_name);
                 if (!log_file->open(QIODevice::WriteOnly|QIODevice::Text)) {
-                    QMessageBox::warning(term, tr("Save log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
+                    QMessageBox::warning(messageParentWidget, tr("Save log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
                     delete log_file;
                     log_file = nullptr;
                     enableLog = false;
@@ -786,7 +787,7 @@ int SessionsWindow::setRawLog(bool enable) {
             if (!savefile_name.isEmpty()) {
                 raw_log_file = new QFile(savefile_name);
                 if (!raw_log_file->open(QIODevice::WriteOnly)) {
-                    QMessageBox::warning(term, tr("Save Raw log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
+                    QMessageBox::warning(messageParentWidget, tr("Save Raw log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
                     delete raw_log_file;
                     raw_log_file = nullptr;
                     enableRawLog = false;
@@ -858,7 +859,7 @@ void SessionsWindow::unlockSession(QString password) {
         term->setLocked(locked);
         emit stateChanged(Locked);
     } else {
-        QMessageBox::warning(term, tr("Unlock Session"), tr("Wrong password!"));
+        QMessageBox::warning(messageParentWidget, tr("Unlock Session"), tr("Wrong password!"));
     }
 }
 
@@ -882,7 +883,7 @@ int SessionsWindow::startReceiveASCIIFile(const QString &fileName) {
     receiveASCIIFile = true;
     receiveASCIIFileFd = new QFile(fileName);
     if(!receiveASCIIFileFd->open(QIODevice::WriteOnly)) {
-        QMessageBox::warning(term, tr("Receive ASCII File"), tr("Cannot write file %1:\n%2.").arg(fileName).arg(receiveASCIIFileFd->errorString()));
+        QMessageBox::warning(messageParentWidget, tr("Receive ASCII File"), tr("Cannot write file %1:\n%2.").arg(fileName).arg(receiveASCIIFileFd->errorString()));
         receiveASCIIFile = false;
         return -1;
     }

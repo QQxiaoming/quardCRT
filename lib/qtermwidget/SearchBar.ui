@@ -19,9 +19,6 @@
      <property name="text">
       <string notr="true">X</string>
      </property>
-     <property name="icon">
-      <iconset theme="dialog-close"/>
-     </property>
     </widget>
    </item>
    <item>
@@ -39,9 +36,6 @@
      <property name="text">
       <string notr="true">&lt;</string>
      </property>
-     <property name="icon">
-      <iconset theme="go-previous"/>
-     </property>
     </widget>
    </item>
    <item>
@@ -49,18 +43,12 @@
      <property name="text">
       <string notr="true">&gt;</string>
      </property>
-     <property name="icon">
-      <iconset theme="go-next"/>
-     </property>
     </widget>
    </item>
    <item>
     <widget class="QToolButton" name="optionsButton">
      <property name="text">
       <string notr="true">...</string>
-     </property>
-     <property name="icon">
-      <iconset theme="preferences-system"/>
      </property>
      <property name="popupMode">
       <enum>QToolButton::InstantPopup</enum>

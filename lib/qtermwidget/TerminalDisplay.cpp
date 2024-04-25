@@ -3048,7 +3048,7 @@ void TerminalDisplay::bracketText(QString& text) const
 
 bool TerminalDisplay::multilineConfirmation(const QString& text)
 {
-    QMessageBox confirmation(this);
+    QMessageBox confirmation(messageParentWidget);
     confirmation.setWindowTitle(tr("Paste multiline text"));
     confirmation.setText(tr("Are you sure you want to paste this text?"));
     confirmation.setDetailedText(text);

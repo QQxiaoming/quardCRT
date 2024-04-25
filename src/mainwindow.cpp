@@ -2708,6 +2708,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(lightThemeAction,&QAction::triggered,this,[=](){
+        if(!isDarkTheme) return;
         isDarkTheme = false;
         qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
         QFontIcon::instance()->setColor(Qt::black);
@@ -2715,17 +2716,24 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
         }
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            sessionsWindow->reTranslateUi();
+        }
         globalOptionsWindow->switchTheme();
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","false");
     });
     connect(darkThemeAction,&QAction::triggered,this,[=](){
+        if(isDarkTheme) return;
         isDarkTheme = true;
         qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
         QFontIcon::instance()->setColor(Qt::white);
         menuAndToolBarRetranslateUi();
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
+        }
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            sessionsWindow->reTranslateUi();
         }
         globalOptionsWindow->switchTheme();
         GlobalSetting settings;

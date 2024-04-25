@@ -22,11 +22,13 @@
 #include <QDebug>
 
 #include "SearchBar.h"
+#include "qfonticon.h"
 
 SearchBar::SearchBar(QWidget *parent) : QWidget(parent)
 {
     widget.setupUi(this);
     setAutoFillBackground(true); // make it always opaque, especially inside translucent windows
+
     connect(widget.closeButton, &QToolButton::clicked, this, &SearchBar::hide);
     connect(widget.searchTextEdit, &QLineEdit::textChanged, this, &SearchBar::searchCriteriaChanged);
     connect(widget.findPreviousButton, &QToolButton::clicked, this, &SearchBar::findPrevious);
@@ -51,6 +53,8 @@ SearchBar::SearchBar(QWidget *parent) : QWidget(parent)
     m_highlightMatchesMenuEntry->setCheckable(true);
     m_highlightMatchesMenuEntry->setChecked(true);
     connect(m_highlightMatchesMenuEntry, &QAction::toggled, this, &SearchBar::highlightMatchesChanged);
+
+    retranslateUi();
 }
 
 SearchBar::~SearchBar() {
@@ -130,4 +134,8 @@ void SearchBar::retranslateUi(void) {
     m_matchCaseMenuEntry->setText(tr("Match case"));
     m_useRegularExpressionMenuEntry->setText(tr("Regular expression"));
     m_highlightMatchesMenuEntry->setText(tr("Highlight all matches"));
+    widget.closeButton->setIcon(QFontIcon::icon(QChar(0xf00d)));
+    widget.findPreviousButton->setIcon(QFontIcon::icon(QChar(0xf053)));
+    widget.findNextButton->setIcon(QFontIcon::icon(QChar(0xf054)));
+    widget.optionsButton->setIcon(QFontIcon::icon(QChar(0xf142)));
 }

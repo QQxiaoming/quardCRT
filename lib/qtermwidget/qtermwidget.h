@@ -51,7 +51,7 @@ public:
     using KeyboardCursorShape = Konsole::Emulation::KeyboardCursorShape;
 
     //Creation of widget
-    QTermWidget(QWidget *parent = nullptr);
+    QTermWidget(QWidget *messageParentWidget = nullptr, QWidget *parent = nullptr);
 
     ~QTermWidget() override;
 
@@ -256,6 +256,7 @@ public:
 
     QString screenGet(int row1, int col1, int row2, int col2, int mode);
 
+    void setMessageParentWidget(QWidget *parent);
     void reTranslateUi(void);
 
 signals:
@@ -380,7 +381,7 @@ private:
     };
     void search(bool forwards, bool next);
     void setZoom(int step);
-    void init(void);
+    QWidget *messageParentWidget = nullptr;
     TermWidgetImpl * m_impl;
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;

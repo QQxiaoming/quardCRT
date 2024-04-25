@@ -574,6 +574,7 @@ public slots:
         QTimer::singleShot(100, this, SLOT(show()));
     #endif
     }
+    void setMessageParentWidget(QWidget *parent) { messageParentWidget = parent; }
 
 signals:
 
@@ -924,6 +925,8 @@ private:
     bool _drawLineChars;
 
     int _preeditColorIndex = 16; //Color4Intense
+
+    QWidget *messageParentWidget = nullptr;
 
 public:
     static void setTransparencyEnabled(bool enable)

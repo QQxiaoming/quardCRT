@@ -344,6 +344,7 @@ private:
     QString shortTitle;
     QString name;
     bool showShortTitle;
+    QWidget *messageParentWidget;
     QTermWidget *term;
     QTelnet *telnet;
     QSerialPort *serialPort;

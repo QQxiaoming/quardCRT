@@ -95,10 +95,75 @@ TerminalDisplay *TermWidgetImpl::createTerminalDisplay(Session *session, QWidget
     return display;
 }
 
-QTermWidget::QTermWidget(QWidget *parent)
+QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     : QWidget(parent)
 {
-    init();
+    m_layout = new QVBoxLayout(this);
+    m_layout->setContentsMargins(0, 0, 0, 0);
+    setLayout(m_layout);
+
+    m_impl = new TermWidgetImpl(this);
+    m_layout->addWidget(m_impl->m_terminalDisplay);
+    m_impl->m_terminalDisplay->setObjectName("terminalDisplay");
+    setMessageParentWidget(messageParentWidget?messageParentWidget:this);
+
+    connect(m_impl->m_session, SIGNAL(bellRequest(QString)), m_impl->m_terminalDisplay, SLOT(bell(QString)));
+    connect(m_impl->m_terminalDisplay, SIGNAL(notifyBell(QString)), this, SIGNAL(bell(QString)));
+    connect(m_impl->m_terminalDisplay, SIGNAL(changedContentCountSignal(int,int)),this, SLOT(sizeChange(int,int)));
+    connect(m_impl->m_terminalDisplay, SIGNAL(mousePressEventForwarded(QMouseEvent*)), this, SIGNAL(mousePressEventForwarded(QMouseEvent*)));
+    connect(m_impl->m_session, SIGNAL(activity()), this, SIGNAL(activity()));
+    connect(m_impl->m_session, SIGNAL(silence()), this, SIGNAL(silence()));
+    connect(m_impl->m_session, &Session::profileChangeCommandReceived, this, &QTermWidget::profileChanged);
+    connect(m_impl->m_session, &Session::receivedData, this, &QTermWidget::receivedData);
+    connect(m_impl->m_session->emulation(), SIGNAL(zmodemRecvDetected()), this, SIGNAL(zmodemRecvDetected()) );
+    connect(m_impl->m_session->emulation(), SIGNAL(zmodemSendDetected()), this, SIGNAL(zmodemSendDetected()) );
+             
+    // That's OK, FilterChain's dtor takes care of UrlFilter.
+    UrlFilter *urlFilter = new UrlFilter();
+    connect(urlFilter, &UrlFilter::activated, this, &QTermWidget::urlActivated);
+    m_impl->m_terminalDisplay->filterChain()->addFilter(urlFilter);
+
+    m_searchBar = new SearchBar(this);
+    m_searchBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+    connect(m_searchBar, SIGNAL(searchCriteriaChanged()), this, SLOT(find()));
+    connect(m_searchBar, SIGNAL(findNext()), this, SLOT(findNext()));
+    connect(m_searchBar, SIGNAL(findPrevious()), this, SLOT(findPrevious()));
+    m_layout->addWidget(m_searchBar);
+    m_searchBar->hide();
+    QString style_sheet = qApp->styleSheet();
+    m_searchBar->setStyleSheet(style_sheet);
+    
+    this->setFocus( Qt::OtherFocusReason );
+    this->setFocusPolicy( Qt::WheelFocus );
+    m_impl->m_terminalDisplay->resize(this->size());
+
+    this->setFocusProxy(m_impl->m_terminalDisplay);
+    connect(m_impl->m_terminalDisplay, SIGNAL(copyAvailable(bool)),
+            this, SLOT(selectionChanged(bool)));
+    connect(m_impl->m_terminalDisplay, SIGNAL(termGetFocus()),
+            this, SIGNAL(termGetFocus()));
+    connect(m_impl->m_terminalDisplay, SIGNAL(termLostFocus()),
+            this, SIGNAL(termLostFocus()));
+    connect(m_impl->m_terminalDisplay, &TerminalDisplay::keyPressedSignal, this,
+            [this] (QKeyEvent* e, bool) { Q_EMIT termKeyPressed(e); });
+//    m_impl->m_terminalDisplay->setSize(80, 40);
+
+    QFont font = QApplication::font();
+    font.setFamily(QLatin1String(DEFAULT_FONT_FAMILY));
+    font.setPointSize(10);
+    font.setStyleHint(QFont::TypeWriter);
+    setTerminalFont(font);
+    m_searchBar->setFont(font);
+
+    setScrollBarPosition(NoScrollBar);
+    setKeyboardCursorShape(Emulation::KeyboardCursorShape::BlockCursor);
+
+    m_impl->m_session->addView(m_impl->m_terminalDisplay);
+
+    connect(m_impl->m_session, SIGNAL(resizeRequest(QSize)), this, SLOT(setSize(QSize)));
+    connect(m_impl->m_session, SIGNAL(finished()), this, SLOT(sessionFinished()));
+    connect(m_impl->m_session, &Session::titleChanged, this, &QTermWidget::titleChanged);
+    connect(m_impl->m_session, &Session::cursorChanged, this, &QTermWidget::cursorChanged);
 }
 
 void QTermWidget::selectionChanged(bool textSelected)
@@ -198,77 +263,10 @@ void QTermWidget::startTerminalTeletype()
              this, SIGNAL(dupDisplayOutput(const char *,int)) );
 }
 
-void QTermWidget::init(void)
-{
-    m_layout = new QVBoxLayout(this);
-    m_layout->setContentsMargins(0, 0, 0, 0);
-    setLayout(m_layout);
-
-    m_impl = new TermWidgetImpl(this);
-    m_layout->addWidget(m_impl->m_terminalDisplay);
-    m_impl->m_terminalDisplay->setObjectName("terminalDisplay");
-
-    connect(m_impl->m_session, SIGNAL(bellRequest(QString)), m_impl->m_terminalDisplay, SLOT(bell(QString)));
-    connect(m_impl->m_terminalDisplay, SIGNAL(notifyBell(QString)), this, SIGNAL(bell(QString)));
-    connect(m_impl->m_terminalDisplay, SIGNAL(changedContentCountSignal(int,int)),this, SLOT(sizeChange(int,int)));
-    connect(m_impl->m_terminalDisplay, SIGNAL(mousePressEventForwarded(QMouseEvent*)), this, SIGNAL(mousePressEventForwarded(QMouseEvent*)));
-    connect(m_impl->m_session, SIGNAL(activity()), this, SIGNAL(activity()));
-    connect(m_impl->m_session, SIGNAL(silence()), this, SIGNAL(silence()));
-    connect(m_impl->m_session, &Session::profileChangeCommandReceived, this, &QTermWidget::profileChanged);
-    connect(m_impl->m_session, &Session::receivedData, this, &QTermWidget::receivedData);
-    connect(m_impl->m_session->emulation(), SIGNAL(zmodemRecvDetected()), this, SIGNAL(zmodemRecvDetected()) );
-    connect(m_impl->m_session->emulation(), SIGNAL(zmodemSendDetected()), this, SIGNAL(zmodemSendDetected()) );
-             
-    // That's OK, FilterChain's dtor takes care of UrlFilter.
-    UrlFilter *urlFilter = new UrlFilter();
-    connect(urlFilter, &UrlFilter::activated, this, &QTermWidget::urlActivated);
-    m_impl->m_terminalDisplay->filterChain()->addFilter(urlFilter);
-
-    m_searchBar = new SearchBar(this);
-    m_searchBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-    connect(m_searchBar, SIGNAL(searchCriteriaChanged()), this, SLOT(find()));
-    connect(m_searchBar, SIGNAL(findNext()), this, SLOT(findNext()));
-    connect(m_searchBar, SIGNAL(findPrevious()), this, SLOT(findPrevious()));
-    m_layout->addWidget(m_searchBar);
-    m_searchBar->hide();
-
-    this->setFocus( Qt::OtherFocusReason );
-    this->setFocusPolicy( Qt::WheelFocus );
-    m_impl->m_terminalDisplay->resize(this->size());
-
-    this->setFocusProxy(m_impl->m_terminalDisplay);
-    connect(m_impl->m_terminalDisplay, SIGNAL(copyAvailable(bool)),
-            this, SLOT(selectionChanged(bool)));
-    connect(m_impl->m_terminalDisplay, SIGNAL(termGetFocus()),
-            this, SIGNAL(termGetFocus()));
-    connect(m_impl->m_terminalDisplay, SIGNAL(termLostFocus()),
-            this, SIGNAL(termLostFocus()));
-    connect(m_impl->m_terminalDisplay, &TerminalDisplay::keyPressedSignal, this,
-            [this] (QKeyEvent* e, bool) { Q_EMIT termKeyPressed(e); });
-//    m_impl->m_terminalDisplay->setSize(80, 40);
-
-    QFont font = QApplication::font();
-    font.setFamily(QLatin1String(DEFAULT_FONT_FAMILY));
-    font.setPointSize(10);
-    font.setStyleHint(QFont::TypeWriter);
-    setTerminalFont(font);
-    m_searchBar->setFont(font);
-
-    setScrollBarPosition(NoScrollBar);
-    setKeyboardCursorShape(Emulation::KeyboardCursorShape::BlockCursor);
-
-    m_impl->m_session->addView(m_impl->m_terminalDisplay);
-
-    connect(m_impl->m_session, SIGNAL(resizeRequest(QSize)), this, SLOT(setSize(QSize)));
-    connect(m_impl->m_session, SIGNAL(finished()), this, SLOT(sessionFinished()));
-    connect(m_impl->m_session, &Session::titleChanged, this, &QTermWidget::titleChanged);
-    connect(m_impl->m_session, &Session::cursorChanged, this, &QTermWidget::cursorChanged);
-}
-
-
 QTermWidget::~QTermWidget()
 {
     clearHighLightTexts();
+    delete m_searchBar;
     delete m_impl;
     emit destroyed();
 }
@@ -339,7 +337,7 @@ void QTermWidget::setColorScheme(const QString& origName)
 
     if (! cs)
     {
-        QMessageBox::information(this,
+        QMessageBox::information(messageParentWidget,
                                  tr("Color Scheme Error"),
                                  tr("Cannot load color scheme: %1").arg(name));
         return;
@@ -858,6 +856,11 @@ QString QTermWidget::screenGet(int row1, int col1, int row2, int col2, int mode)
 
 void QTermWidget::setSelectionOpacity(qreal opacity) {
     m_impl->m_terminalDisplay->setSelectionOpacity(opacity);
+}
+
+void QTermWidget::setMessageParentWidget(QWidget *parent) {
+    messageParentWidget = parent;
+    m_impl->m_terminalDisplay->setMessageParentWidget(messageParentWidget);
 }
 
 void QTermWidget::reTranslateUi(void) {
