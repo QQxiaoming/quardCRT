@@ -190,26 +190,26 @@ bool ConPtyProcess::startProcess(const QString &shellPath, QStringList args,
     //this code runned in separate thread
     m_readThread = QThread::create([this, &piClient, &startupInfo]()
     {
+        //buffers
+        const DWORD BUFF_SIZE{ 1024 };
+        char szBuffer[BUFF_SIZE]{};
+
         forever
         {
-            //buffers
-            const DWORD BUFF_SIZE{ 512 };
-            char szBuffer[BUFF_SIZE]{};
-
-            //DWORD dwBytesWritten{};
             DWORD dwBytesRead{};
-            BOOL fRead{ FALSE };
 
             // Read from the pipe
-            fRead = ReadFile(m_hPipeIn, szBuffer, BUFF_SIZE, &dwBytesRead, NULL);
+            BOOL result = ReadFile(m_hPipeIn, szBuffer, BUFF_SIZE, &dwBytesRead, NULL);
+            const bool needMoreData = !result && GetLastError() == ERROR_MORE_DATA;
 
-            {
+            if (result || needMoreData) {
                 QMutexLocker locker(&m_bufferMutex);
                 m_buffer.m_readBuffer.append(szBuffer, dwBytesRead);
                 m_buffer.emitReadyRead();
             }
 
-            if (QThread::currentThread()->isInterruptionRequested())
+            const bool brokenPipe = !result && GetLastError() == ERROR_BROKEN_PIPE;
+            if (QThread::currentThread()->isInterruptionRequested() || brokenPipe)
                 break;
 
             QCoreApplication::processEvents();
