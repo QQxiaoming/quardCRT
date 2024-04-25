@@ -10,8 +10,12 @@ public:
     WinPtyProcess();
     ~WinPtyProcess();
 
-    bool startProcess(const QString &shellPath, QStringList args,
-                 QStringList environment, QString workDir, qint16 cols, qint16 rows);
+    virtual bool startProcess(const QString &executable,
+                    const QStringList &arguments,
+                    const QString &workingDir,
+                    QStringList environment,
+                    qint16 cols,
+                    qint16 rows);
     bool resize(qint16 cols, qint16 rows);
     bool kill();
     PtyType type();
@@ -22,7 +26,7 @@ public:
     QString currentDir();
     virtual bool hasChildProcess();
     virtual pidTree_t processInfoTree();
-    bool isAvailable();
+    static bool isAvailable();
     void moveToThread(QThread *targetThread);
 
 private:

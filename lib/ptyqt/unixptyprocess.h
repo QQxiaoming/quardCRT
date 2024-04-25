@@ -96,8 +96,12 @@ public:
     UnixPtyProcess();
     virtual ~UnixPtyProcess();
 
-    virtual bool startProcess(const QString &shellPath, QStringList args,
-                 QStringList environment, QString workDir, qint16 cols, qint16 rows);
+    virtual bool startProcess(const QString &executable,
+                      const QStringList &arguments,
+                      const QString &workingDir,
+                      QStringList environment,
+                      qint16 cols,
+                      qint16 rows);
     virtual bool resize(qint16 cols, qint16 rows);
     virtual bool kill();
     virtual PtyType type();
@@ -108,7 +112,7 @@ public:
     virtual QString currentDir();
     virtual bool hasChildProcess();
     virtual pidTree_t processInfoTree();
-    virtual bool isAvailable();
+    static bool isAvailable();
     void moveToThread(QThread *targetThread);
 
 private:

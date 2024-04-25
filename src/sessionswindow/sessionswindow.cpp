@@ -563,7 +563,7 @@ int SessionsWindow::startLocalShellSession(const QString &command) {
     if(forceUTF8) {
         envs.append("LC_CTYPE=UTF-8");
     }
-    bool ret = localShell->startProcess(shellPath, args, envs, workingDirectory, term->screenColumnsCount(), term->screenLinesCount());
+    bool ret = localShell->startProcess(shellPath, args, workingDirectory, envs, term->screenColumnsCount(), term->screenLinesCount());
     if(!ret) {
         state = Error;
         emit stateChanged(state);

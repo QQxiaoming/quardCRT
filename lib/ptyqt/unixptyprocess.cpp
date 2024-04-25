@@ -17,8 +17,8 @@ UnixPtyProcess::~UnixPtyProcess()
     kill();
 }
 
-bool UnixPtyProcess::startProcess(const QString &shellPath, QStringList args,
-                 QStringList environment, QString workDir, qint16 cols, qint16 rows)
+bool UnixPtyProcess::startProcess(const QString &shellPath, const QStringList &args,
+                 const QString &workDir, QStringList environment, qint16 cols, qint16 rows)
 {
     if (!isAvailable())
     {
