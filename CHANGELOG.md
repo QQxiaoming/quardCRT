@@ -2,14 +2,14 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
-## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
+## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
 
 en-US:
 
 - Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
 - Fix the issue of abnormal width of rendering symbols '×' '÷' and '‖'
 - Fix the issue of program crash in a small probability situation
-- Fix cursor positioning issues
+- Fix cursor positioning issues [#I8RB90](https://gitee.com/QQxiaoming/quardCRT/issues/I8RB90)
 - Remove the dependency on core5compat in Qt (Refer to the pr upstream of qtermwidget, but with modifications).
 - Prohibit to look up the historical information with the middle mouse scrolling (Refer to the pr upstream of qtermwidget, but with modifications).
 - Fix rendering issue with abnormal width of some symbols
