@@ -17,8 +17,12 @@ UnixPtyProcess::~UnixPtyProcess()
     kill();
 }
 
-bool UnixPtyProcess::startProcess(const QString &shellPath, const QStringList &args,
-                 const QString &workDir, QStringList environment, qint16 cols, qint16 rows)
+bool UnixPtyProcess::startProcess(const QString &executable,
+                                 const QStringList &arguments,
+                                 const QString &workingDir,
+                                 QStringList environment,
+                                 qint16 cols,
+                                 qint16 rows)
 {
     if (!isAvailable())
     {
@@ -29,15 +33,15 @@ bool UnixPtyProcess::startProcess(const QString &shellPath, const QStringList &a
     if (m_shellProcess.state() == QProcess::Running)
         return false;
 
-    QFileInfo fi(shellPath);
-    if (fi.isRelative() || !QFile::exists(shellPath))
+    QFileInfo fi(executable);
+    if (fi.isRelative() || !QFile::exists(executable))
     {
         //todo add auto-find executable in PATH env var
         m_lastError = QString("UnixPty Error: shell file path must be absolute");
         return false;
     }
 
-    m_shellPath = shellPath;
+    m_shellPath = executable;
     m_size = QPair<qint16, qint16>(cols, rows);
 
     int rc = 0;
@@ -178,7 +182,7 @@ bool UnixPtyProcess::startProcess(const QString &shellPath, const QStringList &a
     defaultVars.append("ITERM_PROFILE=Default");
     defaultVars.append("XPC_FLAGS=0x0");
     defaultVars.append("XPC_SERVICE_NAME=0");
-    defaultVars.append("INIT_CWD=" + workDir);
+    defaultVars.append("INIT_CWD=" + workingDir);
     defaultVars.append("COMMAND_MODE=unix2003");
     defaultVars.append("COLORTERM=truecolor");
 
@@ -205,12 +209,12 @@ bool UnixPtyProcess::startProcess(const QString &shellPath, const QStringList &a
             envFormat.insert(line.split("=").first(), line.split("=").last());
         }
     }
-    m_shellProcess.setWorkingDirectory(workDir);
+    m_shellProcess.setWorkingDirectory(workingDir);
     m_shellProcess.setProcessEnvironment(envFormat);
     m_shellProcess.setReadChannel(QProcess::StandardOutput);
 
 
-    m_shellProcess.start(m_shellPath, args);
+    m_shellProcess.start(m_shellPath, arguments);
     m_shellProcess.waitForStarted();
 
     m_pid = m_shellProcess.processId();

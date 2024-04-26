@@ -33,8 +33,12 @@ WinPtyProcess::~WinPtyProcess()
     kill();
 }
 
-bool WinPtyProcess::startProcess(const QString &shellPath, const QStringList &args,
-                const QString &workDir, QStringList environment, qint16 cols, qint16 rows)
+bool WinPtyProcess::startProcess(const QString &executable,
+                                 const QStringList &arguments,
+                                 const QString &workingDir,
+                                 QStringList environment,
+                                 qint16 cols,
+                                 qint16 rows)
 {
     if (!isAvailable())
     {
@@ -46,15 +50,15 @@ bool WinPtyProcess::startProcess(const QString &shellPath, const QStringList &ar
     if (m_ptyHandler != nullptr)
         return false;
 
-    QFileInfo fi(shellPath);
-    if (fi.isRelative() || !QFile::exists(shellPath))
+    QFileInfo fi(executable);
+    if (fi.isRelative() || !QFile::exists(executable))
     {
         //todo add auto-find executable in PATH env var
         m_lastError = QString("WinPty Error: shell file path must be absolute");
         return false;
     }
 
-    m_shellPath = shellPath;
+    m_shellPath = executable;
     m_size = QPair<qint16, qint16>(cols, rows);
 
 #ifdef PTYQT_DEBUG
@@ -103,12 +107,12 @@ bool WinPtyProcess::startProcess(const QString &shellPath, const QStringList &ar
     }
     winpty_error_free(errorPtr);
 
-    QString commandLine = fi.fileName() + " " + args.join(" ");
+    QString commandLine = fi.fileName() + " " + arguments.join(" ");
     //create spawn config
     winpty_spawn_config_t* spawnConfig = winpty_spawn_config_new(WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN, 
                                                                  m_shellPath.toStdWString().c_str(),
-                                                                 args.count()? commandLine.toStdWString().c_str():NULL,
-                                                                 workDir.toStdWString().c_str(),
+                                                                 arguments.count()? commandLine.toStdWString().c_str():NULL,
+                                                                 workingDir.toStdWString().c_str(),
                                                                  env.c_str(),
                                                                  &errorPtr);
 

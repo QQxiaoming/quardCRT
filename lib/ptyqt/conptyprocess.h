@@ -30,7 +30,6 @@ class PtyBuffer : public QIODevice
     friend class ConPtyProcess;
     Q_OBJECT
 public:
-
     //just empty realization, we need only 'readyRead' signal of this class
     qint64 readData(char *data, qint64 maxlen) { return 0; }
     qint64 writeData(const char *data, qint64 len) { return 0; }
