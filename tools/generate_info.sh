@@ -11,7 +11,7 @@ case "${UNAMEOUT}" in
         ;;
 esac
 
-git_info=$(git describe --always --long --dirty --abbrev=10 --tags)
+git_info=$(git describe --always --long --dirty --abbrev=10 --tags --exclude 'MS_Store_*')
 git_short_hash=$(git rev-parse --short HEAD)
 git_hash=$(git rev-parse HEAD)
 

@@ -1,5 +1,5 @@
 
-$git_info = $(git describe --always --long --dirty --abbrev=10 --tags)
+$git_info = $(git describe --always --long --dirty --abbrev=10 --tags --exclude "MS_Store_*")
 $git_short_hash = $(git rev-parse --short HEAD)
 $git_hash = $(git rev-parse HEAD)
 $date_info = $([String]::Format("{0:yyyy-MM-ddTHH:mm:ss.fffZ}", $(Get-Date).ToUniversalTime()))
