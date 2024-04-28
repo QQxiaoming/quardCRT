@@ -289,7 +289,7 @@ int main(int argc, char *argv[])
     if(app_lang == "en_US") locale = QLocale::English;
     if(app_lang == "de_DE") locale = QLocale::German;
     if(app_lang == "cs_CZ") locale = QLocale::Czech;
-    if(app_lang == "ar_SA") locale = QLocale::Arabic;qApp->setLayoutDirection(Qt::RightToLeft);
+    if(app_lang == "ar_SA") {locale = QLocale::Arabic;qApp->setLayoutDirection(Qt::RightToLeft);}
     CentralWidget::setAppLangeuage(locale);
 
 #if 0 // Now we always use the dark theme, Because the dark theme is more beautiful
