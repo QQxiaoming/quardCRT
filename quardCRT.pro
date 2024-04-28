@@ -11,7 +11,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += APP_VERSION="\\\"V$${BUILD_VERSION}\\\""
 
 include(./lib/QFontIcon/QFontIcon.pri)
-include(./lib/qtermwidget/qtermwidget.pro)
+include(./lib/qtermwidget/qtermwidget.pri)
 include(./lib/QTelnet/QTelnet.pri)
 include(./lib/ptyqt/ptyqt.pri)
 include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)

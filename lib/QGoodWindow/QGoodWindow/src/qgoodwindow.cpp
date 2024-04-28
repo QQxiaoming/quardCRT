@@ -764,6 +764,12 @@ void QGoodWindow::setAppLightTheme()
     qApp->style()->setObjectName("fusion");
 }
 
+void QGoodWindow::setAppCustomTheme(const QColor &c)
+{
+    qApp->setStyle(new CustomColorStyle(c));
+    qApp->style()->setObjectName("fusion");
+}
+
 QGoodStateHolder *QGoodWindow::qGoodStateHolderInstance()
 {
     return QGoodStateHolder::instance();

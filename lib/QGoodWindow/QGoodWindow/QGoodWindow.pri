@@ -28,23 +28,16 @@ QT += winextras
 
 CONFIG += c++11
 
+include($$PWD/src/theme/theme.pri)
+
 SOURCES += \
     $$PWD/src/qgoodwindow.cpp \
-    $$PWD/src/qgoodstateholder.cpp \
-    $$PWD/src/lightstyle.cpp \
-    $$PWD/src/darkstyle.cpp \
-    $$PWD/src/stylecommon.cpp
+    $$PWD/src/qgoodstateholder.cpp
 
 HEADERS += \
     $$PWD/src/qgoodwindow.h \
     $$PWD/src/qgoodstateholder.h \
-    $$PWD/src/intcommon.h \
-    $$PWD/src/lightstyle.h \
-    $$PWD/src/darkstyle.h \
-    $$PWD/src/stylecommon.h
-
-RESOURCES += \
-    $$PWD/src/qgoodwindow_style.qrc
+    $$PWD/src/intcommon.h
 
 INCLUDEPATH += $$PWD #include <QGoodWindow>
 

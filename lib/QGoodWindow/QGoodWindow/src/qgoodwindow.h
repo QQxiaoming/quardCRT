@@ -32,6 +32,7 @@ SOFTWARE.
 #include "qgoodstateholder.h"
 #include "lightstyle.h"
 #include "darkstyle.h"
+#include "customcolorstyle.h"
 
 #include "qgoodwindow_global.h"
 
@@ -161,6 +162,8 @@ public:
 
     /** Set the app theme to the light theme. */
     static void setAppLightTheme();
+
+    static void setAppCustomTheme(const QColor &c);
 
     /** Get the global state holder. */
     static QGoodStateHolder *qGoodStateHolderInstance();

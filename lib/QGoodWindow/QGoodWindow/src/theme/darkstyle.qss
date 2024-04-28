@@ -172,7 +172,7 @@ QGroupBox::title{
   border-top-right-radius:4px;
 }
 QTabWidget::pane{
-  background-color:rgba(66,66,66,50%);
+  background-color:palette(disabled);
   border-top:1px solid rgba(25,25,25,50%);
 }
 QTabWidget::tab-bar{
