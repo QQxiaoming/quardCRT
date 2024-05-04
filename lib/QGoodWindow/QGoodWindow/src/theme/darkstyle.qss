@@ -121,9 +121,11 @@ QComboBox::indicator{
   selection-color:transparent;
 }
 QSplitter::handle:horizontal{
+  background:palette(base);
   width:10px;
 }
 QSplitter::handle:vertical{
+  background:palette(base);
   height:10px;
 }
 QMainWindow::separator:hover,QSplitter::handle:hover{

@@ -764,9 +764,13 @@ void QGoodWindow::setAppLightTheme()
     qApp->style()->setObjectName("fusion");
 }
 
-void QGoodWindow::setAppCustomTheme(const QColor &c)
+void QGoodWindow::setAppCustomTheme(bool isDark, const QColor &c)
 {
-    qApp->setStyle(new CustomColorStyle(c));
+    if(isDark) {
+        qApp->setStyle(new CustomColorDarkStyle(c));
+    } else {
+        qApp->setStyle(new CustomColorLightStyle(c));
+    }
     qApp->style()->setObjectName("fusion");
 }
 

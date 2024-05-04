@@ -121,9 +121,11 @@ QComboBox::indicator{
   selection-color:transparent;
 }
 QSplitter::handle:horizontal{
+  background:palette(base);
   width:10px;
 }
 QSplitter::handle:vertical{
+  background:palette(base);
   height:10px;
 }
 QMainWindow::separator:hover,QSplitter::handle:hover{
@@ -172,7 +174,7 @@ QGroupBox::title{
   border-top-right-radius:4px;
 }
 QTabWidget::pane{
-  background-color:rgba(200,200,200,50%);
+  background-color:palette(disabled);
   border-top:1px solid rgba(220,220,220,50%);
 }
 QTabWidget::tab-bar{

@@ -275,6 +275,7 @@ private:
     QActionGroup *themeActionGroup;
     QAction *lightThemeAction;
     QAction *darkThemeAction;
+    QAction *themeColorAction;
     QAction *helpAction;
     QAction *keyboradShortcutsReferenceAction;
     QAction *checkUpdateAction;
@@ -312,6 +313,8 @@ private:
 
     QLocale language;
     bool isDarkTheme;
+    QColor themeColor;
+    bool themeColorEnable = false;
     class MainWindow *mainWindow = nullptr;
 };
 

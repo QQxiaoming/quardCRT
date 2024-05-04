@@ -163,7 +163,7 @@ public:
     /** Set the app theme to the light theme. */
     static void setAppLightTheme();
 
-    static void setAppCustomTheme(const QColor &c);
+    static void setAppCustomTheme(bool isDark, const QColor &c);
 
     /** Get the global state holder. */
     static QGoodStateHolder *qGoodStateHolderInstance();

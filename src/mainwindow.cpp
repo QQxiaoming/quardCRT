@@ -48,6 +48,7 @@
 #include <QPrintDialog>
 #include <QPluginLoader>
 #include <QMap>
+#include <QColorDialog>
 
 #include "filedialog.h"
 #include "qtftp.h"
@@ -1004,7 +1005,7 @@ void CentralWidget::saveSettings(void) {
     GlobalSetting settings;
     if(mainWindow) {
         settings.setValue("MainWindow/Geometry", mainWindow->saveGeometry());
-        settings.setValue("MainWindow/State", mainWindow->saveState());
+        //settings.setValue("MainWindow/State", mainWindow->saveState());
     } else {
         settings.setValue("MainWindow/Geometry", saveGeometry());
         settings.setValue("MainWindow/State", saveState());
@@ -1019,6 +1020,14 @@ void CentralWidget::restoreSettings(void) {
     } else {
         restoreGeometry(settings.value("MainWindow/Geometry").toByteArray());
         restoreState(settings.value("MainWindow/State").toByteArray());
+    }
+    themeColor = settings.value("Global/Startup/themeColor",QColor(30,30,30)).value<QColor>();
+    themeColorEnable = settings.value("Global/Startup/themeColorEnable",false).toBool();
+    if(themeColorEnable) {
+        QTimer::singleShot(0, this, [&](){
+            qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
+            QGoodWindow::setAppCustomTheme(isDarkTheme,this->themeColor); // Must be >96
+        });
     }
 }
 
@@ -1291,6 +1300,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     lightThemeAction->setStatusTip(tr("Switch to light theme"));
     darkThemeAction->setText(tr("Dark"));
     darkThemeAction->setStatusTip(tr("Switch to dark theme"));
+    themeColorAction->setText(tr("Theme Color"));
+    themeColorAction->setStatusTip(tr("Set theme color, cancel to use default"));
 
     helpAction->setText(tr("Help"));
     helpAction->setIcon(QFontIcon::icon(QChar(0xf128)));
@@ -1677,6 +1688,9 @@ void CentralWidget::menuAndToolBarInit(void) {
     darkThemeAction->setCheckable(true);
     darkThemeAction->setChecked(isDarkTheme);
     themeMenu->addAction(darkThemeAction);
+    themeMenu->addSeparator();
+    themeColorAction = new QAction(this);
+    themeMenu->addAction(themeColorAction);
 
     helpAction = new QAction(this);
     helpMenu->addAction(helpAction);
@@ -2711,6 +2725,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         if(!isDarkTheme) return;
         isDarkTheme = false;
         qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
+        if(themeColorEnable) QGoodWindow::setAppCustomTheme(isDarkTheme,themeColor);
         QFontIcon::instance()->setColor(Qt::black);
         menuAndToolBarRetranslateUi();
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
@@ -2727,6 +2742,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         if(isDarkTheme) return;
         isDarkTheme = true;
         qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
+        if(themeColorEnable) QGoodWindow::setAppCustomTheme(isDarkTheme,themeColor);
         QFontIcon::instance()->setColor(Qt::white);
         menuAndToolBarRetranslateUi();
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
@@ -2738,6 +2754,21 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         globalOptionsWindow->switchTheme();
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","true");
+    });
+    connect(themeColorAction,&QAction::triggered,this,[=](){
+        GlobalSetting settings;
+        QColor color = QColorDialog::getColor(themeColor, this, tr("Select color"));
+        if (color.isValid()) {
+            themeColor = color;
+            themeColorEnable = true;
+            qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
+            QGoodWindow::setAppCustomTheme(isDarkTheme,themeColor);
+            settings.setValue("Global/Startup/themeColor",themeColor);
+        } else {
+            themeColorEnable = false;
+            qGoodStateHolder->setCurrentThemeDark(isDarkTheme);
+        }
+        settings.setValue("Global/Startup/themeColorEnable",themeColorEnable);
     });
     connect(exitAction, &QAction::triggered, this, [&](){
         qApp->quit();
