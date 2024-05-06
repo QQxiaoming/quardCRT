@@ -49,7 +49,9 @@
 #include "sessionoptionswindow.h"
 #include "globalsetting.h"
 #include "qtftp.h"
+#ifdef ENABLE_SSH
 #include "sftpwindow.h"
+#endif
 #include "netscanwindow.h"
 #include "plugininfowindow.h"
 #include "keychainclass.h"
@@ -167,7 +169,9 @@ private:
     QHBoxLayout *sideHboxLayout;
     StartTftpSeverWindow *startTftpSeverWindow;
     LockSessionWindow *lockSessionWindow;
+#ifdef ENABLE_SSH
     SftpWindow *sftpWindow;
+#endif
     NetScanWindow *netScanWindow;
     PluginInfoWindow *pluginInfoWindow;
 

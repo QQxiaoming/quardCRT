@@ -1,3 +1,5 @@
+DEFINES += ENABLE_SSH # depend libssh2
+
 !versionAtLeast(QT_VERSION, 6.5.0) {
     message("Cannot use Qt $$QT_VERSION")
     error("Use Qt 6.5.0 or newer")
@@ -16,7 +18,9 @@ include(./lib/QTelnet/QTelnet.pri)
 include(./lib/ptyqt/ptyqt.pri)
 include(./lib/QtFancyTabWidget/QtFancyTabWidget.pri)
 include(./lib/Qtftp/Qtftp.pri)
-include(./lib/qtssh/qtssh.pri)
+contains(DEFINES, ENABLE_SSH) {
+    include(./lib/qtssh/qtssh.pri)
+}
 include(./lib/qcustomfilesystemmodel/qcustomfilesystemmodel.pri)
 include(./lib/qtkeychain/qtkeychain.pri)
 include(./lib/QVNCClient/QVNCClient.pri)
@@ -41,7 +45,6 @@ INCLUDEPATH += \
     src/quickconnectwindow \
     src/starttftpseverwindow \
     src/hexviewwindow \
-    src/sftpwindow \
     src/netscanwindow \
     src/plugininfowindow \
     src/plugin \
@@ -52,7 +55,6 @@ SOURCES += \
     src/plugininfowindow/plugininfowindow.cpp \
     src/pluginviewerwidget/pluginviewerhomewidget.cpp \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
-    src/sftpwindow/sftpmenubookmarkwidget.cpp \
     src/util/logger.cpp \
     src/util/misc.cpp \
     src/util/globalsetting.cpp \
@@ -85,7 +87,6 @@ SOURCES += \
     src/starttftpseverwindow/starttftpseverwindow.cpp \
     src/hexviewwindow/hexviewwindow.cpp \
     src/netscanwindow/netscanwindow.cpp \
-    src/sftpwindow/sftpwindow.cpp \
     src/sessiontab/sessiontab.cpp \
     src/sessionswindow/sessionswindow.cpp \
     src/mainwidgetgroup.cpp \
@@ -97,7 +98,6 @@ HEADERS += \
     src/plugininfowindow/plugininfowindow.h \
     src/pluginviewerwidget/pluginviewerhomewidget.h \
     src/pluginviewerwidget/pluginviewerwidget.h \
-    src/sftpwindow/sftpmenubookmarkwidget.h \
     src/util/logger.h \
     src/util/misc.h \
     src/util/argv_split.h \
@@ -132,7 +132,6 @@ HEADERS += \
     src/hexviewwindow/hexviewwindow.h \
     src/starttftpseverwindow/starttftpseverwindow.h \
     src/netscanwindow/netscanwindow.h \
-    src/sftpwindow/sftpwindow.h \
     src/sessiontab/sessiontab.h \
     src/sessionswindow/sessionswindow.h \
     src/mainwidgetgroup.h \
@@ -166,11 +165,23 @@ FORMS += \
     src/quickconnectwindow/quickconnectwindow.ui \
     src/hexviewwindow/hexviewwindow.ui \
     src/netscanwindow/netscanwindow.ui \
-    src/sftpwindow/sftpmenubookmarkwidget.ui \
-    src/sftpwindow/sftpwindow.ui \
     src/starttftpseverwindow/starttftpseverwindow.ui \
     src/util/filedialog.ui \
     src/mainwindow.ui
+
+contains(DEFINES, ENABLE_SSH) {
+    INCLUDEPATH += \
+        src/sftpwindow
+    SOURCES += \
+        src/sftpwindow/sftpmenubookmarkwidget.cpp \
+        src/sftpwindow/sftpwindow.cpp
+    HEADERS += \
+        src/sftpwindow/sftpmenubookmarkwidget.h \
+        src/sftpwindow/sftpwindow.h
+    FORMS += \
+        src/sftpwindow/sftpmenubookmarkwidget.ui \
+        src/sftpwindow/sftpwindow.ui
+}
 
 RESOURCES += \
     res/resource.qrc

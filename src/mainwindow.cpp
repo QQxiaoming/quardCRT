@@ -62,7 +62,9 @@
 #include "mainwindow.h"
 #include "globalsetting.h"
 #include "sessionoptionswindow.h"
+#ifdef ENABLE_SSH
 #include "sshsftp.h"
+#endif
 #include "misc.h"
 
 #include "ui_mainwindow.h"
@@ -108,7 +110,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     lockSessionWindow = new LockSessionWindow(this);
 
+#ifdef ENABLE_SSH
     sftpWindow = new SftpWindow(this);
+#endif
 
     netScanWindow = new NetScanWindow(this);
 
@@ -372,6 +376,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             QMessageBox::warning(this, tr("Warning"), tr("No working folder!"));
                         });
                     }
+                    #ifdef ENABLE_SSH
                     if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
                         QAction *openSFtpAction = new QAction(tr("Open SFTP"),this);
                         openSFtpAction->setStatusTip(tr("Open SFTP in a new window"));
@@ -389,6 +394,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             sftpWindow->show();
                         });
                     }
+                    #endif
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
                     saveSessionAction->setStatusTip(tr("Save current session to session manager"));
                     menu->addAction(saveSessionAction);
@@ -3363,6 +3369,7 @@ QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, const QStr
 QString CentralWidget::startSSH2Session(MainWidgetGroup *group, 
         QString hostname, quint16 port, QString username, QString password, QString name)
 {
+#ifdef ENABLE_SSH
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::SSH2,this);
     setGlobalOptions(sessionsWindow);
     sessionsWindow->setLongTitle("SSH2 - "+username+"@"+hostname);
@@ -3391,6 +3398,9 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group,
     });
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
     return name;
+#else
+    return name;
+#endif
 }
 
 QString CentralWidget::startVNCSession(MainWidgetGroup *group, QString hostname, quint16 port, QString password, QString name)
@@ -3437,9 +3447,11 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
                 reply = QMessageBox::question(this, tr("Warning"), tr("Are you sure to disconnect this session?"),
                                             QMessageBox::Yes|QMessageBox::No);
                 if (reply == QMessageBox::Yes) {
+                #ifdef ENABLE_SSH
                     if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
                         sftpWindow->hide();
                     }
+                #endif
                     sessionList.removeOne(sessionsWindow);
                     group->sessionTab->removeTab(index);
                     delete sessionsWindow;

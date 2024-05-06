@@ -28,12 +28,14 @@
 #include <QMutex>
 #include <QMutexLocker>
 
+#ifdef ENABLE_SSH
 #include "sshclient.h"
 #include "sshtunnelout.h"
+#include "sshsftp.h"
+#endif
 #include "qtermwidget.h"
 #include "QTelnet.h"
 #include "ptyqt.h"
-#include "sshsftp.h"
 #include "qvncclientwidget.h"
 
 class SessionsWindow : public QObject
@@ -91,7 +93,9 @@ public:
                     int dataBits, int parity, int stopBits, bool flowControl, bool xEnable );
     int startRawSocketSession(const QString &hostname, quint16 port);
     int startNamePipeSession(const QString &name);
+#ifdef ENABLE_SSH
     int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password);
+#endif
     int startVNCSession(const QString &hostname, quint16 port, const QString &password);
 
     void reconnect(void);
@@ -143,7 +147,9 @@ public:
     bool hasChildProcess();
     StateInfo getStateInfo(void);
     void refeshTermSize(void);
+#ifdef ENABLE_SSH
     SshSFtp *getSshSFtpChannel(void);
+#endif
 
     QString getHostname() const { return m_hostname; }
     quint16 getPort() const { return m_port; }
@@ -351,7 +357,9 @@ private:
     QTcpSocket *rawSocket;
     IPtyProcess *localShell;
     QLocalSocket *namePipe;
+#ifdef ENABLE_SSH
     SshClient *ssh2Client;
+#endif
     QVNCClientWidget *vncClient;
     bool enableLog;
     bool enableRawLog;

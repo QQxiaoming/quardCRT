@@ -34,7 +34,9 @@
 #include "qxymodem.h"
 #include "qsendzmodem.h"
 #include "qrecvzmodem.h"
+#ifdef ENABLE_SSH
 #include "sshshell.h"
+#endif
 #include "filedialog.h"
 #include "sessionswindow.h"
 #include "globaloptionswindow.h"
@@ -54,7 +56,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , rawSocket(nullptr)
     , localShell(nullptr)
     , namePipe(nullptr)
+#ifdef ENABLE_SSH
     , ssh2Client(nullptr)
+#endif
     , vncClient(nullptr)
     , enableLog(false)
     , enableRawLog(false) {
@@ -300,6 +304,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             break;
         }
         case SSH2: {
+        #ifdef ENABLE_SSH
             ssh2Client = new SshClient("ssh2", this);
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
                 SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
@@ -350,6 +355,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 state = Error;
                 emit stateChanged(state);
             });
+        #endif
             break;
         }
         case VNC:
@@ -471,10 +477,12 @@ SessionsWindow::~SessionsWindow() {
         if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
         delete namePipe;
     }
+#ifdef ENABLE_SSH
     if(ssh2Client) {
         ssh2Client->disconnectFromHost();
         delete ssh2Client;
     }
+#endif
     if(vncClient) {
         vncClient->disconnectFromVncServer();
         delete vncClient;
@@ -503,7 +511,9 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
             startNamePipeSession(src->m_pipeName);
             break;
         case SSH2:
+        #ifdef ENABLE_SSH
             startSSH2Session(src->m_hostname, src->m_port, src->m_username, src->m_password);
+        #endif
             break;
         case VNC:
             startVNCSession(src->m_hostname, src->m_port, src->m_password);
@@ -658,6 +668,7 @@ int SessionsWindow::startNamePipeSession(const QString &name) {
     return 0;
 }
 
+#ifdef ENABLE_SSH
 int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password) {
     QByteArrayList methodes;
     methodes.append("password");
@@ -669,6 +680,7 @@ int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, cons
     m_password = password;
     return 0;
 }
+#endif
 
 int SessionsWindow::startVNCSession(const QString &hostname, quint16 port, const QString &password) {
     vncClient->connectToVncServer(hostname,password,port);
@@ -729,7 +741,9 @@ void SessionsWindow::disconnect(void) {
             if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
             break;
         case SSH2:
+        #ifdef ENABLE_SSH
             ssh2Client->disconnectFromHost();
+        #endif
             break;
         case VNC:
             vncClient->disconnectFromVncServer();
@@ -1368,12 +1382,14 @@ void SessionsWindow::recvFileUseZModem(const QString &downloadPath) {
     }
 }
 
+#ifdef ENABLE_SSH
 SshSFtp *SessionsWindow::getSshSFtpChannel(void) {
     if(type == SSH2) {
         return ssh2Client->getChannel<SshSFtp>("quardCRT.sftp");
     }
     return nullptr;
 }
+#endif
 
 bool SessionsWindow::hasChildProcess() {
     if(type == LocalShell) {
