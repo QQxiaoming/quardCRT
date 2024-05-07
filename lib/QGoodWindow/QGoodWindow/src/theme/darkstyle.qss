@@ -32,6 +32,9 @@ QMenuBar::item{
 QMenuBar::item:selected{
   background-color:rgba(80,80,80,255);
 }
+QToolButton:hover{
+  background-color:rgba(80,80,80,255);
+}
 QMenuBar::item:pressed{
   background-color:palette(highlight);
   color:rgba(255,255,255,255);

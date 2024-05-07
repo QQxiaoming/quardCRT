@@ -46,6 +46,7 @@ INCLUDEPATH += \
     src/starttftpseverwindow \
     src/hexviewwindow \
     src/netscanwindow \
+    src/statusbarwidget \
     src/plugininfowindow \
     src/plugin \
     src
@@ -55,6 +56,7 @@ SOURCES += \
     src/plugininfowindow/plugininfowindow.cpp \
     src/pluginviewerwidget/pluginviewerhomewidget.cpp \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
+    src/statusbarwidget/statusbarwidget.cpp \
     src/util/logger.cpp \
     src/util/misc.cpp \
     src/util/globalsetting.cpp \
@@ -98,6 +100,7 @@ HEADERS += \
     src/plugininfowindow/plugininfowindow.h \
     src/pluginviewerwidget/pluginviewerhomewidget.h \
     src/pluginviewerwidget/pluginviewerwidget.h \
+    src/statusbarwidget/statusbarwidget.h \
     src/util/logger.h \
     src/util/misc.h \
     src/util/argv_split.h \
@@ -166,6 +169,7 @@ FORMS += \
     src/hexviewwindow/hexviewwindow.ui \
     src/netscanwindow/netscanwindow.ui \
     src/starttftpseverwindow/starttftpseverwindow.ui \
+    src/statusbarwidget/statusbarwidget.ui \
     src/util/filedialog.ui \
     src/mainwindow.ui
 

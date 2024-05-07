@@ -290,6 +290,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     }
                 }
             }
+            refreshStatusBar();
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
             QMenu *menu = new QMenu(this);
@@ -715,6 +716,21 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     }
     #endif
 
+    statusBarMessage = new QLabel(tr("Ready"),ui->statusBar);
+    ui->statusBar->addPermanentWidget(statusBarMessage,100);
+    connect(ui->statusBar,&QStatusBar::messageChanged,this,[&](const QString &message){
+        statusBarMessage->setText(message);
+    });
+    
+    statusBarWidget = new StatusBarWidget(ui->statusBar);
+    ui->statusBar->addPermanentWidget(statusBarWidget,0);
+    statusBarWidgetRefreshTimer = new QTimer(this);
+    statusBarWidgetRefreshTimer->setInterval(1000);
+    connect(statusBarWidgetRefreshTimer,&QTimer::timeout,this,[&](){
+        refreshStatusBar();
+    });
+    statusBarWidgetRefreshTimer->start();
+
     ui->statusBar->showMessage(tr("Ready"));
 
     if(!dir.isEmpty()) {
@@ -1007,11 +1023,65 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
     dialog->show();
 }
 
+void CentralWidget::refreshStatusBar(void) {
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) {
+        statusBarWidget->setType(QString());
+        statusBarWidget->setTransInfo(-1,-1);
+        statusBarWidget->setCursorPosition(-1,-1);
+        return;
+    }
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    if(sessionsWindow == nullptr) {
+        statusBarWidget->setType(QString());
+        statusBarWidget->setTransInfo(-1,-1);
+        statusBarWidget->setCursorPosition(-1,-1);
+        return;
+    }
+    statusBarWidget->setCursorPosition(sessionsWindow->getCursorLineCount(),sessionsWindow->getCursorColumnCount());
+    SessionsWindow::StateInfo stateInfo = sessionsWindow->getStateInfo();
+    switch(stateInfo.type) {
+        case SessionsWindow::LocalShell:
+            statusBarWidget->setType(tr("Local Shell"));
+            statusBarWidget->setTransInfo(-1,-1);
+            break;
+        case SessionsWindow::Telnet:
+            statusBarWidget->setType(tr("Telnet"));
+            statusBarWidget->setTransInfo(stateInfo.telnet.tx_total,stateInfo.telnet.rx_total);
+            break;
+        case SessionsWindow::RawSocket:
+            statusBarWidget->setType(tr("Raw Socket"));
+            statusBarWidget->setTransInfo(stateInfo.rawSocket.tx_total,stateInfo.rawSocket.rx_total);
+            break;
+        case SessionsWindow::NamePipe:
+            statusBarWidget->setType(tr("Name Pipe"));
+            statusBarWidget->setTransInfo(-1,-1);
+            break;
+        case SessionsWindow::SSH2:
+            statusBarWidget->setType(tr("SSH"));
+            statusBarWidget->setTransInfo(stateInfo.ssh2.tx_total,stateInfo.ssh2.rx_total);
+            break;
+        case SessionsWindow::Serial:
+            statusBarWidget->setType(tr("Serial"));
+            statusBarWidget->setTransInfo(stateInfo.serial.tx_total,stateInfo.serial.rx_total);
+            break;
+        case SessionsWindow::VNC:
+            statusBarWidget->setType(tr("VNC"));
+            statusBarWidget->setTransInfo(-1,-1);
+            break;
+        default:
+            statusBarWidget->setType(tr("Unknown"));
+            statusBarWidget->setTransInfo(-1,-1);
+            break;
+    }
+}
+
+
 void CentralWidget::saveSettings(void) {
     GlobalSetting settings;
     if(mainWindow) {
         settings.setValue("MainWindow/Geometry", mainWindow->saveGeometry());
-        //settings.setValue("MainWindow/State", mainWindow->saveState());
+        settings.setValue("MainWindow/State", mainWindow->saveState());
     } else {
         settings.setValue("MainWindow/Geometry", saveGeometry());
         settings.setValue("MainWindow/State", saveState());

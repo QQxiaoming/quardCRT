@@ -44,6 +44,7 @@
 #include "sessionmanagerwidget.h"
 #include "pluginviewerwidget.h"
 #include "commandwidget.h"
+#include "statusbarwidget.h"
 #include "starttftpseverwindow.h"
 #include "locksessionwindow.h"
 #include "sessionoptionswindow.h"
@@ -131,6 +132,7 @@ private:
     void floatingWindow(MainWidgetGroup *g, int index);
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
     void swapSideHboxLayout(void);
+    void refreshStatusBar(void);
 
 private slots:
     void onPluginRequestTelnetConnect(QString host, int port, int type);
@@ -300,6 +302,10 @@ private:
     QShortcut *shortcutTabSwitch[9];
     QShortcut *shortcutConnectAddressEdit;
     QShortcut *shortcutExitFullScreen;
+
+    QLabel *statusBarMessage;
+    StatusBarWidget *statusBarWidget;
+    QTimer *statusBarWidgetRefreshTimer;
 
     QStringList zmodemUploadList;
 

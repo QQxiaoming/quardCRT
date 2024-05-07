@@ -74,8 +74,8 @@ public:
         palette.setColor(QPalette::Disabled, QPalette::Highlight, QColor(51, 153, 255));
         palette.setColor(QPalette::HighlightedText, QColor(255, 255, 255));
         palette.setColor(QPalette::Disabled, QPalette::HighlightedText, QColor(255, 255, 255));
-
     }
+
 private:
     QColor color;
 };

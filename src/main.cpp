@@ -193,9 +193,10 @@ int main(int argc, char *argv[])
         debugLogFile = settings.value("Debug/DebugLogFile","").toString();
     }
     Logger::Instance()->installMessageHandler(debugLogFile,debugLevel);
-    qDebug() << "DebugMode: " << debugMode;
-    qDebug() << "DebugLevel: " << debugLevel;
-    qDebug() << "DebugLogFile: " << debugLogFile;
+    qDebug() << "DebugMode:" << debugMode;
+    qDebug() << "DebugLevel:" << debugLevel;
+    qDebug() << "DebugLogFile:" << debugLogFile;
+    qDebug() << "Start Application Time:" << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
     
     if(settings.value("Global/Options/enableNativeUI",false).toBool()) {
         QApplication::setAttribute(Qt::AA_DontUseNativeDialogs,false);
@@ -211,13 +212,13 @@ int main(int argc, char *argv[])
 
     settings.beginGroup("Version");
     if(settings.contains("Version"))
-        if(debugMode) qDebug() << "Setting Version: " << settings.value("Version").toString();
+        if(debugMode) qDebug() << "Setting Version:" << settings.value("Version").toString();
     if(debugMode) qDebug() << "Version: " << VERSION;
     if(settings.contains("GitTag"))
-        if(debugMode) qDebug() << "Setting GitTag: " << settings.value("GitTag").toString();
+        if(debugMode) qDebug() << "Setting GitTag:" << settings.value("GitTag").toString();
     if(debugMode) qDebug() << "GitTag: " << GIT_TAG;
     if(settings.contains("BuildDate"))
-        if(debugMode) qDebug() << "Setting BuildDate: " << settings.value("BuildDate").toString();
+        if(debugMode) qDebug() << "Setting BuildDate:" << settings.value("BuildDate").toString();
     if(debugMode) qDebug() << "BuildDate: " << DATE_TAG;
     settings.setValue("Version",VERSION);
     settings.setValue("GitTag",GIT_TAG);

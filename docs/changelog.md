@@ -4,6 +4,9 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- Add setting main window theme color feature
+- Add status bar display session information feature
+
 ## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
 
 - Modify the terminal to select the text after the text is emphasized with a transparency of 50%, rather than the original 100%
