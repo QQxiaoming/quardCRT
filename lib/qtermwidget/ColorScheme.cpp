@@ -331,7 +331,7 @@ void ColorScheme::readColorEntry(QSettings * s , int index)
     bool ok = false;
     // XXX: Undocumented(?) QSettings behavior: values with commas are parsed
     // as QStringList and others QString
-    if (colorValue.typeId() == QVariant::StringList)
+    if (colorValue.typeId() == QMetaType::QStringList)
     {
         QStringList rgbList = colorValue.toStringList();
         colorStr = rgbList.join(QLatin1Char(','));
@@ -356,9 +356,9 @@ void ColorScheme::readColorEntry(QSettings * s , int index)
         if (hexColorPattern.match(colorStr).hasMatch())
         {
             // Parsing is always ok as already matched by the regexp
-            r = colorStr.mid(1, 2).toInt(nullptr, 16);
-            g = colorStr.mid(3, 2).toInt(nullptr, 16);
-            b = colorStr.mid(5, 2).toInt(nullptr, 16);
+            r = QStringView{colorStr}.mid(1, 2).toInt(nullptr, 16);
+            g = QStringView{colorStr}.mid(3, 2).toInt(nullptr, 16);
+            b = QStringView{colorStr}.mid(5, 2).toInt(nullptr, 16);
             ok = true;
         }
     }

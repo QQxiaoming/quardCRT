@@ -108,6 +108,11 @@ bool Session::hasDarkBackground() const
     return _hasDarkBackground;
 }
 
+void Session::setCodec(QStringEncoder codec) const
+{
+    emulation()->setCodec(std::move(codec));
+}
+
 QList<TerminalDisplay *> Session::views() const
 {
     return _views;
