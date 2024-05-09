@@ -397,6 +397,19 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 }
             }
         #endif
+            QString target = u.toString();
+            if(target.startsWith("file://")) {
+                target.remove("file://");
+                // check endsWith '$' '#'
+                if(target.endsWith('$') || target.endsWith('#')) {
+                    // check file exists
+                    // FIXME: That's not a good way to fix filePath match issue
+                    if(!QFile::exists(target)) {
+                        target.chop(1);
+                        u = QUrl::fromLocalFile(target);
+                    }
+                }
+            }
             QDesktopServices::openUrl(u);
             Q_UNUSED(fromContextMenu);
         });

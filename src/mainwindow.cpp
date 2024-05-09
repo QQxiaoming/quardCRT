@@ -3406,6 +3406,7 @@ QString CentralWidget::getDirAndcheckeSysName(const QString &title, SessionsWind
             QString username = stdTitleFormat.match(title).captured(1);
             QString hostname = stdTitleFormat.match(title).captured(2);
             QString dir = stdTitleFormat.match(title).captured(3);
+            dir = dir.remove(0, dir.indexOf(QChar::fromLatin1(' ')) + 1);
 #if defined(Q_OS_WIN)
             if((username.toUpper() == currSysUsername.toUpper()) && (hostname.toUpper() == currSysHostname.toUpper())) {
                 return dir;
@@ -3498,7 +3499,6 @@ QString CentralWidget::startWslSession(MainWidgetGroup *group, const QString &co
             sessionsWindow->setLongTitle(newTitle);
             QString workDir = getDirAndcheckeSysName(newTitle,sessionsWindow->getShellType(),sessionsWindow->getWSLUserName());
             if(!workDir.isEmpty()) {
-                workDir = workDir.remove(0, workDir.indexOf(QChar::fromLatin1(' ')) + 1);
                 sessionsWindow->setShortTitle(workDir);
                 // replace /mnt/xxx to XXX:
                 static QRegularExpression wslDirFormat("^/mnt/(\\S+)/(.*)$");
@@ -3688,7 +3688,6 @@ int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,Sessi
                     QString workDir = getDirAndcheckeSysName(newTitle,shellType,shellType==SessionsWindow::WSL?sessionsWindowClone->getWSLUserName():"");
                     if(!workDir.isEmpty()) {
                         if(shellType==SessionsWindow::WSL) {
-                            workDir = workDir.remove(0, workDir.indexOf(QChar::fromLatin1(' ')) + 1);
                             sessionsWindowClone->setShortTitle(workDir);
                             // replace /mnt/xxx to XXX:
                             static QRegularExpression wslDirFormat("^/mnt/(\\S+)/(.*)$");
