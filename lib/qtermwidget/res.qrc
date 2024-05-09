@@ -324,6 +324,7 @@
         <file>./color-schemes/zenwritten_light.colorscheme</file>
         <file>./kb-layouts/linux_console.keytab</file>
         <file>./kb-layouts/linux_default.keytab</file>
+        <file>./kb-layouts/linux_backspace_7f.keytab</file>
         <file>./kb-layouts/macos_default.keytab</file>
         <file>./kb-layouts/macos_macbook.keytab</file>
         <file>./kb-layouts/windows_conpty.keytab</file>

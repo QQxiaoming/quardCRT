@@ -7,7 +7,8 @@ en-US:
 - Add setting main window theme color feature
 - Add status bar display session information feature
 - Add WSL terminal toolbar button on Windows
-- Fix the problem that the working directory is not correctly cloned when cloning the tab in some shell environments
+- Fix the issue that the working directory is not correctly cloned when cloning the tab in some shell environments
+- Fix the issue that the modification is saved when canceling the modification in the keyboard binding settings
 
 zh-CN:
 
@@ -15,6 +16,7 @@ zh-CN:
 - 增加状态栏显示会话信息功能
 - 在Windows增加启动WSL终端工具栏按钮
 - 修复某些shell环境下克隆标签时工作目录未能正确克隆的问题
+- 修复键盘绑定设置中取消修改时也会保存的问题
 
 ## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
 

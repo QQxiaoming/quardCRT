@@ -36,6 +36,8 @@ public:
     void setAvailableKeyBindings(QStringList keyBindings);
     QString getCurrentKeyBinding(void);
 
+    static QString defaultKeyBinding;
+
 signals:
     void keyBindingChanged(QString keyBinding);
 

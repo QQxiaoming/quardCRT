@@ -17,9 +17,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
+#include <QFile>
+#include <QFileInfo>
 #include "keymapmanager.h"
 #include "globalsetting.h"
 #include "ui_keymapmanager.h"
+
+#if defined(Q_OS_WIN)
+#if defined(Q_CC_MSVC)
+QString keyMapManager::defaultKeyBinding = "windows_conpty";
+#else
+QString keyMapManager::defaultKeyBinding = "windows_winpty";
+#endif
+#elif defined(Q_OS_MAC)
+QString keyMapManager::defaultKeyBinding = "macos_default";
+#else
+QString keyMapManager::defaultKeyBinding = "linux_default";
+#endif
 
 keyMapManager::keyMapManager(QWidget *parent) :
     QDialog(parent),
@@ -29,6 +43,21 @@ keyMapManager::keyMapManager(QWidget *parent) :
     
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &keyMapManager::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &keyMapManager::buttonBoxRejected);
+
+    connect(ui->comboBoxKeyBinding, &QComboBox::currentTextChanged, this, [this](const QString &keyBinding) {
+        QString path = ":/lib/qtermwidget/kb-layouts/"+keyBinding+".keytab";
+        QFileInfo fileInfo(path);
+        if(fileInfo.exists()) {
+            QString content;
+            QFile file(path);
+            if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream in(&file);
+                content = in.readAll();
+                file.close();
+                ui->plainTextEditKeyBinding->setPlainText(content);
+            }
+        }
+    });
 }
 
 keyMapManager::~keyMapManager()
@@ -46,17 +75,6 @@ void keyMapManager::setAvailableKeyBindings(QStringList keyBindings)
     if((settings.contains("keyBinding")) &&(keyBindings.contains(settings.value("keyBinding").toString()))) {
         ui->comboBoxKeyBinding->setCurrentText(settings.value("keyBinding").toString());
     } else {
-    #if defined(Q_OS_WIN)
-    #if defined(Q_CC_MSVC)
-        QString defaultKeyBinding = "windows_conpty";
-    #else
-        QString defaultKeyBinding = "windows_winpty";
-    #endif
-    #elif defined(Q_OS_MAC)
-        QString defaultKeyBinding = "macos_default";
-    #else
-        QString defaultKeyBinding = "linux_default";
-    #endif
         ui->comboBoxKeyBinding->setCurrentText(defaultKeyBinding);
         settings.setValue("keyBinding", defaultKeyBinding);
     }
@@ -80,6 +98,8 @@ void keyMapManager::buttonBoxAccepted(void)
 
 void keyMapManager::buttonBoxRejected(void)
 {
+    GlobalSetting settings;
+    ui->comboBoxKeyBinding->setCurrentText(settings.value("Global/keyMapManager/keyBinding", defaultKeyBinding).toString());
     emit this->rejected();
 }
 
