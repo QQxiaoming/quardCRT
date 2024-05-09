@@ -64,6 +64,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , enableRawLog(false) {
     zmodemUploadPath = QDir::homePath();
     zmodemDownloadPath = QDir::homePath();
+    shellType = Unknown;
     if(type == VNC) {
         vncClient = new QVNCClientWidget(parent);
         vncClient->setProperty("session", QVariant::fromValue(this));
@@ -379,7 +380,23 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 } else {
                     return;
                 }
+            } 
+        #if defined(Q_OS_WIN)
+            else if(path.startsWith("file://") ) {
+                if(getSessionType() == LocalShell) {
+                    if(getShellType() == WSL) {
+                        path.remove("file://");
+                        static QRegularExpression wslDirFormat("^/mnt/(\\S+)/(.*)$");
+                        if(wslDirFormat.match(path).hasMatch()) {
+                            QString pathFix = wslDirFormat.match(path).captured(1).toUpper()+":/"+wslDirFormat.match(path).captured(2);
+                            u = QUrl::fromLocalFile(pathFix);
+                        } else if(path.startsWith("/mnt/")) {
+                            u = QUrl::fromLocalFile(path.remove(0, 5).toUpper()+":/");
+                        }
+                    }
+                }
             }
+        #endif
             QDesktopServices::openUrl(u);
             Q_UNUSED(fromContextMenu);
         });
@@ -496,7 +513,7 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
     switch(src->getSessionType()) {
         case LocalShell: {
             setWorkingDirectory(src->getWorkingDirectory());
-            startLocalShellSession(src->m_command);
+            startLocalShellSession(src->m_command, src->getShellType());
             break;
         case Telnet:
             startTelnetSession(src->m_hostname, src->m_port, src->m_type);
@@ -522,24 +539,43 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
     }  
 }
 
-int SessionsWindow::startLocalShellSession(const QString &command) {
+int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp) {
     QString shellPath;
     QStringList args;
+    shellType = sTp;
     if(command.isEmpty()) {
     #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
         shellPath = qEnvironmentVariable("SHELL");
         if(shellPath.isEmpty()) shellPath = "/bin/sh";
     #elif defined(Q_OS_WIN)
-        shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
-        args =  {
-            "-ExecutionPolicy",
-            "Bypass",
-            "-NoLogo",
-            "-NoProfile",
-            "-NoExit",
-            "-File",
-            "\"" + QApplication::applicationDirPath() + "/Profile.ps1\""
-        };
+        GlobalSetting setting;
+        QString wslUserName = setting.value("Global/Options/WSLUserName", "root").toString();
+        QString wslDistro = setting.value("Global/Options/WSLDistroName", "Ubuntu").toString();
+        m_wslUserName = wslUserName;
+        switch (shellType) {
+            case PowerShell:
+            default:
+                shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
+                args =  {
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-NoLogo",
+                    "-NoProfile",
+                    "-NoExit",
+                    "-File",
+                    "\"" + QApplication::applicationDirPath() + "/Profile.ps1\""
+                };
+                break;
+            case WSL:
+                shellPath = "c:\\Windows\\System32\\wsl.exe";
+                args = {
+                    "-u",
+                    wslUserName,
+                    "-d",
+                    wslDistro,
+                };
+                break;
+        }
     #endif
     } else {
         argv_split parser;

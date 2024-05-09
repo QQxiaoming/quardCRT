@@ -25,6 +25,17 @@ GlobalOptionsGeneralWidget::GlobalOptionsGeneralWidget(QWidget *parent) :
     ui(new Ui::GlobalOptionsGeneralWidget)
 {
     ui->setupUi(this);
+#ifndef Q_OS_WIN
+    ui->labelWSLUserName->setVisible(false);
+    ui->labelWSLDistroName->setVisible(false);
+    ui->lineEditWSLUserName->setVisible(false);
+    ui->lineEditWSLDistroName->setVisible(false);
+#else
+    ui->labelWSLUserName->setVisible(true);
+    ui->labelWSLDistroName->setVisible(true);
+    ui->lineEditWSLUserName->setVisible(true);
+    ui->lineEditWSLDistroName->setVisible(true);
+#endif
 }
 
 GlobalOptionsGeneralWidget::~GlobalOptionsGeneralWidget()

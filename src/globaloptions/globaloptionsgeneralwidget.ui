@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>390</width>
-    <height>281</height>
+    <width>353</width>
+    <height>318</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -187,6 +187,30 @@
         <number>1500</number>
        </property>
       </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelWSLUserName">
+       <property name="text">
+        <string>WSL UserName</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="labelWSLDistroName">
+       <property name="text">
+        <string>WSL DistroName</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="lineEditWSLUserName"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditWSLDistroName"/>
      </item>
     </layout>
    </item>

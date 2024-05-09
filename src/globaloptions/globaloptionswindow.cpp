@@ -148,6 +148,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
     globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->setValue(settings.value("preeditColorIndex", 16).toInt());
     globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setChecked(settings.value("enableColorSchemeBak", true).toBool());
+    globalOptionsGeneralWidget->ui->lineEditWSLUserName->setText(settings.value("WSLUserName", "root").toString());
+    globalOptionsGeneralWidget->ui->lineEditWSLDistroName->setText(settings.value("WSLDistroName", "Ubuntu").toString());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {
@@ -525,6 +527,8 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("xyModem1K", globalOptionsTransferWidget->ui->radioButton1KBytes->isChecked());
     settings.setValue("preeditColorIndex", globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->value());
     settings.setValue("enableColorSchemeBak", globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->isChecked());
+    settings.setValue("WSLUserName", globalOptionsGeneralWidget->ui->lineEditWSLUserName->text());
+    settings.setValue("WSLDistroName", globalOptionsGeneralWidget->ui->lineEditWSLDistroName->text());
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -572,6 +576,8 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTransferWidget->ui->checkBoxZmodemOnline->setChecked(settings.value("disableZmodemOnline", false).toBool());
     globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->setValue(settings.value("preeditColorIndex", 16).toInt());
     globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setChecked(settings.value("enableColorSchemeBak", true).toBool());
+    globalOptionsGeneralWidget->ui->lineEditWSLUserName->setText(settings.value("WSLUserName", "root").toString());
+    globalOptionsGeneralWidget->ui->lineEditWSLDistroName->setText(settings.value("WSLDistroName", "Ubuntu").toString());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {

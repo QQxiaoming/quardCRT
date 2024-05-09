@@ -171,3 +171,13 @@ quardCRT將從V0.4.0版本開始支持Plugin，以Qt Plug-in的形式提供，�
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
 - [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)
+
+## Star 歷史
+
+<a href="https://star-history.com/#QQxiaoming/quardCRT&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date" />
+ </picture>
+</a>

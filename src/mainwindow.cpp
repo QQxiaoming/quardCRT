@@ -85,6 +85,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
+
+
     splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
     ui->centralwidget->layout()->addWidget(splitter);
@@ -731,6 +733,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
     statusBarWidgetRefreshTimer->start();
 
+    initSysEnv();
+
     ui->statusBar->showMessage(tr("Ready"));
 
     if(!dir.isEmpty()) {
@@ -1046,7 +1050,7 @@ void CentralWidget::refreshStatusBar(void) {
             statusBarWidget->setTransInfo(-1,-1);
             break;
         case SessionsWindow::Telnet:
-            statusBarWidget->setType(tr("Telnet"));
+            statusBarWidget->setType("Telnet");
             statusBarWidget->setTransInfo(stateInfo.telnet.tx_total,stateInfo.telnet.rx_total);
             break;
         case SessionsWindow::RawSocket:
@@ -1058,7 +1062,7 @@ void CentralWidget::refreshStatusBar(void) {
             statusBarWidget->setTransInfo(-1,-1);
             break;
         case SessionsWindow::SSH2:
-            statusBarWidget->setType(tr("SSH"));
+            statusBarWidget->setType("SSH2");
             statusBarWidget->setTransInfo(stateInfo.ssh2.tx_total,stateInfo.ssh2.rx_total);
             break;
         case SessionsWindow::Serial:
@@ -1066,7 +1070,7 @@ void CentralWidget::refreshStatusBar(void) {
             statusBarWidget->setTransInfo(stateInfo.serial.tx_total,stateInfo.serial.rx_total);
             break;
         case SessionsWindow::VNC:
-            statusBarWidget->setType(tr("VNC"));
+            statusBarWidget->setType("VNC");
             statusBarWidget->setTransInfo(-1,-1);
             break;
         default:
@@ -1170,6 +1174,11 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     connectLocalShellAction->setIcon(QFontIcon::icon(QChar(0xf120)));
     connectLocalShellAction->setStatusTip(tr("Connect to a local shell <Alt+T>"));
     connectLocalShellAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_T));
+#if defined(Q_OS_WIN)
+    connectWslAction->setText(tr("Connect WSL"));
+    connectWslAction->setIcon(QFontIcon::icon(QChar(0xf17c)));
+    connectWslAction->setStatusTip(tr("Connect to a WSL shell"));
+#endif
     reconnectAction->setText(tr("Reconnect"));
     reconnectAction->setIcon(QFontIcon::icon(QChar(0xf021)));
     reconnectAction->setStatusTip(tr("Reconnect current session"));
@@ -1456,6 +1465,12 @@ void CentralWidget::menuAndToolBarInit(void) {
     fileMenu->addAction(connectLocalShellAction);
     ui->toolBar->addAction(connectLocalShellAction);
     sessionManagerWidget->addActionOnToolBar(connectLocalShellAction);
+#if defined(Q_OS_WIN)
+    connectWslAction = new QAction(this);
+    fileMenu->addAction(connectWslAction);
+    ui->toolBar->addAction(connectWslAction);
+    sessionManagerWidget->addActionOnToolBar(connectWslAction);
+#endif
     fileMenu->addSeparator();
     reconnectAction = new QAction(this);
     fileMenu->addAction(reconnectAction);
@@ -2159,6 +2174,11 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     connect(connectLocalShellAction,&QAction::triggered,this,[=](){
         startLocalShellSession(findCurrentFocusGroup(),QString(),globalOptionsWindow->getNewTabWorkPath());
     });
+#if defined(Q_OS_WIN)
+    connect(connectWslAction,&QAction::triggered,this,[=](){
+        startWslSession(findCurrentFocusGroup(),QString(),globalOptionsWindow->getNewTabWorkPath());
+    });
+#endif
     connect(reconnectAction,&QAction::triggered,this,[=](){
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
@@ -3340,47 +3360,62 @@ QString CentralWidget::startNamePipeSession(MainWidgetGroup *group, QString pipe
     return name;
 }
 
-QString CentralWidget::getDirAndcheckeSysName(const QString &title)
-{
-    // newTitle lile username@hostname:dir
+void CentralWidget::initSysEnv(void) {
 #if defined(Q_OS_WIN)
-    static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*):(.*)$");
-    if(stdTitleFormat.match(title).hasMatch()) {
-        QString username = stdTitleFormat.match(title).captured(1);
-        QString hostname = stdTitleFormat.match(title).captured(2);
-        QString dir = stdTitleFormat.match(title).captured(3) + ":" +
-                        stdTitleFormat.match(title).captured(4);
+    sysUsername = MiscWin32::getUserName();
+    sysHostname = MiscWin32::getComputerName();
+#elif defined(Q_OS_MAC)
+    sysUsername = qEnvironmentVariable("USER");
+    sysHostname = QHostInfo::localHostName().replace(".local","");
 #else
-    static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*)$");
-    if(stdTitleFormat.match(title).hasMatch()) {
-        QString username = stdTitleFormat.match(title).captured(1);
-        QString hostname = stdTitleFormat.match(title).captured(2);
-        QString dir = stdTitleFormat.match(title).captured(3);
+    sysUsername = qEnvironmentVariable("USER");
+    sysHostname = QHostInfo::localHostName();
 #endif
-    #if defined(Q_OS_WIN)
-        QString sysUsername = MiscWin32::getUserName();
-        QString sysHostname = MiscWin32::getComputerName();
-        hostname = hostname.left(hostname.indexOf(":"));
-    #elif defined(Q_OS_MAC)
-        QString sysUsername = qEnvironmentVariable("USER");
-        QString sysHostname = QHostInfo::localHostName().replace(".local","");
-    #else
-        QString sysUsername = qEnvironmentVariable("USER");
-        QString sysHostname = QHostInfo::localHostName();
-    #endif
-    #if defined(Q_OS_WIN)
-        QByteArray usernameArray = username.toLocal8Bit();
-        QByteArray hostnameArray = hostname.toLocal8Bit();
-        QByteArray sysUsernameArray = sysUsername.toLocal8Bit();
-        QByteArray sysHostnameArray = sysHostname.toLocal8Bit();
-        if((usernameArray == sysUsernameArray) && (hostnameArray == sysHostnameArray)) {
-            return dir;
+}
+
+QString CentralWidget::getDirAndcheckeSysName(const QString &title, SessionsWindow::ShellType shellType, QString overrideSysUsername, QString overrideSysHostname)
+{
+    QString currSysUsername = overrideSysUsername.isEmpty()?sysUsername:overrideSysUsername;
+    QString currSysHostname = overrideSysHostname.isEmpty()?sysHostname:overrideSysHostname;
+#if defined(Q_OS_WIN)
+    if(shellType != SessionsWindow::WSL) {
+        static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*):(.*)$");
+        if(stdTitleFormat.match(title).hasMatch()) {
+            QString username = stdTitleFormat.match(title).captured(1);
+            QString hostname = stdTitleFormat.match(title).captured(2);
+            QString dir = stdTitleFormat.match(title).captured(3) + ":" +
+                            stdTitleFormat.match(title).captured(4);
+            hostname = hostname.left(hostname.indexOf(":"));
+            QByteArray usernameArray = username.toLocal8Bit();
+            QByteArray hostnameArray = hostname.toLocal8Bit();
+            QByteArray sysUsernameArray = currSysUsername.toLocal8Bit();
+            QByteArray sysHostnameArray = currSysHostname.toLocal8Bit();
+            if((usernameArray == sysUsernameArray) && (hostnameArray == sysHostnameArray)) {
+                return dir;
+            }
         }
-    #else
-        if((username == sysUsername) && (hostname == sysHostname)) {
-            return dir;
+    } else {
+        // FIXME: Why WSL Hostname is different from Windows Hostname?
+        currSysHostname = currSysHostname.replace('_',"");
+#else
+    {
+        Q_UNUSED(shellType);
+#endif
+        static QRegularExpression stdTitleFormat("^(\\S+)@(\\S+):(.*)$");
+        if(stdTitleFormat.match(title).hasMatch()) {
+            QString username = stdTitleFormat.match(title).captured(1);
+            QString hostname = stdTitleFormat.match(title).captured(2);
+            QString dir = stdTitleFormat.match(title).captured(3);
+#if defined(Q_OS_WIN)
+            if((username.toUpper() == currSysUsername.toUpper()) && (hostname.toUpper() == currSysHostname.toUpper())) {
+                return dir;
+            }
+#else
+            if((username == currSysUsername) && (hostname == currSysHostname)) {
+                return dir;
+            }
+#endif
         }
-    #endif
     }
 
     return QString();
@@ -3410,7 +3445,7 @@ QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, const QStr
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
-            QString workDir = getDirAndcheckeSysName(newTitle);
+            QString workDir = getDirAndcheckeSysName(newTitle,sessionsWindow->getShellType());
             if(!workDir.isEmpty()) {
                 sessionsWindow->setShortTitle(workDir);
                 if(workDir.startsWith("~/")) {
@@ -3435,6 +3470,64 @@ QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, const QStr
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
     return name;
 }
+
+#if defined(Q_OS_WIN)
+QString CentralWidget::startWslSession(MainWidgetGroup *group, const QString &command, const QString &workingDirectory, QString name)
+{
+    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
+    setGlobalOptions(sessionsWindow);
+    if(command.isEmpty()) {
+        sessionsWindow->setLongTitle("WSL");
+    } else {
+        sessionsWindow->setLongTitle("WSL - "+command);
+    }
+    sessionsWindow->setShortTitle("WSL");
+    int index = group->sessionTab->addTab(sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
+    if(name.isEmpty()) {
+        name = "WSL";
+        checkSessionName(name);
+    }
+    sessionsWindow->setName(name);
+    QFileInfo workingDirectoryInfo(workingDirectory);
+    sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
+    sessionsWindow->startLocalShellSession(command,SessionsWindow::WSL);
+    sessionList.push_back(sessionsWindow);
+    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
+        if(title == 0 || title == 2) {
+            sessionsWindow->setLongTitle(newTitle);
+            QString workDir = getDirAndcheckeSysName(newTitle,sessionsWindow->getShellType(),sessionsWindow->getWSLUserName());
+            if(!workDir.isEmpty()) {
+                workDir = workDir.remove(0, workDir.indexOf(QChar::fromLatin1(' ')) + 1);
+                sessionsWindow->setShortTitle(workDir);
+                // replace /mnt/xxx to XXX:
+                static QRegularExpression wslDirFormat("^/mnt/(\\S+)/(.*)$");
+                if(wslDirFormat.match(workDir).hasMatch()) {
+                    QString workDirFix = wslDirFormat.match(workDir).captured(1).toUpper()+":/"+wslDirFormat.match(workDir).captured(2);
+                    workDir = workDirFix;     
+                } else if(workDir.startsWith("/mnt/")) {
+                    workDir = workDir.remove(0, 5).toUpper()+":/";
+                }
+                QFileInfo fileInfo(workDir);
+                if(fileInfo.isDir()) {
+                    sessionsWindow->setWorkingDirectory(workDir);
+                }
+            } else {
+                sessionsWindow->setShortTitle(newTitle);
+            }
+            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
+                if(index >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                    break;
+                }
+            }
+        }
+    });
+    group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
+    return name;
+}
+#endif
 
 QString CentralWidget::startSSH2Session(MainWidgetGroup *group, 
         QString hostname, quint16 port, QString username, QString password, QString name)
@@ -3591,11 +3684,25 @@ int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,Sessi
             connect(sessionsWindowClone, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
                 if(title == 0 || title == 2) {
                     sessionsWindowClone->setLongTitle(newTitle);
-                    QString workDir = getDirAndcheckeSysName(newTitle);
+                    SessionsWindow::ShellType shellType = sessionsWindowClone->getShellType();
+                    QString workDir = getDirAndcheckeSysName(newTitle,shellType,shellType==SessionsWindow::WSL?sessionsWindowClone->getWSLUserName():"");
                     if(!workDir.isEmpty()) {
-                        sessionsWindowClone->setShortTitle(workDir);
-                        if(workDir.startsWith("~/")) {
-                            workDir = workDir.replace(0,1,QDir::homePath());
+                        if(shellType==SessionsWindow::WSL) {
+                            workDir = workDir.remove(0, workDir.indexOf(QChar::fromLatin1(' ')) + 1);
+                            sessionsWindowClone->setShortTitle(workDir);
+                            // replace /mnt/xxx to XXX:
+                            static QRegularExpression wslDirFormat("^/mnt/(\\S+)/(.*)$");
+                            if(wslDirFormat.match(workDir).hasMatch()) {
+                                QString workDirFix = wslDirFormat.match(workDir).captured(1).toUpper()+":/"+wslDirFormat.match(workDir).captured(2);
+                                workDir = workDirFix;     
+                            } else if(workDir.startsWith("/mnt/")) {
+                                workDir = workDir.remove(0, 5).toUpper()+":/";
+                            }
+                        } else {
+                            sessionsWindowClone->setShortTitle(workDir);
+                            if(workDir.startsWith("~/")) {
+                                workDir = workDir.replace(0,1,QDir::homePath());
+                            }
                         }
                         QFileInfo fileInfo(workDir);
                         if(fileInfo.isDir()) {

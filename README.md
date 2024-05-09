@@ -171,3 +171,13 @@ The code of this project references or partially refers to or depends on the fol
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
 - [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)
+
+## Star History
+
+<a href="https://star-history.com/#QQxiaoming/quardCRT&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date" />
+ </picture>
+</a>

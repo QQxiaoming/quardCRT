@@ -51,6 +51,12 @@ public:
         SSH2,
         VNC,
     };
+    enum ShellType {
+        UnixShell,
+        PowerShell,
+        WSL,
+        Unknown,
+    };
     enum SessionsState {
         Connected,
         Disconnected,
@@ -87,7 +93,11 @@ public:
     ~SessionsWindow();
 
     void cloneSession(SessionsWindow *src);
-    int startLocalShellSession(const QString &command);
+#if defined(Q_OS_WIN)
+    int startLocalShellSession(const QString &command, ShellType sTp = PowerShell);
+#else
+    int startLocalShellSession(const QString &command, ShellType sTp = UnixShell);
+#endif
     int startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type);
     int startSerialSession(const QString &portName, uint32_t baudRate,
                     int dataBits, int parity, int stopBits, bool flowControl, bool xEnable );
@@ -131,6 +141,8 @@ public:
     }
     bool isTerminal() const { return type != VNC; }
     SessionType getSessionType() const { return type; }
+    ShellType getShellType() const { return shellType; }
+    QString getWSLUserName() const { return m_wslUserName; }
     QString getTitle() const { return showShortTitle ? shortTitle : longTitle; }
     QString getLongTitle() const { return longTitle; }
     QString getShortTitle() const { return shortTitle; }
@@ -345,6 +357,7 @@ private:
 
 private:
     SessionType type;
+    ShellType shellType;
     QString workingDirectory;
     QString longTitle;
     QString shortTitle;
@@ -396,6 +409,7 @@ private:
     bool m_flowControl;
     bool m_xEnable;
     QString m_command;
+    QString m_wslUserName;
     QString m_pipeName;
     QString m_username;
     QString m_password;

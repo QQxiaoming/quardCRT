@@ -2,7 +2,19 @@
 
 # Installation
 
-QuardCRT is a cross-platform terminal emulator, it supports Windows, MacOS, and Linux. You can download the corresponding package according to your platform.
+QuardCRT is a cross-platform terminal emulator that supports Windows, MacOS, and Linux. If possible, we first recommend that you install QuardCRT through the official application market of the native platform.
+
+## App Stores
+
+QuardCRT is now available in the following app stores.
+
+- [![Microsoft Store](https://get.microsoft.com/images/en-us%20dark.svg)](https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct)
+- [Spark Store](https://www.spark-app.store/store/application/quardcrt)
+- Deepin Store
+
+More app stores will be available in the future.
+
+Of course, you can also download the corresponding installation package according to your own platform.
 
 ## Download
 
@@ -109,13 +121,3 @@ Or you can install the deb package by running the following command:
 ```bash
 sudo dpkg -i quardCRT_Linux_Vxxx_x86_64.deb
 ```
-
-## Other App Stores
-
-We also provide QuardCRT in other app stores, you can download it from the app store. Usually the installation steps are more convenient. Now we provide the following app stores:
-
-- [Microsoft Store](https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct)
-- [Spark Store](https://www.spark-app.store/store/application/quardcrt)
-- Deepin Store
-
-We will add more app stores in the future.

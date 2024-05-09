@@ -13,6 +13,9 @@ on:
       - 'DEVELOPNOTE.md'
       - 'DEVELOPNOTE_zh_CN.md'
       - 'CHANGELOG.md'
+      - 'CODE_OF_CONDUCT.md'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE/**'
       - 'TODO.md'
       - '.readthedocs.yaml'
     tags:
@@ -29,6 +32,9 @@ on:
       - 'DEVELOPNOTE.md'
       - 'DEVELOPNOTE_zh_CN.md'
       - 'CHANGELOG.md'
+      - 'CODE_OF_CONDUCT.md'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE/**'
       - 'TODO.md'
       - '.readthedocs.yaml'
   workflow_dispatch:

@@ -6,6 +6,7 @@
 
 - Add setting main window theme color feature
 - Add status bar display session information feature
+- Add WSL terminal toolbar button on Windows
 
 ## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
 

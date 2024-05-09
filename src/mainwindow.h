@@ -100,6 +100,9 @@ private:
     QString startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, QString name = QString());
     QString startLocalShellSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
+#if defined(Q_OS_WIN)
+    QString startWslSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
+#endif
     QString startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, QString name = QString());
     QString startNamePipeSession(MainWidgetGroup *group, QString namePipe, QString name = QString());
     QString startSSH2Session(MainWidgetGroup *group,
@@ -114,7 +117,12 @@ private:
     QMenu *createPopupMenu(void) override;
     void setSessionClassActionEnable(bool enable);
     void setGlobalOptions(SessionsWindow *window);
-    QString getDirAndcheckeSysName(const QString &title);
+#if defined(Q_OS_WIN)
+    QString getDirAndcheckeSysName(const QString &title,SessionsWindow::ShellType shellType = SessionsWindow::PowerShell, QString overrideSysUsername = QString(), QString overrideSysHostname = QString());
+#else
+    QString getDirAndcheckeSysName(const QString &title,SessionsWindow::ShellType shellType = SessionsWindow::UnixShell, QString overrideSysUsername = QString(), QString overrideSysHostname = QString());
+#endif
+    void initSysEnv(void);
     void addBookmark(const QString &path);
     bool checkSessionName(QString &name);
     int addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name);
@@ -195,6 +203,9 @@ private:
     QAction *quickConnectAction;
     QAction *connectInTabAction;
     QAction *connectLocalShellAction;
+#if defined(Q_OS_WIN)
+    QAction *connectWslAction;
+#endif
     QAction *reconnectAction;
     QAction *reconnectAllAction;
     QAction *disconnectAction;
@@ -306,6 +317,9 @@ private:
     QLabel *statusBarMessage;
     StatusBarWidget *statusBarWidget;
     QTimer *statusBarWidgetRefreshTimer;
+
+    QString sysUsername;
+    QString sysHostname;
 
     QStringList zmodemUploadList;
 
