@@ -133,6 +133,14 @@ public:
     int stopReceiveASCIIFile(void);
     bool isReceiveASCIIFile(void);
 
+    int installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive, int mode) {
+        m_waitStringList = strList;
+        m_waitStringTimeout = timeout;
+        m_waitStringCaseInsensitive = bcaseInsensitive;
+        m_waitStringMode = mode;
+        return 0;
+    }
+
     QWidget *getMainWidget() const { 
         if(type == VNC)
             return static_cast<QWidget *>(vncClient);
@@ -350,10 +358,12 @@ signals:
     void titleChanged(int title,const QString& newTitle);
     void modemProxySendData(QByteArray data);
     void modemProxyRecvData(const QByteArray &data);
+    void waitForStringFinished(const QString &str, int matchIndex);
 
 private:
     int saveLog(const char *data, int size);
     int saveRawLog(const char *data, int size);
+    void matchString(QByteArray data);
 
 private:
     SessionType type;
@@ -397,6 +407,12 @@ private:
     QMutex receiveASCIIFileMutex;
     bool receiveASCIIFile = false;
     QFile *receiveASCIIFileFd = nullptr;
+
+    QStringList m_waitStringList;
+    int m_waitStringTimeout;
+    bool m_waitStringCaseInsensitive;
+    int m_waitStringMode;
+    QByteArray m_waitStringDate;
 
     QString m_hostname;
     quint16 m_port;
