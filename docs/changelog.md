@@ -9,6 +9,7 @@
 - Add WSL terminal toolbar button on Windows
 - Fix the issue that the working directory is not correctly cloned when cloning the tab in some shell environments
 - Fix the issue that the modification is saved when canceling the modification in the keyboard binding settings
+- Fix the issue that the confirmation dialog cannot select cancel when closing all tabs
 
 ## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
 

@@ -450,7 +450,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         int count = mainWidgetGroup->sessionTab->count();
                         for(int i=count;i>0;i--) {
                             if(i != index) {
-                                stopSession(mainWidgetGroup,i);
+                                if(stopSession(mainWidgetGroup,i) == -1){
+                                    return;
+                                }
                             }
                         }
                     });
@@ -460,7 +462,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     connect(closeToTheRightAction,&QAction::triggered,this,[=](){
                         int count = mainWidgetGroup->sessionTab->count();
                         for(int i=count;i>index;i--) {
-                            stopSession(mainWidgetGroup,i);
+                            if(stopSession(mainWidgetGroup,i) == -1){
+                                return;
+                            }
                         }
                     });
                     QAction *closeAllAction = new QAction(tr("Close All"),this);
@@ -468,7 +472,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     menu->addAction(closeAllAction);
                     connect(closeAllAction,&QAction::triggered,this,[=](){
                         while(mainWidgetGroup->sessionTab->count() > 0) {
-                            stopSession(mainWidgetGroup,mainWidgetGroup->sessionTab->count());
+                            if(stopSession(mainWidgetGroup,mainWidgetGroup->sessionTab->count()) == -1){
+                                return;
+                            }
                         }
                     });
                 }
@@ -3607,7 +3613,7 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
                     }
                 }
                 QMessageBox::StandardButton reply;
-                reply = QMessageBox::question(this, tr("Warning"), tr("Are you sure to disconnect this session?"),
+                reply = QMessageBox::question(this, tr("Warning"), tr("Are you sure to disconnect \"") + sessionsWindow->getTitle() + tr("\" session?"),
                                             QMessageBox::Yes|QMessageBox::No);
                 if (reply == QMessageBox::Yes) {
                 #ifdef ENABLE_SSH
@@ -3618,6 +3624,8 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
                     sessionList.removeOne(sessionsWindow);
                     group->sessionTab->removeTab(index);
                     delete sessionsWindow;
+                } else {
+                    return -1;
                 }
             } else {
                 sessionList.removeOne(sessionsWindow);
@@ -3633,7 +3641,9 @@ int CentralWidget::stopAllSession(bool force)
 {
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         while(mainWidgetGroup->sessionTab->count() > 0) {
-            stopSession(mainWidgetGroup,mainWidgetGroup->sessionTab->count(), force);
+            if(stopSession(mainWidgetGroup,mainWidgetGroup->sessionTab->count(), force) == -1){
+                return -1;
+            }
         }
     }
     return 0;
