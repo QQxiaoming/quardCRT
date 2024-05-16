@@ -2301,6 +2301,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         int64_t index = removeSessionFromSessionManager(name);
         if(index >= 0) {
             addSessionToSessionManager(data,newName, true, index);
+            sessionManagerWidget->setCurrentSession(newName);
         }
     });
     connect(realTimeSaveOptionsAction,&QAction::triggered,this,[=](bool checked){

@@ -35,6 +35,7 @@ public:
 
     void addSession(QString str, int type);
     void removeSession(QString str);
+    void setCurrentSession(QString str);
     bool checkSession(QString str);
     void retranslateUi();
 

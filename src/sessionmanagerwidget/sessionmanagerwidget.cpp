@@ -79,6 +79,11 @@ void SessionManagerWidget::removeSession(QString str)
     tree->removeSession(str);
 }
 
+void SessionManagerWidget::setCurrentSession(QString str)
+{
+    tree->setCurrentSession(str);
+}
+
 bool SessionManagerWidget::checkSession(QString str)
 {
     return tree->checkSession(str);

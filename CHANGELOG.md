@@ -10,6 +10,8 @@ en-US:
 - Fix the issue that the working directory is not correctly cloned when cloning the tab in some shell environments
 - Fix the issue that the modification is saved when canceling the modification in the keyboard binding settings
 - Fix the issue that the confirmation dialog cannot select cancel when closing all tabs
+- Fix the issue that the session manager switches the current selected session incorrectly after modifying the session properties
+- Add pre-built plugins [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode), [ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial), and update pre-built plugin [SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb) to V0.0.4
 
 zh-CN:
 
@@ -19,6 +21,8 @@ zh-CN:
 - 修复某些shell环境下克隆标签时工作目录未能正确克隆的问题
 - 修复键盘绑定设置中取消修改时也会保存的问题
 - 修复关闭全部标签页时确认对话框无法选择取消的问题
+- 修复会话管理器中修改会话属性后会话管理器内当前选中会话被错误切换问题
+- 新增集成预构建插件[CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode)、[ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial)，更新预构建插件[SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb)到V0.0.4版本
 
 ## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26
 
@@ -43,6 +47,7 @@ en-US:
 - Add confirmation dialog when deleting a session
 - Fix the issue that the context menu is too long to display completely and difficult to operate
 - Fix the display abnormality caused by some theme switching on Windows
+- Update pre-built plugin [onestep](https://github.com/QuardCRT-platform/plugin-onestep) to V0.0.3
 
 zh-CN:
 
@@ -65,6 +70,7 @@ zh-CN:
 - 增加删除会话时的确认对话框
 - 修复上下文菜单过长时显示不全难以操作的问题
 - 修复windows下的一些主题切换引起的显示异常问题
+- 更新预构建插件[onestep](https://github.com/QuardCRT-platform/plugin-onestep)到V0.0.3版本
 
 ## [[V0.4.4](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.4)] - 2024-03-26
 
@@ -118,7 +124,7 @@ en-US:
 - Fix the crash problem under full screen on macos
 - Fix the title button does not switch to the macos style problem in the native UI mode on macos
 - Fix the problem that the title button full screen on macos through the native UI style cannot display the exit full screen option in the context menu on the main window
-- Pre-built versions add pre-built plugin packaging for the [plugin ecosystem platform](https://github.com/QuardCRT-platform)
+- Pre-built versions add pre-built plugin packaging for the [plugin ecosystem platform](https://github.com/QuardCRT-platform), including plugins [SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb), [onestep](https://github.com/QuardCRT-platform/plugin-onestep), [quickcomplete](https://github.com/QuardCRT-platform/plugin-quickcomplete) for the first time
 
 zh-CN:
 
@@ -130,7 +136,7 @@ zh-CN:
 - 修复macos下全屏导致程序崩溃问题
 - 修复macos native UI模式下标题按钮没有切换为macos风格问题
 - 修复macos通过native UI样式标题按钮全屏后，无法显示界面上上下文菜单中退出全屏选项问题
-- 预构建版本增加对于[插件生态平台](https://github.com/QuardCRT-platform)的预构建插件的打包
+- 预构建版本增加对于[插件生态平台](https://github.com/QuardCRT-platform)的预构建插件的打包，首次包含插件[SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb)、[onestep](https://github.com/QuardCRT-platform/plugin-onestep)、[quickcomplete](https://github.com/QuardCRT-platform/plugin-quickcomplete)
 
 ## [[V0.4.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.1)] - 2024-01-13
 

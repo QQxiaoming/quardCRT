@@ -41,6 +41,7 @@ public:
     void addActionOnToolBar(QAction *action);
     void retranslateUi();
     void addSession(QString str, int type);
+    void setCurrentSession(QString str);
     void removeSession(QString str);
     bool checkSession(QString str);
 

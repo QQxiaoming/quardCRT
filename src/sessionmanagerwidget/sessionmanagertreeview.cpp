@@ -63,6 +63,10 @@ void SessionManagerTreeView::removeSession(QString str) {
     mode->removeTree(index);
 }
 
+void SessionManagerTreeView::setCurrentSession(QString str) {
+    setCurrentIndex(mode->findItems(str, rootIndex));
+}
+
 bool SessionManagerTreeView::checkSession(QString str) {
     QModelIndex index = mode->findItems(str, rootIndex);
     if (index.isValid()) {
