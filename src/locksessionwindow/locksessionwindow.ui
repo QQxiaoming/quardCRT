@@ -14,6 +14,9 @@
    <string>Lock Session</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>4</number>
+   </property>
    <item>
     <widget class="QLabel" name="headerLabel">
      <property name="text">
@@ -26,6 +29,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
       <widget class="QLabel" name="passwordLabel">
        <property name="text">
@@ -44,6 +50,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
       <widget class="QLabel" name="reenterPasswordLabel">
        <property name="text">
@@ -62,6 +71,9 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
       <widget class="QCheckBox" name="lockAllSessionCheckBox">
        <property name="text">

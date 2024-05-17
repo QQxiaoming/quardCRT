@@ -11,8 +11,14 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>4</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
       <widget class="QLabel" name="label">
        <property name="sizePolicy">
@@ -53,6 +59,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayoutPassword">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
       <widget class="QLabel" name="label_3">
        <property name="sizePolicy">

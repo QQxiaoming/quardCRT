@@ -7,6 +7,7 @@ en-US:
 - Add setting main window theme color feature
 - Add status bar display session information feature
 - Add WSL terminal toolbar button on Windows
+- Add user-defined plugin loading path setting
 - Fix the issue that the working directory is not correctly cloned when cloning the tab in some shell environments
 - Fix the issue that the modification is saved when canceling the modification in the keyboard binding settings
 - Fix the issue that the confirmation dialog cannot select cancel when closing all tabs
@@ -18,6 +19,7 @@ zh-CN:
 - 增加设置主界面主题色功能
 - 增加状态栏显示会话信息功能
 - 在Windows增加启动WSL终端工具栏按钮
+- 增加用户自定义插件加载路径设置
 - 修复某些shell环境下克隆标签时工作目录未能正确克隆的问题
 - 修复键盘绑定设置中取消修改时也会保存的问题
 - 修复关闭全部标签页时确认对话框无法选择取消的问题

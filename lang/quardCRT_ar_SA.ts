@@ -26,11 +26,11 @@
         <location filename="../src/mainwindow.cpp" line="379"/>
         <location filename="../src/mainwindow.cpp" line="393"/>
         <location filename="../src/mainwindow.cpp" line="584"/>
-        <location filename="../src/mainwindow.cpp" line="2963"/>
-        <location filename="../src/mainwindow.cpp" line="3161"/>
-        <location filename="../src/mainwindow.cpp" line="3616"/>
-        <location filename="../src/mainwindow.cpp" line="4002"/>
-        <location filename="../src/mainwindow.cpp" line="4007"/>
+        <location filename="../src/mainwindow.cpp" line="2976"/>
+        <location filename="../src/mainwindow.cpp" line="3174"/>
+        <location filename="../src/mainwindow.cpp" line="3629"/>
+        <location filename="../src/mainwindow.cpp" line="4015"/>
+        <location filename="../src/mainwindow.cpp" line="4020"/>
         <source>Warning</source>
         <translation>تحذير</translation>
     </message>
@@ -210,7 +210,7 @@
         <location filename="../src/mainwindow.cpp" line="609"/>
         <location filename="../src/mainwindow.cpp" line="727"/>
         <location filename="../src/mainwindow.cpp" line="744"/>
-        <location filename="../src/mainwindow.cpp" line="2816"/>
+        <location filename="../src/mainwindow.cpp" line="2829"/>
         <source>Ready</source>
         <translation>جاهز</translation>
     </message>
@@ -982,7 +982,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1346"/>
-        <location filename="../src/mainwindow.cpp" line="2698"/>
+        <location filename="../src/mainwindow.cpp" line="2711"/>
         <source>Remove Bookmark</source>
         <translation>إزالة الإشارة المرجعية</translation>
     </message>
@@ -993,7 +993,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1348"/>
-        <location filename="../src/mainwindow.cpp" line="2725"/>
+        <location filename="../src/mainwindow.cpp" line="2738"/>
         <source>Clean All Bookmark</source>
         <translation>تنظيف كل الإشارات المرجعية</translation>
     </message>
@@ -1219,7 +1219,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1400"/>
-        <location filename="../src/mainwindow.cpp" line="3966"/>
+        <location filename="../src/mainwindow.cpp" line="3979"/>
         <source>Keyborad Shortcuts Reference</source>
         <translation>مرجع اختصارات لوحة المفاتيح</translation>
     </message>
@@ -1240,7 +1240,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1406"/>
-        <location filename="../src/mainwindow.cpp" line="3923"/>
+        <location filename="../src/mainwindow.cpp" line="3936"/>
         <source>Privacy Statement</source>
         <translation>بيان الخصوصية</translation>
     </message>
@@ -1251,7 +1251,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1409"/>
-        <location filename="../src/mainwindow.cpp" line="3948"/>
+        <location filename="../src/mainwindow.cpp" line="3961"/>
         <source>About</source>
         <translation>حول</translation>
     </message>
@@ -1277,7 +1277,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1419"/>
-        <location filename="../src/mainwindow.cpp" line="2743"/>
+        <location filename="../src/mainwindow.cpp" line="2756"/>
         <source>SSH Scanning</source>
         <translation>فحص SSH</translation>
     </message>
@@ -1297,347 +1297,347 @@
         <translation>عرض مربع الحوار معلومات البرنامج المساعد</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1860"/>
+        <location filename="../src/mainwindow.cpp" line="1871"/>
         <source>Plugin metaData not found!</source>
         <translation>لم يتم العثور على بيانات البرنامج المساعد!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1866"/>
+        <location filename="../src/mainwindow.cpp" line="1877"/>
         <source>Plugin api version not found!</source>
         <translation>لم يتم العثور على إصدار واجهة برمجة التطبيقات للبرنامج المساعد!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1872"/>
+        <location filename="../src/mainwindow.cpp" line="1883"/>
         <source>Plugin api version not match!</source>
         <translation>إصدار واجهة برمجة التطبيقات للبرنامج المساعد لا يتطابق!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1920"/>
+        <location filename="../src/mainwindow.cpp" line="1931"/>
         <source>Plugin init failed!</source>
         <translation>فشل تهيئة البرنامج المساعد!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2379"/>
+        <location filename="../src/mainwindow.cpp" line="2392"/>
         <source>PrintScreen saved to %1</source>
         <translation>تم حفظ PrintScreen في %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2391"/>
+        <location filename="../src/mainwindow.cpp" line="2404"/>
         <source>Save Screenshot</source>
         <translation>حفظ لقطة الشاشة</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2391"/>
+        <location filename="../src/mainwindow.cpp" line="2404"/>
         <source>Image Files (*.jpg)</source>
         <translation>ملفات الصور (*.jpg)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2396"/>
+        <location filename="../src/mainwindow.cpp" line="2409"/>
         <source>Screenshot saved to %1</source>
         <translation>تم حفظ لقطة الشاشة في %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2407"/>
+        <location filename="../src/mainwindow.cpp" line="2420"/>
         <source>Save Session Export</source>
         <translation>حفظ تصدير الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2407"/>
+        <location filename="../src/mainwindow.cpp" line="2420"/>
         <source>Text Files (*.txt);;HTML Files (*.html)</source>
         <translation>ملفات النص (*.txt);;ملفات HTML (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2410"/>
+        <location filename="../src/mainwindow.cpp" line="2423"/>
         <source>Text Files (*.txt)</source>
         <translation>ملفات النص (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2413"/>
+        <location filename="../src/mainwindow.cpp" line="2426"/>
         <source>HTML Files (*.html)</source>
         <translation>ملفات HTML (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2422"/>
+        <location filename="../src/mainwindow.cpp" line="2435"/>
         <source>Session Export saved to %1</source>
         <translation>تم حفظ تصدير الجلسة في %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2424"/>
+        <location filename="../src/mainwindow.cpp" line="2437"/>
         <source>Session Export failed to save to %1</source>
         <translation>فشل حفظ تصدير الجلسة في %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2559"/>
+        <location filename="../src/mainwindow.cpp" line="2572"/>
         <source>Select Files to Send as ASCII</source>
         <translation>حدد الملفات لإرسالها كـ ASCII</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2559"/>
-        <location filename="../src/mainwindow.cpp" line="2580"/>
+        <location filename="../src/mainwindow.cpp" line="2572"/>
+        <location filename="../src/mainwindow.cpp" line="2593"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>ملفات النص (*.txt);;كل الملفات (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2580"/>
+        <location filename="../src/mainwindow.cpp" line="2593"/>
         <source>Save Received Data as ASCII</source>
         <translation>حفظ البيانات المستلمة كـ ASCII</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2588"/>
+        <location filename="../src/mainwindow.cpp" line="2601"/>
         <source>Select Files to Send as BINARY</source>
         <translation>حدد الملفات لإرسالها كـ BINARY</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2588"/>
-        <location filename="../src/mainwindow.cpp" line="2604"/>
-        <location filename="../src/mainwindow.cpp" line="2618"/>
-        <location filename="../src/mainwindow.cpp" line="2626"/>
-        <location filename="../src/mainwindow.cpp" line="2634"/>
-        <location filename="../src/mainwindow.cpp" line="2646"/>
+        <location filename="../src/mainwindow.cpp" line="2601"/>
+        <location filename="../src/mainwindow.cpp" line="2617"/>
+        <location filename="../src/mainwindow.cpp" line="2631"/>
+        <location filename="../src/mainwindow.cpp" line="2639"/>
+        <location filename="../src/mainwindow.cpp" line="2647"/>
+        <location filename="../src/mainwindow.cpp" line="2659"/>
         <source>All Files (*)</source>
         <translation>كل الملفات (*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2604"/>
+        <location filename="../src/mainwindow.cpp" line="2617"/>
         <source>Select Files to Send using Kermit</source>
         <translation>حدد الملفات لإرسالها باستخدام Kermit</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2618"/>
+        <location filename="../src/mainwindow.cpp" line="2631"/>
         <source>Select Files to Send using Xmodem</source>
         <translation>حدد الملفات لإرسالها باستخدام Xmodem</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2626"/>
+        <location filename="../src/mainwindow.cpp" line="2639"/>
         <source>Save Received Files using Xmodem</source>
         <translation>حفظ الملفات المستلمة باستخدام Xmodem</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2634"/>
+        <location filename="../src/mainwindow.cpp" line="2647"/>
         <source>Select Files to Send using Ymodem</source>
         <translation>حدد الملفات لإرسالها باستخدام Ymodem</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2646"/>
+        <location filename="../src/mainwindow.cpp" line="2659"/>
         <source>Select Files to Send using Zmodem</source>
         <translation>حدد الملفات لإرسالها باستخدام Zmodem</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2671"/>
+        <location filename="../src/mainwindow.cpp" line="2684"/>
         <source>Select a directory</source>
         <translation>حدد دليلًا</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2698"/>
+        <location filename="../src/mainwindow.cpp" line="2711"/>
         <source>Select a bookmark</source>
         <translation>حدد إشارة مرجعية</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2725"/>
+        <location filename="../src/mainwindow.cpp" line="2738"/>
         <source>Are you sure to clean all bookmark?</source>
         <translation>هل أنت متأكد من تنظيف كل الإشارات المرجعية؟</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2743"/>
+        <location filename="../src/mainwindow.cpp" line="2756"/>
         <source>Port</source>
         <translation>منفذ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2862"/>
+        <location filename="../src/mainwindow.cpp" line="2875"/>
         <source>Select color</source>
         <translation>حدد لونًا</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2963"/>
+        <location filename="../src/mainwindow.cpp" line="2976"/>
         <source>Video background is enabled, please enable animation in global options (more system resources) or change background image.</source>
         <translation>تم تمكين الخلفية المتحركة، يرجى تمكين الرسوم المتحركة في الخيارات العامة (مزيد من موارد النظام) أو تغيير صورة الخلفية.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3161"/>
+        <location filename="../src/mainwindow.cpp" line="3174"/>
         <source>Session information get failed.</source>
         <translation>فشل الحصول على معلومات الجلسة.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3244"/>
+        <location filename="../src/mainwindow.cpp" line="3257"/>
         <source>Telnet - </source>
         <translation>تلنت - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3245"/>
+        <location filename="../src/mainwindow.cpp" line="3258"/>
         <source>Telnet</source>
         <translation>تلنت</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3277"/>
+        <location filename="../src/mainwindow.cpp" line="3290"/>
         <source>Serial - </source>
         <translation>تسلسلي - </translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1075"/>
-        <location filename="../src/mainwindow.cpp" line="3278"/>
+        <location filename="../src/mainwindow.cpp" line="3291"/>
         <source>Serial</source>
         <translation>تسلسلي</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3309"/>
+        <location filename="../src/mainwindow.cpp" line="3322"/>
         <source>Raw - </source>
         <translation>خام - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3310"/>
+        <location filename="../src/mainwindow.cpp" line="3323"/>
         <source>Raw</source>
         <translation>خام</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3341"/>
+        <location filename="../src/mainwindow.cpp" line="3354"/>
         <source>NamePipe - </source>
         <translation>أنبوب الاسم - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3342"/>
+        <location filename="../src/mainwindow.cpp" line="3355"/>
         <source>NamePipe</source>
         <translation>أنبوب الاسم</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1055"/>
-        <location filename="../src/mainwindow.cpp" line="3436"/>
-        <location filename="../src/mainwindow.cpp" line="3440"/>
+        <location filename="../src/mainwindow.cpp" line="3449"/>
+        <location filename="../src/mainwindow.cpp" line="3453"/>
         <source>Local Shell</source>
         <translation>الشل المحلي</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3438"/>
+        <location filename="../src/mainwindow.cpp" line="3451"/>
         <source>Local Shell - </source>
         <translation>الشل المحلي - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3925"/>
+        <location filename="../src/mainwindow.cpp" line="3938"/>
         <source>This software is a terminal emulator that provides a secure shell (SSH) connection, telnet connection, serial port connection, and other functions.</source>
         <translation>هذا البرنامج هو محاكي الطرفية الذي يوفر اتصالًا بالشل الآمن (SSH)، واتصالًا بالتلنت، واتصالًا بالمنفذ التسلسلي، ووظائف أخرى.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3927"/>
+        <location filename="../src/mainwindow.cpp" line="3940"/>
         <source>This software does not collect any personal information, and does not send any information to the server.</source>
         <translation>هذا البرنامج لا يجمع أي معلومات شخصية، ولا يرسل أي معلومات إلى الخادم.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3929"/>
+        <location filename="../src/mainwindow.cpp" line="3942"/>
         <source>This software does not contain any malicious code, and does not contain any backdoors.</source>
         <translation>هذا البرنامج لا يحتوي على أي رمز ضار، ولا يحتوي على أي أبواب خلفية.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3931"/>
+        <location filename="../src/mainwindow.cpp" line="3944"/>
         <source>This software is open source software, you can view the source code on the github website.</source>
         <translation>هذا البرنامج هو برنامج مفتوح المصدر، يمكنك عرض الشيفرة المصدرية على موقع github.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3933"/>
+        <location filename="../src/mainwindow.cpp" line="3946"/>
         <source>This software is provided as is, without any warranty.</source>
         <translation>يتم توفير هذا البرنامج كما هو، دون أي ضمان.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3935"/>
+        <location filename="../src/mainwindow.cpp" line="3948"/>
         <source>If you have any questions or suggestions, please contact the author.</source>
         <translation>إذا كان لديك أي أسئلة أو اقتراحات، يرجى الاتصال بالمؤلف.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3950"/>
+        <location filename="../src/mainwindow.cpp" line="3963"/>
         <source>Version</source>
         <translation>الإصدار</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3952"/>
+        <location filename="../src/mainwindow.cpp" line="3965"/>
         <source>Commit</source>
         <translation>التزام</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3954"/>
+        <location filename="../src/mainwindow.cpp" line="3967"/>
         <source>Date</source>
         <translation>تاريخ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3936"/>
-        <location filename="../src/mainwindow.cpp" line="3956"/>
+        <location filename="../src/mainwindow.cpp" line="3949"/>
+        <location filename="../src/mainwindow.cpp" line="3969"/>
         <source>Author</source>
         <translation>المؤلف</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3616"/>
+        <location filename="../src/mainwindow.cpp" line="3629"/>
         <source>Are you sure to disconnect &quot;</source>
         <translation>هل أنت متأكد من قطع الاتصال بـ&quot;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3616"/>
+        <location filename="../src/mainwindow.cpp" line="3629"/>
         <source>&quot; session?</source>
         <translation>&quot; الجلسة؟</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3958"/>
+        <location filename="../src/mainwindow.cpp" line="3971"/>
         <source>Website</source>
         <translation>الموقع الإلكتروني</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3968"/>
+        <location filename="../src/mainwindow.cpp" line="3981"/>
         <source>Global Shortcuts:</source>
         <translation>اختصارات عامة:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3969"/>
+        <location filename="../src/mainwindow.cpp" line="3982"/>
         <source>show/hide menu bar</source>
         <translation>إظهار/إخفاء شريط القائمة</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3970"/>
+        <location filename="../src/mainwindow.cpp" line="3983"/>
         <source>connect to LocalShell</source>
         <translation>الاتصال بالشل المحلي</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3971"/>
+        <location filename="../src/mainwindow.cpp" line="3984"/>
         <source>clone current session</source>
         <translation>استنساخ الجلسة الحالية</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3972"/>
+        <location filename="../src/mainwindow.cpp" line="3985"/>
         <source>switch ui to STD mode</source>
         <translation>تبديل واجهة المستخدم إلى وضع STD</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3973"/>
+        <location filename="../src/mainwindow.cpp" line="3986"/>
         <source>switch ui to MINI mode</source>
         <translation>تبديل واجهة المستخدم إلى وضع MINI</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3974"/>
+        <location filename="../src/mainwindow.cpp" line="3987"/>
         <source>switch to previous session</source>
         <translation>التبديل إلى الجلسة السابقة</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3975"/>
+        <location filename="../src/mainwindow.cpp" line="3988"/>
         <source>switch to next session</source>
         <translation>التبديل إلى الجلسة التالية</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3976"/>
+        <location filename="../src/mainwindow.cpp" line="3989"/>
         <source>switch to session [num]</source>
         <translation>التبديل إلى الجلسة [رقم]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3977"/>
+        <location filename="../src/mainwindow.cpp" line="3990"/>
         <source>Go to line start</source>
         <translation>الانتقال إلى بداية السطر</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3978"/>
+        <location filename="../src/mainwindow.cpp" line="3991"/>
         <source>Go to line end</source>
         <translation>الانتقال إلى نهاية السطر</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4002"/>
+        <location filename="../src/mainwindow.cpp" line="4015"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>هناك جلسات لم يتم فتحها بعد، يرجى فتحها أولاً.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4007"/>
+        <location filename="../src/mainwindow.cpp" line="4020"/>
         <source>Are you sure to quit?</source>
         <translation>هل أنت متأكد من الخروج؟</translation>
     </message>
@@ -1717,42 +1717,52 @@
 <context>
     <name>GlobalOptionsAdvancedWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="25"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="31"/>
         <source>Config File</source>
         <translation>ملف التكوين</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="56"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="59"/>
+        <source>User Plugins Path</source>
+        <translation>مسار المكونات الإضافية للمستخدم</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="82"/>
+        <source>Clear</source>
+        <translation>واضح</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="102"/>
         <source>Translate Service</source>
         <translation>خدمة الترجمة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="67"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="113"/>
         <source>Google Translate</source>
         <translation>ترجمة جوجل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
         <source>Baidu Translate</source>
         <translation>ترجمة Baidu</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="77"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
         <source>Microsoft Translate</source>
         <translation>ترجمة Microsoft</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="87"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="133"/>
         <source>Terminal background support animation</source>
         <translation>دعم خلفية الطرفية للرسوم المتحركة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="94"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="140"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>واجهة المستخدم الأصلية (فعالة بعد إعادة التشغيل)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="101"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="147"/>
         <source>Github Copilot</source>
         <translation>Github Copilot</translation>
     </message>
@@ -1760,83 +1770,83 @@
 <context>
     <name>GlobalOptionsAppearanceWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="20"/>
         <source>Color Schemes</source>
         <translation>مخططات الألوان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="44"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="53"/>
         <source>Auto Switch Light</source>
         <translation>التبديل التلقائي إلى النور</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="455"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="467"/>
         <source>Pre-edit Color Index</source>
         <translation>فهرس الألوان المسبقة التحرير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="475"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="487"/>
         <source>Font</source>
         <translation>الخط</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="493"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="505"/>
         <source>Series</source>
         <translation>سلسلة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="513"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="525"/>
         <source>Size</source>
         <translation>الحجم</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="541"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="553"/>
         <source>Background image</source>
         <translation>صورة الخلفية</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="563"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="575"/>
         <source>Clear</source>
         <translation>واضح</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="572"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="584"/>
         <source>Background mode</source>
         <translation>وضع الخلفية</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="579"/>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="591"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
         <source>Stretch</source>
         <translation>تمدد</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="586"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="598"/>
         <source>None</source>
         <translation>لا شيء</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="596"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="608"/>
         <source>Zoom</source>
         <translation>تكبير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="601"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="613"/>
         <source>Fit</source>
         <translation>ملائم</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="606"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="618"/>
         <source>Center</source>
         <translation>مركز</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="611"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="623"/>
         <source>Tile</source>
         <translation>بلاطة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="619"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="631"/>
         <source>Background opacity</source>
         <translation>شفافية الخلفية</translation>
     </message>
@@ -1849,72 +1859,72 @@
 <context>
     <name>GlobalOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="19"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="25"/>
         <source>New tab mode</source>
         <translation>وضع لسان جديد</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="33"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="39"/>
         <source>New session</source>
         <translation>جلسة جديدة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="44"/>
         <source>Clone session</source>
         <translation>استنساخ الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="43"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="49"/>
         <source>LocalShell session</source>
         <translation>جلسة الشل المحلي</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="55"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
         <source>New tab workpath</source>
         <translation>مسار العمل لسان جديد</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="84"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
         <source>Tab title mode</source>
         <translation>وضع عنوان اللسان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="98"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="113"/>
         <source>Brief</source>
         <translation>موجز</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="103"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
         <source>Full</source>
         <translation>كامل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="108"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="123"/>
         <source>Scroll</source>
         <translation>تمرير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="126"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="144"/>
         <source>Tab Title Width</source>
         <translation>عرض عنوان اللسان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="155"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="176"/>
         <source>Tab Preview</source>
         <translation>معاينة اللسان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="171"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="192"/>
         <source>Preview Width</source>
         <translation>عرض المعاينة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="198"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="222"/>
         <source>WSL UserName</source>
         <translation>اسم المستخدم WSL</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="205"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="229"/>
         <source>WSL DistroName</source>
         <translation>اسم التوزيع WSL</translation>
     </message>
@@ -1922,42 +1932,42 @@
 <context>
     <name>GlobalOptionsTerminalWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="20"/>
         <source>Scrollback lines</source>
         <translation>خطوط التمرير العائدة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="34"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="37"/>
         <source>Cursor Shape</source>
         <translation>شكل المؤشر</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="42"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="45"/>
         <source>Block</source>
         <translation>كتلة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="47"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="50"/>
         <source>Underline</source>
         <translation>تسطير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="52"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="55"/>
         <source>IBeam</source>
         <translation>شعاع العين</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="60"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="63"/>
         <source>Cursor Blink</source>
         <translation>وميض المؤشر</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="70"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="73"/>
         <source>Word Characters</source>
         <translation>أحرف الكلمة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="80"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="83"/>
         <source>Selected text accent color transparency
  (inverse color at 100%)</source>
         <translation>شفافية لون تمييز النص المحدد
@@ -1967,32 +1977,32 @@
 <context>
     <name>GlobalOptionsTransferWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="20"/>
         <source>Directories</source>
         <translation>الدلائل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="26"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="32"/>
         <source>Download</source>
         <translation>تنزيل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="36"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="42"/>
         <source>Upload</source>
         <translation>تحميل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="62"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="68"/>
         <source>X/Ymodem send packet size</source>
         <translation>حجم حزمة إرسال X/Ymodem</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="100"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="109"/>
         <source>Zmodem Online</source>
         <translation>Zmodem عبر الإنترنت</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="107"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="116"/>
         <source>Disable</source>
         <translation>تعطيل</translation>
     </message>
@@ -2011,66 +2021,87 @@
         <translation>الخيارات العامة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="190"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="191"/>
         <source>Select Background Image</source>
         <translation>حدد صورة الخلفية</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="190"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="191"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation>ملفات الصور (*.png *.jpg *.jpeg *.bmp *.gif);;ملفات الفيديو (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="228"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="233"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="229"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Information</source>
         <translation>معلومات</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="228"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="229"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation>هذه الميزة تحتاج إلى مزيد من موارد النظام، يرجى استخدامها بحذر!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="233"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>This feature is not implemented yet!</source>
         <translation>لم يتم تنفيذ هذه الميزة بعد!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="262"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="242"/>
+        <source>Select User Plugins Path</source>
+        <translation>حدد مسار المكونات الإضافية للمستخدم</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="246"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="552"/>
+        <source>Warning</source>
+        <translation>تحذير</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="246"/>
+        <source>The path is not a directory!</source>
+        <translation>المسار ليس دليلًا!</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>General</source>
         <translation>عام</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="262"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Appearance</source>
         <translation>مظهر</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="262"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Terminal</source>
         <translation>الطرفية</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="262"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Window</source>
         <translation>نافذة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="262"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Advanced</source>
         <translation>متقدم</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="262"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Transfer</source>
         <translation>نقل</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="552"/>
+        <source>The User Plugins Path is not a directory!</source>
+        <translation>مسار المكونات الإضافية للمستخدم ليس دليلًا!</translation>
     </message>
 </context>
 <context>
     <name>GlobalOptionsWindowWidget</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="17"/>
+        <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="20"/>
         <source>Transparent window</source>
         <translation>نافذة شفافة</translation>
     </message>
@@ -2180,29 +2211,29 @@
         <translation>قفل الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="20"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="23"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="84"/>
         <source>Enter the password that will be used to unlock the session:</source>
         <translation>أدخل كلمة المرور التي سيتم استخدامها لفتح الجلسة:</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="32"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="38"/>
         <source>Password</source>
         <translation>كلمة المرور</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="50"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="59"/>
         <source>Reenter Password</source>
         <translation>أعد إدخال كلمة المرور</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="68"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="80"/>
         <location filename="../src/locksessionwindow/locksessionwindow.cpp" line="85"/>
         <source>Lock all sessions</source>
         <translation>قفل جميع الجلسات</translation>
     </message>
     <message>
-        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="75"/>
+        <location filename="../src/locksessionwindow/locksessionwindow.ui" line="87"/>
         <source>Lock all sessions in tab group</source>
         <translation>قفل جميع الجلسات في مجموعة الألسنة</translation>
     </message>
@@ -2251,12 +2282,12 @@
         <translation>معلومات البرنامج المساعد</translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.ui" line="28"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.ui" line="34"/>
         <source>API version</source>
         <translation>إصدار الواجهة البرمجية للتطبيقات (API)</translation>
     </message>
     <message>
-        <location filename="../src/plugininfowindow/plugininfowindow.ui" line="38"/>
+        <location filename="../src/plugininfowindow/plugininfowindow.ui" line="44"/>
         <source>Install plugin</source>
         <translation>تثبيت البرنامج المساعد</translation>
     </message>
@@ -2775,27 +2806,27 @@
 <context>
     <name>QuickConnectWindow</name>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="30"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="39"/>
         <source>Protocol</source>
         <translation>البروتوكول</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="43"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="52"/>
         <source>Serial</source>
         <translation>تسلسلي</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="48"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="57"/>
         <source>Local Shell</source>
         <translation>الشل المحلي</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="58"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="67"/>
         <source>Named Pipe</source>
         <translation>أنبوب مسمى</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="86"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="98"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="70"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="167"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="225"/>
@@ -2804,7 +2835,7 @@
         <translation>اسم المضيف</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="109"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="124"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="71"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="168"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="226"/>
@@ -2813,68 +2844,68 @@
         <translation>منفذ</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="125"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="140"/>
         <source>WebSocket</source>
         <translation>الويب سوكيت (WebSocket)</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="133"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="233"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="148"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="254"/>
         <source>None</source>
         <translation>لا شيء</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="138"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="153"/>
         <source>Insecure</source>
         <translation>غير آمن</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="143"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="158"/>
         <source>Secure</source>
         <translation>آمن</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="161"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="179"/>
         <source>Username</source>
         <translation>اسم المستخدم</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="171"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="189"/>
         <source>Password</source>
         <translation>كلمة المرور</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="188"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="209"/>
         <source>DataBits</source>
         <translation>بتات البيانات (DataBits)</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="225"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="246"/>
         <source>Parity</source>
         <translation>الزوجية (Parity)</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="238"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="259"/>
         <source>Odd</source>
         <translation>فردي (Odd)</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="243"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="264"/>
         <source>Even</source>
         <translation>زوجي (Even)</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="261"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="285"/>
         <source>StopBits</source>
         <translation>بتات التوقف (StopBits)</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="313"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="340"/>
         <source>Save session</source>
         <translation>حفظ الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="323"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="350"/>
         <source>Open in tab</source>
         <translation>فتح في علامة تبويب جديدة</translation>
     </message>
@@ -2941,17 +2972,17 @@
 <context>
     <name>SFTPmenuBookmarkWidget</name>
     <message>
-        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.ui" line="17"/>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.ui" line="20"/>
         <source>BookMarkName</source>
         <translation>اسم الإشارة المرجعية</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.ui" line="35"/>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.ui" line="41"/>
         <source>LocalPath</source>
         <translation>المسار المحلي</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.ui" line="62"/>
+        <location filename="../src/sftpwindow/sftpmenubookmarkwidget.ui" line="71"/>
         <source>RemotePath</source>
         <translation>المسار البعيد</translation>
     </message>
@@ -3029,42 +3060,42 @@
     <name>SessionManagerTreeView</name>
     <message>
         <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="40"/>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="75"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="79"/>
         <source>Session</source>
         <translation>الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="85"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="89"/>
         <source>Connect Terminal</source>
         <translation>الاتصال بالطرفية</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="90"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="94"/>
         <source>Connect in New Window</source>
         <translation>الاتصال في نافذة جديدة</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="97"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="101"/>
         <source>Connect in New Tab Group</source>
         <translation>الاتصال في مجموعة علامات تبويب جديدة</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="104"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="108"/>
         <source>Delete</source>
         <translation>حذف</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="107"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="111"/>
         <source>Delete Session</source>
         <translation>حذف الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="107"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="111"/>
         <source>Are you sure you want to delete the session?</source>
         <translation>هل أنت متأكد أنك تريد حذف الجلسة؟</translation>
     </message>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="112"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagertreeview.cpp" line="116"/>
         <source>Properties</source>
         <translation>خصائص</translation>
     </message>
@@ -3072,7 +3103,7 @@
 <context>
     <name>SessionManagerWidget</name>
     <message>
-        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.ui" line="43"/>
+        <location filename="../src/sessionmanagerwidget/sessionmanagerwidget.ui" line="46"/>
         <source>Session Manager</source>
         <translation>مدير الجلسة</translation>
     </message>
@@ -3085,27 +3116,27 @@
 <context>
     <name>SessionOptionsGeneralWidget</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="25"/>
+        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="31"/>
         <source>Name</source>
         <translation>الاسم</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="45"/>
+        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="54"/>
         <source>Protocol</source>
         <translation>البروتوكول</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="58"/>
+        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="67"/>
         <source>Serial</source>
         <translation>تسلسلي</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="63"/>
+        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="72"/>
         <source>Local Shell</source>
         <translation>الشل المحلي</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="73"/>
+        <location filename="../src/sessionoptions/sessionoptionsgeneralwidget.ui" line="82"/>
         <source>Named Pipe</source>
         <translation>أنبوب مسمى</translation>
     </message>
@@ -3113,7 +3144,7 @@
 <context>
     <name>SessionOptionsLocalShellProperties</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionslocalshellproperties.ui" line="19"/>
+        <location filename="../src/sessionoptions/sessionoptionslocalshellproperties.ui" line="25"/>
         <source>Command</source>
         <translation>الأمر</translation>
     </message>
@@ -3121,12 +3152,12 @@
 <context>
     <name>SessionOptionsLocalShellState</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionslocalshellstate.ui" line="25"/>
+        <location filename="../src/sessionoptions/sessionoptionslocalshellstate.ui" line="31"/>
         <source>State</source>
         <translation>الحالة</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionslocalshellstate.ui" line="51"/>
+        <location filename="../src/sessionoptions/sessionoptionslocalshellstate.ui" line="57"/>
         <source>Process Tree</source>
         <translation>شجرة العمليات</translation>
     </message>
@@ -3139,7 +3170,7 @@
 <context>
     <name>SessionOptionsNamePipeProperties</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsnamepipeproperties.ui" line="25"/>
+        <location filename="../src/sessionoptions/sessionoptionsnamepipeproperties.ui" line="31"/>
         <source>PipeName</source>
         <translation>اسم الأنبوبة</translation>
     </message>
@@ -3147,12 +3178,12 @@
 <context>
     <name>SessionOptionsRawProperties</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="25"/>
+        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="31"/>
         <source>Hostname</source>
         <translation>اسم المضيف</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="45"/>
+        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="54"/>
         <source>Port</source>
         <translation>منفذ</translation>
     </message>
@@ -3160,42 +3191,42 @@
 <context>
     <name>SessionOptionsSerialProperties</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="25"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="31"/>
         <source>Port Name</source>
         <translation>اسم المنفذ</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="45"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="54"/>
         <source>Baud Rate</source>
         <translation>معدل الباود (Baud Rate)</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="72"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="84"/>
         <source>DataBits</source>
         <translation>بتات البيانات (DataBits)</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="109"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="121"/>
         <source>Parity</source>
         <translation>الزوجية (Parity)</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="117"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="129"/>
         <source>None</source>
         <translation>لا شيء</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="122"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="134"/>
         <source>Odd</source>
         <translation>فردي (Odd)</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="127"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="139"/>
         <source>Even</source>
         <translation>زوجي (Even)</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="145"/>
+        <location filename="../src/sessionoptions/sessionoptionsserialproperties.ui" line="160"/>
         <source>StopBits</source>
         <translation>بتات التوقف (StopBits)</translation>
     </message>
@@ -3214,22 +3245,22 @@
 <context>
     <name>SessionOptionsSsh2Properties</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="25"/>
+        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="31"/>
         <source>Hostname</source>
         <translation>اسم المضيف</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="41"/>
+        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="47"/>
         <source>Port</source>
         <translation>منفذ</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="65"/>
+        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="74"/>
         <source>UserName</source>
         <translation>اسم المستخدم</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="81"/>
+        <location filename="../src/sessionoptions/sessionoptionsssh2properties.ui" line="90"/>
         <source>Password</source>
         <translation>كلمة المرور</translation>
     </message>
@@ -3237,27 +3268,27 @@
 <context>
     <name>SessionOptionsTelnetProperties</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="19"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="25"/>
         <source>Hostname</source>
         <translation>اسم المضيف</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="33"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="42"/>
         <source>Port</source>
         <translation>منفذ</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="55"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="64"/>
         <source>None</source>
         <translation>لا شيء</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="60"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="69"/>
         <source>Insecure</source>
         <translation>غير آمن</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="65"/>
+        <location filename="../src/sessionoptions/sessionoptionstelnetproperties.ui" line="74"/>
         <source>Secure</source>
         <translation>آمن</translation>
     </message>
@@ -3265,17 +3296,17 @@
 <context>
     <name>SessionOptionsVNCProperties</name>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="25"/>
+        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="31"/>
         <source>Hostname</source>
         <translation>اسم المضيف</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="41"/>
+        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="47"/>
         <source>Port</source>
         <translation>منفذ</translation>
     </message>
     <message>
-        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="65"/>
+        <location filename="../src/sessionoptions/sessionoptionsvncproperties.ui" line="74"/>
         <source>Password</source>
         <translation>كلمة المرور</translation>
     </message>
@@ -3457,12 +3488,12 @@
         <translation>sftp</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.ui" line="72"/>
+        <location filename="../src/sftpwindow/sftpwindow.ui" line="84"/>
         <source>local</source>
         <translation>محلي</translation>
     </message>
     <message>
-        <location filename="../src/sftpwindow/sftpwindow.ui" line="130"/>
+        <location filename="../src/sftpwindow/sftpwindow.ui" line="148"/>
         <source>remote</source>
         <translation>بعيد</translation>
     </message>
@@ -3592,22 +3623,22 @@
         <translation>بدء خادم TFTP</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="32"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="35"/>
         <source>The TFTP server uses local directories for uploading and downloading files. Please enter this information below.</source>
         <translation>يستخدم خادم TFTP المجلدات المحلية لتحميل وتنزيل الملفات. يرجى إدخال هذه المعلومات أدناه.</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="65"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="71"/>
         <source>TFTP Port</source>
         <translation>منفذ TFTP</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="104"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="113"/>
         <source>Upload directory</source>
         <translation>مجلد التحميل</translation>
     </message>
     <message>
-        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="143"/>
+        <location filename="../src/starttftpseverwindow/starttftpseverwindow.ui" line="155"/>
         <source>Download directory</source>
         <translation>مجلد التنزيل</translation>
     </message>
@@ -3654,7 +3685,7 @@
         <translation>مدير الخريطة الرئيسية</translation>
     </message>
     <message>
-        <location filename="../src/keymapmanager/keymapmanager.ui" line="20"/>
+        <location filename="../src/keymapmanager/keymapmanager.ui" line="23"/>
         <source>KeyBinding</source>
         <translation>ربط المفاتيح</translation>
     </message>

@@ -57,7 +57,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <property name="spacing">
-        <number>2</number>
+        <number>4</number>
        </property>
        <item>
         <widget class="QRadioButton" name="asciiRadioButton">

@@ -7,6 +7,7 @@
 - Add setting main window theme color feature
 - Add status bar display session information feature
 - Add WSL terminal toolbar button on Windows
+- Add user-defined plugin loading path setting
 - Fix the issue that the working directory is not correctly cloned when cloning the tab in some shell environments
 - Fix the issue that the modification is saved when canceling the modification in the keyboard binding settings
 - Fix the issue that the confirmation dialog cannot select cancel when closing all tabs

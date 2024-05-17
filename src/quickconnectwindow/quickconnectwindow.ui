@@ -14,10 +14,19 @@
    <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>4</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLabel" name="labelProtocol">
          <property name="sizePolicy">
@@ -63,17 +72,20 @@
            <string notr="true">SSH2</string>
           </property>
          </item>
-            <item>
-            <property name="text">
-            <string notr="true">VNC</string>
-            </property>
-            </item>
+         <item>
+          <property name="text">
+           <string notr="true">VNC</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLabel" name="labelHostname">
          <property name="sizePolicy">
@@ -97,6 +109,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLabel" name="labelPort">
          <property name="sizePolicy">
@@ -149,6 +164,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLabel" name="labelUsername">
          <property name="sizePolicy">
@@ -176,6 +194,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLabel" name="labelDataBits">
          <property name="sizePolicy">
@@ -249,6 +270,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLabel" name="labelStopBits">
          <property name="sizePolicy">
@@ -307,6 +331,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QCheckBox" name="checkBoxSaveSession">
          <property name="text">

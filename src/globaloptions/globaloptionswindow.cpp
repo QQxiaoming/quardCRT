@@ -150,6 +150,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setChecked(settings.value("enableColorSchemeBak", true).toBool());
     globalOptionsGeneralWidget->ui->lineEditWSLUserName->setText(settings.value("WSLUserName", "root").toString());
     globalOptionsGeneralWidget->ui->lineEditWSLDistroName->setText(settings.value("WSLDistroName", "Ubuntu").toString());
+    globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {
@@ -236,6 +237,20 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     });
     connect(globalOptionsAdvancedWidget->ui->toolButtonOpenConfigFile,&QToolButton::clicked, this, [&](){
         QDesktopServices::openUrl(QUrl::fromLocalFile(globalOptionsAdvancedWidget->ui->lineEditConfigFile->text()));
+    });
+    connect(globalOptionsAdvancedWidget->ui->toolButtonUserPluginsPath, &QToolButton::clicked, this, [&](){
+        QString path = FileDialog::getExistingDirectory(this, tr("Select User Plugins Path"), globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->text());
+        if (!path.isEmpty()) {
+            QFileInfo info(path);
+            if(!info.isDir()) {
+                QMessageBox::warning(this, tr("Warning"), tr("The path is not a directory!"));
+                return;
+            }
+            globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(path);
+        }
+    });
+    connect(globalOptionsAdvancedWidget->ui->pushButtonUserPluginsPathClear, &QPushButton::clicked, this, [&](){
+        globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText("");
     });
     connect(globalOptionsAppearanceWidget->ui->comBoxColorSchemes, &QComboBox::currentTextChanged, this, [&](const QString &text){
         if(text == "Custom") {
@@ -529,6 +544,13 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("enableColorSchemeBak", globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->isChecked());
     settings.setValue("WSLUserName", globalOptionsGeneralWidget->ui->lineEditWSLUserName->text());
     settings.setValue("WSLDistroName", globalOptionsGeneralWidget->ui->lineEditWSLDistroName->text());
+    QFileInfo info(globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->text());
+    if(info.isDir() || globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->text().isEmpty()) {
+        settings.setValue("UserPluginsPath", globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->text());
+    } else {
+        globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
+        QMessageBox::warning(this, tr("Warning"), tr("The User Plugins Path is not a directory!"));
+    }
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -578,6 +600,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setChecked(settings.value("enableColorSchemeBak", true).toBool());
     globalOptionsGeneralWidget->ui->lineEditWSLUserName->setText(settings.value("WSLUserName", "root").toString());
     globalOptionsGeneralWidget->ui->lineEditWSLDistroName->setText(settings.value("WSLDistroName", "Ubuntu").toString());
+    globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {

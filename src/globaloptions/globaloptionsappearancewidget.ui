@@ -11,6 +11,9 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>4</number>
+   </property>
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
@@ -20,6 +23,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
       <widget class="QComboBox" name="comBoxColorSchemes">
        <property name="sizePolicy">
@@ -32,6 +38,9 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QCheckBox" name="checkBoxColorSchemesBak">
          <property name="sizePolicy">
@@ -67,6 +76,9 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item row="0" column="6">
       <widget class="QPushButton" name="pushButtonColor7">
        <property name="minimumSize">
@@ -479,7 +491,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="spacing">
-      <number>2</number>
+      <number>4</number>
      </property>
      <item>
       <widget class="QLabel" name="label_7">
@@ -545,7 +557,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>2</number>
+      <number>4</number>
      </property>
      <item>
       <widget class="QLineEdit" name="lineEditBackgroundImage"/>

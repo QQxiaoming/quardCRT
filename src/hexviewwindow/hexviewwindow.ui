@@ -19,7 +19,11 @@
   <property name="windowTitle">
    <string>Hex View</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout"/>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>4</number>
+   </property>
+  </layout>
  </widget>
  <resources/>
  <connections/>
