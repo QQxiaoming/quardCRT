@@ -12,6 +12,7 @@ en-US:
 - Fix the issue that the modification is saved when canceling the modification in the keyboard binding settings
 - Fix the issue that the confirmation dialog cannot select cancel when closing all tabs
 - Fix the issue that the session manager switches the current selected session incorrectly after modifying the session properties
+- Fix the issue that the new session may be created on the hidden tab group
 - Add pre-built plugins [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode), [ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial), and update pre-built plugin [SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb) to V0.0.4
 
 zh-CN:
@@ -24,6 +25,7 @@ zh-CN:
 - 修复键盘绑定设置中取消修改时也会保存的问题
 - 修复关闭全部标签页时确认对话框无法选择取消的问题
 - 修复会话管理器中修改会话属性后会话管理器内当前选中会话被错误切换问题
+- 修复新会话可能创建在被隐藏的标签页组上的问题
 - 新增集成预构建插件[CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode)、[ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial)，更新预构建插件[SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb)到V0.0.4版本
 
 ## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26

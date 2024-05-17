@@ -12,6 +12,7 @@
 - Fix the issue that the modification is saved when canceling the modification in the keyboard binding settings
 - Fix the issue that the confirmation dialog cannot select cancel when closing all tabs
 - Fix the issue that the session manager switches the current selected session incorrectly after modifying the session properties
+- Fix the issue that the new session may be created on the hidden tab group
 - Add pre-built plugins [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode), [ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial), and update pre-built plugin [SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb) to V0.0.4 version
 
 ## [[V0.4.5](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.5)] - 2024-04-26

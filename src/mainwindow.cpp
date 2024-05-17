@@ -1119,19 +1119,40 @@ void CentralWidget::restoreSettings(void) {
 
 MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+        if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
+            continue;
+        }
+        if(mainWidgetGroup->splitter->size().width() == 0) {
+            continue;
+        }
         if(mainWidgetGroup->sessionTab->currentWidget()->hasFocus()) {
             return mainWidgetGroup;
         }
     }
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+        if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
+            continue;
+        }
+        if(mainWidgetGroup->splitter->size().width() == 0) {
+            continue;
+        }
         if(mainWidgetGroup->sessionTab->count() != 0) {
             return mainWidgetGroup;
         }
     }
-    if(forceFind)
+    if(forceFind) {
+        foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+            if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
+                continue;
+            }
+            if(mainWidgetGroup->splitter->size().width() != 0) {
+                return mainWidgetGroup;
+            }
+        }
         return mainWidgetGroupList[0];
-    else 
+    } else {
         return nullptr;
+    }
 }
 
 QWidget *CentralWidget::findCurrentFocusWidget(void) {
