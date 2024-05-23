@@ -47,7 +47,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           arch: win64_mingw
           version: '6.5.3'
@@ -130,7 +130,7 @@ jobs:
       - uses: actions/checkout@v4
     
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           arch: 'win64_msvc2019_64'
           version: '6.5.3'
