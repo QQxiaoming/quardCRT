@@ -127,6 +127,8 @@ public:
     bool isLog(void) { return enableLog; }
     int setRawLog(bool enable);
     bool isRawLog(void) { return enableRawLog; }
+    void setInBroadCastList(bool enable) { enableBroadCast = enable; }
+    bool isInBroadCastList() { return enableBroadCast; }
 
     int writeReceiveASCIIFile(const char *data, int size);
     int startReceiveASCIIFile(const QString &fileName);
@@ -352,6 +354,7 @@ public:
         zmodemOnlie = enable;
     }
 
+
 signals:
     void hexDataDup(const char *data, int size);
     void stateChanged(SessionsState state);
@@ -359,6 +362,7 @@ signals:
     void modemProxySendData(QByteArray data);
     void modemProxyRecvData(const QByteArray &data);
     void waitForStringFinished(const QString &str, int matchIndex);
+    void broadCastSendData(const QByteArray &data);
 
 private:
     int saveLog(const char *data, int size);
@@ -386,6 +390,7 @@ private:
     QVNCClientWidget *vncClient;
     bool enableLog;
     bool enableRawLog;
+    bool enableBroadCast;
     QMutex log_file_mutex;
     QMutex raw_log_file_mutex;
     QFile *log_file = nullptr;

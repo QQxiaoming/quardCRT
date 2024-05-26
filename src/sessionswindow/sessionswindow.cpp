@@ -145,6 +145,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(modemProxyChannel) {
                     return;
                 }
+                if(enableBroadCast) {
+                    emit broadCastSendData(QByteArray(data, size));
+                }
                 if(telnet->isConnected()) {
                     telnet->sendData(data, size);
                     tx_total += size;
@@ -195,6 +198,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(modemProxyChannel) {
                     return;
                 }
+                if(enableBroadCast) {
+                    emit broadCastSendData(QByteArray(data, size));
+                }
                 if(serialPort->isOpen()) {
                     serialPort->write(data, size);
                     tx_total += size;
@@ -238,6 +244,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 [=](const char *data, int size){
                 if(modemProxyChannel) {
                     return;
+                }
+                if(enableBroadCast) {
+                    emit broadCastSendData(QByteArray(data, size));
                 }
                 if(rawSocket->state() == QAbstractSocket::ConnectedState) {
                     rawSocket->write(data, size);
@@ -286,6 +295,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 [=](const char *data, int size){
                 if(modemProxyChannel) {
                     return;
+                }
+                if(enableBroadCast) {
+                    emit broadCastSendData(QByteArray(data, size));
                 }
                 if(namePipe->state() == QLocalSocket::ConnectedState) {
                     namePipe->write(data, size);
@@ -345,6 +357,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
                     if(modemProxyChannel) {
                         return;
+                    }
+                    if(enableBroadCast) {
+                        emit broadCastSendData(QByteArray(data, size));
                     }
                     shell->sendData(data, size);
                     tx_total += size;
@@ -709,6 +724,9 @@ int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp
     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
         if(modemProxyChannel) {
             return;
+        }
+        if(enableBroadCast) {
+            emit broadCastSendData(QByteArray(data, size));
         }
         localShell->write(QByteArray(data, size));
     });

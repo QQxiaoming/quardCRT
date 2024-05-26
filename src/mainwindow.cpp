@@ -85,8 +85,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
-
-
     splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
     ui->centralwidget->layout()->addWidget(splitter);
@@ -398,6 +396,25 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         });
                     }
                     #endif
+                    QAction *addToBroadCastSessionListAction = new QAction(tr("Add to BroadCast List"),this);
+                    addToBroadCastSessionListAction->setStatusTip(tr("Add current session to broadcast list"));
+                    addToBroadCastSessionListAction->setCheckable(true);
+                    addToBroadCastSessionListAction->setChecked(sessionsWindow->isInBroadCastList());
+                    if(sessionsWindow->isInBroadCastList()) {
+                        addToBroadCastSessionListAction->setText(tr("Remove from BroadCast List"));
+                        addToBroadCastSessionListAction->setStatusTip(tr("Remove current session from broadcast list"));
+                    }
+                    menu->addAction(addToBroadCastSessionListAction);
+                    connect(addToBroadCastSessionListAction,&QAction::triggered,this,[=](){
+                        QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+                        sessionsWindow->setInBroadCastList(!sessionsWindow->isInBroadCastList());
+                        if(sessionsWindow->isInBroadCastList()) {
+                            broadCastSessionList.append(sessionsWindow);
+                        } else {
+                            broadCastSessionList.removeAll(sessionsWindow);
+                        }
+                    });
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
                     saveSessionAction->setStatusTip(tr("Save current session to session manager"));
                     menu->addAction(saveSessionAction);
@@ -2017,6 +2034,10 @@ void CentralWidget::onPluginReadSettings(QString group, QString key, QVariant &v
     value = settings.value("Plugin/"+iface->name()+"/"+group+"/"+key);
 }
 
+void CentralWidget::onBroadCastSendData(const QByteArray &data) {
+
+}
+
 void CentralWidget::setSessionClassActionEnable(bool enable)
 {
     reconnectAction->setEnabled(enable);
@@ -3000,6 +3021,13 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setZmodemOnlie(!globalOptionsWindow->getDisableZmodemOnline());
     window->setZmodemUploadPath(globalOptionsWindow->getModemUploadPath());
     window->setZmodemDownloadPath(globalOptionsWindow->getModemDownloadPath());
+    connect(window,&SessionsWindow::broadCastSendData,this,[=](const QByteArray &data){
+        foreach(SessionsWindow *sessionsWindow, broadCastSessionList) {
+            if(sessionsWindow != window) {
+                sessionsWindow->reverseProxySendData(data);
+            }
+        }
+    });
 }
 
 void CentralWidget::restoreSessionToSessionManager(void)
