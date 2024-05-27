@@ -3320,9 +3320,12 @@ void CentralWidget::connectSessionStateChange(SessionTab *tab, int index, Sessio
                     targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf127), Qt::red));
                     break;
                 case SessionsWindow::Locked:
-                    if(sessionsWindow->isLocked())
+                case SessionsWindow::BroadCasted:
+                    if(sessionsWindow->isLocked()) {
                         targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf084), Qt::yellow));
-                    else if(sessionsWindow->getState() == SessionsWindow::Connected) {
+                    } else if(sessionsWindow->isInBroadCastList()) {
+                        targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf08e), Qt::yellow));
+                    } else if(sessionsWindow->getState() == SessionsWindow::Connected) {
                         targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf0c1), Qt::green));
                     } else {
                         targetTab->setTabIcon(targetIndex,QFontIcon::icon(QChar(0xf127), Qt::red));

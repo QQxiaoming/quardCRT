@@ -1005,6 +1005,11 @@ void SessionsWindow::unlockSession(QString password) {
     }
 }
 
+void SessionsWindow::setInBroadCastList(bool enable) {
+    enableBroadCast = enable; 
+    emit stateChanged(BroadCasted);
+}
+
 int SessionsWindow::writeReceiveASCIIFile(const char *data, int size) {
     if(receiveASCIIFile) {
         QMutexLocker locker(&receiveASCIIFileMutex);

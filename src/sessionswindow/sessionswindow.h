@@ -61,6 +61,7 @@ public:
         Connected,
         Disconnected,
         Locked,
+        BroadCasted,
         Error,
     };
     struct StateInfo {
@@ -127,7 +128,7 @@ public:
     bool isLog(void) { return enableLog; }
     int setRawLog(bool enable);
     bool isRawLog(void) { return enableRawLog; }
-    void setInBroadCastList(bool enable) { enableBroadCast = enable; }
+    void setInBroadCastList(bool enable);
     bool isInBroadCastList() { return enableBroadCast; }
 
     int writeReceiveASCIIFile(const char *data, int size);
