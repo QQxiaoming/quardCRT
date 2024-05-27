@@ -153,7 +153,6 @@ private slots:
     void onPluginSendCommand(QString cmd);
     void onPluginWriteSettings(QString group, QString key, QVariant value);
     void onPluginReadSettings(QString group, QString key, QVariant &value);
-    void onBroadCastSendData(const QByteArray &data);
 
 protected:
     void closeEvent(QCloseEvent *event) override {

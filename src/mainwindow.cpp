@@ -2034,10 +2034,6 @@ void CentralWidget::onPluginReadSettings(QString group, QString key, QVariant &v
     value = settings.value("Plugin/"+iface->name()+"/"+group+"/"+key);
 }
 
-void CentralWidget::onBroadCastSendData(const QByteArray &data) {
-
-}
-
 void CentralWidget::setSessionClassActionEnable(bool enable)
 {
     reconnectAction->setEnabled(enable);
@@ -2611,23 +2607,31 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(sendASCIIAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         QString file = FileDialog::getOpenFileName(this, tr("Select Files to Send as ASCII"), globalOptionsWindow->getModemUploadPath(), tr("Text Files (*.txt);;All Files (*)"));
         if(file.isEmpty()) return;
         QFile f(file);
         if(f.open(QIODevice::ReadOnly|QIODevice::Text)) {
             QByteArray data = f.readAll();
             f.close();
-            QWidget *widget = findCurrentFocusWidget();
-            if(widget == nullptr) return;
-            SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
             sessionsWindow->reverseProxySendData(data);
         }
     });
     connect(receiveASCIIAction,&QAction::triggered,this,[=](){
-        receiveASCIIAction->setChecked(!receiveASCIIAction->isChecked());
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr)  return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
+        receiveASCIIAction->setChecked(!receiveASCIIAction->isChecked());
         if(sessionsWindow->isReceiveASCIIFile()) {
             sessionsWindow->stopReceiveASCIIFile();
             receiveASCIIAction->setChecked(false);
@@ -2640,15 +2644,19 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(sendBinaryAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         QString file = FileDialog::getOpenFileName(this, tr("Select Files to Send as BINARY"), QDir::homePath(), tr("All Files (*)"));
         if(file.isEmpty()) return;
         QFile f(file);
         if(f.open(QIODevice::ReadOnly)) {
             QByteArray data = f.readAll();
             f.close();
-            QWidget *widget = findCurrentFocusWidget();
-            if(widget == nullptr) return;
-            SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
             sessionsWindow->reverseProxySendData(data);
         }
     });
@@ -2656,6 +2664,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Kermit"), globalOptionsWindow->getModemUploadPath(), tr("All Files (*)"));
         if(files.isEmpty()) return;
         sessionsWindow->sendFileUseKermit(files);
@@ -2664,12 +2676,20 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         sessionsWindow->recvFileUseKermit(globalOptionsWindow->getModemDownloadPath());
     });
     connect(sendXmodemAction,&QAction::triggered,this,[=](){
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         QString file = FileDialog::getOpenFileName(this, tr("Select Files to Send using Xmodem"), globalOptionsWindow->getModemUploadPath(), tr("All Files (*)"));
         if(file.isEmpty()) return;
         sessionsWindow->sendFileUseXModem(file,globalOptionsWindow->getXYModem1K());
@@ -2678,6 +2698,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr)  return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         QString file = FileDialog::getSaveFileName(this, tr("Save Received Files using Xmodem"), globalOptionsWindow->getModemDownloadPath(), tr("All Files (*)"));
         if(file.isEmpty()) return;
         sessionsWindow->recvFileUseXModem(file);
@@ -2686,6 +2710,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         QStringList files = FileDialog::getItemsPathsWithPickBox(this, tr("Select Files to Send using Ymodem"), globalOptionsWindow->getModemUploadPath(), tr("All Files (*)"));
         if(files.isEmpty()) return;
         sessionsWindow->sendFileUseYModem(files,globalOptionsWindow->getXYModem1K());
@@ -2694,6 +2722,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         sessionsWindow->recvFileUseYModem(globalOptionsWindow->getModemDownloadPath());
     });
     connect(zmodemUploadListAction,&QAction::triggered,this,[=](){
@@ -2708,6 +2740,10 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QWidget *widget = findCurrentFocusWidget();
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isInBroadCastList()) {
+            QMessageBox::warning(this,tr("Warning"),tr("Broadcast session can't transfer file!"));
+            return;
+        }
         sessionsWindow->sendFileUseZModem(zmodemUploadList);
         zmodemUploadList.clear();
         startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
