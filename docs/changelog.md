@@ -4,6 +4,9 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- Add broadcast session feature #36
+- Fix the crash problem caused by modifying the configuration of the currently running session
+
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 
 - Add setting main window theme color feature

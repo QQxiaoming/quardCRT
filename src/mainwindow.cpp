@@ -448,6 +448,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         sessionWindow2InfoData(sessionsWindow,data,name);
                         sessionOptionsWindow->setSessionProperties(name,data);
                         sessionOptionsWindow->setSessionState(sessionsWindow->getStateInfo());
+                        sessionOptionsWindow->setReadOnly(true);
                         sessionOptionsWindow->show();
                     });
                     if(sessionsWindow->getState() == SessionsWindow::Disconnected ||
@@ -602,6 +603,14 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     return;
                 }
                 sessionOptionsWindow->setSessionProperties(str,data);
+                bool readOnly = false;
+                foreach(SessionsWindow *session, sessionList){
+                    if(session->getName() == str) {
+                        readOnly = true;
+                        break;
+                    }
+                }
+                sessionOptionsWindow->setReadOnly(readOnly);
                 sessionOptionsWindow->show();
                 break;
             }
@@ -2848,6 +2857,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         sessionWindow2InfoData(sessionsWindow, data, name);
         sessionOptionsWindow->setSessionProperties(name,data);
         sessionOptionsWindow->setSessionState(sessionsWindow->getStateInfo());
+        sessionOptionsWindow->setReadOnly(true);
         sessionOptionsWindow->show();
     });
     connect(globalOptionsAction,&QAction::triggered,this,[=](){

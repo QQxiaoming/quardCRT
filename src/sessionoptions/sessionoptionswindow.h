@@ -54,6 +54,7 @@ public:
 
     void setSessionProperties(QString name, QuickConnectWindow::QuickConnectData data);
     void setSessionState(SessionsWindow::StateInfo state);
+    void setReadOnly(bool enable);
 
     void retranslateUi();
 

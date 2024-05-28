@@ -2,6 +2,16 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+en-US:
+
+- Add broadcast session feature #36
+- Fix the crash problem caused by modifying the configuration of the currently running session
+
+zh-CN:
+
+- 增加广播会话功能 #36
+- 修复 修改当前正在运行中的会话配置导致的崩溃 问题
+
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 
 en-US:

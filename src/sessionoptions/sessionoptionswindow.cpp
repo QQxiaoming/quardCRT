@@ -283,12 +283,48 @@ void SessionOptionsWindow::setSessionState(SessionsWindow::StateInfo state)
                 case SessionsWindow::Locked:
                     sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf084), Qt::yellow).pixmap(16,16)));
                     break;
+                case SessionsWindow::BroadCasted:
+                    sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf08e), Qt::yellow).pixmap(16,16)));
+                    break;
             }
             break;
         }
         default:
             break;
     }
+}
+
+void SessionOptionsWindow::setReadOnly(bool enable) {
+    sessionOptionsGeneralWidget->ui->comboBoxProtocol->setDisabled(enable);
+    sessionOptionsGeneralWidget->ui->lineEditName->setReadOnly(enable);
+
+    sessionOptionsTelnetProperties->ui->lineEditHostname->setReadOnly(enable);
+    sessionOptionsTelnetProperties->ui->spinBoxPort->setReadOnly(enable);
+    sessionOptionsTelnetProperties->ui->comboBoxWebSocket->setDisabled(enable);
+
+    sessionOptionsSerialProperties->ui->comboBoxPortName->setDisabled(enable);
+    sessionOptionsSerialProperties->ui->spinBoxBaudRate->setReadOnly(enable);
+    sessionOptionsSerialProperties->ui->comboBoxDataBits->setDisabled(enable);
+    sessionOptionsSerialProperties->ui->comboBoxParity->setDisabled(enable);
+    sessionOptionsSerialProperties->ui->comboBoxStopBits->setDisabled(enable);
+    sessionOptionsSerialProperties->ui->checkBoxFlowControl->setDisabled(enable);
+    sessionOptionsSerialProperties->ui->checkBoxXEnable->setDisabled(enable);
+    
+    sessionOptionsLocalShellProperties->ui->lineEditCommand->setReadOnly(enable);
+
+    sessionOptionsRawProperties->ui->lineEditHostname->setReadOnly(enable);
+    sessionOptionsRawProperties->ui->spinBoxPort->setReadOnly(enable);
+
+    sessionOptionsNamePipeProperties->ui->lineEditPipeName->setReadOnly(enable);
+
+    sessionOptionsSSH2Properties->ui->lineEditHostname->setReadOnly(enable);
+    sessionOptionsSSH2Properties->ui->spinBoxPort->setReadOnly(enable);
+    sessionOptionsSSH2Properties->ui->lineEditUserName->setReadOnly(enable);
+    sessionOptionsSSH2Properties->lineEditPassword->setReadOnly(enable);
+
+    sessionOptionsVNCProperties->ui->lineEditHostname->setReadOnly(enable);
+    sessionOptionsVNCProperties->ui->spinBoxPort->setReadOnly(enable);
+    sessionOptionsVNCProperties->lineEditPassword->setReadOnly(enable);
 }
 
 void SessionOptionsWindow::buttonBoxAccepted(void)
