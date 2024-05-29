@@ -2,7 +2,7 @@ name: windows
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, hotfix ]
     paths-ignore:
       - 'doc/**'
       - 'docs/**'
