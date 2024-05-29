@@ -368,13 +368,13 @@ SftpWindow::SftpWindow(QWidget *parent) :
         }
         QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
         QPoint popupPos = cursor().pos() + QPoint(5,5);
-        if (pos.x() + menu->width() > screenGeometry.width()) {
-            popupPos.setX(screenGeometry.width() - menu->width());
+        if (pos.x() + menu->width() > screenGeometry.right()) {
+            popupPos.setX(screenGeometry.right() - menu->width());
         }
-        if (pos.y() + menu->height() > screenGeometry.height()) {
-            popupPos.setY(screenGeometry.height() - menu->height());
+        if (pos.y() + menu->height() > screenGeometry.bottom()) {
+            popupPos.setY(screenGeometry.bottom() - menu->height());
         }
-        menu->popup(pos);
+        menu->popup(popupPos);
     });
 
     sshFileSystemModel = new QSshFileSystemModel(this);
@@ -551,11 +551,11 @@ SftpWindow::SftpWindow(QWidget *parent) :
             }
             QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
             QPoint pos = cursor().pos() + QPoint(5,5);
-            if (pos.x() + menu->width() > screenGeometry.width()) {
-                pos.setX(screenGeometry.width() - menu->width());
+            if (pos.x() + menu->width() > screenGeometry.right()) {
+                pos.setX(screenGeometry.right() - menu->width());
             }
-            if (pos.y() + menu->height() > screenGeometry.height()) {
-                pos.setY(screenGeometry.height() - menu->height());
+            if (pos.y() + menu->height() > screenGeometry.bottom()) {
+                pos.setY(screenGeometry.bottom() - menu->height());
             }
             menu->popup(pos);
         }

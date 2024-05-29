@@ -595,11 +595,11 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             }
             QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
             QPoint pos = cursor().pos() + QPoint(5,5);
-            if (pos.x() + menu->width() > screenGeometry.width()) {
-                pos.setX(screenGeometry.width() - menu->width());
+            if (pos.x() + menu->width() > screenGeometry.right()) {
+                pos.setX(screenGeometry.right() - menu->width());
             }
-            if (pos.y() + menu->height() > screenGeometry.height()) {
-                pos.setY(screenGeometry.height() - menu->height());
+            if (pos.y() + menu->height() > screenGeometry.bottom()) {
+                pos.setY(screenGeometry.bottom() - menu->height());
             }
             menu->popup(pos);
         });
@@ -1104,11 +1104,11 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
         }
         QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
         QPoint pos = cursor().pos() + QPoint(5,5);
-        if (pos.x() + menu->width() > screenGeometry.width()) {
-            pos.setX(screenGeometry.width() - menu->width());
+        if (pos.x() + menu->width() > screenGeometry.right()) {
+            pos.setX(screenGeometry.right() - menu->width());
         }
-        if (pos.y() + menu->height() > screenGeometry.height()) {
-            pos.setY(screenGeometry.height() - menu->height());
+        if (pos.y() + menu->height() > screenGeometry.bottom()) {
+            pos.setY(screenGeometry.bottom() - menu->height());
         }
         menu->popup(pos);
     });
