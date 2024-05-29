@@ -4,13 +4,15 @@
 
 en-US:
 
-- Add broadcast session feature #36
+- Add broadcast session feature [#36](https://github.com/QQxiaoming/quardCRT/issues/36)
 - Fix the crash problem caused by modifying the configuration of the currently running session
+- Add label tag color feature
 
 zh-CN:
 
-- 增加广播会话功能 #36
-- 修复 修改当前正在运行中的会话配置导致的崩溃 问题
+- 增加广播会话功能 [#36](https://github.com/QQxiaoming/quardCRT/issues/36)
+- 修复修改当前正在运行中的会话配置导致的崩溃问题
+- 增加标签标记颜色功能
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 

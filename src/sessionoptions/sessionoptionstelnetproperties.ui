@@ -76,6 +76,9 @@
        </item>
       </widget>
      </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditReadOnlyWebSocket"/>
+     </item>
     </layout>
    </item>
    <item>

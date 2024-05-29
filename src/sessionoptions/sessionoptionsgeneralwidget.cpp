@@ -25,6 +25,8 @@ SessionOptionsGeneralWidget::SessionOptionsGeneralWidget(QWidget *parent) :
     ui(new Ui::SessionOptionsGeneralWidget)
 {
     ui->setupUi(this);
+
+    ui->lineEditReadOnlyProtocol->setVisible(true);
 }
 
 SessionOptionsGeneralWidget::~SessionOptionsGeneralWidget()

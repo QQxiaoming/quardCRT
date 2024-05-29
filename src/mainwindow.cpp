@@ -291,6 +291,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 }
             }
             refreshStatusBar();
+            refreshTagColor();
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::showContextMenu,this,[=](int index, const QPoint& position){
             QMenu *menu = new QMenu(this);
@@ -433,6 +434,66 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             }
                         }
                     });
+
+                    QMenu *tagMenu = new QMenu(tr("Tag"),this);
+                    menu->addMenu(tagMenu);
+                    QActionGroup *tagGroup = new QActionGroup(this);
+
+                    QAction *whiteTagAction = new QAction("#FFFFFF",this);
+                    whiteTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::white));
+                    whiteTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(whiteTagAction);
+                    QAction *redTagAction = new QAction("#FF0000",this);
+                    redTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::red));
+                    redTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(redTagAction);
+                    QAction *greenTagAction = new QAction("#00FF00",this);
+                    greenTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::green));
+                    greenTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(greenTagAction);
+                    QAction *blueTagAction = new QAction("#0000FF",this);
+                    blueTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::blue));
+                    blueTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(blueTagAction);
+                    QAction *yellowTagAction = new QAction("#FFFF00",this);
+                    yellowTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::yellow));
+                    yellowTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(yellowTagAction);
+                    QAction *magentaTagAction = new QAction("#FF00FF",this);
+                    magentaTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::magenta));
+                    magentaTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(magentaTagAction);
+                    QAction *cyanTagAction = new QAction("#00FFFF",this);
+                    cyanTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::cyan));
+                    cyanTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(cyanTagAction);
+                    QAction *grayTagAction = new QAction("#808080",this);
+                    grayTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::gray));
+                    grayTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(grayTagAction);
+                    QAction *blackTagAction = new QAction("#000000",this);
+                    blackTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::black));
+                    blackTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(blackTagAction);
+                    QAction *cancelTagAction = new QAction(tr("Cancel"),this);
+                    cancelTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(cancelTagAction);
+
+                    connect(tagGroup,&QActionGroup::triggered,this,[=](QAction *action){
+                        QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+                        QString colorStr = action->text();
+                        if(action == cancelTagAction) {
+                            sessionsWindow->setTagColor(false);
+                        } else {
+                            uint8_t r = QStringView{colorStr}.mid(1,2).toUInt(nullptr,16);
+                            uint8_t g = QStringView{colorStr}.mid(3,2).toUInt(nullptr,16);
+                            uint8_t b = QStringView{colorStr}.mid(5,2).toUInt(nullptr,16);
+                            sessionsWindow->setTagColor(true,QColor(r,g,b));
+                        }
+                        refreshTagColor();
+                    });
+
                     QAction *propertiesAction = new QAction(tr("Properties"),this);
                     propertiesAction->setStatusTip(tr("Show current session properties"));
                     menu->addAction(propertiesAction);
@@ -556,6 +617,12 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     moveToAnotherTab(0,1,from);
                 }
             }
+        });
+        connect(mainWidgetGroup->sessionTab,&SessionTab::tabMoved,this,[=](int from, int to){
+            // Tab move in Group internal, we just need to update TagColor
+            refreshTagColor();
+            Q_UNUSED(from);
+            Q_UNUSED(to);
         });
         connect(mainWidgetGroup->sessionTab,&SessionTab::tabBarDoubleClicked,this,[=](int index){
             QWidget *widget = mainWidgetGroup->sessionTab->widget(index);
@@ -861,6 +928,7 @@ void CentralWidget::moveToAnotherTab(int src,int dst, int index) {
         sessionsWindow->setShowResizeNotificationEnabled(true);
         sessionsWindow->refeshTermSize();
     });
+    refreshTagColor();
 };
 
 void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position)
@@ -1057,6 +1125,23 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
         Q_UNUSED(result);
     });
     dialog->show();
+}
+
+void CentralWidget::refreshTagColor(void) {
+    foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
+        if(mainWidgetGroup->type() == MainWidgetGroup::EMBEDDED){
+            SessionTab *sessionTab = mainWidgetGroup->sessionTab;
+            sessionTab->clearAllTagColor();
+            for(int i=0;i<sessionTab->count();i++) {
+                QWidget *widget = sessionTab->widget(i+1);
+                if(!widget) continue;
+                SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+                if(sessionsWindow) {
+                    sessionTab->setTagColor(i+1,sessionsWindow->isTagColor(),sessionsWindow->getTagColorValue());
+                }
+            }
+        }
+    }
 }
 
 void CentralWidget::refreshStatusBar(void) {

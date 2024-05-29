@@ -130,6 +130,12 @@ public:
     bool isRawLog(void) { return enableRawLog; }
     void setInBroadCastList(bool enable);
     bool isInBroadCastList() { return enableBroadCast; }
+    void setTagColor(bool enable, QColor color = QColor()) { 
+        tagColor = enable;
+        tagColorValue = color;
+    }
+    bool isTagColor() { return tagColor; }
+    QColor getTagColorValue() { return tagColorValue; }
 
     int writeReceiveASCIIFile(const char *data, int size);
     int startReceiveASCIIFile(const QString &fileName);
@@ -402,6 +408,8 @@ private:
     SessionsState state = Disconnected;
     uint64_t tx_total = 0;
     uint64_t rx_total = 0;
+    bool tagColor = false;
+    QColor tagColorValue;
     
     QMutex modemProxyChannelMutex;
     bool modemProxyChannel = false;

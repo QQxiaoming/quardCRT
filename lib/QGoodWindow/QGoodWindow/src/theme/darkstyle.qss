@@ -192,12 +192,14 @@ QTabBar{
 }
 QTabBar::tab{
   padding:4px 6px;
+  background-color:transparent;
   background-color:qlineargradient(x1:0,y1:1,x2:0,y2:0,stop:0 rgba(25,25,25,127),stop:1 rgba(53,53,53,75));
   border:1px solid rgba(25,25,25,75);
   border-top-left-radius:4px;
   border-top-right-radius:4px;
 }
 QTabBar::tab:selected,QTabBar::tab:hover{
+  background-color:transparent;
   background-color:qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 rgba(53,53,53,127),stop:1 rgba(66,66,66,50%));
   border-bottom-color:rgba(66,66,66,75%);
 }
@@ -206,9 +208,6 @@ QTabBar::tab:selected{
 }
 QTabBar::tab::selected:disabled{
   border-bottom:2px solid rgb(127,127,127);
-}
-QTabBar::tab:!selected{
-  margin-top:2px;
 }
 QTabBar::close-button {
   border:1px solid transparent;

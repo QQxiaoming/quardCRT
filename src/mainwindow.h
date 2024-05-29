@@ -140,6 +140,7 @@ private:
     void floatingWindow(MainWidgetGroup *g, int index);
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
     void swapSideHboxLayout(void);
+    void refreshTagColor(void);
     void refreshStatusBar(void);
 
 private slots:

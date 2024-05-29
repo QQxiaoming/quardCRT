@@ -295,21 +295,36 @@ void SessionOptionsWindow::setSessionState(SessionsWindow::StateInfo state)
 }
 
 void SessionOptionsWindow::setReadOnly(bool enable) {
-    sessionOptionsGeneralWidget->ui->comboBoxProtocol->setDisabled(enable);
+    auto comboxSetReadOnly = [&](QComboBox *combox, QLineEdit *lineEdit) {
+        if(enable) {
+            combox->setVisible(false);
+            lineEdit->setVisible(true);
+            lineEdit->setText(combox->currentText());
+            lineEdit->setReadOnly(true);
+        } else {
+            combox->setVisible(true);
+            lineEdit->setVisible(false);
+        }
+    };
+    auto checkboxSetReadOnly = [&](QCheckBox* checkBox) {
+        checkBox->setAttribute(Qt::WA_TransparentForMouseEvents, enable);
+        checkBox->setFocusPolicy(enable ? Qt::NoFocus : Qt::StrongFocus);
+    };
+    comboxSetReadOnly(sessionOptionsGeneralWidget->ui->comboBoxProtocol, sessionOptionsGeneralWidget->ui->lineEditReadOnlyProtocol);
     sessionOptionsGeneralWidget->ui->lineEditName->setReadOnly(enable);
 
     sessionOptionsTelnetProperties->ui->lineEditHostname->setReadOnly(enable);
     sessionOptionsTelnetProperties->ui->spinBoxPort->setReadOnly(enable);
-    sessionOptionsTelnetProperties->ui->comboBoxWebSocket->setDisabled(enable);
+    comboxSetReadOnly(sessionOptionsTelnetProperties->ui->comboBoxWebSocket, sessionOptionsTelnetProperties->ui->lineEditReadOnlyWebSocket);
 
-    sessionOptionsSerialProperties->ui->comboBoxPortName->setDisabled(enable);
     sessionOptionsSerialProperties->ui->spinBoxBaudRate->setReadOnly(enable);
-    sessionOptionsSerialProperties->ui->comboBoxDataBits->setDisabled(enable);
-    sessionOptionsSerialProperties->ui->comboBoxParity->setDisabled(enable);
-    sessionOptionsSerialProperties->ui->comboBoxStopBits->setDisabled(enable);
-    sessionOptionsSerialProperties->ui->checkBoxFlowControl->setDisabled(enable);
-    sessionOptionsSerialProperties->ui->checkBoxXEnable->setDisabled(enable);
-    
+    comboxSetReadOnly(sessionOptionsSerialProperties->ui->comboBoxPortName, sessionOptionsSerialProperties->ui->lineEditReadOnlyPortName);
+    comboxSetReadOnly(sessionOptionsSerialProperties->ui->comboBoxDataBits, sessionOptionsSerialProperties->ui->lineEditReadOnlyDataBits);
+    comboxSetReadOnly(sessionOptionsSerialProperties->ui->comboBoxParity, sessionOptionsSerialProperties->ui->lineEditReadOnlyParity);
+    comboxSetReadOnly(sessionOptionsSerialProperties->ui->comboBoxStopBits, sessionOptionsSerialProperties->ui->lineEditReadOnlyStopBits);
+    checkboxSetReadOnly(sessionOptionsSerialProperties->ui->checkBoxXEnable);
+    checkboxSetReadOnly(sessionOptionsSerialProperties->ui->checkBoxFlowControl);
+
     sessionOptionsLocalShellProperties->ui->lineEditCommand->setReadOnly(enable);
 
     sessionOptionsRawProperties->ui->lineEditHostname->setReadOnly(enable);

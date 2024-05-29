@@ -25,6 +25,7 @@ SessionOptionsTelnetProperties::SessionOptionsTelnetProperties(QWidget *parent) 
     ui(new Ui::SessionOptionsTelnetProperties)
 {
     ui->setupUi(this);
+    ui->lineEditReadOnlyWebSocket->setVisible(true);
 }
 
 SessionOptionsTelnetProperties::~SessionOptionsTelnetProperties()

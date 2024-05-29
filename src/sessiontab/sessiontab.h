@@ -86,6 +86,22 @@ public:
     void setPreviewWidth(int width) { preview->setViewWidth(width); }
     int getPreviewWidth(void) { return preview->width(); }
     void setPreviewHide(void) { preview->hide(); }
+    void setChangeBackground(int index, bool change, QColor color = QColor()) {
+        foreach (int i, backgroundColors.keys()) {
+            if (i == index) {
+                if (change) {
+                    backgroundColors[i] = color;
+                } else {
+                    backgroundColors.remove(i);
+                }
+                return;
+            }
+        }
+        backgroundColors.insert(index, color);
+    }
+    void clearAllBackground(void){
+        backgroundColors.clear();
+    }
     
 signals:
     void dragTabMoved(int from, int to, SessionTabBar* toBar);
@@ -96,6 +112,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
     void changeEvent(QEvent* event) override;
+    void paintEvent(QPaintEvent *event) override;
     bool event(QEvent * event) override;
 
 private:
@@ -109,6 +126,7 @@ private:
     bool previewEnabled = true;
     bool mousePressDoing = false;
     int previewIndex = -1;
+    QMap<int, QColor> backgroundColors;
     static QList<SessionTabBar*> tabBarInstances;
 };
 
@@ -139,12 +157,19 @@ public:
     bool getPreviewEnabled(void) { return ((SessionTabBar*)tabBar())->getPreviewEnabled(); }
     void setPreviewWidth(int width) { ((SessionTabBar*)tabBar())->setPreviewWidth(width); }
     int getPreviewWidth(void) { return ((SessionTabBar*)tabBar())->getPreviewWidth(); }
+    void setTagColor(int index, bool change, QColor color = QColor()) { 
+        ((SessionTabBar*)tabBar())->setChangeBackground(index, change, color); 
+    }
+    void clearAllTagColor(void){
+        ((SessionTabBar*)tabBar())->clearAllBackground(); 
+    }
 
 signals:
     void showContextMenu(int index, const QPoint& position);
     void tabTextSet(int index, const QString &text);
     void dragTabMoved(int from, int to, SessionTab *toTab);
     void tabPreviewShow(int index);
+    void tabMoved(int from, int to);
 
 private:
     void refreshTabText(void);

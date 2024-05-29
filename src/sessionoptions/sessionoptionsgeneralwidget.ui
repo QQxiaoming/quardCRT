@@ -94,6 +94,9 @@
        </item>
       </widget>
      </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditReadOnlyProtocol"/>
+     </item>
     </layout>
    </item>
    <item>

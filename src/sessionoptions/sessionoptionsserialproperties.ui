@@ -35,6 +35,9 @@
      <item>
       <widget class="QComboBox" name="comboBoxPortName"/>
      </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditReadOnlyPortName"/>
+     </item>
     </layout>
    </item>
    <item>
@@ -110,6 +113,9 @@
       </widget>
      </item>
      <item>
+      <widget class="QLineEdit" name="lineEditReadOnlyDataBits"/>
+     </item>
+     <item>
       <widget class="QLabel" name="label_4">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -140,6 +146,9 @@
         </property>
        </item>
       </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditReadOnlyParity"/>
      </item>
     </layout>
    </item>
@@ -174,6 +183,9 @@
         </property>
        </item>
       </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditReadOnlyStopBits"/>
      </item>
      <item>
       <widget class="QCheckBox" name="checkBoxFlowControl">

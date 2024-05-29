@@ -4,8 +4,9 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
-- Add broadcast session feature #36
+- Add broadcast session feature [#36](https://github.com/QQxiaoming/quardCRT/issues/36)
 - Fix the crash problem caused by modifying the configuration of the currently running session
+- Add label tag color feature
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 

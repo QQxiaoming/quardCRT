@@ -298,6 +298,22 @@ void SessionTabBar::mouseReleaseEvent(QMouseEvent* event) {
     QTabBar::mouseReleaseEvent(event);
 }
 
+void SessionTabBar::paintEvent(QPaintEvent *event) {
+    QPainter painter(this);
+    foreach(int index, backgroundColors.keys()) {
+        QColor color = backgroundColors.value(index);
+        if(color.isValid()) {
+            painter.setPen(QPen(color));
+            painter.setBrush(color);
+            QRect rect = tabRect(index);
+            rect.adjust(1,1,-1,-1);
+            painter.drawRoundedRect(rect, 4, 4);
+        }
+    }
+
+    QTabBar::paintEvent(event);
+}
+
 SessionTab::SessionTab(QWidget *parent) 
     : FancyTabWidget(parent) {
     SessionTabBar *sTabBar = new SessionTabBar(this);
@@ -336,6 +352,7 @@ SessionTab::SessionTab(QWidget *parent)
         titleScrollPos.replace(from,titleScrollPos.at(to));
         tabTexts.replace(to,text);
         titleScrollPos.replace(to,pos);
+        emit tabMoved(from,to);
     });
 
     connect(sTabBar,&SessionTabBar::dragTabMoved,this,[&](int from, int to, SessionTabBar* toBar) {
