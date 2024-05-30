@@ -475,6 +475,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     blackTagAction->setIcon(QFontIcon::icon(QChar(0xf02e), Qt::black));
                     blackTagAction->setActionGroup(tagGroup);
                     tagMenu->addAction(blackTagAction);
+                    QAction *customizeTagAction = new QAction(tr("Customize"),this);
+                    customizeTagAction->setActionGroup(tagGroup);
+                    tagMenu->addAction(customizeTagAction);
                     QAction *cancelTagAction = new QAction(tr("Cancel"),this);
                     cancelTagAction->setActionGroup(tagGroup);
                     tagMenu->addAction(cancelTagAction);
@@ -485,6 +488,11 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         QString colorStr = action->text();
                         if(action == cancelTagAction) {
                             sessionsWindow->setTagColor(false);
+                        } else if(action == customizeTagAction) {
+                            QColor color = QColorDialog::getColor(sessionsWindow->getTagColorValue(),this);
+                            if(color.isValid()) {
+                                sessionsWindow->setTagColor(true,color);
+                            }
                         } else {
                             uint8_t r = QStringView{colorStr}.mid(1,2).toUInt(nullptr,16);
                             uint8_t g = QStringView{colorStr}.mid(3,2).toUInt(nullptr,16);

@@ -61,7 +61,8 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
 #endif
     , vncClient(nullptr)
     , enableLog(false)
-    , enableRawLog(false) {
+    , enableRawLog(false)
+    , enableBroadCast(false) {
     zmodemUploadPath = QDir::homePath();
     zmodemDownloadPath = QDir::homePath();
     shellType = Unknown;
