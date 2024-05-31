@@ -926,6 +926,9 @@ private:
 
     int _preeditColorIndex = 16; //Color4Intense
 
+    int shiftSelectionStartX = -1;
+    int shiftSelectionStartY = -1;
+
     QWidget *messageParentWidget = nullptr;
 
 public:

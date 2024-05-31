@@ -139,6 +139,7 @@ public:
      * Clears the current selection
      */
     void clearSelection();
+    bool isClearSelection();
 
     /** Sets the number of lines in the window */
     void setWindowLines(int lines);

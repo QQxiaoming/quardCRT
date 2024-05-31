@@ -447,6 +447,7 @@ public:
 
     /** Clears the current selection */
     void clearSelection();
+    bool isClearSelection();
 
     /**
       *  Returns true if the character at (@p column, @p line) is part of the

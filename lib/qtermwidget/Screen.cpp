@@ -1094,6 +1094,13 @@ void Screen::clearSelection()
     selBegin = -1;
 }
 
+bool Screen::isClearSelection() 
+{
+    return selBottomRight == -1 &&
+           selTopLeft == -1 &&
+           selBegin == -1;
+}
+
 void Screen::getSelectionStart(int& column , int& line) const
 {
     if ( selTopLeft != -1 )

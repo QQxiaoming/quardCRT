@@ -154,6 +154,11 @@ void ScreenWindow::clearSelection()
     emit selectionChanged();
 }
 
+bool ScreenWindow::isClearSelection()
+{
+    return _screen->isClearSelection();
+}
+
 void ScreenWindow::setWindowLines(int lines)
 {
     Q_ASSERT(lines > 0);

@@ -5,15 +5,17 @@
 en-US:
 
 - Add broadcast session feature [#36](https://github.com/QQxiaoming/quardCRT/issues/36)
-- Fix the crash problem caused by modifying the configuration of the currently running session
 - Add label tag color feature
+- Add block selection (Shift+click) and column selection (Alt+Shift+click) feature
+- Fix the crash problem caused by modifying the configuration of the currently running session
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
 
 zh-CN:
 
 - 增加广播会话功能 [#36](https://github.com/QQxiaoming/quardCRT/issues/36)
-- 修复修改当前正在运行中的会话配置导致的崩溃问题
 - 增加标签标记颜色功能
+- 增加块选择（Shift+click）和列选择（Alt+Shift+click）功能
+- 修复修改当前正在运行中的会话配置导致的崩溃问题
 - 修复多屏幕的情况下，上下文菜单弹出位置错误问题
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26

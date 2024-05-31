@@ -2227,28 +2227,69 @@ void TerminalDisplay::mousePressEvent(QMouseEvent* ev)
 
     if ((!_ctrlDrag || ev->modifiers() & Qt::ControlModifier) && selected ) {
       // The user clicked inside selected text
-      dragInfo.state = diPending;
-      dragInfo.start = ev->pos();
-    }
-    else {
+      if ((_mouseMarks) && (ev->modifiers() & Qt::ShiftModifier)){
+        _screenWindow->clearSelection();
+        if(shiftSelectionStartX == -1 && shiftSelectionStartY == -1) {
+          shiftSelectionStartX = pos.x();
+          shiftSelectionStartY = pos.y();
+        } else {
+          _screenWindow->setSelectionStart(shiftSelectionStartX,shiftSelectionStartY,ev->modifiers() & Qt::AltModifier);
+          _screenWindow->setSelectionEnd(pos.x(),pos.y());
+        }
+      } else {
+        shiftSelectionStartX = -1;
+        shiftSelectionStartY = -1;
+        dragInfo.state = diPending;
+        dragInfo.start = ev->pos();
+      }
+    } else {
       // No reason to ever start a drag event
       dragInfo.state = diNone;
 
       _preserveLineBreaks = !( ( ev->modifiers() & Qt::ControlModifier ) && !(ev->modifiers() & Qt::AltModifier) );
       _columnSelectionMode = (ev->modifiers() & Qt::AltModifier) && (ev->modifiers() & Qt::ControlModifier);
 
-      if (_mouseMarks || (ev->modifiers() & Qt::ShiftModifier))
-      {
-         _screenWindow->clearSelection();
+      if (_mouseMarks) {
+        if (ev->modifiers() & Qt::ShiftModifier) {
+          if(_screenWindow->isClearSelection()) {
+            // check
+            if(shiftSelectionStartX == -1 && shiftSelectionStartY == -1) {
+              shiftSelectionStartX = pos.x();
+              shiftSelectionStartY = pos.y();
+            } else {
+              _screenWindow->setSelectionStart(shiftSelectionStartX,shiftSelectionStartY,ev->modifiers() & Qt::AltModifier);
+              _screenWindow->setSelectionEnd(pos.x(),pos.y());
+            }
+          } else {
+            _screenWindow->clearSelection();
+            if(shiftSelectionStartX == -1 && shiftSelectionStartY == -1) {
+              shiftSelectionStartX = pos.x();
+              shiftSelectionStartY = pos.y();
+            } else {
+              _screenWindow->setSelectionStart(shiftSelectionStartX,shiftSelectionStartY,ev->modifiers() & Qt::AltModifier);
+              _screenWindow->setSelectionEnd(pos.x(),pos.y());
+            }
+          }
+        } else {
+          _screenWindow->clearSelection();
+          shiftSelectionStartX = -1;
+          shiftSelectionStartY = -1;
+          //emit clearSelectionSignal();
+          pos.ry() += _scrollBar->value();
+          _iPntSel = _pntSel = pos;
+          _actSel = 1; // left mouse button pressed but nothing selected yet.
+        }
+      } else {
+        if (ev->modifiers() & Qt::ShiftModifier){
+          _screenWindow->clearSelection();
 
-        //emit clearSelectionSignal();
-        pos.ry() += _scrollBar->value();
-        _iPntSel = _pntSel = pos;
-        _actSel = 1; // left mouse button pressed but nothing selected yet.
-      }
-      else
-      {
-        emit mouseSignal( 0, charColumn + 1, charLine + 1 +_scrollBar->value() -_scrollBar->maximum() , 0);
+          //emit clearSelectionSignal();
+          pos.ry() += _scrollBar->value();
+          _iPntSel = _pntSel = pos;
+          _actSel = 1; // left mouse button pressed but nothing selected yet.
+        } else {
+          emit mouseSignal( 0, charColumn + 1, charLine + 1 +_scrollBar->value() -_scrollBar->maximum() , 0);
+        }
       }
 
       if (ev->modifiers() & Qt::ControlModifier) {
