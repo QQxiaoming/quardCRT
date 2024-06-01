@@ -411,9 +411,11 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
                         sessionsWindow->setInBroadCastList(!sessionsWindow->isInBroadCastList());
                         if(sessionsWindow->isInBroadCastList()) {
-                            broadCastSessionList.append(sessionsWindow);
+                            if(!broadCastSessionList.contains(sessionsWindow)){
+                                broadCastSessionList.append(sessionsWindow);
+                            }
                         } else {
-                            broadCastSessionList.removeAll(sessionsWindow);
+                            broadCastSessionList.removeOne(sessionsWindow);
                         }
                     });
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
@@ -3804,6 +3806,9 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
     if(!sessionsWindow->isLocked()) {
         if(force) {
             sessionList.removeOne(sessionsWindow);
+            if(sessionsWindow->isInBroadCastList()) {
+                broadCastSessionList.removeOne(sessionsWindow);
+            }
             group->sessionTab->removeTab(index);
             delete sessionsWindow;
         } else {
@@ -3811,6 +3816,9 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
                 if(sessionsWindow->getSessionType() == SessionsWindow::LocalShell) {
                     if(!sessionsWindow->hasChildProcess()) {
                         sessionList.removeOne(sessionsWindow);
+                        if(sessionsWindow->isInBroadCastList()) {
+                            broadCastSessionList.removeOne(sessionsWindow);
+                        }
                         group->sessionTab->removeTab(index);
                         delete sessionsWindow;
                         return 0;
@@ -3826,6 +3834,9 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
                     }
                 #endif
                     sessionList.removeOne(sessionsWindow);
+                    if(sessionsWindow->isInBroadCastList()) {
+                        broadCastSessionList.removeOne(sessionsWindow);
+                    }
                     group->sessionTab->removeTab(index);
                     delete sessionsWindow;
                 } else {
@@ -3833,6 +3844,9 @@ int CentralWidget::stopSession(MainWidgetGroup *group, int index, bool force)
                 }
             } else {
                 sessionList.removeOne(sessionsWindow);
+                if(sessionsWindow->isInBroadCastList()) {
+                    broadCastSessionList.removeOne(sessionsWindow);
+                }
                 group->sessionTab->removeTab(index);
                 delete sessionsWindow;
             }
