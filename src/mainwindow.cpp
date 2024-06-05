@@ -298,6 +298,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             if(index >= 0) {
                 if(mainWidgetGroup->sessionTab->currentIndex() != index) {
                     delete menu;
+                    mainWidgetGroup->sessionTab->setCurrentIndex(index-1);
                     return;
                 }
                 QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
@@ -3774,6 +3775,11 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group,
     group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
     return name;
 #else
+    Q_UNUSED(group);
+    Q_UNUSED(hostname);
+    Q_UNUSED(port);
+    Q_UNUSED(username);
+    Q_UNUSED(password);
     return name;
 #endif
 }

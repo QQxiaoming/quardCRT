@@ -9,6 +9,7 @@ en-US:
 - Add block selection (Shift+click) and column selection (Alt+Shift+click) feature
 - Fix the crash problem caused by modifying the configuration of the currently running session
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
+- Modify to switch to the tab when right-clicking on a non-current tab
 
 zh-CN:
 
@@ -17,6 +18,7 @@ zh-CN:
 - 增加块选择（Shift+click）和列选择（Alt+Shift+click）功能
 - 修复修改当前正在运行中的会话配置导致的崩溃问题
 - 修复多屏幕的情况下，上下文菜单弹出位置错误问题
+- 修改右击非当前标签页时，切换到该标签页
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 

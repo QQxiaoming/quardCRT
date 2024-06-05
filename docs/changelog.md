@@ -9,6 +9,7 @@
 - Add block selection (Shift+click) and column selection (Alt+Shift+click) feature
 - Fix the crash problem caused by modifying the configuration of the currently running session
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
+- Modify to switch to the tab when right-clicking on a non-current tab
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 
