@@ -202,6 +202,14 @@ int ScreenWindow::getCursorY() const {
     return _screen->getCursorY();
 }
 
+void ScreenWindow::setCursorX(int x) {
+    _screen->setCursorX(x);
+}
+
+void ScreenWindow::setCursorY(int y) {
+    _screen->setCursorY(y);
+}
+
 QString ScreenWindow::getScreenText(int row1, int col1, int row2, int col2, int mode) {
     return _screen->getScreenText( row1, col1, row2, col2, mode );
 }

@@ -3635,6 +3635,16 @@ int TerminalDisplay::getCursorY() const {
     return _screenWindow.isNull() ? 0 : _screenWindow->getCursorY();
 }
 
+void TerminalDisplay::setCursorX(int x) {
+  if(!_screenWindow.isNull())
+    _screenWindow->setCursorX(x);
+}
+
+void TerminalDisplay::setCursorY(int y) {
+  if(!_screenWindow.isNull())
+    _screenWindow->setCursorY(y);
+}
+
 QString TerminalDisplay::screenGet(int row1, int col1, int row2, int col2, int mode) {
   return _screenWindow.isNull() ? QString() : _screenWindow->getScreenText(row1, col1, row2, col2, mode);
 }

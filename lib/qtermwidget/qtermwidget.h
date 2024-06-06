@@ -256,6 +256,8 @@ public:
     int columns();
     int getCursorX();
     int getCursorY();
+    void setCursorX(int x);
+    void setCursorY(int y);
 
     QString screenGet(int row1, int col1, int row2, int col2, int mode);
 

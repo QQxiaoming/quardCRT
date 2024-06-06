@@ -416,7 +416,8 @@ HRESULT _CreatePseudoConsole(const HANDLE hToken,
     // This is plenty of space to hold the formatted string
     wchar_t cmd[MAX_PATH]{};
     const BOOL bInheritCursor = (dwFlags & PSEUDOCONSOLE_INHERIT_CURSOR) == PSEUDOCONSOLE_INHERIT_CURSOR;
-    const BOOL bResizeQuirk = (dwFlags & PSEUDOCONSOLE_RESIZE_QUIRK) == PSEUDOCONSOLE_RESIZE_QUIRK;
+    // FIXME: QuardCRT is not support resizeQuirk
+    const BOOL bResizeQuirk = false; //(dwFlags & PSEUDOCONSOLE_RESIZE_QUIRK) == PSEUDOCONSOLE_RESIZE_QUIRK;
     const BOOL bWin32InputMode = (dwFlags & PSEUDOCONSOLE_WIN32_INPUT_MODE) == PSEUDOCONSOLE_WIN32_INPUT_MODE;
     swprintf_s(cmd,
                MAX_PATH,
@@ -763,6 +764,7 @@ public:
             HPCON* phPC);       // ConPty Reference
 
     typedef HRESULT (*ResizePseudoConsolePtr)(HPCON hPC, COORD size);
+    typedef HRESULT (*ClearPseudoConsolePtr)(HPCON hPC);
 
     typedef VOID (*ClosePseudoConsolePtr)(HPCON hPC);
 
@@ -777,6 +779,7 @@ public:
         createPseudoConsole = (CreatePseudoConsolePtr)ConptyCreatePseudoConsole;
         resizePseudoConsole = (ResizePseudoConsolePtr)ConptyResizePseudoConsole;
         closePseudoConsole = (ClosePseudoConsolePtr)ConptyClosePseudoConsole;
+        clearPseudoConsole = (ClearPseudoConsolePtr)ConptyClearPseudoConsole;
 
         return true;
     }
@@ -791,6 +794,7 @@ public:
     CreatePseudoConsolePtr createPseudoConsole{nullptr};
     ResizePseudoConsolePtr resizePseudoConsole{nullptr};
     ClosePseudoConsolePtr closePseudoConsole{nullptr};
+    ClearPseudoConsolePtr clearPseudoConsole{nullptr};
 
 private:
     QString m_lastError;

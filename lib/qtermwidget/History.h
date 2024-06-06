@@ -313,8 +313,8 @@ public:
 #endif
   }
 
-  virtual unsigned int remaining(){ return blockStart+blockLength-tail;}
-  virtual unsigned  length() { return blockLength; }
+  virtual unsigned int remaining(){ return (unsigned int)(blockStart+blockLength-tail);}
+  virtual unsigned int length() { return (unsigned int)(blockLength); }
   virtual void* allocate(size_t length);
   virtual bool contains(void *addr) {return addr>=blockStart && addr<(blockStart+blockLength);}
   virtual void deallocate();

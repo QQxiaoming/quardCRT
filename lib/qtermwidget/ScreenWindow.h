@@ -164,7 +164,9 @@ public:
 
     int getCursorX() const;
     int getCursorY() const;
-
+    void setCursorX(int x);
+    void setCursorY(int y);
+    
     /**
      * Convenience method. Returns true if the window is currently at the bottom
      * of the screen.

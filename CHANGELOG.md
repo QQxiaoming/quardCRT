@@ -10,6 +10,7 @@ en-US:
 - Fix the crash problem caused by modifying the configuration of the currently running session
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
 - Modify to switch to the tab when right-clicking on a non-current tab
+- Fix the cursor alignment error in the local shell on the windows msvc version, need to disable resizeQuirk [#39](https://github.com/QQxiaoming/quardCRT/issues/39)
 
 zh-CN:
 
@@ -19,6 +20,7 @@ zh-CN:
 - 修复修改当前正在运行中的会话配置导致的崩溃问题
 - 修复多屏幕的情况下，上下文菜单弹出位置错误问题
 - 修改右击非当前标签页时，切换到该标签页
+- 修复在windows msvc版本local shell光标对齐错误问题，需要禁用resizeQuirk [#39](https://github.com/QQxiaoming/quardCRT/issues/39)
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 

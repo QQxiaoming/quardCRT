@@ -859,6 +859,14 @@ int QTermWidget::getCursorY() {
     return m_impl->m_terminalDisplay->getCursorY();
 }
 
+void QTermWidget::setCursorX(int x) {
+    m_impl->m_terminalDisplay->setCursorX(x);
+}
+
+void QTermWidget::setCursorY(int y) {
+    m_impl->m_terminalDisplay->setCursorY(y);
+}
+
 QString QTermWidget::screenGet(int row1, int col1, int row2, int col2, int mode) {
     return m_impl->m_terminalDisplay->screenGet(row1, col1, row2, col2, mode);
 }
