@@ -11,6 +11,7 @@
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
 - Modify to switch to the tab when right-clicking on a non-current tab
 - Fix the cursor alignment error in the local shell on the windows msvc version, need to disable resizeQuirk [#39](https://github.com/QQxiaoming/quardCRT/issues/39)
+- Update pre-built plugin [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode) to V0.0.3
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 
