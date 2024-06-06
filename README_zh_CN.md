@@ -171,6 +171,7 @@ quardCRT将从V0.4.0版本开始支持插件，插件将以Qt Plug-in插件的�
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
 - [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)
+- [QSourceHighlite](https://github.com/Waqar144/QSourceHighlite)
 
 ## Star 历史
 

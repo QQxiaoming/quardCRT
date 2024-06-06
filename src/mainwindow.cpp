@@ -129,7 +129,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     sessionOptionsWindow = new SessionOptionsWindow(this);
 
     hexViewWindow = new HexViewWindow(this);
-    hexViewWindow->setFont(globalOptionsWindow->getCurrentFont());
 
     sessionManagerPushButton = new QPushButton();
     sessionManagerPushButton->setFixedSize(250,26);

@@ -171,6 +171,7 @@ quardCRT はバージョン V0.4.0 からプラグインをサポートします
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
 - [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)
+- [QSourceHighlite](https://github.com/Waqar144/QSourceHighlite)
 
 ## Star 歴史
 

@@ -21,6 +21,7 @@
 #include <QFileInfo>
 #include "keymapmanager.h"
 #include "globalsetting.h"
+#include "qsourcehighliter.h"
 #include "ui_keymapmanager.h"
 
 #if defined(Q_OS_WIN)
@@ -41,6 +42,23 @@ keyMapManager::keyMapManager(QWidget *parent) :
 {
     ui->setupUi(this);
     
+    QFont font = QApplication::font();
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+#else
+    int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
+#endif
+    QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
+    if (fontFamilies.size() > 0) {
+        font.setFamily(fontFamilies[0]);
+    }
+    font.setFixedPitch(true);
+    font.setPointSize(12);
+    ui->plainTextEditKeyBinding->setFont(font);
+    QSourceHighlite::QSourceHighliter *highlighter =
+        new QSourceHighlite::QSourceHighliter(ui->plainTextEditKeyBinding->document());
+    highlighter->setCurrentLanguage(QSourceHighlite::QSourceHighliter::CodeBash);
+
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &keyMapManager::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &keyMapManager::buttonBoxRejected);
 

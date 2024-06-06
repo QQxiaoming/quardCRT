@@ -23,6 +23,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QFile>
+#include <QFontDatabase>
 
 #include "filedialog.h"
 #include "hexviewwindow.h"
@@ -36,6 +37,20 @@ HexViewWindow::HexViewWindow(QWidget *parent) :
     hexEdit = new QHexEdit(this);
     ui->verticalLayout->insertWidget(0,hexEdit);
     hexEdit->setReadOnly(true);
+
+    QFont font = QApplication::font();
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+#else
+    int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
+#endif
+    QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
+    if (fontFamilies.size() > 0) {
+        font.setFamily(fontFamilies[0]);
+    }
+    font.setFixedPitch(true);
+    font.setPointSize(12);
+    hexEdit->setFont(font);
 
     setWindowFlags(Qt::Window);
 }

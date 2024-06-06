@@ -171,6 +171,7 @@ The code of this project references or partially refers to or depends on the fol
 - [qxymodem](https://github.com/QQxiaoming/qxymodem)
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
 - [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)
+- [QSourceHighlite](https://github.com/Waqar144/QSourceHighlite)
 
 ## Star History
 
