@@ -71,9 +71,12 @@ public:
     virtual pidTree_t processInfoTree();
     static bool isAvailable();
     void moveToThread(QThread *targetThread);
+    void setResizeQuirk(bool enable) {
+        m_resize_quirk = enable;
+    }
 
 private:
-    HRESULT createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn, HANDLE* phPipeOut, qint16 cols, qint16 rows);
+    HRESULT createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn, HANDLE* phPipeOut, qint16 cols, qint16 rows, bool resize_quirk);
     HRESULT initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOEX* pStartupInfo, HPCON hPC);
 
 private:
@@ -84,6 +87,7 @@ private:
     QMutex m_bufferMutex;
     PtyBuffer m_buffer;
     bool m_aboutToDestruct{false};
+    bool m_resize_quirk{false};
     PROCESS_INFORMATION m_shellProcessInformation{};
     QWinEventNotifier *m_shellCloseWaitNotifier{nullptr};
     STARTUPINFOEX m_shellStartupInfo{};

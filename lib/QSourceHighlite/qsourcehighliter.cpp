@@ -273,7 +273,6 @@ void QSourceHighliter::highlightSyntax(const QString &text)
     const QTextCharFormat &formatOther = _formats[CodeOther];
 
     for (int i = 0; i < textLen; ++i) {
-
         if (currentBlockState() % 2 != 0) goto Comment;
 
         while (i < textLen && !text[i].isLetter()) {
@@ -793,7 +792,6 @@ void QSourceHighliter::xmlHighlighter(const QString &text) {
 
     for (int i = 0; i < textLen; ++i) {
         if (text[i] == QLatin1Char('<') && text[i+1] != QLatin1Char('!')) {
-
             const int found = text.indexOf(QLatin1Char('>'), i);
             if (found > 0) {
                 ++i;
