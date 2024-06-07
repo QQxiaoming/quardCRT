@@ -781,6 +781,10 @@ void QTermWidget::setTrimPastedTrailingNewlines(bool trimPastedTrailingNewlines)
     m_impl->m_terminalDisplay->setTrimPastedTrailingNewlines(trimPastedTrailingNewlines);
 }
 
+void QTermWidget::setKeyboardCursorColor(bool useForegroundColor, const QColor& color) {
+    m_impl->m_terminalDisplay->setKeyboardCursorColor(useForegroundColor, color);
+}
+
 void QTermWidget::addHighLightText(const QString &text, const QColor &color)
 {
     for (int i = 0; i < m_highLightTexts.size(); i++) {

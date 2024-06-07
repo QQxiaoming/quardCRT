@@ -29,6 +29,7 @@
 #include <QFontDialog>
 #include <QDesktopServices>
 #include <QToolTip>
+#include <QColorDialog>
 #include "qtermwidget.h"
 #include "ColorScheme.h"
 #include "ColorTables.h"
@@ -151,6 +152,27 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsGeneralWidget->ui->lineEditWSLUserName->setText(settings.value("WSLUserName", "root").toString());
     globalOptionsGeneralWidget->ui->lineEditWSLDistroName->setText(settings.value("WSLDistroName", "Ubuntu").toString());
     globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
+    globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
+    globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
+    cursorColorStr = settings.value("CursorColor", "None").toString();
+    QRegularExpression hexColorPattern(QLatin1String("^#[0-9a-f]{6}$"),
+                                        QRegularExpression::CaseInsensitiveOption);
+    if (hexColorPattern.match(cursorColorStr).hasMatch()) {
+        uint8_t r = QStringView{cursorColorStr}.mid(1,2).toUInt(nullptr,16);
+        uint8_t g = QStringView{cursorColorStr}.mid(3,2).toUInt(nullptr,16);
+        uint8_t b = QStringView{cursorColorStr}.mid(5,2).toUInt(nullptr,16);
+        QPushButton *button = globalOptionsTerminalWidget->ui->pushButtonCursorColor;
+        QPalette palette = button->palette();
+        palette.setColor(QPalette::Button, QColor(r,g,b));
+        button->setPalette(palette);
+        button->setToolTip(cursorColorStr);
+    } else {
+        cursorColorStr = "None";
+        QPushButton testButton;
+        QPalette palette = testButton.palette();
+        globalOptionsTerminalWidget->ui->pushButtonCursorColor->setPalette(palette);
+        globalOptionsTerminalWidget->ui->pushButtonCursorColor->setToolTip(cursorColorStr);
+    }
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {
@@ -252,6 +274,23 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(globalOptionsAdvancedWidget->ui->pushButtonUserPluginsPathClear, &QPushButton::clicked, this, [&](){
         globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText("");
     });
+    connect(globalOptionsTerminalWidget->ui->pushButtonCursorColor, &QPushButton::clicked, this, [&](){
+        QPushButton *button = globalOptionsTerminalWidget->ui->pushButtonCursorColor;
+        QColor color = QColorDialog::getColor(button->palette().color(QPalette::Button), this, tr("Select color"));
+        if (color.isValid()) {
+            QPalette palette = button->palette();
+            palette.setColor(QPalette::Button, color);
+            button->setPalette(palette);
+            cursorColorStr = QString("#%1%2%3").arg(color.red(), 2, 16, QChar('0')).arg(color.green(), 2, 16, QChar('0')).arg(color.blue(), 2, 16, QChar('0'));
+            button->setToolTip(cursorColorStr);
+        } else {
+            QPushButton testButton;
+            QPalette palette = testButton.palette();
+            button->setPalette(palette);
+            cursorColorStr = "None";
+            button->setToolTip(cursorColorStr);
+        }
+    });
     connect(globalOptionsAppearanceWidget->ui->comBoxColorSchemes, &QComboBox::currentTextChanged, this, [&](const QString &text){
         if(text == "Custom") {
             globalOptionsAppearanceWidget->ui->checkBoxColorSchemesBak->setEnabled(false);
@@ -265,6 +304,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
         setActiveWidget(index.row());
     });
+
 }
 
 GlobalOptionsWindow::~GlobalOptionsWindow()
@@ -499,6 +539,25 @@ int GlobalOptionsWindow::getPreeditColorIndex(void)
     return globalOptionsAppearanceWidget->ui->spinBoxPreeditColorIndex->value();
 }
 
+bool GlobalOptionsWindow::getConfirmMultilinePaste(void) 
+{
+    return globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->isChecked();
+}
+
+bool GlobalOptionsWindow::getTrimPastedTrailingNewlines(void) 
+{
+    return globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked();
+}
+
+QColor GlobalOptionsWindow::getCursorColor(void)
+{
+    if(cursorColorStr == "None") {
+        return QColor();
+    } else {
+        return globalOptionsTerminalWidget->ui->pushButtonCursorColor->palette().color(QPalette::Button);
+    }
+}
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -551,6 +610,9 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
         globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
         QMessageBox::warning(this, tr("Warning"), tr("The User Plugins Path is not a directory!"));
     }
+    settings.setValue("ConfirmMultilinePaste", globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->isChecked());
+    settings.setValue("TrimPastedTrailingNewlines", globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked());
+    settings.setValue("CursorColor",cursorColorStr);
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
@@ -601,6 +663,27 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsGeneralWidget->ui->lineEditWSLUserName->setText(settings.value("WSLUserName", "root").toString());
     globalOptionsGeneralWidget->ui->lineEditWSLDistroName->setText(settings.value("WSLDistroName", "Ubuntu").toString());
     globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
+    globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
+    globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
+    cursorColorStr = settings.value("CursorColor", "None").toString();
+    QRegularExpression hexColorPattern(QLatin1String("^#[0-9a-f]{6}$"),
+                                        QRegularExpression::CaseInsensitiveOption);
+    if (hexColorPattern.match(cursorColorStr).hasMatch()) {
+        uint8_t r = QStringView{cursorColorStr}.mid(1,2).toUInt(nullptr,16);
+        uint8_t g = QStringView{cursorColorStr}.mid(3,2).toUInt(nullptr,16);
+        uint8_t b = QStringView{cursorColorStr}.mid(5,2).toUInt(nullptr,16);
+        QPushButton *button = globalOptionsTerminalWidget->ui->pushButtonCursorColor;
+        QPalette palette = button->palette();
+        palette.setColor(QPalette::Button, QColor(r,g,b));
+        button->setPalette(palette);
+        button->setToolTip(cursorColorStr);
+    } else {
+        cursorColorStr = "None";
+        QPushButton testButton;
+        QPalette palette = testButton.palette();
+        globalOptionsTerminalWidget->ui->pushButtonCursorColor->setPalette(palette);
+        globalOptionsTerminalWidget->ui->pushButtonCursorColor->setToolTip(cursorColorStr);
+    }
     if(settings.value("xyModem1K", false).toBool()) {
         globalOptionsTransferWidget->ui->radioButton1KBytes->setChecked(true);
     } else {

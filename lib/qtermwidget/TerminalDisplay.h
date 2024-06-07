@@ -29,11 +29,18 @@
 #include <QMediaPlayer>
 #include <QVideoSink>
 #include <QVideoFrame>
+#include <QPlainTextEdit>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
 
 #include "Filter.h"
 #include "Character.h"
 #include "CharWidth.h"
 #include "qtermwidget.h"
+#include "qsourcehighliter.h"
 
 class QDrag;
 class QDragEnterEvent;
@@ -907,8 +914,8 @@ private:
 
 
     MotionAfterPasting mMotionAfterPasting;
-    bool _confirmMultilinePaste;
-    bool _trimPastedTrailingNewlines;
+    bool _confirmMultilinePaste = true;
+    bool _trimPastedTrailingNewlines = true;
 
     struct InputMethodData
     {
@@ -943,8 +950,7 @@ public:
 
 class AutoScrollHandler : public QObject
 {
-Q_OBJECT
-
+    Q_OBJECT
 public:
     AutoScrollHandler(QWidget* parent);
 protected:
@@ -953,6 +959,46 @@ protected:
 private:
     QWidget* widget() const { return static_cast<QWidget*>(parent()); }
     int _timerId;
+};
+
+class MultilineConfirmationMessageBox : public QDialog {
+    Q_OBJECT
+public:
+    explicit MultilineConfirmationMessageBox(QWidget *parent = nullptr) : QDialog(parent) {
+        setModal(true);
+        setSizeGripEnabled(true);
+        resize(500, 300);
+        QVBoxLayout *layout = new QVBoxLayout(this);
+        messageText = new QLabel(this);
+        detailedText = new QPlainTextEdit(this);
+        buttonBox = new QDialogButtonBox(QDialogButtonBox::Yes|QDialogButtonBox::No);
+        layout->addWidget(messageText);
+        layout->addWidget(detailedText);
+        layout->addWidget(buttonBox);
+        setLayout(layout);
+        QSourceHighlite::QSourceHighliter *highlighter =
+            new QSourceHighlite::QSourceHighliter(detailedText->document());
+        highlighter->setCurrentLanguage(QSourceHighlite::QSourceHighliter::CodeBash);
+        detailedText->setLineWrapMode(QPlainTextEdit::NoWrap);
+        detailedText->setReadOnly(true);
+        connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+        connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    }
+    ~MultilineConfirmationMessageBox() override {
+        delete messageText;
+        delete detailedText;
+        delete buttonBox;
+    }
+    void setText(const QString &text) {
+        messageText->setText(text);
+    }
+    void setDetailedText(const QString &text) {
+        detailedText->setPlainText(text);
+    }
+private:
+    QLabel *messageText;
+    QPlainTextEdit *detailedText;
+    QDialogButtonBox *buttonBox;
 };
 
 }

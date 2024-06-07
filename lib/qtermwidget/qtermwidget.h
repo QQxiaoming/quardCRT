@@ -235,6 +235,7 @@ public:
 
     void setConfirmMultilinePaste(bool confirmMultilinePaste);
     void setTrimPastedTrailingNewlines(bool trimPastedTrailingNewlines);
+    void setKeyboardCursorColor(bool useForegroundColor, const QColor& color);
     void proxySendData(QByteArray data) {
         emit sendData(data.data(), data.size());
     }

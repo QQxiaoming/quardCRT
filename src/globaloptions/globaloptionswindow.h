@@ -71,7 +71,9 @@ public:
     bool getDisableZmodemOnline(void);
     bool getXYModem1K(void);
     int getPreeditColorIndex(void);
-
+    bool getConfirmMultilinePaste(void);
+    bool getTrimPastedTrailingNewlines(void);
+    QColor getCursorColor(void);
     bool updateColorButtons(const QString &text);
     void switchTheme(void);
 
@@ -103,6 +105,7 @@ private:
     GlobalOptionsAdvancedWidget *globalOptionsAdvancedWidget;
     QStringListModel *model;
     QFont font;
+    QString cursorColorStr;
     Konsole::ColorEntry table[TABLE_COLORS];
 };
 

@@ -1212,7 +1212,7 @@ void CentralWidget::saveSettings(void) {
     GlobalSetting settings;
     if(mainWindow) {
         settings.setValue("MainWindow/Geometry", mainWindow->saveGeometry());
-        settings.setValue("MainWindow/State", mainWindow->saveState());
+        //settings.setValue("MainWindow/State", mainWindow->saveState());
     } else {
         settings.setValue("MainWindow/Geometry", saveGeometry());
         settings.setValue("MainWindow/State", saveState());
@@ -3162,6 +3162,9 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setZmodemOnlie(!globalOptionsWindow->getDisableZmodemOnline());
     window->setZmodemUploadPath(globalOptionsWindow->getModemUploadPath());
     window->setZmodemDownloadPath(globalOptionsWindow->getModemDownloadPath());
+    window->setConfirmMultilinePaste(globalOptionsWindow->getConfirmMultilinePaste());
+    window->setTrimPastedTrailingNewlines(globalOptionsWindow->getTrimPastedTrailingNewlines());
+    window->setCursorColor(globalOptionsWindow->getCursorColor());
     connect(window,&SessionsWindow::broadCastSendData,this,[=](const QByteArray &data){
         foreach(SessionsWindow *sessionsWindow, broadCastSessionList) {
             if(sessionsWindow != window) {

@@ -360,7 +360,15 @@ public:
     void setZmodemOnlie(bool enable) {
         zmodemOnlie = enable;
     }
-
+    void setConfirmMultilinePaste(bool enable) {
+        if(term) return term->setConfirmMultilinePaste(enable);
+    }
+    void setTrimPastedTrailingNewlines(bool enable) {
+        if(term) return term->setTrimPastedTrailingNewlines(enable);
+    }
+    void setCursorColor(const QColor &color) {
+        if(term) return term->setKeyboardCursorColor(false,color);
+    }
 
 signals:
     void hexDataDup(const char *data, int size);

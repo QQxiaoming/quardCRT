@@ -3091,25 +3091,11 @@ void TerminalDisplay::bracketText(QString& text) const
 
 bool TerminalDisplay::multilineConfirmation(const QString& text)
 {
-    QMessageBox confirmation(messageParentWidget);
+    MultilineConfirmationMessageBox confirmation(messageParentWidget);
     confirmation.setWindowTitle(tr("Paste multiline text"));
     confirmation.setText(tr("Are you sure you want to paste this text?"));
     confirmation.setDetailedText(text);
-    confirmation.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    // Click "Show details..." to show those by default
-    const auto buttons = confirmation.buttons();
-    for( QAbstractButton * btn : buttons ) {
-        if (confirmation.buttonRole(btn) == QMessageBox::ActionRole && btn->text() == QMessageBox::tr("Show Details...")) {
-            Q_EMIT btn->clicked();
-            break;
-        }
-    }
-    confirmation.setDefaultButton(QMessageBox::Yes);
-    confirmation.exec();
-    if (confirmation.standardButton(confirmation.clickedButton()) != QMessageBox::Yes) {
-        return false;
-    }
-    return true;
+    return (confirmation.exec() == QDialog::Accepted);
 }
 
 void TerminalDisplay::setSelection(const QString& t)
