@@ -821,7 +821,7 @@ static bool checkConHostHasResizeQuirkOption()
   return hasResizeQuirk;
 }
 
-HRESULT ConPtyProcess::createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn, HANDLE* phPipeOut, qint16 cols, qint16 rows)
+HRESULT ConPtyProcess::createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn, HANDLE* phPipeOut, qint16 cols, qint16 rows, bool resize_quirk)
 {
     HRESULT hr{ E_UNEXPECTED };
     HANDLE hPipePTYIn{ INVALID_HANDLE_VALUE };
@@ -832,7 +832,7 @@ HRESULT ConPtyProcess::createPseudoConsoleAndPipes(HPCON* phPC, HANDLE* phPipeIn
             CreatePipe(phPipeIn, &hPipePTYOut, NULL, 0))
     {
         // Create the Pseudo Console of the required size, attached to the PTY-end of the pipes
-        hr = WindowsContext::instance().createPseudoConsole({cols, rows}, hPipePTYIn, hPipePTYOut, checkConHostHasResizeQuirkOption() ? PSEUDOCONSOLE_RESIZE_QUIRK : 0, phPC);
+        hr = WindowsContext::instance().createPseudoConsole({cols, rows}, hPipePTYIn, hPipePTYOut, (resize_quirk&&checkConHostHasResizeQuirkOption()) ? PSEUDOCONSOLE_RESIZE_QUIRK : 0, phPC);
 
         // Note: We can close the handles to the PTY-end of the pipes here
         // because the handles are dup'ed into the ConHost and will be released
@@ -949,7 +949,7 @@ bool ConPtyProcess::startProcess(const QString &executable,
     HRESULT hr{E_UNEXPECTED};
 
     //  Create the Pseudo Console and pipes to it
-    hr = createPseudoConsoleAndPipes(&m_ptyHandler, &m_hPipeIn, &m_hPipeOut, cols, rows);
+    hr = createPseudoConsoleAndPipes(&m_ptyHandler, &m_hPipeIn, &m_hPipeOut, cols, rows, m_resize_quirk);
 
     if (S_OK != hr) {
         m_lastError = QString("ConPty Error: CreatePseudoConsoleAndPipes fail");
