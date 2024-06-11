@@ -131,6 +131,7 @@ void SshTunnelIn::sshDataReceived()
             /* We have a new connection on the remote port, need to create a connection tunnel */
             qCDebug(logsshtunnelin) << "SshTunnelIn new connection";
             SshTunnelInConnection *connection = m_sshClient->getChannel<SshTunnelInConnection>(m_name + QString("_%1").arg(m_connectionCounter++));
+            m_sshClient->startChannel<SshTunnelInConnection>(connection);
             connection->configure(newChannel, m_localTcpPort, m_targethost);
             m_connection.append(connection);
             QObject::connect(connection, &SshTunnelInConnection::stateChanged, this, &SshTunnelIn::connectionStateChanged);

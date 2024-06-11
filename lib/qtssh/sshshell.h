@@ -21,6 +21,11 @@ public:
     bool isError();
     int sendData(const char *data, int size);
     void resize(int cols, int rows);
+    void initSize(int cols, int rows) {
+        m_cols = cols;
+        m_rows = rows;
+    
+    }
 
 public slots:
     void sshDataReceived() override;
@@ -30,6 +35,8 @@ private:
     QStringList m_errMsg;
     bool m_error {false};
     bool m_pty {false};
+    int m_cols = 80;
+    int m_rows = 24;
 
 signals:
     void readyRead(const char *data, int size); 

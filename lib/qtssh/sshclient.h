@@ -116,11 +116,17 @@ public:
             }
         }
 
-        T *res = new T(name, this);
-        m_channels.append(res);
-        QObject::connect(res, &SshChannel::stateChanged, this, &SshClient::_channel_free);
-        emit channelsChanged(m_channels.count());
+        T *res = new T(name,this);
+        //m_channels.append(res);
+        //QObject::connect(res, &SshChannel::stateChanged, this, &SshClient::_channel_free);
+        //emit channelsChanged(m_channels.count());
         return res;
+    }
+    template<typename T>
+    void startChannel(T *channel){
+        m_channels.append(channel);
+        QObject::connect(channel, &SshChannel::stateChanged, this, &SshClient::_channel_free);
+        emit channelsChanged(m_channels.count());
     }
 
     void setKeys(const QString &publicKey, const QString &privateKey);

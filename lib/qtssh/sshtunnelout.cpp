@@ -147,6 +147,7 @@ void SshTunnelOut::_createConnection()
 {
     qCDebug(logsshtunnelout) << "SshTunnelOut new connection";
     SshTunnelOutConnection *connection = m_sshClient->getChannel<SshTunnelOutConnection>(m_name + QString("_%1").arg(m_connectionCounter++));
+    m_sshClient->startChannel<SshTunnelOutConnection>(connection);
     connection->configure(&m_tcpserver, m_port, m_hostTarget);
     m_connection.append(connection);
     QObject::connect(connection, &SshTunnelOutConnection::stateChanged, this, &SshTunnelOut::connectionStateChanged);

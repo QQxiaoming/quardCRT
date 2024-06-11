@@ -323,18 +323,17 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         }
         case SSH2: {
         #ifdef ENABLE_SSH
-            ssh2Client = new SshClient("ssh2", this);
+            ssh2Client = new SshClient("ssh2",this);
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
                 SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
+                shell->initSize(term->columns(),term->lines());
+                ssh2Client->startChannel<SshShell>(shell);
                 if(shell == nullptr) {
                     QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
                     state = Error;
                     emit stateChanged(state);
                     return;
                 }
-                QTimer::singleShot(100, [=](){
-                    shell->resize(term->columns(),term->lines());
-                });
                 connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
                     shell->resize(columns,lines);
                 });
@@ -1519,7 +1518,9 @@ void SessionsWindow::recvFileUseZModem(const QString &downloadPath) {
 #ifdef ENABLE_SSH
 SshSFtp *SessionsWindow::getSshSFtpChannel(void) {
     if(type == SSH2) {
-        return ssh2Client->getChannel<SshSFtp>("quardCRT.sftp");
+        SshSFtp *res = ssh2Client->getChannel<SshSFtp>("quardCRT.sftp");
+        ssh2Client->startChannel<SshSFtp>(res);
+        return res;
     }
     return nullptr;
 }

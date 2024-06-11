@@ -49,6 +49,8 @@ void SshShell::resize(int cols, int rows)
     {
         return;
     }
+    m_cols = cols;
+    m_rows = rows;
     int ret = libssh2_channel_request_pty_size_ex(m_sshChannel, cols, rows, 0, 0);
     if(ret == LIBSSH2_ERROR_EAGAIN)
     {
@@ -116,7 +118,7 @@ void SshShell::sshDataReceived()
         SSH2FALLTHROUGH(); case Exec:
         {
             if(!m_pty) {
-                int ret = libssh2_channel_request_pty_ex(m_sshChannel, "xterm", sizeof("xterm") - 1, nullptr, 0, 80, 24, 0, 0);
+                int ret = libssh2_channel_request_pty_ex(m_sshChannel, "xterm", sizeof("xterm") - 1, nullptr, 0, m_cols, m_rows, 0, 0);
                 if (ret == LIBSSH2_ERROR_EAGAIN)
                 {
                     return;

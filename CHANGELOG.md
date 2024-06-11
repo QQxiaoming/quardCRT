@@ -14,6 +14,7 @@ en-US:
 - Fix the cursor alignment error in the local shell on the windows msvc version, need to disable resizeQuirk [#39](https://github.com/QQxiaoming/quardCRT/issues/39)
 - Fix the invalid problem of confirming multiple lines of text paste, and allow users to set enable/disable by themselves
 - Fix the problem of automatically trimming empty lines in the pasted content of text, and allow users to set enable/disable by themselves
+- Fix the unstable SSH initialization terminal size problem [#40](https://github.com/QQxiaoming/quardCRT/issues/40)
 - Update pre-built plugin [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode) to V0.0.3
 
 zh-CN:
@@ -28,6 +29,7 @@ zh-CN:
 - 修复在windows msvc版本local shell光标对齐错误问题，需要禁用resizeQuirk [#39](https://github.com/QQxiaoming/quardCRT/issues/39)
 - 修复多行文本粘贴确认无效问题，并允许用户自行设置启用/禁用
 - 修复自动修剪文本粘贴内容中的空行问题，并允许用户自行设置启用/禁用
+- 修复不稳定的SSH初始化终端大小问题 [#40](https://github.com/QQxiaoming/quardCRT/issues/40)
 - 更新预构建插件[CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode)到V0.0.3版本
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
