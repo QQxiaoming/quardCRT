@@ -24,7 +24,6 @@ public:
     void initSize(int cols, int rows) {
         m_cols = cols;
         m_rows = rows;
-    
     }
 
 public slots:

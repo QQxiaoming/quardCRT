@@ -15,6 +15,7 @@
 - Fix the invalid problem of confirming multiple lines of text paste, and allow users to set enable/disable by themselves
 - Fix the problem of automatically trimming empty lines in the pasted content of text, and allow users to set enable/disable by themselves
 - Fix the unstable SSH initialization terminal size problem [#40](https://github.com/QQxiaoming/quardCRT/issues/40)
+- Fix the probability crash problem after the SSH remote actively ends
 - Update pre-built plugin [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode) to V0.0.3
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26

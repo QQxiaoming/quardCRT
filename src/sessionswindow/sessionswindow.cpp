@@ -364,6 +364,12 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     shell->sendData(data, size);
                     tx_total += size;
                 });
+                connect(shell, &SshShell::failed, this, [=](){
+                    disconnect();
+                });
+                connect(shell, &SshShell::finished, this, [=](){
+                    disconnect();
+                });
                 state = Connected;
                 emit stateChanged(state);
             });

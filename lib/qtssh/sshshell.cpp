@@ -22,6 +22,12 @@ void SshShell::close()
 }
 
 int SshShell::sendData(const char *data, int size) {
+    if(channelState() != ChannelState::Ready) {
+        return 0;
+    }
+    if(m_sshChannel == nullptr) {
+        return 0;
+    }
     ssize_t retsz = libssh2_channel_write_ex(m_sshChannel, 0, data, size);
     if(retsz == LIBSSH2_ERROR_EAGAIN)
     {
@@ -45,8 +51,10 @@ int SshShell::sendData(const char *data, int size) {
 
 void SshShell::resize(int cols, int rows)
 {
-    if(m_sshChannel == nullptr)
-    {
+    if(channelState() != ChannelState::Ready) {
+        return;
+    }
+    if(m_sshChannel == nullptr) {
         return;
     }
     m_cols = cols;

@@ -1212,7 +1212,7 @@ void CentralWidget::saveSettings(void) {
     GlobalSetting settings;
     if(mainWindow) {
         settings.setValue("MainWindow/Geometry", mainWindow->saveGeometry());
-        //settings.setValue("MainWindow/State", mainWindow->saveState());
+        settings.setValue("MainWindow/State", mainWindow->saveState());
     } else {
         settings.setValue("MainWindow/Geometry", saveGeometry());
         settings.setValue("MainWindow/State", saveState());

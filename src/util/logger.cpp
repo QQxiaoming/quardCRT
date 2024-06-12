@@ -126,7 +126,7 @@ void outputMessage(QtMsgType type, const QMessageLogContext &context, const QStr
         } else {
             QString current_date_time = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
             QTextStream text_stream(&file);
-            text_stream << current_date_time << " : " << msg << "\r\n";
+            text_stream << current_date_time << " : " << text << " : " << msg << "\r\n";
             file.flush();
             file.close();
         }
