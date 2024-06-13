@@ -9,6 +9,7 @@
 - Add block selection (Shift+click) and column selection (Alt+Shift+click) feature
 - Add user-defined cursor color setting
 - Add tooltip for optional items in settings
+- Add advanced options to set the default startup shell for local terminal (default to $SHELL on Linux/MacOS, and default to the system built-in powershell on Windows, this function is only used to adjust the PowerShell version on Windows, not to start other shells, other shells please use LocalShell session to set specific commands)
 - Fix the crash problem caused by modifying the configuration of the currently running session
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
 - Modify to switch to the tab when right-clicking on a non-current tab

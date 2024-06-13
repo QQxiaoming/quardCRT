@@ -9,6 +9,7 @@ en-US:
 - Add block selection (Shift+click) and column selection (Alt+Shift+click) feature
 - Add user-defined cursor color setting
 - Add tooltip for optional items in settings
+- Add advanced options to set the default startup shell for local terminal (default to $SHELL on Linux/MacOS, and default to the system built-in powershell on Windows, this function is only used to adjust the PowerShell version on Windows, not to start other shells, other shells please use LocalShell session to set specific commands)
 - Fix the crash problem caused by modifying the configuration of the currently running session
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
 - Modify to switch to the tab when right-clicking on a non-current tab
@@ -26,6 +27,7 @@ zh-CN:
 - 增加块选择（Shift+click）和列选择（Alt+Shift+click）功能
 - 增加用户自定义光标颜色设置
 - 增加设置中可选项的工具提示
+- 增加高级选项可以设置默认启动本地终端使用的Shell（Linux/MacOS下默认为$SHELL，Windows下默认为系统内置powershell，Windows下此功能仅用于调整PowerShell版本，而非启动其他Shell，其他Shell请使用本地Shell会话设定特定命令启动）
 - 修复修改当前正在运行中的会话配置导致的崩溃问题
 - 修复多屏幕的情况下，上下文菜单弹出位置错误问题
 - 修改右击非当前标签页时，切换到该标签页

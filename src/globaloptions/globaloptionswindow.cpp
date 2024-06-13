@@ -104,8 +104,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
     if (fontFamilies.size() > 0) {
         font.setFamily(fontFamilies[0]);
-        globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText("Built-in");
     }
+    globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText("Built-in");
     if(settings.contains("fontFamily")) {
         if(settings.value("fontFamily").toString() != "Built-in") {
             font = QFont(settings.value("fontFamily").toString());
@@ -154,6 +154,27 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
+    QString defaultLocalShell = settings.value("DefaultLocalShell",
+        #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+            "ENV:SHELL"
+        #else
+            "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        #endif
+    ).toString();
+    #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+    if(defaultLocalShell != "ENV:SHELL") 
+    #endif
+    {
+        QFileInfo shellInfo(defaultLocalShell);
+        if(!shellInfo.exists() || !shellInfo.isFile() || !shellInfo.isExecutable()) {
+    #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+            defaultLocalShell = "ENV:SHELL";
+    #else
+            defaultLocalShell = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
+    #endif
+        }
+    }
+    globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(defaultLocalShell);
     cursorColorStr = settings.value("CursorColor", "None").toString();
     QRegularExpression hexColorPattern(QLatin1String("^#[0-9a-f]{6}$"),
                                         QRegularExpression::CaseInsensitiveOption);
@@ -297,6 +318,26 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
             return;
         } 
         updateColorButtons(text);
+    });
+    connect(globalOptionsAdvancedWidget->ui->toolButtonDefaultLocalShell, &QToolButton::clicked, this, [&](){
+        #if defined(Q_OS_WIN)
+        QMessageBox::warning(this, tr("Warning"), tr("This feature is used to set the default PowerShell version.\nPlease use the PowerShell 5 or later!\nAnd do not support other shells!\nIf you need to use another shell, please create a session through [quick-connect > localshell > specific-command]."));
+        #endif
+        QString shell = FileDialog::getOpenFileName(this, tr("Select Default Local Shell"), globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->text(), tr("Executable Files (*)"));
+        if (!shell.isEmpty()) {
+            QFileInfo shellInfo(shell);
+            if(!shellInfo.exists() || !shellInfo.isFile() || !shellInfo.isExecutable()) {
+                QMessageBox::warning(this, tr("Warning"), tr("The Default Local Shell is not a valid file!"));
+                return;
+            }
+            globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(shell);
+        } else {
+            #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+            globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText("ENV:SHELL");
+            #else
+            globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText("c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe");
+            #endif
+        }
     });
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
@@ -612,6 +653,30 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     }
     settings.setValue("ConfirmMultilinePaste", globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->isChecked());
     settings.setValue("TrimPastedTrailingNewlines", globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked());
+    QString defaultLocalShell = globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->text();
+    #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+    if(defaultLocalShell != "ENV:SHELL") 
+    #endif
+    {
+        QFileInfo shellInfo(defaultLocalShell);
+        if(!shellInfo.exists() || !shellInfo.isFile() || !shellInfo.isExecutable()) {
+            QMessageBox::warning(this, tr("Warning"), tr("The Default Local Shell is not a valid file!"));
+            globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(settings.value("DefaultLocalShell",
+                #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+                    "ENV:SHELL"
+                #else
+                    "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                #endif
+            ).toString());
+        } else {
+            settings.setValue("DefaultLocalShell", defaultLocalShell);
+        }
+    } 
+    #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+    else {
+        settings.setValue("DefaultLocalShell", defaultLocalShell);
+    }
+    #endif
     settings.setValue("CursorColor",cursorColorStr);
     settings.endGroup();
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
@@ -665,6 +730,13 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
+    globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(settings.value("DefaultLocalShell",
+        #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+            "ENV:SHELL"
+        #else
+            "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        #endif
+    ).toString());
     cursorColorStr = settings.value("CursorColor", "None").toString();
     QRegularExpression hexColorPattern(QLatin1String("^#[0-9a-f]{6}$"),
                                         QRegularExpression::CaseInsensitiveOption);

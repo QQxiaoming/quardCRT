@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
-    <height>300</height>
+    <width>449</width>
+    <height>368</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -49,6 +49,34 @@
        </property>
        <property name="text">
         <string notr="true">...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_31">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Default LocalShell</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditDefaultLocalShell">
+       <property name="toolTip">
+        <string>Set the default LocalShell</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="toolButtonDefaultLocalShell">
+       <property name="toolTip">
+        <string>Choose the default LocalShell</string>
+       </property>
+       <property name="text">
+        <string>...</string>
        </property>
       </widget>
      </item>
@@ -159,7 +187,7 @@
    <item>
     <widget class="QCheckBox" name="checkBoxNativeUI">
      <property name="toolTip">
-        <string>NativeUI(Effective after restart)</string>
+      <string>NativeUI(Effective after restart)</string>
      </property>
      <property name="text">
       <string>NativeUI(Effective after restart)</string>
@@ -169,7 +197,7 @@
    <item>
     <widget class="QCheckBox" name="checkBoxGithubCopilot">
      <property name="toolTip">
-        <string>Github Copilot</string>
+      <string>Github Copilot</string>
      </property>
      <property name="text">
       <string>Github Copilot</string>

@@ -639,7 +639,15 @@ int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp
     shellType = sTp;
     if(command.isEmpty()) {
     #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
-        shellPath = qEnvironmentVariable("SHELL");
+        GlobalSetting settings;
+        QString defaultLocalShell = settings.value("Global/Options/DefaultLocalShell", "ENV:SHELL").toString();
+        if(defaultLocalShell != "ENV:SHELL") {
+            QFileInfo shellInfo(defaultLocalShell);
+            if(shellInfo.isExecutable()) {
+                shellPath = defaultLocalShell;
+            } 
+        }
+        if(shellPath.isEmpty()) shellPath = qEnvironmentVariable("SHELL");
         if(shellPath.isEmpty()) shellPath = "/bin/sh";
     #elif defined(Q_OS_WIN)
         GlobalSetting setting;
@@ -648,8 +656,13 @@ int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp
         m_wslUserName = wslUserName;
         switch (shellType) {
             case PowerShell:
-            default:
-                shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
+            default: {
+                QString defaultLocalShell = setting.value("Global/Options/DefaultLocalShell", "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe").toString();
+                QFileInfo shellInfo(defaultLocalShell);
+                if(shellInfo.isExecutable()) {
+                    shellPath = defaultLocalShell;
+                } 
+                if(shellPath.isEmpty()) shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
                 args =  {
                     "-ExecutionPolicy",
                     "Bypass",
@@ -660,6 +673,7 @@ int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp
                     "\"" + QApplication::applicationDirPath() + "/Profile.ps1\""
                 };
                 break;
+            }
             case WSL:
                 shellPath = "c:\\Windows\\System32\\wsl.exe";
                 args = {
