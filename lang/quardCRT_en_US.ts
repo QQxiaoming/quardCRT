@@ -1787,70 +1787,85 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="65"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="62"/>
+        <source>Default LocalShell</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="69"/>
+        <source>Set the default LocalShell</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="76"/>
+        <source>Choose the default LocalShell</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="93"/>
         <source>User Plugins Path</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="100"/>
         <source>User plugins path</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="79"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="107"/>
         <source>Open user plugins path</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="95"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
         <source>Clear user plugins path</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="98"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="126"/>
         <source>Clear</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="146"/>
         <source>Translate Service</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="125"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="153"/>
         <source>Translate service</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="132"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="160"/>
         <source>Google Translate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="137"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
         <source>Baidu Translate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="142"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="170"/>
         <source>Microsoft Translate</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="152"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="155"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="180"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="183"/>
         <source>Terminal background support animation</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="162"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="190"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="193"/>
         <source>NativeUI(Effective after restart)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="172"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="175"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="200"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="203"/>
         <source>Github Copilot</source>
         <translation></translation>
     </message>
@@ -2280,84 +2295,111 @@
 <context>
     <name>GlobalOptionsWindow</name>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Information</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>This feature is not implemented yet!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="264"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="285"/>
         <source>Select User Plugins Path</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
         <source>The path is not a directory!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="279"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="300"/>
         <source>Select color</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <source>This feature is used to set the default PowerShell version.
+Please use the PowerShell 5 or later!
+And do not support other shells!
+If you need to use another shell, please create a session through [quick-connect &gt; localshell &gt; specific-command].</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Select Default Local Shell</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Executable Files (*)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
+        <source>The Default Local Shell is not a valid file!</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>General</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Appearance</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Terminal</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Window</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Advanced</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Transfer</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
         <source>The User Plugins Path is not a directory!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Select Background Image</source>
         <translation></translation>
     </message>
@@ -3669,66 +3711,66 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Start Local Shell</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="912"/>
         <source>Save log...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="899"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="913"/>
         <source>log files (*.log)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
         <source>Save log</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="947"/>
         <source>Save Raw log...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="934"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="948"/>
         <source>binary files (*.bin)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
         <source>Save Raw log</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Unlock Session</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Wrong password!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Receive ASCII File</source>
         <translation></translation>
     </message>

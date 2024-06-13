@@ -1779,78 +1779,93 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="38"/>
         <source>Config file path</source>
-        <translation type="unfinished"></translation>
+        <translation>설정 파일 경로</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="48"/>
         <source>Open config file</source>
-        <translation type="unfinished"></translation>
+        <translation>설정 파일 열기</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="65"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="62"/>
+        <source>Default LocalShell</source>
+        <translation>기본 로컬 쉘</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="69"/>
+        <source>Set the default LocalShell</source>
+        <translation>기본 로컬 쉘 설정</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="76"/>
+        <source>Choose the default LocalShell</source>
+        <translation>기본 로컬 쉘 선택</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="93"/>
         <source>User Plugins Path</source>
         <translation>사용자 플러그인 경로</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="100"/>
         <source>User plugins path</source>
-        <translation type="unfinished"></translation>
+        <translation>사용자 플러그인 경로</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="79"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="107"/>
         <source>Open user plugins path</source>
-        <translation type="unfinished"></translation>
+        <translation>사용자 플러그인 경로 열기</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="95"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
         <source>Clear user plugins path</source>
-        <translation type="unfinished"></translation>
+        <translation>사용자 플러그인 경로 지우기</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="98"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="126"/>
         <source>Clear</source>
         <translation>지우기</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="146"/>
         <source>Translate Service</source>
         <translation>번역 서비스</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="125"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="153"/>
         <source>Translate service</source>
-        <translation type="unfinished"></translation>
+        <translation>번역 서비스</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="132"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="160"/>
         <source>Google Translate</source>
         <translation>Google 번역</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="137"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
         <source>Baidu Translate</source>
         <translation>Baidu 번역</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="142"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="170"/>
         <source>Microsoft Translate</source>
         <translation>Microsoft 번역</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="152"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="155"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="180"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="183"/>
         <source>Terminal background support animation</source>
         <translation>터미널 배경 지원 애니메이션</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="162"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="190"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="193"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>NativeUI(재시작 후 적용)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="172"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="175"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="200"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="203"/>
         <source>Github Copilot</source>
         <translation>Github Copilot</translation>
     </message>
@@ -1865,12 +1880,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="38"/>
         <source>Color schemes</source>
-        <translation type="unfinished"></translation>
+        <translation>색상 테마</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="56"/>
         <source>Auto switch light/dark color schemes when the theme changes</source>
-        <translation type="unfinished"></translation>
+        <translation>테마 변경 시 밝은/어두운 색상 테마 자동 전환</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="59"/>
@@ -1880,7 +1895,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="78"/>
         <source>An alternative color scheme to switch to when the theme changes</source>
-        <translation type="unfinished"></translation>
+        <translation>테마 변경 시 전환할 대체 색상 테마</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="476"/>
@@ -1890,7 +1905,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="483"/>
         <source>The index number is the serial number of the palette above (0-19)</source>
-        <translation type="unfinished"></translation>
+        <translation>색인 번호는 위의 팔레트의 일련 번호입니다 (0-19)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="499"/>
@@ -1905,7 +1920,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="524"/>
         <source>Select font series, click cancel to use the built-in font</source>
-        <translation type="unfinished"></translation>
+        <translation>글꼴 시리즈 선택, 내장 글꼴을 사용하려면 취소를 클릭하십시오</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="540"/>
@@ -1915,7 +1930,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="553"/>
         <source>Font size (step 3)</source>
-        <translation type="unfinished"></translation>
+        <translation>글꼴 크기 (3단계)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="571"/>
@@ -1925,17 +1940,17 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="583"/>
         <source>Background image path</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 이미지 경로</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="590"/>
         <source>Select background image (Includes animated images and videos)</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 이미지 선택(애니메이션 이미지 및 비디오 포함)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="600"/>
         <source>Clear background image</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 이미지 지우기</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
@@ -1987,7 +2002,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="669"/>
         <source>Background Image Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>배경 이미지 불투명도</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.cpp" line="61"/>
@@ -2005,7 +2020,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
         <source>Choose the default tab mode</source>
-        <translation type="unfinished"></translation>
+        <translation>기본 탭 모드 선택</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="42"/>
@@ -2030,7 +2045,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="80"/>
         <source>Choose the default tab workpath, the available paths here are from the bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>기본 탭 작업 경로 선택, 여기서 사용 가능한 경로는 북마크에서 가져옵니다</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="105"/>
@@ -2040,7 +2055,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
         <source>Choose the default tab title mode</source>
-        <translation type="unfinished"></translation>
+        <translation>기본 탭 제목 모드 선택</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="122"/>
@@ -2065,12 +2080,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="160"/>
         <source>Set the tab title width</source>
-        <translation type="unfinished"></translation>
+        <translation>탭 제목 너비 설정</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="188"/>
         <source>Enable or disable the tab preview</source>
-        <translation type="unfinished"></translation>
+        <translation>탭 미리보기 활성화 또는 비활성화</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="191"/>
@@ -2085,7 +2100,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="220"/>
         <source>Set the tab preview width</source>
-        <translation type="unfinished"></translation>
+        <translation>탭 미리보기 너비 설정</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="240"/>
@@ -2100,12 +2115,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="254"/>
         <source>Set the WSL UserName</source>
-        <translation type="unfinished"></translation>
+        <translation>WSL 사용자 이름 설정</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="261"/>
         <source>Set the WSL DistroName</source>
-        <translation type="unfinished"></translation>
+        <translation>WSL 배포 이름 설정</translation>
     </message>
 </context>
 <context>
@@ -2118,7 +2133,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="24"/>
         <source>Number of lines to keep in the scrollback buffer, more lines will use more memory</source>
-        <translation type="unfinished"></translation>
+        <translation>스크롤백 버퍼에 유지할 라인 수, 더 많은 라인은 더 많은 메모리를 사용합니다</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="37"/>
@@ -2128,7 +2143,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="44"/>
         <source>Choose the cursor shape</source>
-        <translation type="unfinished"></translation>
+        <translation>커서 모양 선택</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="48"/>
@@ -2148,7 +2163,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="68"/>
         <source>Enable cursor blinking</source>
-        <translation type="unfinished"></translation>
+        <translation>커서 깜빡임 활성화</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="71"/>
@@ -2163,7 +2178,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="101"/>
         <source>Choose the cursor color</source>
-        <translation type="unfinished"></translation>
+        <translation>커서 색상 선택</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="113"/>
@@ -2173,7 +2188,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="120"/>
         <source>Characters that are considered part of a word</source>
-        <translation type="unfinished"></translation>
+        <translation>단어의 일부로 간주되는 문자</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="127"/>
@@ -2185,12 +2200,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="135"/>
         <source>Set the transparency of the selected text accent color</source>
-        <translation type="unfinished"></translation>
+        <translation>선택된 텍스트 강조 색상의 투명도 설정</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="154"/>
         <source>Confirm pasting multiple lines of text</source>
-        <translation type="unfinished"></translation>
+        <translation>여러 줄 텍스트 붙여넣기 확인</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="157"/>
@@ -2219,7 +2234,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="39"/>
         <source>Directory to download files to</source>
-        <translation type="unfinished"></translation>
+        <translation>파일을 다운로드할 디렉터리</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="46"/>
@@ -2229,17 +2244,17 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="53"/>
         <source>Directory to upload files to</source>
-        <translation type="unfinished"></translation>
+        <translation>파일을 업로드할 디렉터리</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="60"/>
         <source>Choose directory to upload files to</source>
-        <translation type="unfinished"></translation>
+        <translation>파일을 업로드할 디렉터리 선택</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="70"/>
         <source>Choose directory to download files to</source>
-        <translation type="unfinished"></translation>
+        <translation>파일을 다운로드할 디렉터리 선택</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="82"/>
@@ -2249,12 +2264,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="94"/>
         <source>Send 128 bytes per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>패킷당 128바이트 전송</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="104"/>
         <source>Send 1024 bytes per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>패킷당 1024바이트 전송</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="129"/>
@@ -2264,7 +2279,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="136"/>
         <source>Enable real-time detection of Zmodem transfers</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmodem 전송의 실시간 감지 활성화</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="139"/>
@@ -2286,84 +2301,114 @@
         <translation>전역 옵션</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Select Background Image</source>
         <translation>배경 이미지 선택</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation>이미지 파일 (*.png *.jpg *.jpeg *.bmp *.gif);;비디오 파일 (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Information</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation>이 기능은 더 많은 시스템 리소스가 필요합니다. 주의해서 사용하십시오!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>This feature is not implemented yet!</source>
         <translation>이 기능은 아직 구현되지 않았습니다!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="264"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="285"/>
         <source>Select User Plugins Path</source>
         <translation>사용자 플러그인 경로 선택</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
         <source>Warning</source>
         <translation>경고</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
         <source>The path is not a directory!</source>
         <translation>경로가 디렉터리가 아닙니다!</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="279"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="300"/>
         <source>Select color</source>
         <translation>색상 선택</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <source>This feature is used to set the default PowerShell version.
+Please use the PowerShell 5 or later!
+And do not support other shells!
+If you need to use another shell, please create a session through [quick-connect &gt; localshell &gt; specific-command].</source>
+        <translation>이 기능은 기본 PowerShell 버전을 설정하는 데 사용됩니다.
+PowerShell 5 이상을 사용하십시오!
+그리고 다른 쉘을 지원하지 않습니다!
+다른 쉘을 사용해야 하는 경우 [빠른 연결 &gt; 로컬 쉘 &gt; 특정 명령]을 통해 세션을 만들어 주십시오.</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Select Default Local Shell</source>
+        <translation>기본 로컬 쉘 선택</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Executable Files (*)</source>
+        <translation>실행 파일 (*)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
+        <source>The Default Local Shell is not a valid file!</source>
+        <translation>기본 로컬 쉘이 유효한 파일이 아닙니다!</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>General</source>
         <translation>일반</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Appearance</source>
         <translation>외관</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Terminal</source>
         <translation>터미널</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Window</source>
         <translation>창</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Advanced</source>
         <translation>고급</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Transfer</source>
         <translation>전송</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
         <source>The User Plugins Path is not a directory!</source>
         <translation>사용자 플러그인 경로가 디렉터리가 아닙니다!</translation>
     </message>
@@ -2378,7 +2423,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="27"/>
         <source>Set the transparency of the window (Requires platform support and enabled in View)</source>
-        <translation type="unfinished"></translation>
+        <translation>창의 투명도 설정(플랫폼 지원 및 보기에서 활성화해야 함)</translation>
     </message>
 </context>
 <context>
@@ -3681,68 +3726,68 @@
         <translation>모든 파일 (*)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Start Local Shell</source>
         <translation>로컬 쉘 시작</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>로컬 쉘을 시작할 수 없습니다:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="912"/>
         <source>Save log...</source>
         <translation>로그 저장...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="899"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="913"/>
         <source>log files (*.log)</source>
         <translation>로그 파일 (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
         <source>Save log</source>
         <translation>로그 저장</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>%1 파일을 쓸 수 없습니다:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="947"/>
         <source>Save Raw log...</source>
         <translation>Raw 로그 저장...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="934"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="948"/>
         <source>binary files (*.bin)</source>
         <translation>바이너리 파일 (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
         <source>Save Raw log</source>
         <translation>Raw 로그 저장</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Unlock Session</source>
         <translation>세션 잠금 해제</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Wrong password!</source>
         <translation>잘못된 비밀번호!</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Receive ASCII File</source>
         <translation>ASCII 파일 받기</translation>
     </message>

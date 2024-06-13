@@ -1787,70 +1787,85 @@
         <translation>打開配置文件</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="65"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="62"/>
+        <source>Default LocalShell</source>
+        <translation>默認本地Shell</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="69"/>
+        <source>Set the default LocalShell</source>
+        <translation>設置默認本地Shell</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="76"/>
+        <source>Choose the default LocalShell</source>
+        <translation>選擇默認本地Shell</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="93"/>
         <source>User Plugins Path</source>
         <translation>用戶插件路徑</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="100"/>
         <source>User plugins path</source>
         <translation>用戶插件路徑</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="79"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="107"/>
         <source>Open user plugins path</source>
         <translation>打開用戶插件路徑</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="95"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
         <source>Clear user plugins path</source>
         <translation>清除用戶插件路徑</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="98"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="126"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="146"/>
         <source>Translate Service</source>
         <translation>翻譯服務</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="125"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="153"/>
         <source>Translate service</source>
         <translation>翻譯服務</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="132"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="160"/>
         <source>Google Translate</source>
         <translation>谷歌翻譯</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="137"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
         <source>Baidu Translate</source>
         <translation>百度翻譯</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="142"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="170"/>
         <source>Microsoft Translate</source>
         <translation>微軟翻譯</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="152"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="155"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="180"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="183"/>
         <source>Terminal background support animation</source>
         <translation>終端背景支持動畫</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="162"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="190"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="193"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>原生UI(重啟後生效)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="172"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="175"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="200"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="203"/>
         <source>Github Copilot</source>
         <translation></translation>
     </message>
@@ -2286,84 +2301,114 @@
         <translation>全局選項</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Select Background Image</source>
         <translation>選擇背景圖片</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation>圖片文件 (*.png *.jpg *.jpeg *.bmp *.gif);;視頻文件 (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation>此功能需要更多系統資源，請謹慎使用！</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>This feature is not implemented yet!</source>
         <translation>此功能尚未實現！</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="264"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="285"/>
         <source>Select User Plugins Path</source>
         <translation>選擇用戶插件路徑</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
         <source>The path is not a directory!</source>
         <translation>該路徑不是一個目錄！</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="279"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="300"/>
         <source>Select color</source>
         <translation>選擇顏色</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <source>This feature is used to set the default PowerShell version.
+Please use the PowerShell 5 or later!
+And do not support other shells!
+If you need to use another shell, please create a session through [quick-connect &gt; localshell &gt; specific-command].</source>
+        <translation>此功能用於設置默認的PowerShell版本。
+請使用PowerShell 5或更高版本！
+不支持其他終端！
+如果需要使用其他終端，請通過[快速連接 &gt; 本地終端 &gt; 特定命令]創建會話。</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Select Default Local Shell</source>
+        <translation>選擇默認本地終端</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Executable Files (*)</source>
+        <translation>可執行文件 (*)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
+        <source>The Default Local Shell is not a valid file!</source>
+        <translation>默認本地終端不是有效文件！</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>General</source>
         <translation>常規</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Appearance</source>
         <translation>外觀</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Terminal</source>
         <translation>終端</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Window</source>
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Advanced</source>
         <translation>高級</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Transfer</source>
         <translation>傳輸</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
         <source>The User Plugins Path is not a directory!</source>
         <translation>用戶插件路徑不是一個目錄！</translation>
     </message>
@@ -3681,68 +3726,68 @@
         <translation>所有文件 (*)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Start Local Shell</source>
         <translation>啟動本地Shell</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>無法啟動本地shell：
 %1。</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="912"/>
         <source>Save log...</source>
         <translation>保存日誌...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="899"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="913"/>
         <source>log files (*.log)</source>
         <translation>日誌文件(*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
         <source>Save log</source>
         <translation>保存日誌</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>無法寫入文件%1：
 %2。</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="947"/>
         <source>Save Raw log...</source>
         <translation>保存原始日誌...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="934"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="948"/>
         <source>binary files (*.bin)</source>
         <translation>二進制文件(*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
         <source>Save Raw log</source>
         <translation>保存原始日誌</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Unlock Session</source>
         <translation>解鎖會話</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Wrong password!</source>
         <translation>密碼錯誤！</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Receive ASCII File</source>
         <translation>接收ASCII文件</translation>
     </message>

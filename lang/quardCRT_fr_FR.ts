@@ -1779,78 +1779,93 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="38"/>
         <source>Config file path</source>
-        <translation type="unfinished"></translation>
+        <translation>Chemin du fichier de configuration</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="48"/>
         <source>Open config file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le fichier de configuration</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="65"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="62"/>
+        <source>Default LocalShell</source>
+        <translation>LocalShell par défaut</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="69"/>
+        <source>Set the default LocalShell</source>
+        <translation>Définir le LocalShell par défaut</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="76"/>
+        <source>Choose the default LocalShell</source>
+        <translation>Choisir le LocalShell par défaut</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="93"/>
         <source>User Plugins Path</source>
         <translation>Chemin des plugins utilisateur</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="100"/>
         <source>User plugins path</source>
-        <translation type="unfinished"></translation>
+        <translation>Chemin des plugins utilisateur</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="79"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="107"/>
         <source>Open user plugins path</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le chemin des plugins utilisateur</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="95"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
         <source>Clear user plugins path</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer le chemin des plugins utilisateur</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="98"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="126"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="146"/>
         <source>Translate Service</source>
         <translation>Service de traduction</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="125"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="153"/>
         <source>Translate service</source>
-        <translation type="unfinished"></translation>
+        <translation>Service de traduction</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="132"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="160"/>
         <source>Google Translate</source>
         <translation>Google Translate</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="137"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
         <source>Baidu Translate</source>
         <translation>Baidu Translate</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="142"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="170"/>
         <source>Microsoft Translate</source>
         <translation>Microsoft Translate</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="152"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="155"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="180"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="183"/>
         <source>Terminal background support animation</source>
         <translation>Le terminal prend en charge l&apos;animation d&apos;arrière-plan</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="162"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="190"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="193"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>Interface utilisateur native (efficace après le redémarrage)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="172"/>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="175"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="200"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="203"/>
         <source>Github Copilot</source>
         <translation>Github Copilot</translation>
     </message>
@@ -1865,12 +1880,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="38"/>
         <source>Color schemes</source>
-        <translation type="unfinished"></translation>
+        <translation>Thèmes de couleur</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="56"/>
         <source>Auto switch light/dark color schemes when the theme changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Passage automatique des thèmes de couleur clair/sombre lorsque le thème change</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="59"/>
@@ -1880,7 +1895,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="78"/>
         <source>An alternative color scheme to switch to when the theme changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Un schéma de couleur alternatif vers lequel basculer lorsque le thème change</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="476"/>
@@ -1890,7 +1905,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="483"/>
         <source>The index number is the serial number of the palette above (0-19)</source>
-        <translation type="unfinished"></translation>
+        <translation>Le numéro d&apos;index est le numéro de série de la palette ci-dessus (0-19)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="499"/>
@@ -1905,7 +1920,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="524"/>
         <source>Select font series, click cancel to use the built-in font</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner la série de police, cliquez sur Annuler pour utiliser la police intégrée</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="540"/>
@@ -1915,7 +1930,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="553"/>
         <source>Font size (step 3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille de la police (pas 3)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="571"/>
@@ -1925,17 +1940,17 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="583"/>
         <source>Background image path</source>
-        <translation type="unfinished"></translation>
+        <translation>Chemin de l&apos;image d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="590"/>
         <source>Select background image (Includes animated images and videos)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner l&apos;image d&apos;arrière-plan (comprend des images animées et des vidéos)</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="600"/>
         <source>Clear background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer l&apos;image d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
@@ -1987,7 +2002,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="669"/>
         <source>Background Image Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacité de l&apos;image d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.cpp" line="61"/>
@@ -2005,7 +2020,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
         <source>Choose the default tab mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le mode d&apos;onglet par défaut</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="42"/>
@@ -2030,7 +2045,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="80"/>
         <source>Choose the default tab workpath, the available paths here are from the bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le chemin de travail d&apos;onglet par défaut, les chemins disponibles ici proviennent des marque-pages</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="105"/>
@@ -2040,7 +2055,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
         <source>Choose the default tab title mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le mode de titre d&apos;onglet par défaut</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="122"/>
@@ -2065,12 +2080,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="160"/>
         <source>Set the tab title width</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir la largeur du titre de l&apos;onglet</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="188"/>
         <source>Enable or disable the tab preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer ou désactiver l&apos;aperçu de l&apos;onglet</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="191"/>
@@ -2085,7 +2100,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="220"/>
         <source>Set the tab preview width</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir la largeur de l&apos;aperçu de l&apos;onglet</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="240"/>
@@ -2100,12 +2115,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="254"/>
         <source>Set the WSL UserName</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir le nom d&apos;utilisateur WSL</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="261"/>
         <source>Set the WSL DistroName</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir le nom de la distribution WSL</translation>
     </message>
 </context>
 <context>
@@ -2118,7 +2133,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="24"/>
         <source>Number of lines to keep in the scrollback buffer, more lines will use more memory</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de lignes à conserver dans le tampon de défilement, plus de lignes utiliseront plus de mémoire</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="37"/>
@@ -2128,7 +2143,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="44"/>
         <source>Choose the cursor shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir la forme du curseur</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="48"/>
@@ -2148,7 +2163,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="68"/>
         <source>Enable cursor blinking</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer le clignotement du curseur</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="71"/>
@@ -2163,7 +2178,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="101"/>
         <source>Choose the cursor color</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir la couleur du curseur</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="113"/>
@@ -2173,7 +2188,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="120"/>
         <source>Characters that are considered part of a word</source>
-        <translation type="unfinished"></translation>
+        <translation>Caractères qui sont considérés comme faisant partie d&apos;un mot</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="127"/>
@@ -2185,12 +2200,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="135"/>
         <source>Set the transparency of the selected text accent color</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir la transparence de la couleur d&apos;accentuation du texte sélectionné</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="154"/>
         <source>Confirm pasting multiple lines of text</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmer le collage de plusieurs lignes de texte</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="157"/>
@@ -2219,7 +2234,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="39"/>
         <source>Directory to download files to</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoire de téléchargement des fichiers</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="46"/>
@@ -2229,17 +2244,17 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="53"/>
         <source>Directory to upload files to</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoire de téléversement des fichiers</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="60"/>
         <source>Choose directory to upload files to</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le répertoire de téléversement des fichiers</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="70"/>
         <source>Choose directory to download files to</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le répertoire de téléchargement des fichiers</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="82"/>
@@ -2249,12 +2264,12 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="94"/>
         <source>Send 128 bytes per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer 128 octets par paquet</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="104"/>
         <source>Send 1024 bytes per packet</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer 1024 octets par paquet</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="129"/>
@@ -2264,7 +2279,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="136"/>
         <source>Enable real-time detection of Zmodem transfers</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer la détection en temps réel des transferts Zmodem</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="139"/>
@@ -2286,84 +2301,114 @@
         <translation>Options globales</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Select Background Image</source>
         <translation>Sélectionner une image d&apos;arrière-plan</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="213"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="234"/>
         <source>Image Files (*.png *.jpg *.jpeg *.bmp *.gif);;Video Files (*.mp4 *.avi *.mkv *.mov)</source>
         <translation>Fichiers image (*.png *.jpg *.jpeg *.bmp *.gif);;Fichiers vidéo (*.mp4 *.avi *.mkv *.mov)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="251"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="272"/>
         <source>This feature needs more system resources, please use it carefully!</source>
         <translation>Cette fonctionnalité nécessite plus de ressources système, veuillez l&apos;utiliser avec précaution !</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="256"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="277"/>
         <source>This feature is not implemented yet!</source>
         <translation>Cette fonctionnalité n&apos;est pas encore implémentée !</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="264"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="285"/>
         <source>Select User Plugins Path</source>
         <translation>Sélectionner le chemin des plugins utilisateur</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="268"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="289"/>
         <source>The path is not a directory!</source>
         <translation>Le chemin n&apos;est pas un répertoire !</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="279"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="300"/>
         <source>Select color</source>
         <translation>Sélectionner une couleur</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="324"/>
+        <source>This feature is used to set the default PowerShell version.
+Please use the PowerShell 5 or later!
+And do not support other shells!
+If you need to use another shell, please create a session through [quick-connect &gt; localshell &gt; specific-command].</source>
+        <translation>Cette fonctionnalité est utilisée pour définir la version de PowerShell par défaut.
+Veuillez utiliser PowerShell 5 ou ultérieur !
+Et ne prend pas en charge les autres shells !
+Si vous avez besoin d&apos;utiliser un autre shell, veuillez créer une session via [connexion rapide &gt; shell local &gt; commande spécifique].</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Select Default Local Shell</source>
+        <translation>Sélectionner le shell local par défaut</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="326"/>
+        <source>Executable Files (*)</source>
+        <translation>Fichiers exécutables (*)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="330"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="663"/>
+        <source>The Default Local Shell is not a valid file!</source>
+        <translation>Le shell local par défaut n&apos;est pas un fichier valide !</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>General</source>
         <translation>Général</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Appearance</source>
         <translation>Apparence</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Terminal</source>
         <translation>Terminal</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Window</source>
         <translation>Fenêtre</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="317"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="358"/>
         <source>Transfer</source>
         <translation>Transfert</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="611"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="652"/>
         <source>The User Plugins Path is not a directory!</source>
         <translation>Le chemin des plugins utilisateur n&apos;est pas un répertoire !</translation>
     </message>
@@ -2378,7 +2423,7 @@
     <message>
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="27"/>
         <source>Set the transparency of the window (Requires platform support and enabled in View)</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir la transparence de la fenêtre (nécessite le support de la plateforme et l&apos;activation dans Affichage)</translation>
     </message>
 </context>
 <context>
@@ -3681,68 +3726,68 @@
         <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Start Local Shell</source>
         <translation>Démarrer le shell local</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="724"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>Impossible de démarrer le shell local :
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="912"/>
         <source>Save log...</source>
         <translation>Enregistrer le journal...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="899"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="913"/>
         <source>log files (*.log)</source>
         <translation>Fichiers journaux (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
         <source>Save log</source>
         <translation>Enregistrer le journal</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="917"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>Impossible d&apos;écrire le fichier %1 :
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="947"/>
         <source>Save Raw log...</source>
         <translation>Enregistrer le journal brut...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="934"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="948"/>
         <source>binary files (*.bin)</source>
         <translation>Fichiers binaires (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="952"/>
         <source>Save Raw log</source>
         <translation>Enregistrer le journal brut</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Unlock Session</source>
         <translation>Déverrouiller la session</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1024"/>
         <source>Wrong password!</source>
         <translation>Mot de passe incorrect !</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1053"/>
         <source>Receive ASCII File</source>
         <translation>Recevoir un fichier ASCII</translation>
     </message>
