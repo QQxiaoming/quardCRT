@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>353</width>
-    <height>318</height>
+    <width>379</width>
+    <height>337</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -33,6 +33,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Choose the default tab mode</string>
        </property>
        <item>
         <property name="text">
@@ -73,6 +76,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Choose the default tab workpath, the available paths here are from the bookmarks</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -107,6 +113,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Choose the default tab title mode</string>
          </property>
          <item>
           <property name="text">
@@ -147,6 +156,9 @@
        </item>
        <item>
         <widget class="QSpinBox" name="spinBoxTabTitleWidth">
+         <property name="toolTip">
+          <string>Set the tab title width</string>
+         </property>
          <property name="minimum">
           <number>20</number>
          </property>
@@ -171,6 +183,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Enable or disable the tab preview</string>
        </property>
        <property name="text">
         <string>Tab Preview</string>
@@ -200,6 +215,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Set the tab preview width</string>
        </property>
        <property name="minimum">
         <number>100</number>
@@ -231,10 +249,18 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLineEdit" name="lineEditWSLUserName"/>
+      <widget class="QLineEdit" name="lineEditWSLUserName">
+       <property name="toolTip">
+        <string>Set the WSL UserName</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEditWSLDistroName"/>
+      <widget class="QLineEdit" name="lineEditWSLDistroName">
+       <property name="toolTip">
+        <string>Set the WSL DistroName</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

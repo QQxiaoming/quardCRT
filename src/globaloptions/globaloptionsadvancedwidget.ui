@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>421</width>
     <height>300</height>
    </rect>
   </property>
@@ -34,6 +34,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="lineEditConfigFile">
+       <property name="toolTip">
+        <string>Config file path</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -41,6 +44,9 @@
      </item>
      <item>
       <widget class="QToolButton" name="toolButtonOpenConfigFile">
+       <property name="toolTip">
+        <string>Open config file</string>
+       </property>
        <property name="text">
         <string notr="true">...</string>
        </property>
@@ -61,10 +67,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditUserPluginsPath"/>
+      <widget class="QLineEdit" name="lineEditUserPluginsPath">
+       <property name="toolTip">
+        <string>User plugins path</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QToolButton" name="toolButtonUserPluginsPath">
+       <property name="toolTip">
+        <string>Open user plugins path</string>
+       </property>
        <property name="text">
         <string notr="true">...</string>
        </property>
@@ -77,6 +90,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Clear user plugins path</string>
        </property>
        <property name="text">
         <string>Clear</string>
@@ -105,6 +121,9 @@
      </item>
      <item>
       <widget class="QComboBox" name="comboBoxTranslateService">
+       <property name="toolTip">
+        <string>Translate service</string>
+       </property>
        <property name="editable">
         <bool>false</bool>
        </property>
@@ -129,6 +148,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="checkBoxTerminalBackgroundAnimation">
+     <property name="toolTip">
+      <string>Terminal background support animation</string>
+     </property>
      <property name="text">
       <string>Terminal background support animation</string>
      </property>
@@ -136,6 +158,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="checkBoxNativeUI">
+     <property name="toolTip">
+        <string>NativeUI(Effective after restart)</string>
+     </property>
      <property name="text">
       <string>NativeUI(Effective after restart)</string>
      </property>
@@ -143,6 +168,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="checkBoxGithubCopilot">
+     <property name="toolTip">
+        <string>Github Copilot</string>
+     </property>
      <property name="text">
       <string>Github Copilot</string>
      </property>

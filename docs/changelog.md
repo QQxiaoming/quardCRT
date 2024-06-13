@@ -8,6 +8,7 @@
 - Add label tag color feature
 - Add block selection (Shift+click) and column selection (Alt+Shift+click) feature
 - Add user-defined cursor color setting
+- Add tooltip for optional items in settings
 - Fix the crash problem caused by modifying the configuration of the currently running session
 - Fix the problem of incorrect pop-up position of the context menu in the case of multiple screens
 - Modify to switch to the tab when right-clicking on a non-current tab

@@ -1777,47 +1777,80 @@
         <translation>配置文件</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="59"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="38"/>
+        <source>Config file path</source>
+        <translation>配置文件路徑</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="48"/>
+        <source>Open config file</source>
+        <translation>打開配置文件</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="65"/>
         <source>User Plugins Path</source>
         <translation>用戶插件路徑</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="82"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <source>User plugins path</source>
+        <translation>用戶插件路徑</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="79"/>
+        <source>Open user plugins path</source>
+        <translation>打開用戶插件路徑</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="95"/>
+        <source>Clear user plugins path</source>
+        <translation>清除用戶插件路徑</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="98"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="102"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
         <source>Translate Service</source>
         <translation>翻譯服務</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="113"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="125"/>
+        <source>Translate service</source>
+        <translation>翻譯服務</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="132"/>
         <source>Google Translate</source>
         <translation>谷歌翻譯</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="137"/>
         <source>Baidu Translate</source>
         <translation>百度翻譯</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="142"/>
         <source>Microsoft Translate</source>
         <translation>微軟翻譯</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="133"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="152"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="155"/>
         <source>Terminal background support animation</source>
         <translation>終端背景支持動畫</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="140"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="162"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>原生UI(重啟後生效)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="147"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="172"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="175"/>
         <source>Github Copilot</source>
         <translation></translation>
     </message>
@@ -1830,80 +1863,131 @@
         <translation>配色方案</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="53"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="38"/>
+        <source>Color schemes</source>
+        <translation>配色方案</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="56"/>
+        <source>Auto switch light/dark color schemes when the theme changes</source>
+        <translation>當主題更改時自動切換明亮/暗色方案</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="59"/>
         <source>Auto Switch Light</source>
         <translation>自動切換明亮</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="467"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="78"/>
+        <source>An alternative color scheme to switch to when the theme changes</source>
+        <translation>主題更改時切換到的替代配色方案</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="476"/>
         <source>Pre-edit Color Index</source>
         <translation>預編輯顏色索引</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="487"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="483"/>
+        <source>The index number is the serial number of the palette above (0-19)</source>
+        <translation>索引號是上面調色板的序號（0-19）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="499"/>
         <source>Font</source>
         <translation>字體</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="505"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="517"/>
         <source>Series</source>
         <translation>系列</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="525"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="524"/>
+        <source>Select font series, click cancel to use the built-in font</source>
+        <translation>選擇字體系列，單擊取消使用內置字體</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="540"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="553"/>
+        <source>Font size (step 3)</source>
+        <translation>字體大小（步長3）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="571"/>
         <source>Background image</source>
         <translation>背景圖片</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="575"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="583"/>
+        <source>Background image path</source>
+        <translation>背景圖片路徑</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="590"/>
+        <source>Select background image (Includes animated images and videos)</source>
+        <translation>選擇背景圖片（包括動畫圖片和視頻）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="600"/>
+        <source>Clear background image</source>
+        <translation>清除背景圖片</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="584"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="612"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="619"/>
         <source>Background mode</source>
         <translation>背景模式</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="591"/>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="622"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="634"/>
         <source>Stretch</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="598"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="629"/>
         <source>None</source>
         <translation>無</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="608"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="639"/>
         <source>Zoom</source>
         <translation>縮放</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="613"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="644"/>
         <source>Fit</source>
         <translation>適應</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="618"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="649"/>
         <source>Center</source>
         <translation>居中</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="623"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="654"/>
         <source>Tile</source>
         <translation>平鋪</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="631"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="662"/>
         <source>Background opacity</source>
         <translation>背景透明度</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="669"/>
+        <source>Background Image Opacity</source>
+        <translation>背景圖片透明度</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.cpp" line="61"/>
@@ -1919,69 +2003,109 @@
         <translation>新標籤模式</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="39"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
+        <source>Choose the default tab mode</source>
+        <translation>選擇默認標籤模式</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="42"/>
         <source>New session</source>
         <translation>新會話</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="44"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="47"/>
         <source>Clone session</source>
         <translation>克隆會話</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="49"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="52"/>
         <source>LocalShell session</source>
         <translation>本地Shell會話</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="67"/>
         <source>New tab workpath</source>
         <translation>新建標籤工作路徑</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="80"/>
+        <source>Choose the default tab workpath, the available paths here are from the bookmarks</source>
+        <translation>選擇默認標籤工作路徑，這裡的可用路徑來自書籤</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="105"/>
         <source>Tab title mode</source>
         <translation>標籤標題模式</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="113"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
+        <source>Choose the default tab title mode</source>
+        <translation>選擇默認標籤標題模式</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="122"/>
         <source>Brief</source>
         <translation>簡潔</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="127"/>
         <source>Full</source>
         <translation>完整</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="123"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="132"/>
         <source>Scroll</source>
         <translation>滾動</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="144"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="153"/>
         <source>Tab Title Width</source>
         <translation>標籤標題寬度</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="176"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="160"/>
+        <source>Set the tab title width</source>
+        <translation>設置標籤標題寬度</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="188"/>
+        <source>Enable or disable the tab preview</source>
+        <translation>啟用或禁用標籤預覽</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="191"/>
         <source>Tab Preview</source>
         <translation>標籤預覽</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="192"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="207"/>
         <source>Preview Width</source>
         <translation>預覽寬度</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="222"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="220"/>
+        <source>Set the tab preview width</source>
+        <translation>設置標籤預覽寬度</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="240"/>
         <source>WSL UserName</source>
         <translation>WSL用戶名</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="229"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="247"/>
         <source>WSL DistroName</source>
         <translation>WSL發行版</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="254"/>
+        <source>Set the WSL UserName</source>
+        <translation>設置WSL用戶名</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="261"/>
+        <source>Set the WSL DistroName</source>
+        <translation>設置WSL發行版</translation>
     </message>
 </context>
 <context>
@@ -1992,42 +2116,67 @@
         <translation>滾動行數</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="34"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="24"/>
+        <source>Number of lines to keep in the scrollback buffer, more lines will use more memory</source>
+        <translation>保留在滾動緩衝區中的行數，更多行將使用更多內存</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="37"/>
         <source>Cursor Shape</source>
         <translation>光標形狀</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="42"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="44"/>
+        <source>Choose the cursor shape</source>
+        <translation>選擇光標形狀</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="48"/>
         <source>Block</source>
         <translation>塊</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="47"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="53"/>
         <source>Underline</source>
         <translation>下劃線</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="52"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="58"/>
         <source>IBeam</source>
         <translation>IBeam</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="62"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="68"/>
+        <source>Enable cursor blinking</source>
+        <translation>啟用光標閃爍</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="71"/>
         <source>Cursor Blink</source>
         <translation>光標閃爍</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="85"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="94"/>
         <source>Cursor Color</source>
         <translation>光標顏色</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="101"/>
+        <source>Choose the cursor color</source>
+        <translation>選擇光標顏色</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="113"/>
         <source>Word Characters</source>
         <translation>單詞字符</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="111"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="120"/>
+        <source>Characters that are considered part of a word</source>
+        <translation>被認為是單詞的字符</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="127"/>
         <source>Selected text accent color transparency
  (inverse color at 100%)</source>
         <translation>選中文本強調顏色透明度
@@ -2035,11 +2184,22 @@
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="135"/>
+        <source>Set the transparency of the selected text accent color</source>
+        <translation>設置選中文本強調顏色的透明度</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="154"/>
+        <source>Confirm pasting multiple lines of text</source>
+        <translation>確認粘貼多行文本</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="157"/>
         <source>Confirm multi-line paste</source>
         <translation>確認多行粘貼</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="142"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="164"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="167"/>
         <source>Trim pasted trailing newline</source>
         <translation>修剪粘貼的尾隨換行符</translation>
     </message>
@@ -2057,22 +2217,57 @@
         <translation>下載</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="42"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="39"/>
+        <source>Directory to download files to</source>
+        <translation>下載文件到目錄</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="46"/>
         <source>Upload</source>
         <translation>上傳</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="68"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="53"/>
+        <source>Directory to upload files to</source>
+        <translation>上傳文件到目錄</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="60"/>
+        <source>Choose directory to upload files to</source>
+        <translation>選擇上傳文件到的目錄</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="70"/>
+        <source>Choose directory to download files to</source>
+        <translation>選擇下載文件到的目錄</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="82"/>
         <source>X/Ymodem send packet size</source>
         <translation>X/Ymodem發送包大小</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="109"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="94"/>
+        <source>Send 128 bytes per packet</source>
+        <translation>每個包發送128字節</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="104"/>
+        <source>Send 1024 bytes per packet</source>
+        <translation>每個包發送1024字節</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="129"/>
         <source>Zmodem Online</source>
         <translation>Zmodem在線</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="116"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="136"/>
+        <source>Enable real-time detection of Zmodem transfers</source>
+        <translation>啟用Zmodem傳輸的實時檢測</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="139"/>
         <source>Disable</source>
         <translation>禁用</translation>
     </message>
@@ -2179,6 +2374,11 @@
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="20"/>
         <source>Transparent window</source>
         <translation>透明窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="27"/>
+        <source>Set the transparency of the window (Requires platform support and enabled in View)</source>
+        <translation>設置窗口的透明度（需要平台支持並在視圖中啟用）</translation>
     </message>
 </context>
 <context>
@@ -3457,92 +3657,92 @@
 %1。</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="330"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="376"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="332"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="381"/>
         <source>SSH2 Error</source>
         <translation>SSH2錯誤</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="330"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="376"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="332"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="381"/>
         <source>SSH2 error:
 %1.</source>
         <translation>SSH2錯誤：
 %1。</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="488"/>
         <source>Select Files to Send using Zmodem</source>
         <translation>選擇要使用Zmodem發送的文件</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="488"/>
         <source>All Files (*)</source>
         <translation>所有文件 (*)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="705"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
         <source>Start Local Shell</source>
         <translation>啟動本地Shell</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="705"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>無法啟動本地shell：
 %1。</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="893"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
         <source>Save log...</source>
         <translation>保存日誌...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="894"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="899"/>
         <source>log files (*.log)</source>
         <translation>日誌文件(*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
         <source>Save log</source>
         <translation>保存日誌</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1034"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>無法寫入文件%1：
 %2。</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="928"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
         <source>Save Raw log...</source>
         <translation>保存原始日誌...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="929"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="934"/>
         <source>binary files (*.bin)</source>
         <translation>二進制文件(*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
         <source>Save Raw log</source>
         <translation>保存原始日誌</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1005"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
         <source>Unlock Session</source>
         <translation>解鎖會話</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1005"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
         <source>Wrong password!</source>
         <translation>密碼錯誤！</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1034"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
         <source>Receive ASCII File</source>
         <translation>接收ASCII文件</translation>
     </message>

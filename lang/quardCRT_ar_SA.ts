@@ -1777,47 +1777,80 @@
         <translation>ملف التكوين</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="59"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="38"/>
+        <source>Config file path</source>
+        <translation>مسار ملف التكوين</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="48"/>
+        <source>Open config file</source>
+        <translation>فتح ملف التكوين</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="65"/>
         <source>User Plugins Path</source>
         <translation>مسار المكونات الإضافية للمستخدم</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="82"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <source>User plugins path</source>
+        <translation>مسار المكونات الإضافية للمستخدم</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="79"/>
+        <source>Open user plugins path</source>
+        <translation>فتح مسار المكونات الإضافية للمستخدم</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="95"/>
+        <source>Clear user plugins path</source>
+        <translation>مسح مسار المكونات الإضافية للمستخدم</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="98"/>
         <source>Clear</source>
         <translation>واضح</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="102"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
         <source>Translate Service</source>
         <translation>خدمة الترجمة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="113"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="125"/>
+        <source>Translate service</source>
+        <translation>خدمة الترجمة</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="132"/>
         <source>Google Translate</source>
         <translation>ترجمة جوجل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="137"/>
         <source>Baidu Translate</source>
         <translation>ترجمة Baidu</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="142"/>
         <source>Microsoft Translate</source>
         <translation>ترجمة Microsoft</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="133"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="152"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="155"/>
         <source>Terminal background support animation</source>
         <translation>دعم خلفية الطرفية للرسوم المتحركة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="140"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="162"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>واجهة المستخدم الأصلية (فعالة بعد إعادة التشغيل)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="147"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="172"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="175"/>
         <source>Github Copilot</source>
         <translation>Github Copilot</translation>
     </message>
@@ -1830,80 +1863,131 @@
         <translation>مخططات الألوان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="53"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="38"/>
+        <source>Color schemes</source>
+        <translation>مخططات الألوان</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="56"/>
+        <source>Auto switch light/dark color schemes when the theme changes</source>
+        <translation>التبديل التلقائي بين مخططات الألوان الفاتحة/الداكنة عند تغيير السمة</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="59"/>
         <source>Auto Switch Light</source>
         <translation>التبديل التلقائي إلى النور</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="467"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="78"/>
+        <source>An alternative color scheme to switch to when the theme changes</source>
+        <translation>مخطط ألوان بديل للتبديل إليه عند تغيير السمة</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="476"/>
         <source>Pre-edit Color Index</source>
         <translation>فهرس الألوان المسبقة التحرير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="487"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="483"/>
+        <source>The index number is the serial number of the palette above (0-19)</source>
+        <translation>رقم الفهرس هو الرقم التسلسلي للوحة الألوان أعلاه (0-19)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="499"/>
         <source>Font</source>
         <translation>الخط</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="505"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="517"/>
         <source>Series</source>
         <translation>سلسلة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="525"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="524"/>
+        <source>Select font series, click cancel to use the built-in font</source>
+        <translation>حدد سلسلة الخط، انقر فوق إلغاء لاستخدام الخط المدمج</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="540"/>
         <source>Size</source>
         <translation>الحجم</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="553"/>
+        <source>Font size (step 3)</source>
+        <translation>حجم الخط (خطوة 3)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="571"/>
         <source>Background image</source>
         <translation>صورة الخلفية</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="575"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="583"/>
+        <source>Background image path</source>
+        <translation>مسار صورة الخلفية</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="590"/>
+        <source>Select background image (Includes animated images and videos)</source>
+        <translation>حدد صورة الخلفية (يشمل الصور المتحركة ومقاطع الفيديو)</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="600"/>
+        <source>Clear background image</source>
+        <translation>مسح صورة الخلفية</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
         <source>Clear</source>
         <translation>واضح</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="584"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="612"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="619"/>
         <source>Background mode</source>
         <translation>وضع الخلفية</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="591"/>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="622"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="634"/>
         <source>Stretch</source>
         <translation>تمدد</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="598"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="629"/>
         <source>None</source>
         <translation>لا شيء</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="608"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="639"/>
         <source>Zoom</source>
         <translation>تكبير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="613"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="644"/>
         <source>Fit</source>
         <translation>ملائم</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="618"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="649"/>
         <source>Center</source>
         <translation>مركز</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="623"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="654"/>
         <source>Tile</source>
         <translation>بلاطة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="631"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="662"/>
         <source>Background opacity</source>
         <translation>شفافية الخلفية</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="669"/>
+        <source>Background Image Opacity</source>
+        <translation>شفافية صورة الخلفية</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.cpp" line="61"/>
@@ -1919,69 +2003,109 @@
         <translation>وضع لسان جديد</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="39"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
+        <source>Choose the default tab mode</source>
+        <translation>اختر وضع اللسان الافتراضي</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="42"/>
         <source>New session</source>
         <translation>جلسة جديدة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="44"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="47"/>
         <source>Clone session</source>
         <translation>استنساخ الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="49"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="52"/>
         <source>LocalShell session</source>
         <translation>جلسة الشل المحلي</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="67"/>
         <source>New tab workpath</source>
         <translation>مسار العمل لسان جديد</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="80"/>
+        <source>Choose the default tab workpath, the available paths here are from the bookmarks</source>
+        <translation>اختر مسار العمل الافتراضي للسان، والمسارات المتاحة هنا هي من الإشارات المرجعية</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="105"/>
         <source>Tab title mode</source>
         <translation>وضع عنوان اللسان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="113"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
+        <source>Choose the default tab title mode</source>
+        <translation>اختر وضع عنوان اللسان الافتراضي</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="122"/>
         <source>Brief</source>
         <translation>موجز</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="127"/>
         <source>Full</source>
         <translation>كامل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="123"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="132"/>
         <source>Scroll</source>
         <translation>تمرير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="144"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="153"/>
         <source>Tab Title Width</source>
         <translation>عرض عنوان اللسان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="176"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="160"/>
+        <source>Set the tab title width</source>
+        <translation>تعيين عرض عنوان اللسان</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="188"/>
+        <source>Enable or disable the tab preview</source>
+        <translation>تمكين أو تعطيل معاينة اللسان</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="191"/>
         <source>Tab Preview</source>
         <translation>معاينة اللسان</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="192"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="207"/>
         <source>Preview Width</source>
         <translation>عرض المعاينة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="222"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="220"/>
+        <source>Set the tab preview width</source>
+        <translation>تعيين عرض معاينة اللسان</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="240"/>
         <source>WSL UserName</source>
         <translation>اسم المستخدم WSL</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="229"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="247"/>
         <source>WSL DistroName</source>
         <translation>اسم التوزيع WSL</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="254"/>
+        <source>Set the WSL UserName</source>
+        <translation>تعيين اسم المستخدم WSL</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="261"/>
+        <source>Set the WSL DistroName</source>
+        <translation>تعيين اسم التوزيع WSL</translation>
     </message>
 </context>
 <context>
@@ -1992,42 +2116,67 @@
         <translation>خطوط التمرير العائدة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="34"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="24"/>
+        <source>Number of lines to keep in the scrollback buffer, more lines will use more memory</source>
+        <translation>عدد الأسطر التي يجب الاحتفاظ بها في مخزن التمرير العائد، وسيستخدم المزيد من الذاكرة للمزيد من الأسطر</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="37"/>
         <source>Cursor Shape</source>
         <translation>شكل المؤشر</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="42"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="44"/>
+        <source>Choose the cursor shape</source>
+        <translation>اختر شكل المؤشر</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="48"/>
         <source>Block</source>
         <translation>كتلة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="47"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="53"/>
         <source>Underline</source>
         <translation>تسطير</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="52"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="58"/>
         <source>IBeam</source>
         <translation>شعاع العين</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="62"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="68"/>
+        <source>Enable cursor blinking</source>
+        <translation>تمكين وميض المؤشر</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="71"/>
         <source>Cursor Blink</source>
         <translation>وميض المؤشر</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="85"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="94"/>
         <source>Cursor Color</source>
         <translation>لون المؤشر</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="101"/>
+        <source>Choose the cursor color</source>
+        <translation>اختر لون المؤشر</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="113"/>
         <source>Word Characters</source>
         <translation>أحرف الكلمة</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="111"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="120"/>
+        <source>Characters that are considered part of a word</source>
+        <translation>الأحرف التي تعتبر جزءًا من كلمة</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="127"/>
         <source>Selected text accent color transparency
  (inverse color at 100%)</source>
         <translation>شفافية لون تمييز النص المحدد
@@ -2035,11 +2184,22 @@
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="135"/>
+        <source>Set the transparency of the selected text accent color</source>
+        <translation>تعيين شفافية لون تمييز النص المحدد</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="154"/>
+        <source>Confirm pasting multiple lines of text</source>
+        <translation>تأكيد لصق عدة أسطر من النص</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="157"/>
         <source>Confirm multi-line paste</source>
         <translation>تأكيد اللصق متعدد الأسطر</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="142"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="164"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="167"/>
         <source>Trim pasted trailing newline</source>
         <translation>قص السطر الجديد الذي تم لصقه</translation>
     </message>
@@ -2057,22 +2217,57 @@
         <translation>تنزيل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="42"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="39"/>
+        <source>Directory to download files to</source>
+        <translation>الدليل لتنزيل الملفات إليه</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="46"/>
         <source>Upload</source>
         <translation>تحميل</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="68"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="53"/>
+        <source>Directory to upload files to</source>
+        <translation>الدليل لتحميل الملفات إليه</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="60"/>
+        <source>Choose directory to upload files to</source>
+        <translation>اختر الدليل لتحميل الملفات إليه</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="70"/>
+        <source>Choose directory to download files to</source>
+        <translation>اختر الدليل لتنزيل الملفات إليه</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="82"/>
         <source>X/Ymodem send packet size</source>
         <translation>حجم حزمة إرسال X/Ymodem</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="109"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="94"/>
+        <source>Send 128 bytes per packet</source>
+        <translation>إرسال 128 بايتًا لكل حزمة</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="104"/>
+        <source>Send 1024 bytes per packet</source>
+        <translation>إرسال 1024 بايتًا لكل حزمة</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="129"/>
         <source>Zmodem Online</source>
         <translation>Zmodem عبر الإنترنت</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="116"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="136"/>
+        <source>Enable real-time detection of Zmodem transfers</source>
+        <translation>تمكين الكشف في الوقت الحقيقي عن نقل Zmodem</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="139"/>
         <source>Disable</source>
         <translation>تعطيل</translation>
     </message>
@@ -2179,6 +2374,11 @@
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="20"/>
         <source>Transparent window</source>
         <translation>نافذة شفافة</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="27"/>
+        <source>Set the transparency of the window (Requires platform support and enabled in View)</source>
+        <translation>تعيين شفافية النافذة (يتطلب دعم المنصة وتمكينه في العرض)</translation>
     </message>
 </context>
 <context>
@@ -3457,92 +3657,92 @@
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="330"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="376"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="332"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="381"/>
         <source>SSH2 Error</source>
         <translation>خطأ في SSH2</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="330"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="376"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="332"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="381"/>
         <source>SSH2 error:
 %1.</source>
         <translation>خطأ في SSH2:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="488"/>
         <source>Select Files to Send using Zmodem</source>
         <translation>حدد الملفات لإرسالها باستخدام Zmodem</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="488"/>
         <source>All Files (*)</source>
         <translation>كل الملفات (*)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="705"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
         <source>Start Local Shell</source>
         <translation>بدء الشل المحلي</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="705"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>تعذر بدء الشل المحلي:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="893"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
         <source>Save log...</source>
         <translation>حفظ السجل...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="894"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="899"/>
         <source>log files (*.log)</source>
         <translation>ملفات السجل (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
         <source>Save log</source>
         <translation>حفظ السجل</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1034"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>تعذر كتابة الملف %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="928"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
         <source>Save Raw log...</source>
         <translation>حفظ السجل الخام...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="929"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="934"/>
         <source>binary files (*.bin)</source>
         <translation>ملفات البيانات الثنائية (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
         <source>Save Raw log</source>
         <translation>حفظ السجل الخام</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1005"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
         <source>Unlock Session</source>
         <translation>فتح الجلسة</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1005"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
         <source>Wrong password!</source>
         <translation>كلمة مرور خاطئة!</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1034"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
         <source>Receive ASCII File</source>
         <translation>استقبال ملف ASCII</translation>
     </message>

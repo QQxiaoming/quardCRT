@@ -23,6 +23,9 @@
    </item>
    <item>
     <widget class="QSlider" name="horizontalSliderTransparent">
+     <property name="toolTip">
+      <string>Set the transparency of the window (Requires platform support and enabled in View)</string>
+     </property>
      <property name="maximum">
       <number>100</number>
      </property>

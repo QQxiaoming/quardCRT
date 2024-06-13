@@ -1777,47 +1777,80 @@
         <translation>設定ファイル</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="59"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="38"/>
+        <source>Config file path</source>
+        <translation>設定ファイルパス</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="48"/>
+        <source>Open config file</source>
+        <translation>設定ファイルを開く</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="65"/>
         <source>User Plugins Path</source>
         <translation>ユーザープラグインパス</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="82"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="72"/>
+        <source>User plugins path</source>
+        <translation>ユーザープラグインパス</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="79"/>
+        <source>Open user plugins path</source>
+        <translation>ユーザープラグインパスを開く</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="95"/>
+        <source>Clear user plugins path</source>
+        <translation>ユーザープラグインパスをクリア</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="98"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="102"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
         <source>Translate Service</source>
         <translation>翻訳サービス</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="113"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="125"/>
+        <source>Translate service</source>
+        <translation>翻訳サービス</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="132"/>
         <source>Google Translate</source>
         <translation>Google翻訳</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="137"/>
         <source>Baidu Translate</source>
         <translation>Baidu翻訳</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="123"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="142"/>
         <source>Microsoft Translate</source>
         <translation>Microsoft翻訳</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="133"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="152"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="155"/>
         <source>Terminal background support animation</source>
         <translation>端末の背景画像をアニメーションさせる</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="140"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="162"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="165"/>
         <source>NativeUI(Effective after restart)</source>
         <translation>NativeUI(再起動後に有効)</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="147"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="172"/>
+        <location filename="../src/globaloptions/globaloptionsadvancedwidget.ui" line="175"/>
         <source>Github Copilot</source>
         <translation></translation>
     </message>
@@ -1830,79 +1863,130 @@
         <translation>カラースキーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="53"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="38"/>
+        <source>Color schemes</source>
+        <translation>カラースキーム</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="56"/>
+        <source>Auto switch light/dark color schemes when the theme changes</source>
+        <translation>テーマが変更されたときに明るい/暗いカラースキームを自動切り替える</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="59"/>
         <source>Auto Switch Light</source>
         <translation>自動切り替え（明るい）</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="467"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="78"/>
+        <source>An alternative color scheme to switch to when the theme changes</source>
+        <translation>テーマが変更されたときに切り替える代替カラースキーム</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="476"/>
         <source>Pre-edit Color Index</source>
         <translation>プリエディットカラーインデックス</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="487"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="483"/>
+        <source>The index number is the serial number of the palette above (0-19)</source>
+        <translation>インデックス番号は上記のパレットの連番です（0-19）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="499"/>
         <source>Font</source>
         <translation>フォント</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="505"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="517"/>
         <source>Series</source>
         <translation>シリーズ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="525"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="524"/>
+        <source>Select font series, click cancel to use the built-in font</source>
+        <translation>フォントシリーズを選択し、キャンセルをクリックして組み込みフォントを使用します</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="540"/>
         <source>Size</source>
         <translation>サイズ</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="553"/>
+        <source>Font size (step 3)</source>
+        <translation>フォントサイズ（ステップ3）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="571"/>
         <source>Background image</source>
         <translation>背景画像</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="575"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="583"/>
+        <source>Background image path</source>
+        <translation>背景画像パス</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="590"/>
+        <source>Select background image (Includes animated images and videos)</source>
+        <translation>背景画像を選択（アニメーション画像とビデオを含む）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="600"/>
+        <source>Clear background image</source>
+        <translation>背景画像をクリア</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="584"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="612"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="619"/>
         <source>Background mode</source>
         <translation>背景モード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="591"/>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="603"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="622"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="634"/>
         <source>Stretch</source>
         <translation>伸縮</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="598"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="629"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="608"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="639"/>
         <source>Zoom</source>
         <translation>ズーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="613"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="644"/>
         <source>Fit</source>
         <translation>フィット</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="618"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="649"/>
         <source>Center</source>
         <translation>中央</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="623"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="654"/>
         <source>Tile</source>
         <translation>タイル</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="631"/>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="662"/>
         <source>Background opacity</source>
+        <translation>背景画像の透明度</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsappearancewidget.ui" line="669"/>
+        <source>Background Image Opacity</source>
         <translation>背景画像の透明度</translation>
     </message>
     <message>
@@ -1919,69 +2003,109 @@
         <translation>新しいタブのモード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="39"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="38"/>
+        <source>Choose the default tab mode</source>
+        <translation>デフォルトのタブモードを選択</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="42"/>
         <source>New session</source>
         <translation>新しいセッション</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="44"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="47"/>
         <source>Clone session</source>
         <translation>セッションを複製</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="49"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="52"/>
         <source>LocalShell session</source>
         <translation>ローカル端末セッション</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="64"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="67"/>
         <source>New tab workpath</source>
         <translation>新しいタブの作業フォルダー</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="99"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="80"/>
+        <source>Choose the default tab workpath, the available paths here are from the bookmarks</source>
+        <translation>デフォルトのタブの作業フォルダーを選択します。ここで利用可能なパスはブックマークからです</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="105"/>
         <source>Tab title mode</source>
         <translation>タブのタイトルモード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="113"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
+        <source>Choose the default tab title mode</source>
+        <translation>デフォルトのタブタイトルモードを選択します</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="122"/>
         <source>Brief</source>
         <translation>簡易</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="118"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="127"/>
         <source>Full</source>
         <translation>完全</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="123"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="132"/>
         <source>Scroll</source>
         <translation>スクロール</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="144"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="153"/>
         <source>Tab Title Width</source>
         <translation>タブのタイトル幅</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="176"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="160"/>
+        <source>Set the tab title width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="188"/>
+        <source>Enable or disable the tab preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="191"/>
         <source>Tab Preview</source>
         <translation>タブのプレビュー</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="192"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="207"/>
         <source>Preview Width</source>
         <translation>プレビューの幅</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="222"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="220"/>
+        <source>Set the tab preview width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="240"/>
         <source>WSL UserName</source>
         <translation>WSL ユーザー名</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="229"/>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="247"/>
         <source>WSL DistroName</source>
         <translation>WSL ディストリビューション名</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="254"/>
+        <source>Set the WSL UserName</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsgeneralwidget.ui" line="261"/>
+        <source>Set the WSL DistroName</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1992,42 +2116,67 @@
         <translation>スクロールバックの行数</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="34"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="24"/>
+        <source>Number of lines to keep in the scrollback buffer, more lines will use more memory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="37"/>
         <source>Cursor Shape</source>
         <translation>カーソルの形状</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="42"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="44"/>
+        <source>Choose the cursor shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="48"/>
         <source>Block</source>
         <translation>ブロック</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="47"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="53"/>
         <source>Underline</source>
         <translation>アンダーライン</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="52"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="58"/>
         <source>IBeam</source>
         <translation>Iビーム</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="62"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="68"/>
+        <source>Enable cursor blinking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="71"/>
         <source>Cursor Blink</source>
         <translation>カーソルの点滅</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="85"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="94"/>
         <source>Cursor Color</source>
         <translation>カーソルの色</translation>
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="101"/>
+        <source>Choose the cursor color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="113"/>
         <source>Word Characters</source>
         <translation>単語の文字</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="111"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="120"/>
+        <source>Characters that are considered part of a word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="127"/>
         <source>Selected text accent color transparency
  (inverse color at 100%)</source>
         <translation>選択されたテキストのアクセントカラーの透明度
@@ -2035,11 +2184,22 @@
     </message>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="135"/>
+        <source>Set the transparency of the selected text accent color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="154"/>
+        <source>Confirm pasting multiple lines of text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="157"/>
         <source>Confirm multi-line paste</source>
         <translation>複数行の貼り付けを確認</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="142"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="164"/>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="167"/>
         <source>Trim pasted trailing newline</source>
         <translation>貼り付けた末尾の改行をトリム</translation>
     </message>
@@ -2057,22 +2217,57 @@
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="42"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="39"/>
+        <source>Directory to download files to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="46"/>
         <source>Upload</source>
         <translation>アップロード</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="68"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="53"/>
+        <source>Directory to upload files to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="60"/>
+        <source>Choose directory to upload files to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="70"/>
+        <source>Choose directory to download files to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="82"/>
         <source>X/Ymodem send packet size</source>
         <translation>X/Ymodem送信パケットサイズ</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="109"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="94"/>
+        <source>Send 128 bytes per packet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="104"/>
+        <source>Send 1024 bytes per packet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="129"/>
         <source>Zmodem Online</source>
         <translation>Zmodemオンライン</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="116"/>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="136"/>
+        <source>Enable real-time detection of Zmodem transfers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionstransferwidget.ui" line="139"/>
         <source>Disable</source>
         <translation>無効</translation>
     </message>
@@ -2179,6 +2374,11 @@
         <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="20"/>
         <source>Transparent window</source>
         <translation>ウィンドウの透明度</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindowwidget.ui" line="27"/>
+        <source>Set the transparency of the window (Requires platform support and enabled in View)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3457,92 +3657,92 @@
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="330"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="376"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="332"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="381"/>
         <source>SSH2 Error</source>
         <translation>SSH2エラー</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="330"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="376"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="332"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="381"/>
         <source>SSH2 error:
 %1.</source>
         <translation>SSH2エラー:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="488"/>
         <source>Select Files to Send using Zmodem</source>
         <translation>Zmodemを使用して送信するファイルを選択</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="483"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="488"/>
         <source>All Files (*)</source>
         <translation>全てのファイル (*)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="705"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
         <source>Start Local Shell</source>
         <translation>ローカル端末を開始</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="705"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="710"/>
         <source>Cannot start local shell:
 %1.</source>
         <translation>ローカル端末を開始できません:
 %1.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="893"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
         <source>Save log...</source>
         <translation>ログを保存...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="894"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="899"/>
         <source>log files (*.log)</source>
         <translation>ログファイル (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
         <source>Save log</source>
         <translation>ログを保存</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="898"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1034"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="903"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>ファイル %1 に書き込めません:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="928"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
         <source>Save Raw log...</source>
         <translation>生ログを保存...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="929"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="934"/>
         <source>binary files (*.bin)</source>
         <translation>バイナリファイル (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="933"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="938"/>
         <source>Save Raw log</source>
         <translation>生ログを保存</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1005"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
         <source>Unlock Session</source>
         <translation>セッションをアンロック</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1005"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1010"/>
         <source>Wrong password!</source>
         <translation>パスワードが間違っています！</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1034"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
         <source>Receive ASCII File</source>
         <translation>ASCIIファイルを受信</translation>
     </message>

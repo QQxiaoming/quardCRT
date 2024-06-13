@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>420</width>
     <height>300</height>
    </rect>
   </property>
@@ -34,7 +34,11 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEditDownload"/>
+      <widget class="QLineEdit" name="lineEditDownload">
+       <property name="toolTip">
+        <string>Directory to download files to</string>
+       </property>
+      </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_2">
@@ -44,10 +48,17 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEditUpload"/>
+      <widget class="QLineEdit" name="lineEditUpload">
+       <property name="toolTip">
+        <string>Directory to upload files to</string>
+       </property>
+      </widget>
      </item>
      <item row="0" column="2">
       <widget class="QToolButton" name="toolButtonUpload">
+       <property name="toolTip">
+        <string>Choose directory to upload files to</string>
+       </property>
        <property name="text">
         <string notr="true">...</string>
        </property>
@@ -55,6 +66,9 @@
      </item>
      <item row="1" column="2">
       <widget class="QToolButton" name="toolButtonDownload">
+       <property name="toolTip">
+        <string>Choose directory to download files to</string>
+       </property>
        <property name="text">
         <string notr="true">...</string>
        </property>
@@ -76,6 +90,9 @@
      </property>
      <item>
       <widget class="QRadioButton" name="radioButton128Bytes">
+       <property name="toolTip">
+        <string>Send 128 bytes per packet</string>
+       </property>
        <property name="text">
         <string notr="true">128 bytes</string>
        </property>
@@ -83,6 +100,9 @@
      </item>
      <item>
       <widget class="QRadioButton" name="radioButton1KBytes">
+       <property name="toolTip">
+        <string>Send 1024 bytes per packet</string>
+       </property>
        <property name="text">
         <string notr="true">1024 bytes (X/Ymodem-1K)</string>
        </property>
@@ -112,6 +132,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="checkBoxZmodemOnline">
+     <property name="toolTip">
+      <string>Enable real-time detection of Zmodem transfers</string>
+     </property>
      <property name="text">
       <string>Disable</string>
      </property>

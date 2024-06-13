@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>391</width>
+    <width>550</width>
     <height>501</height>
    </rect>
   </property>
@@ -34,6 +34,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Color schemes</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -48,6 +51,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Auto switch light/dark color schemes when the theme changes</string>
          </property>
          <property name="text">
           <string>Auto Switch Light</string>
@@ -67,6 +73,9 @@
            <width>16777215</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>An alternative color scheme to switch to when the theme changes</string>
          </property>
         </widget>
        </item>
@@ -470,6 +479,9 @@
    </item>
    <item>
     <widget class="QSpinBox" name="spinBoxPreeditColorIndex">
+     <property name="toolTip">
+      <string>The index number is the serial number of the palette above (0-19)</string>
+     </property>
      <property name="minimum">
       <number>1</number>
      </property>
@@ -508,6 +520,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonSelectSeriesFont">
+       <property name="toolTip">
+        <string>Select font series, click cancel to use the built-in font</string>
+       </property>
        <property name="text">
         <string notr="true">Built-in</string>
        </property>
@@ -533,6 +548,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Font size (step 3)</string>
        </property>
        <property name="minimum">
         <number>3</number>
@@ -560,10 +578,17 @@
       <number>4</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="lineEditBackgroundImage"/>
+      <widget class="QLineEdit" name="lineEditBackgroundImage">
+       <property name="toolTip">
+        <string>Background image path</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QToolButton" name="toolButtonBackgroundImage">
+       <property name="toolTip">
+        <string>Select background image (Includes animated images and videos)</string>
+       </property>
        <property name="text">
         <string notr="true">...</string>
        </property>
@@ -571,6 +596,9 @@
      </item>
      <item>
       <widget class="QToolButton" name="toolButtonClearBackgroundImage">
+       <property name="toolTip">
+        <string>Clear background image</string>
+       </property>
        <property name="text">
         <string>Clear</string>
        </property>
@@ -587,6 +615,9 @@
    </item>
    <item>
     <widget class="QComboBox" name="comboBoxBackgroundMode">
+     <property name="toolTip">
+      <string>Background mode</string>
+     </property>
      <property name="currentText">
       <string>Stretch</string>
      </property>
@@ -634,6 +665,9 @@
    </item>
    <item>
     <widget class="QSlider" name="horizontalSliderBackgroundImageOpacity">
+     <property name="toolTip">
+      <string>Background Image Opacity</string>
+     </property>
      <property name="maximum">
       <number>100</number>
      </property>

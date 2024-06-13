@@ -20,6 +20,9 @@
    </item>
    <item>
     <widget class="QSpinBox" name="spinBoxScrollbackLines">
+     <property name="toolTip">
+      <string>Number of lines to keep in the scrollback buffer, more lines will use more memory</string>
+     </property>
      <property name="maximum">
       <number>10000</number>
      </property>
@@ -37,6 +40,9 @@
    </item>
    <item>
     <widget class="QComboBox" name="comboBoxCursorShape">
+     <property name="toolTip">
+      <string>Choose the cursor shape</string>
+     </property>
      <item>
       <property name="text">
        <string>Block</string>
@@ -58,6 +64,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QCheckBox" name="checkBoxCursorBlink">
+       <property name="toolTip">
+        <string>Enable cursor blinking</string>
+       </property>
        <property name="text">
         <string>Cursor Blink</string>
        </property>
@@ -88,6 +97,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonCursorColor">
+       <property name="toolTip">
+        <string>Choose the cursor color</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -103,7 +115,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEditWordCharacters"/>
+    <widget class="QLineEdit" name="lineEditWordCharacters">
+     <property name="toolTip">
+      <string>Characters that are considered part of a word</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_3">
@@ -115,6 +131,9 @@
    </item>
    <item>
     <widget class="QSlider" name="horizontalSliderSelectedTextAccentColorTransparency">
+     <property name="toolTip">
+      <string>Set the transparency of the selected text accent color</string>
+     </property>
      <property name="minimum">
       <number>10</number>
      </property>
@@ -131,6 +150,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="checkBoxConfirmMultilinePaste">
+     <property name="toolTip">
+      <string>Confirm pasting multiple lines of text</string>
+     </property>
      <property name="text">
       <string>Confirm multi-line paste</string>
      </property>
@@ -138,6 +160,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="checkBoxTrimPastedTrailingNewlines">
+     <property name="toolTip">
+      <string>Trim pasted trailing newline</string>
+     </property>
      <property name="text">
       <string>Trim pasted trailing newline</string>
      </property>
