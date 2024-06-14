@@ -15,8 +15,8 @@ private:
 	std::vector<std::string> arguments;
 	std::vector<const char*> argv_arr;
 
-    char quotes[3];
-    char space[2];
+	char quotes[3];
+	char space[2];
 
 	bool isEscaped(const std::string& str, size_t idx) {
 		// is first character, can not be escaped
@@ -44,8 +44,7 @@ private:
 	size_t findMatching(const std::string& str, size_t match_idx) {
 		if (match_idx == std::string::npos) return std::string::npos;
 		
-		char match[1];
-		match[0] = str.at( match_idx );
+		char match = str.at( match_idx );
 
 		size_t idx = match_idx;
 
@@ -79,7 +78,7 @@ private:
 		std::string quoted_str, pre_quoted_str, post_quoted_str;
 
 		// w_front used as limit for string splitting on whitespace
-        size_t w_front = cmdlinestr.size(); // if no quotes are found this is used as the substring SIZE for splitting by space
+		size_t w_front = cmdlinestr.size(); // if no quotes are found this is used as the substring SIZE for splitting by space
 		size_t w_back = cmdlinestr.size() - 1; // if no quotes are found this is used as OFFSET for the next (and final) recursion
 
 		size_t q_front = findFirstQuote(cmdlinestr);
@@ -114,15 +113,12 @@ private:
 			
 			// find last whitespace before quote
 			w_front = cmdlinestr.find_last_of(space, q_front);
-			// none found?
-			if ( w_front == std::string::npos )
-				w_front = - 1;
 
 			pre_quoted_str = cmdlinestr.substr( w_front + 1, q_front - w_front - 1 );
 		}
 
-        // split by whitespace in [0, w_front[
-        if(w_front != ((size_t)-1) && w_front != std::string::npos)
+		// split by whitespace in [0, w_front[
+		if(w_front != std::string::npos)
 			splitStrToVectorBy(cmdlinestr.substr(0, w_front), SPACE_HEX_CODE, arguments);
 		
 		//add qouted string and surrounding
@@ -134,7 +130,7 @@ private:
 	}
 
 public:
-    argv_split() : prependProgname(false), quotes{ SGLQUOTE_HEX_CODE, DBLQUOTE_HEX_CODE, 0}, space{ SPACE_HEX_CODE, 0 } {}
+	argv_split() : prependProgname(false), quotes{ SGLQUOTE_HEX_CODE, DBLQUOTE_HEX_CODE, '\0'}, space{ SPACE_HEX_CODE, '\0' } {}
 
 	argv_split(std::string progname) : argv_split()
 	{
