@@ -963,6 +963,7 @@ private:
 
 class MultilineConfirmationMessageBox : public QDialog {
     Q_OBJECT
+
 public:
     explicit MultilineConfirmationMessageBox(QWidget *parent = nullptr) : QDialog(parent) {
         setModal(true);
@@ -995,6 +996,7 @@ public:
     void setDetailedText(const QString &text) {
         detailedText->setPlainText(text);
     }
+
 private:
     QLabel *messageText;
     QPlainTextEdit *detailedText;

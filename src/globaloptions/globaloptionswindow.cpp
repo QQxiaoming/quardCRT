@@ -244,12 +244,17 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         QFont sfont = QFontDialog::getFont(&ok, this->font, this);
         if (ok) {
             sfont.setPointSize((sfont.pointSize()/3)*3);
-            this->font = sfont;
+            font = sfont;
             font.setFixedPitch(true);
             globalOptionsAppearanceWidget->ui->spinBoxFontSize->setValue(font.pointSize());
             globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText(font.family());
         } else {
             font = QApplication::font();
+        #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+            int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+        #else
+            int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
+        #endif
             QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
             if (fontFamilies.size() > 0) {
                 font.setFamily(fontFamilies[0]);
@@ -345,7 +350,6 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
         setActiveWidget(index.row());
     });
-
 }
 
 GlobalOptionsWindow::~GlobalOptionsWindow()
