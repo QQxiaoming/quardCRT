@@ -3,3 +3,4 @@ plugin-onestep,https://github.com/QuardCRT-platform/plugin-onestep/releases/down
 plugin-quickcomplete,https://github.com/QuardCRT-platform/plugin-quickcomplete/releases/download/V0.0.2,quickcomplete,[linux_x86_64;windows_x86_64_mingw;windows_x86_64_msvc;macos_x86_64;macos_arm64]
 plugin-ListSerial,https://github.com/QuardCRT-platform/plugin-ListSerial/releases/download/V0.0.2,listserial,[linux_x86_64;windows_x86_64_mingw;windows_x86_64_msvc;macos_x86_64;macos_arm64]
 plugin-CharacterCode,https://github.com/QuardCRT-platform/plugin-CharacterCode/releases/download/V0.0.3,charactercode,[linux_x86_64;windows_x86_64_mingw;windows_x86_64_msvc;macos_x86_64;macos_arm64]
+plugin-TextStatistics,https://github.com/QuardCRT-platform/plugin-TextStatistics/releases/download/V0.0.1,textstatistics,[linux_x86_64;windows_x86_64_mingw;windows_x86_64_msvc;macos_x86_64;macos_arm64]

@@ -19,7 +19,7 @@
 - Fix the unstable SSH initialization terminal size problem [#40](https://github.com/QQxiaoming/quardCRT/issues/40)
 - Fix the probability crash problem after the SSH remote actively ends
 - Fix font display abnormalities when restoring font settings to built-in fonts
-- Update pre-built plugin [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode) to V0.0.3
+- Add pre-built plugins [TextStatistics](https://github.com/QuardCRT-platform/plugin-TextStatistics), and update pre-built plugin [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode) to V0.0.3
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26
 
