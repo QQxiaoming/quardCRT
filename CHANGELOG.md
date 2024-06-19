@@ -19,6 +19,7 @@ en-US:
 - Fix the unstable SSH initialization terminal size problem [#40](https://github.com/QQxiaoming/quardCRT/issues/40)
 - Fix the probability crash problem after the SSH remote actively ends
 - Fix font display abnormalities when restoring font settings to built-in fonts
+- Fix the abnormal window position problem caused by window movement/resize operations on Linux with multiple screens
 - Add pre-built plugins [TextStatistics](https://github.com/QuardCRT-platform/plugin-TextStatistics), and update pre-built plugin [CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode) to V0.0.3
 
 zh-CN:
@@ -38,6 +39,7 @@ zh-CN:
 - 修复不稳定的SSH初始化终端大小问题 [#40](https://github.com/QQxiaoming/quardCRT/issues/40)
 - 修复SSH远端主动结束后，概率崩溃问题
 - 修复恢复字体设置到内建字体时，字体显示异常
+- 修复在Linux上使用多屏幕时，窗口移动/大小调整等操作导致的窗口位置异常问题
 - 新增集成预构建插件[TextStatistics](https://github.com/QuardCRT-platform/plugin-TextStatistics)，更新预构建插件[CharacterCode](https://github.com/QuardCRT-platform/plugin-CharacterCode)到V0.0.3版本
 
 ## [[V0.4.6](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.6)] - 2024-05-26

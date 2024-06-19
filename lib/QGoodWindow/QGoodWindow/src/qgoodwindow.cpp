@@ -537,6 +537,15 @@ QGoodWindow::~QGoodWindow()
         delete m_native_event;
         m_native_event = nullptr;
     }
+
+    if (m_window_handle)
+    {
+        delete m_window_handle;
+        m_window_handle = nullptr;
+    }
+
+    DestroyWindow(m_hwnd);
+    UnregisterClassW(L"QGoodWindowClass", GetModuleHandleW(nullptr));
 #endif
 #ifdef Q_OS_LINUX
     QGoodWindowUtils::m_gw_list.removeAll(this);
@@ -4174,7 +4183,16 @@ void QGoodWindow::startSystemMoveResize()
         return;
 
     QPoint cursor_pos = QPoint(qFloor(m_cursor_pos.x() * m_pixel_ratio), qFloor(m_cursor_pos.y() * m_pixel_ratio));
-
+    QList<QScreen *> list = QGuiApplication::screens();
+    foreach (QScreen *screen, list) {
+        QRect screen_rect = screen->geometry();
+        if (screen_rect.contains(m_cursor_pos)) {
+            qreal pixel_ratio = screen->devicePixelRatio();
+            cursor_pos = QPoint(qFloor((m_cursor_pos.x()-screen_rect.topLeft().x()) * pixel_ratio), qFloor((m_cursor_pos.y()-screen_rect.topLeft().y()) * pixel_ratio));
+            cursor_pos = cursor_pos + screen_rect.topLeft();
+            break;
+        }
+    }
     XClientMessageEvent xmsg;
     memset(&xmsg, 0, sizeof(XClientMessageEvent));
 
