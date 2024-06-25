@@ -48,6 +48,7 @@ mkdir ".\InnoSetup\build\plugins\QuardCRT"
 if exist ".\prebuilt_plugins" (
     xcopy /y .\prebuilt_plugins\*.dll .\InnoSetup\build\plugins\QuardCRT\
 )
+.\tools\Appacker_v1.3.11.exe -s "%CD%\InnoSetup\build" -e "%CD%\InnoSetup\build\quardCRT.exe" -d "%CD%\InnoSetup\quardCRT_Appacker.exe" -i "%CD%\icons\ico.ico"
 :: 打包
 echo "wait inno build setup..."
 iscc /q ".\InnoSetup\build_temp_setup.iss"

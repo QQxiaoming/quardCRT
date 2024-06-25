@@ -1,4 +1,4 @@
-DEFINES += ENABLE_SSH # depend libssh2
+#DEFINES += ENABLE_SSH # depend libssh2
 
 !versionAtLeast(QT_VERSION, 6.5.0) {
     message("Cannot use Qt $$QT_VERSION")
