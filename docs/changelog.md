@@ -4,6 +4,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.4.7](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.7)] - 2024-06-26
+
 - Add broadcast session feature [#36](https://github.com/QQxiaoming/quardCRT/issues/36)
 - Add label tag color feature
 - Add block selection (Shift+click) and column selection (Alt+Shift+click) feature
