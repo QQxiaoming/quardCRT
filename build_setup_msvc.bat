@@ -38,6 +38,8 @@ del /f /q /a .\sed*
 xcopy /y .\build_release\out\quardCRT.exe .\InnoSetup\build\
 :: 使用windeployqt拷贝依赖dll库到打包目录
 windeployqt --dir .\InnoSetup\build .\InnoSetup\build\quardCRT.exe
+xcopy /y "%Python3_ROOT_DIR%\python311.dll" ".\InnoSetup\build\"
+xcopy /y "%Python3_ROOT_DIR%\Lib" ".\InnoSetup\build\pythonlib\lib" /E /I
 xcopy /y "D:\libssh2\bin\*.dll" ".\InnoSetup\build\"
 xcopy /y .\scripts\Profile.ps1 .\InnoSetup\build\
 xcopy /y .\font\inziu-iosevkaCC-SC-regular.ttf .\InnoSetup\build\

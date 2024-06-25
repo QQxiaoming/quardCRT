@@ -57,6 +57,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y make gcc patchelf chrpath qt5-default libxcb-cursor0 build-essential libgtk-3-dev
+      
+      - name: Install setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: build fcitx_qt6
         run: |
@@ -109,6 +114,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y make gcc patchelf chrpath qt5-default libxcb-cursor0 build-essential libgtk-3-dev
+      
+      - name: Install setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: build fcitx_qt6
         run: |
