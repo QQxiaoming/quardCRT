@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>Remover a quebra de linha final colada</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>Ativar eco</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>Eco</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>

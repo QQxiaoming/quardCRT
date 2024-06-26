@@ -73,6 +73,7 @@ public:
     int getPreeditColorIndex(void);
     bool getConfirmMultilinePaste(void);
     bool getTrimPastedTrailingNewlines(void);
+    bool getEcho(void);
     QColor getCursorColor(void);
     bool updateColorButtons(const QString &text);
     void switchTheme(void);

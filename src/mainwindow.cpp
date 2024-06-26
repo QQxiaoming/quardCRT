@@ -3164,6 +3164,7 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setZmodemDownloadPath(globalOptionsWindow->getModemDownloadPath());
     window->setConfirmMultilinePaste(globalOptionsWindow->getConfirmMultilinePaste());
     window->setTrimPastedTrailingNewlines(globalOptionsWindow->getTrimPastedTrailingNewlines());
+    window->setEcho(globalOptionsWindow->getEcho());
     window->setCursorColor(globalOptionsWindow->getCursorColor());
     connect(window,&SessionsWindow::broadCastSendData,this,[=](const QByteArray &data){
         foreach(SessionsWindow *sessionsWindow, broadCastSessionList) {

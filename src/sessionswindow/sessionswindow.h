@@ -366,6 +366,9 @@ public:
     void setTrimPastedTrailingNewlines(bool enable) {
         if(term) return term->setTrimPastedTrailingNewlines(enable);
     }
+    void setEcho(bool enable) {
+        if(term) return term->setEcho(enable);
+    }
     void setCursorColor(const QColor &color) {
         if(term) return term->setKeyboardCursorColor(false,color);
     }

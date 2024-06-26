@@ -235,6 +235,7 @@ public:
 
     void setConfirmMultilinePaste(bool confirmMultilinePaste);
     void setTrimPastedTrailingNewlines(bool trimPastedTrailingNewlines);
+    void setEcho(bool echo);
     void setKeyboardCursorColor(bool useForegroundColor, const QColor& color);
     void proxySendData(QByteArray data) {
         emit sendData(data.data(), data.size());
@@ -392,6 +393,7 @@ private:
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;
     QList<HighLightText*> m_highLightTexts;
+    bool m_echo = false;
 };
 
 #endif

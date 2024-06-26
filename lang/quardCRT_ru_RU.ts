@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>Обрезать вставленный конечный символ новой строки</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>Включить эхо</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>Эхо</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>

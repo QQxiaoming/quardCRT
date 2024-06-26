@@ -154,6 +154,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
+    globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
     QString defaultLocalShell = settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
             "ENV:SHELL"
@@ -594,6 +595,11 @@ bool GlobalOptionsWindow::getTrimPastedTrailingNewlines(void)
     return globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked();
 }
 
+bool GlobalOptionsWindow::getEcho(void) 
+{
+    return globalOptionsTerminalWidget->ui->checkBoxEcho->isChecked();
+}
+
 QColor GlobalOptionsWindow::getCursorColor(void)
 {
     if(cursorColorStr == "None") {
@@ -657,6 +663,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     }
     settings.setValue("ConfirmMultilinePaste", globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->isChecked());
     settings.setValue("TrimPastedTrailingNewlines", globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked());
+    settings.setValue("Echo", globalOptionsTerminalWidget->ui->checkBoxEcho->isChecked());
     QString defaultLocalShell = globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->text();
     #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
     if(defaultLocalShell != "ENV:SHELL") 
@@ -734,6 +741,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsAdvancedWidget->ui->lineEditUserPluginsPath->setText(settings.value("UserPluginsPath", "").toString());
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
+    globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
     globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
             "ENV:SHELL"

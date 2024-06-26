@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>붙여넣기 후행 새 줄 자르기</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>에코 활성화</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>에코</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>

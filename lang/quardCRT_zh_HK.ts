@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>修剪粘貼的尾隨換行符</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>啟用回顯</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>回顯</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>

@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>Ustřihnout vložený koncový nový řádek</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>Povolit echo</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>Echo</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>

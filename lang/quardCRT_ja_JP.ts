@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>貼り付けた末尾の改行をトリム</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>エコーを有効にする</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>エコー</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>

@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>Abgeschnittene Zeilenumbrüche beim Einfügen entfernen</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>Echo aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>Echo</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>

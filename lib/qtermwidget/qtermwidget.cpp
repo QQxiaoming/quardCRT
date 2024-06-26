@@ -259,10 +259,13 @@ void QTermWidget::startTerminalTeletype()
 {
     m_impl->m_session->runEmptyPTY();
     // redirect data from TTY to external recipient
-    connect( m_impl->m_session->emulation(), SIGNAL(sendData(const char *,int)),
-             this, SIGNAL(sendData(const char *,int)) );
-    connect( m_impl->m_session->emulation(), SIGNAL(dupDisplayOutput(const char *,int)),
-             this, SIGNAL(dupDisplayOutput(const char *,int)) );
+    connect( m_impl->m_session->emulation(), &Emulation::sendData, this, [this](const char *buff, int len) {
+        if (m_echo) {
+            recvData(buff, len);
+        }
+        emit sendData(buff, len);
+    });
+    connect( m_impl->m_session->emulation(), &Emulation::dupDisplayOutput, this, &QTermWidget::dupDisplayOutput);
 }
 
 QTermWidget::~QTermWidget()
@@ -779,6 +782,10 @@ void QTermWidget::setConfirmMultilinePaste(bool confirmMultilinePaste) {
 
 void QTermWidget::setTrimPastedTrailingNewlines(bool trimPastedTrailingNewlines) {
     m_impl->m_terminalDisplay->setTrimPastedTrailingNewlines(trimPastedTrailingNewlines);
+}
+
+void QTermWidget::setEcho(bool echo) {
+    m_echo = echo;
 }
 
 void QTermWidget::setKeyboardCursorColor(bool useForegroundColor, const QColor& color) {

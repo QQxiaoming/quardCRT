@@ -2,6 +2,14 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+en-US:
+
+- Add echo feature
+
+zh-CN:
+
+- 增加回显功能
+
 ## [[V0.4.7](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.7)] - 2024-06-26
 
 en-US:

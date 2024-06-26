@@ -2218,6 +2218,16 @@
         <source>Trim pasted trailing newline</source>
         <translation>قص السطر الجديد الذي تم لصقه</translation>
     </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="174"/>
+        <source>Enable echo</source>
+        <translation>تمكين الصدى</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="177"/>
+        <source>Echo</source>
+        <translation>صدى</translation>
+    </message>
 </context>
 <context>
     <name>GlobalOptionsTransferWidget</name>
