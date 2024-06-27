@@ -144,7 +144,7 @@ public:
     int count(void);
     void setCurrentIndex(int index);
     void retranslateUi(void);
-    int addTab(QWidget *widget, const QString &text);
+    int addTab(int addIndex, QWidget *widget, const QString &text);
     void setTabText(int index, const QString &text);
     void removeTab(int index);
     void setScrollTitleMode(TitleScrollMode mode);
@@ -160,7 +160,7 @@ public:
     void setTagColor(int index, bool change, QColor color = QColor()) { 
         ((SessionTabBar*)tabBar())->setChangeBackground(index, change, color); 
     }
-    void clearAllTagColor(void){
+    void clearAllTagColor(void) {
         ((SessionTabBar*)tabBar())->clearAllBackground(); 
     }
 

@@ -335,7 +335,7 @@ SessionTab::SessionTab(QWidget *parent)
 
     emptyTab = new EmptyTabWidget(this);
     retranslateUi();
-    addTab(emptyTab,"");
+    addTab(-1,emptyTab,"");
     tabBar()->setTabVisible(0,false);
     tabBar()->setTabEnabled(0,false);
 
@@ -397,8 +397,13 @@ void SessionTab::retranslateUi(void) {
     FancyTabWidget::retranslateUi();
 }
 
-int SessionTab::addTab(QWidget *widget, const QString &text) {
-    int index = FancyTabWidget::addTab(widget,QString(20,' '));
+int SessionTab::addTab(int addIndex, QWidget *widget, const QString &text) {
+    int index;
+    if(addIndex == -1) {
+        index = FancyTabWidget::addTab(widget,QString(20,' '));
+    } else {
+        index = FancyTabWidget::insertTab(addIndex,widget,QString(20,' '));
+    }
     tabTexts.insert(index,text);
     titleScrollPos.insert(index,0);
     setTabText(index,text);

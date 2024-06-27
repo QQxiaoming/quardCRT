@@ -31,6 +31,7 @@ include(./lib/qxymodem/qxymodem.pri)
 include(./lib/qzmodem/qzmodem.pri)
 include(./lib/qkermit/qkermit.pri)
 include(./lib/QSourceHighlite/QSourceHighlite.pri)
+include(./lib/qextserialport/qextserialport.pri)
 
 INCLUDEPATH += \
     src/util \

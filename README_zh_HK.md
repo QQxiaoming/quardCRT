@@ -172,6 +172,7 @@ quardCRT將從V0.4.0版本開始支持Plugin，以Qt Plug-in的形式提供，�
 - [qzmodem](https://github.com/QQxiaoming/qzmodem)
 - [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)
 - [QSourceHighlite](https://github.com/Waqar144/QSourceHighlite)
+- [qextserialport](https://github.com/qextserialport/qextserialport)
 
 ## Star 歷史
 

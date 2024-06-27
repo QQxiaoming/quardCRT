@@ -96,18 +96,20 @@ private:
     void menuAndToolBarInit(void);
     void menuAndToolBarRetranslateUi(void);
     void menuAndToolBarConnectSignals(void);
-    QString startTelnetSession(MainWidgetGroup *group, QString hostname, quint16 port, QTelnet::SocketType type, QString name = QString());
-    QString startSerialSession(MainWidgetGroup *group, QString portName, uint32_t baudRate,
+    QString startTelnetSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, QTelnet::SocketType type, QString name = QString());
+    QString startSerialSession(MainWidgetGroup *group, int groupIndex,  QString portName, uint32_t baudRate,
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, QString name = QString());
-    QString startLocalShellSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
+    QString startLocalShellSession(MainWidgetGroup *group, int groupIndex,  const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
 #if defined(Q_OS_WIN)
-    QString startWslSession(MainWidgetGroup *group, const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
+    QString startWslSession(MainWidgetGroup *group, int groupIndex,  const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
 #endif
-    QString startRawSocketSession(MainWidgetGroup *group, QString hostname, quint16 port, QString name = QString());
-    QString startNamePipeSession(MainWidgetGroup *group, QString namePipe, QString name = QString());
-    QString startSSH2Session(MainWidgetGroup *group,
+    QString startRawSocketSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, QString name = QString());
+    QString startNamePipeSession(MainWidgetGroup *group, int groupIndex,  QString namePipe, QString name = QString());
+    QString startSSH2Session(MainWidgetGroup *group, int groupIndex, 
         QString hostname, quint16 port, QString username, QString password, QString name = QString());
-    QString startVNCSession(MainWidgetGroup *group, QString hostname, quint16 port, QString password, QString name = QString());
+    QString startVNCSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, QString password, QString name = QString());
+    void startSession(MainWidgetGroup *group, int groupIndex, QuickConnectWindow::QuickConnectData data);
+    int reconnectSession(SessionsWindow *sessionsWindow);
     int stopSession(MainWidgetGroup *group, int index, bool force = false);
     int stopAllSession(bool force = false);
     int cloneTargetSession(MainWidgetGroup *group, QString name,SessionsWindow *sessionsWindow);

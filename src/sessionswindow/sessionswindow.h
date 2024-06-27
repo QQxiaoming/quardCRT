@@ -37,6 +37,7 @@
 #include "QTelnet.h"
 #include "ptyqt.h"
 #include "qvncclientwidget.h"
+#include "qextserialenumerator.h"
 
 class SessionsWindow : public QObject
 {
@@ -109,7 +110,6 @@ public:
 #endif
     int startVNCSession(const QString &hostname, quint16 port, const QString &password);
 
-    void reconnect(void);
     void disconnect(void);
 
     void setWorkingDirectory(const QString &dir);
@@ -381,6 +381,7 @@ signals:
     void modemProxyRecvData(const QByteArray &data);
     void waitForStringFinished(const QString &str, int matchIndex);
     void broadCastSendData(const QByteArray &data);
+    void requestReconnect(void);
 
 private:
     int saveLog(const char *data, int size);
@@ -399,6 +400,7 @@ private:
     QTermWidget *term;
     QTelnet *telnet;
     QSerialPort *serialPort;
+    QextSerialEnumerator *serialMonitor;
     QTcpSocket *rawSocket;
     IPtyProcess *localShell;
     QLocalSocket *namePipe;

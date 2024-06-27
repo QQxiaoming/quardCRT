@@ -27,6 +27,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QCryptographicHash>
+#include <QSerialPortInfo>
 
 #include "mainwindow.h"
 #include "qsendkermit.h"
@@ -43,6 +44,7 @@
 #include "globalsetting.h"
 #include "argv_split.h"
 #include "misc.h"
+#include "qextserialenumerator.h"
 
 SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     : QObject(parent)
@@ -53,6 +55,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , term(nullptr)
     , telnet(nullptr)
     , serialPort(nullptr)
+    , serialMonitor(nullptr)
     , rawSocket(nullptr)
     , localShell(nullptr)
     , namePipe(nullptr)
@@ -146,12 +149,17 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(modemProxyChannel) {
                     return;
                 }
+                QByteArray sendData(data, size);
                 if(enableBroadCast) {
-                    emit broadCastSendData(QByteArray(data, size));
+                    emit broadCastSendData(sendData);
                 }
                 if(telnet->isConnected()) {
                     telnet->sendData(data, size);
                     tx_total += size;
+                } else {
+                    if(sendData.contains("\r") || sendData.contains("\n")) {
+                        emit requestReconnect();
+                    }
                 }
             });
             connect(telnet, &QTelnet::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
@@ -189,7 +197,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
                 if(modemProxyChannel) {
-                    if(serialPort->isOpen()) {
+                    if(state == Connected && serialPort->isOpen()) {
                         serialPort->write(data.data(), data.size());
                     }
                 }
@@ -199,12 +207,17 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(modemProxyChannel) {
                     return;
                 }
+                QByteArray sendData(data, size);
                 if(enableBroadCast) {
-                    emit broadCastSendData(QByteArray(data, size));
+                    emit broadCastSendData(sendData);
                 }
-                if(serialPort->isOpen()) {
+                if(state == Connected && serialPort->isOpen()) {
                     serialPort->write(data, size);
                     tx_total += size;
+                } else {
+                    if(sendData.contains("\r") || sendData.contains("\n")) {
+                        emit requestReconnect();
+                    }
                 }
             });
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
@@ -216,6 +229,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 serialPort->close();
                 Q_UNUSED(serialPortError);
             });
+            serialMonitor = new QextSerialEnumerator();
             break;
         }
         case RawSocket: {
@@ -246,12 +260,17 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(modemProxyChannel) {
                     return;
                 }
+                QByteArray sendData(data, size);
                 if(enableBroadCast) {
-                    emit broadCastSendData(QByteArray(data, size));
+                    emit broadCastSendData(sendData);
                 }
                 if(rawSocket->state() == QAbstractSocket::ConnectedState) {
                     rawSocket->write(data, size);
                     tx_total += size;
+                } else {
+                    if(sendData.contains("\r") || sendData.contains("\n")) {
+                        emit requestReconnect();
+                    }
                 }
             });
             connect(rawSocket, &QTcpSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
@@ -297,11 +316,16 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(modemProxyChannel) {
                     return;
                 }
+                QByteArray sendData(data, size);
                 if(enableBroadCast) {
-                    emit broadCastSendData(QByteArray(data, size));
+                    emit broadCastSendData(sendData);
                 }
                 if(namePipe->state() == QLocalSocket::ConnectedState) {
                     namePipe->write(data, size);
+                } else {
+                    if(sendData.contains("\r") || sendData.contains("\n")) {
+                        emit requestReconnect();
+                    }
                 }
             });
             connect(namePipe, &QLocalSocket::stateChanged, this, [=](QLocalSocket::LocalSocketState socketState){
@@ -358,11 +382,18 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     if(modemProxyChannel) {
                         return;
                     }
+                    QByteArray sendData(data, size);
                     if(enableBroadCast) {
-                        emit broadCastSendData(QByteArray(data, size));
+                        emit broadCastSendData(sendData);
                     }
-                    shell->sendData(data, size);
-                    tx_total += size;
+                    if(state == Connected) {
+                        shell->sendData(data, size);
+                        tx_total += size;
+                    } else {
+                        if(sendData.contains("\r") || sendData.contains("\n")) {
+                            emit requestReconnect();
+                        }
+                    }
                 });
                 connect(shell, &SshShell::failed, this, [=](){
                     disconnect();
@@ -524,6 +555,7 @@ SessionsWindow::~SessionsWindow() {
     if(serialPort) {
         if(serialPort->isOpen()) serialPort->close();
         delete serialPort;
+        delete serialMonitor;
     }
     if(rawSocket){
         if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
@@ -791,6 +823,22 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     } else {
         state = Connected;
         emit stateChanged(state);
+        serialMonitor->setUpNotifications();
+        #if defined(Q_OS_WIN)
+        QString monitorPortName = serialPort->portName();
+        #else
+        QSerialPortInfo sinfo(*serialPort);
+        QString monitorPortName = sinfo.systemLocation();
+        #endif
+        connect(serialMonitor, &QextSerialEnumerator::deviceRemoved, this, 
+            [&,monitorPortName](const QextPortInfo &info) {
+            if(monitorPortName == info.portName) {
+                serialPort->close();
+                QMessageBox::warning(messageParentWidget, tr("Serial Error"), tr("Serial port %1 has been removed.").arg(info.portName));
+                state = Error;
+                emit stateChanged(state);
+            }
+        });
     }
     serialPort->setBreakEnabled(xEnable);
     m_portName = portName;
@@ -836,37 +884,6 @@ int SessionsWindow::startVNCSession(const QString &hostname, quint16 port, const
     m_port = port;
     m_password = password;
     return 0;
-}
-
-void SessionsWindow::reconnect(void) {
-    switch (type) {
-        case LocalShell:
-            //TODO: reconnect
-            break;
-        case Telnet:
-            if(telnet->isConnected()) telnet->disconnectFromHost();
-            startTelnetSession(m_hostname, m_port, m_type);
-            break;
-        case Serial:
-            if(serialPort->isOpen()) serialPort->close();
-            startSerialSession(m_portName, m_baudRate, m_dataBits, m_parity, m_stopBits, m_flowControl, m_xEnable);
-            break;
-        case RawSocket:
-            if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
-            startRawSocketSession(m_hostname, m_port);
-            break;
-        case NamePipe:
-            if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
-            startNamePipeSession(m_pipeName);
-            break;
-        case SSH2:
-            //TODO: reconnect
-            break;
-        case VNC:
-            vncClient->disconnectFromVncServer();
-            startVNCSession(m_hostname, m_port, m_password);
-            break;
-    }
 }
 
 void SessionsWindow::disconnect(void) {
