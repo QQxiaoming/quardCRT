@@ -6,6 +6,8 @@
 
 目前上游依赖分为两种：一种是直接源码依赖，位于`lib`目录下，这类依赖库被本项目深度修改，以适应本项目的需求，与上游库同步时需要手动合并修改，但在编译时不需要额外的编译步骤；另一种是编译依赖，位于`depend`目录下，这类依赖库基本上是直接从上游库中提取出来的，与上游库同步时只需要重新提取即可，但在编译时需要先编译这些依赖库为动态链接库，再编译本项目。
 
+除以上两种依赖外，本项目使用动态链接Python解释器以此支持脚本扩展功能，因此需要安装Python3.8及以上版本，linux和macos下使用`python3-config --cflags`和`python3-config --ldflags --embed`获取Python的编译参数即可。如果使用mingw编译则需要gendef、dlltool工具转化生成libpython.a文件，msvc编译则可以直接使用Python官方提供的libpython.lib文件。
+
 #### depend目录下的依赖库
 
 - fcitx-qt5-1.2.7.tar.gz

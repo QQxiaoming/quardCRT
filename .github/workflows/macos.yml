@@ -60,6 +60,11 @@ jobs:
           brew install create-dmg
           brew install coreutils
 
+      - name: Install setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: build libssh2
         run: |
           cd depend

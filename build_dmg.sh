@@ -35,6 +35,13 @@ mkdir -p ./quardCRT.app/Contents/MacOS/plugins/QuardCRT
 if [ -d "../../prebuilt_plugins" ]; then
     cp ../../prebuilt_plugins/*.dylib ./quardCRT.app/Contents/MacOS/plugins/QuardCRT/
 fi
+python_stdlib=$(python3 -c "import sysconfig; print(sysconfig.get_path('stdlib'))")
+mkdir -p ./quardCRT.app/Contents/Frameworks/pythonlib/lib
+cp -r $python_stdlib/../../lib/python3.11 ./quardCRT.app/Contents/Frameworks/pythonlib/lib/
+cp -r $python_stdlib/../../lib/libpython3.11.dylib ./quardCRT.app/Contents/Frameworks/pythonlib/lib/
+install_name_tool -change /Library/Frameworks/Python.framework/Versions/3.11/Python @executable_path/../Frameworks/pythonlib/lib/libpython3.11.dylib ./quardCRT.app/Contents/MacOS/quardCRT 
+install_name_tool -change /Library/Frameworks/Python.framework/Versions/3.11/Python @executable_path/../pythonlib/libpython3.11.dylib ./quardCRT.app/Contents/Frameworks/pythonlib/lib/libpython3.11.dylib
+codesign --force --deep --sign - ./quardCRT.app/Contents/Frameworks/pythonlib/lib/libpython3.11.dylib
 ./build-dmg.sh quardCRT
 cd ../../
 mkdir dmgOut
