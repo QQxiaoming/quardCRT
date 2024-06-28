@@ -8,6 +8,7 @@
 - Fix the problem that some session types cannot reconnect
 - Add the feature that the session in a non-connected state can automatically reconnect by clicking the Enter key
 - Add the feature that the serial port automatically detects the physical connection disconnection
+- Add pre-built plugins [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp)
 
 ## [[V0.4.7](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.7)] - 2024-06-26
 

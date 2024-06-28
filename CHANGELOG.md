@@ -8,6 +8,7 @@ en-US:
 - Fix the problem that some session types cannot reconnect
 - Add the feature that the session in a non-connected state can automatically reconnect by clicking the Enter key
 - Add the feature that the serial port automatically detects the physical connection disconnection
+- Add pre-built plugins [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp)
 
 zh-CN:
 
@@ -15,6 +16,7 @@ zh-CN:
 - 修复部分会话类型无法重连问题
 - 增加非连接状态下的会话可以通过单击回车键自动重连功能
 - 增加串口自动检测物理连接断开功能
+- 新增预构建插件[timestamp](https://github.com/QuardCRT-platform/plugin-timestamp)
 
 ## [[V0.4.7](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.7)] - 2024-06-26
 
