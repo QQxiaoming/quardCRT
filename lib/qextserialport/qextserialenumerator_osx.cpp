@@ -92,6 +92,7 @@ void QextSerialEnumeratorPrivate::iterateServicesOSX(io_object_t service, QList<
         QextPortInfo info;
         info.vendorID = 0;
         info.productID = 0;
+        info.revision = 0;
         getServiceDetailsOSX(usbService, &info);
         infoList.append(info);
     }
@@ -104,6 +105,7 @@ bool QextSerialEnumeratorPrivate::getServiceDetailsOSX(io_object_t service, Qext
     CFTypeRef productNameAsCFString = NULL;
     CFTypeRef vendorIdAsCFNumber = NULL;
     CFTypeRef productIdAsCFNumber = NULL;
+    CFTypeRef revisionAsCFNumber = NULL;
     // check the name of the modem's callout device
     bsdPathAsCFString = IORegistryEntryCreateCFProperty(service, CFSTR(kIOCalloutDeviceKey),
                                                         kCFAllocatorDefault, 0);
@@ -112,7 +114,7 @@ bool QextSerialEnumeratorPrivate::getServiceDetailsOSX(io_object_t service, Qext
     // vendor/product IDs and the product name, if available
     io_registry_entry_t parent;
     kern_return_t kernResult = IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent);
-    while (kernResult == KERN_SUCCESS && !vendorIdAsCFNumber && !productIdAsCFNumber) {
+    while (kernResult == KERN_SUCCESS && !vendorIdAsCFNumber && !productIdAsCFNumber && !revisionAsCFNumber) {
         if (!productNameAsCFString)
             productNameAsCFString = IORegistryEntrySearchCFProperty(parent,
                                                                     kIOServicePlane,
@@ -126,6 +128,10 @@ bool QextSerialEnumeratorPrivate::getServiceDetailsOSX(io_object_t service, Qext
                                                               kIOServicePlane,
                                                               CFSTR(kUSBProductID),
                                                               kCFAllocatorDefault, 0);
+        revisionAsCFNumber = IORegistryEntrySearchCFProperty(parent,
+                                                              kIOServicePlane,
+                                                              CFSTR(kUSBDeviceReleaseNumber),
+                                                              kCFAllocatorDefault, kIORegistryIterateRecursively | kIORegistryIterateParents);
         io_registry_entry_t oldparent = parent;
         kernResult = IORegistryEntryGetParentEntry(parent, kIOServicePlane, &parent);
         IOObjectRelease(oldparent);
@@ -164,6 +170,13 @@ bool QextSerialEnumeratorPrivate::getServiceDetailsOSX(io_object_t service, Qext
             portInfo->productID = pID;
         CFRelease(productIdAsCFNumber);
     }
+
+    if (revisionAsCFNumber) {
+        SInt32 rev;
+        if (CFNumberGetValue((CFNumberRef)revisionAsCFNumber, kCFNumberSInt32Type, &rev))
+            portInfo->revision = rev;
+        CFRelease(revisionAsCFNumber);
+    }
     IOObjectRelease(service);
     return retval;
 }
@@ -195,6 +208,7 @@ void QextSerialEnumeratorPrivate::onDeviceDiscoveredOSX(io_object_t service)
     QextPortInfo info;
     info.vendorID = 0;
     info.productID = 0;
+    info.revision = 0;
     if (getServiceDetailsOSX(service, &info))
         Q_EMIT q->deviceDiscovered(info);
 }
@@ -209,6 +223,7 @@ void QextSerialEnumeratorPrivate::onDeviceTerminatedOSX(io_object_t service)
     QextPortInfo info;
     info.vendorID = 0;
     info.productID = 0;
+    info.revision = 0;
     if (getServiceDetailsOSX(service, &info))
         Q_EMIT q->deviceRemoved(info);
 }

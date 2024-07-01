@@ -439,13 +439,13 @@ int QRecvZmodem::rz_process_header(char *name, struct zm_fileinfo *zi) {
         }
         /* try to rename */
         namelen = strlen(name);
-        tmpname = (char *)malloc(namelen + 5);
+        tmpname = (char *)malloc(namelen + 6);
         memcpy(tmpname, name, namelen);
         ptr = tmpname + namelen;
         *ptr++ = '.';
         i = 0;
         do {
-          sprintf(ptr, "%d", i++);
+          snprintf(ptr, 5, "%d", i++);
           QFileInfo fi(m_fileDirPath+QDir::separator()+QString(tmpname));
           if (!fi.exists())
             break;

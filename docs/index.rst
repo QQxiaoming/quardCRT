@@ -92,6 +92,9 @@ Special functions
 - Path matching and one-click direct
 - Working path direct
 - Windows local terminal enhancement (Tab key to select complete command, etc.)
+- Broadcast session
+- Session label tag color
+- block selection (Shift+click) and column selection (Alt+Shift+click)
 
 ----------------------------------
 Plugin

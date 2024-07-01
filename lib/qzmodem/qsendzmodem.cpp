@@ -351,7 +351,7 @@ int QSendZmodem::sz_transmit_pathname(struct zm_fileinfo *zi) {
     *q++ = 0;
   if (*zi->fname) {
     if (hyperterm) {
-      sprintf(p, "%lu", (unsigned long)fi.size());
+      snprintf(p, 1000, "%lu", (unsigned long)fi.size());
     } else {
       /* note that we may lose some information here
        * in case mode_t is wider than an int. But i believe
@@ -367,10 +367,10 @@ int QSendZmodem::sz_transmit_pathname(struct zm_fileinfo *zi) {
       struct stat st;
       int fd = input->handle();
       fstat(fd, &st);
-      sprintf(p, "%lu %lo %o 0 %d %ld", (uint64_t)(fi.size()), (uint64_t)(fi.lastModified().toSecsSinceEpoch()),
+      snprintf(p, 1000, "%lu %lo %o 0 %d %ld", (unsigned long)(fi.size()), (unsigned long)(fi.lastModified().toSecsSinceEpoch()),
               (unsigned int)((no_unixmode) ? 0 : st.st_mode), filesleft, totalleft);
 #else
-      sprintf(p, "%lu %lo %o 0 %d %ld", (unsigned long)fi.size(), (unsigned long)fi.lastModified().toSecsSinceEpoch(),
+      snprintf(p,1000, "%lu %lo %o 0 %d %ld", (unsigned long)fi.size(), (unsigned long)fi.lastModified().toSecsSinceEpoch(),
               0, filesleft, totalleft);
 #endif
     }

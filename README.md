@@ -61,11 +61,13 @@ Protocol selection interface:
 - Session history management
 - Multi-tab management, tab cloning, tab drag-and-drop sorting
 - Dual column split screen, tab drag-and-drop to split column
-- Terminal style configuration (color scheme, font)
+- Terminal style configuration (color scheme, font, cursor color)
 - HEX display
 - Terminal background image configuration
 - Terminal scroll line configuration
-- Support x\y\zmodem protocol
+- Support kermit x\y\zmodem protocol
+- Support ANSI OSC52 sequence 
+- Support echo
 - Support dark/light theme
 - Support multiple languages (Simple Chinese/Traditional Chinese/English/Japanese/Korean/Spanish/French/Russian/German/Portuguese (Brazil)/Czech/Arabic)
 
@@ -94,13 +96,19 @@ Protocol selection interface:
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/7491a311-a207-4a92-b308-f6dbc2c750ab"></video> |
 | Windows local terminal enhancement (Tab key to select complete command, etc.) |
 | <video src="https://github.com/QQxiaoming/quardCRT/assets/27486515/c54713a2-f4da-4ece-8b63-fb6f5d84076d"></video> |
+| Broadcast session                                                    |
+|                                                                      |
+| Session label tag color                                              |
+|                                                                      |
+| block selection (Shift+click) and column selection (Alt+Shift+click) |
+|                                                                      |
 
 ## Planned features
 
 - [ ] Support operation script recording/loading
 - [ ] Support screen recording
 - [ ] session status query
-- [ ] Terminal style customization
+- [x] Terminal style customization
 - [ ] Independent session set terminal appearance
 - [ ] GitHub Copilot plugin support
 - [ ] CI support windows on arm64

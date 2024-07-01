@@ -42,7 +42,7 @@
 //
 // We mean it.
 //
-#include <QApplication>
+#include <QCoreApplication>
 
 #ifdef  Q_CC_MINGW
 // needed for mingw to pull in appropriate dbt business...

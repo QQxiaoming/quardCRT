@@ -166,12 +166,13 @@ static bool getDeviceDetailsInformation(QextPortInfo *portInfo, HDEVINFO devInfo
     ::RegCloseKey(devKey);
 
     QString hardwareIDs = getDeviceRegistryProperty(devInfoSet, devInfoData, SPDRP_HARDWAREID);
-    QRegularExpression idRx(QLatin1String("VID_(\\w+)&PID_(\\w+)"));
+    QRegularExpression idRx(QLatin1String("VID_(\\w+)&PID_(\\w+)&REV_(\\w+)"));
     const auto idRxMatch = idRx.match(hardwareIDs.toUpper());
     if (idRxMatch.hasMatch()) {
         bool dummy;
         portInfo->vendorID = idRxMatch.captured(1).toInt(&dummy, 16);
         portInfo->productID = idRxMatch.captured(2).toInt(&dummy, 16);
+        portInfo->productID = idRxMatch.captured(3).toInt(&dummy, 16);
         //qDebug() << "got vid:" << vid << "pid:" << pid;
     }
     return true;
@@ -188,7 +189,7 @@ static void enumerateDevices(const GUID &guid, QList<QextPortInfo> *infoList)
         devInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
         for(int i = 0; ::SetupDiEnumDeviceInfo(devInfoSet, i, &devInfoData); i++) {
             QextPortInfo info;
-            info.productID = info.vendorID = 0;
+            info.productID = info.vendorID = info.revision = 0;
             getDeviceDetailsInformation(&info, devInfoSet, &devInfoData);
             infoList->append(info);
         }
@@ -287,7 +288,7 @@ bool QextSerialEnumeratorPrivate::matchAndDispatchChangedDevice(const QString &d
                     && deviceID.contains(QString::fromUtf16(reinterpret_cast<ushort *>(buf)))) { // we found a match
                 rv = true;
                 QextPortInfo info;
-                info.productID = info.vendorID = 0;
+                info.productID = info.vendorID = info.revision = 0;
                 getDeviceDetailsInformation(&info, devInfoSet, &spDevInfoData, wParam);
                 if (wParam == DBT_DEVICEARRIVAL)
                     Q_EMIT q->deviceDiscovered(info);

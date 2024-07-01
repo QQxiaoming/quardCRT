@@ -65,10 +65,12 @@ static QextPortInfo portInfoFromDevice(struct udev_device *dev)
 {
     QString vendor = QString::fromLatin1(udev_device_get_property_value(dev, "ID_VENDOR_ID"));
     QString product = QString::fromLatin1(udev_device_get_property_value(dev, "ID_MODEL_ID"));
+    QString revision = QString::fromLatin1(udev_device_get_property_value(dev, "ID_REVISION"));
 
     QextPortInfo pi;
     pi.vendorID = vendor.toInt(0, 16);
     pi.productID = product.toInt(0, 16);
+    pi.revision = revision.toInt(0, 16);
     pi.portName = QString::fromLatin1(udev_device_get_devnode(dev));
     pi.physName = pi.portName;
 

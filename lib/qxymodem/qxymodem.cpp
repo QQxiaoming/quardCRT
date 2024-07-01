@@ -494,6 +494,7 @@ long QXYmodem::ymodemReceive(void)
 	int i;
 	unsigned char c;
 
+    Q_UNUSED(totalbytes);
 	while(retry > 0) {
 		/* solicit a connection/packet */
 		xmodemOut(response);
