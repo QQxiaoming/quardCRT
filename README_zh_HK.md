@@ -21,6 +21,8 @@
 
 [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README_zh_CN.md) | 🇭🇰 繁體中文 | [🇯🇵 日本語](./README_ja_JP.md)
 
+![img0](./docs/img/social_preview.jpg)
+
 quardCRT一款多功能終端模擬/圖形桌面軟體，支援多種後端協議，無依賴跨平台使用，windows/linux/mac使用體驗完全一致，支援多標籤頁和歷史記錄管理等傳統終端軟體功能，同時支援一些獨具特色的細節功能。quardCRT的設計宗旨是創建盡可能用戶友好、功能豐富、且跨平台一致性體驗的終端軟體，相比很多專業高性能終端，quardCRT會更適合入門、輕度用戶快速的配置好所需的終端環境，但這也並不意味quardCRT不追求高性能。
 
 | ![img2](./docs/img/windows.png) |

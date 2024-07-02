@@ -21,6 +21,8 @@
 
 🇺🇸 English | [🇨🇳 简体中文](./README_zh_CN.md) | [🇭🇰 繁體中文](./README_zh_HK.md) | [🇯🇵 日本語](./README_ja_JP.md)
 
+![img0](./docs/img/social_preview.jpg)
+
 quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions. The design purpose of quardCRT is to create a terminal software that is as user-friendly, feature-rich, and cross-platform consistent as possible. Compared to many professional high-performance terminals, quardCRT will be more suitable for beginners and light users to quickly configure the required terminal environment, but this does not mean that quardCRT does not pursue high performance.
 
 | ![img2](./docs/img/windows.png) |
