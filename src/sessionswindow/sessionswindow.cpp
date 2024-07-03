@@ -230,6 +230,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 Q_UNUSED(serialPortError);
             });
             serialMonitor = new QextSerialEnumerator();
+            serialMonitor->setUpNotifications();
             break;
         }
         case RawSocket: {
@@ -823,7 +824,6 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     } else {
         state = Connected;
         emit stateChanged(state);
-        serialMonitor->setUpNotifications();
         #if defined(Q_OS_WIN)
         QString monitorPortName = serialPort->portName();
         #else
