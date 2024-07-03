@@ -110,6 +110,18 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
 
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &SessionOptionsWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &SessionOptionsWindow::buttonBoxRejected);
+    
+    connect(sessionOptionsSerialProperties->ui->pushButtonRefresh, &QPushButton::clicked, [&]() {
+        QSerialPortInfo serialPortInfo;
+        sessionOptionsSerialProperties->ui->comboBoxPortName->clear();
+        foreach(serialPortInfo, QSerialPortInfo::availablePorts()) {
+            if(serialPortInfo.description().isEmpty()) {
+                sessionOptionsSerialProperties->ui->comboBoxPortName->addItem(serialPortInfo.portName());
+            } else {
+                sessionOptionsSerialProperties->ui->comboBoxPortName->addItem(serialPortInfo.portName()+" - "+serialPortInfo.description());
+            }
+        }
+    });
 }
 
 SessionOptionsWindow::~SessionOptionsWindow()
@@ -324,6 +336,7 @@ void SessionOptionsWindow::setReadOnly(bool enable) {
     comboxSetReadOnly(sessionOptionsSerialProperties->ui->comboBoxStopBits, sessionOptionsSerialProperties->ui->lineEditReadOnlyStopBits);
     checkboxSetReadOnly(sessionOptionsSerialProperties->ui->checkBoxXEnable);
     checkboxSetReadOnly(sessionOptionsSerialProperties->ui->checkBoxFlowControl);
+    sessionOptionsSerialProperties->ui->pushButtonRefresh->setVisible(!enable);
 
     sessionOptionsLocalShellProperties->ui->lineEditCommand->setReadOnly(enable);
 

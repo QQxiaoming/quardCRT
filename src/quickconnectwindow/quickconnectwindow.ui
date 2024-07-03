@@ -105,6 +105,19 @@
        <item>
         <widget class="QComboBox" name="comboBoxHostname"/>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonRefresh">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Refresh</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>

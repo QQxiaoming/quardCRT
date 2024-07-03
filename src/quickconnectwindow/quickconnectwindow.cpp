@@ -41,6 +41,17 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
     connect(ui->comboBoxProtocol, &QComboBox::currentIndexChanged, this, &QuickConnectWindow::comboBoxProtocolChanged);
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &QuickConnectWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QuickConnectWindow::buttonBoxRejected);
+    connect(ui->pushButtonRefresh, &QPushButton::clicked, this, [this](){
+        ui->comboBoxHostname->clear();
+        QSerialPortInfo serialPortInfo;
+        foreach(serialPortInfo, QSerialPortInfo::availablePorts()) {
+            if(serialPortInfo.description().isEmpty()) {
+                ui->comboBoxHostname->addItem(serialPortInfo.portName());
+            } else {
+                ui->comboBoxHostname->addItem(serialPortInfo.portName()+" - "+serialPortInfo.description());
+            }
+        }
+    });
 
     retranslateUi();
 }
@@ -70,6 +81,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelHostname->setText(tr("Hostname"));
             ui->labelPort->setText(tr("Port"));
             ui->comboBoxHostname->setVisible(false);
+            ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
@@ -100,6 +112,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelHostname->setText(tr("Port Name"));
             ui->labelPort->setText(tr("Baud Rate"));
             ui->comboBoxHostname->setVisible(true);
+            ui->pushButtonRefresh->setVisible(true);
             ui->lineEditHostname->setVisible(false);
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
@@ -141,6 +154,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         case LocalShell: {
             ui->labelHostname->setText(tr("Command"));
             ui->comboBoxHostname->setVisible(false);
+            ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
@@ -167,6 +181,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelHostname->setText(tr("Hostname"));
             ui->labelPort->setText(tr("Port"));
             ui->comboBoxHostname->setVisible(false);
+            ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
@@ -195,6 +210,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         case NamePipe:{
             ui->labelHostname->setText(tr("Pipe Name"));
             ui->comboBoxHostname->setVisible(false);
+            ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
@@ -225,6 +241,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelHostname->setText(tr("Hostname"));
             ui->labelPort->setText(tr("Port"));
             ui->comboBoxHostname->setVisible(false);
+            ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
             ui->labelUsername->setVisible(true);
             ui->lineEditUsername->setVisible(true);
@@ -254,6 +271,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelHostname->setText(tr("Hostname"));
             ui->labelPort->setText(tr("Port"));
             ui->comboBoxHostname->setVisible(false);
+            ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
             ui->labelPassword->setVisible(true);
             lineEditPassword->setVisible(true);

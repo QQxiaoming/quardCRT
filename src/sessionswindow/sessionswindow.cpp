@@ -833,10 +833,12 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
         connect(serialMonitor, &QextSerialEnumerator::deviceRemoved, this, 
             [&,monitorPortName](const QextPortInfo &info) {
             if(monitorPortName == info.portName) {
-                serialPort->close();
-                QMessageBox::warning(messageParentWidget, tr("Serial Error"), tr("Serial port %1 has been removed.").arg(info.portName));
-                state = Error;
-                emit stateChanged(state);
+                if(serialPort->isOpen()) {
+                    serialPort->close();
+                    QMessageBox::warning(messageParentWidget, tr("Serial Error"), tr("Serial port %1 has been removed.").arg(info.portName));
+                    state = Error;
+                    emit stateChanged(state);
+                }
             }
         });
     }
