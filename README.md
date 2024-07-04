@@ -62,7 +62,7 @@ Protocol selection interface:
 
 - Session history management
 - Multi-tab management, tab cloning, tab drag-and-drop sorting
-- Dual column split screen, tab drag-and-drop to split column
+- Up to 4 split screens, multiple layout modes, you can freely drag and drop tabs to the split screen page
 - Terminal style configuration (color scheme, font, cursor color)
 - HEX display
 - Terminal background image configuration

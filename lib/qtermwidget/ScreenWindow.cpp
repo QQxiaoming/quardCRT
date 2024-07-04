@@ -216,7 +216,10 @@ QString ScreenWindow::getScreenText(int row1, int col1, int row2, int col2, int 
 
 int ScreenWindow::currentLine() const
 {
-    return qBound(0,_currentLine,lineCount()-windowLines());
+    if(lineCount()>=windowLines()) {
+        return qBound(0,_currentLine,lineCount()-windowLines());
+    }
+    return 0;
 }
 
 void ScreenWindow::scrollBy( RelativeScrollMode mode , int amount )

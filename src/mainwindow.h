@@ -142,6 +142,8 @@ private:
     void floatingWindow(MainWidgetGroup *g, int index);
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
     void swapSideHboxLayout(void);
+    int nextGroupID(int id);
+    void movetabWhenLayoutChange(int oldL, int newL);
     void refreshTagColor(void);
     void refreshStatusBar(void);
 
@@ -166,6 +168,9 @@ private:
     Ui::CentralWidget *ui;
 
     QSplitter *splitter;
+    QSplitter *splitterV1;
+    QSplitter *splitterV2;
+    QSplitter *splitterV11;
     QStackedWidget *stackedWidget;
     SessionManagerWidget *sessionManagerWidget;
     PluginViewerWidget *pluginViewerWidget;
@@ -236,6 +241,17 @@ private:
     QAction *zoomInAction;
     QAction *zoomOutAction;
     QAction *zoomResetAction;
+    QMenu *layoutMenu;
+    QActionGroup *layoutActionGroup;
+    QAction *singleLayoutAction;
+    QAction *twoColumnsLayoutAction;
+    QAction *threeColumnsLayoutAction;
+    QAction *twoRowsLayoutAction;
+    QAction *threeRowsLayoutAction;
+    QAction *gridLayoutAction;
+    QAction *twoRowsRightLayoutAction;
+    QAction *twoColumnsBottomLayoutAction;
+    QAction *flipLayoutAction;
     QAction *menuBarAction;
     QAction *toolBarAction;
     QAction *statusBarAction;
@@ -338,6 +354,7 @@ private:
     qreal windowTransparency;
     bool windowTransparencyEnabled;
     QString printerName;
+    int currentLayout;
 
     QLocale language;
     bool isDarkTheme;

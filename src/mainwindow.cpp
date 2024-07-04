@@ -98,13 +98,53 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     restoreSessionToSessionManager();
 
+    splitterV1 = new QSplitter(Qt::Vertical,this);
+    splitterV1->setHandleWidth(1);
+
+    splitter->addWidget(splitterV1);
+    splitterV2 = new QSplitter(Qt::Vertical,this);
+    splitterV2->setHandleWidth(1);
+    splitter->addWidget(splitterV2);
+    splitterV11 = new QSplitter(Qt::Horizontal,this);
+    splitterV11->setHandleWidth(1);
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitter->addWidget(mainWidgetGroupList.at(0)->splitter);
+    splitterV1->addWidget(mainWidgetGroupList.at(0)->splitter);
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitter->addWidget(mainWidgetGroupList.at(1)->splitter);
-    splitter->setSizes(QList<int>() << 1 << 100000 << 0);
+    splitterV2->addWidget(mainWidgetGroupList.at(1)->splitter);
+    mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
+    splitterV1->addWidget(mainWidgetGroupList.at(2)->splitter);
+    mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
+    splitterV2->addWidget(mainWidgetGroupList.at(3)->splitter);
+    mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
+    splitterV11->addWidget(mainWidgetGroupList.at(4)->splitter);
+    mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
+    splitterV11->addWidget(mainWidgetGroupList.at(5)->splitter);
+    mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
+    splitter->addWidget(mainWidgetGroupList.at(6)->splitter);
+    splitterV1->addWidget(splitterV11);
+    splitterV1->setVisible(true);
+    splitterV2->setVisible(false);
+    splitterV11->setVisible(false);
+    mainWidgetGroupList.at(0)->splitter->setVisible(true);
+    mainWidgetGroupList.at(1)->splitter->setVisible(false);
+    mainWidgetGroupList.at(2)->splitter->setVisible(false);
+    mainWidgetGroupList.at(3)->splitter->setVisible(false);
+    mainWidgetGroupList.at(4)->splitter->setVisible(false);
+    mainWidgetGroupList.at(5)->splitter->setVisible(false);
+    mainWidgetGroupList.at(6)->splitter->setVisible(false);
+    currentLayout = 0;
+    splitter->setSizes(QList<int>() << 1 << 100000 << 100000 << 100000);
     splitter->setCollapsible(0,false);
-    
+    splitter->setCollapsible(1,false);
+    splitter->setCollapsible(2,false);
+    splitterV1->setCollapsible(0,false);
+    splitterV1->setCollapsible(1,false);
+    splitterV1->setCollapsible(2,false);
+    splitterV2->setCollapsible(0,false);
+    splitterV2->setCollapsible(1,false);
+    splitterV11->setCollapsible(0,false);
+    splitterV11->setCollapsible(1,false);
+
     quickConnectWindow = new QuickConnectWindow(this);
     quickConnectMainWidgetGroup = mainWidgetGroupList.at(0);
 
@@ -314,11 +354,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     moveToAnotherTabAction->setStatusTip(tr("Move to current session to another tab group"));
                     menu->addAction(moveToAnotherTabAction);
                     connect(moveToAnotherTabAction,&QAction::triggered,this,[=](){
-                        if(mainWidgetGroup == mainWidgetGroupList.at(0)) {
-                            moveToAnotherTab(0,1,index);
-                        } else {
-                            moveToAnotherTab(1,0,index);
-                        }
+                        int currentGroupID = mainWidgetGroupList.indexOf(mainWidgetGroup);
+                        moveToAnotherTab(currentGroupID,nextGroupID(currentGroupID),index);
                     });
                     QAction *floatAction = new QAction(tr("Floating Window"),this);
                     floatAction->setStatusTip(tr("Floating current session to a new window"));
@@ -621,10 +658,12 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     floatingWindow(mainWidgetGroup,from);
                 }
             } else {
-                if(mainWidgetGroupList[0]->sessionTab == toTab) {
-                    moveToAnotherTab(1,0,from);    
-                } else if(mainWidgetGroupList[1]->sessionTab == toTab) {
-                    moveToAnotherTab(0,1,from);
+                int currentGroupID = mainWidgetGroupList.indexOf(mainWidgetGroup);
+                for(int i=0;i<mainWidgetGroupList.size();i++) {
+                    if(mainWidgetGroupList[i]->sessionTab == toTab) {
+                        moveToAnotherTab(currentGroupID,i,from);    
+                        break;
+                    }
                 }
             }
         });
@@ -1082,11 +1121,7 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
     MainWidgetGroup *group = new MainWidgetGroup(MainWidgetGroup::FLOATING,dialog);
     mainWidgetGroupList.append(group);
     int newGroup = mainWidgetGroupList.count()-1;
-    if(g == mainWidgetGroupList.at(0)) {
-        moveToAnotherTab(0,newGroup,index);
-    } else {
-        moveToAnotherTab(1,newGroup,index);
-    }
+    moveToAnotherTab(mainWidgetGroupList.indexOf(g),newGroup,index);
     dialog->layout()->addWidget(group->splitter);
     group->sessionTab->setTabBarHidden(true);
     group->sessionTab->setAddTabButtonHidden(true);
@@ -1413,6 +1448,26 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     zoomResetAction->setText(tr("Zoom Reset"));
     zoomResetAction->setIcon(QFontIcon::icon(QChar(0xf057)));
     zoomResetAction->setStatusTip(tr("Zoom Reset"));
+    layoutMenu->setTitle(tr("Layout"));
+    singleLayoutAction->setText(tr("Single Layout"));
+    singleLayoutAction->setStatusTip(tr("Single layout"));
+    twoColumnsLayoutAction->setText(tr("Two Columns Layout"));
+    twoColumnsLayoutAction->setStatusTip(tr("Two columns layout"));
+    threeColumnsLayoutAction->setText(tr("Three Columns Layout"));
+    threeColumnsLayoutAction->setStatusTip(tr("Three columns layout"));
+    twoRowsLayoutAction->setText(tr("Two Rows Layout"));
+    twoRowsLayoutAction->setStatusTip(tr("Two rows layout"));
+    threeRowsLayoutAction->setText(tr("Three Rows Layout"));
+    threeRowsLayoutAction->setStatusTip(tr("Three rows layout"));
+    gridLayoutAction->setText(tr("Grid Layout"));
+    gridLayoutAction->setStatusTip(tr("Grid layout"));
+    twoRowsRightLayoutAction->setText(tr("Two Rows Right Layout"));
+    twoRowsRightLayoutAction->setStatusTip(tr("Two rows right layout"));
+    twoColumnsBottomLayoutAction->setText(tr("Two Columns Bottom Layout"));
+    twoColumnsBottomLayoutAction->setStatusTip(tr("Two columns bottom layout"));
+    flipLayoutAction->setText(tr("Flip Layout"));
+    flipLayoutAction->setStatusTip(tr("Flip layout"));
+    flipLayoutAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_F));
     menuBarAction->setText(tr("Menu Bar"));
     menuBarAction->setStatusTip(tr("Show/Hide Menu Bar <Alt+U>"));
     menuBarAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_U));
@@ -1702,6 +1757,46 @@ void CentralWidget::menuAndToolBarInit(void) {
     viewMenu->addSeparator();
     zoomResetAction = new QAction(this);
     viewMenu->addAction(zoomResetAction);
+    viewMenu->addSeparator();
+    layoutMenu = new QMenu(this);
+    layoutActionGroup = new QActionGroup(this);
+    singleLayoutAction = new QAction(this);
+    singleLayoutAction->setActionGroup(layoutActionGroup);
+    singleLayoutAction->setCheckable(true);
+    singleLayoutAction->setChecked(true);
+    layoutMenu->addAction(singleLayoutAction);
+    twoColumnsLayoutAction = new QAction(this);
+    twoColumnsLayoutAction->setActionGroup(layoutActionGroup);
+    twoColumnsLayoutAction->setCheckable(true);
+    layoutMenu->addAction(twoColumnsLayoutAction);
+    threeColumnsLayoutAction = new QAction(this);
+    threeColumnsLayoutAction->setActionGroup(layoutActionGroup);
+    threeColumnsLayoutAction->setCheckable(true);
+    layoutMenu->addAction(threeColumnsLayoutAction);
+    twoRowsLayoutAction = new QAction(this);
+    twoRowsLayoutAction->setActionGroup(layoutActionGroup);
+    twoRowsLayoutAction->setCheckable(true);
+    layoutMenu->addAction(twoRowsLayoutAction);
+    threeRowsLayoutAction = new QAction(this);
+    threeRowsLayoutAction->setActionGroup(layoutActionGroup);
+    threeRowsLayoutAction->setCheckable(true);
+    layoutMenu->addAction(threeRowsLayoutAction);
+    gridLayoutAction = new QAction(this);
+    gridLayoutAction->setActionGroup(layoutActionGroup);
+    gridLayoutAction->setCheckable(true);
+    layoutMenu->addAction(gridLayoutAction);
+    twoRowsRightLayoutAction = new QAction(this);
+    twoRowsRightLayoutAction->setActionGroup(layoutActionGroup);
+    twoRowsRightLayoutAction->setCheckable(true);
+    layoutMenu->addAction(twoRowsRightLayoutAction);
+    twoColumnsBottomLayoutAction = new QAction(this);
+    twoColumnsBottomLayoutAction->setActionGroup(layoutActionGroup);
+    twoColumnsBottomLayoutAction->setCheckable(true);
+    layoutMenu->addAction(twoColumnsBottomLayoutAction);
+    layoutMenu->addSeparator();
+    flipLayoutAction = new QAction(this);
+    layoutMenu->addAction(flipLayoutAction);
+    viewMenu->addMenu(layoutMenu);
     viewMenu->addSeparator();
     menuBarAction = new QAction(this);
     menuBarAction->setCheckable(true);
@@ -2552,6 +2647,132 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->setTerminalFont(globalOptionsWindow->getCurrentFont());
+    });
+    connect(layoutActionGroup,&QActionGroup::triggered,this,[=](QAction *action){
+        int oldLayout = currentLayout;
+        if(action == singleLayoutAction) {
+            currentLayout = 0;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(false);
+            splitterV11->setVisible(false);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(false);
+            mainWidgetGroupList.at(2)->splitter->setVisible(false);
+            mainWidgetGroupList.at(3)->splitter->setVisible(false);
+            mainWidgetGroupList.at(4)->splitter->setVisible(false);
+            mainWidgetGroupList.at(5)->splitter->setVisible(false);
+            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+        } else if(action == twoColumnsLayoutAction) {
+            currentLayout = 1;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(true);
+            splitterV11->setVisible(false);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(true);
+            mainWidgetGroupList.at(2)->splitter->setVisible(false);
+            mainWidgetGroupList.at(3)->splitter->setVisible(false);
+            mainWidgetGroupList.at(4)->splitter->setVisible(false);
+            mainWidgetGroupList.at(5)->splitter->setVisible(false);
+            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+        } else if(action == threeColumnsLayoutAction) {
+            currentLayout = 2;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(true);
+            splitterV11->setVisible(false);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(true);
+            mainWidgetGroupList.at(2)->splitter->setVisible(false);
+            mainWidgetGroupList.at(3)->splitter->setVisible(false);
+            mainWidgetGroupList.at(4)->splitter->setVisible(false);
+            mainWidgetGroupList.at(5)->splitter->setVisible(false);
+            mainWidgetGroupList.at(6)->splitter->setVisible(true);
+        } else if(action == twoRowsLayoutAction) {
+            currentLayout = 3;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(false);
+            splitterV11->setVisible(false);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(false);
+            mainWidgetGroupList.at(2)->splitter->setVisible(true);
+            mainWidgetGroupList.at(3)->splitter->setVisible(false);
+            mainWidgetGroupList.at(4)->splitter->setVisible(false);
+            mainWidgetGroupList.at(5)->splitter->setVisible(false);
+            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+        } else if(action == threeRowsLayoutAction) {
+            currentLayout = 4;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(false);
+            splitterV11->setVisible(true);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(false);
+            mainWidgetGroupList.at(2)->splitter->setVisible(true);
+            mainWidgetGroupList.at(3)->splitter->setVisible(false);
+            mainWidgetGroupList.at(4)->splitter->setVisible(true);
+            mainWidgetGroupList.at(5)->splitter->setVisible(false);
+            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+        } else if(action == gridLayoutAction) {
+            currentLayout = 5;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(true);
+            splitterV11->setVisible(false);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(true);
+            mainWidgetGroupList.at(2)->splitter->setVisible(true);
+            mainWidgetGroupList.at(3)->splitter->setVisible(true);
+            mainWidgetGroupList.at(4)->splitter->setVisible(false);
+            mainWidgetGroupList.at(5)->splitter->setVisible(false);
+            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+        } else if(action == twoRowsRightLayoutAction) {
+            currentLayout = 6;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(true);
+            splitterV11->setVisible(false);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(true);
+            mainWidgetGroupList.at(2)->splitter->setVisible(false);
+            mainWidgetGroupList.at(3)->splitter->setVisible(true);
+            mainWidgetGroupList.at(4)->splitter->setVisible(false);
+            mainWidgetGroupList.at(5)->splitter->setVisible(false);
+            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+        } else if(action == twoColumnsBottomLayoutAction)  {
+            currentLayout = 7;
+            splitterV1->setVisible(true);
+            splitterV2->setVisible(false);
+            splitterV11->setVisible(true);
+            mainWidgetGroupList.at(0)->splitter->setVisible(true);
+            mainWidgetGroupList.at(1)->splitter->setVisible(false);
+            mainWidgetGroupList.at(2)->splitter->setVisible(false);
+            mainWidgetGroupList.at(3)->splitter->setVisible(false);
+            mainWidgetGroupList.at(4)->splitter->setVisible(true);
+            mainWidgetGroupList.at(5)->splitter->setVisible(true);
+            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+        }
+        movetabWhenLayoutChange(oldLayout,currentLayout);
+    });
+    connect(flipLayoutAction,&QAction::triggered,this,[=](){
+        switch(currentLayout) {
+            case 0: //singleLayoutAction
+            case 5: //gridLayoutAction
+                break;
+            case 1: //twoColumnsLayoutAction
+                twoRowsLayoutAction->trigger();
+                break;
+            case 2: //threeColumnsLayoutAction
+                threeRowsLayoutAction->trigger();
+                break;
+            case 3: //twoRowsLayoutAction
+                twoColumnsLayoutAction->trigger();
+                break;
+            case 4: //threeRowsLayoutAction
+                threeColumnsLayoutAction->trigger();
+                break;
+            case 6: //twoRowsRightLayoutAction
+                twoColumnsBottomLayoutAction->trigger();
+                break;
+            case 7: //twoColumnsBottomLayoutAction
+                twoRowsRightLayoutAction->trigger();
+                break;
+        }
     });
     connect(menuBarAction,&QAction::triggered,this,[=](bool checked){
         ui->menuBar->setVisible(checked);
@@ -3705,6 +3926,7 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group, int groupIndex,
     return name;
 #else
     Q_UNUSED(group);
+    Q_UNUSED(groupIndex);
     Q_UNUSED(hostname);
     Q_UNUSED(port);
     Q_UNUSED(username);
@@ -4277,6 +4499,93 @@ void CentralWidget::swapSideHboxLayout(void) {
         sideHboxLayout->addWidget(sessionManagerPushButton);
     }
 }
+
+int CentralWidget::nextGroupID(int id) {
+    QList<int> idList[8] = {
+        {0},      //singleLayout
+        {0,1},    //twoColumnsLayout
+        {0,1,6},  //threeColumnsLayout
+        {0,2},    //twoRowsLayout
+        {0,2,4},  //threeRowsLayout
+        {0,1,2,3},//gridLayout
+        {0,1,3},  //twoRowsRightLayout
+        {0,4,5},  //twoColumnsBottomLayout
+    };
+    QList<int> current = idList[currentLayout];
+    int index = current.indexOf(id);
+    if(index < current.size() && index >= 0) {
+        if(index == (current.size()-1)) {
+            return current.at(0);
+        } else {
+            return current.at(index+1);
+        }
+    }
+    return 0;
+}
+
+void CentralWidget::movetabWhenLayoutChange(int oldL, int newL) {
+    QList<int> idList[8] = {
+        {0},      //singleLayout
+        {0,1},    //twoColumnsLayout
+        {0,1,6},  //threeColumnsLayout
+        {0,2},    //twoRowsLayout
+        {0,2,4},  //threeRowsLayout
+        {0,1,2,3},//gridLayout
+        {0,1,3},  //twoRowsRightLayout
+        {0,4,5},  //twoColumnsBottomLayout
+    };
+    if(oldL == newL)
+        return;
+    QList<int> oldIdList = idList[oldL];
+    QList<int> newIdList = idList[newL];
+    if(oldIdList.size() <= newIdList.size()) {
+        QList<int> movnum;
+        for(int i=0;i<oldIdList.size();i++) {
+            if(oldIdList[i] != newIdList[i]) {
+                movnum.append(mainWidgetGroupList.at(oldIdList[i])->sessionTab->count());
+            } else {
+                movnum.append(0);
+            }
+        }
+        for(int i=0;i<oldIdList.size();i++) {
+            int j = movnum.at(i);
+            while(j) {
+                moveToAnotherTab(oldIdList[i],newIdList[i],1);
+                j--;
+            }
+        }
+    } else {
+        QList<int> movnum;
+        for(int i=0;i<newIdList.size();i++) {
+            if(oldIdList[i] != newIdList[i]) {
+                movnum.append(mainWidgetGroupList.at(oldIdList[i])->sessionTab->count());
+            } else {
+                movnum.append(0);
+            }
+        }
+        for(int i=newIdList.size();i<oldIdList.size();i++) {
+            if(oldIdList[i] != newIdList[newIdList.size()-1]) {
+                movnum.append(mainWidgetGroupList.at(oldIdList[i])->sessionTab->count());
+            } else {
+                movnum.append(0);
+            }
+        }
+        for(int i=0;i<newIdList.size();i++) {
+            int j = movnum.at(i);
+            while(j) {
+                moveToAnotherTab(oldIdList[i],newIdList[i],1);
+                j--;
+            }
+        }
+        for(int i=newIdList.size();i<oldIdList.size();i++) {
+            int j = movnum.at(i);
+            while(j) {
+                moveToAnotherTab(oldIdList[i],newIdList[newIdList.size()-1],1);
+                j--;
+            }
+        }
+    }
+};
 
 void CentralWidget::setAppLangeuage(QLocale lang) {
     GlobalSetting settings;
