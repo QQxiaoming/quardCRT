@@ -207,7 +207,7 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
     case QuickConnectWindow::Telnet:
         sessionOptionsTelnetProperties->ui->lineEditHostname->setText(data.TelnetData.hostname);
         sessionOptionsTelnetProperties->ui->spinBoxPort->setValue(data.TelnetData.port);
-        sessionOptionsTelnetProperties->ui->comboBoxWebSocket->setCurrentText(data.TelnetData.webSocket);
+        sessionOptionsTelnetProperties->ui->comboBoxWebSocket->setCurrentIndex(data.TelnetData.webSocket);
         break;
     case QuickConnectWindow::Serial: {
         sessionOptionsSerialProperties->ui->comboBoxPortName->clear();
@@ -366,7 +366,7 @@ void SessionOptionsWindow::buttonBoxAccepted(void)
     case QuickConnectWindow::Telnet:
         data.TelnetData.hostname = sessionOptionsTelnetProperties->ui->lineEditHostname->text();
         data.TelnetData.port = sessionOptionsTelnetProperties->ui->spinBoxPort->value();
-        data.TelnetData.webSocket = sessionOptionsTelnetProperties->ui->comboBoxWebSocket->currentText();
+        data.TelnetData.webSocket = sessionOptionsTelnetProperties->ui->comboBoxWebSocket->currentIndex();
         break;
     case QuickConnectWindow::Serial:
         data.SerialData.portName = sessionOptionsSerialProperties->ui->comboBoxPortName->currentText().split(" - ")[0];

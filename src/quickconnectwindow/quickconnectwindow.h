@@ -50,7 +50,7 @@ public:
         struct {
             QString hostname;
             int port;
-            QString webSocket;
+            int webSocket;
         }TelnetData;
         struct {
             QString portName;

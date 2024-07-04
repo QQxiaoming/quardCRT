@@ -26,7 +26,10 @@ QTelnet::QTelnet(SocketType type, QObject *parent) :
 
 void QTelnet::setType(SocketType type)
 {
-    m_socketType = type;
+    if(type != TCP && type != WEBSOCKET && type != SECUREWEBSOCKET)
+        m_socketType = TCP;
+    else
+        m_socketType = type;
 }
 
 QString QTelnet::peerInfo() const

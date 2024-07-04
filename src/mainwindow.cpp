@@ -3151,16 +3151,7 @@ int CentralWidget::addSessionToSessionManager(SessionsWindow *sessionsWindow, QS
     case SessionsWindow::Telnet:
         settings.setValue("hostname",sessionsWindow->getHostname());
         settings.setValue("port",sessionsWindow->getPort());
-        settings.setValue("socketType",[&]() {
-            if(sessionsWindow->getSocketType() == QTelnet::TCP) {
-                return QString("None");
-            } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
-                return QString("Insecure");
-            } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
-                return QString("Secure");
-            }
-            return QString("None");
-        }());
+        settings.setValue("socketType",(int)(sessionsWindow->getSocketType()));
         break;
     case SessionsWindow::Serial:
         settings.setValue("portName",sessionsWindow->getPortName());
@@ -3306,8 +3297,8 @@ void CentralWidget::connectSessionFromSessionManager(QString name)
             switch(data.type) {
             case QuickConnectWindow::Telnet:
                 startTelnetSession(findCurrentFocusGroup(),-1,data.TelnetData.hostname,data.TelnetData.port,
-                                   data.TelnetData.webSocket == "None"?QTelnet::TCP:
-                                   data.TelnetData.webSocket == "Insecure"?QTelnet::WEBSOCKET:
+                                   data.TelnetData.webSocket == 0?QTelnet::TCP:
+                                   data.TelnetData.webSocket == 1?QTelnet::WEBSOCKET:
                                    QTelnet::SECUREWEBSOCKET, current_name);
                 break;
             case QuickConnectWindow::Serial:
@@ -3744,13 +3735,7 @@ QString CentralWidget::startVNCSession(MainWidgetGroup *group, int groupIndex, Q
 void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickConnectWindow::QuickConnectData data) {
     if(data.type == QuickConnectWindow::Telnet) {
         QTelnet::SocketType type = QTelnet::TCP;
-        if(data.TelnetData.webSocket == "None") {
-            type = QTelnet::TCP;
-        } else if(data.TelnetData.webSocket == "Insecure") {
-            type = QTelnet::WEBSOCKET;
-        } else if(data.TelnetData.webSocket == "Secure") {
-            type = QTelnet::SECUREWEBSOCKET;
-        }
+        type = (QTelnet::SocketType)data.TelnetData.webSocket;
         QString name = data.TelnetData.hostname;
         if(data.openInTab) {
             name = startTelnetSession(group,groupIndex,name,data.TelnetData.port,type);
@@ -4001,13 +3986,7 @@ void CentralWidget::sessionWindow2InfoData(SessionsWindow *sessionsWindow, Quick
         case QuickConnectWindow::Telnet:
             data.TelnetData.hostname = sessionsWindow->getHostname();
             data.TelnetData.port = sessionsWindow->getPort();
-            if(sessionsWindow->getSocketType() == QTelnet::TCP) {
-                data.TelnetData.webSocket = "None";
-            } else if(sessionsWindow->getSocketType() == QTelnet::WEBSOCKET) {
-                data.TelnetData.webSocket = "Insecure";
-            } else if(sessionsWindow->getSocketType() == QTelnet::SECUREWEBSOCKET) {
-                data.TelnetData.webSocket = "Secure";
-            }
+            data.TelnetData.webSocket = sessionsWindow->getSocketType();
             break;
         case QuickConnectWindow::Serial:
             data.SerialData.portName = sessionsWindow->getPortName();
@@ -4052,7 +4031,7 @@ int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow:
     case QuickConnectWindow::Telnet:
         data.TelnetData.hostname = settings->value("hostname").toString();
         data.TelnetData.port = settings->value("port").toInt();
-        data.TelnetData.webSocket = settings->value("socketType").toString();
+        data.TelnetData.webSocket = settings->value("socketType").toInt();
         break;
     case QuickConnectWindow::Serial:
         data.SerialData.portName = settings->value("portName").toString();

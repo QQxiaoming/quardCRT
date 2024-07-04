@@ -312,7 +312,7 @@ void QuickConnectWindow::buttonBoxAccepted(void)
         case Telnet:
             data.TelnetData.hostname = ui->lineEditHostname->text();
             data.TelnetData.port = ui->spinBoxPort->value();
-            data.TelnetData.webSocket = ui->comboBoxWebSocket->currentText();
+            data.TelnetData.webSocket = ui->comboBoxWebSocket->currentIndex();
             emit this->sendQuickConnectData(data);
             break;
         case Serial:
@@ -382,7 +382,7 @@ void QuickConnectWindow::setQuickConnectData(QuickConnectData data)
         case Telnet:
             ui->lineEditHostname->setText(data.TelnetData.hostname);
             ui->spinBoxPort->setValue(data.TelnetData.port);
-            ui->comboBoxWebSocket->setCurrentText(data.TelnetData.webSocket);
+            ui->comboBoxWebSocket->setCurrentIndex(data.TelnetData.webSocket);
             break;
         case Serial:
             ui->comboBoxHostname->setCurrentText(data.SerialData.portName);

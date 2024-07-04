@@ -23,7 +23,7 @@ public:
     };
     enum SocketType
     {
-        TCP,
+        TCP = 0,
         WEBSOCKET,
         SECUREWEBSOCKET
     };
