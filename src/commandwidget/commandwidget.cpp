@@ -40,6 +40,7 @@ CommandWidget::CommandWidget(QWidget *parent) :
             ui->asciiRadioButton->setEnabled(false);
             ui->hexRadioButton->setEnabled(false);
             ui->autoSendIntervalSpinBox->setEnabled(false);
+            ui->comboBoxSendMode->setEnabled(false);
             autoSendTimer->start(ui->autoSendIntervalSpinBox->value());
         } else {
             ui->sendPushButton->setEnabled(true);
@@ -47,6 +48,7 @@ CommandWidget::CommandWidget(QWidget *parent) :
             ui->asciiRadioButton->setEnabled(true);
             ui->hexRadioButton->setEnabled(true);
             ui->autoSendIntervalSpinBox->setEnabled(true);
+            ui->comboBoxSendMode->setEnabled(true);
             autoSendTimer->stop();
         }
     });
@@ -72,14 +74,14 @@ QString CommandWidget::getCmd(void) {
 void CommandWidget::sendCurrentData(void) {
     if(ui->asciiRadioButton->isChecked()) {
     #if defined(Q_OS_WIN)
-        emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1());
+        emit sendData(ui->commandPlainEdit->toPlainText().replace("\n","\r\n").toLatin1(),ui->comboBoxSendMode->currentIndex());
     #else
-        emit sendData(ui->commandPlainEdit->toPlainText().toLatin1());
+        emit sendData(ui->commandPlainEdit->toPlainText().toLatin1(),ui->comboBoxSendMode->currentIndex());
     #endif
     } else if(ui->hexRadioButton->isChecked()) {
         QString input = ui->commandPlainEdit->toPlainText();
         QByteArray array = QByteArray::fromHex(input.toLatin1());
-        emit sendData(array);
+        emit sendData(array,ui->comboBoxSendMode->currentIndex());
         QString output = array.toHex(' ');
         ui->commandPlainEdit->setPlainText(output);
     }

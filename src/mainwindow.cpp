@@ -688,12 +688,27 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             }
         });
     #endif
-        connect(mainWidgetGroup->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data) {
+        connect(mainWidgetGroup->commandWidget, &CommandWidget::sendData, this, [=](const QByteArray &data, int sendMode) {
             if(mainWidgetGroup->sessionTab->count() != 0) {
-                QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
-                SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
-                if(sessionsWindow->isLocked()) return;
-                sessionsWindow->proxySendData(data);
+                if(sendMode == 0) {
+                    QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
+                    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
+                    if(sessionsWindow->isLocked()) return;
+                    sessionsWindow->proxySendData(data);
+                } else if(sendMode == 1)  {
+                    int count = mainWidgetGroup->sessionTab->count();
+                    for(int i=0;i<count;i++) {
+                        QWidget *widget = mainWidgetGroup->sessionTab->widget(i+1);
+                        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
+                        if(sessionsWindow->isLocked()) continue;
+                        sessionsWindow->proxySendData(data);
+                    }
+                } else if(sendMode == 2)  {
+                    foreach(SessionsWindow *sessionsWindow, sessionList) {
+                        if(sessionsWindow->isLocked()) continue;
+                        sessionsWindow->proxySendData(data);
+                    }
+                }
             }
         });
     }
@@ -1451,20 +1466,28 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     layoutMenu->setTitle(tr("Layout"));
     singleLayoutAction->setText(tr("Single Layout"));
     singleLayoutAction->setStatusTip(tr("Single layout"));
+    singleLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_1));
     twoColumnsLayoutAction->setText(tr("Two Columns Layout"));
     twoColumnsLayoutAction->setStatusTip(tr("Two columns layout"));
+    twoColumnsLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_2));
     threeColumnsLayoutAction->setText(tr("Three Columns Layout"));
     threeColumnsLayoutAction->setStatusTip(tr("Three columns layout"));
+    threeColumnsLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_3));
     twoRowsLayoutAction->setText(tr("Two Rows Layout"));
     twoRowsLayoutAction->setStatusTip(tr("Two rows layout"));
+    twoRowsLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_4));
     threeRowsLayoutAction->setText(tr("Three Rows Layout"));
     threeRowsLayoutAction->setStatusTip(tr("Three rows layout"));
+    threeRowsLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_5));
     gridLayoutAction->setText(tr("Grid Layout"));
     gridLayoutAction->setStatusTip(tr("Grid layout"));
+    gridLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_6));
     twoRowsRightLayoutAction->setText(tr("Two Rows Right Layout"));
     twoRowsRightLayoutAction->setStatusTip(tr("Two rows right layout"));
+    twoRowsRightLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_7));
     twoColumnsBottomLayoutAction->setText(tr("Two Columns Bottom Layout"));
     twoColumnsBottomLayoutAction->setStatusTip(tr("Two columns bottom layout"));
+    twoColumnsBottomLayoutAction->setShortcut(QKeySequence(Qt::SHIFT|Qt::ALT|Qt::Key_8));
     flipLayoutAction->setText(tr("Flip Layout"));
     flipLayoutAction->setStatusTip(tr("Flip layout"));
     flipLayoutAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_F));

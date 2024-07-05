@@ -6,26 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
-    <height>142</height>
+    <width>668</width>
+    <height>166</height>
    </rect>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_3">
-   <property name="spacing">
-    <number>1</number>
-   </property>
-   <property name="leftMargin">
-    <number>1</number>
-   </property>
-   <property name="topMargin">
-    <number>1</number>
-   </property>
-   <property name="rightMargin">
-    <number>1</number>
-   </property>
-   <property name="bottomMargin">
-    <number>1</number>
-   </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_4">
    <item>
     <widget class="QPlainTextEdit" name="commandPlainEdit">
      <property name="plainText">
@@ -130,11 +115,40 @@
       </layout>
      </item>
      <item>
-      <widget class="QCheckBox" name="autoSendCheckBox">
-       <property name="text">
-        <string>Auto Send</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QCheckBox" name="autoSendCheckBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Auto Send</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBoxSendMode">
+         <item>
+          <property name="text">
+           <string>Send to Single</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Send to Group</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Send to All</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="QPushButton" name="sendPushButton">

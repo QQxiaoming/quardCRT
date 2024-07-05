@@ -40,7 +40,7 @@ public:
     void retranslateUi(void);
 
 signals:
-    void sendData(QByteArray data);
+    void sendData(QByteArray data,int sendMode);
 
 private:
     Ui::CommandWidget *ui;
