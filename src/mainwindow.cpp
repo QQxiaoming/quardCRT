@@ -144,6 +144,24 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     splitterV2->setCollapsible(1,false);
     splitterV11->setCollapsible(0,false);
     splitterV11->setCollapsible(1,false);
+    auto syncSplitterMoved = [&](int index, int position) {
+        Q_UNUSED(index);
+        Q_UNUSED(position);
+        if(!enabledSyncSplitterMoved) {
+            return;
+        }
+        QSplitter *senderSplitter = qobject_cast<QSplitter*>(sender());
+        if (!senderSplitter) {
+            return;
+        }
+        QSplitter *otherSplitter = (senderSplitter == splitterV1) ? splitterV2 : splitterV1;
+        QList<int> currentSizes;
+        currentSizes.append(senderSplitter->sizes().at(0));
+        currentSizes.append(senderSplitter->sizes().at(1));
+        otherSplitter->setSizes(currentSizes);
+    };
+    connect(splitterV1, &QSplitter::splitterMoved, this, syncSplitterMoved);
+    connect(splitterV2, &QSplitter::splitterMoved, this, syncSplitterMoved);
 
     quickConnectWindow = new QuickConnectWindow(this);
     quickConnectMainWidgetGroup = mainWidgetGroupList.at(0);
@@ -2685,6 +2703,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(false);
             mainWidgetGroupList.at(5)->splitter->setVisible(false);
             mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            enabledSyncSplitterMoved = false;
         } else if(action == twoColumnsLayoutAction) {
             currentLayout = 1;
             splitterV1->setVisible(true);
@@ -2697,6 +2716,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(false);
             mainWidgetGroupList.at(5)->splitter->setVisible(false);
             mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            enabledSyncSplitterMoved = false;
         } else if(action == threeColumnsLayoutAction) {
             currentLayout = 2;
             splitterV1->setVisible(true);
@@ -2709,6 +2729,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(false);
             mainWidgetGroupList.at(5)->splitter->setVisible(false);
             mainWidgetGroupList.at(6)->splitter->setVisible(true);
+            enabledSyncSplitterMoved = false;
         } else if(action == twoRowsLayoutAction) {
             currentLayout = 3;
             splitterV1->setVisible(true);
@@ -2721,6 +2742,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(false);
             mainWidgetGroupList.at(5)->splitter->setVisible(false);
             mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            enabledSyncSplitterMoved = false;
         } else if(action == threeRowsLayoutAction) {
             currentLayout = 4;
             splitterV1->setVisible(true);
@@ -2733,6 +2755,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(true);
             mainWidgetGroupList.at(5)->splitter->setVisible(false);
             mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            enabledSyncSplitterMoved = false;
         } else if(action == gridLayoutAction) {
             currentLayout = 5;
             splitterV1->setVisible(true);
@@ -2745,6 +2768,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(false);
             mainWidgetGroupList.at(5)->splitter->setVisible(false);
             mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            enabledSyncSplitterMoved = true;
         } else if(action == twoRowsRightLayoutAction) {
             currentLayout = 6;
             splitterV1->setVisible(true);
@@ -2757,6 +2781,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(false);
             mainWidgetGroupList.at(5)->splitter->setVisible(false);
             mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            enabledSyncSplitterMoved = false;
         } else if(action == twoColumnsBottomLayoutAction)  {
             currentLayout = 7;
             splitterV1->setVisible(true);
@@ -2769,6 +2794,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             mainWidgetGroupList.at(4)->splitter->setVisible(true);
             mainWidgetGroupList.at(5)->splitter->setVisible(true);
             mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            enabledSyncSplitterMoved = false;
         }
         movetabWhenLayoutChange(oldLayout,currentLayout);
     });

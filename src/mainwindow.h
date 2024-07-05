@@ -355,6 +355,7 @@ private:
     bool windowTransparencyEnabled;
     QString printerName;
     int currentLayout;
+    bool enabledSyncSplitterMoved = false;
 
     QLocale language;
     bool isDarkTheme;
