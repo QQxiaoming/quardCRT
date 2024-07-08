@@ -5,10 +5,10 @@
 quardCRT
 ----------------------------------
 
-.. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/windows.yml?branch=main&logo=windows
+.. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/windows.yml?branch=main&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+V2luZG93czwvdGl0bGU+PHBhdGggZD0iTTAsMEgxMS4zNzdWMTEuMzcySDBaTTEyLjYyMywwSDI0VjExLjM3MkgxMi42MjNaTTAsMTIuNjIzSDExLjM3N1YyNEgwWm0xMi42MjMsMEgyNFYyNEgxMi42MjMiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=
    :target: https://github.com/QQxiaoming/quardCRT/actions/workflows/windows.yml
    :alt: Windows ci
-.. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/linux.yml?branch=main&logo=linux
+.. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/linux.yml?branch=main&logo=linux&logoColor=white
    :target: https://github.com/QQxiaoming/quardCRT/actions/workflows/linux.yml
    :alt: Linux ci
 .. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/macos.yml?branch=main&logo=apple
@@ -17,7 +17,7 @@ quardCRT
 .. image:: https://img.shields.io/codefactor/grade/github/qqxiaoming/quardCRT.svg?logo=codefactor
    :target: https://www.codefactor.io/repository/github/qqxiaoming/quardCRT
    :alt: CodeFactor
-.. image:: https://readthedocs.org/projects/quardcrt/badge/?version=latest
+.. image:: https://img.shields.io/readthedocs/quardcrt.svg?logo=readthedocs
    :target: https://quardcrt.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 .. image:: https://img.shields.io/github/license/qqxiaoming/quardCRT.svg?colorB=f48041&logo=gnu
