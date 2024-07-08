@@ -39,10 +39,6 @@ public:
     void setType(const QString &type);
     void setTransInfo(int64_t tx, int64_t rx);
 
-protected:
-    void mouseMoveEvent(QMouseEvent *event);
-    void leaveEvent(QEvent *event);
-
 private:
     Ui::StatusBarWidget *ui;
 };

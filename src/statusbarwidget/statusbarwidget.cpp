@@ -29,6 +29,13 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     ui->statusBarCursorInfo->setVisible(false);
     ui->statusBarType->setVisible(false);
     ui->statusBarTrans->setVisible(false);
+
+    ui->statusBarCursorInfo->setPopupMode(QToolButton::InstantPopup);
+    ui->statusBarCursorInfo->setAutoRaise(true);
+    ui->statusBarType->setPopupMode(QToolButton::InstantPopup);
+    ui->statusBarType->setAutoRaise(true);
+    ui->statusBarTrans->setPopupMode(QToolButton::InstantPopup);
+    ui->statusBarTrans->setAutoRaise(true);
 }
 
 StatusBarWidget::~StatusBarWidget() {
@@ -76,30 +83,3 @@ void StatusBarWidget::setTransInfo(int64_t tx, int64_t rx) {
     ui->statusBarTrans->setVisible(true);
 }
 
-void StatusBarWidget::mouseMoveEvent(QMouseEvent *event) {
-    if(ui->statusBarCursorInfo->geometry().contains(event->pos())) {
-        ui->statusBarCursorInfo->setEnabled(true);
-        ui->statusBarType->setEnabled(false);
-        ui->statusBarTrans->setEnabled(false);
-    } else if(ui->statusBarType->geometry().contains(event->pos())) {
-        ui->statusBarCursorInfo->setEnabled(false);
-        ui->statusBarType->setEnabled(true);
-        ui->statusBarTrans->setEnabled(false);
-    } else if(ui->statusBarTrans->geometry().contains(event->pos())) {
-        ui->statusBarCursorInfo->setEnabled(false);
-        ui->statusBarType->setEnabled(false);
-        ui->statusBarTrans->setEnabled(true);
-    } else {
-        ui->statusBarCursorInfo->setEnabled(false);
-        ui->statusBarType->setEnabled(false);
-        ui->statusBarTrans->setEnabled(false);
-    }
-    QWidget::mouseMoveEvent(event);
-}
-
-void StatusBarWidget::leaveEvent(QEvent *event) {
-    ui->statusBarCursorInfo->setEnabled(false);
-    ui->statusBarType->setEnabled(false);
-    ui->statusBarTrans->setEnabled(false);
-    QWidget::leaveEvent(event);
-}
