@@ -12,7 +12,7 @@
 - Add up to four window split screen mode and multiple layout modes
 - Add single/group/all session three modes in the send command window
 - Fix the Telnet session storage configuration error in non-English environments, which causes connection problems [#IAADHZ](https://gitee.com/QQxiaoming/quardCRT/issues/IAADHZ)
-- Add pre-built plugins [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp)
+- Add pre-built plugins [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp), and update pre-built plugin [ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial) to V0.0.3
 
 ## [[V0.4.7](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.7)] - 2024-06-26
 
