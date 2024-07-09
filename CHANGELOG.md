@@ -11,6 +11,7 @@ en-US:
 - Add a refresh serial port button in the serial port selection page
 - Add up to four window split screen mode and multiple layout modes
 - Add single/group/all session three modes in the send command window
+- Improve the context menu of URL recognition links
 - Fix the Telnet session storage configuration error in non-English environments, which causes connection problems [#IAADHZ](https://gitee.com/QQxiaoming/quardCRT/issues/IAADHZ)
 - Add pre-built plugins [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp), and update pre-built plugin [ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial) to V0.0.3
 
@@ -23,6 +24,7 @@ zh-CN:
 - 增加刷新串口按钮在选择串口页面中
 - 增加了至多四窗口分屏模式以及多种布局模式
 - 发送命令窗口增加单会话/组会话/全部会话三种模式
+- 改进URL识别链接的上下文菜单
 - 修复非英文环境下Telnet会话存储配置错误导致无法连接问题 [#IAADHZ](https://gitee.com/QQxiaoming/quardCRT/issues/IAADHZ)
 - 新增预构建插件[timestamp](https://github.com/QuardCRT-platform/plugin-timestamp)，更新预构建插件[ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial)到V0.0.3版本
 

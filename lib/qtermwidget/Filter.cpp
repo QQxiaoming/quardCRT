@@ -38,6 +38,7 @@
 
 #include "TerminalCharacterDecoder.h"
 #include "CharWidth.h"
+#include "qtermwidget.h"
 
 using namespace Konsole;
 
@@ -330,8 +331,18 @@ RegExpFilter::HotSpot::HotSpot(int startLine,int startColumn,int endLine,int end
     setType(Marker);
 }
 
-void RegExpFilter::HotSpot::activate(const QString&)
+void RegExpFilter::HotSpot::clickAction(void)
 {
+}
+
+QString RegExpFilter::HotSpot::clickActionToolTip(void) 
+{
+    return QString();
+}
+
+bool RegExpFilter::HotSpot::hasClickAction(void)
+{
+    return false;
 }
 
 void RegExpFilter::HotSpot::setCapturedTexts(const QStringList& texts)
@@ -438,50 +449,56 @@ UrlFilter::HotSpot::UrlType UrlFilter::HotSpot::urlType() const
         return Unknown;
 }
 
-void UrlFilter::HotSpot::activate(const QString& actionName)
+bool UrlFilter::HotSpot::hasClickAction(void)
+{
+    const UrlType kind = urlType();
+    if ( kind == StandardUrl ) {
+        return true;
+    } else if ( kind == FilePath ) {
+        return true;
+    }
+    return false;
+}
+
+QString UrlFilter::HotSpot::clickActionToolTip(void) 
+{
+    const UrlType kind = urlType();
+    if ( kind == StandardUrl ) {
+        return tr("Follow link (ctrl + click)");
+    } else if ( kind == FilePath ) {
+        return tr("Follow path (ctrl + click)");
+    }
+    return QString();
+}
+
+void UrlFilter::HotSpot::clickAction(void)
 {
     QString url = capturedTexts().constFirst();
-
     const UrlType kind = urlType();
 
-    if ( actionName == QLatin1String("copy-action") )
-    {
-        QApplication::clipboard()->setText(url);
+    if ( kind == StandardUrl ) {
+        // if the URL path does not include the protocol ( eg. "www.kde.org" ) then
+        // prepend http:// ( eg. "www.kde.org" --> "http://www.kde.org" )
+        if (!url.contains(QLatin1String("://"))) {
+            url.prepend(QLatin1String("http://"));
+        }
+    } else if ( kind == FilePath ) {
+        url.replace(QLatin1Char('\\'),QLatin1Char('/'));
+        url.replace(QLatin1Char('~'),QDir::homePath());
+        if(url.startsWith(QLatin1String("/"))) {
+            url.prepend(QLatin1String("file://"));
+        } else if(url.startsWith(QLatin1String("."))) {
+            url.prepend(QLatin1String("relative:"));
+        } else if(url.startsWith(QLatin1String(".."))) {
+            url.prepend(QLatin1String("relative:"));
+        } else {
+            url.prepend(QLatin1String("file:///"));
+        }
+    } else {
         return;
     }
 
-    if ( actionName.isEmpty() || actionName == QLatin1String("open-action") || actionName == QLatin1String("click-action") )
-    {
-        if ( kind == StandardUrl )
-        {
-            // if the URL path does not include the protocol ( eg. "www.kde.org" ) then
-            // prepend http:// ( eg. "www.kde.org" --> "http://www.kde.org" )
-            if (!url.contains(QLatin1String("://")))
-            {
-                url.prepend(QLatin1String("http://"));
-            }
-        }
-        else if ( kind == Email )
-        {
-            url.prepend(QLatin1String("mailto:"));
-        }
-        else if ( kind == FilePath )
-        {
-            url.replace(QLatin1Char('\\'),QLatin1Char('/'));
-            url.replace(QLatin1Char('~'),QDir::homePath());
-            if(url.startsWith(QLatin1String("/"))) {
-                url.prepend(QLatin1String("file://"));
-            } else if(url.startsWith(QLatin1String("."))) {
-                url.prepend(QLatin1String("relative:"));
-            } else if(url.startsWith(QLatin1String(".."))) {
-                url.prepend(QLatin1String("relative:"));
-            } else {
-                url.prepend(QLatin1String("file:///"));
-            }
-        }
-
-        _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), actionName != QLatin1String("click-action"));
-    }
+    _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), QTermWidget::OpenFromClick);
 }
 
 // Note:  Altering these regular expressions can have a major effect on the performance of the filters
@@ -522,14 +539,9 @@ UrlFilter::HotSpot::~HotSpot()
     delete _urlObject;
 }
 
-void FilterObject::emitActivated(const QUrl& url, bool fromContextMenu)
+void FilterObject::emitActivated(const QUrl& url, uint32_t opcode)
 {
-    emit activated(url, fromContextMenu);
-}
-
-void FilterObject::activate()
-{
-    _filter->activate(sender()->objectName());
+    emit activated(url, opcode);
 }
 
 FilterObject* UrlFilter::HotSpot::getUrlObject() const
@@ -543,38 +555,89 @@ QList<QAction*> UrlFilter::HotSpot::actions()
 
     const UrlType kind = urlType();
 
-    QAction* openAction = new QAction(_urlObject);
-    QAction* copyAction = new QAction(_urlObject);;
-
     Q_ASSERT( kind == StandardUrl || kind == Email || kind == FilePath );
 
-    if ( kind == StandardUrl )
-    {
-        openAction->setText(QObject::tr("Open Link"));
-        copyAction->setText(QObject::tr("Copy Link Address"));
+    if ( kind == StandardUrl ) {
+        QAction* openLinkAction = new QAction(_urlObject);
+        QAction* copyLinkAction = new QAction(_urlObject);
+        openLinkAction->setText(QObject::tr("Open Link"));
+        copyLinkAction->setText(QObject::tr("Copy Link Address"));
+        QObject::connect( openLinkAction , &QAction::triggered , _urlObject , [&](void) {    
+            QString url = capturedTexts().constFirst();
+            // if the URL path does not include the protocol ( eg. "www.kde.org" ) then
+            // prepend http:// ( eg. "www.kde.org" --> "http://www.kde.org" )
+            if (!url.contains(QLatin1String("://"))) {
+                url.prepend(QLatin1String("http://"));
+            }
+            _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), QTermWidget::OpenFromContextMenu);
+        });
+        QObject::connect( copyLinkAction , &QAction::triggered , _urlObject , [&](void) {    
+            QString url = capturedTexts().constFirst();
+            QApplication::clipboard()->setText(url);
+        });
+        list << openLinkAction;
+        list << copyLinkAction;
+    } else if ( kind == Email ) {
+        QAction* sendEmailAction = new QAction(_urlObject);
+        QAction* copyEmailAction = new QAction(_urlObject);
+        sendEmailAction->setText(QObject::tr("Send Email To..."));
+        copyEmailAction->setText(QObject::tr("Copy Email Address"));
+        QObject::connect( sendEmailAction , &QAction::triggered , _urlObject ,  [&](void) {    
+            QString url = capturedTexts().constFirst();
+            url.prepend(QLatin1String("mailto:"));
+            _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), QTermWidget::OpenFromContextMenu);
+        });
+        QObject::connect( copyEmailAction , &QAction::triggered , _urlObject , [&](void) {    
+            QString url = capturedTexts().constFirst();
+            QApplication::clipboard()->setText(url);
+        });
+        list << sendEmailAction;
+        list << copyEmailAction;
+    } else if ( kind == FilePath ) {
+        QAction* openPathAction = new QAction(_urlObject);
+        QAction* openContainingPathAction = new QAction(_urlObject);
+        QAction* copyPathAction = new QAction(_urlObject);
+        openPathAction->setText(QObject::tr("Open Path"));
+        openContainingPathAction->setText(QObject::tr("Open Containing Folder"));
+        copyPathAction->setText(QObject::tr("Copy Path"));
+        QObject::connect( openPathAction , &QAction::triggered , _urlObject ,  [&](void) {    
+            QString url = capturedTexts().constFirst();
+            url.replace(QLatin1Char('\\'),QLatin1Char('/'));
+            url.replace(QLatin1Char('~'),QDir::homePath());
+            if(url.startsWith(QLatin1String("/"))) {
+                url.prepend(QLatin1String("file://"));
+            } else if(url.startsWith(QLatin1String("."))) {
+                url.prepend(QLatin1String("relative:"));
+            } else if(url.startsWith(QLatin1String(".."))) {
+                url.prepend(QLatin1String("relative:"));
+            } else {
+                url.prepend(QLatin1String("file:///"));
+            }
+            _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), QTermWidget::OpenFromContextMenu);
+        });
+        QObject::connect( openContainingPathAction , &QAction::triggered , _urlObject , [&](void) {    
+            QString url = capturedTexts().constFirst();
+            url.replace(QLatin1Char('\\'),QLatin1Char('/'));
+            url.replace(QLatin1Char('~'),QDir::homePath());
+            if(url.startsWith(QLatin1String("/"))) {
+                url.prepend(QLatin1String("file://"));
+            } else if(url.startsWith(QLatin1String("."))) {
+                url.prepend(QLatin1String("relative:"));
+            } else if(url.startsWith(QLatin1String(".."))) {
+                url.prepend(QLatin1String("relative:"));
+            } else {
+                url.prepend(QLatin1String("file:///"));
+            }
+            _urlObject->emitActivated(QUrl(url, QUrl::StrictMode), QTermWidget::OpenContainingFromContextMenu);
+        });
+        QObject::connect( copyPathAction , &QAction::triggered , _urlObject , [&](void) {    
+            QString url = capturedTexts().constFirst();
+            QApplication::clipboard()->setText(url);
+        });
+        list << openPathAction;
+        list << openContainingPathAction;
+        list << copyPathAction;
     }
-    else if ( kind == Email )
-    {
-        openAction->setText(QObject::tr("Send Email To..."));
-        copyAction->setText(QObject::tr("Copy Email Address"));
-    }
-    else if ( kind == FilePath )
-    {
-        openAction->setText(QObject::tr("Open Path"));
-        copyAction->setText(QObject::tr("Copy Path"));
-    }
-
-    // object names are set here so that the hotspot performs the
-    // correct action when activated() is called with the triggered
-    // action passed as a parameter.
-    openAction->setObjectName( QLatin1String("open-action" ));
-    copyAction->setObjectName( QLatin1String("copy-action" ));
-
-    QObject::connect( openAction , &QAction::triggered , _urlObject , &FilterObject::activate );
-    QObject::connect( copyAction , &QAction::triggered , _urlObject , &FilterObject::activate );
-
-    list << openAction;
-    list << copyAction;
 
     return list;
 }

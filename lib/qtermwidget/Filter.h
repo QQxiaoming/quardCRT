@@ -112,7 +112,9 @@ public:
         * one of the object names from the actions() list.  In which case the associated
         * action should be performed.
         */
-       virtual void activate(const QString& action = QString()) = 0;
+       virtual void clickAction(void) = 0;
+       virtual QString clickActionToolTip(void) = 0;
+       virtual bool hasClickAction(void) = 0;
        /**
         * Returns a list of actions associated with the hotspot which can be used in a
         * menu or toolbar
@@ -196,7 +198,9 @@ public:
     {
     public:
         HotSpot(int startLine, int startColumn, int endLine , int endColumn);
-        void activate(const QString& action = QString()) override;
+        void clickAction(void) override;
+        QString clickActionToolTip(void) override;
+        bool hasClickAction(void) override;
 
         /** Sets the captured texts associated with this hotspot */
         void setCapturedTexts(const QStringList& texts);
@@ -270,7 +274,9 @@ public:
          * Open a web browser at the current URL.  The url itself can be determined using
          * the capturedTexts() method.
          */
-        void activate(const QString& action = QString()) override;
+        void clickAction(void) override;
+        QString clickActionToolTip(void) override;
+        bool hasClickAction(void) override;
 
     private:
         enum UrlType
@@ -304,7 +310,7 @@ private:
     static const QRegularExpression CompleteUrlRegExp;
 
 signals:
-    void activated(const QUrl& url, bool fromContextMenu);
+    void activated(const QUrl& url, uint32_t opcode);
 };
 
 class FilterObject : public QObject
@@ -313,13 +319,12 @@ class FilterObject : public QObject
 public:
     FilterObject(Filter::HotSpot* filter) : _filter(filter) {}
 
-    void emitActivated(const QUrl& url, bool fromContextMenu);
-public slots:
-    void activate();
+    void emitActivated(const QUrl& url, uint32_t opcode);
+
 private:
     Filter::HotSpot* _filter;
 signals:
-    void activated(const QUrl& url, bool fromContextMenu);
+    void activated(const QUrl& url, uint32_t opcode);
 };
 
 /**

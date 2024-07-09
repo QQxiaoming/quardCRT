@@ -47,6 +47,11 @@ public:
         /** Show the scroll bar on the right side of the display. */
         ScrollBarRight = 2
     };
+    enum UrlActivatedType {
+        OpenFromContextMenu = 0,
+        OpenContainingFromContextMenu = 1,
+        OpenFromClick = 2
+    };
 
     using KeyboardCursorShape = Konsole::Emulation::KeyboardCursorShape;
 
@@ -275,7 +280,7 @@ signals:
 
     void termKeyPressed(QKeyEvent *);
 
-    void urlActivated(const QUrl&, bool fromContextMenu);
+    void urlActivated(const QUrl&, uint32_t opcode);
 
     void bell(const QString& message);
 

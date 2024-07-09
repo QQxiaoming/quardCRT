@@ -2294,8 +2294,11 @@ void TerminalDisplay::mousePressEvent(QMouseEvent* ev)
 
       if (ev->modifiers() & Qt::ControlModifier) {
         Filter::HotSpot *spot = _filterChain->hotSpotAt(charLine, charColumn);
-        if (spot && spot->type() == Filter::HotSpot::Link)
-            spot->activate(QLatin1String("click-action"));
+        if (spot && spot->type() == Filter::HotSpot::Link) {
+          if(spot->hasClickAction()){
+            spot->clickAction();
+          }
+        }
       }
     }
   }
@@ -2373,12 +2376,16 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent* ev)
     update( _mouseOverHotspotArea | previousHotspotArea );
     if ( _mouseOverHotspotArea.contains(ev->pos()) )
     {
-        QPoint globalPos = mapToGlobal(ev->pos());
-        QToolTip::showText(globalPos, tr("Follow link (ctrl + click)"));
-        if(!_ctrlDrag && ev->modifiers() & Qt::ControlModifier) {
+        if ( spot && spot->type() == Filter::HotSpot::Link && spot->hasClickAction()) {
+          QPoint globalPos = mapToGlobal(ev->pos());
+          QToolTip::showText(globalPos, spot->clickActionToolTip());
+          if(!_ctrlDrag && ev->modifiers() & Qt::ControlModifier) {
             setCursor(QCursor(Qt::PointingHandCursor));
-        } else {
+          } else {
             setCursor(QCursor(_mouseMarks ? Qt::IBeamCursor : Qt::ArrowCursor));
+          }
+        } else {
+          setCursor(QCursor(_mouseMarks ? Qt::IBeamCursor : Qt::ArrowCursor));
         }
     } else {
         QToolTip::hideText();

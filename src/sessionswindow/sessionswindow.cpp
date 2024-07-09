@@ -427,7 +427,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             saveLog(data, size);
             writeReceiveASCIIFile(data, size);
         });
-        connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, bool fromContextMenu){
+        connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, uint32_t opcode){
             QUrl u = url;
             QString path = u.toString();
             if(path.startsWith("relative:") ) {
@@ -468,8 +468,22 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     }
                 }
             }
-            QDesktopServices::openUrl(u);
-            Q_UNUSED(fromContextMenu);
+            switch(opcode) {
+                case QTermWidget::OpenFromContextMenu:
+                case QTermWidget::OpenFromClick:
+                    QDesktopServices::openUrl(u);
+                    break;
+                case QTermWidget::OpenContainingFromContextMenu: {
+                    QFileInfo fileInfo(u.toLocalFile());
+                    QDir dir = fileInfo.dir();
+                    if(dir.exists()) {
+                        QDesktopServices::openUrl(QUrl::fromLocalFile(dir.path()));
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
         });
         // only windows and macos need do this, because linux support Selection Clipboard by default
         bool supportSelection = QApplication::clipboard()->supportsSelection();
