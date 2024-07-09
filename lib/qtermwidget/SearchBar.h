@@ -35,6 +35,7 @@ public:
     bool useRegularExpression();
     bool matchCase();
     bool highlightAllMatches();
+    void setText(const QString &text);
     void retranslateUi(void);
 
 public slots:

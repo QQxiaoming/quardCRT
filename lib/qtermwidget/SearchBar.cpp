@@ -129,6 +129,11 @@ void SearchBar::clearBackgroundColor()
     widget.searchTextEdit->setPalette(QWidget::window()->palette());
 }
 
+void SearchBar::setText(const QString &text)
+{
+    return widget.searchTextEdit->setText(text);
+}
+
 void SearchBar::retranslateUi(void) {
     widget.retranslateUi(this);
     m_matchCaseMenuEntry->setText(tr("Match case"));

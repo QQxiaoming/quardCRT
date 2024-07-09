@@ -470,14 +470,21 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             }
             switch(opcode) {
                 case QTermWidget::OpenFromContextMenu:
-                case QTermWidget::OpenFromClick:
-                    QDesktopServices::openUrl(u);
+                case QTermWidget::OpenFromClick: {
+                    bool ret = QDesktopServices::openUrl(u);
+                    if(!ret) {
+                        QMessageBox::warning(messageParentWidget, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
+                    }
                     break;
+                }
                 case QTermWidget::OpenContainingFromContextMenu: {
                     QFileInfo fileInfo(u.toLocalFile());
                     QDir dir = fileInfo.dir();
                     if(dir.exists()) {
-                        QDesktopServices::openUrl(QUrl::fromLocalFile(dir.path()));
+                        bool ret = QDesktopServices::openUrl(QUrl::fromLocalFile(dir.path()));
+                        if(!ret) {
+                            QMessageBox::warning(messageParentWidget, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
+                        }
                     }
                     break;
                 }
