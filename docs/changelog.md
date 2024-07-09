@@ -13,6 +13,7 @@
 - Add single/group/all session three modes in the send command window
 - Improve the context menu of URL recognition links
 - Improve the find window to automatically fill in the currently selected text each time it is opened
+- Improve status bar
 - Fix the Telnet session storage configuration error in non-English environments, which causes connection problems [#IAADHZ](https://gitee.com/QQxiaoming/quardCRT/issues/IAADHZ)
 - Add pre-built plugins [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp), and update pre-built plugin [ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial) to V0.0.3
 

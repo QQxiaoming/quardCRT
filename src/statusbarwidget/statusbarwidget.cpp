@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
+#include "qfonticon.h"
 #include "statusbarwidget.h"
 #include "ui_statusbarwidget.h"
 
@@ -26,16 +27,35 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     ui->setupUi(this);
     setMouseTracking(true);
 
-    ui->statusBarCursorInfo->setVisible(false);
-    ui->statusBarType->setVisible(false);
-    ui->statusBarTrans->setVisible(false);
+    statusBarCursorInfo = new StatusBarToolButton(this);
+    statusBarType = new StatusBarToolButton(this);
+    statusBarTransTx = new StatusBarToolButton(this);
+    statusBarTransRx = new StatusBarToolButton(this);
+    statusBarNotifiction = new StatusBarToolButton(this);
+    ui->horizontalLayout->addWidget(statusBarCursorInfo);
+    ui->horizontalLayout->addWidget(statusBarType);
+    ui->horizontalLayout->addWidget(statusBarTransTx);
+    ui->horizontalLayout->addWidget(statusBarTransRx);
+    ui->horizontalLayout->addWidget(statusBarNotifiction);
 
-    ui->statusBarCursorInfo->setPopupMode(QToolButton::InstantPopup);
-    ui->statusBarCursorInfo->setAutoRaise(true);
-    ui->statusBarType->setPopupMode(QToolButton::InstantPopup);
-    ui->statusBarType->setAutoRaise(true);
-    ui->statusBarTrans->setPopupMode(QToolButton::InstantPopup);
-    ui->statusBarTrans->setAutoRaise(true);
+    statusBarCursorInfo->setVisible(false);
+    statusBarType->setVisible(false);
+    statusBarTransTx->setVisible(false);
+    statusBarTransRx->setVisible(false);
+    statusBarTransTx->setIcon(QFontIcon::icon(QChar(0xf0ee)));
+    statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));
+    statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0a2)));
+
+    statusBarCursorInfo->setPopupMode(QToolButton::InstantPopup);
+    statusBarCursorInfo->setAutoRaise(true);
+    statusBarType->setPopupMode(QToolButton::InstantPopup);
+    statusBarType->setAutoRaise(true);
+    statusBarTransTx->setPopupMode(QToolButton::InstantPopup);
+    statusBarTransTx->setAutoRaise(true);
+    statusBarTransTx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    statusBarTransRx->setPopupMode(QToolButton::InstantPopup);
+    statusBarTransRx->setAutoRaise(true);
+    statusBarTransRx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 }
 
 StatusBarWidget::~StatusBarWidget() {
@@ -44,28 +64,30 @@ StatusBarWidget::~StatusBarWidget() {
 
 void StatusBarWidget::setCursorPosition(int64_t x, int64_t y) {
     if(x < 0 || y < 0) {
-        ui->statusBarCursorInfo->setText("Ln /, Col /");
-        ui->statusBarCursorInfo->setVisible(false);
+        statusBarCursorInfo->setText("Ln /, Col /");
+        statusBarCursorInfo->setVisible(false);
         return;
     }
-    ui->statusBarCursorInfo->setText(QString("Ln %1, Col %2").arg(x).arg(y));
-    ui->statusBarCursorInfo->setVisible(true);
+    statusBarCursorInfo->setText(QString("Ln %1, Col %2").arg(x).arg(y));
+    statusBarCursorInfo->setVisible(true);
 }
 
 void StatusBarWidget::setType(const QString &type) {
     if(type.isEmpty()) {
-        ui->statusBarType->setText("Null");
-        ui->statusBarType->setVisible(false);
+        statusBarType->setText("Null");
+        statusBarType->setVisible(false);
         return;
     }
-    ui->statusBarType->setText(type);
-    ui->statusBarType->setVisible(true);
+    statusBarType->setText(type);
+    statusBarType->setVisible(true);
 }
 
 void StatusBarWidget::setTransInfo(int64_t tx, int64_t rx) {
     if(tx < 0 || rx < 0) {
-        ui->statusBarTrans->setText("Tx /, Rx /");
-        ui->statusBarTrans->setVisible(false);
+        statusBarTransTx->setText("/");
+        statusBarTransRx->setText("/");
+        statusBarTransTx->setVisible(false);
+        statusBarTransRx->setVisible(false);
         return;
     }
     auto getSize = [](int64_t size) -> QString {
@@ -79,7 +101,17 @@ void StatusBarWidget::setTransInfo(int64_t tx, int64_t rx) {
             return QString::number(size / (1024.0 * 1024.0 * 1024.0), 'f', 2) + QString(" GB");
         }
     };
-    ui->statusBarTrans->setText(QString("Tx %1, Rx %2").arg(getSize(tx)).arg(getSize(rx)));
-    ui->statusBarTrans->setVisible(true);
+    statusBarTransTx->setText(QString("%1").arg(getSize(tx)));
+    statusBarTransRx->setText(QString("%1").arg(getSize(rx)));
+    statusBarTransTx->setVisible(true);
+    statusBarTransRx->setVisible(true);
+}
+
+void StatusBarWidget::setNotifiction(bool enable) {
+    if(enable) {
+        statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0f3)));
+    } else {
+        statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0a2)));
+    }
 }
 

@@ -862,8 +862,8 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
                 }
             }
         });
+        serialPort->setBreakEnabled(xEnable);
     }
-    serialPort->setBreakEnabled(xEnable);
     m_portName = portName;
     m_baudRate = baudRate;
     m_dataBits = dataBits;

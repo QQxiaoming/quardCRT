@@ -21,8 +21,86 @@
 #define STATUSBARWIDGET_H
 
 #include <QWidget>
-#include <QMouseEvent>
+#include <QPaintEvent>
 #include <QEvent>
+#include <QToolButton>
+#include <QPainter>
+#include <QStyle>
+#include <QStyleOptionButton>
+
+class StatusBarToolButton : public QToolButton
+{
+    Q_OBJECT
+
+public:
+    explicit StatusBarToolButton(QWidget *parent = nullptr) 
+        : QToolButton(parent) {
+
+    }
+    ~StatusBarToolButton() {
+
+    }
+    void setText(const QString &text) {
+        QToolButton::setText(text);
+        QFontMetrics metrics = fontMetrics();
+        int fontsize = metrics.horizontalAdvance(" ",1);
+        if (!icon().isNull()) {
+            int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize);
+            if(text.isEmpty()) {
+                setFixedWidth(iconSize);
+            } else {
+                setFixedWidth(metrics.horizontalAdvance(text)+fontsize+iconSize);
+            }
+        } else {
+            setFixedWidth(metrics.horizontalAdvance(text)+fontsize);
+        }
+    }
+    void setIcon(const QIcon &icon) {
+        QToolButton::setIcon(icon);
+        QFontMetrics metrics = fontMetrics();
+        int fontsize = metrics.horizontalAdvance(" ",1);
+        if (!icon.isNull()) {
+            int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize);
+            if(text().isEmpty()) {
+                setFixedWidth(iconSize);
+            } else {
+                setFixedWidth(metrics.horizontalAdvance(text())+fontsize+iconSize);
+            }
+        } else {
+            setFixedWidth(metrics.horizontalAdvance(text())+fontsize);
+        }
+    }
+
+protected:
+    void paintEvent(QPaintEvent *event) override {
+        Q_UNUSED(event);
+        QPainter painter(this);
+
+        QStyleOptionButton option;
+        option.initFrom(this);
+        style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
+
+        QRect textRect = rect();
+        if (!icon().isNull()) {
+            int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize);
+            QSize size = this->size();
+            int fontsize = painter.fontMetrics().horizontalAdvance(" ",1);
+            if(text().isEmpty()) {
+                int iconX = (size.width() - iconSize) / 2;
+                int iconY = (size.height() - iconSize) / 2;
+                painter.drawPixmap(iconX, iconY, icon().pixmap(iconSize, iconSize));
+            } else {
+                int iconX = (size.width() - iconSize - fontsize/2 - painter.fontMetrics().horizontalAdvance(text())) / 2;
+                int iconY = (size.height() - iconSize) / 2;
+                painter.drawPixmap(iconX, iconY, icon().pixmap(iconSize, iconSize));
+                textRect.setLeft(iconX + iconSize + fontsize/2);
+                painter.drawText(textRect, Qt::AlignVCenter, text());
+            }
+        } else {
+            painter.drawText(textRect, Qt::AlignCenter, text());
+        }
+    }
+};
 
 namespace Ui {
 class StatusBarWidget;
@@ -38,9 +116,15 @@ public:
     void setCursorPosition(int64_t x, int64_t y);
     void setType(const QString &type);
     void setTransInfo(int64_t tx, int64_t rx);
+    void setNotifiction(bool enable);
 
 private:
     Ui::StatusBarWidget *ui;
+    StatusBarToolButton *statusBarCursorInfo;
+    StatusBarToolButton *statusBarType;
+    StatusBarToolButton *statusBarTransTx;
+    StatusBarToolButton *statusBarTransRx;
+    StatusBarToolButton *statusBarNotifiction;
 };
 
 #endif // STATUSBARWIDGET_H
