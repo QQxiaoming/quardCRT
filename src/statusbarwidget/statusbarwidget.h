@@ -35,10 +35,9 @@ class StatusBarToolButton : public QToolButton
 public:
     explicit StatusBarToolButton(QWidget *parent = nullptr) 
         : QToolButton(parent) {
-
+        setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
     }
     ~StatusBarToolButton() {
-
     }
     void setText(const QString &text) {
         QToolButton::setText(text);

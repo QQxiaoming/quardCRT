@@ -913,6 +913,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         refreshStatusBar();
     });
     statusBarWidgetRefreshTimer->start();
+    ui->statusBar->setSizeGripEnabled(false);
 
     initSysEnv();
 
