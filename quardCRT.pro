@@ -58,6 +58,7 @@ SOURCES += \
     src/plugininfowindow/plugininfowindow.cpp \
     src/pluginviewerwidget/pluginviewerhomewidget.cpp \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
+    src/sessionoptions/sessionoptionsserialstate.cpp \
     src/statusbarwidget/statusbarwidget.cpp \
     src/util/logger.cpp \
     src/util/misc.cpp \
@@ -102,6 +103,7 @@ HEADERS += \
     src/plugininfowindow/plugininfowindow.h \
     src/pluginviewerwidget/pluginviewerhomewidget.h \
     src/pluginviewerwidget/pluginviewerwidget.h \
+    src/sessionoptions/sessionoptionsserialstate.h \
     src/statusbarwidget/statusbarwidget.h \
     src/util/logger.h \
     src/util/misc.h \
@@ -160,6 +162,7 @@ FORMS += \
     src/sessionoptions/sessionoptionsnamepipeproperties.ui \
     src/sessionoptions/sessionoptionsrawproperties.ui \
     src/sessionoptions/sessionoptionsserialproperties.ui \
+    src/sessionoptions/sessionoptionsserialstate.ui \
     src/sessionoptions/sessionoptionsssh2properties.ui \
     src/sessionoptions/sessionoptionstelnetproperties.ui \
     src/sessionoptions/sessionoptionsvncproperties.ui \

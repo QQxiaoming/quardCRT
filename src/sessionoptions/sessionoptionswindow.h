@@ -39,6 +39,7 @@
 #include "sessionoptionsvncproperties.h"
 
 #include "sessionoptionslocalshellstate.h"
+#include "sessionoptionsserialstate.h"
 
 namespace Ui {
 class SessionOptionsWindow;
@@ -83,6 +84,7 @@ private:
     SessionOptionsSsh2Properties *sessionOptionsSSH2Properties;
     SessionOptionsVNCProperties *sessionOptionsVNCProperties;
     SessionOptionsLocalShellState *sessionOptionsLocalShellState;
+    SessionOptionsSerialState *sessionOptionsSerialState;
     QStringListModel *model;
     QString currentSessionName;
 };

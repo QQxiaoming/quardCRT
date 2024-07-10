@@ -38,6 +38,7 @@
 #include "ui_sessionoptionsssh2properties.h"
 #include "ui_sessionoptionsvncproperties.h"
 
+#include "ui_sessionoptionsserialstate.h"
 #include "ui_sessionoptionslocalshellstate.h"
 
 SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
@@ -85,6 +86,8 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
 
     sessionOptionsLocalShellState = new SessionOptionsLocalShellState(widget);
     widget->layout()->addWidget(sessionOptionsLocalShellState);
+    sessionOptionsSerialState = new SessionOptionsSerialState(widget);
+    widget->layout()->addWidget(sessionOptionsSerialState);
 
     sessionOptionsGeneralWidget->setVisible(true);
     setactiveProperties(-1);
@@ -143,6 +146,7 @@ void SessionOptionsWindow::retranslateUi()
     sessionOptionsVNCProperties->ui->retranslateUi(this);
     sessionOptionsLocalShellState->ui->retranslateUi(this);
     sessionOptionsLocalShellState->ui->treeViewInfo->model()->setHeaderData(1, Qt::Horizontal, tr("Name"));
+    sessionOptionsSerialState->ui->retranslateUi(this);
 }
 
 void SessionOptionsWindow::setactiveProperties(int index)
@@ -186,11 +190,15 @@ void SessionOptionsWindow::setactiveProperties(int index)
 void SessionOptionsWindow::setactiveState(int index)
 {
     sessionOptionsLocalShellState->setVisible(false);
+    sessionOptionsSerialState->setVisible(false);
 
     if(index == -1) {
         return;
     }
     switch(index) {
+    case 1:
+        sessionOptionsSerialState->setVisible(true);
+        break;
     case 2:
         sessionOptionsLocalShellState->setVisible(true);
         break;
@@ -264,41 +272,64 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
 
 void SessionOptionsWindow::setSessionState(SessionsWindow::StateInfo state)
 {
+    auto setLabelState = [](QLabel *label, SessionsWindow::SessionsState st) {
+        switch(st) {
+            case SessionsWindow::Connected:
+                label->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf0c1), Qt::green).pixmap(16,16)));
+                break;
+            case SessionsWindow::Disconnected:
+            case SessionsWindow::Error:
+                label->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf127), Qt::red).pixmap(16,16)));
+                break;
+            case SessionsWindow::Locked:
+                label->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf084), Qt::yellow).pixmap(16,16)));
+                break;
+            case SessionsWindow::BroadCasted:
+                label->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf08e), Qt::yellow).pixmap(16,16)));
+                break;
+        }
+    };
     switch(state.type) {
-        case SessionsWindow::LocalShell: {
-            switch(state.state) {
-                case SessionsWindow::Connected: {
-                    sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf0c1), Qt::green).pixmap(16,16)));
-                    QStandardItemModel *model = (QStandardItemModel *)sessionOptionsLocalShellState->ui->treeViewInfo->model();
-                    std::function<void(IPtyProcess::pidTree_t, QStandardItem *)> addNode = [&](IPtyProcess::pidTree_t tree, QStandardItem *parent) {
-                        qint64 pid = tree.pidInfo.pid;
-                        QString path = tree.pidInfo.command;
-                        QFileInfo fileInfo(path);
-                        QString name = fileInfo.fileName();
-                        QList<QStandardItem *> items = { new QStandardItem(), new QStandardItem() };
-                        items[0]->setData(pid, Qt::DisplayRole);
-                        items[1]->setData(name, Qt::DisplayRole);
-                        items[1]->setData(path, Qt::ToolTipRole);
-                        parent->appendRow(items);
-                        foreach(IPtyProcess::pidTree_t child, tree.children) {
-                            addNode(child, items[0]);
-                        }
-                    };
-                    addNode(state.localShell.tree, model->invisibleRootItem());
-                    sessionOptionsLocalShellState->ui->treeViewInfo->expandToDepth(2);
-                    break;
+        case QuickConnectWindow::Serial: {
+            auto getSize = [](int64_t size) -> QString {
+                if( size <= 1024) {
+                    return QString("%1 B").arg(size);
+                } else if ( size <= 1024 * 1024 ) {
+                    return QString::number(size / 1024.0, 'f', 2) + QString(" KB");
+                } else if ( size <= 1024 * 1024 * 1024 ) {
+                    return QString::number(size / (1024.0 * 1024.0), 'f', 2) + QString(" MB");
+                } else {
+                    return QString::number(size / (1024.0 * 1024.0 * 1024.0), 'f', 2) + QString(" GB");
                 }
-                case SessionsWindow::Disconnected:
-                case SessionsWindow::Error:
-                    sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf127), Qt::red).pixmap(16,16)));
-                    break;
-                case SessionsWindow::Locked:
-                    sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf084), Qt::yellow).pixmap(16,16)));
-                    break;
-                case SessionsWindow::BroadCasted:
-                    sessionOptionsLocalShellState->ui->labelState->setPixmap(QPixmap(QFontIcon::icon(QChar(0xf08e), Qt::yellow).pixmap(16,16)));
-                    break;
+            };
+            sessionOptionsSerialState->ui->lineEditRx1->setText(getSize(state.serial.rx_total));
+            sessionOptionsSerialState->ui->lineEditTx1->setText(getSize(state.serial.tx_total));
+            sessionOptionsSerialState->ui->lineEditRx2->setText(QString::number(state.serial.rx_total)+" B");
+            sessionOptionsSerialState->ui->lineEditTx2->setText(QString::number(state.serial.tx_total)+" B");
+            setLabelState(sessionOptionsSerialState->ui->labelState, state.state);
+            break;
+        }
+        case SessionsWindow::LocalShell: {
+            if(state.state == SessionsWindow::Connected) {
+                QStandardItemModel *model = (QStandardItemModel *)sessionOptionsLocalShellState->ui->treeViewInfo->model();
+                std::function<void(IPtyProcess::pidTree_t, QStandardItem *)> addNode = [&](IPtyProcess::pidTree_t tree, QStandardItem *parent) {
+                    qint64 pid = tree.pidInfo.pid;
+                    QString path = tree.pidInfo.command;
+                    QFileInfo fileInfo(path);
+                    QString name = fileInfo.fileName();
+                    QList<QStandardItem *> items = { new QStandardItem(), new QStandardItem() };
+                    items[0]->setData(pid, Qt::DisplayRole);
+                    items[1]->setData(name, Qt::DisplayRole);
+                    items[1]->setData(path, Qt::ToolTipRole);
+                    parent->appendRow(items);
+                    foreach(IPtyProcess::pidTree_t child, tree.children) {
+                        addNode(child, items[0]);
+                    }
+                };
+                addNode(state.localShell.tree, model->invisibleRootItem());
+                sessionOptionsLocalShellState->ui->treeViewInfo->expandToDepth(2);
             }
+            setLabelState(sessionOptionsLocalShellState->ui->labelState, state.state);
             break;
         }
         default:
