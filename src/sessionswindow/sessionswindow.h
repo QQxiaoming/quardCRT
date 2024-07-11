@@ -71,10 +71,14 @@ public:
         struct TelnetState {
             uint64_t tx_total;
             uint64_t rx_total;
+            qreal tx_speed;
+            qreal rx_speed;
         } telnet;
         struct SerialState {
             uint64_t tx_total;
             uint64_t rx_total;
+            qreal tx_speed;
+            qreal rx_speed;
         } serial;
         struct LocalShellState {
             IPtyProcess::pidTree_t tree;
@@ -82,6 +86,8 @@ public:
         struct RawSocketState {
             uint64_t tx_total;
             uint64_t rx_total;
+            qreal tx_speed;
+            qreal rx_speed;
         } rawSocket;
         struct NamePipeState {
             uint64_t dummy;
@@ -89,6 +95,8 @@ public:
         struct SSH2State {
             uint64_t tx_total;
             uint64_t rx_total;
+            qreal tx_speed;
+            qreal rx_speed;
         } ssh2;
     };
     SessionsWindow(SessionType tp, QWidget *parent = nullptr);
@@ -421,6 +429,11 @@ private:
     SessionsState state = Disconnected;
     uint64_t tx_total = 0;
     uint64_t rx_total = 0;
+    uint64_t tx_realtime = 0;
+    uint64_t rx_realtime = 0;
+    qreal tx_speed = 0;
+    qreal rx_speed = 0;
+    QTimer *realtimespeed_timer = nullptr;
     bool tagColor = false;
     QColor tagColorValue;
     

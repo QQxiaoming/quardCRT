@@ -26,6 +26,7 @@
 #include <QToolButton>
 #include <QPainter>
 #include <QStyle>
+#include <QContextMenuEvent>
 #include <QStyleOptionButton>
 
 class StatusBarToolButton : public QToolButton
@@ -114,15 +115,21 @@ public:
     ~StatusBarWidget();
     void setCursorPosition(int64_t x, int64_t y);
     void setType(const QString &type);
-    void setTransInfo(int64_t tx, int64_t rx);
+    void setTransInfo(bool enable, int64_t tx = -1, int64_t rx = -1);
+    void setSpeedInfo(bool enable, qreal tx = -1.0, qreal rx = -1.0);
     void setNotifiction(bool enable);
 
+protected:
+    void contextMenuEvent(QContextMenuEvent *event) override;
+    
 private:
     Ui::StatusBarWidget *ui;
     StatusBarToolButton *statusBarCursorInfo;
     StatusBarToolButton *statusBarType;
     StatusBarToolButton *statusBarTransTx;
     StatusBarToolButton *statusBarTransRx;
+    StatusBarToolButton *statusBarSpeedTx;
+    StatusBarToolButton *statusBarSpeedRx;
     StatusBarToolButton *statusBarNotifiction;
 };
 

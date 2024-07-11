@@ -126,6 +126,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         }
         case Telnet: {
             telnet = new QTelnet(QTelnet::TCP, this);
+            realtimespeed_timer = new QTimer(this);
             connect(telnet,&QTelnet::newData,this,
                 [=](const char *data, int size){
                 if(modemProxyChannel) {
@@ -135,6 +136,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 matchString(QByteArray(data, size));
                 term->recvData(data, size);
                 rx_total += size;
+                rx_realtime += size;
                 saveRawLog(data, size);
                 emit hexDataDup(data, size);
             });
@@ -156,6 +158,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(telnet->isConnected()) {
                     telnet->sendData(data, size);
                     tx_total += size;
+                    tx_realtime += size;
                 } else {
                     if(sendData.contains("\r") || sendData.contains("\n")) {
                         emit requestReconnect();
@@ -181,6 +184,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         }
         case Serial: {
             serialPort = new QSerialPort(this);
+            realtimespeed_timer = new QTimer(this);
             connect(serialPort,&QSerialPort::readyRead,this,
                 [=](){
                 QByteArray data = serialPort->readAll();
@@ -191,6 +195,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 matchString(data);
                 term->recvData(data.data(), data.size());
                 rx_total += data.size();
+                rx_realtime += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
             });
@@ -214,6 +219,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(state == Connected && serialPort->isOpen()) {
                     serialPort->write(data, size);
                     tx_total += size;
+                    tx_realtime += size;
                 } else {
                     if(sendData.contains("\r") || sendData.contains("\n")) {
                         emit requestReconnect();
@@ -235,6 +241,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         }
         case RawSocket: {
             rawSocket = new QTcpSocket(this);
+            realtimespeed_timer = new QTimer(this);
             connect(rawSocket,&QTcpSocket::readyRead,this,
                 [=](){
                 QByteArray data = rawSocket->readAll();
@@ -245,6 +252,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 matchString(data);
                 term->recvData(data.data(), data.size());
                 rx_total += data.size();
+                rx_realtime += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
             });
@@ -268,6 +276,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 if(rawSocket->state() == QAbstractSocket::ConnectedState) {
                     rawSocket->write(data, size);
                     tx_total += size;
+                    tx_realtime += size;
                 } else {
                     if(sendData.contains("\r") || sendData.contains("\n")) {
                         emit requestReconnect();
@@ -349,6 +358,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         case SSH2: {
         #ifdef ENABLE_SSH
             ssh2Client = new SshClient("ssh2",this);
+            realtimespeed_timer = new QTimer(this);
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
                 SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
                 shell->initSize(term->columns(),term->lines());
@@ -370,6 +380,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     matchString(QByteArray(data, size));
                     term->recvData(data, size);
                     rx_total += size;
+                    rx_realtime += size;
                     saveRawLog(data, size);
                     emit hexDataDup(data, size);
                 });
@@ -390,6 +401,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     if(state == Connected) {
                         shell->sendData(data, size);
                         tx_total += size;
+                        tx_realtime += size;
                     } else {
                         if(sendData.contains("\r") || sendData.contains("\n")) {
                             emit requestReconnect();
@@ -547,6 +559,16 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             }
         });
     }
+
+    if(realtimespeed_timer) {
+        connect(realtimespeed_timer, &QTimer::timeout, this, [=](){
+            tx_speed = tx_realtime/3.0;
+            rx_speed = rx_realtime/3.0;
+            rx_realtime = 0;
+            tx_realtime = 0;
+        });
+        realtimespeed_timer->start(3000);
+    }
 }
 
 SessionsWindow::~SessionsWindow() {
@@ -593,6 +615,9 @@ SessionsWindow::~SessionsWindow() {
         delete ssh2Client;
     }
 #endif
+    if(realtimespeed_timer) {
+        delete realtimespeed_timer;
+    }
     if(vncClient) {
         vncClient->disconnectFromVncServer();
         delete vncClient;
@@ -1602,10 +1627,14 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
         case Telnet:
             info.telnet.tx_total = tx_total;
             info.telnet.rx_total = rx_total;
+            info.telnet.tx_speed = tx_speed;
+            info.telnet.rx_speed = rx_speed;
             break;
         case Serial:
             info.serial.tx_total = tx_total;
             info.serial.rx_total = rx_total;
+            info.serial.tx_speed = tx_speed;
+            info.serial.rx_speed = rx_speed;
             break;
         case LocalShell:
             if(state == Connected) {
@@ -1615,12 +1644,16 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
         case RawSocket:
             info.rawSocket.tx_total = tx_total;
             info.rawSocket.rx_total = rx_total;
+            info.rawSocket.tx_speed = tx_speed;
+            info.rawSocket.rx_speed = rx_speed;
             break;
         case NamePipe:
             break;
         case SSH2:
             info.ssh2.tx_total = tx_total;
             info.ssh2.rx_total = rx_total;
+            info.ssh2.tx_speed = tx_speed;
+            info.ssh2.rx_speed = rx_speed;
             break;
         case VNC:
             break;

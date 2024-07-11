@@ -17,6 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
+#include <QContextMenuEvent>
+#include <QGuiApplication>
+#include <QMenu>
+
+#include "globalsetting.h"
 #include "qfonticon.h"
 #include "statusbarwidget.h"
 #include "ui_statusbarwidget.h"
@@ -31,19 +36,41 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarType = new StatusBarToolButton(this);
     statusBarTransTx = new StatusBarToolButton(this);
     statusBarTransRx = new StatusBarToolButton(this);
+    statusBarSpeedTx = new StatusBarToolButton(this);
+    statusBarSpeedRx = new StatusBarToolButton(this);
     statusBarNotifiction = new StatusBarToolButton(this);
     ui->horizontalLayout->addWidget(statusBarCursorInfo);
     ui->horizontalLayout->addWidget(statusBarType);
     ui->horizontalLayout->addWidget(statusBarTransTx);
     ui->horizontalLayout->addWidget(statusBarTransRx);
+    ui->horizontalLayout->addWidget(statusBarSpeedTx);
+    ui->horizontalLayout->addWidget(statusBarSpeedRx);
     ui->horizontalLayout->addWidget(statusBarNotifiction);
+
+    statusBarCursorInfo->setToolTip(tr("Current Cursor"));
+    statusBarType->setToolTip(tr("Session Type"));
+    statusBarTransTx->setToolTip(tr("Upload Total"));
+    statusBarTransRx->setToolTip(tr("Download Total"));
+    statusBarSpeedTx->setToolTip(tr("Upload Speed"));
+    statusBarSpeedRx->setToolTip(tr("Download Speed"));
 
     statusBarCursorInfo->setVisible(false);
     statusBarType->setVisible(false);
     statusBarTransTx->setVisible(false);
     statusBarTransRx->setVisible(false);
+    statusBarSpeedTx->setVisible(false);
+    statusBarSpeedRx->setVisible(false);
+    statusBarCursorInfo->setEnabled(false);
+    statusBarType->setEnabled(false);
+    statusBarTransTx->setEnabled(false);
+    statusBarTransRx->setEnabled(false);
+    statusBarSpeedTx->setEnabled(false);
+    statusBarSpeedRx->setEnabled(false);
+
     statusBarTransTx->setIcon(QFontIcon::icon(QChar(0xf0ee)));
     statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));
+    statusBarSpeedTx->setIcon(QFontIcon::icon(QChar(0xf0aa)));
+    statusBarSpeedRx->setIcon(QFontIcon::icon(QChar(0xf0ab)));
     statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0a2)));
 
     statusBarCursorInfo->setPopupMode(QToolButton::InstantPopup);
@@ -56,6 +83,14 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarTransRx->setPopupMode(QToolButton::InstantPopup);
     statusBarTransRx->setAutoRaise(true);
     statusBarTransRx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    statusBarSpeedTx->setPopupMode(QToolButton::InstantPopup);
+    statusBarSpeedTx->setAutoRaise(true);
+    statusBarSpeedTx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    statusBarSpeedRx->setPopupMode(QToolButton::InstantPopup);
+    statusBarSpeedRx->setAutoRaise(true);
+    statusBarSpeedRx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    statusBarNotifiction->setPopupMode(QToolButton::InstantPopup);
+    statusBarNotifiction->setAutoRaise(true);
 }
 
 StatusBarWidget::~StatusBarWidget() {
@@ -65,28 +100,40 @@ StatusBarWidget::~StatusBarWidget() {
 void StatusBarWidget::setCursorPosition(int64_t x, int64_t y) {
     if(x < 0 || y < 0) {
         statusBarCursorInfo->setText("Ln /, Col /");
+        statusBarCursorInfo->setEnabled(false);
         statusBarCursorInfo->setVisible(false);
         return;
     }
     statusBarCursorInfo->setText(QString("Ln %1, Col %2").arg(x).arg(y));
-    statusBarCursorInfo->setVisible(true);
+    if(!statusBarCursorInfo->isEnabled()) {
+        statusBarCursorInfo->setEnabled(true);
+        GlobalSetting settings;
+        statusBarCursorInfo->setVisible(settings.value("Global/Statusbar/CurrentCursorUI", true).toBool());
+    }
 }
 
 void StatusBarWidget::setType(const QString &type) {
     if(type.isEmpty()) {
         statusBarType->setText("Null");
+        statusBarType->setEnabled(false);
         statusBarType->setVisible(false);
         return;
     }
     statusBarType->setText(type);
-    statusBarType->setVisible(true);
+    if(!statusBarType->isEnabled()) {
+        statusBarType->setEnabled(true);
+        GlobalSetting settings;
+        statusBarType->setVisible(settings.value("Global/Statusbar/TypeUI", true).toBool());
+    }
 }
 
-void StatusBarWidget::setTransInfo(int64_t tx, int64_t rx) {
-    if(tx < 0 || rx < 0) {
+void StatusBarWidget::setTransInfo(bool enable, int64_t tx, int64_t rx) {
+    if(!enable) {
         statusBarTransTx->setText("/");
         statusBarTransRx->setText("/");
+        statusBarTransTx->setEnabled(false);
         statusBarTransTx->setVisible(false);
+        statusBarTransRx->setEnabled(false);
         statusBarTransRx->setVisible(false);
         return;
     }
@@ -103,8 +150,47 @@ void StatusBarWidget::setTransInfo(int64_t tx, int64_t rx) {
     };
     statusBarTransTx->setText(QString("%1").arg(getSize(tx)));
     statusBarTransRx->setText(QString("%1").arg(getSize(rx)));
-    statusBarTransTx->setVisible(true);
-    statusBarTransRx->setVisible(true);
+    if(!statusBarTransTx->isEnabled()) {
+        statusBarTransTx->setEnabled(true);
+        statusBarTransRx->setEnabled(true);
+        GlobalSetting settings;
+        bool enable = settings.value("Global/Statusbar/TransferUI", true).toBool();
+        statusBarTransTx->setVisible(enable);
+        statusBarTransRx->setVisible(enable);
+    }
+}
+
+void StatusBarWidget::setSpeedInfo(bool enable, qreal tx, qreal rx) {
+    if(!enable) {
+        statusBarSpeedTx->setText("/");
+        statusBarSpeedRx->setText("/");
+        statusBarSpeedTx->setEnabled(false);
+        statusBarSpeedTx->setVisible(false);
+        statusBarSpeedRx->setEnabled(false);
+        statusBarSpeedRx->setVisible(false);
+        return;
+    }
+    auto getSize = [](qreal size) -> QString {
+        if( size <= 1024.0) {
+            return QString("%1 B/s").arg(size);
+        } else if ( size <= 1024.0 * 1024.0 ) {
+            return QString::number(size / 1024.0, 'f', 2) + QString(" KB/s");
+        } else if ( size <= 1024.0 * 1024.0 * 1024.0 ) {
+            return QString::number(size / (1024.0 * 1024.0), 'f', 2) + QString(" MB/s");
+        } else {
+            return QString::number(size / (1024.0 * 1024.0 * 1024.0), 'f', 2) + QString(" GB/s");
+        }
+    };
+    statusBarSpeedTx->setText(QString("%1").arg(getSize(tx)));
+    statusBarSpeedRx->setText(QString("%1").arg(getSize(rx)));
+    if(!statusBarSpeedTx->isEnabled()) {
+        statusBarSpeedTx->setEnabled(true);
+        statusBarSpeedRx->setEnabled(true);
+        GlobalSetting settings;
+        bool enable = settings.value("Global/Statusbar/TransferUI", true).toBool();
+        statusBarSpeedTx->setVisible(enable);
+        statusBarSpeedRx->setVisible(enable);
+    }
 }
 
 void StatusBarWidget::setNotifiction(bool enable) {
@@ -115,3 +201,61 @@ void StatusBarWidget::setNotifiction(bool enable) {
     }
 }
 
+void StatusBarWidget::contextMenuEvent(QContextMenuEvent *event) {
+    Q_UNUSED(event);
+    QMenu *menu = new QMenu(this);
+
+    if(statusBarCursorInfo->isEnabled()) {
+        QAction *actionCurrentCursor = new QAction(tr("Current Cursor"), this);
+        actionCurrentCursor->setCheckable(true);
+        actionCurrentCursor->setChecked(statusBarCursorInfo->isVisible());
+        connect(actionCurrentCursor, &QAction::triggered, [this](bool checked) {
+            GlobalSetting settings;
+            settings.setValue("Global/Statusbar/CurrentCursorUI", checked);
+            statusBarCursorInfo->setVisible(checked);
+        });
+        menu->addAction(actionCurrentCursor);
+    }
+
+    if(statusBarType->isEnabled()) {
+        QAction *actionType = new QAction(tr("Session Type"), this);
+        actionType->setCheckable(true);
+        actionType->setChecked(statusBarType->isVisible());
+        connect(actionType, &QAction::triggered, [this](bool checked) {
+            GlobalSetting settings;
+            settings.setValue("Global/Statusbar/TypeUI", checked);
+            statusBarType->setVisible(checked);
+        });
+        menu->addAction(actionType);
+    }
+
+    if(statusBarTransTx->isEnabled()) {
+        QAction *actionTrans = new QAction(tr("Transfer Info"), this);
+        actionTrans->setCheckable(true);
+        actionTrans->setChecked(statusBarTransTx->isVisible());
+        connect(actionTrans, &QAction::triggered, [this](bool checked) {
+            GlobalSetting settings;
+            settings.setValue("Global/Statusbar/TransferUI", checked);
+            statusBarTransTx->setVisible(checked);
+            statusBarTransRx->setVisible(checked);
+            statusBarSpeedTx->setVisible(checked);
+            statusBarSpeedRx->setVisible(checked);
+        });
+        menu->addAction(actionTrans);
+    }
+
+    if(menu->isEmpty()) {
+        delete menu;
+        return;
+    }
+
+    QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
+    QPoint pos = cursor().pos() + QPoint(5,5);
+    if (pos.x() + menu->width() > screenGeometry.right()) {
+        pos.setX(screenGeometry.right() - menu->width());
+    }
+    if (pos.y() + menu->height() > screenGeometry.bottom()) {
+        pos.setY(screenGeometry.bottom() - menu->height());
+    }
+    menu->popup(pos);
+}

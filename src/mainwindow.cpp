@@ -1227,15 +1227,17 @@ void CentralWidget::refreshStatusBar(void) {
     QWidget *widget = findCurrentFocusWidget();
     if(widget == nullptr) {
         statusBarWidget->setType(QString());
-        statusBarWidget->setTransInfo(-1,-1);
         statusBarWidget->setCursorPosition(-1,-1);
+        statusBarWidget->setTransInfo(false);
+        statusBarWidget->setSpeedInfo(false);
         return;
     }
     SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
     if(sessionsWindow == nullptr) {
         statusBarWidget->setType(QString());
-        statusBarWidget->setTransInfo(-1,-1);
         statusBarWidget->setCursorPosition(-1,-1);
+        statusBarWidget->setTransInfo(false);
+        statusBarWidget->setSpeedInfo(false);
         return;
     }
     statusBarWidget->setCursorPosition(sessionsWindow->getCursorLineCount(),sessionsWindow->getCursorColumnCount());
@@ -1243,35 +1245,43 @@ void CentralWidget::refreshStatusBar(void) {
     switch(stateInfo.type) {
         case SessionsWindow::LocalShell:
             statusBarWidget->setType(tr("Local Shell"));
-            statusBarWidget->setTransInfo(-1,-1);
+            statusBarWidget->setTransInfo(false);
+            statusBarWidget->setSpeedInfo(false);
             break;
         case SessionsWindow::Telnet:
             statusBarWidget->setType("Telnet");
-            statusBarWidget->setTransInfo(stateInfo.telnet.tx_total,stateInfo.telnet.rx_total);
+            statusBarWidget->setTransInfo(true,stateInfo.telnet.tx_total,stateInfo.telnet.rx_total);
+            statusBarWidget->setSpeedInfo(true,stateInfo.telnet.tx_speed,stateInfo.telnet.rx_speed);
             break;
         case SessionsWindow::RawSocket:
             statusBarWidget->setType(tr("Raw Socket"));
-            statusBarWidget->setTransInfo(stateInfo.rawSocket.tx_total,stateInfo.rawSocket.rx_total);
+            statusBarWidget->setTransInfo(true,stateInfo.rawSocket.tx_total,stateInfo.rawSocket.rx_total);
+            statusBarWidget->setSpeedInfo(true,stateInfo.rawSocket.tx_speed,stateInfo.rawSocket.rx_speed);
             break;
         case SessionsWindow::NamePipe:
             statusBarWidget->setType(tr("Name Pipe"));
-            statusBarWidget->setTransInfo(-1,-1);
+            statusBarWidget->setTransInfo(false);
+            statusBarWidget->setSpeedInfo(false);
             break;
         case SessionsWindow::SSH2:
             statusBarWidget->setType("SSH2");
-            statusBarWidget->setTransInfo(stateInfo.ssh2.tx_total,stateInfo.ssh2.rx_total);
+            statusBarWidget->setTransInfo(true,stateInfo.ssh2.tx_total,stateInfo.ssh2.rx_total);
+            statusBarWidget->setSpeedInfo(true,stateInfo.ssh2.tx_speed,stateInfo.ssh2.rx_speed);
             break;
         case SessionsWindow::Serial:
             statusBarWidget->setType(tr("Serial"));
-            statusBarWidget->setTransInfo(stateInfo.serial.tx_total,stateInfo.serial.rx_total);
+            statusBarWidget->setTransInfo(true,stateInfo.serial.tx_total,stateInfo.serial.rx_total);
+            statusBarWidget->setSpeedInfo(true,stateInfo.serial.tx_speed,stateInfo.serial.rx_speed);
             break;
         case SessionsWindow::VNC:
             statusBarWidget->setType("VNC");
-            statusBarWidget->setTransInfo(-1,-1);
+            statusBarWidget->setTransInfo(false);
+            statusBarWidget->setSpeedInfo(false);
             break;
         default:
             statusBarWidget->setType(tr("Unknown"));
-            statusBarWidget->setTransInfo(-1,-1);
+            statusBarWidget->setTransInfo(false);
+            statusBarWidget->setSpeedInfo(false);
             break;
     }
 }
