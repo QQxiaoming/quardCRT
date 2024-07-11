@@ -36,12 +36,13 @@ PluginInfoWindow::PluginInfoWindow(QWidget *parent)
     ui->lineEditAPIVersion->setReadOnly(true);
     ui->lineEditAPIVersion->setFocusPolicy(Qt::NoFocus);
 
-    ui->tableWidget->setColumnCount(4);
-    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable"));
+    ui->tableWidget->setColumnCount(5);
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable") << tr("Check Update"));
     ui->tableWidget->setColumnWidth(0, 200);
     ui->tableWidget->setColumnWidth(1, 80);
     ui->tableWidget->setColumnWidth(2, 100);
     ui->tableWidget->setColumnWidth(3, 80);
+    ui->tableWidget->setColumnWidth(4, 180);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -56,12 +57,12 @@ PluginInfoWindow::~PluginInfoWindow()
     delete ui;
 }
 
-void PluginInfoWindow::addPluginInfo(PluginInterface *plugin, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly)
+void PluginInfoWindow::addPluginInfo(PluginInterface *plugin, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly, const QString &website)
 {
-    addPluginInfo(plugin->name(), plugin->version(), tooltip, apiVersion, enable, readOnly);
+    addPluginInfo(plugin->name(), plugin->version(), tooltip, apiVersion, enable, readOnly, website);
 }
 
-void PluginInfoWindow::addPluginInfo(QString name, QString version, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly)
+void PluginInfoWindow::addPluginInfo(const QString &name, const QString &version, const QString &tooltip, uint32_t apiVersion, bool enable, bool readOnly, const QString &website)
 {
     uint32_t i = ui->tableWidget->rowCount();
     ui->tableWidget->setRowCount(i + 1);
@@ -69,22 +70,33 @@ void PluginInfoWindow::addPluginInfo(QString name, QString version, const QStrin
     ui->tableWidget->item(i, 0)->setToolTip(tooltip);
     ui->tableWidget->setItem(i, 1, new QTableWidgetItem(version));
     ui->tableWidget->setItem(i, 2, new QTableWidgetItem(apiVersion?QString::number(apiVersion):""));
-    QTableWidgetItem *item = new QTableWidgetItem();
-    item->setCheckState(enable ? Qt::Checked : Qt::Unchecked);
-    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-    if(readOnly) item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
-    ui->tableWidget->setItem(i, 3, item);
+    QTableWidgetItem *itemEnable = new QTableWidgetItem();
+    itemEnable->setCheckState(enable ? Qt::Checked : Qt::Unchecked);
+    itemEnable->setFlags(itemEnable->flags() & ~Qt::ItemIsEditable);
+    if(readOnly) itemEnable->setFlags(itemEnable->flags() & ~Qt::ItemIsUserCheckable);
+    ui->tableWidget->setItem(i, 3, itemEnable);
     if(!readOnly) {
-        connect(ui->tableWidget, &QTableWidget::itemChanged, this, [&,name,item](QTableWidgetItem * in) {
-            if(in == item)
+        connect(ui->tableWidget, &QTableWidget::itemChanged, this, [&,name,itemEnable](QTableWidgetItem * in) {
+            if(in == itemEnable)
                 emit pluginEnableStateChanged(name, in->checkState() == Qt::Checked);
         });
     }
+    // add button in the table
+    QPushButton *itemWebsite = new QPushButton(tr("Website"));
+    if(website.isEmpty()) {
+        itemWebsite->setEnabled(false);
+    } else {
+        itemWebsite->setToolTip(website);
+        connect(itemWebsite, &QPushButton::clicked, this, [website](){
+            QDesktopServices::openUrl(QUrl(website));
+        });
+    }
+    ui->tableWidget->setCellWidget(i, 4, itemWebsite);
 }
 
 void PluginInfoWindow::retranslateUi(void) {
     ui->retranslateUi(this);
-    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable"));
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable") << tr("Check Update"));
 }
 
 QList<uint32_t> PluginInfoWindow::supportAPIVersionList(void) {

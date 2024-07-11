@@ -2188,7 +2188,6 @@ void CentralWidget::menuAndToolBarInit(void) {
                             pluginStruct.iface = iface;
                             pluginStruct.state = state;
                             pluginList.append(pluginStruct);
-                            pluginInfoWindow->addPluginInfo(iface,absoluteFilePath,apiVersion,state,false);
                             connect(iface,SIGNAL(requestTelnetConnect(QString, int, int)),this,SLOT(onPluginRequestTelnetConnect(QString, int, int)));
                             connect(iface,SIGNAL(requestSerialConnect(QString, uint32_t, int, int, int, bool, bool)),this,SLOT(onPluginRequestSerialConnect(QString, uint32_t, int, int, int, bool, bool)));
                             connect(iface,SIGNAL(requestLocalShellConnect(QString, QString)),this,SLOT(onPluginRequestLocalShellConnect(QString, QString)));
@@ -2199,6 +2198,7 @@ void CentralWidget::menuAndToolBarInit(void) {
                             connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
                             connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
                             connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
+                            QString website;
                             QMap<QString,void *> map = iface->metaObject();
                             foreach (QString key, map.keys()) {
                                 if(key == "QAction") {
@@ -2212,10 +2212,13 @@ void CentralWidget::menuAndToolBarInit(void) {
                                 } else if(key == "QWidget") {
                                     QWidget *widget = (QWidget *)map.value(key);
                                     pluginViewerWidget->addPlugin(widget,iface->name());
+                                } else if(key == "website") {
+                                    website = *(QString *)map.value(key);
                                 }
                             }
                             iface->setLanguage(language,qApp);
                             iface->retranslateUi();
+                            pluginInfoWindow->addPluginInfo(iface,absoluteFilePath,apiVersion,state,false,website);
                         } else {
                             pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin init failed!"),apiVersion,false,true);
                         }

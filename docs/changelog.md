@@ -11,6 +11,7 @@
 - Add a refresh serial port button in the serial port selection page
 - Add up to four window split screen mode and multiple layout modes
 - Add single/group/all session three modes in the send command window
+- Add the plugin information page to display the plugin website
 - Improve the context menu of URL recognition links
 - Improve the find window to automatically fill in the currently selected text each time it is opened
 - Improve status bar
