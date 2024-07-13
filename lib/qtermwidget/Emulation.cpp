@@ -43,6 +43,7 @@ using namespace Konsole;
 Emulation::Emulation() :
   _currentScreen(nullptr),
   _keyTranslator(nullptr),
+  _enableHandleCtrlC(false),
   _usesMouse(false),
   _bracketedPasteMode(false),
   _fromUtf8(QStringEncoder::Utf16)
@@ -101,6 +102,8 @@ ScreenWindow* Emulation::createWindow()
 
     connect(this, &Emulation::handleCommandFromKeyboard,
             window, &ScreenWindow::handleCommandFromKeyboard);
+    connect(this, &Emulation::handleCtrlC,
+            window, &ScreenWindow::handleCtrlC);
     connect(this, &Emulation::outputFromKeypressEvent,
             window, &ScreenWindow::scrollToEnd);
 

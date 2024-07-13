@@ -75,6 +75,9 @@ public:
     bool getTrimPastedTrailingNewlines(void);
     bool getEcho(void);
     QColor getCursorColor(void);
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    bool getEnableCtrlC(void);
+#endif
     bool updateColorButtons(const QString &text);
     void switchTheme(void);
 
@@ -87,6 +90,9 @@ private:
 signals:
     void colorSchemeChanged(QString colorScheme);
     void transparencyChanged(int transparency);
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    void enableCtrlCChanged(bool enable);
+#endif
 
 private slots:
     void fontSizeChanged(int size);

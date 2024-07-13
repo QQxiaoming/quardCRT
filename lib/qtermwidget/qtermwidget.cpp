@@ -111,6 +111,7 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
 
     connect(m_impl->m_session, SIGNAL(bellRequest(QString)), m_impl->m_terminalDisplay, SLOT(bell(QString)));
     connect(m_impl->m_terminalDisplay, SIGNAL(notifyBell(QString)), this, SIGNAL(bell(QString)));
+    connect(m_impl->m_terminalDisplay, SIGNAL(handleCtrlC()), this, SIGNAL(handleCtrlC()));
     connect(m_impl->m_terminalDisplay, SIGNAL(changedContentCountSignal(int,int)),this, SLOT(sizeChange(int,int)));
     connect(m_impl->m_terminalDisplay, SIGNAL(mousePressEventForwarded(QMouseEvent*)), this, SIGNAL(mousePressEventForwarded(QMouseEvent*)));
     connect(m_impl->m_session, SIGNAL(activity()), this, SIGNAL(activity()));
@@ -857,6 +858,10 @@ QString QTermWidget::wordCharacters(void) {
 
 void QTermWidget::setShowResizeNotificationEnabled(bool enabled) {
     m_impl->m_terminalDisplay->setShowResizeNotificationEnabled(enabled);
+}
+
+void QTermWidget::setEnableHandleCtrlC(bool enable) {
+    m_impl->m_session->emulation()->setEnableHandleCtrlC(enable);
 }
 
 int QTermWidget::lines() {

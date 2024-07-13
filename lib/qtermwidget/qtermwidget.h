@@ -259,6 +259,8 @@ public:
     QString wordCharacters(void);
     void setShowResizeNotificationEnabled(bool enabled);
 
+    void setEnableHandleCtrlC(bool enable);
+
     int lines();
     int columns();
     int getCursorX();
@@ -283,6 +285,8 @@ signals:
     void urlActivated(const QUrl&, uint32_t opcode);
 
     void bell(const QString& message);
+
+    void handleCtrlC(void);
 
     void activity();
     void silence();

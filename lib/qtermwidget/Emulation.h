@@ -235,6 +235,8 @@ public:
 
   bool programBracketedPasteMode() const;
 
+  void setEnableHandleCtrlC(bool enable) { _enableHandleCtrlC = enable; }
+
 public slots:
 
   /** Change the size of the emulation's image */
@@ -451,6 +453,7 @@ signals:
   void cursorChanged(KeyboardCursorShape cursorShape, bool blinkingCursorEnabled);
 
   void handleCommandFromKeyboard(KeyboardTranslator::Command command);
+  void handleCtrlC(void);
   void outputFromKeypressEvent(void);
 
 protected:
@@ -496,6 +499,8 @@ protected:
   QStringDecoder _toUtf16;
 
   const KeyboardTranslator* _keyTranslator; // the keyboard layout
+  
+  bool _enableHandleCtrlC;
 
 protected slots:
   /**

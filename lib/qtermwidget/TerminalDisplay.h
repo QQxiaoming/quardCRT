@@ -636,6 +636,8 @@ signals:
     void notifyBell(const QString&);
     void usesMouseChanged();
 
+    void handleCtrlC(void);
+
 protected:
     bool event( QEvent * ) override;
 

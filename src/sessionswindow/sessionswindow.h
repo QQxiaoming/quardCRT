@@ -380,6 +380,9 @@ public:
     void setCursorColor(const QColor &color) {
         if(term) return term->setKeyboardCursorColor(false,color);
     }
+    void setEnableHandleCtrlC(bool enable) {
+        if(term) term->setEnableHandleCtrlC(enable);
+    }
 
 signals:
     void hexDataDup(const char *data, int size);

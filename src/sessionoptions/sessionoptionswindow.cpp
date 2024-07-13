@@ -290,7 +290,7 @@ void SessionOptionsWindow::setSessionState(SessionsWindow::StateInfo state)
         }
     };
     switch(state.type) {
-        case QuickConnectWindow::Serial: {
+        case SessionsWindow::Serial: {
             auto getSize = [](int64_t size) -> QString {
                 if( size <= 1024) {
                     return QString("%1 B").arg(size);

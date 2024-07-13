@@ -135,6 +135,7 @@ void TerminalDisplay::setScreenWindow(ScreenWindow* window)
         connect( _screenWindow , &ScreenWindow::outputChanged , this , &TerminalDisplay::updateFilters );
         connect( _screenWindow , &ScreenWindow::scrolled , this , &TerminalDisplay::updateFilters );
         connect( _screenWindow , &ScreenWindow::scrollToEnd , this , &TerminalDisplay::scrollToEnd );
+        connect( _screenWindow , &ScreenWindow::handleCtrlC , this , &TerminalDisplay::handleCtrlC );
         window->setWindowLines(_lines);
     }
 }

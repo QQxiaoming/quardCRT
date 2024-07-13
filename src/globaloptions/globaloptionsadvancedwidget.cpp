@@ -25,6 +25,12 @@ GlobalOptionsAdvancedWidget::GlobalOptionsAdvancedWidget(QWidget *parent) :
     ui(new Ui::GlobalOptionsAdvancedWidget)
 {
     ui->setupUi(this);
+
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    ui->checkBoxEnableCtrlC->setVisible(true);
+#else
+    ui->checkBoxEnableCtrlC->setVisible(false);
+#endif
 }
 
 GlobalOptionsAdvancedWidget::~GlobalOptionsAdvancedWidget()

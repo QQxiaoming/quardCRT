@@ -185,6 +185,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="checkBoxEnableCtrlC">
+     <property name="text">
+      <string>Enable Ctrl+C for copy mode</string>
+     </property>
+     <property name="toolTip">
+      <string>Enable Ctrl+C for copy when characters are selected</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="checkBoxNativeUI">
      <property name="toolTip">
       <string>NativeUI(Effective after restart)</string>

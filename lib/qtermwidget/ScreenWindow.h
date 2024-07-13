@@ -250,6 +250,8 @@ signals:
 
     void scrollToEnd();
 
+    void handleCtrlC(void);
+
 private:
     int endWindowLine() const;
     void fillUnusedArea();

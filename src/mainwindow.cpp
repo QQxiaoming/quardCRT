@@ -2524,6 +2524,13 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             }
         }
     });
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    connect(globalOptionsWindow,&GlobalOptionsWindow::enableCtrlCChanged,this,[=](bool enable){
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            sessionsWindow->setEnableHandleCtrlC(enable);
+        }
+    });
+#endif
     connect(globalOptionsWindow,&GlobalOptionsWindow::transparencyChanged,this,[=](int transparency){
         windowTransparency = (100-transparency)/100.0;
         if(mainWindow) {
@@ -3382,6 +3389,9 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setTrimPastedTrailingNewlines(globalOptionsWindow->getTrimPastedTrailingNewlines());
     window->setEcho(globalOptionsWindow->getEcho());
     window->setCursorColor(globalOptionsWindow->getCursorColor());
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    window->setEnableHandleCtrlC(globalOptionsWindow->getEnableCtrlC());
+#endif
     connect(window,&SessionsWindow::broadCastSendData,this,[=](const QByteArray &data){
         foreach(SessionsWindow *sessionsWindow, broadCastSessionList) {
             if(sessionsWindow != window) {

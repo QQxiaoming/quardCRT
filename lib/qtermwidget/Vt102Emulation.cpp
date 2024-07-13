@@ -1104,6 +1104,15 @@ void Vt102Emulation::sendKeyEvent(QKeyEvent* event, bool fromPaste)
             modifiers = Qt::NoModifier;
         }
       #endif
+      #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+        if (_enableHandleCtrlC && ( modifiers & Qt::ControlModifier ) && ( event->key() == Qt::Key_C )){
+            bool isSelection = !_currentScreen->isClearSelection();
+            if (isSelection) {
+                emit handleCtrlC();
+                return;
+            }
+        }
+      #endif
 
         // send result to terminal
         QByteArray textToSend;

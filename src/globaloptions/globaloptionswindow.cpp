@@ -155,6 +155,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
+#endif
     QString defaultLocalShell = settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
             "ENV:SHELL"
@@ -609,6 +612,13 @@ QColor GlobalOptionsWindow::getCursorColor(void)
     }
 }
 
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+bool GlobalOptionsWindow::getEnableCtrlC(void) 
+{
+    return globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->isChecked();
+}
+#endif
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -664,6 +674,9 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("ConfirmMultilinePaste", globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->isChecked());
     settings.setValue("TrimPastedTrailingNewlines", globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked());
     settings.setValue("Echo", globalOptionsTerminalWidget->ui->checkBoxEcho->isChecked());
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    settings.setValue("EnableCtrlC", globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->isChecked());
+#endif
     QString defaultLocalShell = globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->text();
     #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
     if(defaultLocalShell != "ENV:SHELL") 
@@ -690,6 +703,9 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     #endif
     settings.setValue("CursorColor",cursorColorStr);
     settings.endGroup();
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    emit enableCtrlCChanged(globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->isChecked());
+#endif
     emit colorSchemeChanged(globalOptionsAppearanceWidget->ui->comBoxColorSchemes->currentText());
     emit this->accepted();
 }
@@ -742,6 +758,9 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
+#endif
     globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
             "ENV:SHELL"

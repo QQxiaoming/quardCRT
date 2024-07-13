@@ -532,6 +532,14 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 recvFileUseZModem(zmodemDownloadPath);
             }
         });
+    #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+        connect(term, &QTermWidget::handleCtrlC, this, [&](void){
+            QString text = term->selectedText();
+            if(!text.isEmpty()) {
+                QApplication::clipboard()->setText(text, QClipboard::Clipboard);
+            }
+        });
+    #endif
         connect(term, &QTermWidget::zmodemRecvDetected, this, [&,parent](){
             if(zmodemOnlie) {
                 modemProxyChannelMutex.lock();
