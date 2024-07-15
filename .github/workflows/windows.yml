@@ -109,7 +109,7 @@ jobs:
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
           mkdir prebuilt_plugins
-          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.csv ./prebuilt_plugins
+          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.json ./prebuilt_plugins
           ./build_setup.bat
 
       - name: Upload build asserts
@@ -174,7 +174,7 @@ jobs:
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
           c:/Windows/system32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -File "./tools/generate_info.ps1" > ./build_info.inc
           mkdir prebuilt_plugins
-          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.csv ./prebuilt_plugins msvc
+          python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.json ./prebuilt_plugins msvc
           ./build_setup_msvc.bat
 
       - name: Upload build asserts

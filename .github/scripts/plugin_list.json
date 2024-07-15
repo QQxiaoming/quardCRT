@@ -1,0 +1,46 @@
+{
+    "plugin": [
+        {
+            "name": "plugin-SearchOnWeb",
+            "url": "https://github.com/QuardCRT-platform/plugin-SearchOnWeb/releases/download/V0.0.4",
+            "filetagname": "searchonweb",
+            "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
+        },
+        {
+            "name": "plugin-onestep",
+            "url": "https://github.com/QuardCRT-platform/plugin-onestep/releases/download/V0.0.3",
+            "filetagname": "onestep",
+            "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
+        },
+        {
+            "name": "plugin-quickcomplete",
+            "url": "https://github.com/QuardCRT-platform/plugin-quickcomplete/releases/download/V0.0.2",
+            "filetagname": "quickcomplete",
+            "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
+        },
+        {
+            "name": "plugin-ListSerial",
+            "url": "https://github.com/QuardCRT-platform/plugin-ListSerial/releases/download/V0.0.3",
+            "filetagname": "listserial",
+            "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
+        },
+        {
+            "name": "plugin-CharacterCode",
+            "url": "https://github.com/QuardCRT-platform/plugin-CharacterCode/releases/download/V0.0.4",
+            "filetagname": "charactercode",
+            "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
+        },
+        {
+            "name": "plugin-TextStatistics",
+            "url": "https://github.com/QuardCRT-platform/plugin-TextStatistics/releases/download/V0.0.1",
+            "filetagname": "textstatistics",
+            "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
+        },
+        {
+            "name": "plugin-timestamp",
+            "url": "https://github.com/QuardCRT-platform/plugin-timestamp/releases/download/V0.0.1",
+            "filetagname": "timestamp",
+            "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
+        }
+    ]
+}

@@ -1,6 +1,7 @@
 import os
 import sys
 import csv
+import json
 import platform
 import subprocess
 
@@ -21,10 +22,8 @@ def get_file_name(fname, withmachine, cc):
     else:
         return 'unknown'
 
-def check_support(support_platform, cc):
-    support_platform = support_platform.replace('[', '')
-    support_platform = support_platform.replace(']', '')
-    platform_list = support_platform.split(';')
+def check_json_support(support_platform, cc):
+    platform_list = support_platform
     os = platform.system()
     if os == 'Windows':
         if cc == 'msvc':
@@ -39,9 +38,15 @@ def check_support(support_platform, cc):
     else:
         return False
 
+def check_csv_support(support_platform, cc):
+    support_platform = support_platform.replace('[', '')
+    support_platform = support_platform.replace(']', '')
+    platform_list = support_platform.split(';')
+    return check_json_support(platform_list)
+
 if __name__ == '__main__':
     if len(sys.argv) < 3:
-        print('Usage: python get_plugin.py <csv file> <plugin dir> [cc]')
+        print('Usage: python get_plugin.py <file> <plugin dir> [cc]')
         exit(1)
     plugin_list_file = sys.argv[1]
     plugin_dir = sys.argv[2]
@@ -49,24 +54,44 @@ if __name__ == '__main__':
         cc = sys.argv[3]
     else:
         cc = 'default'
-    with open(plugin_list_file, 'r', encoding='utf-8') as f:
-        reader = csv.reader(f)
-        plugin_list = list(reader)
-    for plugin_info in plugin_list:
-        plugin_name = plugin_info[0]
-        plugin_support_platform = plugin_info[3]
-        if not check_support(plugin_support_platform, cc):
-            print('Skip plugin: ' + plugin_name)
-            continue
-        plugin_url = plugin_info[1] + '/' +get_file_name(plugin_info[2], True, cc)
-        print('Downloading plugin: ' + plugin_name)
-        print('URL: ' + plugin_url)
-        plugin_path = os.path.join(plugin_dir, get_file_name(plugin_info[2],False, cc))
-        subprocess.run(['curl', '-L', plugin_url, '-o', plugin_path])
-        if platform.system() == 'Linux':
-            subprocess.run(['chmod', '+x', plugin_path])
-        if platform.system() == 'Darwin':
-            subprocess.run(['chmod', '+x', plugin_path])
-    print('All plugins downloaded.')
 
-    
+    if plugin_list_file.endswith('.csv'):
+        with open(plugin_list_file, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            plugin_list = list(reader)
+        for plugin_info in plugin_list:
+            plugin_name = plugin_info[0]
+            plugin_support_platform = plugin_info[3]
+            if not check_csv_support(plugin_support_platform, cc):
+                print('Skip plugin: ' + plugin_name)
+                continue
+            plugin_url = plugin_info[1] + '/' +get_file_name(plugin_info[2], True, cc)
+            print('Downloading plugin: ' + plugin_name)
+            print('URL: ' + plugin_url)
+            plugin_path = os.path.join(plugin_dir, get_file_name(plugin_info[2],False, cc))
+            subprocess.run(['curl', '-L', plugin_url, '-o', plugin_path])
+            if platform.system() == 'Linux':
+                subprocess.run(['chmod', '+x', plugin_path])
+            if platform.system() == 'Darwin':
+                subprocess.run(['chmod', '+x', plugin_path])
+
+    if plugin_list_file.endswith('.json'):
+        with open(plugin_list_file, 'r', encoding='utf-8') as f:
+            plugin_list = json.load(f)
+        for plugin_info in plugin_list['plugin']:
+            plugin_name = plugin_info['name']
+            plugin_support_platform = plugin_info['platform']
+            if not check_json_support(plugin_support_platform, cc):
+                print('Skip plugin: ' + plugin_name)
+                continue
+            plugin_url = plugin_info['url'] + '/' + get_file_name(plugin_info['filetagname'], True, cc)
+            print('Downloading plugin: ' + plugin_name)
+            print('URL: ' + plugin_url)
+            plugin_path = os.path.join(plugin_dir, get_file_name(plugin_info['filetagname'], False, cc))
+            subprocess.run(['curl', '-L', plugin_url, '-o', plugin_path])
+            if platform.system() == 'Linux':
+                subprocess.run(['chmod', '+x', plugin_path])
+            if platform.system() == 'Darwin':
+                subprocess.run(['chmod', '+x', plugin_path])
+
+    print('All plugins downloaded.')
