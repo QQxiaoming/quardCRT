@@ -172,7 +172,7 @@ void StatusBarWidget::setSpeedInfo(bool enable, qreal tx, qreal rx) {
     }
     auto getSize = [](qreal size) -> QString {
         if( size <= 1024.0) {
-            return QString("%1 B/s").arg(size);
+            return QString::number(size, 'f', 2) + QString(" B/s");
         } else if ( size <= 1024.0 * 1024.0 ) {
             return QString::number(size / 1024.0, 'f', 2) + QString(" KB/s");
         } else if ( size <= 1024.0 * 1024.0 * 1024.0 ) {
