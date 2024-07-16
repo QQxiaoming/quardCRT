@@ -20,6 +20,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 
+#include "globalsetting.h"
 #include "plugininfowindow.h"
 #include "ui_plugininfowindow.h"
 
@@ -36,6 +37,16 @@ PluginInfoWindow::PluginInfoWindow(QWidget *parent)
     ui->lineEditAPIVersion->setReadOnly(true);
     ui->lineEditAPIVersion->setFocusPolicy(Qt::NoFocus);
 
+    ui->comboBoxPluginsPath->addItem(pathShorten(QApplication::applicationDirPath() + "/plugins/QuardCRT"),QApplication::applicationDirPath() + "/plugins/QuardCRT");
+    ui->comboBoxPluginsPath->setItemData(0, QApplication::applicationDirPath() + "/plugins/QuardCRT", Qt::ToolTipRole);
+    GlobalSetting settings;
+    QString pluginsPath = settings.value("Global/Options/UserPluginsPath", "").toString();
+    if(!pluginsPath.isEmpty()) {
+        ui->comboBoxPluginsPath->addItem(pathShorten(pluginsPath),pluginsPath);
+        ui->comboBoxPluginsPath->setItemData(1, pluginsPath, Qt::ToolTipRole);
+        ui->comboBoxPluginsPath->setCurrentText(pathShorten(pluginsPath));
+    }
+
     ui->tableWidget->setColumnCount(5);
     ui->tableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Version") << tr("API Version") << tr("Enable") << tr("Check Update"));
     ui->tableWidget->setColumnWidth(0, 200);
@@ -47,7 +58,7 @@ PluginInfoWindow::PluginInfoWindow(QWidget *parent)
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     connect(ui->pushButtonInstallPlugin, &QPushButton::clicked, this, [&](){
-        QString pluginDir = QApplication::applicationDirPath() + "/plugins/QuardCRT";
+        QString pluginDir = ui->comboBoxPluginsPath->itemData(ui->comboBoxPluginsPath->currentIndex(), Qt::UserRole).toString();
         QDesktopServices::openUrl(QUrl::fromLocalFile(pluginDir));
     });
 }
@@ -81,17 +92,20 @@ void PluginInfoWindow::addPluginInfo(const QString &name, const QString &version
                 emit pluginEnableStateChanged(name, in->checkState() == Qt::Checked);
         });
     }
-    // add button in the table
-    QPushButton *itemWebsite = new QPushButton(tr("Website"));
-    if(website.isEmpty()) {
-        itemWebsite->setEnabled(false);
+    if(!website.isEmpty()) {
+        QPushButton *itemWebsite = new QPushButton(tr("Website"));
+        if(website.isEmpty()) {
+            itemWebsite->setEnabled(false);
+        } else {
+            itemWebsite->setToolTip(website);
+            connect(itemWebsite, &QPushButton::clicked, this, [website](){
+                QDesktopServices::openUrl(QUrl(website));
+            });
+        }
+        ui->tableWidget->setCellWidget(i, 4, itemWebsite);
     } else {
-        itemWebsite->setToolTip(website);
-        connect(itemWebsite, &QPushButton::clicked, this, [website](){
-            QDesktopServices::openUrl(QUrl(website));
-        });
+        ui->tableWidget->setItem(i, 4, new QTableWidgetItem(tr("Unknown")));
     }
-    ui->tableWidget->setCellWidget(i, 4, itemWebsite);
 }
 
 void PluginInfoWindow::retranslateUi(void) {
@@ -112,4 +126,32 @@ QList<uint32_t> PluginInfoWindow::supportAPIVersionList(void) {
             break;
     }
     return list;
+}
+
+QString PluginInfoWindow::pathShorten(const QString &path) {
+    QString ret = path;
+    if(ret.size() > 40) {
+        ret = "..." + ret.mid(ret.size() - 40);
+    }
+    return ret;
+}
+
+void PluginInfoWindow::showEvent(QShowEvent *event)
+{
+    GlobalSetting settings;
+    QString pluginsPath = settings.value("Global/Options/UserPluginsPath", "").toString();
+    if(!pluginsPath.isEmpty()) {
+        int ret = ui->comboBoxPluginsPath->findText(pathShorten(pluginsPath));
+        if(ret != -1) {
+            if(pluginsPath != ui->comboBoxPluginsPath->itemData(ret, Qt::UserRole).toString()) {
+                ui->comboBoxPluginsPath->clear();
+                ui->comboBoxPluginsPath->addItem(pathShorten(QApplication::applicationDirPath() + "/plugins/QuardCRT"),QApplication::applicationDirPath() + "/plugins/QuardCRT");
+                ui->comboBoxPluginsPath->setItemData(0, QApplication::applicationDirPath() + "/plugins/QuardCRT", Qt::ToolTipRole);
+                ui->comboBoxPluginsPath->addItem(pathShorten(pluginsPath),pluginsPath);
+                ui->comboBoxPluginsPath->setItemData(1, pluginsPath, Qt::ToolTipRole);
+                ui->comboBoxPluginsPath->setCurrentText(pathShorten(pluginsPath));
+            }
+        }
+    }
+    QDialog::showEvent(event);
 }

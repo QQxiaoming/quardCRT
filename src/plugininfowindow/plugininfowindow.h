@@ -44,8 +44,12 @@ public:
 signals:
     void pluginEnableStateChanged(QString name, bool enable);
 
+protected:
+    void showEvent(QShowEvent *event);
+
 private:
     Ui::PluginInfoWindow *ui;
+    QString pathShorten(const QString &path);
 };
 
 #endif // PLUGININFOWINDOW_H
