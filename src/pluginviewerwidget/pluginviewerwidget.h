@@ -36,7 +36,8 @@ class PluginViewerWidget : public QWidget
 public:
     explicit PluginViewerWidget(QWidget *parent = nullptr);
     ~PluginViewerWidget();
-    void addPlugin(QWidget *pluginWidget, const QString &pluginName);
+    bool addPlugin(QWidget *pluginWidget, const QString &pluginName);
+    void setPluginVisible(const QString &pluginName, bool visible);
     void retranslateUi(void);
 
 private:

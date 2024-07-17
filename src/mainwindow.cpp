@@ -284,13 +284,15 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 settings.setValue("Global/Plugin/"+name+"/State",enable);
                 QMap<QString,void *> map = iface->metaObject();
                 foreach (QString key, map.keys()) {
-                    if(key == "QAction") {
+                    if(key == "MainMenuAction" || key == "QAction") {
                         QAction *action = (QAction *)map.value(key);
                         action->setVisible(enable);
-                    } else if(key == "QMenu") {
+                    } else if(key == "MainMenuMenu" || key == "QMenu") {
                         QMenu *menu = (QMenu *)map.value(key);
                         menu->menuAction()->setVisible(enable);
-                    }
+                    } else if(key == "MainWidget" || key == "QWidget") {
+                        pluginViewerWidget->setPluginVisible(iface->name(),enable);
+                    } 
                 }
                 break;
             }
@@ -2186,8 +2188,6 @@ void CentralWidget::menuAndToolBarInit(void) {
                             bool state = settings.value("Global/Plugin/"+iface->name()+"/State",true).toBool();
                             pluginState_t pluginStruct;
                             pluginStruct.iface = iface;
-                            pluginStruct.state = state;
-                            pluginList.append(pluginStruct);
                             connect(iface,SIGNAL(requestTelnetConnect(QString, int, int)),this,SLOT(onPluginRequestTelnetConnect(QString, int, int)));
                             connect(iface,SIGNAL(requestSerialConnect(QString, uint32_t, int, int, int, bool, bool)),this,SLOT(onPluginRequestSerialConnect(QString, uint32_t, int, int, int, bool, bool)));
                             connect(iface,SIGNAL(requestLocalShellConnect(QString, QString)),this,SLOT(onPluginRequestLocalShellConnect(QString, QString)));
@@ -2200,25 +2200,38 @@ void CentralWidget::menuAndToolBarInit(void) {
                             connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
                             QString website;
                             QMap<QString,void *> map = iface->metaObject();
+                            bool findMenu = false;
                             foreach (QString key, map.keys()) {
-                                if(key == "QAction") {
+                                if(key == "MainMenuAction" || key == "QAction") {
                                     QAction *action = (QAction *)map.value(key);
                                     laboratoryMenu->addAction(action);
                                     action->setVisible(state);
-                                } else if(key == "QMenu") {
+                                    findMenu = true;
+                                } else if(key == "MainMenuMenu" || key == "QMenu") {
                                     QMenu *menu = (QMenu *)map.value(key);
                                     laboratoryMenu->addMenu(menu);
                                     menu->menuAction()->setVisible(state);
-                                } else if(key == "QWidget") {
+                                    findMenu = true;
+                                } else if(key == "MainWidget" || key == "QWidget") {
                                     QWidget *widget = (QWidget *)map.value(key);
-                                    pluginViewerWidget->addPlugin(widget,iface->name());
+                                    if(pluginViewerWidget->addPlugin(widget,iface->name())) {
+                                        pluginViewerWidget->setPluginVisible(iface->name(),state);
+                                    }
                                 } else if(key == "website") {
                                     website = *(QString *)map.value(key);
                                 }
                             }
-                            iface->setLanguage(language,qApp);
-                            iface->retranslateUi();
-                            pluginInfoWindow->addPluginInfo(iface,absoluteFilePath,apiVersion,state,false,website);
+                            if(findMenu) {
+                                iface->setLanguage(language,qApp);
+                                iface->retranslateUi();
+                                pluginInfoWindow->addPluginInfo(iface,absoluteFilePath,apiVersion,state,false,website);
+                            } else {
+                                state = false;
+                                pluginViewerWidget->setPluginVisible(iface->name(),state);
+                                pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin menu not found!"),apiVersion,false,true);
+                            }
+                            pluginStruct.state = state;
+                            pluginList.append(pluginStruct);
                         } else {
                             pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin init failed!"),apiVersion,false,true);
                         }

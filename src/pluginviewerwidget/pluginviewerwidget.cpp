@@ -45,11 +45,30 @@ PluginViewerWidget::~PluginViewerWidget()
     delete ui;
 }
 
-void PluginViewerWidget::addPlugin(QWidget *pluginWidget, const QString &pluginName)
+bool PluginViewerWidget::addPlugin(QWidget *pluginWidget, const QString &pluginName)
 {
+    if(m_plugins.contains(pluginName)) {
+        return false;
+    }
     m_plugins.insert(pluginName, pluginWidget);
     ui->stackedWidget->addWidget(pluginWidget);
     ui->comboBox->addItem(pluginName);
+    return true;
+}
+
+void PluginViewerWidget::setPluginVisible(const QString &pluginName, bool visible) {
+    if (m_plugins.contains(pluginName)) {
+        m_plugins.value(pluginName)->setVisible(visible);
+        if (!visible) {
+            if(ui->comboBox->currentIndex() == ui->comboBox->findText(pluginName)) {
+                ui->comboBox->setCurrentIndex(0);
+                ui->stackedWidget->setCurrentWidget(m_homeWidget);
+            }
+            ui->comboBox->removeItem(ui->comboBox->findText(pluginName));
+        } else {
+            ui->comboBox->addItem(pluginName);
+        }
+    }
 }
 
 void PluginViewerWidget::retranslateUi(void) {
