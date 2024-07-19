@@ -189,6 +189,8 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     keyMapManagerWindow = new keyMapManager(this);
     keyMapManagerWindow->setAvailableKeyBindings(QTermWidget::availableKeyBindings());
 
+    internalCommandWindow = new InternalCommandWindow(this);
+
     globalOptionsWindow = new GlobalOptionsWindow(this);
 
     sessionOptionsWindow = new SessionOptionsWindow(this);
@@ -925,7 +927,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     ui->statusBar->setSizeGripEnabled(false);
 
     connect(notifictionWidget,&NotifictionWidget::notifictionChanged,this,[&](uint32_t count){
-        qDebug() << "notifictionChanged:" << count;
         statusBarWidget->setNotifiction(count?true:false);
     });
     connect(statusBarWidget->statusBarNotifiction,&StatusBarToolButton::clicked,this,[&](){
@@ -1624,6 +1625,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     createPublicKeyAction->setStatusTip(tr("Create a public key"));
     publickeyManagerAction->setText(tr("Publickey Manager"));
     publickeyManagerAction->setStatusTip(tr("Display publickey manager"));
+    internalCommandAction->setText(tr("Internal Command"));
+    internalCommandAction->setStatusTip(tr("Display Internal Command window"));
 
     tabAction->setText(tr("Tab"));
     tabAction->setStatusTip(tr("Arrange sessions in tabs"));
@@ -2006,6 +2009,9 @@ void CentralWidget::menuAndToolBarInit(void) {
     toolsMenu->addAction(createPublicKeyAction);
     publickeyManagerAction = new QAction(this);
     toolsMenu->addAction(publickeyManagerAction);
+    toolsMenu->addSeparator();
+    internalCommandAction = new QAction(this);
+    toolsMenu->addAction(internalCommandAction);
 
     windowActionGroup = new QActionGroup(this);
     tabAction = new QAction(this);
@@ -3187,6 +3193,9 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(keymapManagerAction,&QAction::triggered,this,[=](){
         keyMapManagerWindow->show();
+    });
+    connect(internalCommandAction,&QAction::triggered,this,[=](){
+        internalCommandWindow->show();
     });
     connect(sshScanningAction,&QAction::triggered,this,[=](){
         bool isOk = false;

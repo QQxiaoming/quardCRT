@@ -40,6 +40,7 @@ QString DATE_TAG = BUILD_DATE;
 QString DATE_TIMESTAMPS_TAG = BUILD_DATE_TIMESTAMPS;
 QString HASH_TAG = BUILD_HASH;
 QString SHORT_HASH_TAG = BUILD_SHORT_HASH;
+QDateTime START_TIME = QDateTime::currentDateTime();
 
 class CommandLineParser
 {
@@ -196,7 +197,7 @@ int main(int argc, char *argv[])
     qDebug() << "DebugMode:" << debugMode;
     qDebug() << "DebugLevel:" << debugLevel;
     qDebug() << "DebugLogFile:" << debugLogFile;
-    qDebug() << "Start Application Time:" << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
+    qDebug() << "Start Application Time:" << START_TIME.toString("yyyy-MM-dd hh:mm:ss.zzz");
     
     if(settings.value("Global/Options/enableNativeUI",false).toBool()) {
         QApplication::setAttribute(Qt::AA_DontUseNativeDialogs,false);

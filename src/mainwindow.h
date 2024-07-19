@@ -33,12 +33,14 @@
 #include <QDir>
 #include <QStatusTipEvent>
 #include <QFontMetrics>
+#include <QDateTime>
 
 #include "mainwidgetgroup.h"
 #include "sessiontab.h"
 #include "sessionswindow.h"
 #include "quickconnectwindow.h"
 #include "keymapmanager.h"
+#include "internalcommandwindow.h"
 #include "globaloptionswindow.h"
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
@@ -67,6 +69,7 @@ extern QString DATE_TAG;
 extern QString DATE_TIMESTAMPS_TAG;
 extern QString HASH_TAG;
 extern QString SHORT_HASH_TAG;
+extern QDateTime START_TIME;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CentralWidget; }
@@ -180,6 +183,7 @@ private:
     QuickConnectWindow *quickConnectWindow;
     MainWidgetGroup *quickConnectMainWidgetGroup;
     keyMapManager *keyMapManagerWindow;
+    InternalCommandWindow *internalCommandWindow;
     GlobalOptionsWindow *globalOptionsWindow;
     SessionOptionsWindow *sessionOptionsWindow;
     HexViewWindow *hexViewWindow;
@@ -291,6 +295,7 @@ private:
     QAction *keymapManagerAction;
     QAction *createPublicKeyAction;
     QAction *publickeyManagerAction;
+    QAction *internalCommandAction;
     QAction *sshScanningAction;
     QAction *pluginInfoAction;
     QActionGroup *windowActionGroup;

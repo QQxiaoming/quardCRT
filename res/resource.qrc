@@ -2,6 +2,7 @@
     <qresource prefix="/icons">
         <file>../icons/fontawesome-webfont.ttf</file>
         <file>../icons/about.png</file>
+        <file>../icons/about2.png</file>
         <file>../icons/aboutqt.png</file>
     </qresource>
     <qresource prefix="/lang">

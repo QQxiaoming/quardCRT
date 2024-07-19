@@ -21,6 +21,7 @@
 #define PLUGINVIEWERHOMEWIDGET_H
 
 #include <QWidget>
+#include <QMouseEvent>
 
 namespace Ui {
 class PluginViewerHomeWidget;
@@ -34,6 +35,9 @@ public:
     explicit PluginViewerHomeWidget(QWidget *parent = nullptr);
     ~PluginViewerHomeWidget();
     void retranslateUi(void);
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     Ui::PluginViewerHomeWidget *ui;

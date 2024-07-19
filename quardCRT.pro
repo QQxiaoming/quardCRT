@@ -37,6 +37,7 @@ INCLUDEPATH += \
     src/util \
     src/sessionswindow \
     src/sessiontab \
+    src/internalcommandwindow \
     src/sessionmanagerwidget \
     src/pluginviewerwidget \
     src/globaloptions \
@@ -56,6 +57,8 @@ INCLUDEPATH += \
 
 SOURCES += \
     src/globaloptions/globaloptionstransferwidget.cpp \
+    src/internalcommandwindow/internalcommandprocess.cpp \
+    src/internalcommandwindow/internalcommandwindow.cpp \
     src/notifictionwidget/notificationitem.cpp \
     src/notifictionwidget/notifictionwidget.cpp \
     src/plugininfowindow/plugininfowindow.cpp \
@@ -103,6 +106,8 @@ SOURCES += \
 
 HEADERS += \
     src/globaloptions/globaloptionstransferwidget.h \
+    src/internalcommandwindow/internalcommandprocess.h \
+    src/internalcommandwindow/internalcommandwindow.h \
     src/notifictionwidget/notificationitem.h \
     src/notifictionwidget/notifictionwidget.h \
     src/plugininfowindow/plugininfowindow.h \
@@ -155,6 +160,7 @@ FORMS += \
     src/globaloptions/globaloptionsterminalwidget.ui \
     src/globaloptions/globaloptionstransferwidget.ui \
     src/globaloptions/globaloptionswindowwidget.ui \
+    src/internalcommandwindow/internalcommandwindow.ui \
     src/notifictionwidget/notificationitem.ui \
     src/notifictionwidget/notifictionwidget.ui \
     src/plugininfowindow/plugininfowindow.ui \

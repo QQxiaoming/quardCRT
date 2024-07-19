@@ -40,3 +40,13 @@ void PluginViewerHomeWidget::retranslateUi(void) {
         QString("</p></body></html>"));
     ui->retranslateUi(this);
 }
+
+void PluginViewerHomeWidget::mousePressEvent(QMouseEvent *event) {
+    static int count = 0;
+    if(event->button() == Qt::LeftButton) {
+        count++;
+        if(count == 5) {
+            count = 0;
+        }
+    }
+}

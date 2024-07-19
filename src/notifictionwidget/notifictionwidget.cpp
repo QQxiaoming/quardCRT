@@ -9,7 +9,10 @@ NotifictionWidget::NotifictionWidget(QWidget *parent)
     , ui(new Ui::NotifictionWidget)
 {
     ui->setupUi(this);
+    ui->label->setEnabled(false);
     ui->listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    ui->label->setVisible(true);
+    ui->listWidget->setVisible(false);
 }
 
 NotifictionWidget::~NotifictionWidget()
