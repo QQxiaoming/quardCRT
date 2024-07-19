@@ -133,10 +133,17 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     mainWidgetGroupList.at(5)->splitter->setVisible(false);
     mainWidgetGroupList.at(6)->splitter->setVisible(false);
     currentLayout = 0;
-    splitter->setSizes(QList<int>() << 1 << 100000 << 100000 << 100000);
+
+    notifictionWidget = new NotifictionWidget(this);
+    splitter->addWidget(notifictionWidget);
+    notifictionWidget->hide();
+
+    splitter->setSizes(QList<int>() << 1 << 100000 << 100000 << 100000 << 1);
     splitter->setCollapsible(0,false);
     splitter->setCollapsible(1,false);
     splitter->setCollapsible(2,false);
+    splitter->setCollapsible(3,false);
+    splitter->setCollapsible(4,false);
     splitterV1->setCollapsible(0,false);
     splitterV1->setCollapsible(1,false);
     splitterV1->setCollapsible(2,false);
@@ -916,6 +923,18 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
     statusBarWidgetRefreshTimer->start();
     ui->statusBar->setSizeGripEnabled(false);
+
+    connect(notifictionWidget,&NotifictionWidget::notifictionChanged,this,[&](uint32_t count){
+        qDebug() << "notifictionChanged:" << count;
+        statusBarWidget->setNotifiction(count?true:false);
+    });
+    connect(statusBarWidget->statusBarNotifiction,&StatusBarToolButton::clicked,this,[&](){
+        if(notifictionWidget->isHidden()) {
+            notifictionWidget->show();
+        } else {
+            notifictionWidget->hide();
+        }
+    });
 
     initSysEnv();
 

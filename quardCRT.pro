@@ -41,6 +41,7 @@ INCLUDEPATH += \
     src/pluginviewerwidget \
     src/globaloptions \
     src/sessionoptions \
+    src/notifictionwidget \
     src/commandwidget \
     src/keymapmanager \
     src/locksessionwindow \
@@ -55,6 +56,8 @@ INCLUDEPATH += \
 
 SOURCES += \
     src/globaloptions/globaloptionstransferwidget.cpp \
+    src/notifictionwidget/notificationitem.cpp \
+    src/notifictionwidget/notifictionwidget.cpp \
     src/plugininfowindow/plugininfowindow.cpp \
     src/pluginviewerwidget/pluginviewerhomewidget.cpp \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
@@ -100,6 +103,8 @@ SOURCES += \
 
 HEADERS += \
     src/globaloptions/globaloptionstransferwidget.h \
+    src/notifictionwidget/notificationitem.h \
+    src/notifictionwidget/notifictionwidget.h \
     src/plugininfowindow/plugininfowindow.h \
     src/pluginviewerwidget/pluginviewerhomewidget.h \
     src/pluginviewerwidget/pluginviewerwidget.h \
@@ -150,6 +155,8 @@ FORMS += \
     src/globaloptions/globaloptionsterminalwidget.ui \
     src/globaloptions/globaloptionstransferwidget.ui \
     src/globaloptions/globaloptionswindowwidget.ui \
+    src/notifictionwidget/notificationitem.ui \
+    src/notifictionwidget/notifictionwidget.ui \
     src/plugininfowindow/plugininfowindow.ui \
     src/pluginviewerwidget/pluginviewerhomewidget.ui \
     src/pluginviewerwidget/pluginviewerwidget.ui \

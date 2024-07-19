@@ -42,6 +42,7 @@
 #include "globaloptionswindow.h"
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
+#include "notifictionwidget.h"
 #include "pluginviewerwidget.h"
 #include "commandwidget.h"
 #include "statusbarwidget.h"
@@ -173,6 +174,7 @@ private:
     QSplitter *splitterV11;
     QStackedWidget *stackedWidget;
     SessionManagerWidget *sessionManagerWidget;
+    NotifictionWidget *notifictionWidget;
     PluginViewerWidget *pluginViewerWidget;
     QList<MainWidgetGroup *> mainWidgetGroupList;
     QuickConnectWindow *quickConnectWindow;

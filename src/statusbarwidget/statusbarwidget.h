@@ -119,11 +119,6 @@ public:
     void setSpeedInfo(bool enable, qreal tx = -1.0, qreal rx = -1.0);
     void setNotifiction(bool enable);
 
-protected:
-    void contextMenuEvent(QContextMenuEvent *event) override;
-    
-private:
-    Ui::StatusBarWidget *ui;
     StatusBarToolButton *statusBarCursorInfo;
     StatusBarToolButton *statusBarType;
     StatusBarToolButton *statusBarTransTx;
@@ -131,6 +126,12 @@ private:
     StatusBarToolButton *statusBarSpeedTx;
     StatusBarToolButton *statusBarSpeedRx;
     StatusBarToolButton *statusBarNotifiction;
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event) override;
+    
+private:
+    Ui::StatusBarWidget *ui;
 };
 
 #endif // STATUSBARWIDGET_H
