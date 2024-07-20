@@ -2623,35 +2623,45 @@ If you need to use another shell, please create a session through [quick-connect
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Open URL</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Cannot open URL %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="198"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="202"/>
         <source>Copy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="204"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="208"/>
         <source>Paste</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="210"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="214"/>
         <source>Select All</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="216"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="220"/>
         <source>Find</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="226"/>
+        <source>Zoom In</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="234"/>
+        <source>Zoom Out</source>
         <translation></translation>
     </message>
 </context>

@@ -2627,36 +2627,46 @@ Si necesita usar otro shell, cree una sesión a través de [conexión rápida &g
         <translation>Comando interno</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Open URL</source>
         <translation>Abrir URL</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Cannot open URL %1.</source>
         <translation>No se puede abrir la URL %1.</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="198"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="202"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="204"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="208"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="210"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="214"/>
         <source>Select All</source>
         <translation>Seleccionar todo</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="216"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="220"/>
         <source>Find</source>
         <translation>Buscar</translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="226"/>
+        <source>Zoom In</source>
+        <translation>Acercar</translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="234"/>
+        <source>Zoom Out</source>
+        <translation>Alejar</translation>
     </message>
 </context>
 <context>

@@ -2627,36 +2627,46 @@ If you need to use another shell, please create a session through [quick-connect
         <translation>内部命令</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Open URL</source>
         <translation>打开 URL</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Cannot open URL %1.</source>
         <translation>无法打开 URL %1.</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="198"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="202"/>
         <source>Copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="204"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="208"/>
         <source>Paste</source>
         <translation>粘贴</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="210"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="214"/>
         <source>Select All</source>
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="216"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="220"/>
         <source>Find</source>
         <translation>查找</translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="226"/>
+        <source>Zoom In</source>
+        <translation>放大</translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="234"/>
+        <source>Zoom Out</source>
+        <translation>缩小</translation>
     </message>
 </context>
 <context>

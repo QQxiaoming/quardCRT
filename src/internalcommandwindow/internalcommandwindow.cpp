@@ -9,6 +9,8 @@
 #include <QMenu>
 #include <QAction>
 #include <QList>
+
+#include "globalsetting.h"
 #include "globaloptionswindow.h"
 #include "internalcommandwindow.h"
 #include "ui_internalcommandwindow.h"
@@ -40,7 +42,9 @@ InternalCommandWindow::InternalCommandWindow(QWidget *parent)
         font.setFamily(fontFamilies[0]);
     }
     font.setFixedPitch(true);
-    font.setPointSize(12);
+    GlobalSetting settings;
+    int fontsize = settings.value("Global/InternalCommand/fontsize", 12).toInt();
+    font.setPointSize(fontsize);
     term->setTerminalFont(font);
     
     QStringList availableColorSchemes = term->availableColorSchemes();
@@ -218,6 +222,23 @@ void InternalCommandWindow::contextMenuEvent(QContextMenuEvent *event) {
         term->toggleShowSearchBar();
     });
     menu->addAction(findAction);
+    menu->addSeparator();
+
+    QAction *zoomInAction = new QAction(tr("Zoom In"),this);
+    connect(zoomInAction,&QAction::triggered,this,[&](){
+        int fontsize = term->zoomIn();
+        GlobalSetting settings;
+        settings.setValue("Global/InternalCommand/fontsize", fontsize);
+    });
+    menu->addAction(zoomInAction);
+
+    QAction *zoomOutAction = new QAction(tr("Zoom Out"),this);
+    connect(zoomOutAction,&QAction::triggered,this,[&](){
+        int fontsize = term->zoomOut();
+        GlobalSetting settings;
+        settings.setValue("Global/InternalCommand/fontsize", fontsize);
+    });
+    menu->addAction(zoomOutAction);
 
     QRect screenGeometry = QGuiApplication::screenAt(cursor().pos())->geometry();
     QPoint pos = cursor().pos() + QPoint(5,5);

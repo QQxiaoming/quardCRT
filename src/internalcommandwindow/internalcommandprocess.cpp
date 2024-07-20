@@ -212,6 +212,22 @@ void InternalCommandProcess::recvData(const QByteArray &data) {
     }
     sdata.replace('\r', "\r\n");
     buffer.append(sdata);
+    if(sdata.contains("\b")) {
+        int index = 0;
+        while ((index = buffer.indexOf('\b', index)) != -1) {
+            if (index > 0) {
+                buffer.remove(index - 1, 2);
+                index--;
+            } else {
+                buffer.remove(index, 1);
+            }
+        }
+        if(buffer.isEmpty()) {
+            emit sendData(QByteArray("\x1B[2K\r"));
+            sendPrompt();
+            return;
+        }
+    } 
     sdata.replace("\b", "\x08\x1B[J");
     emit sendData(sdata);
     condition.wakeOne();

@@ -2627,36 +2627,46 @@ PowerShell 5 이상을 사용하십시오!
         <translation>내부 명령어</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Open URL</source>
         <translation>URL 열기</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="111"/>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="121"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="115"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="125"/>
         <source>Cannot open URL %1.</source>
         <translation>%1 URL을 열 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="198"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="202"/>
         <source>Copy</source>
         <translation>복사</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="204"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="208"/>
         <source>Paste</source>
         <translation>붙여넣기</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="210"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="214"/>
         <source>Select All</source>
         <translation>모두 선택</translation>
     </message>
     <message>
-        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="216"/>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="220"/>
         <source>Find</source>
         <translation>찾기</translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="226"/>
+        <source>Zoom In</source>
+        <translation>확대</translation>
+    </message>
+    <message>
+        <location filename="../src/internalcommandwindow/internalcommandwindow.cpp" line="234"/>
+        <source>Zoom Out</source>
+        <translation>축소</translation>
     </message>
 </context>
 <context>

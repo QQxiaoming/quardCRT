@@ -334,8 +334,8 @@ public slots:
     void selectAll();
 
     // Set zoom
-    void zoomIn();
-    void zoomOut();
+    int zoomIn();
+    int zoomOut();
 
     // Set size
     void setSize(const QSize &);
@@ -396,7 +396,7 @@ private:
         Konsole::RegExpFilter *regExpFilter;
     };
     void search(bool forwards, bool next);
-    void setZoom(int step);
+    int setZoom(int step);
     QWidget *messageParentWidget = nullptr;
     TermWidgetImpl * m_impl;
     SearchBar* m_searchBar;

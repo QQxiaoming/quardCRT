@@ -502,22 +502,23 @@ void QTermWidget::selectAll()
     m_impl->m_terminalDisplay->selectAll();
 }
 
-void QTermWidget::setZoom(int step)
+int QTermWidget::setZoom(int step)
 {
     QFont font = m_impl->m_terminalDisplay->getVTFont();
 
     font.setPointSize(font.pointSize() + step);
     setTerminalFont(font);
+    return font.pointSize();
 }
 
-void QTermWidget::zoomIn()
+int QTermWidget::zoomIn()
 {
-    setZoom(STEP_ZOOM);
+    return setZoom(STEP_ZOOM);
 }
 
-void QTermWidget::zoomOut()
+int QTermWidget::zoomOut()
 {
-    setZoom(-STEP_ZOOM);
+    return setZoom(-STEP_ZOOM);
 }
 
 void QTermWidget::setKeyBindings(const QString & kb)

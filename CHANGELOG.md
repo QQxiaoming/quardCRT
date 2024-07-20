@@ -12,6 +12,8 @@ en-US:
 - Add up to four window split screen mode and multiple layout modes
 - Add single/group/all session three modes in the send command window
 - Add the plugin information page to display the plugin website
+- Add notification center
+- Add internal command window
 - Improve the context menu of URL recognition links
 - Improve the find window to automatically fill in the currently selected text each time it is opened
 - Improve status bar
@@ -28,6 +30,8 @@ zh-CN:
 - 增加了至多四窗口分屏模式以及多种布局模式
 - 发送命令窗口增加单会话/组会话/全部会话三种模式
 - 插件信息页面增加插件网站主页显示
+- 增加通知中心
+- 增加内部命令窗口
 - 改进URL识别链接的上下文菜单
 - 改进查找窗口在每次打开时自动填入当前选择的文本
 - 改进状态栏
