@@ -122,9 +122,10 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     connect(m_impl->m_session->emulation(), SIGNAL(zmodemSendDetected()), this, SIGNAL(zmodemSendDetected()) );
              
     // That's OK, FilterChain's dtor takes care of UrlFilter.
-    UrlFilter *urlFilter = new UrlFilter();
+    urlFilter = new UrlFilter();
     connect(urlFilter, &UrlFilter::activated, this, &QTermWidget::urlActivated);
     m_impl->m_terminalDisplay->filterChain()->addFilter(urlFilter);
+    m_UrlFilterEnable = true;
 
     m_searchBar = new SearchBar(this);
     m_searchBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
@@ -895,6 +896,17 @@ QString QTermWidget::screenGet(int row1, int col1, int row2, int col2, int mode)
 
 void QTermWidget::setSelectionOpacity(qreal opacity) {
     m_impl->m_terminalDisplay->setSelectionOpacity(opacity);
+}
+
+void QTermWidget::setUrlFilterEnabled(bool enable) {
+    if(m_UrlFilterEnable == enable) {
+        return;
+    }
+    if(enable) {
+        m_impl->m_terminalDisplay->filterChain()->addFilter(urlFilter);
+    } else {
+        m_impl->m_terminalDisplay->filterChain()->removeFilter(urlFilter);
+    }
 }
 
 void QTermWidget::setMessageParentWidget(QWidget *parent) {

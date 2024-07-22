@@ -17,8 +17,7 @@ InternalCommandProcess::~InternalCommandProcess() {
 }
 
 void InternalCommandProcess::run(void) {
-    sendString("Welcome to the QuardCRT command window.\r\n");
-    sendString("Please type 'help' or '?' to get a list of available commands.\r\n");
+    sendWelcome();
     sendPrompt();
     while (!exit) {
         mutex.lock();
@@ -62,104 +61,168 @@ void InternalCommandProcess::processLine(const QString &sline) {
         args.append(arg.trimmed());
     }
     QString command = args.takeFirst();
-
-    const QMap<QString, QString> commands = {
-        {"help",    "show this help message"},
-        {"?",       "show this help message"},
-        {"exit",    "exit the QuardCRT"},
-        {"quit",    "exit the QuardCRT"},
-        {"clear",   "clear the screen"},
-        {"cls",     "clear the screen"},
-        {"version", "show the version of the QuardCRT"},
-        {"about",   "how the about message of the QuardCRT"},
-        {"license", "show the license of the QuardCRT"},
-        {"authors", "show the authors of the QuardCRT"},
-        {"credits", "show the credits of the QuardCRT"},
-        {"copying", "show the copying of the QuardCRT"},
-        {"echo",    "echo the arguments"},
-        {"state",   "show states of the QuardCRT"},
-        {"info",    "show information of the QuardCRT"},
+    QList<struct Command> commands = {
+        {"help"   , "show this help message"               ,
+            [&](void) {
+                static const int maxCmdNameCount = [&]() -> int {
+                    int ret = 0;
+                    foreach(const struct Command &cmd, commands) {
+                        ret = qMax(ret, cmd.name.size());
+                    }
+                    return ret;
+                }();
+                sendLineString("Available commands:");
+                foreach(const struct Command &cmd, commands) {
+                    if(!cmd.description.isEmpty()) {
+                        sendLineString("  " + cmd.name.leftJustified(maxCmdNameCount, ' ')  + " - " + cmd.description);
+                    }
+                }
+            }
+        },
+        {"?"      , "show this help message"               , 
+            [&](void) {
+                sendLineString("Available commands:");
+                foreach(const struct Command &cmd, commands) {
+                    sendLineString("  " + cmd.name + " - " + cmd.description);
+                }
+            }
+        },
+        {"exit"   , "exit the QuardCRT"                    , 
+            [&](void) {
+                qApp->exit();
+            }
+        },
+        {"quit"   , "exit the QuardCRT"                    , 
+            [&](void) {
+                qApp->exit();
+            }
+        },
+        {"clear"  , "clear the screen"                     , 
+            [&](void) {
+                sendString("\033[2J\033[1;1H");
+            }
+        },
+        {"cls"    , "clear the screen"                     , 
+            [&](void) {
+                sendString("\033[2J\033[1;1H");
+            }
+        },
+        {"version", "show the version of the QuardCRT"     , 
+            [&](void) {
+                sendLineString(QString("QuardCRT version %0").arg(VERSION));
+            }
+        },
+        {"about"  , "how the about message of the QuardCRT", 
+            [&](void) {
+                sendLineString("QuardCRT is a terminal emulator.");
+            }
+        },
+        {"license", "show the license of the QuardCRT"     , 
+            [&](void) {
+                sendLineString("QuardCRT is licensed under the GPLv3 License.");
+            }
+        },
+        {"authors", "show the authors of the QuardCRT"     , 
+            [&](void) {
+                sendLineString("QuardCRT is authored by the Quard <2014500726@smail.xtu.edu.cn>.");
+            }
+        },
+        {"credits", "show the credits of the QuardCRT"     , 
+            [&](void) {
+                sendLineString("QuardCRT is credited to the Quard <2014500726@smail.xtu.edu.cn>.");
+            }
+        },
+        {"copying", "show the copying of the QuardCRT"     , 
+            [&](void) {
+                sendLineString("QuardCRT is copied by the Quard <2014500726@smail.xtu.edu.cn>.");
+            }
+        },
+        {"echo"   , "echo the arguments"                   , 
+            [&](void) {
+                sendLineString(args.join(' '));
+            }
+        },
+        {"state"  , "show states of the QuardCRT"          , 
+            [&](void) {
+                GlobalSetting settings;
+                bool debugMode = settings.value("Debug/DebugMode",false).toBool();
+                QString debugLogFile = settings.value("Debug/DebugLogFile","").toString();
+                QtMsgType debugLevel = settings.value("Debug/DebugLevel",QtInfoMsg).value<QtMsgType>();
+                sendLineString(QString("debugMode                : %0").arg(debugMode));
+                sendLineString(QString("debugLogFile             : %0").arg(debugLogFile));
+                sendLineString(QString("debugLevel               : %0").arg(debugLevel));
+                sendLineString(QString("Start Application Time   : %0").arg(START_TIME.toString("yyyy-MM-dd hh:mm:ss.zzz")));
+                uint64_t running_time = START_TIME.secsTo(QDateTime::currentDateTime());
+                sendString("Application Running Time : ");
+                if(running_time < 60) {
+                    sendLineString(QString("%0s").arg(running_time));
+                } else if(running_time < 60*60) {
+                    sendLineString(QString("%0m %1s").arg(running_time/60).arg(running_time%60));
+                } else if(running_time < 60*60*24) {
+                    sendLineString(QString("%0h %1m %2s").arg(running_time/(60*60)).arg((running_time%(60*60))/60).arg((running_time%(60*60))%60));
+                } else {
+                    uint64_t mod = running_time%(60*60*24);
+                    sendLineString(QString("%0d %1h %2m %3s").arg(running_time/(60*60*24)).arg(mod/(60*60)).arg((mod%(60*60))/60).arg((mod%(60*60))%60));
+                }
+            }
+        },
+        {"info"   , "show information of the QuardCRT"     , 
+            [&](void) {
+                sendLineString(QString("Version                : %0").arg(VERSION));
+                sendLineString(QString("GitTag                 : %0").arg(GIT_TAG));
+                sendLineString(QString("BuildDate              : %0").arg(DATE_TAG));
+                sendLineString(QString("os                     : %0").arg(QSysInfo::prettyProductName()));
+                sendLineString(QString("bootUniqueId           : %0").arg(QSysInfo::bootUniqueId()));
+                sendLineString(QString("buildAbi               : %0").arg(QSysInfo::buildAbi()));
+                sendLineString(QString("buildCpuArchitecture   : %0").arg(QSysInfo::buildCpuArchitecture()));
+                sendLineString(QString("currentCpuArchitecture : %0").arg(QSysInfo::currentCpuArchitecture()));
+                sendLineString(QString("kernelType             : %0").arg(QSysInfo::kernelType()));
+                sendLineString(QString("kernelVersion          : %0").arg(QSysInfo::kernelVersion()));
+                sendLineString(QString("machineHostName        : %0").arg(QSysInfo::machineHostName()));
+                sendLineString(QString("machineUniqueId        : %0").arg(QSysInfo::machineUniqueId()));
+                sendLineString(QString("productType            : %0").arg(QSysInfo::productType()));
+                sendLineString(QString("productVersion         : %0").arg(QSysInfo::productVersion()));
+                sendLineString(QString("osVersion              : %0").arg(QOperatingSystemVersion::current().name()));
+            #if defined(Q_CC_MSVC)
+                sendLineString(QString("compiler               : MSVC %0").arg(Q_CC_MSVC));
+            #elif defined(Q_CC_CLANG)
+                sendLineString(QString("compiler               : CLANG %0").arg(Q_CC_CLANG));
+            #elif defined(Q_CC_GNU)
+                sendLineString(QString("compiler               : GCC %0").arg(Q_CC_GNU));
+            #else
+                sendLineString(QString("compiler               : unknown"));
+            #endif
+            }
+        },
+        {"AskQuard", QString()                             , 
+            [&](void) {
+                sendLineString("Thank you use QuardCRT, Have a nice day!");
+            }
+        },
+        {"AskQuardShow", QString()                         , 
+            [&](void) {
+                emit showString("QuardCRT", "Thank you use QuardCRT, Have a nice day!");
+            }
+        },
+        {"QuardSOnly", QString()                           , 
+            [&](void) {
+                emit showEasterEggs();
+            }
+        },
     };
-    if(command == "help" || command == "?") {
-        sendString("Available commands:\r\n");
-        foreach(const QString &key, commands.keys()) {
-            sendString("  " + key + " - " + commands[key] + "\r\n");
+    if(command.isEmpty()) {
+        return;
+    }
+    bool matched = false;
+    for(const struct Command &cmd : commands) {
+        if(command == cmd.name) {
+            cmd.action();
+            matched = true;
+            break;
         }
-    } else if(command == "exit" || command == "quit") {
-        qApp->exit();
-    } else if(command == "clear" || command == "cls") {
-        sendString("\033[2J\033[1;1H");
-    } else if(command == "version") {
-        sendString(QString("QuardCRT version %0\r\n").arg(VERSION));
-    } else if(command == "about") {
-        sendString("QuardCRT is a terminal emulator.\r\n");
-    } else if(command == "license") {
-        sendString("QuardCRT is licensed under the GPLv3 License.\r\n");
-    } else if(command == "authors") {
-        sendString("QuardCRT is authored by the Quard <2014500726@smail.xtu.edu.cn>.\r\n");
-    } else if(command == "credits") {
-        sendString("QuardCRT is credited to the Quard <2014500726@smail.xtu.edu.cn>.\r\n");
-    } else if(command == "copying") {
-        sendString("QuardCRT is copied by the Quard <2014500726@smail.xtu.edu.cn>.\r\n");
-    } else if(command == "AskQuard") {
-        sendString("Thank you use QuardCRT, Have a nice day!\r\n");
-    } else if(command == "AskQuardShow") {
-        emit showString("QuardCRT", "Thank you use QuardCRT, Have a nice day!\r\n");
-    } else if(command == "QuardSOnly") {
-        emit showEasterEggs();
-    } else if(command == "echo") {
-        sendString(args.join(' ') + "\r\n");
-    } else if(command == "state") {
-        GlobalSetting settings;
-        bool debugMode = settings.value("Debug/DebugMode",false).toBool();
-        QString debugLogFile = settings.value("Debug/DebugLogFile","").toString();
-        QtMsgType debugLevel = settings.value("Debug/DebugLevel",QtInfoMsg).value<QtMsgType>();
-        sendString(QString("debugMode : %0\r\n").arg(debugMode));
-        sendString(QString("debugLogFile : %0\r\n").arg(debugLogFile));
-        sendString(QString("debugLevel : %0\r\n").arg(debugLevel));
-        sendString(QString("Start Application Time : %0\r\n").arg(START_TIME.toString("yyyy-MM-dd hh:mm:ss.zzz")));
-        uint64_t running_time = START_TIME.secsTo(QDateTime::currentDateTime());
-        sendString("Application Running Time : ");
-        if(running_time < 60) {
-            sendString(QString("%0s\r\n").arg(running_time));
-        } else if(running_time < 60*60) {
-            sendString(QString("%0m %1s\r\n").arg(running_time/60).arg(running_time%60));
-        } else if(running_time < 60*60*24) {
-            sendString(QString("%0h %1m %2s\r\n").arg(running_time/(60*60)).arg((running_time%(60*60))/60).arg((running_time%(60*60))%60));
-        } else {
-            uint64_t mod = running_time%(60*60*24);
-            sendString(QString("%0d %1h %2m %3s\r\n").arg(running_time/(60*60*24)).arg(mod/(60*60)).arg((mod%(60*60))/60).arg((mod%(60*60))%60));
-        } 
-    } else if(command == "info") {
-        sendString(QString("Version : %0\r\n").arg(VERSION));
-        sendString(QString("GitTag : %0\r\n").arg(GIT_TAG));
-        sendString(QString("BuildDate : %0\r\n").arg(DATE_TAG));
-        sendString(QString("os : %0\r\n").arg(QSysInfo::prettyProductName()));
-        sendString(QString("bootUniqueId : %0\r\n").arg(QSysInfo::bootUniqueId()));
-        sendString(QString("buildAbi : %0\r\n").arg(QSysInfo::buildAbi()));
-        sendString(QString("buildCpuArchitecture : %0\r\n").arg(QSysInfo::buildCpuArchitecture()));
-        sendString(QString("currentCpuArchitecture : %0\r\n").arg(QSysInfo::currentCpuArchitecture()));
-        sendString(QString("kernelType : %0\r\n").arg(QSysInfo::kernelType()));
-        sendString(QString("kernelVersion : %0\r\n").arg(QSysInfo::kernelVersion()));
-        sendString(QString("machineHostName : %0\r\n").arg(QSysInfo::machineHostName()));
-        sendString(QString("machineUniqueId : %0\r\n").arg(QSysInfo::machineUniqueId()));
-        sendString(QString("productType : %0\r\n").arg(QSysInfo::productType()));
-        sendString(QString("productVersion : %0\r\n").arg(QSysInfo::productVersion()));
-        sendString(QString("osVersion : %0\r\n").arg(QOperatingSystemVersion::current().name()));
-    #if defined(Q_CC_MSVC)
-        sendString(QString("compiler : MSVC %0\r\n").arg(Q_CC_MSVC));
-    #elif defined(Q_CC_CLANG)
-        sendString(QString("compiler : CLANG %0\r\n").arg(Q_CC_CLANG));
-    #elif defined(Q_CC_GNU)
-        sendString(QString("compiler : GCC %0\r\n").arg(Q_CC_GNU));
-    #else
-        sendString(QString("compiler : unknown\r\n"));
-    #endif
-    } else {
-        if(command.isEmpty()) {
-            return;
-        }
-        sendString("Unknown command: " + command + "\r\n");
+    }
+    if(!matched) {
+        sendLineString("Unknown command: " + command);
     }
     if((!historyCmdList.isEmpty()) && historyCmdList.last() == command) {
         return;
@@ -237,6 +300,22 @@ void InternalCommandProcess::sendString(const QString &str) {
     emit sendData(str.toUtf8());
 }
 
+void InternalCommandProcess::sendLineString(const QString &str) {
+    sendString(str+"\r\n");
+}
+
 void InternalCommandProcess::sendPrompt(void) {
     sendString(promptLine);
+}
+
+void InternalCommandProcess::sendWelcome(void) {
+    sendString(
+        "  ___                      _  ____ ____ _____   \r\n"
+        " / _ \\ _   _  __ _ _ __ __| |/ ___|  _ \\_   _|  \r\n"
+        "| | | | | | |/ _` | '__/ _` | |   | |_) || |    \r\n"
+        "| |_| | |_| | (_| | | | (_| | |___|  _ < | |    \r\n"
+        " \\__\\_\\\\__,_|\\__,_|_|  \\__,_|\\____|_| \\_\\|_|    \r\n"
+    );
+    sendLineString("Welcome to the QuardCRT command window.");
+    sendLineString("Please type 'help' or '?' to get a list of available commands.");
 }

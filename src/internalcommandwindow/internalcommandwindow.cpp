@@ -24,6 +24,7 @@ InternalCommandWindow::InternalCommandWindow(QWidget *parent)
 
     process = new InternalCommandProcess(this);
     term = new QTermWidget(this,this);
+    term->setUrlFilterEnabled(false);
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);
     term->setBlinkingCursor(true);
     term->setMargin(0);
@@ -88,49 +89,6 @@ InternalCommandWindow::InternalCommandWindow(QWidget *parent)
             }
         });
     }
-    connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, uint32_t opcode){
-        QUrl u = url;
-        QString path = u.toString();
-        if(path.startsWith("relative:") ) {
-            return;
-        } 
-        QString target = u.toString();
-        if(target.startsWith("file://")) {
-            target.remove("file://");
-            // check endsWith '$' '#'
-            if(target.endsWith('$') || target.endsWith('#')) {
-                // check file exists
-                // FIXME: That's not a good way to fix filePath match issue
-                if(!QFile::exists(target)) {
-                    target.chop(1);
-                    u = QUrl::fromLocalFile(target);
-                }
-            }
-        }
-        switch(opcode) {
-            case QTermWidget::OpenFromContextMenu:
-            case QTermWidget::OpenFromClick: {
-                bool ret = QDesktopServices::openUrl(u);
-                if(!ret) {
-                    QMessageBox::warning(this, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
-                }
-                break;
-            }
-            case QTermWidget::OpenContainingFromContextMenu: {
-                QFileInfo fileInfo(u.toLocalFile());
-                QDir dir = fileInfo.dir();
-                if(dir.exists()) {
-                    bool ret = QDesktopServices::openUrl(QUrl::fromLocalFile(dir.path()));
-                    if(!ret) {
-                        QMessageBox::warning(this, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
-                    }
-                }
-                break;
-            }
-            default:
-                break;
-        }
-    });
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     connect(term, &QTermWidget::handleCtrlC, this, [&](void){
         QString text = term->selectedText();

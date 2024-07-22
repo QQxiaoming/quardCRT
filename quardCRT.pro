@@ -8,7 +8,7 @@ QT += core gui network widgets xml svgwidgets websockets serialport printsupport
 
 BUILD_VERSION="$$cat(./version.txt)"
 TARGET_ARCH=$${QT_ARCH}
-CONFIG += c++11
+CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += APP_VERSION="\\\"V$${BUILD_VERSION}\\\""
 

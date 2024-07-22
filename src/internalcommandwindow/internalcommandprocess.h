@@ -15,6 +15,12 @@ public:
 
     void recvData(const QByteArray &data);
 
+    struct Command {
+        QString name;
+        QString description;
+        std::function<void()> action;
+    };
+
 signals:
     void sendData(const QByteArray &data);
     void showString(const QString &name, const QString &str);
@@ -25,7 +31,9 @@ protected:
 
 private:
     void sendString(const QString &str);
+    void sendLineString(const QString &str);
     void sendPrompt(void);
+    void sendWelcome(void);
     void processLine(const QString &line);
     QString promptLine = ">>> ";
     QStringList historyCmdList;
