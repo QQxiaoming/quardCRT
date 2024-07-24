@@ -20,6 +20,7 @@ win32:{
     win32-msvc*{
         HEADERS += $$PWD/conptyprocess.h
         SOURCES += $$PWD/conptyprocess.cpp
+        LIBS += -lAdvapi32
     }
 
     LIBS += -lwsock32 -lws2_32 -lcrypt32 -liphlpapi -lnetapi32 -lversion -lwinmm -luserenv

@@ -22,6 +22,7 @@ public:
     bool removeNotifiction(int32_t index);
     bool isEmpty(void);
     void clearNotifiction(void);
+    void retranslateUi(void);
 
 signals:
     void notifictionChanged(uint32_t count);

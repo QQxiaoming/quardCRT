@@ -804,6 +804,10 @@ int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp
     if(forceUTF8) {
         envs.append("LC_CTYPE=UTF-8");
     }
+    QFileInfo fileInfo(workingDirectory);
+    if(!fileInfo.exists() || !fileInfo.isDir()) {
+        workingDirectory = QDir::homePath();
+    }
     bool ret = localShell->startProcess(shellPath, args, workingDirectory, envs, term->screenColumnsCount(), term->screenLinesCount());
     if(!ret) {
         state = Error;

@@ -118,6 +118,7 @@ public:
     void setTransInfo(bool enable, int64_t tx = -1, int64_t rx = -1);
     void setSpeedInfo(bool enable, qreal tx = -1.0, qreal rx = -1.0);
     void setNotifiction(bool enable);
+    void retranslateUi(void);
 
     StatusBarToolButton *statusBarCursorInfo;
     StatusBarToolButton *statusBarType;

@@ -47,13 +47,6 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     ui->horizontalLayout->addWidget(statusBarSpeedRx);
     ui->horizontalLayout->addWidget(statusBarNotifiction);
 
-    statusBarCursorInfo->setToolTip(tr("Current Cursor"));
-    statusBarType->setToolTip(tr("Session Type"));
-    statusBarTransTx->setToolTip(tr("Upload Total"));
-    statusBarTransRx->setToolTip(tr("Download Total"));
-    statusBarSpeedTx->setToolTip(tr("Upload Speed"));
-    statusBarSpeedRx->setToolTip(tr("Download Speed"));
-
     statusBarCursorInfo->setVisible(false);
     statusBarType->setVisible(false);
     statusBarTransTx->setVisible(false);
@@ -67,11 +60,7 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarSpeedTx->setEnabled(false);
     statusBarSpeedRx->setEnabled(false);
 
-    statusBarTransTx->setIcon(QFontIcon::icon(QChar(0xf0ee)));
-    statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));
-    statusBarSpeedTx->setIcon(QFontIcon::icon(QChar(0xf0aa)));
-    statusBarSpeedRx->setIcon(QFontIcon::icon(QChar(0xf0ab)));
-    statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0a2)));
+    retranslateUi();
 
     statusBarCursorInfo->setPopupMode(QToolButton::InstantPopup);
     statusBarCursorInfo->setAutoRaise(true);
@@ -258,4 +247,22 @@ void StatusBarWidget::contextMenuEvent(QContextMenuEvent *event) {
         pos.setY(screenGeometry.bottom() - menu->height());
     }
     menu->popup(pos);
+}
+
+void StatusBarWidget::retranslateUi()
+{
+    statusBarCursorInfo->setToolTip(tr("Current Cursor"));
+    statusBarType->setToolTip(tr("Session Type"));
+    statusBarTransTx->setToolTip(tr("Upload Total"));
+    statusBarTransRx->setToolTip(tr("Download Total"));
+    statusBarSpeedTx->setToolTip(tr("Upload Speed"));
+    statusBarSpeedRx->setToolTip(tr("Download Speed"));
+
+    statusBarTransTx->setIcon(QFontIcon::icon(QChar(0xf0ee)));
+    statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));
+    statusBarSpeedTx->setIcon(QFontIcon::icon(QChar(0xf0aa)));
+    statusBarSpeedRx->setIcon(QFontIcon::icon(QChar(0xf0ab)));
+    statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0a2)));
+
+    ui->retranslateUi(this);
 }

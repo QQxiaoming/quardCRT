@@ -3265,6 +3265,8 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         startTftpSeverWindow->retranslateUi();
         pluginInfoWindow->retranslateUi();
         pluginViewerWidget->retranslateUi();
+        notifictionWidget->retranslateUi();
+        statusBarWidget->retranslateUi();
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
             mainWidgetGroup->sessionTab->retranslateUi();
             mainWidgetGroup->commandWidget->retranslateUi();
@@ -3296,6 +3298,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         foreach(SessionsWindow *sessionsWindow, sessionList) {
             sessionsWindow->reTranslateUi();
         }
+        statusBarWidget->retranslateUi();
         globalOptionsWindow->switchTheme();
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","false");
@@ -3313,6 +3316,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         foreach(SessionsWindow *sessionsWindow, sessionList) {
             sessionsWindow->reTranslateUi();
         }
+        statusBarWidget->retranslateUi();
         globalOptionsWindow->switchTheme();
         GlobalSetting settings;
         settings.setValue("Global/Startup/dark_theme","true");

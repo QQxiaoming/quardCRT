@@ -87,3 +87,7 @@ void NotifictionWidget::clearNotifiction(void){
         ui->listWidget->setVisible(false);
     }
 }
+
+void NotifictionWidget::retranslateUi() {
+    ui->retranslateUi(this);
+}
