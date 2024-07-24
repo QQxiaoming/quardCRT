@@ -133,6 +133,7 @@ protected:
     
 private:
     Ui::StatusBarWidget *ui;
+    bool m_notifiction = false;
 };
 
 #endif // STATUSBARWIDGET_H

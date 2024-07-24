@@ -183,7 +183,8 @@ void StatusBarWidget::setSpeedInfo(bool enable, qreal tx, qreal rx) {
 }
 
 void StatusBarWidget::setNotifiction(bool enable) {
-    if(enable) {
+    m_notifiction = enable;
+    if(m_notifiction) {
         statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0f3)));
     } else {
         statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0a2)));
@@ -262,7 +263,7 @@ void StatusBarWidget::retranslateUi()
     statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));
     statusBarSpeedTx->setIcon(QFontIcon::icon(QChar(0xf0aa)));
     statusBarSpeedRx->setIcon(QFontIcon::icon(QChar(0xf0ab)));
-    statusBarNotifiction->setIcon(QFontIcon::icon(QChar(0xf0a2)));
+    setNotifiction(m_notifiction);
 
     ui->retranslateUi(this);
 }
