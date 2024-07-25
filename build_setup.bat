@@ -38,6 +38,9 @@ del /f /q /a .\sed*
 xcopy /y .\build_release\out\quardCRT.exe .\InnoSetup\build\
 :: 使用windeployqt拷贝依赖dll库到打包目录
 windeployqt --dir .\InnoSetup\build .\InnoSetup\build\quardCRT.exe
+:: 拷贝 %Python3_ROOT_DIR% 下的Python311.dll到打包目录 以及 python stdlib
+xcopy /y "%Python3_ROOT_DIR%\python311.dll" ".\InnoSetup\build\"
+xcopy /y "%Python3_ROOT_DIR%\Lib" ".\InnoSetup\build\pythonlib\lib" /E /I
 xcopy /y "D:\libssh2\bin\*.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty.dll" ".\InnoSetup\build\"
 xcopy /y "D:\winpty\bin\winpty-agent.exe" ".\InnoSetup\build\"

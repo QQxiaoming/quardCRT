@@ -60,6 +60,9 @@
 #include "plugininfowindow.h"
 #include "keychainclass.h"
 #include "plugininterface.h"
+#ifdef ENABLE_PYTHON
+#include "pyrun.h"
+#endif
 #include "QGoodWindow"
 #include "QGoodCentralWidget"
 
@@ -90,11 +93,70 @@ public:
     ~CentralWidget();
     static void appPrivacyStatement(QWidget *parent = nullptr);
     static void appAbout(QWidget *parent = nullptr);
+#ifdef ENABLE_PYTHON
+    void aboutPython(void);
+#endif
     static void appKeyboradShortcutsReference(QWidget *parent = nullptr);
     static void setAppLangeuage(QLocale lang);
     void checkCloseEvent(QCloseEvent *event);
     void checkStatusTipEvent(QStatusTipEvent *event);
     QStringList requestZmodemUploadList(void);
+
+#ifdef ENABLE_PYTHON
+    //script engine need
+    int se_getActiveTabId(void);
+    int se_getActiveSessionId(void);
+    QString se_getActivePrinter(void);
+    void se_setActivePrinter(const QString &name);
+    QString se_getScriptFullName(void);
+    void se_activateWindow(void);
+    void se_windowShow(int type);
+    int se_getWindowShowType(void);
+    bool se_getWindowActive(void);
+    QString se_getCommandWindowText(void);
+    void se_setCommandWindowText(const QString &text);
+    void se_commandWindowSend(void);
+    bool se_getCommandWindowVisibled(void);
+    void se_getCommandWindowVisibled(bool enable);
+    QString se_getDownloadFolder(void);
+    void se_addToUploadList(const QString &file);
+    void se_clearUploadList(void);
+    int se_receiveKermit(void);
+    int se_sendKermit(const QStringList &files);
+    int se_receiveXmodem(const QString &file);
+    int se_sendXmodem(const QString &file);
+    int se_receiveYmodem(void);
+    int se_sendYmodem(const QStringList &files);
+    int se_sendZmodem(void);
+    void se_messageNotifications(const QString &message);
+
+    int se_screenSend(const QString &str, bool synchronous, int id = -1);
+    int se_installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive, int mode, int id = -1);
+    int se_screenGetCurrentRow(int id = -1);
+    int se_screenGetCurrentColumn(int id = -1);
+    int se_screenGetRows(int id = -1);
+    int se_screenGetColumns(int id = -1);
+    QString se_screenGetSelection(int id = -1);
+    void se_screenClear(int id = -1);
+    QString se_screenGet(int row1, int col1, int row2, int col2, int id = -1);
+    QString se_screenGet2(int row1, int col1, int row2, int col2, int id = -1);
+    void se_screenPrint(int id = -1);
+    void se_screenShortcut(const QString &path, int id = -1);
+    void se_screenSendKeys(const QList<Qt::Key> &keys, int id = -1);
+
+    int se_sessionConnect(const QString &cmd,int id = -1);
+    void se_sessionDisconnect(int id = -1);
+    void se_sessionLog(int enable,int id = -1);
+    bool se_sessionGetLocked(int id = -1);
+    bool se_sessionGetConnected(int id = -1);
+    bool se_sessionGetLogging(int id = -1);
+    int se_sessionLock(const QString &password, int lockallsessions,int id = -1);
+    int se_sessionUnlock(const QString &password, int lockallsessions,int id = -1);
+
+    int se_tabGetnumber(int id);
+    int se_tabCheckScreenId(int tabId, int screenId);
+    void se_tabActivate(int tabId, int screenId);
+#endif
 
 private:
     void menuAndToolBarInit(void);
@@ -325,6 +387,9 @@ private:
     QAction *privacyStatementAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
+#ifdef ENABLE_PYTHON
+    QAction *aboutPythonAction;
+#endif
 
     QToolButton *laboratoryButton;
     QMenu *laboratoryMenu;
@@ -360,6 +425,12 @@ private:
     QTftp *tftpServer;
     qreal windowTransparency;
     bool windowTransparencyEnabled;
+
+#ifdef ENABLE_PYTHON
+    //script engine need
+    PyRun *pyRun;
+    QString runScriptFullName;
+#endif
     QString printerName;
     int currentLayout;
     bool enabledSyncSplitterMoved = false;

@@ -54,6 +54,9 @@ mkdir -p ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/plugins/Q
 if [ -d "./prebuilt_plugins" ]; then
     cp ./prebuilt_plugins/*.so ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/plugins/QuardCRT/
 fi
+python_stdlib=$(python3 -c "import sysconfig; print(sysconfig.get_path('stdlib'))")
+mkdir -p ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/pythonlib
+cp -r $python_stdlib/../../lib ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/pythonlib/
 # 打包
 dpkg -b ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64 ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64.deb
 echo build success!

@@ -31,6 +31,9 @@
 #include "mainwindow.h"
 #include "globalsetting.h"
 #include "logger.h"
+#ifdef ENABLE_PYTHON
+#include "pyrun.h"
+#endif
 
 #include "build_info.inc"
 
@@ -98,6 +101,14 @@ private:
                 {"k","start_know_session"},
                 "start a known session",
                 "start_know_session",
+                ""
+            )
+        },
+        {"override_python_lib",
+            QCommandLineOption(
+                {"ovp","override_python_lib"},
+                "override python lib path",
+                "override_python_lib",
                 ""
             )
         },
@@ -272,6 +283,12 @@ int main(int argc, char *argv[])
     if(AppComLineParser->isSetOpt("start_know_session")) {
         start_know_session = AppComLineParser->getOpt("start_know_session");
     }
+#ifdef ENABLE_PYTHON
+    if(AppComLineParser->isSetOpt("override_python_lib")) {
+        QString path = AppComLineParser->getOpt("override_python_lib");
+        PyRun::setOverridePythonLib(path);
+    }
+#endif
     QFileInfo start_dir(dir);
     if(start_dir.isFile()) {
         dir = start_dir.absolutePath();

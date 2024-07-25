@@ -1,4 +1,5 @@
 DEFINES += ENABLE_SSH # depend libssh2
+DEFINES += ENABLE_PYTHON # depend libpython
 
 !versionAtLeast(QT_VERSION, 6.5.0) {
     message("Cannot use Qt $$QT_VERSION")
@@ -191,6 +192,9 @@ FORMS += \
     src/util/filedialog.ui \
     src/mainwindow.ui
 
+RESOURCES += \
+    res/resource.qrc
+
 contains(DEFINES, ENABLE_SSH) {
     INCLUDEPATH += \
         src/sftpwindow
@@ -205,8 +209,36 @@ contains(DEFINES, ENABLE_SSH) {
         src/sftpwindow/sftpwindow.ui
 }
 
-RESOURCES += \
-    res/resource.qrc
+contains(DEFINES, ENABLE_PYTHON) {
+    INCLUDEPATH += \
+        src/scriptengine
+    SOURCES += \
+        src/scriptengine/pysessionconfiguration.cpp \
+        src/scriptengine/pycommandwindow.cpp \
+        src/scriptengine/pyarguments.cpp \
+        src/scriptengine/pyclipboard.cpp \
+        src/scriptengine/pycore.cpp \
+        src/scriptengine/pydialog.cpp \
+        src/scriptengine/pyfiletransfer.cpp \
+        src/scriptengine/pyrun.cpp \
+        src/scriptengine/pyscreen.cpp \
+        src/scriptengine/pysession.cpp \
+        src/scriptengine/pytab.cpp \
+        src/scriptengine/pywindow.cpp
+    HEADERS += \
+        src/scriptengine/pysessionconfiguration.h \
+        src/scriptengine/pycommandwindow.h \
+        src/scriptengine/pyarguments.h \
+        src/scriptengine/pyclipboard.h \
+        src/scriptengine/pycore.h \
+        src/scriptengine/pydialog.h \
+        src/scriptengine/pyfiletransfer.h \
+        src/scriptengine/pyrun.h \    
+        src/scriptengine/pyscreen.h \
+        src/scriptengine/pysession.h \
+        src/scriptengine/pytab.h \
+        src/scriptengine/pywindow.h
+}
 
 TRANSLATIONS += \
     lang/quardCRT_zh_CN.ts \
@@ -236,11 +268,22 @@ RCC_DIR     = $$build_type/rcc
 UI_DIR      = $$build_type/ui
 
 win32:{
+    contains(DEFINES, ENABLE_PYTHON) {
+        Python3_DIR=/python3_root_dir
+    }
     win32-g++ {
         QMAKE_CXXFLAGS += -Wno-deprecated-copy
         RESOURCES += res/terminalfont.qrc
+        contains(DEFINES, ENABLE_PYTHON) {
+            INCLUDEPATH += $${Python3_DIR}/include
+            LIBS += -L$${Python3_DIR}/lib -lpython311
+        }
     }
     win32-msvc*{
+        contains(DEFINES, ENABLE_PYTHON) {
+            INCLUDEPATH += $${Python3_DIR}\include
+            LIBS += $${Python3_DIR}\lib\python311.lib
+        }
     }
 
     VERSION = $${BUILD_VERSION}.000
@@ -258,7 +301,11 @@ unix:!macx:{
     QMAKE_RPATHDIR=$ORIGIN
     QMAKE_LFLAGS += -no-pie 
     LIBS += -lutil
-    
+    contains(DEFINES, ENABLE_PYTHON) {
+        QMAKE_CXXFLAGS += $$system("python3-config --cflags")
+        LIBS += $$system("python3-config --ldflags --embed")
+    }
+
     build_info.commands = $$quote("cd $$PWD && ./tools/generate_info.sh > build_info.inc")
 }
 
@@ -268,6 +315,10 @@ macx:{
     QMAKE_RPATHDIR=$ORIGIN
     ICON = "icons\ico.icns"
     LIBS += -lutil
+    contains(DEFINES, ENABLE_PYTHON) {
+        QMAKE_CXXFLAGS += $$system("python3-config --cflags")
+        LIBS += $$system("python3-config --ldflags --embed")
+    }
 
     build_info.commands = $$quote("cd $$PWD && ./tools/generate_info.sh > build_info.inc")
 }
