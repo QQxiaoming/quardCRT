@@ -4,6 +4,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
+
 - Add echo feature
 - Fix the problem that some session types cannot reconnect
 - Add the feature that the session in a non-connected state can automatically reconnect by clicking the Enter key
