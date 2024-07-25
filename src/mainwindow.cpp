@@ -85,6 +85,10 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
 
     setWindowTitle(QApplication::applicationName()+" - "+VERSION);
 
+#ifdef ENABLE_PYTHON
+    pyRun = new PyRun(this);
+#endif
+
     splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
     ui->centralwidget->layout()->addWidget(splitter);
@@ -899,6 +903,21 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             fullScreenAction->trigger();
         }
     });
+#ifdef ENABLE_PYTHON
+    connect(pyRun,&PyRun::runScriptStarted,this,[&](void){
+        bool runing = pyRun->isRunning();
+        runAction->setEnabled(!runing);
+        cancelAction->setEnabled(runing);
+    });
+    connect(pyRun,&PyRun::runScriptFinished,this,[&](void){
+        bool runing = pyRun->isRunning();
+        runAction->setEnabled(!runing);
+        cancelAction->setEnabled(runing);
+    });
+#else
+    runAction->setEnabled(false);
+    cancelAction->setEnabled(false);
+#endif
     #if defined(Q_OS_MACOS)
     if(mainWindow) {
         connect(mainWindow,&MainWindow::macosWindowWillEnterFullScreen,this,[=](){
@@ -989,8 +1008,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
 
     // TODO:Unimplemented functions are temporarily closed
-    runAction->setEnabled(false);
-    cancelAction->setEnabled(false);
     startRecordingScriptAction->setEnabled(false);
     stopRecordingScriptAction->setEnabled(false);
     canlcelRecordingScriptAction->setEnabled(false);
@@ -1011,6 +1028,9 @@ CentralWidget::~CentralWidget() {
     delete pluginViewerPushButton;
     delete sideProxyWidget;
     delete hexViewWindow;
+#ifdef ENABLE_PYTHON
+    delete pyRun;
+#endif
     delete ui;
 }
 
@@ -1685,6 +1705,11 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     aboutQtAction->setText(tr("About Qt"));
     aboutQtAction->setIcon(QIcon(":/icons/icons/aboutqt.png"));
     aboutQtAction->setStatusTip(tr("Display about Qt dialog"));
+#ifdef ENABLE_PYTHON
+    aboutPythonAction->setText(tr("About Python"));
+    aboutPythonAction->setIcon(QIcon(":/icons/icons/aboutpython.png"));
+    aboutPythonAction->setStatusTip(tr("Display about Python dialog"));
+#endif
 
     laboratoryButton->setToolTip(tr("Laboratory"));
     laboratoryButton->setIcon(QFontIcon::icon(QChar(0xf0c3)));
@@ -1973,6 +1998,7 @@ void CentralWidget::menuAndToolBarInit(void) {
     runAction = new QAction(this);
     scriptMenu->addAction(runAction);
     cancelAction = new QAction(this);
+    cancelAction->setEnabled(false);
     scriptMenu->addAction(cancelAction);
     scriptMenu->addSeparator();
     startRecordingScriptAction = new QAction(this);
@@ -2121,6 +2147,10 @@ void CentralWidget::menuAndToolBarInit(void) {
     helpMenu->addAction(aboutAction);
     aboutQtAction = new QAction(this);
     helpMenu->addAction(aboutQtAction);
+#ifdef ENABLE_PYTHON
+    aboutPythonAction = new QAction(this);
+    helpMenu->addAction(aboutPythonAction);
+#endif
 
     //laboratory feature
     laboratoryButton = new QToolButton(this);
@@ -3123,6 +3153,20 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             }
         }
     });
+#ifdef ENABLE_PYTHON
+    connect(runAction,&QAction::triggered,this,[=](){
+        GlobalSetting settings;
+        QString scriptDir = settings.value("Global/Options/ScriptPath",QDir::homePath()).toString();
+        QString scriptPath = FileDialog::getOpenFileName(this, tr("Select a script file"), scriptDir, tr("Python Files (*.py);;All Files (*)"));
+        if(scriptPath.isEmpty()) return;
+        settings.setValue("Global/Options/ScriptPath",QFileInfo(scriptPath).absolutePath());
+        runScriptFullName = scriptPath;
+        pyRun->runScript(scriptPath);
+    });
+    connect(cancelAction,&QAction::triggered,this,[=](){
+        pyRun->cancelScript();
+    });
+#endif
     connect(addBookmarkAction, &QAction::triggered, this, [&]() {
         QString path = FileDialog::getExistingDirectory(this,tr("Select a directory"),QDir::homePath());
         if(path.isEmpty()) return;
@@ -3379,6 +3423,11 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             QMessageBox::aboutQt(this);
         }
     });
+#ifdef ENABLE_PYTHON
+    connect(aboutPythonAction, &QAction::triggered, this, [&]() {
+        aboutPython();
+    });
+#endif
 }
 
 void CentralWidget::setGlobalOptions(SessionsWindow *window) {
@@ -4537,6 +4586,14 @@ void CentralWidget::appAbout(QWidget *parent)
                        );
 }
 
+#ifdef ENABLE_PYTHON
+void CentralWidget::aboutPython(void){
+    QMessageBox msgBox(QMessageBox::Information,tr("About Python"),pyRun->getPyVersion(),QMessageBox::NoButton,nullptr);
+    msgBox.setIconPixmap(QPixmap(":/icons/icons/aboutpython.png").scaled(64,64));
+    msgBox.exec();
+}
+#endif
+
 void CentralWidget::appKeyboradShortcutsReference(QWidget *parent)
 {
     QMessageBox::about(parent, tr("Keyborad Shortcuts Reference"),
@@ -4847,6 +4904,555 @@ void CentralWidget::setAppLangeuage(QLocale lang) {
         break;
     }
 }
+
+#ifdef ENABLE_PYTHON
+int CentralWidget::se_sessionConnect(const QString &cmd,int id) {
+    QStringList args = cmd.split(" ",Qt::SkipEmptyParts);
+    for(int i = 0; i < args.size(); i++) {
+        if(args[i] == "-telnet") {
+            if(i+2 < args.size()) {
+                QString hostname = args[i+1];
+                quint16 port = args[i+2].toUShort();
+                startTelnetSession(findCurrentFocusGroup(),-1,hostname,port,QTelnet::TCP);
+                return 0;
+            }
+        } else if(args[i] == "-serial") {
+            if(i+6 < args.size()) {
+                QString portName = args[i+1];
+                int baudRate = args[i+2].toInt();
+                int dataBits = args[i+3].toInt();
+                int parity = args[i+4].toInt();
+                int stopBits = args[i+5].toInt();
+                bool flowControl = args[i+6].toInt();
+                bool xEnable = args[i+7].toInt();
+                startSerialSession(findCurrentFocusGroup(),-1,portName,baudRate,dataBits,parity,stopBits,flowControl,xEnable);
+                return 0;
+            }
+        } else if(args[i] == "-localshell") {
+            if(i+1 < args.size()) {
+                QString path = args[i+1];
+                startLocalShellSession(findCurrentFocusGroup(),-1,QString(),path);
+                return 0;
+            } 
+        } else if(args[i] == "-raw") {
+            if(i+2 < args.size()) {
+                QString hostname = args[i+1];
+                quint16 port = args[i+2].toUShort();
+                startRawSocketSession(findCurrentFocusGroup(),-1,hostname,port);
+                return 0;
+            } 
+        } else if(args[i] == "-namepipe") {
+            if(i+1 < args.size()) {
+                QString pipeName = args[i+1];
+                startNamePipeSession(findCurrentFocusGroup(),-1,pipeName);
+                return 0;
+            }
+        } else if(args[i] == "-ssh2") {
+            if(i+4 < args.size()) {
+                QString hostname = args[i+1];
+                quint16 port = args[i+2].toUShort();
+                QString username = args[i+3];
+                QString password = args[i+4];
+                startSSH2Session(findCurrentFocusGroup(),-1,hostname,port,username,password);
+                return 0;
+            }
+        } else if(args[i] == "-vnc") {
+            if(i+3 < args.size()) {
+                QString hostname = args[i+1];
+                quint16 port = args[i+2].toUShort();
+                QString password = args[i+3];
+                startVNCSession(findCurrentFocusGroup(),-1,hostname,port,password);
+                return 0;
+            }
+        } else if(args[i] == "-s") {
+            if(i+1 < args.size()) {
+                QString name = args[i+1];
+                connectSessionFromSessionManager(name);
+                return 0;
+            } 
+        } else if(args[i] == "-clone") {
+            if(id == -1) {
+                id = se_getActiveSessionId();
+                if(id == -1) return -1;
+            }
+            SessionsWindow *sessionsWindow = sessionList.at(id);
+            cloneTargetSession(findCurrentFocusGroup(),QString(),sessionsWindow);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+void CentralWidget::se_sessionDisconnect(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    if(sessionsWindow->isLocked()) return;
+    if(sessionsWindow->getState() == SessionsWindow::Connected) {
+        if(sessionsWindow->getSessionType() == SessionsWindow::SSH2) {
+            sftpWindow->hide();
+        }
+        sessionsWindow->disconnect();
+    }
+}
+
+void CentralWidget::se_sessionLog(int enable,int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    if(sessionsWindow->isLog() == enable) return;
+    sessionsWindow->setLog(enable);
+}
+
+QString CentralWidget::se_getActivePrinter(void) {
+    return printerName;
+}
+
+void CentralWidget::se_setActivePrinter(const QString &name) {
+    printerName = name;
+}
+
+QString CentralWidget::se_getScriptFullName(void) {
+    return runScriptFullName;
+}
+
+int CentralWidget::se_getActiveTabId(void) {
+    MainWidgetGroup *group = findCurrentFocusGroup();
+    return mainWidgetGroupList.indexOf(group);
+}
+
+int CentralWidget::se_getActiveSessionId(void) {
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();                
+    if(sessionsWindow) {
+        return sessionList.indexOf(sessionsWindow);
+    }
+    return -1;
+}
+
+void CentralWidget::se_activateWindow(void) {
+    if(mainWindow) {
+        activateWindow();
+    } else {
+        mainWindow->activateWindow();
+    }
+}
+
+bool CentralWidget::se_getWindowActive(void) {
+    if(mainWindow) {
+        return mainWindow->isActiveWindow();
+    } else {
+        return isActiveWindow();
+    }
+}
+
+void CentralWidget::se_windowShow(int type) {
+    if(mainWindow) {
+        switch(type) {
+        case 0:
+            mainWindow->hide();
+            break;
+        case 1:
+            mainWindow->showNormal();
+            break;
+        case 2:
+            mainWindow->showMinimized();
+            break;
+        case 3:
+            mainWindow->showMaximized();
+            break;
+        }
+    } else {
+        switch(type) {
+        case 0:
+            hide();
+            break;
+        case 1:
+            showNormal();
+            break;
+        case 2:
+            showMinimized();
+            break;
+        case 3:
+            showMaximized();
+            break;
+        }
+    }
+}
+
+int CentralWidget::se_getWindowShowType(void) {
+    int ret = 1;
+    if(mainWindow) {
+        if(mainWindow->isHidden()) {
+            ret = 0;
+        } else if(mainWindow->isMaximized()) {
+            ret = 3;
+        } else if(mainWindow->isMinimized()) {
+            ret = 2;
+        } else {
+            ret = 1;
+        }
+    } else {
+        if(isHidden()) {
+            ret = 0;
+        } else if(isMaximized()) {
+            ret = 3;
+        } else if(isMinimized()) {
+            ret = 2;
+        } else {
+            ret = 1;
+        }
+    }
+    return ret;
+}
+
+QString CentralWidget::se_getCommandWindowText(void) {
+    MainWidgetGroup *group = findCurrentFocusGroup();
+    CommandWidget *cmdWidget = group->commandWidget;
+    return cmdWidget->getCmd();
+}
+
+void CentralWidget::se_setCommandWindowText(const QString &text) {
+    MainWidgetGroup *group = findCurrentFocusGroup();
+    CommandWidget *cmdWidget = group->commandWidget;
+    cmdWidget->setCmd(text);
+}
+
+void CentralWidget::se_commandWindowSend(void) {
+    MainWidgetGroup *group = findCurrentFocusGroup();
+    CommandWidget *cmdWidget = group->commandWidget;
+    cmdWidget->sendCurrentData();
+}
+
+bool CentralWidget::se_getCommandWindowVisibled(void) {
+    return cmdWindowAction->isChecked();
+}
+
+void CentralWidget::se_getCommandWindowVisibled(bool enable) {
+    if(cmdWindowAction->isChecked() != enable) {
+        cmdWindowAction->trigger();
+    }
+}
+
+QString CentralWidget::se_getDownloadFolder(void) {
+    return globalOptionsWindow->getModemDownloadPath();
+}
+
+void CentralWidget::se_addToUploadList(const QString &file) {
+    zmodemUploadList.append(file);
+    startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
+}
+
+void CentralWidget::se_clearUploadList(void) {
+    zmodemUploadList.clear();
+    startZmodemUploadAction->setEnabled(!zmodemUploadList.isEmpty());
+}
+
+int CentralWidget::se_receiveKermit(void){
+    receiveKermitAction->trigger();
+    return 0;
+}
+
+int CentralWidget::se_sendKermit(const QStringList &files){
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    sessionsWindow->sendFileUseKermit(files);
+    return 0;
+}
+
+int CentralWidget::se_receiveXmodem(const QString &file){
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    sessionsWindow->recvFileUseXModem(file);
+    return 0;
+}
+
+int CentralWidget::se_sendXmodem(const QString &file){
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    sessionsWindow->sendFileUseXModem(file,globalOptionsWindow->getXYModem1K());
+    return 0;
+}
+
+int CentralWidget::se_receiveYmodem(void){
+    receiveYmodemAction->trigger();
+    return 0;
+}
+
+int CentralWidget::se_sendYmodem(const QStringList &files){
+    QWidget *widget = findCurrentFocusWidget();
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+    sessionsWindow->sendFileUseYModem(files,globalOptionsWindow->getXYModem1K());
+    return 0;
+}
+
+int CentralWidget::se_sendZmodem(void) {
+    startZmodemUploadAction->trigger();
+    return 0;
+}
+
+void CentralWidget::se_messageNotifications(const QString &message) {
+    ui->statusBar->showMessage(message);
+}
+
+int CentralWidget::se_screenSend(const QString &str, bool synchronous, int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    auto proxySendCommand = [&,sessionsWindow](const QString &str){
+        sessionsWindow->proxySendData(str.toLatin1());
+    };
+    if(synchronous) {
+        proxySendCommand(str);
+        return 0;
+    } else {
+        QTimer::singleShot(0, this, [=]{
+            proxySendCommand(str);
+        });
+        return 0;
+    }
+}
+
+int CentralWidget::se_installWaitString(const QStringList &strList, int timeout, bool bcaseInsensitive, int mode, int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    if(sessionsWindow->isLocked()) return -1;
+    connect(sessionsWindow,&SessionsWindow::waitForStringFinished,this,[=](const QString &s, int matchIndex){
+        pyRun->emitWaitForStringFinished(s,matchIndex);
+        disconnect(sessionsWindow,&SessionsWindow::waitForStringFinished,0,0);
+    });
+    // TODO:not implemented timeout
+    return sessionsWindow->installWaitString(strList,timeout,bcaseInsensitive,mode);
+}
+
+int CentralWidget::se_screenGetCurrentRow(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->getCursorLineCount();
+}
+
+int CentralWidget::se_screenGetCurrentColumn(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->getCursorColumnCount();
+}
+
+int CentralWidget::se_screenGetRows(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->getLineCount();
+}
+
+int CentralWidget::se_screenGetColumns(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->getColumnCount();
+}
+
+QString CentralWidget::se_screenGetSelection(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return QString();
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->selectedText();
+}
+
+void CentralWidget::se_screenClear(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    sessionsWindow->clearScreen();
+}
+
+QString CentralWidget::se_screenGet(int row1, int col1, int row2, int col2, int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return QString();
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->screenGet(row1, col1, row2, col2, 1); //mode 1
+}
+
+QString CentralWidget::se_screenGet2(int row1, int col1, int row2, int col2, int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return QString();
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->screenGet(row1, col1, row2, col2, 2); //mode 2
+}
+
+void CentralWidget::se_screenPrint(int id) {
+    //TODO: id
+    Q_UNUSED(id);
+    printScreenAction->trigger();
+}
+
+void CentralWidget::se_screenShortcut(const QString &path, int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    QString fileName = path;
+    if(!fileName.endsWith(".jpg")) fileName.append(".jpg");
+    sessionsWindow->screenShot(fileName);
+    ui->statusBar->showMessage(tr("Screenshot saved to %1").arg(fileName),3000);
+}
+
+void CentralWidget::se_screenSendKeys(const QList<Qt::Key> &keys, int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    QWidget *widget = sessionsWindow->getMainWidget();
+    if(widget == nullptr) return;
+    Qt::KeyboardModifiers modifiers = Qt::NoModifier;
+    for(int i = 0; i < keys.size(); i++) {
+        if(keys[i] == Qt::Key_Alt) {
+            modifiers |= Qt::AltModifier;
+        } else if(keys[i] == Qt::Key_Control) {
+            modifiers |= Qt::ControlModifier;
+        } else if(keys[i] == Qt::Key_Shift) {
+            modifiers |= Qt::ShiftModifier;
+        } else if(keys[i] == Qt::Key_Meta) {
+            modifiers |= Qt::MetaModifier;
+        }
+    }
+    Qt::Key key = Qt::Key_unknown;
+    for(int i = 0; i < keys.size(); i++) {
+        if(keys[i] == Qt::Key_Alt || keys[i] == Qt::Key_Control || keys[i] == Qt::Key_Shift || keys[i] == Qt::Key_Meta) {
+            continue;
+        }
+        key = keys[i];
+        break;
+    }
+    if(key != Qt::Key_unknown) {
+        QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress,key,modifiers);
+        QCoreApplication::postEvent(widget,keyEvent);
+        keyEvent = new QKeyEvent(QEvent::KeyRelease,key,modifiers);
+        QCoreApplication::postEvent(widget,keyEvent);
+    }
+}
+
+bool CentralWidget::se_sessionGetLocked(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return false;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->isLocked();
+}
+
+bool CentralWidget::se_sessionGetConnected(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return false;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->getState() == SessionsWindow::Connected;
+}
+
+bool CentralWidget::se_sessionGetLogging(int id) {
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return false;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    return sessionsWindow->isLog();
+}
+
+int CentralWidget::se_sessionLock(const QString &password, int lockallsessions,int id) {
+    if(lockallsessions) {
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(sessionsWindow->isLocked()) continue;
+            sessionsWindow->lockSession(password);
+        }
+        return 0;
+    }
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    sessionsWindow->lockSession(password);
+    return 0;
+}
+
+int CentralWidget::se_sessionUnlock(const QString &password, int lockallsessions,int id) {
+    if(lockallsessions) {
+        foreach(SessionsWindow *sessionsWindow, sessionList) {
+            if(!sessionsWindow->isLocked()) continue;
+            sessionsWindow->unlockSession(password);
+        }
+        return 0;
+    }
+    if(id == -1) {
+        id = se_getActiveSessionId();
+        if(id == -1) return -1;
+    }
+    SessionsWindow *sessionsWindow = sessionList.at(id);
+    sessionsWindow->unlockSession(password);
+    return 0;
+}
+
+int CentralWidget::se_tabGetnumber(int id) {
+    if(id < mainWidgetGroupList.size()) {
+        MainWidgetGroup *group = mainWidgetGroupList.at(id);
+        return group->sessionTab->count();
+    }
+    return 0;
+}
+
+int CentralWidget::se_tabCheckScreenId(int tabId, int screenId) {
+    if(tabId >= mainWidgetGroupList.size()) return -1;
+    MainWidgetGroup *group = mainWidgetGroupList.at(tabId);
+    QWidget *widget = group->sessionTab->widget(screenId+1);
+    if(widget == nullptr) return -1;
+    SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
+    if(sessionsWindow == nullptr) return -1;
+    return sessionList.indexOf(sessionsWindow);
+}
+
+void CentralWidget::se_tabActivate(int tabId, int screenId) {
+    if(tabId >= mainWidgetGroupList.size()) return;
+    if(screenId == -1) screenId = 0;
+    MainWidgetGroup *group = mainWidgetGroupList.at(tabId);
+    group->sessionTab->setCurrentIndex(screenId);
+    group->sessionTab->currentWidget()->setFocus();
+}
+#endif
 
 MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, QString start_know_session, QWidget *parent) 
     : QGoodWindow(parent) {
