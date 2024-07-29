@@ -137,6 +137,21 @@ void InternalCommandProcess::processLine(const QString &sline) {
                 sendLineString("QuardCRT is copied by the Quard <2014500726@smail.xtu.edu.cn>.");
             }
         },
+        {"AskQuard", QString()                             , 
+            [&](void) {
+                sendLineString("Thank you use QuardCRT, Have a nice day!");
+            }
+        },
+        {"AskQuardShow", QString()                         , 
+            [&](void) {
+                emit showString("QuardCRT", "Thank you use QuardCRT, Have a nice day!");
+            }
+        },
+        {"QuardSOnly", QString()                           , 
+            [&](void) {
+                emit showEasterEggs();
+            }
+        },
         {"echo"   , "echo the arguments"                   , 
             [&](void) {
                 sendLineString(args.join(' '));
@@ -194,19 +209,20 @@ void InternalCommandProcess::processLine(const QString &sline) {
             #endif
             }
         },
-        {"AskQuard", QString()                             , 
+        {"buildOpt", "show build options of the QuardCRT"  ,
             [&](void) {
-                sendLineString("Thank you use QuardCRT, Have a nice day!");
-            }
-        },
-        {"AskQuardShow", QString()                         , 
-            [&](void) {
-                emit showString("QuardCRT", "Thank you use QuardCRT, Have a nice day!");
-            }
-        },
-        {"QuardSOnly", QString()                           , 
-            [&](void) {
-                emit showEasterEggs();
+                sendString("ENABLE_SSH              : ");
+            #ifdef ENABLE_SSH
+                sendLineString("YES");
+            #else
+                sendLineString("NO");
+            #endif
+                sendString("ENABLE_PYTHON           : ");
+            #ifdef ENABLE_PYTHON
+                sendLineString("YES");
+            #else
+                sendLineString("NO");
+            #endif
             }
         },
     };

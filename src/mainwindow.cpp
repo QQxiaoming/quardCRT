@@ -488,6 +488,35 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             broadCastSessionList.removeOne(sessionsWindow);
                         }
                     });
+                    QMenu *endOfLineSeqMenu = new QMenu(tr("End of line sequence"));
+                    menu->addMenu(endOfLineSeqMenu);
+                    QActionGroup *endOfLineSeqGroup = new QActionGroup(this);
+                    QAction *endOfLineSeqAutoAction = new QAction(tr("Auto"),this);
+                    endOfLineSeqAutoAction->setToolTip(tr("Auto detect end of line sequence"));
+                    endOfLineSeqAutoAction->setActionGroup(endOfLineSeqGroup);
+                    endOfLineSeqMenu->addAction(endOfLineSeqAutoAction);
+                    QAction *endOfLineSeqLFAction = new QAction("LF",this);
+                    endOfLineSeqLFAction->setToolTip(tr("Line Feed"));
+                    endOfLineSeqLFAction->setActionGroup(endOfLineSeqGroup);
+                    endOfLineSeqMenu->addAction(endOfLineSeqLFAction);
+                    QAction *endOfLineSeqCRAction = new QAction("CR",this);
+                    endOfLineSeqCRAction->setToolTip(tr("Carriage Return"));
+                    endOfLineSeqCRAction->setActionGroup(endOfLineSeqGroup);
+                    endOfLineSeqMenu->addAction(endOfLineSeqCRAction);
+                    QAction *endOfLineSeqLFLFAction = new QAction("LFLF",this);
+                    endOfLineSeqLFLFAction->setToolTip(tr("Double Line Feed"));
+                    endOfLineSeqLFLFAction->setActionGroup(endOfLineSeqGroup);
+                    endOfLineSeqMenu->addAction(endOfLineSeqLFLFAction);
+                    QAction *endOfLineSeqCRCRAction = new QAction("CRCR",this);
+                    endOfLineSeqCRCRAction->setToolTip(tr("Double Carriage Return"));
+                    endOfLineSeqCRCRAction->setActionGroup(endOfLineSeqGroup);
+                    endOfLineSeqMenu->addAction(endOfLineSeqCRCRAction);
+                    connect(endOfLineSeqGroup,&QActionGroup::triggered,this,[=](QAction *action){
+                        QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
+                        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+                        int index = endOfLineSeqGroup->actions().indexOf(action);
+                        sessionsWindow->setEndOfLineSeq(index);
+                    });
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
                     saveSessionAction->setStatusTip(tr("Save current session to session manager"));
                     menu->addAction(saveSessionAction);

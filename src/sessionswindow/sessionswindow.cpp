@@ -129,16 +129,18 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             realtimespeed_timer = new QTimer(this);
             connect(telnet,&QTelnet::newData,this,
                 [=](const char *data, int size){
+                QByteArray dataBa(data,size);
                 if(modemProxyChannel) {
-                    emit modemProxyRecvData(QByteArray(data,size));
+                    emit modemProxyRecvData(dataBa);
                     return;
                 }
-                matchString(QByteArray(data, size));
-                term->recvData(data, size);
+                matchString(dataBa);
                 rx_total += size;
                 rx_realtime += size;
                 saveRawLog(data, size);
                 emit hexDataDup(data, size);
+                preprocesseData(dataBa);
+                term->recvData(dataBa.data(), dataBa.size());
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
@@ -193,11 +195,12 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     return;
                 }
                 matchString(data);
-                term->recvData(data.data(), data.size());
                 rx_total += data.size();
                 rx_realtime += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
+                preprocesseData(data);
+                term->recvData(data.data(), data.size());
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
@@ -250,11 +253,12 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     return;
                 }
                 matchString(data);
-                term->recvData(data.data(), data.size());
                 rx_total += data.size();
                 rx_realtime += data.size();
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
+                preprocesseData(data);
+                term->recvData(data.data(), data.size());
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
@@ -309,9 +313,10 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     return;
                 }
                 matchString(data);
-                term->recvData(data.data(), data.size());
                 saveRawLog(data.data(), data.size());
                 emit hexDataDup(data.data(), data.size());
+                preprocesseData(data);
+                term->recvData(data.data(), data.size());
             });
             connect(this,&SessionsWindow::modemProxySendData,this,
                 [=](QByteArray data){
@@ -373,16 +378,18 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     shell->resize(columns,lines);
                 });
                 connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
+                    QByteArray dataBa(data, size);
                     if(modemProxyChannel) {
-                        emit modemProxyRecvData(QByteArray(data, size));
+                        emit modemProxyRecvData(dataBa);
                         return;
                     }
-                    matchString(QByteArray(data, size));
-                    term->recvData(data, size);
+                    matchString(dataBa);
                     rx_total += size;
                     rx_realtime += size;
                     saveRawLog(data, size);
                     emit hexDataDup(data, size);
+                    preprocesseData(dataBa);
+                    term->recvData(dataBa.data(), dataBa.size());
                 });
                 connect(this,&SessionsWindow::modemProxySendData,this,
                     [=](QByteArray data){
@@ -643,18 +650,18 @@ void SessionsWindow::matchString(QByteArray data) {
                 if(dataStr.contains(waitString.toLower())) {
                     if(m_waitStringMode == 0) {
                         int matchIndex = m_waitStringList.indexOf(waitString);
-                        QString matchString = waitString;
+                        QString matchStr = waitString;
                         m_waitStringList.clear();
-                        emit waitForStringFinished(matchString, matchIndex);
+                        emit waitForStringFinished(matchStr, matchIndex);
                         break;
                     } else {
                         int index = dataStr.indexOf(waitString.toLower());
                         m_waitStringDate.append(data.left(index + waitString.length()));
                         int matchIndex = m_waitStringList.indexOf(waitString);
-                        QString matchString(m_waitStringDate);
+                        QString matchStr(m_waitStringDate);
                         m_waitStringList.clear();
                         m_waitStringDate.clear();
-                        emit waitForStringFinished(matchString, matchIndex);
+                        emit waitForStringFinished(matchStr, matchIndex);
                         break;
                     }
                 }
@@ -667,18 +674,18 @@ void SessionsWindow::matchString(QByteArray data) {
                 if(data.contains(waitString.toUtf8())) {
                     if(m_waitStringMode == 0) {
                         int matchIndex = m_waitStringList.indexOf(waitString);
-                        QString matchString = waitString;
+                        QString matchStr = waitString;
                         m_waitStringList.clear();
-                        emit waitForStringFinished(matchString, matchIndex);
+                        emit waitForStringFinished(matchStr, matchIndex);
                         break;
                     } else {
                         int index = data.indexOf(waitString.toUtf8());
                         m_waitStringDate.append(data.left(index + waitString.length()));
                         int matchIndex = m_waitStringList.indexOf(waitString);
-                        QString matchString(m_waitStringDate);
+                        QString matchStr(m_waitStringDate);
                         m_waitStringList.clear();
                         m_waitStringDate.clear();
-                        emit waitForStringFinished(matchString, matchIndex);
+                        emit waitForStringFinished(matchStr, matchIndex);
                         break;
                     }
                 }
@@ -687,6 +694,25 @@ void SessionsWindow::matchString(QByteArray data) {
                 m_waitStringDate.append(data);
             }
         }
+    }
+}
+
+void SessionsWindow::preprocesseData(QByteArray &data) {
+    switch(endOfLineSeq) {
+        case 1:
+            data.replace("\r","\r\n");
+            break;
+        case 2:
+            data.replace("\n","\r\n");
+            break;
+        case 3:
+            data.replace("\r\r","\r\n");
+            break;
+        case 4:
+            data.replace("\n\n","\r\n");
+            break;
+        default:
+            break;
     }
 }
 
@@ -822,9 +848,10 @@ int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp
             return;
         }
         matchString(data);
-        term->recvData(data.data(), data.size());
         saveRawLog(data.data(), data.size());
         emit hexDataDup(data.data(), data.size());
+        preprocesseData(data);
+        term->recvData(data.data(), data.size());
     });
     connect(this,&SessionsWindow::modemProxySendData,this,
         [=](QByteArray data){

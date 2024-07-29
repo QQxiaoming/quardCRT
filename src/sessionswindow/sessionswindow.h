@@ -369,19 +369,25 @@ public:
         zmodemOnlie = enable;
     }
     void setConfirmMultilinePaste(bool enable) {
-        if(term) return term->setConfirmMultilinePaste(enable);
+        if(term) term->setConfirmMultilinePaste(enable);
     }
     void setTrimPastedTrailingNewlines(bool enable) {
-        if(term) return term->setTrimPastedTrailingNewlines(enable);
+        if(term) term->setTrimPastedTrailingNewlines(enable);
     }
     void setEcho(bool enable) {
-        if(term) return term->setEcho(enable);
+        if(term) term->setEcho(enable);
     }
     void setCursorColor(const QColor &color) {
-        if(term) return term->setKeyboardCursorColor(false,color);
+        if(term) term->setKeyboardCursorColor(false,color);
     }
     void setEnableHandleCtrlC(bool enable) {
         if(term) term->setEnableHandleCtrlC(enable);
+    }
+    int getEndOfLineSeq(void) {
+        return endOfLineSeq;
+    }
+    void setEndOfLineSeq(int mode) {
+        endOfLineSeq = mode;
     }
 
 signals:
@@ -398,6 +404,7 @@ private:
     int saveLog(const char *data, int size);
     int saveRawLog(const char *data, int size);
     void matchString(QByteArray data);
+    void preprocesseData(QByteArray &data);
 
 private:
     SessionType type;
@@ -439,6 +446,7 @@ private:
     QTimer *realtimespeed_timer = nullptr;
     bool tagColor = false;
     QColor tagColorValue;
+    int endOfLineSeq = 0;
     
     QMutex modemProxyChannelMutex;
     bool modemProxyChannel = false;
