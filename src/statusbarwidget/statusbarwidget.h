@@ -29,6 +29,8 @@
 #include <QContextMenuEvent>
 #include <QStyleOptionButton>
 
+#include "sessionswindow.h"
+
 class StatusBarToolButton : public QToolButton
 {
     Q_OBJECT
@@ -82,7 +84,7 @@ protected:
 
         QRect textRect = rect();
         if (!icon().isNull()) {
-            int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize);
+            int iconSize = 16;//style()->pixelMetric(QStyle::PM_ButtonIconSize);
             QSize size = this->size();
             int fontsize = painter.fontMetrics().horizontalAdvance(" ",1);
             if(text().isEmpty()) {
@@ -117,22 +119,34 @@ public:
     void setType(const QString &type);
     void setTransInfo(bool enable, int64_t tx = -1, int64_t rx = -1);
     void setSpeedInfo(bool enable, qreal tx = -1.0, qreal rx = -1.0);
+    void setEndOfLine(bool enable, SessionsWindow::EndOfLineSeq type = SessionsWindow::AUTO);
     void setNotifiction(bool enable);
     void retranslateUi(void);
+    void setFont(QFont &font);
 
-    StatusBarToolButton *statusBarCursorInfo;
-    StatusBarToolButton *statusBarType;
-    StatusBarToolButton *statusBarTransTx;
-    StatusBarToolButton *statusBarTransRx;
-    StatusBarToolButton *statusBarSpeedTx;
-    StatusBarToolButton *statusBarSpeedRx;
-    StatusBarToolButton *statusBarNotifiction;
+signals:
+    void cursorInfoTriggered(void);
+    void typeTriggered(void);
+    void transTxTriggered(void);
+    void transRxTriggered(void);
+    void speedTxTriggered(void);
+    void speedRxTriggered(void);
+    void endOfLineTriggered(void);
+    void notifictionTriggered(void);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
     
 private:
     Ui::StatusBarWidget *ui;
+    StatusBarToolButton *statusBarCursorInfo;
+    StatusBarToolButton *statusBarType;
+    StatusBarToolButton *statusBarTransTx;
+    StatusBarToolButton *statusBarTransRx;
+    StatusBarToolButton *statusBarSpeedTx;
+    StatusBarToolButton *statusBarSpeedRx;
+    StatusBarToolButton *statusBarEndOfLine;
+    StatusBarToolButton *statusBarNotifiction;
     bool m_notifiction = false;
 };
 

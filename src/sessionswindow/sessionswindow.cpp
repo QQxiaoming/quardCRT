@@ -699,16 +699,16 @@ void SessionsWindow::matchString(QByteArray data) {
 
 void SessionsWindow::preprocesseData(QByteArray &data) {
     switch(endOfLineSeq) {
-        case 1:
+        case LF:
             data.replace("\r","\r\n");
             break;
-        case 2:
+        case CR:
             data.replace("\n","\r\n");
             break;
-        case 3:
+        case LFLF:
             data.replace("\r\r","\r\n");
             break;
-        case 4:
+        case CRCR:
             data.replace("\n\n","\r\n");
             break;
         default:
@@ -1662,6 +1662,7 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
     StateInfo info;
     info.type = type;
     info.state = state;
+    info.endOfLine = endOfLineSeq;
     switch (type) {
         case Telnet:
             info.telnet.tx_total = tx_total;

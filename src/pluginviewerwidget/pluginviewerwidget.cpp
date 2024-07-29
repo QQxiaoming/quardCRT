@@ -58,7 +58,6 @@ bool PluginViewerWidget::addPlugin(QWidget *pluginWidget, const QString &pluginN
 
 void PluginViewerWidget::setPluginVisible(const QString &pluginName, bool visible) {
     if (m_plugins.contains(pluginName)) {
-        m_plugins.value(pluginName)->setVisible(visible);
         if (!visible) {
             if(ui->comboBox->currentIndex() == ui->comboBox->findText(pluginName)) {
                 ui->comboBox->setCurrentIndex(0);
@@ -66,7 +65,9 @@ void PluginViewerWidget::setPluginVisible(const QString &pluginName, bool visibl
             }
             ui->comboBox->removeItem(ui->comboBox->findText(pluginName));
         } else {
-            ui->comboBox->addItem(pluginName);
+            if(ui->comboBox->findText(pluginName) == -1) {
+                ui->comboBox->addItem(pluginName);
+            }
         }
     }
 }

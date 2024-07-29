@@ -20,6 +20,9 @@ QStatusBar{
   background-color:qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 rgba(220,220,220,127),stop:1 rgba(200,200,200,75));
   color:palette(text);
 }
+QStatusBar::item QLabel {
+  font-size: 16px;
+}
 QMenuBar{
   background-color:transparent;
   spacing:0px;

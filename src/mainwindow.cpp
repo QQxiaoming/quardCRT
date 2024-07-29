@@ -488,35 +488,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                             broadCastSessionList.removeOne(sessionsWindow);
                         }
                     });
-                    QMenu *endOfLineSeqMenu = new QMenu(tr("End of line sequence"));
-                    menu->addMenu(endOfLineSeqMenu);
-                    QActionGroup *endOfLineSeqGroup = new QActionGroup(this);
-                    QAction *endOfLineSeqAutoAction = new QAction(tr("Auto"),this);
-                    endOfLineSeqAutoAction->setToolTip(tr("Auto detect end of line sequence"));
-                    endOfLineSeqAutoAction->setActionGroup(endOfLineSeqGroup);
-                    endOfLineSeqMenu->addAction(endOfLineSeqAutoAction);
-                    QAction *endOfLineSeqLFAction = new QAction("LF",this);
-                    endOfLineSeqLFAction->setToolTip(tr("Line Feed"));
-                    endOfLineSeqLFAction->setActionGroup(endOfLineSeqGroup);
-                    endOfLineSeqMenu->addAction(endOfLineSeqLFAction);
-                    QAction *endOfLineSeqCRAction = new QAction("CR",this);
-                    endOfLineSeqCRAction->setToolTip(tr("Carriage Return"));
-                    endOfLineSeqCRAction->setActionGroup(endOfLineSeqGroup);
-                    endOfLineSeqMenu->addAction(endOfLineSeqCRAction);
-                    QAction *endOfLineSeqLFLFAction = new QAction("LFLF",this);
-                    endOfLineSeqLFLFAction->setToolTip(tr("Double Line Feed"));
-                    endOfLineSeqLFLFAction->setActionGroup(endOfLineSeqGroup);
-                    endOfLineSeqMenu->addAction(endOfLineSeqLFLFAction);
-                    QAction *endOfLineSeqCRCRAction = new QAction("CRCR",this);
-                    endOfLineSeqCRCRAction->setToolTip(tr("Double Carriage Return"));
-                    endOfLineSeqCRCRAction->setActionGroup(endOfLineSeqGroup);
-                    endOfLineSeqMenu->addAction(endOfLineSeqCRCRAction);
-                    connect(endOfLineSeqGroup,&QActionGroup::triggered,this,[=](QAction *action){
-                        QWidget *widget = mainWidgetGroup->sessionTab->currentWidget();
-                        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
-                        int index = endOfLineSeqGroup->actions().indexOf(action);
-                        sessionsWindow->setEndOfLineSeq(index);
-                    });
                     QAction *saveSessionAction = new QAction(tr("Save Session"),this);
                     saveSessionAction->setStatusTip(tr("Save current session to session manager"));
                     menu->addAction(saveSessionAction);
@@ -964,6 +935,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         statusBarMessage->setText(message);
     });
     
+    ui->statusBar->setFixedHeight(28);
     statusBarWidget = new StatusBarWidget(ui->statusBar);
     ui->statusBar->addPermanentWidget(statusBarWidget,0);
     statusBarWidgetRefreshTimer = new QTimer(this);
@@ -977,11 +949,45 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     connect(notifictionWidget,&NotifictionWidget::notifictionChanged,this,[&](uint32_t count){
         statusBarWidget->setNotifiction(count?true:false);
     });
-    connect(statusBarWidget->statusBarNotifiction,&StatusBarToolButton::clicked,this,[&](){
+    connect(statusBarWidget,&StatusBarWidget::notifictionTriggered,this,[&](){
         if(notifictionWidget->isHidden()) {
             notifictionWidget->show();
         } else {
             notifictionWidget->hide();
+        }
+    });
+    connect(statusBarWidget,&StatusBarWidget::endOfLineTriggered,this,[&](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(!sessionsWindow->isLocked()) {
+            QMenu *endOfLineSeqMenu = new QMenu(tr("End of line sequence"),this);
+            QActionGroup *endOfLineSeqGroup = new QActionGroup(this);
+            QAction *endOfLineSeqAutoAction = new QAction(tr("Auto"),this);
+            endOfLineSeqAutoAction->setToolTip(tr("Auto detect end of line sequence"));
+            endOfLineSeqAutoAction->setActionGroup(endOfLineSeqGroup);
+            endOfLineSeqMenu->addAction(endOfLineSeqAutoAction);
+            QAction *endOfLineSeqLFAction = new QAction("LF",this);
+            endOfLineSeqLFAction->setToolTip(tr("Line Feed"));
+            endOfLineSeqLFAction->setActionGroup(endOfLineSeqGroup);
+            endOfLineSeqMenu->addAction(endOfLineSeqLFAction);
+            QAction *endOfLineSeqCRAction = new QAction("CR",this);
+            endOfLineSeqCRAction->setToolTip(tr("Carriage Return"));
+            endOfLineSeqCRAction->setActionGroup(endOfLineSeqGroup);
+            endOfLineSeqMenu->addAction(endOfLineSeqCRAction);
+            QAction *endOfLineSeqLFLFAction = new QAction("LFLF",this);
+            endOfLineSeqLFLFAction->setToolTip(tr("Double Line Feed"));
+            endOfLineSeqLFLFAction->setActionGroup(endOfLineSeqGroup);
+            endOfLineSeqMenu->addAction(endOfLineSeqLFLFAction);
+            QAction *endOfLineSeqCRCRAction = new QAction("CRCR",this);
+            endOfLineSeqCRCRAction->setToolTip(tr("Double Carriage Return"));
+            endOfLineSeqCRCRAction->setActionGroup(endOfLineSeqGroup);
+            endOfLineSeqMenu->addAction(endOfLineSeqCRCRAction);
+            connect(endOfLineSeqGroup,&QActionGroup::triggered,this,[=](QAction *action){
+                int index = endOfLineSeqGroup->actions().indexOf(action);
+                sessionsWindow->setEndOfLineSeq((SessionsWindow::EndOfLineSeq)index);
+            });
+            endOfLineSeqMenu->popup(QCursor::pos());
         }
     });
 
@@ -1301,6 +1307,7 @@ void CentralWidget::refreshStatusBar(void) {
         statusBarWidget->setCursorPosition(-1,-1);
         statusBarWidget->setTransInfo(false);
         statusBarWidget->setSpeedInfo(false);
+        statusBarWidget->setEndOfLine(false);
         return;
     }
     SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
@@ -1309,6 +1316,7 @@ void CentralWidget::refreshStatusBar(void) {
         statusBarWidget->setCursorPosition(-1,-1);
         statusBarWidget->setTransInfo(false);
         statusBarWidget->setSpeedInfo(false);
+        statusBarWidget->setEndOfLine(false);
         return;
     }
     statusBarWidget->setCursorPosition(sessionsWindow->getCursorLineCount(),sessionsWindow->getCursorColumnCount());
@@ -1318,41 +1326,49 @@ void CentralWidget::refreshStatusBar(void) {
             statusBarWidget->setType(tr("Local Shell"));
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
+            statusBarWidget->setEndOfLine(false);
             break;
         case SessionsWindow::Telnet:
             statusBarWidget->setType("Telnet");
             statusBarWidget->setTransInfo(true,stateInfo.telnet.tx_total,stateInfo.telnet.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.telnet.tx_speed,stateInfo.telnet.rx_speed);
+            statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
             break;
         case SessionsWindow::RawSocket:
             statusBarWidget->setType(tr("Raw Socket"));
             statusBarWidget->setTransInfo(true,stateInfo.rawSocket.tx_total,stateInfo.rawSocket.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.rawSocket.tx_speed,stateInfo.rawSocket.rx_speed);
+            statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
             break;
         case SessionsWindow::NamePipe:
             statusBarWidget->setType(tr("Name Pipe"));
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
+            statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
             break;
         case SessionsWindow::SSH2:
             statusBarWidget->setType("SSH2");
             statusBarWidget->setTransInfo(true,stateInfo.ssh2.tx_total,stateInfo.ssh2.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.ssh2.tx_speed,stateInfo.ssh2.rx_speed);
+            statusBarWidget->setEndOfLine(false);
             break;
         case SessionsWindow::Serial:
             statusBarWidget->setType(tr("Serial"));
             statusBarWidget->setTransInfo(true,stateInfo.serial.tx_total,stateInfo.serial.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.serial.tx_speed,stateInfo.serial.rx_speed);
+            statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
             break;
         case SessionsWindow::VNC:
             statusBarWidget->setType("VNC");
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
+            statusBarWidget->setEndOfLine(false);
             break;
         default:
             statusBarWidget->setType(tr("Unknown"));
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
+            statusBarWidget->setEndOfLine(false);
             break;
     }
 }

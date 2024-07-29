@@ -38,6 +38,7 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarTransRx = new StatusBarToolButton(this);
     statusBarSpeedTx = new StatusBarToolButton(this);
     statusBarSpeedRx = new StatusBarToolButton(this);
+    statusBarEndOfLine = new StatusBarToolButton(this);
     statusBarNotifiction = new StatusBarToolButton(this);
     ui->horizontalLayout->addWidget(statusBarCursorInfo);
     ui->horizontalLayout->addWidget(statusBarType);
@@ -45,6 +46,7 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     ui->horizontalLayout->addWidget(statusBarTransRx);
     ui->horizontalLayout->addWidget(statusBarSpeedTx);
     ui->horizontalLayout->addWidget(statusBarSpeedRx);
+    ui->horizontalLayout->addWidget(statusBarEndOfLine);
     ui->horizontalLayout->addWidget(statusBarNotifiction);
 
     statusBarCursorInfo->setVisible(false);
@@ -53,12 +55,14 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarTransRx->setVisible(false);
     statusBarSpeedTx->setVisible(false);
     statusBarSpeedRx->setVisible(false);
+    statusBarEndOfLine->setVisible(false);
     statusBarCursorInfo->setEnabled(false);
     statusBarType->setEnabled(false);
     statusBarTransTx->setEnabled(false);
     statusBarTransRx->setEnabled(false);
     statusBarSpeedTx->setEnabled(false);
     statusBarSpeedRx->setEnabled(false);
+    statusBarEndOfLine->setEnabled(false);
 
     retranslateUi();
 
@@ -78,8 +82,40 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarSpeedRx->setPopupMode(QToolButton::InstantPopup);
     statusBarSpeedRx->setAutoRaise(true);
     statusBarSpeedRx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    statusBarEndOfLine->setPopupMode(QToolButton::InstantPopup);
+    statusBarEndOfLine->setAutoRaise(true);
+    statusBarNotifiction->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     statusBarNotifiction->setPopupMode(QToolButton::InstantPopup);
     statusBarNotifiction->setAutoRaise(true);
+
+    QFont font = this->font();
+    font.setPixelSize(16);
+    setFont(font);
+
+    connect(statusBarCursorInfo,&StatusBarToolButton::clicked,this,[=](){
+        emit cursorInfoTriggered();
+    });
+    connect(statusBarType,&StatusBarToolButton::clicked,this,[=](){
+        emit typeTriggered();
+    });
+    connect(statusBarTransTx,&StatusBarToolButton::clicked,this,[=](){
+        emit transTxTriggered();
+    });
+    connect(statusBarTransRx,&StatusBarToolButton::clicked,this,[=](){
+        emit transRxTriggered();
+    });
+    connect(statusBarSpeedTx,&StatusBarToolButton::clicked,this,[=](){
+        emit speedTxTriggered();
+    });
+    connect(statusBarSpeedRx,&StatusBarToolButton::clicked,this,[=](){
+        emit speedRxTriggered();
+    });
+    connect(statusBarEndOfLine,&StatusBarToolButton::clicked,this,[=](){
+        emit endOfLineTriggered();
+    });
+    connect(statusBarNotifiction,&StatusBarToolButton::clicked,this,[=](){
+        emit notifictionTriggered();
+    });
 }
 
 StatusBarWidget::~StatusBarWidget() {
@@ -128,7 +164,7 @@ void StatusBarWidget::setTransInfo(bool enable, int64_t tx, int64_t rx) {
     }
     auto getSize = [](int64_t size) -> QString {
         if( size <= 1024) {
-            return QString("%1 B").arg(size);
+            return QString::number(size, 'f', 2) + QString(" B");
         } else if ( size <= 1024 * 1024 ) {
             return QString::number(size / 1024.0, 'f', 2) + QString(" KB");
         } else if ( size <= 1024 * 1024 * 1024 ) {
@@ -179,6 +215,36 @@ void StatusBarWidget::setSpeedInfo(bool enable, qreal tx, qreal rx) {
         bool enable = settings.value("Global/Statusbar/TransferUI", true).toBool();
         statusBarSpeedTx->setVisible(enable);
         statusBarSpeedRx->setVisible(enable);
+    }
+}
+
+void StatusBarWidget::setEndOfLine(bool enable, SessionsWindow::EndOfLineSeq type) {
+    if(!enable) {
+        statusBarEndOfLine->setText("/");
+        statusBarEndOfLine->setEnabled(false);
+        statusBarEndOfLine->setVisible(false);
+        return;
+    }
+    switch (type) {
+        case SessionsWindow::AUTO:
+            statusBarEndOfLine->setText(tr("Auto"));
+            break;
+        case SessionsWindow::LF:
+            statusBarEndOfLine->setText("LF");
+            break;
+        case SessionsWindow::CR:
+            statusBarEndOfLine->setText("CR");
+            break;
+        case SessionsWindow::LFLF:
+            statusBarEndOfLine->setText("LFLF");
+            break;
+        case SessionsWindow::CRCR:
+            statusBarEndOfLine->setText("CRCR");
+            break;
+    }
+    if(!statusBarEndOfLine->isEnabled()) {
+        statusBarEndOfLine->setEnabled(true);
+        statusBarEndOfLine->setVisible(true);
     }
 }
 
@@ -234,6 +300,18 @@ void StatusBarWidget::contextMenuEvent(QContextMenuEvent *event) {
         menu->addAction(actionTrans);
     }
 
+    if(statusBarEndOfLine->isEnabled()) {
+        QAction *actionEndOfLine = new QAction(tr("End of line sequence"), this);
+        actionEndOfLine->setCheckable(true);
+        actionEndOfLine->setChecked(statusBarEndOfLine->isVisible());
+        connect(actionEndOfLine, &QAction::triggered, [this](bool checked) {
+            GlobalSetting settings;
+            settings.setValue("Global/Statusbar/EndOfLineUI", checked);
+            statusBarEndOfLine->setVisible(checked);
+        });
+        menu->addAction(actionEndOfLine);
+    }
+
     if(menu->isEmpty()) {
         delete menu;
         return;
@@ -250,6 +328,18 @@ void StatusBarWidget::contextMenuEvent(QContextMenuEvent *event) {
     menu->popup(pos);
 }
 
+void StatusBarWidget::setFont(QFont &font) {
+    statusBarCursorInfo->setFont(font);
+    statusBarType->setFont(font);
+    statusBarTransTx->setFont(font);
+    statusBarTransRx->setFont(font);
+    statusBarSpeedTx->setFont(font);
+    statusBarSpeedRx->setFont(font);
+    statusBarEndOfLine->setFont(font);
+    statusBarNotifiction->setFont(font);
+    QWidget::setFont(font);
+}
+
 void StatusBarWidget::retranslateUi()
 {
     statusBarCursorInfo->setToolTip(tr("Current Cursor"));
@@ -258,6 +348,7 @@ void StatusBarWidget::retranslateUi()
     statusBarTransRx->setToolTip(tr("Download Total"));
     statusBarSpeedTx->setToolTip(tr("Upload Speed"));
     statusBarSpeedRx->setToolTip(tr("Download Speed"));
+    statusBarEndOfLine->setToolTip(tr("End of line sequence"));
 
     statusBarTransTx->setIcon(QFontIcon::icon(QChar(0xf0ee)));
     statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));

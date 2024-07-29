@@ -185,7 +185,7 @@ void QTftp::server_put()
 		}
 
 	sendAck(0);
-	quint64 received;
+    quint64 received = 0;
 	quint16 block = 1;
 	int i;
 	do {

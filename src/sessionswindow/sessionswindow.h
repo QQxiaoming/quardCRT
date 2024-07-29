@@ -65,9 +65,17 @@ public:
         BroadCasted,
         Error,
     };
+    enum EndOfLineSeq {
+        AUTO = 0,
+        LF,
+        CR,
+        LFLF,
+        CRCR,
+    };
     struct StateInfo {
         SessionType type;
         SessionsState state;
+        EndOfLineSeq endOfLine;
         struct TelnetState {
             uint64_t tx_total;
             uint64_t rx_total;
@@ -386,7 +394,7 @@ public:
     int getEndOfLineSeq(void) {
         return endOfLineSeq;
     }
-    void setEndOfLineSeq(int mode) {
+    void setEndOfLineSeq(EndOfLineSeq mode) {
         endOfLineSeq = mode;
     }
 
@@ -446,7 +454,7 @@ private:
     QTimer *realtimespeed_timer = nullptr;
     bool tagColor = false;
     QColor tagColorValue;
-    int endOfLineSeq = 0;
+    EndOfLineSeq endOfLineSeq = AUTO;
     
     QMutex modemProxyChannelMutex;
     bool modemProxyChannel = false;
