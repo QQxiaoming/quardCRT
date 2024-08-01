@@ -120,6 +120,11 @@ void InternalCommandProcess::processLine(const QString &sline) {
         },
         {{"version"},QStringList(), "show the version of the QuardCRT"     , 
             [&](void) {
+                if(args.size() >= 1 && args.at(0) == "-c") {
+                    sendLogo(true);
+                } else {
+                    sendLogo(false);
+                }
                 sendLineString(QString("QuardCRT version %0").arg(VERSION));
             }
         },
@@ -166,6 +171,34 @@ void InternalCommandProcess::processLine(const QString &sline) {
         {{"echo"},QStringList(), "echo the arguments"                   , 
             [&](void) {
                 sendLineString(args.join(' '));
+            }
+        },
+        {{"set"},QStringList(), "set the value of the parameter"         ,
+            [&](void) {
+                QMap<QString,std::function<void()>> setTable = {
+                     {"prompt", [&](void){
+                          setPrompt(args.at(1));
+                      }},
+                     {"help", [&](void){
+                          sendLineString("Available parameter:");
+                          foreach(const QString &para, setTable.keys()){
+                              sendLineString("  "+para);
+                          }
+                      }},
+                 };
+                if(args.size() >= 2) {
+                    if(setTable.contains(args.at(0))) {
+                        setTable[args.at(0)]();
+                    } else {
+                        sendLineString("Invalid parameter!",31);
+                        setTable["help"]();
+                    }
+                } else {
+                    if(!(args.size() >= 1 && args.at(0) == "help")) {
+                        sendLineString("Invalid parameter!",31);
+                    }
+                    setTable["help"]();
+                }
             }
         },
         {{"state"},QStringList(), "show states of the QuardCRT"          , 
@@ -250,13 +283,13 @@ void InternalCommandProcess::processLine(const QString &sline) {
                                 result.replace("\n","\r\n");
                                 sendString(result);
                             } else {
-                                sendLineString("Script run failed!");
+                                sendLineString("Script run failed!",31);
                             }
                         }
                         return;
                     }
                 }
-                sendLineString("Script file not found!");
+                sendLineString("Script file not found!",31);
             }
         },
     #endif
@@ -301,12 +334,14 @@ void InternalCommandProcess::processLine(const QString &sline) {
                 result.replace("\n","\r\n");
                 sendString(result);
             } else {
-                sendLineString("Invalid command!");
+                sendLineString("Invalid command!",31);
+                commands.at(0).action();
             }
         } else
         #endif
         {
-            sendLineString("Invalid command!");
+            sendLineString("Invalid command!",31);
+            commands.at(0).action();
         }
     }
     if((!historyCmdList.isEmpty()) && historyCmdList.last() == fullCommand) {
@@ -385,22 +420,47 @@ void InternalCommandProcess::sendString(const QString &str) {
     emit sendData(str.toUtf8());
 }
 
-void InternalCommandProcess::sendLineString(const QString &str) {
-    sendString(str+"\r\n");
+void InternalCommandProcess::sendLineString(const QString &str, int asciiColor) {
+    if(asciiColor == 0){
+        sendString(str+"\r\n");
+    } else {
+        // asciiColor
+        // 31 red
+        // 34 blue
+        sendString("\033[0;"+QString::number(asciiColor)+"m"+str+"\033[0m\r\n");
+    }
 }
 
 void InternalCommandProcess::sendPrompt(void) {
     sendString(promptLine);
 }
 
+void InternalCommandProcess::sendLogo(bool color) {
+    if(color) {
+        sendString(
+            "\033[1;33m  ___                      _ \033[1;36m ____ ____ _____   \033[0m\r\n"
+            "\033[1;33m / _ \\ _   _  __ _ _ __ __| |\033[1;36m/ ___|  _ \\_   _|  \033[0m\r\n"
+            "\033[1;33m| | | | | | |/ _` | '__/ _` \033[1;36m| |   | |_) || |    \033[0m\r\n"
+            "\033[1;33m| |_| | |_| | (_| | | | (_| \033[1;36m| |___|  _ < | |    \033[0m\r\n"
+            "\033[1;33m \\__\\_\\\\__,_|\\__,_|_|  \\__,_|\033[1;36m\\____|_| \\_\\|_|    \033[0m\r\n"
+        );
+    } else {
+        sendString(
+            "  ___                      _  ____ ____ _____   \r\n"
+            " / _ \\ _   _  __ _ _ __ __| |/ ___|  _ \\_   _|  \r\n"
+            "| | | | | | |/ _` | '__/ _` | |   | |_) || |    \r\n"
+            "| |_| | |_| | (_| | | | (_| | |___|  _ < | |    \r\n"
+            " \\__\\_\\\\__,_|\\__,_|_|  \\__,_|\\____|_| \\_\\|_|    \r\n"
+        );
+    }
+}
+
 void InternalCommandProcess::sendWelcome(void) {
-    sendString(
-        "  ___                      _  ____ ____ _____   \r\n"
-        " / _ \\ _   _  __ _ _ __ __| |/ ___|  _ \\_   _|  \r\n"
-        "| | | | | | |/ _` | '__/ _` | |   | |_) || |    \r\n"
-        "| |_| | |_| | (_| | | | (_| | |___|  _ < | |    \r\n"
-        " \\__\\_\\\\__,_|\\__,_|_|  \\__,_|\\____|_| \\_\\|_|    \r\n"
-    );
+    sendLogo();
     sendLineString("Welcome to the QuardCRT command window.");
     sendLineString("Please type 'help' or '?' to get a list of available commands.");
+}
+
+void InternalCommandProcess::setPrompt(const QString &prompt) {
+    promptLine = prompt+" ";
 }

@@ -47,7 +47,7 @@ public:
         QFontMetrics metrics = fontMetrics();
         int fontsize = metrics.horizontalAdvance(" ",1);
         if (!icon().isNull()) {
-            int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize);
+            int iconSize = metrics.height();
             if(text.isEmpty()) {
                 setFixedWidth(iconSize);
             } else {
@@ -62,7 +62,7 @@ public:
         QFontMetrics metrics = fontMetrics();
         int fontsize = metrics.horizontalAdvance(" ",1);
         if (!icon.isNull()) {
-            int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize);
+            int iconSize = metrics.height();
             if(text().isEmpty()) {
                 setFixedWidth(iconSize);
             } else {

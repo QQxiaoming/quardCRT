@@ -38,7 +38,9 @@ public:
 #ifdef ENABLE_PYTHON
     void setPyRun(PyRun *pyRun);
 #endif
+    void setPrompt(const QString &prompt);
     void recvData(const QByteArray &data);
+    void sendLogo(bool color = false);
 
     struct Command {
         QStringList name;
@@ -57,7 +59,7 @@ protected:
 
 private:
     void sendString(const QString &str);
-    void sendLineString(const QString &str);
+    void sendLineString(const QString &str, int asciiColor = 0);
     void sendPrompt(void);
     void sendWelcome(void);
     void processLine(const QString &line);
