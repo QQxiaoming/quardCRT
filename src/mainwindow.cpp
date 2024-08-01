@@ -914,6 +914,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         runAction->setEnabled(!runing);
         cancelAction->setEnabled(runing);
     });
+    internalCommandWindow->setPyRun(pyRun);
 #else
     runAction->setEnabled(false);
     cancelAction->setEnabled(false);
@@ -3206,7 +3207,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         if(scriptPath.isEmpty()) return;
         settings.setValue("Global/Options/ScriptPath",QFileInfo(scriptPath).absolutePath());
         runScriptFullName = scriptPath;
-        pyRun->runScript(scriptPath);
+        pyRun->runScriptFile(scriptPath);
     });
     connect(cancelAction,&QAction::triggered,this,[=](){
         pyRun->cancelScript();

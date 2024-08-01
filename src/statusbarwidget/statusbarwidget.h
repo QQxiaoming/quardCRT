@@ -84,15 +84,16 @@ protected:
 
         QRect textRect = rect();
         if (!icon().isNull()) {
-            int iconSize = 16;//style()->pixelMetric(QStyle::PM_ButtonIconSize);
             QSize size = this->size();
-            int fontsize = painter.fontMetrics().horizontalAdvance(" ",1);
+            QFontMetrics fontMetrics = painter.fontMetrics();
+            int fontsize = fontMetrics.horizontalAdvance(" ",1);
+            int iconSize = fontMetrics.height();
             if(text().isEmpty()) {
                 int iconX = (size.width() - iconSize) / 2;
                 int iconY = (size.height() - iconSize) / 2;
                 painter.drawPixmap(iconX, iconY, icon().pixmap(iconSize, iconSize));
             } else {
-                int iconX = (size.width() - iconSize - fontsize/2 - painter.fontMetrics().horizontalAdvance(text())) / 2;
+                int iconX = (size.width() - iconSize - fontsize/2 - fontMetrics.horizontalAdvance(text())) / 2;
                 int iconY = (size.height() - iconSize) / 2;
                 painter.drawPixmap(iconX, iconY, icon().pixmap(iconSize, iconSize));
                 textRect.setLeft(iconX + iconSize + fontsize/2);

@@ -1,3 +1,22 @@
+/*
+ * This file is part of the https://github.com/QQxiaoming/quardCRT.git
+ * project.
+ *
+ * Copyright (C) 2024 Quard <2014500726@smail.xtu.edu.cn>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef PYRUN_H
 #define PYRUN_H
 
@@ -16,7 +35,8 @@ public:
     ~PyRun();
 
     QString getPyVersion(void) { return pyVersion; }
-    void runScript(QString scriptFile);
+    void runScriptFile(const QString &scriptFile, QString *result = nullptr, int *ret = nullptr);
+    void runScriptStr(const QString &scriptStr, QString *result = nullptr, int *ret = nullptr);
     bool isRunning(void) { return m_running; }
     void cancelScript(void);
     bool isStopScript(void);
@@ -99,14 +119,23 @@ signals:
     void waitForStringFinished(const QString &str);
 
 private:
-    void runScriptInternal(QString scriptFile);
+    struct ScriptInfo {
+        int type;
+        QString script;
+        QString *result;
+        int *ret;
+        volatile bool *finished;
+    };
+    void runScript(struct ScriptInfo *scriptInfo);
+    QString runScriptFileInternal(const QString &scriptFile, int *sret);
+    QString runScriptStrInternal(const QString &scriptStr, int *sret);
 
 protected:
     void run();
 
 private:
     QMutex mutex;
-    QQueue<QString> runScriptList;
+    QQueue<struct ScriptInfo> runScriptList;
     QWaitCondition condition;
 
     QMutex waitForStringMutex;

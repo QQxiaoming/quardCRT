@@ -1,3 +1,22 @@
+/*
+ * This file is part of the https://github.com/QQxiaoming/quardCRT.git
+ * project.
+ *
+ * Copyright (C) 2024 Quard <2014500726@smail.xtu.edu.cn>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include <QMutexLocker>
 #include <QMap>
 #include <QSysInfo>
@@ -14,6 +33,10 @@ InternalCommandProcess::~InternalCommandProcess() {
     exit = true;
     condition.wakeOne();
     wait();
+}
+
+void InternalCommandProcess::setPyRun(PyRun *pyRun) {
+    m_pyRun = pyRun;
 }
 
 void InternalCommandProcess::run(void) {
@@ -62,102 +85,88 @@ void InternalCommandProcess::processLine(const QString &sline) {
     }
     QString command = args.takeFirst();
     QList<struct Command> commands = {
-        {"help"   , "show this help message"               ,
+        {{"help","?"}, {"help()"}, "show this help message"               ,
             [&](void) {
                 static const int maxCmdNameCount = [&]() -> int {
                     int ret = 0;
                     foreach(const struct Command &cmd, commands) {
-                        ret = qMax(ret, cmd.name.size());
+                        foreach(const QString &name, cmd.name) {
+                            ret = qMax(ret, name.size());
+                        }
                     }
                     return ret;
                 }();
                 sendLineString("Available commands:");
                 foreach(const struct Command &cmd, commands) {
                     if(!cmd.description.isEmpty()) {
-                        sendLineString("  " + cmd.name.leftJustified(maxCmdNameCount, ' ')  + " - " + cmd.description);
+                        foreach(const QString &name, cmd.name) {
+                            sendLineString("  " + name.leftJustified(maxCmdNameCount, ' ')  + " - " + cmd.description);
+                        }
                     }
                 }
             }
         },
-        {"?"      , "show this help message"               , 
-            [&](void) {
-                sendLineString("Available commands:");
-                foreach(const struct Command &cmd, commands) {
-                    sendLineString("  " + cmd.name + " - " + cmd.description);
-                }
-            }
-        },
-        {"exit"   , "exit the QuardCRT"                    , 
+        {{"exit","quit"}   , {"exit()","quit()"}, "exit the QuardCRT"                    , 
             [&](void) {
                 qApp->exit();
             }
         },
-        {"quit"   , "exit the QuardCRT"                    , 
-            [&](void) {
-                qApp->exit();
-            }
-        },
-        {"clear"  , "clear the screen"                     , 
+        {{"clear","cls"},QStringList(), "clear the screen"                     , 
             [&](void) {
                 sendString("\033[2J\033[1;1H");
             }
         },
-        {"cls"    , "clear the screen"                     , 
-            [&](void) {
-                sendString("\033[2J\033[1;1H");
-            }
-        },
-        {"version", "show the version of the QuardCRT"     , 
+        {{"version"},QStringList(), "show the version of the QuardCRT"     , 
             [&](void) {
                 sendLineString(QString("QuardCRT version %0").arg(VERSION));
             }
         },
-        {"about"  , "how the about message of the QuardCRT", 
+        {{"about"},QStringList(), "how the about message of the QuardCRT", 
             [&](void) {
                 sendLineString("QuardCRT is a terminal emulator.");
             }
         },
-        {"license", "show the license of the QuardCRT"     , 
+        {{"license"}, {"license()"}, "show the license of the QuardCRT"     , 
             [&](void) {
                 sendLineString("QuardCRT is licensed under the GPLv3 License.");
             }
         },
-        {"authors", "show the authors of the QuardCRT"     , 
+        {{"authors"},QStringList(), "show the authors of the QuardCRT"     , 
             [&](void) {
                 sendLineString("QuardCRT is authored by the Quard <2014500726@smail.xtu.edu.cn>.");
             }
         },
-        {"credits", "show the credits of the QuardCRT"     , 
+        {{"credits"}, {"credits()"}, "show the credits of the QuardCRT"     , 
             [&](void) {
-                sendLineString("QuardCRT is credited to the Quard <2014500726@smail.xtu.edu.cn>.");
+                sendLineString("QuardCRT is the result of the hard work of the Quard.");
             }
         },
-        {"copying", "show the copying of the QuardCRT"     , 
+        {{"copyright"}, {"copyright()"}, "show the copyright of the QuardCRT"     , 
             [&](void) {
-                sendLineString("QuardCRT is copied by the Quard <2014500726@smail.xtu.edu.cn>.");
+                sendLineString("Copyright (C) 2023-2024 Quard <2014500726@smail.xtu.edu.cn>");
             }
         },
-        {"AskQuard", QString()                             , 
+        {{"AskQuard"},QStringList(), QString()                             , 
             [&](void) {
                 sendLineString("Thank you use QuardCRT, Have a nice day!");
             }
         },
-        {"AskQuardShow", QString()                         , 
+        {{"AskQuardShow"},QStringList(), QString()                         , 
             [&](void) {
                 emit showString("QuardCRT", "Thank you use QuardCRT, Have a nice day!");
             }
         },
-        {"QuardSOnly", QString()                           , 
+        {{"QuardSOnly"},QStringList(), QString()                           , 
             [&](void) {
                 emit showEasterEggs();
             }
         },
-        {"echo"   , "echo the arguments"                   , 
+        {{"echo"},QStringList(), "echo the arguments"                   , 
             [&](void) {
                 sendLineString(args.join(' '));
             }
         },
-        {"state"  , "show states of the QuardCRT"          , 
+        {{"state"},QStringList(), "show states of the QuardCRT"          , 
             [&](void) {
                 GlobalSetting settings;
                 bool debugMode = settings.value("Debug/DebugMode",false).toBool();
@@ -181,7 +190,7 @@ void InternalCommandProcess::processLine(const QString &sline) {
                 }
             }
         },
-        {"info"   , "show information of the QuardCRT"     , 
+        {{"info"},QStringList(), "show information of the QuardCRT"     , 
             [&](void) {
                 sendLineString(QString("Version                : %0").arg(VERSION));
                 sendLineString(QString("GitTag                 : %0").arg(GIT_TAG));
@@ -209,7 +218,7 @@ void InternalCommandProcess::processLine(const QString &sline) {
             #endif
             }
         },
-        {"buildOpt", "show build options of the QuardCRT"  ,
+        {{"buildOpt"},QStringList(),"show build options of the QuardCRT"  ,
             [&](void) {
                 sendString("ENABLE_SSH              : ");
             #ifdef ENABLE_SSH
@@ -225,28 +234,84 @@ void InternalCommandProcess::processLine(const QString &sline) {
             #endif
             }
         },
+    #ifdef ENABLE_PYTHON
+        {{"run"},QStringList(), "run script"  ,
+            [&](void) {
+                if(args.size() >= 1) {
+                    QFileInfo fileInfo(args.at(0));
+                    if(fileInfo.isFile()) {
+                        if(m_pyRun) {
+                            QString result;
+                            int ret = -1;
+                            m_pyRun->runScriptFile(args.at(0), &result, &ret);
+                            if(ret == 0) {
+                                result.replace("\n","\r\n");
+                                sendString(result);
+                            } else {
+                                sendLineString("Script run failed!");
+                            }
+                        }
+                        return;
+                    }
+                }
+                sendLineString("Script file not found!");
+            }
+        },
+    #endif
     };
     if(command.isEmpty()) {
         return;
     }
     bool matched = false;
     for(const struct Command &cmd : commands) {
-        if(command == cmd.name) {
-            cmd.action();
-            matched = true;
+        foreach(const QString &name, cmd.name) {
+            if(name == command) {
+                cmd.action();
+                matched = true;
+                break;
+            }
+        }
+        if(matched) {
+            break;
+        }
+        foreach(const QString &name, cmd.aliasName) {
+            if(name == command) {
+                cmd.action();
+                matched = true;
+                break;
+            }
+        }
+        if(matched) {
             break;
         }
     }
-    if(!matched) {
-        sendLineString("Unknown command: " + command);
+    QString fullCommand = command;
+    if(!args.isEmpty()) {
+        fullCommand = command + " " + args.join(' ');
     }
-    if((!historyCmdList.isEmpty()) && historyCmdList.last() == command) {
+    if(!matched) {
+        if(m_pyRun) {
+        #ifdef ENABLE_PYTHON
+            QString result;
+            int ret = -1;
+            m_pyRun->runScriptStr("from quardCRT import crt\r\nprint("+fullCommand+")", &result, &ret);
+            if(ret == 0) {
+                result.replace("\n","\r\n");
+                sendString(result);
+            } else 
+        #endif
+            {
+                sendLineString("Invalid command!");
+            }
+        }
+    }
+    if((!historyCmdList.isEmpty()) && historyCmdList.last() == fullCommand) {
         return;
     }
     if(historyCmdList.count() >= 100) {
         historyCmdList.removeFirst();
     }
-    historyCmdList.append(command);
+    historyCmdList.append(fullCommand);
     historyCmdIndex = historyCmdList.count() - 1;
 }
 

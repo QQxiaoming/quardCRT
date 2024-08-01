@@ -1,3 +1,22 @@
+/*
+ * This file is part of the https://github.com/QQxiaoming/quardCRT.git
+ * project.
+ *
+ * Copyright (C) 2024 Quard <2014500726@smail.xtu.edu.cn>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "pycore.h"
 
 #include <QString>
@@ -35,7 +54,7 @@ PyRun::PyRun(QObject *parent)
     Py_Initialize();
 
     // Register the trace function
-    PyEval_SetProfile((Py_tracefunc)PyCore::stop_script, NULL);
+    PyEval_SetProfile(reinterpret_cast<Py_tracefunc>(PyCore::stop_script), NULL);
 
     PyObject* quardCRTModule = PyCore::PyInit_quardCRT(this);
     if (quardCRTModule == nullptr) {
@@ -356,10 +375,38 @@ bool PyRun::isStopScript(void) {
     return false;
 }
 
-void PyRun::runScript(QString scriptFile) {
+void PyRun::runScript(struct ScriptInfo *scriptInfo) {
     QMutexLocker locker(&mutex);
-    runScriptList.enqueue(scriptFile);
+    runScriptList.enqueue(*scriptInfo);
     condition.wakeOne();
+}
+
+void PyRun::runScriptFile(const QString &scriptFile, QString *result, int *ret) {
+    if(result != nullptr) {
+        volatile bool finished = false;
+        struct ScriptInfo scriptInfo = {0,scriptFile,result,ret,&finished};
+        runScript(&scriptInfo);
+        while(!finished) {
+            qApp->processEvents();
+        }
+    } else {
+        struct ScriptInfo scriptInfo = {0,scriptFile,nullptr,nullptr,nullptr};
+        runScript(&scriptInfo);
+    }
+}
+
+void PyRun::runScriptStr(const QString &scriptStr, QString *result, int *ret) {
+    if(result != nullptr) {
+        volatile bool finished = false;
+        struct ScriptInfo scriptInfo = {1,scriptStr,result,ret,&finished};
+        runScript(&scriptInfo);
+        while(!finished) {
+            qApp->processEvents();
+        }
+    } else {
+        struct ScriptInfo scriptInfo = {1,scriptStr,nullptr,nullptr,nullptr};
+        runScript(&scriptInfo);
+    }
 }
 
 void PyRun::run() {
@@ -372,21 +419,35 @@ void PyRun::run() {
                 return;
             }
         }
-        QString scriptFile = runScriptList.dequeue();
+        //QStringList script = runScriptList.dequeue();
+        struct ScriptInfo scriptInfo = runScriptList.dequeue();
         mutex.unlock();
         m_running = true;
         emit runScriptStarted();
-        runScriptInternal(scriptFile);
+        QString *result = scriptInfo.result;
+        if(scriptInfo.type == 0) {
+            if(result != nullptr)
+                *result = runScriptFileInternal(scriptInfo.script, scriptInfo.ret);
+            else
+                runScriptFileInternal(scriptInfo.script,nullptr);
+        } else if(scriptInfo.type == 1) {
+            if(result != nullptr)
+                *result = runScriptStrInternal(scriptInfo.script, scriptInfo.ret);
+            else
+                runScriptStrInternal(scriptInfo.script,nullptr);
+        }
+        if(scriptInfo.finished != nullptr)
+            *scriptInfo.finished = true;
         m_running = false;
         emit runScriptFinished();
     }
 }
 
-void PyRun::runScriptInternal(QString scriptFile) {
+QString PyRun::runScriptFileInternal(const QString &scriptFile, int *sret) {
     QFile file(scriptFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Failed to open script file";
-        return;
+        return QString();
     }
     QTextStream in(&file);
     QStringList lines;
@@ -399,8 +460,58 @@ void PyRun::runScriptInternal(QString scriptFile) {
     QByteArray scriptBytes = script.toUtf8();
     const char* scriptStr = scriptBytes.constData();
 
+    PyObject* ioModule = PyImport_ImportModule("io");
+    PyObject* stringIO = PyObject_CallMethod(ioModule, "StringIO", nullptr);
+    PyObject* sysModule = PyImport_ImportModule("sys");
+    PyObject_SetAttrString(sysModule, "stdout", stringIO);
+
     int ret = PyRun_SimpleString(scriptStr);
-    messageNotifications(tr("Script finished with return code: ") + QString::number(ret));
+    if(sret) {
+        *sret = ret;
+    }
+
+    PyObject* output = PyObject_CallMethod(stringIO, "getvalue", nullptr);
+    const char* outputStr = PyUnicode_AsUTF8(output);
+    QString outputQString = QString::fromUtf8(outputStr);
+    Py_DECREF(output);
+    Py_DECREF(ioModule);
+    Py_DECREF(stringIO);
+    Py_DECREF(sysModule);
+
+    if(!sret) {
+        messageNotifications(tr("Script finished with return code: ") + QString::number(ret));
+    }
+
+    return outputQString;
+}
+
+QString PyRun::runScriptStrInternal(const QString &scriptStr, int *sret) {
+    QByteArray scriptBytes = scriptStr.toUtf8();
+    const char* scriptString = scriptBytes.constData();
+
+    PyObject* ioModule = PyImport_ImportModule("io");
+    PyObject* stringIO = PyObject_CallMethod(ioModule, "StringIO", nullptr);
+    PyObject* sysModule = PyImport_ImportModule("sys");
+    PyObject_SetAttrString(sysModule, "stdout", stringIO);
+
+    int ret = PyRun_SimpleString(scriptString);
+    if(sret) {
+        *sret = ret;
+    }
+
+    PyObject* output = PyObject_CallMethod(stringIO, "getvalue", nullptr);
+    const char* outputStr = PyUnicode_AsUTF8(output);
+    QString outputQString = QString::fromUtf8(outputStr);
+    Py_DECREF(output);
+    Py_DECREF(ioModule);
+    Py_DECREF(stringIO);
+    Py_DECREF(sysModule);
+
+    if(!sret) {
+        messageNotifications(tr("Script finished with return code: ") + QString::number(ret));
+    }
+    
+    return outputQString;
 }
 
 QString PyRun::getActivePrinter(void) {
