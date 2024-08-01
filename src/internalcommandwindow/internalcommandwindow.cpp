@@ -169,9 +169,11 @@ InternalCommandWindow::~InternalCommandWindow() {
     delete ui;
 }
 
+#ifdef ENABLE_PYTHON
 void InternalCommandWindow::setPyRun(PyRun *pyRun) {
     process->setPyRun(pyRun);
 }
+#endif
 
 void InternalCommandWindow::contextMenuEvent(QContextMenuEvent *event) {
     QMenu *menu = new QMenu(this);

@@ -35,9 +35,11 @@ InternalCommandProcess::~InternalCommandProcess() {
     wait();
 }
 
+#ifdef ENABLE_PYTHON
 void InternalCommandProcess::setPyRun(PyRun *pyRun) {
     m_pyRun = pyRun;
 }
+#endif
 
 void InternalCommandProcess::run(void) {
     sendWelcome();
@@ -290,19 +292,21 @@ void InternalCommandProcess::processLine(const QString &sline) {
         fullCommand = command + " " + args.join(' ');
     }
     if(!matched) {
-        if(m_pyRun) {
         #ifdef ENABLE_PYTHON
+        if(m_pyRun) {
             QString result;
             int ret = -1;
             m_pyRun->runScriptStr("from quardCRT import crt\r\nprint("+fullCommand+")", &result, &ret);
             if(ret == 0) {
                 result.replace("\n","\r\n");
                 sendString(result);
-            } else 
-        #endif
-            {
+            } else {
                 sendLineString("Invalid command!");
             }
+        } else
+        #endif
+        {
+            sendLineString("Invalid command!");
         }
     }
     if((!historyCmdList.isEmpty()) && historyCmdList.last() == fullCommand) {
