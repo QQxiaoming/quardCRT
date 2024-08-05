@@ -142,8 +142,10 @@ public:
 
     int setLog(bool enable);
     bool isLog(void) { return enableLog; }
+    QString getLogFileName(void);
     int setRawLog(bool enable);
     bool isRawLog(void) { return enableRawLog; }
+    QString getRawLogFileName(void);
     void setInBroadCastList(bool enable);
     bool isInBroadCastList() { return enableBroadCast; }
     void setTagColor(bool enable, QColor color = QColor()) { 

@@ -39,6 +39,7 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarSpeedTx = new StatusBarToolButton(this);
     statusBarSpeedRx = new StatusBarToolButton(this);
     statusBarEndOfLine = new StatusBarToolButton(this);
+    statusBarLogs = new StatusBarToolButton(this);
     statusBarNotifiction = new StatusBarToolButton(this);
     ui->horizontalLayout->addWidget(statusBarCursorInfo);
     ui->horizontalLayout->addWidget(statusBarType);
@@ -47,6 +48,7 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     ui->horizontalLayout->addWidget(statusBarSpeedTx);
     ui->horizontalLayout->addWidget(statusBarSpeedRx);
     ui->horizontalLayout->addWidget(statusBarEndOfLine);
+    ui->horizontalLayout->addWidget(statusBarLogs);
     ui->horizontalLayout->addWidget(statusBarNotifiction);
 
     statusBarCursorInfo->setVisible(false);
@@ -63,34 +65,13 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarSpeedTx->setEnabled(false);
     statusBarSpeedRx->setEnabled(false);
     statusBarEndOfLine->setEnabled(false);
-
-    retranslateUi();
-
-    statusBarCursorInfo->setPopupMode(QToolButton::InstantPopup);
-    statusBarCursorInfo->setAutoRaise(true);
-    statusBarType->setPopupMode(QToolButton::InstantPopup);
-    statusBarType->setAutoRaise(true);
-    statusBarTransTx->setPopupMode(QToolButton::InstantPopup);
-    statusBarTransTx->setAutoRaise(true);
-    statusBarTransTx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    statusBarTransRx->setPopupMode(QToolButton::InstantPopup);
-    statusBarTransRx->setAutoRaise(true);
-    statusBarTransRx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    statusBarSpeedTx->setPopupMode(QToolButton::InstantPopup);
-    statusBarSpeedTx->setAutoRaise(true);
-    statusBarSpeedTx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    statusBarSpeedRx->setPopupMode(QToolButton::InstantPopup);
-    statusBarSpeedRx->setAutoRaise(true);
-    statusBarSpeedRx->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    statusBarEndOfLine->setPopupMode(QToolButton::InstantPopup);
-    statusBarEndOfLine->setAutoRaise(true);
-    statusBarNotifiction->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    statusBarNotifiction->setPopupMode(QToolButton::InstantPopup);
-    statusBarNotifiction->setAutoRaise(true);
+    statusBarLogs->setEnabled(false);
 
     QFont font = this->font();
     font.setPixelSize(16);
     setFont(font);
+
+    retranslateUi();
 
     connect(statusBarCursorInfo,&StatusBarToolButton::clicked,this,[=](){
         emit cursorInfoTriggered();
@@ -112,6 +93,9 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     });
     connect(statusBarEndOfLine,&StatusBarToolButton::clicked,this,[=](){
         emit endOfLineTriggered();
+    });
+    connect(statusBarLogs,&StatusBarToolButton::clicked,this,[=](){
+        emit logsTriggered();
     });
     connect(statusBarNotifiction,&StatusBarToolButton::clicked,this,[=](){
         emit notifictionTriggered();
@@ -244,7 +228,30 @@ void StatusBarWidget::setEndOfLine(bool enable, SessionsWindow::EndOfLineSeq typ
     }
     if(!statusBarEndOfLine->isEnabled()) {
         statusBarEndOfLine->setEnabled(true);
-        statusBarEndOfLine->setVisible(true);
+        GlobalSetting settings;
+        statusBarEndOfLine->setVisible(settings.value("Global/Statusbar/EndOfLineUI", true).toBool());
+    }
+}
+
+void StatusBarWidget::setLogs(bool enable, bool isLog) {
+    m_logs_show = enable;
+    m_logs = isLog;
+    if(isLog) {
+        statusBarLogs->setIcon(QFontIcon::icon(QChar(0xf0c8)));
+        statusBarLogs->setText(tr("Logging"));
+    } else {
+        statusBarLogs->setIcon(QFontIcon::icon(QChar(0xf040)));
+        statusBarLogs->setText(tr("No Logging"));
+    }
+    if(!enable) {
+        statusBarLogs->setEnabled(false);
+        statusBarLogs->setVisible(false);
+        return;
+    }
+    if(!statusBarLogs->isEnabled()) {
+        statusBarLogs->setEnabled(true);
+        GlobalSetting settings;
+        statusBarLogs->setVisible(settings.value("Global/Statusbar/LogsUI", true).toBool());
     }
 }
 
@@ -312,6 +319,18 @@ void StatusBarWidget::contextMenuEvent(QContextMenuEvent *event) {
         menu->addAction(actionEndOfLine);
     }
 
+    if(statusBarLogs->isEnabled()) {
+        QAction *actionLogs = new QAction(tr("Logs Info"), this);
+        actionLogs->setCheckable(true);
+        actionLogs->setChecked(statusBarLogs->isVisible());
+        connect(actionLogs, &QAction::triggered, [this](bool checked) {
+            GlobalSetting settings;
+            settings.setValue("Global/Statusbar/LogsUI", checked);
+            statusBarLogs->setVisible(checked);
+        });
+        menu->addAction(actionLogs);
+    }
+
     if(menu->isEmpty()) {
         delete menu;
         return;
@@ -336,6 +355,7 @@ void StatusBarWidget::setFont(QFont &font) {
     statusBarSpeedTx->setFont(font);
     statusBarSpeedRx->setFont(font);
     statusBarEndOfLine->setFont(font);
+    statusBarLogs->setFont(font);
     statusBarNotifiction->setFont(font);
     QWidget::setFont(font);
 }
@@ -349,11 +369,13 @@ void StatusBarWidget::retranslateUi()
     statusBarSpeedTx->setToolTip(tr("Upload Speed"));
     statusBarSpeedRx->setToolTip(tr("Download Speed"));
     statusBarEndOfLine->setToolTip(tr("End of line sequence"));
+    statusBarLogs->setToolTip(tr("Logs Info"));
 
     statusBarTransTx->setIcon(QFontIcon::icon(QChar(0xf0ee)));
     statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));
     statusBarSpeedTx->setIcon(QFontIcon::icon(QChar(0xf0aa)));
     statusBarSpeedRx->setIcon(QFontIcon::icon(QChar(0xf0ab)));
+    setLogs(m_logs_show,m_logs);
     setNotifiction(m_notifiction);
 
     ui->retranslateUi(this);

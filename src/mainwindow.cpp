@@ -991,6 +991,68 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             endOfLineSeqMenu->popup(QCursor::pos());
         }
     });
+    connect(statusBarWidget,&StatusBarWidget::logsTriggered,this,[&](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) return;
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(!sessionsWindow->isLocked()) {
+            QMenu *logsMenu = new QMenu(tr("Logs"),this);
+            if(sessionsWindow->isLog()) {
+                QAction *openLogAction = new QAction(tr("Open Log"),this);
+                openLogAction->setToolTip(tr("Open log file"));
+                logsMenu->addAction(openLogAction);
+                connect(openLogAction,&QAction::triggered,this,[=](){
+                    QString logFile = sessionsWindow->getLogFileName();
+                    if(!logFile.isEmpty()) {
+                        QDesktopServices::openUrl(QUrl::fromLocalFile(logFile));
+                    }
+                });
+                QAction *stopLogAction = new QAction(tr("Stop Log"),this);
+                stopLogAction->setToolTip(tr("Stop log to file"));
+                logsMenu->addAction(stopLogAction);
+                connect(stopLogAction,&QAction::triggered,this,[=](){
+                    logSessionAction->setChecked(sessionsWindow->setLog(false) != 0);
+                });
+            } else {
+                QAction *startLogAction = new QAction(tr("Start Log"),this);
+                startLogAction->setToolTip(tr("Start log to file"));
+                logsMenu->addAction(startLogAction);
+                connect(startLogAction,&QAction::triggered,this,[=](){
+                    logSessionAction->setChecked(sessionsWindow->setLog(true) == 0);
+                });
+            }
+            if(sessionsWindow->isRawLog()) {
+                QAction *openRawLogAction = new QAction(tr("Open Raw Log"),this);
+                openRawLogAction->setToolTip(tr("Open raw log file"));
+                logsMenu->addAction(openRawLogAction);
+                connect(openRawLogAction,&QAction::triggered,this,[=](){
+                    QString logFile = sessionsWindow->getRawLogFileName();
+                    if(!logFile.isEmpty()) {
+                        QDesktopServices::openUrl(QUrl::fromLocalFile(logFile));
+                    }
+                });
+                QAction *stopRawLogAction = new QAction(tr("Stop Raw Log"),this);
+                stopRawLogAction->setToolTip(tr("Stop raw log to file"));
+                logsMenu->addAction(stopRawLogAction);
+                connect(stopRawLogAction,&QAction::triggered,this,[=](){
+                    rawLogSessionAction->setChecked(sessionsWindow->setRawLog(false) != 0);
+                });
+            } else {
+                QAction *startRawLogAction = new QAction(tr("Start Raw Log"),this);
+                startRawLogAction->setToolTip(tr("Start raw log to file"));
+                logsMenu->addAction(startRawLogAction);
+                connect(startRawLogAction,&QAction::triggered,this,[=](){
+                    rawLogSessionAction->setChecked(sessionsWindow->setRawLog(true) == 0);
+                });
+            }
+
+            if(logsMenu->isEmpty()) {
+                delete logsMenu;
+                return;
+            }
+            logsMenu->popup(QCursor::pos());
+        }
+    });
 
     initSysEnv();
 
@@ -1309,6 +1371,7 @@ void CentralWidget::refreshStatusBar(void) {
         statusBarWidget->setTransInfo(false);
         statusBarWidget->setSpeedInfo(false);
         statusBarWidget->setEndOfLine(false);
+        statusBarWidget->setLogs(false,false);
         return;
     }
     SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
@@ -1318,9 +1381,11 @@ void CentralWidget::refreshStatusBar(void) {
         statusBarWidget->setTransInfo(false);
         statusBarWidget->setSpeedInfo(false);
         statusBarWidget->setEndOfLine(false);
+        statusBarWidget->setLogs(false,false);
         return;
     }
     statusBarWidget->setCursorPosition(sessionsWindow->getCursorLineCount(),sessionsWindow->getCursorColumnCount());
+    statusBarWidget->setLogs(true,sessionsWindow->isLog() || sessionsWindow->isRawLog());
     SessionsWindow::StateInfo stateInfo = sessionsWindow->getStateInfo();
     switch(stateInfo.type) {
         case SessionsWindow::LocalShell:

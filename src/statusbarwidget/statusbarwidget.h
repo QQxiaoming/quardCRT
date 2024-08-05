@@ -39,6 +39,9 @@ public:
     explicit StatusBarToolButton(QWidget *parent = nullptr) 
         : QToolButton(parent) {
         setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        setPopupMode(QToolButton::InstantPopup);
+        setAutoRaise(true);
+        setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     }
     ~StatusBarToolButton() {
     }
@@ -121,6 +124,7 @@ public:
     void setTransInfo(bool enable, int64_t tx = -1, int64_t rx = -1);
     void setSpeedInfo(bool enable, qreal tx = -1.0, qreal rx = -1.0);
     void setEndOfLine(bool enable, SessionsWindow::EndOfLineSeq type = SessionsWindow::AUTO);
+    void setLogs(bool enable, bool isLogs = false);
     void setNotifiction(bool enable);
     void retranslateUi(void);
     void setFont(QFont &font);
@@ -133,6 +137,7 @@ signals:
     void speedTxTriggered(void);
     void speedRxTriggered(void);
     void endOfLineTriggered(void);
+    void logsTriggered(void);   
     void notifictionTriggered(void);
 
 protected:
@@ -147,7 +152,10 @@ private:
     StatusBarToolButton *statusBarSpeedTx;
     StatusBarToolButton *statusBarSpeedRx;
     StatusBarToolButton *statusBarEndOfLine;
+    StatusBarToolButton *statusBarLogs;
     StatusBarToolButton *statusBarNotifiction;
+    bool m_logs_show = false;
+    bool m_logs = false;
     bool m_notifiction = false;
 };
 

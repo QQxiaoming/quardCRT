@@ -1043,6 +1043,16 @@ int SessionsWindow::setLog(bool enable) {
     return ret;
 }
 
+QString SessionsWindow::getLogFileName(void) {
+    QString ret;
+    log_file_mutex.lock();
+    if(log_file != nullptr) {
+        ret = log_file->fileName();
+    }
+    log_file_mutex.unlock();
+    return ret;
+}
+
 int SessionsWindow::setRawLog(bool enable) {
     int ret = -1;
     raw_log_file_mutex.lock(); 
@@ -1073,6 +1083,16 @@ int SessionsWindow::setRawLog(bool enable) {
         }
         enableRawLog = false;
         ret = 0;
+    }
+    raw_log_file_mutex.unlock();
+    return ret;
+}
+
+QString SessionsWindow::getRawLogFileName(void) {
+    QString ret;
+    raw_log_file_mutex.lock();
+    if(raw_log_file != nullptr) {
+        ret = raw_log_file->fileName();
     }
     raw_log_file_mutex.unlock();
     return ret;

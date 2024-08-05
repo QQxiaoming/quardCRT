@@ -6,11 +6,13 @@ en-US:
 
 - Add Python scripting engine for scripting feature [#31](https://github.com/QQxiaoming/quardCRT/pull/31)
 - Add the feature of selecting end-of-line sequence
+- Add logging information to the status bar
 
 zh-CN:
 
 - 为脚本功能添加Python脚本引擎 [#31](https://github.com/QQxiaoming/quardCRT/pull/31)
 - 增加选择行尾序列功能
+- 增加状态栏日志信息
 
 ## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
 
