@@ -7,12 +7,16 @@ en-US:
 - Add Python scripting engine for scripting feature [#31](https://github.com/QQxiaoming/quardCRT/pull/31)
 - Add the feature of selecting end-of-line sequence
 - Add logging information to the status bar
+- Add emphasized color border to the activated session in split screen mode
+- Fix the issue that clicking the new tab button in split screen mode may not create the session correctly or be located under the wrong tab group
 
 zh-CN:
 
 - 为脚本功能添加Python脚本引擎 [#31](https://github.com/QQxiaoming/quardCRT/pull/31)
 - 增加选择行尾序列功能
 - 增加状态栏日志信息
+- 分屏模式下激活的会话增加强调色边框
+- 修复分屏模式下某些情况点击新标签按钮会话未正确创建或位于错误的标签页组下
 
 ## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
 

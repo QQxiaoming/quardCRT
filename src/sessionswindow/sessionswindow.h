@@ -409,7 +409,9 @@ signals:
     void waitForStringFinished(const QString &str, int matchIndex);
     void broadCastSendData(const QByteArray &data);
     void requestReconnect(void);
-
+    void termGetFocus();
+    void termLostFocus();
+    
 private:
     int saveLog(const char *data, int size);
     int saveRawLog(const char *data, int size);

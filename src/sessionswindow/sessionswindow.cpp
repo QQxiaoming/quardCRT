@@ -442,6 +442,8 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
 
     if(type != VNC) {
         connect(term, &QTermWidget::titleChanged, this, &SessionsWindow::titleChanged);
+        connect(term, &QTermWidget::termGetFocus, this, &SessionsWindow::termGetFocus);
+        connect(term, &QTermWidget::termLostFocus, this, &SessionsWindow::termLostFocus);
         connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
             saveLog(data, size);
             writeReceiveASCIIFile(data, size);
@@ -612,7 +614,11 @@ SessionsWindow::~SessionsWindow() {
         delete telnet;
     }
     if(serialPort) {
-        if(serialPort->isOpen()) serialPort->close();
+        if (serialPort->isOpen()) {
+            serialPort->clear();
+            serialPort->waitForBytesWritten(1000);
+            serialPort->close();
+        }
         delete serialPort;
         delete serialMonitor;
     }

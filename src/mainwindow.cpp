@@ -112,30 +112,30 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     splitterV11 = new QSplitter(Qt::Horizontal,this);
     splitterV11->setHandleWidth(1);
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitterV1->addWidget(mainWidgetGroupList.at(0)->splitter);
+    splitterV1->addWidget(mainWidgetGroupList.at(0));
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitterV2->addWidget(mainWidgetGroupList.at(1)->splitter);
+    splitterV2->addWidget(mainWidgetGroupList.at(1));
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitterV1->addWidget(mainWidgetGroupList.at(2)->splitter);
+    splitterV1->addWidget(mainWidgetGroupList.at(2));
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitterV2->addWidget(mainWidgetGroupList.at(3)->splitter);
+    splitterV2->addWidget(mainWidgetGroupList.at(3));
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitterV11->addWidget(mainWidgetGroupList.at(4)->splitter);
+    splitterV11->addWidget(mainWidgetGroupList.at(4));
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitterV11->addWidget(mainWidgetGroupList.at(5)->splitter);
+    splitterV11->addWidget(mainWidgetGroupList.at(5));
     mainWidgetGroupList.append(new MainWidgetGroup(MainWidgetGroup::EMBEDDED,this));
-    splitter->addWidget(mainWidgetGroupList.at(6)->splitter);
+    splitter->addWidget(mainWidgetGroupList.at(6));
     splitterV1->addWidget(splitterV11);
     splitterV1->setVisible(true);
     splitterV2->setVisible(false);
     splitterV11->setVisible(false);
-    mainWidgetGroupList.at(0)->splitter->setVisible(true);
-    mainWidgetGroupList.at(1)->splitter->setVisible(false);
-    mainWidgetGroupList.at(2)->splitter->setVisible(false);
-    mainWidgetGroupList.at(3)->splitter->setVisible(false);
-    mainWidgetGroupList.at(4)->splitter->setVisible(false);
-    mainWidgetGroupList.at(5)->splitter->setVisible(false);
-    mainWidgetGroupList.at(6)->splitter->setVisible(false);
+    mainWidgetGroupList.at(0)->setVisible(true);
+    mainWidgetGroupList.at(1)->setVisible(false);
+    mainWidgetGroupList.at(2)->setVisible(false);
+    mainWidgetGroupList.at(3)->setVisible(false);
+    mainWidgetGroupList.at(4)->setVisible(false);
+    mainWidgetGroupList.at(5)->setVisible(false);
+    mainWidgetGroupList.at(6)->setVisible(false);
     currentLayout = 0;
 
     notifictionWidget = new NotifictionWidget(this);
@@ -313,6 +313,19 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
         connect(mainWidgetGroup->sessionTab,&FancyTabWidget::tabAddRequested,this,[=](){
+            QWidget *widget = findCurrentFocusWidget();
+            if(widget != nullptr) {
+                if(mainWidgetGroup->sessionTab->indexOf(widget)<0) {
+                    int index = mainWidgetGroup->sessionTab->count();
+                    QWidget *widget = mainWidgetGroup->sessionTab->widget(index);
+                    widget->setFocus();
+                }
+            } else {
+                int index = mainWidgetGroup->sessionTab->count();
+                QWidget *widget = mainWidgetGroup->sessionTab->widget(index);
+                widget->setFocus();
+            }
+
             int mode = globalOptionsWindow->getNewTabMode();
             switch(mode) {
                 case 0:
@@ -323,7 +336,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     cloneSessionAction->trigger();
                     break;
                 case 2:
-                    QWidget *widget = findCurrentFocusWidget();
+                    widget = findCurrentFocusWidget();
                     if(widget != nullptr) {
                         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
                         if(SessionsWindow::LocalShell == sessionsWindow->getSessionType()) {
@@ -341,7 +354,11 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         connect(mainWidgetGroup->sessionTab,&SessionTab::currentChanged,this,[=](int index){
             int currentTabNum = 0;
             foreach(MainWidgetGroup *group, mainWidgetGroupList) {
-                currentTabNum += group->sessionTab->count();
+                int num = group->sessionTab->count();
+                if(num == 0) {
+                    group->setActive(false);
+                }
+                currentTabNum += num;
             }
             setSessionClassActionEnable(currentTabNum != 0);
             if(index > 0) {
@@ -1296,7 +1313,7 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
     mainWidgetGroupList.append(group);
     int newGroup = mainWidgetGroupList.count()-1;
     moveToAnotherTab(mainWidgetGroupList.indexOf(g),newGroup,index);
-    dialog->layout()->addWidget(group->splitter);
+    dialog->layout()->addWidget(group);
     group->sessionTab->setTabBarHidden(true);
     group->sessionTab->setAddTabButtonHidden(true);
     dialog->setWindowTitle(group->sessionTab->tabTitle(1));
@@ -1475,7 +1492,7 @@ MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
         if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
             continue;
         }
-        if(mainWidgetGroup->splitter->size().width() == 0) {
+        if(mainWidgetGroup->size().width() == 0) {
             continue;
         }
         if(mainWidgetGroup->sessionTab->currentWidget()->hasFocus()) {
@@ -1486,7 +1503,7 @@ MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
         if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
             continue;
         }
-        if(mainWidgetGroup->splitter->size().width() == 0) {
+        if(mainWidgetGroup->size().width() == 0) {
             continue;
         }
         if(mainWidgetGroup->sessionTab->count() != 0) {
@@ -1498,7 +1515,7 @@ MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
             if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
                 continue;
             }
-            if(mainWidgetGroup->splitter->size().width() != 0) {
+            if(mainWidgetGroup->size().width() != 0) {
                 return mainWidgetGroup;
             }
         }
@@ -2896,105 +2913,108 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             splitterV1->setVisible(true);
             splitterV2->setVisible(false);
             splitterV11->setVisible(false);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(false);
-            mainWidgetGroupList.at(2)->splitter->setVisible(false);
-            mainWidgetGroupList.at(3)->splitter->setVisible(false);
-            mainWidgetGroupList.at(4)->splitter->setVisible(false);
-            mainWidgetGroupList.at(5)->splitter->setVisible(false);
-            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(false);
+            mainWidgetGroupList.at(2)->setVisible(false);
+            mainWidgetGroupList.at(3)->setVisible(false);
+            mainWidgetGroupList.at(4)->setVisible(false);
+            mainWidgetGroupList.at(5)->setVisible(false);
+            mainWidgetGroupList.at(6)->setVisible(false);
             enabledSyncSplitterMoved = false;
         } else if(action == twoColumnsLayoutAction) {
             currentLayout = 1;
             splitterV1->setVisible(true);
             splitterV2->setVisible(true);
             splitterV11->setVisible(false);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(true);
-            mainWidgetGroupList.at(2)->splitter->setVisible(false);
-            mainWidgetGroupList.at(3)->splitter->setVisible(false);
-            mainWidgetGroupList.at(4)->splitter->setVisible(false);
-            mainWidgetGroupList.at(5)->splitter->setVisible(false);
-            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(true);
+            mainWidgetGroupList.at(2)->setVisible(false);
+            mainWidgetGroupList.at(3)->setVisible(false);
+            mainWidgetGroupList.at(4)->setVisible(false);
+            mainWidgetGroupList.at(5)->setVisible(false);
+            mainWidgetGroupList.at(6)->setVisible(false);
             enabledSyncSplitterMoved = false;
         } else if(action == threeColumnsLayoutAction) {
             currentLayout = 2;
             splitterV1->setVisible(true);
             splitterV2->setVisible(true);
             splitterV11->setVisible(false);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(true);
-            mainWidgetGroupList.at(2)->splitter->setVisible(false);
-            mainWidgetGroupList.at(3)->splitter->setVisible(false);
-            mainWidgetGroupList.at(4)->splitter->setVisible(false);
-            mainWidgetGroupList.at(5)->splitter->setVisible(false);
-            mainWidgetGroupList.at(6)->splitter->setVisible(true);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(true);
+            mainWidgetGroupList.at(2)->setVisible(false);
+            mainWidgetGroupList.at(3)->setVisible(false);
+            mainWidgetGroupList.at(4)->setVisible(false);
+            mainWidgetGroupList.at(5)->setVisible(false);
+            mainWidgetGroupList.at(6)->setVisible(true);
             enabledSyncSplitterMoved = false;
         } else if(action == twoRowsLayoutAction) {
             currentLayout = 3;
             splitterV1->setVisible(true);
             splitterV2->setVisible(false);
             splitterV11->setVisible(false);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(false);
-            mainWidgetGroupList.at(2)->splitter->setVisible(true);
-            mainWidgetGroupList.at(3)->splitter->setVisible(false);
-            mainWidgetGroupList.at(4)->splitter->setVisible(false);
-            mainWidgetGroupList.at(5)->splitter->setVisible(false);
-            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(false);
+            mainWidgetGroupList.at(2)->setVisible(true);
+            mainWidgetGroupList.at(3)->setVisible(false);
+            mainWidgetGroupList.at(4)->setVisible(false);
+            mainWidgetGroupList.at(5)->setVisible(false);
+            mainWidgetGroupList.at(6)->setVisible(false);
             enabledSyncSplitterMoved = false;
         } else if(action == threeRowsLayoutAction) {
             currentLayout = 4;
             splitterV1->setVisible(true);
             splitterV2->setVisible(false);
             splitterV11->setVisible(true);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(false);
-            mainWidgetGroupList.at(2)->splitter->setVisible(true);
-            mainWidgetGroupList.at(3)->splitter->setVisible(false);
-            mainWidgetGroupList.at(4)->splitter->setVisible(true);
-            mainWidgetGroupList.at(5)->splitter->setVisible(false);
-            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(false);
+            mainWidgetGroupList.at(2)->setVisible(true);
+            mainWidgetGroupList.at(3)->setVisible(false);
+            mainWidgetGroupList.at(4)->setVisible(true);
+            mainWidgetGroupList.at(5)->setVisible(false);
+            mainWidgetGroupList.at(6)->setVisible(false);
             enabledSyncSplitterMoved = false;
         } else if(action == gridLayoutAction) {
             currentLayout = 5;
             splitterV1->setVisible(true);
             splitterV2->setVisible(true);
             splitterV11->setVisible(false);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(true);
-            mainWidgetGroupList.at(2)->splitter->setVisible(true);
-            mainWidgetGroupList.at(3)->splitter->setVisible(true);
-            mainWidgetGroupList.at(4)->splitter->setVisible(false);
-            mainWidgetGroupList.at(5)->splitter->setVisible(false);
-            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(true);
+            mainWidgetGroupList.at(2)->setVisible(true);
+            mainWidgetGroupList.at(3)->setVisible(true);
+            mainWidgetGroupList.at(4)->setVisible(false);
+            mainWidgetGroupList.at(5)->setVisible(false);
+            mainWidgetGroupList.at(6)->setVisible(false);
             enabledSyncSplitterMoved = true;
         } else if(action == twoRowsRightLayoutAction) {
             currentLayout = 6;
             splitterV1->setVisible(true);
             splitterV2->setVisible(true);
             splitterV11->setVisible(false);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(true);
-            mainWidgetGroupList.at(2)->splitter->setVisible(false);
-            mainWidgetGroupList.at(3)->splitter->setVisible(true);
-            mainWidgetGroupList.at(4)->splitter->setVisible(false);
-            mainWidgetGroupList.at(5)->splitter->setVisible(false);
-            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(true);
+            mainWidgetGroupList.at(2)->setVisible(false);
+            mainWidgetGroupList.at(3)->setVisible(true);
+            mainWidgetGroupList.at(4)->setVisible(false);
+            mainWidgetGroupList.at(5)->setVisible(false);
+            mainWidgetGroupList.at(6)->setVisible(false);
             enabledSyncSplitterMoved = false;
         } else if(action == twoColumnsBottomLayoutAction)  {
             currentLayout = 7;
             splitterV1->setVisible(true);
             splitterV2->setVisible(false);
             splitterV11->setVisible(true);
-            mainWidgetGroupList.at(0)->splitter->setVisible(true);
-            mainWidgetGroupList.at(1)->splitter->setVisible(false);
-            mainWidgetGroupList.at(2)->splitter->setVisible(false);
-            mainWidgetGroupList.at(3)->splitter->setVisible(false);
-            mainWidgetGroupList.at(4)->splitter->setVisible(true);
-            mainWidgetGroupList.at(5)->splitter->setVisible(true);
-            mainWidgetGroupList.at(6)->splitter->setVisible(false);
+            mainWidgetGroupList.at(0)->setVisible(true);
+            mainWidgetGroupList.at(1)->setVisible(false);
+            mainWidgetGroupList.at(2)->setVisible(false);
+            mainWidgetGroupList.at(3)->setVisible(false);
+            mainWidgetGroupList.at(4)->setVisible(true);
+            mainWidgetGroupList.at(5)->setVisible(true);
+            mainWidgetGroupList.at(6)->setVisible(false);
             enabledSyncSplitterMoved = false;
+        }
+        foreach(MainWidgetGroup *group, mainWidgetGroupList) {
+            group->setActive(false);
         }
         movetabWhenLayoutChange(oldLayout,currentLayout);
     });
@@ -3606,6 +3626,22 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     });
     connect(window,&SessionsWindow::requestReconnect,this,[=](void){
         reconnectSession(window);
+    });
+    connect(window,&SessionsWindow::termGetFocus,this,[=](void){
+        foreach(MainWidgetGroup *group, mainWidgetGroupList) {
+            if(group->sessionTab->indexOf(window->getMainWidget())>=0) {
+                group->setActive(true && (currentLayout!=0));
+                break;
+            }
+        }
+    });
+    connect(window,&SessionsWindow::termLostFocus,this,[=](void){
+        foreach(MainWidgetGroup *group, mainWidgetGroupList) {
+            if(group->sessionTab->indexOf(window->getMainWidget())>=0) {
+                group->setActive(false);
+                break;
+            }
+        }
     });
 }
 

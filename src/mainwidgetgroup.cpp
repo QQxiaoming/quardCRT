@@ -18,14 +18,15 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include <QWidget>
+#include <QPainter>
 
 #include "mainwidgetgroup.h"
 #include "sessionswindow.h"
 
 MainWidgetGroup::MainWidgetGroup(Type type, QWidget *parent)
-    : QObject(parent), m_type(type)
+    : QWidget(parent), m_type(type)
 {
-    splitter = new QSplitter(Qt::Vertical, parent);
+    splitter = new QSplitter(Qt::Vertical,parent);
     sessionTab = new SessionTab(parent);
     QWidget *widget = new QWidget(parent);
     widget->setLayout(new QVBoxLayout(widget));
@@ -39,9 +40,31 @@ MainWidgetGroup::MainWidgetGroup(Type type, QWidget *parent)
     splitter->setCollapsible(0,false);
     splitter->setCollapsible(1,true);
     splitter->setSizes(QList<int>() << 1 << 0);
+
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    setLayout(layout);
+    layout->setContentsMargins(2,2,2,2);
+    layout->setSpacing(0);
+    layout->addWidget(splitter);
 }
 
 MainWidgetGroup::~MainWidgetGroup()
 {
 }
 
+void MainWidgetGroup::setActive(bool enable) {
+    hasActive = enable;
+    update();
+}
+
+void MainWidgetGroup::paintEvent(QPaintEvent *event) {
+    if (hasActive) {
+        QPalette palette;
+        QPainter painter(this);
+        painter.setPen(palette.color(QPalette::Active, QPalette::Highlight));
+        QRect rect = contentsRect();
+        rect.adjust(1, 1, -1, -1);
+        painter.drawRect(rect);
+    }
+    QWidget::paintEvent(event);
+}

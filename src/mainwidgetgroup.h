@@ -20,12 +20,12 @@
 #ifndef MAINWIDGETGROUP_H
 #define MAINWIDGETGROUP_H
 
-#include <QObject>
 #include <QSplitter>
+#include <QPaintEvent>
 #include "commandwidget.h"
 #include "sessiontab.h"
 
-class MainWidgetGroup: public QObject
+class MainWidgetGroup: public QWidget
 {
     Q_OBJECT
 public:
@@ -35,14 +35,18 @@ public:
     };
     MainWidgetGroup(Type type, QWidget *parent = nullptr);
     ~MainWidgetGroup();
-
+    void setActive(bool enable);
     Type type() const { return m_type; }
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 
 public:
     QSplitter *splitter;
     SessionTab *sessionTab;
     CommandWidget *commandWidget;
     Type m_type;
+    bool hasActive = false;
 };
 
 #endif // MAINWIDGETGROUP_H
