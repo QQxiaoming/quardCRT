@@ -29,6 +29,7 @@
 #include <QList>
 #include <QTabBar>
 #include <QMouseEvent>
+#include <QFocusEvent>
 #include <QPoint>
 #include <QPainter>
 #include "fancytabwidget.h"
@@ -40,9 +41,15 @@ public:
     explicit EmptyTabWidget(QWidget *parent = nullptr);
     ~EmptyTabWidget();
     void retranslateUi(void);
-    
+
+signals:
+    void getFocus();
+    void lostFocus();
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
+    void focusInEvent(QFocusEvent* event) override;
+    void focusOutEvent(QFocusEvent* event) override;
 
 private:
     QLabel *label;
@@ -170,6 +177,8 @@ signals:
     void dragTabMoved(int from, int to, SessionTab *toTab);
     void tabPreviewShow(int index);
     void tabMoved(int from, int to);
+    void emptyTabGetFocus();
+    void emptyTabLostFocus();
 
 private:
     void refreshTabText(void);

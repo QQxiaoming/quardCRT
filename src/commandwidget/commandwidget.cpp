@@ -29,6 +29,14 @@ CommandWidget::CommandWidget(QWidget *parent) :
     autoSendTimer = new QTimer(this);
     ui->asciiRadioButton->setChecked(true);
 
+    ui->sendPushButton->installEventFilter(this);
+    ui->commandPlainEdit->installEventFilter(this);
+    ui->asciiRadioButton->installEventFilter(this);
+    ui->hexRadioButton->installEventFilter(this);
+    ui->autoSendIntervalSpinBox->installEventFilter(this);
+    ui->comboBoxSendMode->installEventFilter(this);
+    ui->autoSendCheckBox->installEventFilter(this);
+
     connect(ui->sendPushButton, &QPushButton::clicked, this, [&]() {
         sendCurrentData();
     });
@@ -89,4 +97,19 @@ void CommandWidget::sendCurrentData(void) {
 
 void CommandWidget::retranslateUi(void) {
     ui->retranslateUi(this);
+}
+
+bool CommandWidget::eventFilter(QObject *obj, QEvent *event) {
+    if( obj == ui->commandPlainEdit || obj == ui->autoSendIntervalSpinBox ||
+        obj == ui->comboBoxSendMode || obj == ui->autoSendCheckBox        ||
+        obj == ui->sendPushButton   || obj == ui->asciiRadioButton        ||
+        obj == ui->hexRadioButton
+       ) {
+        if(event->type() == QEvent::FocusIn) {
+            emit getFocus();
+        } else if(event->type() == QEvent::FocusOut) {
+            emit lostFocus();
+        }
+    }
+    return QWidget::eventFilter(obj, event);
 }

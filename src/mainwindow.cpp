@@ -761,6 +761,12 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 }
             }
         });
+        connect(mainWidgetGroup,&MainWidgetGroup::getFocus,this,[=](){
+            mainWidgetGroup->setActive(true && (currentLayout!=0));
+        });
+        connect(mainWidgetGroup,&MainWidgetGroup::lostFocus,this,[=](){
+            mainWidgetGroup->setActive(false);
+        });
     }
     connect(sessionManagerWidget,&SessionManagerWidget::sessionManagerHide,this,[&](){
         stackedWidget->hide();

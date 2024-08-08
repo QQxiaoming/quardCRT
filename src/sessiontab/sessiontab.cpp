@@ -101,6 +101,14 @@ void EmptyTabWidget::mousePressEvent(QMouseEvent *event) {
     }
 }
 
+void EmptyTabWidget::focusInEvent(QFocusEvent*) {
+    emit getFocus();
+}
+
+void EmptyTabWidget::focusOutEvent(QFocusEvent*) {
+    emit lostFocus();
+}
+
 SessionTabBarPreviewWidget::SessionTabBarPreviewWidget(QWidget *parent) 
     : QWidget(parent) {
     viewWidth = 200;
@@ -364,6 +372,8 @@ SessionTab::SessionTab(QWidget *parent)
     });
 
     connect(sTabBar,&SessionTabBar::tabPreviewShow,this,&SessionTab::tabPreviewShow);
+    connect(emptyTab, &EmptyTabWidget::getFocus, this, &SessionTab::emptyTabGetFocus);
+    connect(emptyTab, &EmptyTabWidget::lostFocus, this, &SessionTab::emptyTabLostFocus);
 }
 
 SessionTab::~SessionTab() {

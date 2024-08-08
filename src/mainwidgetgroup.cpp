@@ -46,6 +46,11 @@ MainWidgetGroup::MainWidgetGroup(Type type, QWidget *parent)
     layout->setContentsMargins(2,2,2,2);
     layout->setSpacing(0);
     layout->addWidget(splitter);
+
+    connect(sessionTab,&SessionTab::emptyTabGetFocus,this,&MainWidgetGroup::getFocus);
+    connect(sessionTab,&SessionTab::emptyTabLostFocus,this,&MainWidgetGroup::lostFocus);
+    connect(commandWidget,&CommandWidget::getFocus,this,&MainWidgetGroup::getFocus);
+    connect(commandWidget,&CommandWidget::lostFocus,this,&MainWidgetGroup::lostFocus);
 }
 
 MainWidgetGroup::~MainWidgetGroup()
@@ -58,7 +63,7 @@ void MainWidgetGroup::setActive(bool enable) {
 }
 
 void MainWidgetGroup::paintEvent(QPaintEvent *event) {
-    if (hasActive) {
+    if (m_type == EMBEDDED && hasActive) {
         QPalette palette;
         QPainter painter(this);
         painter.setPen(palette.color(QPalette::Active, QPalette::Highlight));

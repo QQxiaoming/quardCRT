@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include <QTimer>
+#include <QEvent>
 
 namespace Ui {
 class CommandWidget;
@@ -41,6 +42,11 @@ public:
 
 signals:
     void sendData(QByteArray data,int sendMode);
+    void getFocus();
+    void lostFocus();
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     Ui::CommandWidget *ui;

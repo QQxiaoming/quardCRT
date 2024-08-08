@@ -38,6 +38,10 @@ public:
     void setActive(bool enable);
     Type type() const { return m_type; }
 
+signals:
+    void getFocus();
+    void lostFocus();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
