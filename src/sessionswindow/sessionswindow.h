@@ -459,6 +459,7 @@ private:
     bool tagColor = false;
     QColor tagColorValue;
     EndOfLineSeq endOfLineSeq = AUTO;
+    bool m_requestReconnect = false;
     
     QMutex modemProxyChannelMutex;
     bool modemProxyChannel = false;

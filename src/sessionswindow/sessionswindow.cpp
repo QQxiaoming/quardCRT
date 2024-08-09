@@ -163,7 +163,10 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     tx_realtime += size;
                 } else {
                     if(sendData.contains("\r") || sendData.contains("\n")) {
-                        emit requestReconnect();
+                        if(!m_requestReconnect) {
+                            m_requestReconnect = true;
+                            emit requestReconnect();
+                        }
                     }
                 }
             });
@@ -225,7 +228,10 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     tx_realtime += size;
                 } else {
                     if(sendData.contains("\r") || sendData.contains("\n")) {
-                        emit requestReconnect();
+                        if(!m_requestReconnect) {
+                            m_requestReconnect = true;
+                            emit requestReconnect();
+                        }
                     }
                 }
             });
@@ -283,7 +289,10 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     tx_realtime += size;
                 } else {
                     if(sendData.contains("\r") || sendData.contains("\n")) {
-                        emit requestReconnect();
+                        if(!m_requestReconnect) {
+                            m_requestReconnect = true;
+                            emit requestReconnect();
+                        }
                     }
                 }
             });
@@ -339,7 +348,10 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     namePipe->write(data, size);
                 } else {
                     if(sendData.contains("\r") || sendData.contains("\n")) {
-                        emit requestReconnect();
+                        if(!m_requestReconnect) {
+                            m_requestReconnect = true;
+                            emit requestReconnect();
+                        }
                     }
                 }
             });
@@ -366,14 +378,23 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             realtimespeed_timer = new QTimer(this);
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
                 SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
-                shell->initSize(term->columns(),term->lines());
-                ssh2Client->startChannel<SshShell>(shell);
                 if(shell == nullptr) {
-                    QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
+                    QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
                     state = Error;
                     emit stateChanged(state);
+                    connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+                        QByteArray sendData(data, size);
+                        if(sendData.contains("\r") || sendData.contains("\n")) {
+                            if(!m_requestReconnect) {
+                                m_requestReconnect = true;
+                                emit requestReconnect();
+                            }
+                        }
+                    });
                     return;
                 }
+                shell->initSize(term->columns(),term->lines());
+                ssh2Client->startChannel<SshShell>(shell);
                 connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
                     shell->resize(columns,lines);
                 });
@@ -411,7 +432,10 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                         tx_realtime += size;
                     } else {
                         if(sendData.contains("\r") || sendData.contains("\n")) {
-                            emit requestReconnect();
+                            if(!m_requestReconnect) {
+                                m_requestReconnect = true;
+                                emit requestReconnect();
+                            }
                         }
                     }
                 });
@@ -429,9 +453,18 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 emit stateChanged(state);
             });
             connect(ssh2Client, &SshClient::sshError, this, [=](){
-                QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(sshErrorToString(ssh2Client->sshState())));
+                QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
                 state = Error;
                 emit stateChanged(state);
+                connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
+                    QByteArray sendData(data, size);
+                    if(sendData.contains("\r") || sendData.contains("\n")) {
+                        if(!m_requestReconnect) {
+                            m_requestReconnect = true;
+                            emit requestReconnect();
+                        }
+                    }
+                });
             });
         #endif
             break;

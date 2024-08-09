@@ -154,11 +154,18 @@ public: /* New function implementation with state machine */
 
     void setConnectTimeout(int timeoutMsec);
 
+    QString sshErrorString() const {
+        return m_sshErrorString;
+    }
+    void setSSHErrorString(const QString &sshErrorString) {
+        m_sshErrorString = sshErrorString;
+    }
+
 private: /* New function implementation with state machine */
     SshState m_sshState {SshState::Unconnected};
     QByteArrayList m_authenticationMethodes;
     void setSshState(const SshState &sshState);
-
+    QString m_sshErrorString;
 
 private slots: /* New function implementation with state machine */
     void _connection_socketTimeout();

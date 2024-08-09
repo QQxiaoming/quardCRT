@@ -110,9 +110,11 @@ void SshScpGet::sshDataReceived()
                 {
                     if(!m_error)
                     {
+                        QString errStr(sshErrorToString(static_cast<int>(retsz)));
+                        sshClient()->setSSHErrorString(errStr);
                         m_error = true;
                         emit failed();
-                        qCWarning(logscpget) << "Can't read result (" << sshErrorToString(static_cast<int>(retsz)) << ")";
+                        qCWarning(logscpget) << "Can't read result (" << errStr << ")";
                     }
                     setChannelState(ChannelState::Close);
                     sshDataReceived();
@@ -150,9 +152,11 @@ void SshScpGet::sshDataReceived()
             {
                 if(!m_error)
                 {
+                    QString errStr(sshErrorToString(ret));
+                    sshClient()->setSSHErrorString(errStr);
                     m_error = true;
                     emit failed();
-                    qCWarning(logscpget) << "Failed to channel_close: " << sshErrorToString(ret);
+                    qCWarning(logscpget) << "Failed to channel_close: " << errStr;
                 }
             }
             setChannelState(ChannelState::WaitClose);
@@ -170,9 +174,11 @@ void SshScpGet::sshDataReceived()
             {
                 if(!m_error)
                 {
+                    QString errStr(sshErrorToString(ret));
+                    sshClient()->setSSHErrorString(errStr);
                     m_error = true;
                     emit failed();
-                    qCWarning(logscpget) << "Failed to channel_wait_close: " << sshErrorToString(ret);
+                    qCWarning(logscpget) << "Failed to channel_wait_close: " << errStr;
                 }
             }
             setChannelState(ChannelState::Freeing);
@@ -191,9 +197,11 @@ void SshScpGet::sshDataReceived()
             {
                 if(!m_error)
                 {
+                    QString errStr(sshErrorToString(ret));
+                    sshClient()->setSSHErrorString(errStr);
                     m_error = true;
                     emit failed();
-                    qCWarning(logscpget) << "Failed to free channel: " << sshErrorToString(ret);
+                    qCWarning(logscpget) << "Failed to free channel: " << errStr;
                 }
             }
             if(m_error)

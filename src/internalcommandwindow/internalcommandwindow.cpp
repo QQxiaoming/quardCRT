@@ -32,6 +32,7 @@
 #include "globalsetting.h"
 #include "globaloptionswindow.h"
 #include "internalcommandwindow.h"
+#include "mainwindow.h"
 #include "ui_internalcommandwindow.h"
 
 InternalCommandWindow::InternalCommandWindow(QWidget *parent)
@@ -41,7 +42,7 @@ InternalCommandWindow::InternalCommandWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowFlags(Qt::Window);
 
-    process = new InternalCommandProcess(this);
+    process = new InternalCommandProcess(static_cast<CentralWidget*>(parent),this);
     term = new QTermWidget(this,this);
     term->setUrlFilterEnabled(false);
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);

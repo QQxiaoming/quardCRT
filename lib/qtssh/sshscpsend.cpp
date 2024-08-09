@@ -103,10 +103,12 @@ void SshScpSend::sshDataReceived()
                 if(retsz < 0)
                 {
                     if(!m_error)
-                    {
+                    {                    
+                        QString errStr(sshErrorToString(static_cast<int>(retsz)));
+                        sshClient()->setSSHErrorString(errStr);
                         m_error = true;
                         emit failed();
-                        qCWarning(logscpsend) << "Can't write result (" << sshErrorToString(static_cast<int>(retsz)) << ")";
+                        qCWarning(logscpsend) << "Can't write result (" << errStr << ")";
                     }
                     setChannelState(ChannelState::Close);
                     sshDataReceived();
@@ -147,10 +149,12 @@ void SshScpSend::sshDataReceived()
             if(ret < 0)
             {
                 if(!m_error)
-                {
+                {            
+                    QString errStr(sshErrorToString(ret));
+                    sshClient()->setSSHErrorString(errStr);
                     m_error = true;
                     emit failed();
-                    qCWarning(logscpsend) << "Failed to channel_close: " << sshErrorToString(ret);
+                    qCWarning(logscpsend) << "Failed to channel_close: " << errStr;
                 }
             }
             setChannelState(ChannelState::WaitClose);
@@ -167,10 +171,12 @@ void SshScpSend::sshDataReceived()
             if(ret < 0)
             {
                 if(!m_error)
-                {
+                {                    
+                    QString errStr(sshErrorToString(ret));
+                    sshClient()->setSSHErrorString(errStr);
                     m_error = true;
                     emit failed();
-                    qCWarning(logscpsend) << "Failed to channel_wait_close: " << sshErrorToString(ret);
+                    qCWarning(logscpsend) << "Failed to channel_wait_close: " << errStr;
                 }
             }
             setChannelState(ChannelState::Freeing);
@@ -188,10 +194,12 @@ void SshScpSend::sshDataReceived()
             if(ret < 0)
             {
                 if(!m_error)
-                {
+                {                    
+                    QString errStr(sshErrorToString(ret));
+                    sshClient()->setSSHErrorString(errStr);
                     m_error = true;
                     emit failed();
-                    qCWarning(logscpsend) << "Failed to free channel: " << sshErrorToString(ret);
+                    qCWarning(logscpsend) << "Failed to free channel: " << errStr;
                 }
             }
             if(m_error)

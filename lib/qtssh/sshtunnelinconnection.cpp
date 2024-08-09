@@ -95,8 +95,10 @@ void SshTunnelInConnection::_eventLoop()
             {
                 if(!m_error)
                 {
+                    QString errStr(sshErrorToString(ret));
+                    sshClient()->setSSHErrorString(errStr);
                     m_error = true;
-                    qCWarning(logsshtunnelinconnection) << "Failed to free channel: " << sshErrorToString(ret);
+                    qCWarning(logsshtunnelinconnection) << "Failed to free channel: " << errStr;
                 }
             }
             if(m_error)

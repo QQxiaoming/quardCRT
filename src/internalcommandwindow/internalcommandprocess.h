@@ -28,12 +28,12 @@
 #ifdef ENABLE_PYTHON
 #include "pyrun.h"
 #endif
-
+class CentralWidget;
 class InternalCommandProcess : public QThread
 {
     Q_OBJECT
 public:
-    explicit InternalCommandProcess(QObject *parent = nullptr);
+    explicit InternalCommandProcess(CentralWidget *mainWidget, QObject *parent = nullptr);
     ~InternalCommandProcess();
 #ifdef ENABLE_PYTHON
     void setPyRun(PyRun *pyRun);
@@ -71,6 +71,7 @@ private:
     QMutex mutex;
     QWaitCondition condition;
     bool exit;
+    CentralWidget *m_mainWidget;
 #ifdef ENABLE_PYTHON
     PyRun *m_pyRun = nullptr;
 #endif

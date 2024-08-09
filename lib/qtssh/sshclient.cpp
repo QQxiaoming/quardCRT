@@ -70,6 +70,7 @@ SshClient::SshClient(const QString &name, QObject * parent):
     m_name(name),
     m_socket(this)
 {
+    m_sshErrorString = "Unknown LIBSSH2 ERROR";
     /* New implementation */
     QObject::connect(this, &SshClient::sshEvent, this, &SshClient::_ssh_processEvent, Qt::QueuedConnection);
     QObject::connect(&m_socket, &QTcpSocket::connected,      this, &SshClient::_connection_socketConnected);
@@ -262,12 +263,14 @@ void SshClient::_sendKeepAlive()
         if(ret == LIBSSH2_ERROR_SOCKET_SEND)
         {
             qCWarning(sshclient) << m_name << ": Connection I/O error !!!";
+            setSSHErrorString("Connection I/O error !!!");
             m_socket.disconnectFromHost();
         }
         else if(((QDateTime::currentMSecsSinceEpoch() - m_lastProofOfLive) / 1000) > (MAX_LOST_KEEP_ALIVE * keepalive))
         {
             qCWarning(sshclient) << m_name << ": Connection lost !!!";
             setSshState(SshState::Error);
+            setSSHErrorString("Connection lost !!!");
             m_socket.disconnectFromHost();
         }
         else
@@ -307,6 +310,7 @@ void SshClient::_connection_socketTimeout()
     m_connectionTimeout.stop();
     m_socket.disconnectFromHost();
     qCWarning(sshclient) << m_name << ": ssh socket connection timeout";
+    setSSHErrorString("SSH socket connection timeout");
     setSshState(SshState::Error);
     emit sshEvent();
 }
@@ -314,6 +318,7 @@ void SshClient::_connection_socketTimeout()
 void SshClient::_connection_socketError()
 {
     qCWarning(sshclient) << m_name << ": ssh socket connection error:" << m_sshState;
+    setSSHErrorString(QString("SSH socket connection error: %1").arg(m_sshState));
     setSshState(SshState::Error);
     emit sshEvent();
 }
@@ -331,6 +336,7 @@ void SshClient::_connection_socketConnected()
     else
     {
         qCWarning(sshclient) << m_name << ": Unknown conenction on socket";
+        setSSHErrorString("Unknown conenction on socket");
         setSshState(SshState::Error);
         emit sshEvent();
     }
@@ -381,6 +387,7 @@ void SshClient::_ssh_processEvent()
             if(m_session == nullptr)
             {
                 qCCritical(sshclient) << m_name << ": libssh error during session init";
+                setSSHErrorString(QString("libssh error during session init"));
                 setSshState(SshState::Error);
                 m_socket.disconnectFromHost();
                 return;
@@ -410,7 +417,9 @@ void SshClient::_ssh_processEvent()
             }
             if(ret != 0)
             {
-                qCCritical(sshclient) << m_name << "Handshake error" << sshErrorToString(ret);
+                QString errStr(sshErrorToString(ret));
+                setSSHErrorString(errStr);
+                qCCritical(sshclient) << m_name << "Handshake error" << errStr;
                 setSshState(SshState::Error);
                 m_socket.disconnectFromHost();
                 return;
@@ -423,6 +432,7 @@ void SshClient::_ssh_processEvent()
             if(fingerprint == nullptr)
             {
                 qCCritical(sshclient) << m_name << "Fingerprint error";
+                setSSHErrorString("Fingerprint error");
                 setSshState(SshState::Error);
                 m_socket.disconnectFromHost();
                 return;
@@ -462,9 +472,11 @@ void SshClient::_ssh_processEvent()
                     {
                         return;
                     }
+                    QString errStr(sshErrorToString(ret));
+                    setSSHErrorString(errStr);
+                    qCDebug(sshclient) << m_name << ": Failed to authenticate:" << errStr;
                     setSshState(SshState::Error);
                     m_socket.disconnectFromHost();
-                    qCDebug(sshclient) << m_name << ": Failed to authenticate:" << sshErrorToString(ret);
                     return;
                 }
                 qCDebug(sshclient) << m_name << ": ssh start authentication userauth_list: " << alist;
@@ -496,7 +508,9 @@ void SshClient::_ssh_processEvent()
                     }
                     if(ret < 0)
                     {
-                        qCWarning(sshclient) << m_name << ": Authentication with publickey failed:" << sshErrorToString(ret);
+                        QString errStr(sshErrorToString(ret));
+                        setSSHErrorString(errStr);
+                        qCWarning(sshclient) << m_name << ": Authentication with publickey failed:" << errStr;
                         m_authenticationMethodes.removeFirst();
                     }
                     if(ret == 0)
@@ -552,6 +566,7 @@ void SshClient::_ssh_processEvent()
             {
                 qCWarning(sshclient) << m_name << ": Authentication failed";
                 m_socket.disconnectFromHost();
+                setSSHErrorString("Authentication failed");
                 setSshState(SshState::Error);
                 return;
             }

@@ -4669,8 +4669,7 @@ void CentralWidget::infoData2Setting(GlobalSetting *settings,const QuickConnectW
     }
 }
 
-void CentralWidget::addBookmark(const QString &path)
-{
+void CentralWidget::addBookmark(const QString &path) {
     QAction *action = new QAction(path,bookmarkMenu);
     action->setStatusTip(path);
     bookmarkMenu->addAction(action);
@@ -4686,8 +4685,7 @@ void CentralWidget::addBookmark(const QString &path)
     settings.endArray();
 }
 
-QMenu *CentralWidget::createPopupMenu()
-{
+QMenu *CentralWidget::createPopupMenu() {
     QMenu *menu = new QMenu(this);
     menu->addAction(menuBarAction);
     menu->addAction(toolBarAction);

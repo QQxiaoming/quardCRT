@@ -9,6 +9,7 @@ en-US:
 - Add logging information to the status bar
 - Add emphasized color border to the activated session in split screen mode
 - Fix the issue that clicking the new tab button in split screen mode may not create the session correctly or be located under the wrong tab group
+- Fix the issue that the SSH connection cannot be reconnected by tapping the Enter key in some cases
 
 zh-CN:
 
@@ -17,6 +18,7 @@ zh-CN:
 - 增加状态栏日志信息
 - 分屏模式下激活的会话增加强调色边框
 - 修复分屏模式下某些情况点击新标签按钮会话未正确创建或位于错误的标签页组下
+- 修复ssh连接部分情况下无法通过敲击回车键发起重连的问题
 
 ## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
 

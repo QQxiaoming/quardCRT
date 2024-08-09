@@ -24,8 +24,9 @@
 #include "mainwindow.h"
 #include "globalsetting.h"
 
-InternalCommandProcess::InternalCommandProcess(QObject *parent)
-    : QThread(parent) {
+InternalCommandProcess::InternalCommandProcess(CentralWidget *mainWidget, QObject *parent)
+    : QThread(parent)
+    , m_mainWidget(mainWidget) {
     exit = false;
 }
 
@@ -267,6 +268,18 @@ void InternalCommandProcess::processLine(const QString &sline) {
             #else
                 sendLineString("NO");
             #endif
+            }
+        },
+        {{"bookmark"},QStringList(),"show Bookmark List"  ,
+            [&](void) {
+                GlobalSetting settings;
+                int size = settings.beginReadArray("Global/Bookmark");
+                for (int i = 0; i < size; ++i) {
+                    settings.setArrayIndex(i);
+                    sendLineString(settings.value("path").toString());
+                }
+                settings.endArray();
+                sendLineString(QString("Total %0 bookmarks").arg(size));
             }
         },
     #ifdef ENABLE_PYTHON
