@@ -124,6 +124,7 @@ public:
     void setTransInfo(bool enable, int64_t tx = -1, int64_t rx = -1);
     void setSpeedInfo(bool enable, qreal tx = -1.0, qreal rx = -1.0);
     void setEndOfLine(bool enable, SessionsWindow::EndOfLineSeq type = SessionsWindow::AUTO);
+    void setSSHEncryption(bool enable, QString type = QString());
     void setLogs(bool enable, bool isLogs = false);
     void setNotifiction(bool enable);
     void retranslateUi(void);
@@ -137,6 +138,7 @@ signals:
     void speedTxTriggered(void);
     void speedRxTriggered(void);
     void endOfLineTriggered(void);
+    void sshEncryptionTriggered(void);
     void logsTriggered(void);   
     void notifictionTriggered(void);
 
@@ -152,6 +154,7 @@ private:
     StatusBarToolButton *statusBarSpeedTx;
     StatusBarToolButton *statusBarSpeedRx;
     StatusBarToolButton *statusBarEndOfLine;
+    StatusBarToolButton *statusBarSSHEncryption;
     StatusBarToolButton *statusBarLogs;
     StatusBarToolButton *statusBarNotifiction;
     bool m_logs_show = false;

@@ -39,10 +39,12 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarSpeedTx = new StatusBarToolButton(this);
     statusBarSpeedRx = new StatusBarToolButton(this);
     statusBarEndOfLine = new StatusBarToolButton(this);
+    statusBarSSHEncryption = new StatusBarToolButton(this);
     statusBarLogs = new StatusBarToolButton(this);
     statusBarNotifiction = new StatusBarToolButton(this);
     ui->horizontalLayout->addWidget(statusBarCursorInfo);
     ui->horizontalLayout->addWidget(statusBarType);
+    ui->horizontalLayout->addWidget(statusBarSSHEncryption);
     ui->horizontalLayout->addWidget(statusBarTransTx);
     ui->horizontalLayout->addWidget(statusBarTransRx);
     ui->horizontalLayout->addWidget(statusBarSpeedTx);
@@ -58,6 +60,8 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarSpeedTx->setVisible(false);
     statusBarSpeedRx->setVisible(false);
     statusBarEndOfLine->setVisible(false);
+    statusBarSSHEncryption->setVisible(false);
+    statusBarLogs->setVisible(false);
     statusBarCursorInfo->setEnabled(false);
     statusBarType->setEnabled(false);
     statusBarTransTx->setEnabled(false);
@@ -66,6 +70,7 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     statusBarSpeedRx->setEnabled(false);
     statusBarEndOfLine->setEnabled(false);
     statusBarLogs->setEnabled(false);
+    statusBarSSHEncryption->setEnabled(false);
 
     QFont font = this->font();
     font.setPixelSize(16);
@@ -93,6 +98,9 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     });
     connect(statusBarEndOfLine,&StatusBarToolButton::clicked,this,[=](){
         emit endOfLineTriggered();
+    });
+    connect(statusBarSSHEncryption,&StatusBarToolButton::clicked,this,[=](){
+        emit sshEncryptionTriggered();
     });
     connect(statusBarLogs,&StatusBarToolButton::clicked,this,[=](){
         emit logsTriggered();
@@ -233,6 +241,21 @@ void StatusBarWidget::setEndOfLine(bool enable, SessionsWindow::EndOfLineSeq typ
     }
 }
 
+void StatusBarWidget::setSSHEncryption(bool enable, QString type) {
+    if(!enable) {
+        statusBarSSHEncryption->setText("/");
+        statusBarSSHEncryption->setEnabled(false);
+        statusBarSSHEncryption->setVisible(false);
+        return;
+    }
+    statusBarSSHEncryption->setText(type);
+    if(!statusBarSSHEncryption->isEnabled()) {
+        statusBarSSHEncryption->setEnabled(true);
+        GlobalSetting settings;
+        statusBarSSHEncryption->setVisible(settings.value("Global/Statusbar/SSHEncryptionUI", true).toBool());
+    }
+}
+
 void StatusBarWidget::setLogs(bool enable, bool isLog) {
     m_logs_show = enable;
     m_logs = isLog;
@@ -290,6 +313,18 @@ void StatusBarWidget::contextMenuEvent(QContextMenuEvent *event) {
             statusBarType->setVisible(checked);
         });
         menu->addAction(actionType);
+    }
+
+    if(statusBarSSHEncryption->isEnabled()) {
+        QAction *actionSSHEncryption = new QAction(tr("SSH Encryption"), this);
+        actionSSHEncryption->setCheckable(true);
+        actionSSHEncryption->setChecked(statusBarSSHEncryption->isVisible());
+        connect(actionSSHEncryption, &QAction::triggered, [this](bool checked) {
+            GlobalSetting settings;
+            settings.setValue("Global/Statusbar/SSHEncryptionUI", checked);
+            statusBarSSHEncryption->setVisible(checked);
+        });
+        menu->addAction(actionSSHEncryption);
     }
 
     if(statusBarTransTx->isEnabled()) {
@@ -355,6 +390,7 @@ void StatusBarWidget::setFont(QFont &font) {
     statusBarSpeedTx->setFont(font);
     statusBarSpeedRx->setFont(font);
     statusBarEndOfLine->setFont(font);
+    statusBarSSHEncryption->setFont(font);
     statusBarLogs->setFont(font);
     statusBarNotifiction->setFont(font);
     QWidget::setFont(font);
@@ -369,12 +405,14 @@ void StatusBarWidget::retranslateUi()
     statusBarSpeedTx->setToolTip(tr("Upload Speed"));
     statusBarSpeedRx->setToolTip(tr("Download Speed"));
     statusBarEndOfLine->setToolTip(tr("End of line sequence"));
+    statusBarSSHEncryption->setToolTip(tr("SSH Encryption"));
     statusBarLogs->setToolTip(tr("Logs Info"));
 
     statusBarTransTx->setIcon(QFontIcon::icon(QChar(0xf0ee)));
     statusBarTransRx->setIcon(QFontIcon::icon(QChar(0xf0ed)));
     statusBarSpeedTx->setIcon(QFontIcon::icon(QChar(0xf0aa)));
     statusBarSpeedRx->setIcon(QFontIcon::icon(QChar(0xf0ab)));
+
     setLogs(m_logs_show,m_logs);
     setNotifiction(m_notifiction);
 

@@ -1404,6 +1404,7 @@ void CentralWidget::refreshStatusBar(void) {
         statusBarWidget->setTransInfo(false);
         statusBarWidget->setSpeedInfo(false);
         statusBarWidget->setEndOfLine(false);
+        statusBarWidget->setSSHEncryption(false);
         statusBarWidget->setLogs(false,false);
         return;
     }
@@ -1416,48 +1417,56 @@ void CentralWidget::refreshStatusBar(void) {
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
             statusBarWidget->setEndOfLine(false);
+            statusBarWidget->setSSHEncryption(false);
             break;
         case SessionsWindow::Telnet:
             statusBarWidget->setType("Telnet");
             statusBarWidget->setTransInfo(true,stateInfo.telnet.tx_total,stateInfo.telnet.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.telnet.tx_speed,stateInfo.telnet.rx_speed);
             statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
+            statusBarWidget->setSSHEncryption(false);
             break;
         case SessionsWindow::RawSocket:
             statusBarWidget->setType(tr("Raw Socket"));
             statusBarWidget->setTransInfo(true,stateInfo.rawSocket.tx_total,stateInfo.rawSocket.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.rawSocket.tx_speed,stateInfo.rawSocket.rx_speed);
             statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
+            statusBarWidget->setSSHEncryption(false);
             break;
         case SessionsWindow::NamePipe:
             statusBarWidget->setType(tr("Name Pipe"));
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
             statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
+            statusBarWidget->setSSHEncryption(false);
             break;
         case SessionsWindow::SSH2:
             statusBarWidget->setType("SSH2");
             statusBarWidget->setTransInfo(true,stateInfo.ssh2.tx_total,stateInfo.ssh2.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.ssh2.tx_speed,stateInfo.ssh2.rx_speed);
             statusBarWidget->setEndOfLine(false);
+            statusBarWidget->setSSHEncryption(true,stateInfo.ssh2.encryption_method);
             break;
         case SessionsWindow::Serial:
             statusBarWidget->setType(tr("Serial"));
             statusBarWidget->setTransInfo(true,stateInfo.serial.tx_total,stateInfo.serial.rx_total);
             statusBarWidget->setSpeedInfo(true,stateInfo.serial.tx_speed,stateInfo.serial.rx_speed);
             statusBarWidget->setEndOfLine(true,stateInfo.endOfLine);
+            statusBarWidget->setSSHEncryption(false);
             break;
         case SessionsWindow::VNC:
             statusBarWidget->setType("VNC");
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
             statusBarWidget->setEndOfLine(false);
+            statusBarWidget->setSSHEncryption(false);
             break;
         default:
             statusBarWidget->setType(tr("Unknown"));
             statusBarWidget->setTransInfo(false);
             statusBarWidget->setSpeedInfo(false);
             statusBarWidget->setEndOfLine(false);
+            statusBarWidget->setSSHEncryption(false);
             break;
     }
 }

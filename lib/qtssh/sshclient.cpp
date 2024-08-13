@@ -575,6 +575,15 @@ void SshClient::_ssh_processEvent()
 
         case SshState::Ready:
         {
+            const char *encryption_method = libssh2_session_methods(m_session, LIBSSH2_METHOD_CRYPT_CS);
+            if (encryption_method) {
+                m_encryptionMethod = QString(encryption_method);
+                if(m_encryptionMethod == "rijndael-cbc@lysator.liu.se") {
+                    m_encryptionMethod = "aes256-cbc";
+                } else {
+                    m_encryptionMethod.remove("@openssh.com");
+                }
+            }
             m_lastProofOfLive = QDateTime::currentMSecsSinceEpoch();
             emit sshDataReceived();
             return;

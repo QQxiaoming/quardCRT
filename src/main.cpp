@@ -326,7 +326,8 @@ int main(int argc, char *argv[])
         QGoodWindow::setAppLightTheme();
     }
 
-    QFontIcon::addFont(":/icons/icons/fontawesome-webfont.ttf");
+    QFontIcon::addFont(":/icons/icons/fontawesome-webfont-v6.6.0-solid-900.ttf");
+    QFontIcon::addFont(":/icons/icons/fontawesome-webfont-v6.6.0-brands-400.ttf");
     QFontIcon::instance()->setColor(isDarkTheme?Qt::white:Qt::black);
     //QApplication::setStyle(QStyleFactory::create("Fusion"));
 

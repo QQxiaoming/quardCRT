@@ -105,6 +105,7 @@ public:
             uint64_t rx_total;
             qreal tx_speed;
             qreal rx_speed;
+            QString encryption_method;
         } ssh2;
     };
     SessionsWindow(SessionType tp, QWidget *parent = nullptr);

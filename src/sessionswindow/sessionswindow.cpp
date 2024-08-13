@@ -1753,6 +1753,9 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
             info.ssh2.rx_total = rx_total;
             info.ssh2.tx_speed = tx_speed;
             info.ssh2.rx_speed = rx_speed;
+        #ifdef ENABLE_SSH
+            info.ssh2.encryption_method = ssh2Client->getEncryptionMethod();
+        #endif
             break;
         case VNC:
             break;

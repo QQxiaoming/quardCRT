@@ -78,6 +78,7 @@ private:
     QString m_publicKey;
     QString m_errorMessage;
     QString m_knowhostFiles;
+    QString m_encryptionMethod = "unknown";
     SshKey  m_hostKey;
     QTimer m_keepalive;
     QTimer m_connectionTimeout;
@@ -89,6 +90,7 @@ public:
     virtual ~SshClient();
 
     QString getName() const;
+    QString getEncryptionMethod() const { return m_encryptionMethod; }
     bool takeChannelCreationMutex(void *identifier);
     void releaseChannelCreationMutex(void *identifier);
 
