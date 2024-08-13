@@ -814,6 +814,15 @@ void QTermWidget::addHighLightText(const QString &text, const QColor &color)
     m_impl->m_terminalDisplay->repaint();
 }
 
+QMap<QString, QColor> QTermWidget::getHighLightTexts(void)
+{
+    QMap<QString, QColor> highLightTexts;
+    for (int i = 0; i < m_highLightTexts.size(); i++) {
+        highLightTexts.insert(m_highLightTexts.at(i)->text, m_highLightTexts.at(i)->color);
+    }
+    return highLightTexts;
+}
+
 bool QTermWidget::isContainHighLightText(const QString &text)
 {
     for (int i = 0; i < m_highLightTexts.size(); i++) {

@@ -49,6 +49,7 @@
 #include <QPluginLoader>
 #include <QMap>
 #include <QColorDialog>
+#include <QRandomGenerator>
 
 #include "filedialog.h"
 #include "qtftp.h"
@@ -1188,23 +1189,75 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     menu->addAction(pasteAction);
     menu->addAction(selectAllAction);
     menu->addAction(findAction);
+    menu->addSeparator();
     QString text = term->selectedText();
+    QMenu *highlightMenu = new QMenu(tr("Highlight"),this);
+    menu->addMenu(highlightMenu);
     if(!text.isEmpty()) {
-        menu->addSeparator();
-        QAction *highlightAction = new QAction(tr("Highlight/Unhighlight"),this);
-        highlightAction->setStatusTip(tr("Highlight/Unhighlight selected text"));
-        menu->addAction(highlightAction);
+        QAction *highlightAction = new QAction(tr("Highlight"),this);
+        highlightAction->setStatusTip(tr("Highlight selected text with random color"));
+        highlightMenu->addAction(highlightAction);
         connect(highlightAction,&QAction::triggered,this,[=](){
-            QString text = term->selectedText();
-            if(text.isEmpty()) {
+            if(term->isContainHighLightText(text)) {
                 return;
             }
+            uint8_t r = QRandomGenerator::global()->bounded(256);
+            uint8_t g = QRandomGenerator::global()->bounded(256);
+            uint8_t b = QRandomGenerator::global()->bounded(256);
+            lastHighlightColor = QColor(r,g,b);
+            term->addHighLightText(text, lastHighlightColor);
+        });
+        QAction *highlightCustomAction = new QAction(tr("Highlight (Custom)"),this);
+        highlightCustomAction->setStatusTip(tr("Highlight selected text with custom color"));
+        highlightMenu->addAction(highlightCustomAction);
+        connect(highlightCustomAction,&QAction::triggered,this,[=](){
             if(term->isContainHighLightText(text)) {
-                term->removeHighLightText(text);
-            } else {
-                term->addHighLightText(text, Qt::white);
+                return;
+            }
+            QColor color = QColorDialog::getColor(lastHighlightColor,this);
+            if(color.isValid()) {
+                lastHighlightColor = color;
+                term->addHighLightText(text, color);
             }
         });
+        QAction *unhighlightAction = new QAction(tr("Unhighlight"),this);
+        unhighlightAction->setStatusTip(tr("Unhighlight selected text"));
+        highlightMenu->addAction(unhighlightAction);
+        connect(unhighlightAction,&QAction::triggered,this,[=](){
+            term->removeHighLightText(text);
+        });
+    }
+    QAction *clearHighlightAction = new QAction(tr("Clear Highlights"),this);
+    clearHighlightAction->setStatusTip(tr("Clear all highlighted text"));
+    highlightMenu->addAction(clearHighlightAction);
+    connect(clearHighlightAction,&QAction::triggered,this,[=](){
+        term->clearHighLightTexts();
+    });
+    QMap<QString, QColor> highLightTextList = term->getHighLightTexts();
+    if(!highLightTextList.isEmpty()) {
+        highlightMenu->addSeparator();
+        foreach(QString text, highLightTextList.keys()) {
+            QMenu *subMenu = new QMenu(text,highlightMenu);
+            subMenu->setIcon(QFontIcon::icon(QChar(0xf0c8), highLightTextList[text]));
+            highlightMenu->addMenu(subMenu);
+            QAction *action = new QAction(tr("Remove"),this);
+            subMenu->addAction(action);
+            connect(action,&QAction::triggered,this,[=](){
+                term->removeHighLightText(text);
+            });
+            QAction *colorAction = new QAction(tr("Change Color"),this);
+            subMenu->addAction(colorAction);
+            connect(colorAction,&QAction::triggered,this,[=](){
+                QColor color = QColorDialog::getColor(highLightTextList[text],this);
+                if(color.isValid()) {
+                    lastHighlightColor = color;
+                    term->removeHighLightText(text);
+                    term->addHighLightText(text, color);
+                }
+            });
+        }
+    }
+    if(!text.isEmpty()) {
         int translateService  = globalOptionsWindow->getTranslateService();
         QString targetLanguage[3];
         switch (language.language()) {

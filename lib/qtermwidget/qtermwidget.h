@@ -254,6 +254,7 @@ public:
     bool isContainHighLightText(const QString &text);
     void removeHighLightText(const QString &text);
     void clearHighLightTexts(void);
+    QMap<QString, QColor> getHighLightTexts(void);
 
     void setWordCharacters(const QString &wordCharacters);
     QString wordCharacters(void);

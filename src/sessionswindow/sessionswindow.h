@@ -351,6 +351,10 @@ public:
     void clearHighLightTexts(void) {
         if(term) term->clearHighLightTexts();
     }
+    QMap<QString, QColor> getHighLightTexts(void) {
+        if(term) return term->getHighLightTexts();
+        return QMap<QString, QColor>();
+    }
     void repaintDisplay(void) {
         if(term) term->repaintDisplay();
     }

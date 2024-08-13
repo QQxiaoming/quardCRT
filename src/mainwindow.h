@@ -435,6 +435,8 @@ private:
     int currentLayout;
     bool enabledSyncSplitterMoved = false;
 
+    QColor lastHighlightColor = Qt::white;
+
     QLocale language;
     bool isDarkTheme;
     QColor themeColor;
