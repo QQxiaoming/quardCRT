@@ -32,6 +32,7 @@
 #include "globalsetting.h"
 #include "globaloptionswindow.h"
 #include "internalcommandwindow.h"
+#include "qfonticon.h"
 #include "mainwindow.h"
 #include "ui_internalcommandwindow.h"
 
@@ -121,6 +122,15 @@ InternalCommandWindow::InternalCommandWindow(QWidget *parent)
     connect(process, &InternalCommandProcess::showString, this,
         [&](const QString &name, const QString &str){
         QMessageBox::information(this->parentWidget(), name, str);
+    });
+    connect(process, &InternalCommandProcess::showIconFont, this,
+        [&](QChar code){
+        QIcon icon = QFontIcon::icon(code);
+        QDialog dialog(this->parentWidget());
+        QLabel *label = new QLabel(&dialog);
+        label->setPixmap(icon.pixmap(512,512));
+        dialog.resize(512,512);
+        dialog.exec();
     });
     connect(process, &InternalCommandProcess::showEasterEggs, this, [&](void){
         class MyDialog : public QDialog {

@@ -52,6 +52,7 @@ public:
 signals:
     void sendData(const QByteArray &data);
     void showString(const QString &name, const QString &str);
+    void showIconFont(QChar code);
     void showEasterEggs(void);
 
 protected:

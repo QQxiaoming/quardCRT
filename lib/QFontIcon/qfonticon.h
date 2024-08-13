@@ -65,8 +65,8 @@ public:
     static bool addFont(const QString& filename);
     static QFontIcon * instance();
     // main methods. Return icons from code
-    static QIcon icon(const QChar& code, const QString& family, const QColor& color = instance()->baseColor);
-    static QIcon icon(const QChar& code, const QColor& color = instance()->baseColor);
+    static QIcon icon(const QChar& code, const QColor& color = instance()->baseColor, const QString& family = QString());
+    static QStringList currentFamilies();
     void setColor(const QColor& color);
     // return added fonts
     const QStringList& families() const;
@@ -74,13 +74,13 @@ public:
 protected:
     void addFamily(const QString& family);
 
-
 private:
     explicit QFontIcon(QObject *parent = 0);
     ~QFontIcon();
     static QFontIcon * mInstance;
     QColor baseColor;
     QStringList mfamilies;
+    QMap<QChar, QString> mSupportsCodeCache;
 };
 
 #endif // QFONTICON_H

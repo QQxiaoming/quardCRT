@@ -25,6 +25,8 @@ SOFTWARE.
 #include "qfonticon.h"
 #include <QDebug>
 #include <QFontDatabase>
+#include <QRawFont>
+
 QFontIcon * QFontIcon::mInstance = Q_NULLPTR;
 
 bool QFontIcon::addFont(const QString &filename)
@@ -49,7 +51,7 @@ QFontIcon *QFontIcon::instance()
     return mInstance;
 }
 
-QIcon QFontIcon::icon(const QChar &code, const QString &family, const QColor &color)
+QIcon QFontIcon::icon(const QChar &code, const QColor &color, const QString &family)
 {
     if (instance()->families().isEmpty())
     {
@@ -58,8 +60,20 @@ QIcon QFontIcon::icon(const QChar &code, const QString &family, const QColor &co
     }
 
     QString useFamily = family;
-    if (useFamily.isEmpty())
-        useFamily = instance()->families().first();
+    if (useFamily.isEmpty()) {
+        useFamily = instance()->mSupportsCodeCache.value(code);
+        if(useFamily.isEmpty()) {
+            useFamily = instance()->families().first();
+            foreach(const QString &family, instance()->families()) {
+                QRawFont rawFont = QRawFont::fromFont(QFont(family));
+                if (rawFont.supportsCharacter(code)) {
+                    useFamily = family;
+                    break;
+                }
+            }
+            instance()->mSupportsCodeCache.insert(code, useFamily);
+        }
+    }
 
 
     QFontIconEngine * engine = new QFontIconEngine;
@@ -69,9 +83,9 @@ QIcon QFontIcon::icon(const QChar &code, const QString &family, const QColor &co
     return QIcon(engine);
 }
 
-QIcon QFontIcon::icon(const QChar &code, const QColor &color)
+QStringList QFontIcon::currentFamilies()
 {
-    return icon(code, QString(), color);
+    return instance()->families();
 }
 
 const QStringList &QFontIcon::families() const

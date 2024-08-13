@@ -23,6 +23,7 @@
 #include "internalcommandprocess.h"
 #include "mainwindow.h"
 #include "globalsetting.h"
+#include "qfonticon.h"
 
 InternalCommandProcess::InternalCommandProcess(CentralWidget *mainWidget, QObject *parent)
     : QThread(parent)
@@ -280,6 +281,27 @@ void InternalCommandProcess::processLine(const QString &sline) {
                 }
                 settings.endArray();
                 sendLineString(QString("Total %0 bookmarks").arg(size));
+            }
+        },
+        {{"iconfont"},QStringList(),"show IconFont List"  ,
+            [&](void) {
+                if(args.size() == 0) {
+                    QStringList families = QFontIcon::currentFamilies();
+                    sendLineString("Available IconFont:");
+                    foreach(const QString &family, families) {
+                        sendLineString("  "+family);
+                    }
+                } else if(args.size() == 1) {
+                    bool ok = false;
+                    uint16_t code = args.at(0).toUShort(&ok, 16);
+                    if(ok) {
+                        emit showIconFont(QChar(code));
+                    } else {
+                        sendLineString("Invalid IconFont code!",31);
+                    }
+                } else {
+                    sendLineString("Invalid IconFont cmd!",31);
+                }
             }
         },
     #ifdef ENABLE_PYTHON
