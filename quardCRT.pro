@@ -53,10 +53,12 @@ INCLUDEPATH += \
     src/netscanwindow \
     src/statusbarwidget \
     src/plugininfowindow \
+    src/createpublickeywindow \
     src/plugin \
     src
 
 SOURCES += \
+    src/createpublickeywindow/createpublickey.cpp \
     src/globaloptions/globaloptionstransferwidget.cpp \
     src/internalcommandwindow/internalcommandprocess.cpp \
     src/internalcommandwindow/internalcommandwindow.cpp \
@@ -106,6 +108,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/createpublickeywindow/createpublickey.h \
     src/globaloptions/globaloptionstransferwidget.h \
     src/internalcommandwindow/internalcommandprocess.h \
     src/internalcommandwindow/internalcommandwindow.h \
@@ -156,6 +159,7 @@ HEADERS += \
     src/mainwindow.h
 
 FORMS += \
+    src/createpublickeywindow/createpublickey.ui \
     src/globaloptions/globaloptionsadvancedwidget.ui \
     src/globaloptions/globaloptionsappearancewidget.ui \
     src/globaloptions/globaloptionsterminalwidget.ui \

@@ -5730,6 +5730,7 @@ MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale l
 }
 
 MainWindow::~MainWindow() {
+    delete m_central_widget;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
