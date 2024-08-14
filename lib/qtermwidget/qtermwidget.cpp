@@ -926,3 +926,7 @@ void QTermWidget::setMessageParentWidget(QWidget *parent) {
 void QTermWidget::reTranslateUi(void) {
     m_searchBar->retranslateUi();
 }
+
+void QTermWidget::set_fix_quardCRT_issue33(bool fix) {
+    m_impl->m_terminalDisplay->set_fix_quardCRT_issue33(fix);
+}

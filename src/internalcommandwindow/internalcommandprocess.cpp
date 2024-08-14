@@ -24,6 +24,7 @@
 #include "mainwindow.h"
 #include "globalsetting.h"
 #include "qfonticon.h"
+#include "qrcodegen.h"
 
 InternalCommandProcess::InternalCommandProcess(CentralWidget *mainWidget, QObject *parent)
     : QThread(parent)
@@ -137,6 +138,7 @@ void InternalCommandProcess::processLine(const QString &sline) {
         },
         {{"license"}, {"license()"}, "show the license of the QuardCRT"     , 
             [&](void) {
+                sendString(qrcodegen::generatorQrCodeASCII("https://quardcrt.readthedocs.io/en/latest/license.html"));
                 sendLineString("QuardCRT is licensed under the GPLv3 License.");
             }
         },

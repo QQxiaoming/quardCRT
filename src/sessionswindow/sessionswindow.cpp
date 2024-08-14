@@ -93,6 +93,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         term->startTerminalTeletype();
         term->setDrawLineChars(false);
         term->setSelectionOpacity(0.5);
+        term->set_fix_quardCRT_issue33(true);
 
         QStringList availableColorSchemes = term->availableColorSchemes();
         availableColorSchemes.sort();

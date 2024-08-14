@@ -970,31 +970,50 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
     //        But it is not a good solution. We should find a better way to solve this issue.
     int font_width = _charWidth->string_font_width(text);
     int width = CharWidth::string_unicode_width(text);
-    if(font_width != width) {
+    if(_fix_quardCRT_issue33 && font_width != width) {
       int single_rect_width = rect.width() / width;
         for (size_t i=0 ; i < text.length(); i++) {
           wchar_t line_char = text[i];
-          int offset = 0;
-          if(_charWidth->font_width(line_char) != CharWidth::unicode_width(line_char)) {
-            // https://github.com/QQxiaoming/quardCRT/issues/33#issuecomment-2044020900
-            // | left         | center       | right        |
-            // | ------------ | ------------ | ------------ |
-            // | L'’' U+2019 | L'×' U+00D7 | L'‘' U+2018 |
-            // | L'”' U+201D | L'÷' U+00F7 | L'“' U+201C |
-            // |              | L'‖' U+2016  | L'‚' U+201A |
-            // |              |              | L'‛' U+201B |
-            if(line_char == 0x201C || line_char == 0x2018 || line_char == 0x201A || line_char == 0x201B) {
-              offset = single_rect_width*(_charWidth->font_width(line_char)-CharWidth::unicode_width(line_char));
-            } else if( line_char == 0x00D7 || line_char == 0x00F7 || line_char == 0x2016) {
-              offset = single_rect_width*(_charWidth->font_width(line_char)-CharWidth::unicode_width(line_char))/2;
-            } else if( line_char == 0x201D || line_char == 0x2019) {
-              // do nothing
-            }
-          }
           if ( isLineChar(line_char) ) {
-            drawLineCharString(painter, rect.x() + single_rect_width * i - offset, rect.y(), line_char, style);
+            drawLineCharString(painter, rect.x() + single_rect_width * i, rect.y(), line_char, style);
           } else {
-            painter.drawText(rect.x() + single_rect_width * i - offset, rect.y() + _fontAscent + _lineSpacing, QString::fromWCharArray(&line_char,1));
+            if(_charWidth->font_width(line_char) != CharWidth::unicode_width(line_char)) {
+              // https://github.com/QQxiaoming/quardCRT/issues/33#issuecomment-2044020900
+              // | left         | center       | right        |
+              // | ------------ | ------------ | ------------ |
+              // | L'’' U+2019 | L'×' U+00D7 | L'‘' U+2018 |
+              // | L'”' U+201D | L'÷' U+00F7 | L'“' U+201C |
+              // |              | L'‖' U+2016  | L'‚' U+201A |
+              // |              |              | L'‛' U+201B |
+              const QList<uint16_t> right_chars = 
+                {0x201C, 0x2018, 0x201A, 0x201B };
+              const QList<uint16_t> center_chars = 
+                {0x00D7, 0x00F7, 0x2016};
+              const QList<uint16_t> left_chars = 
+                {0x201D, 0x2019, 0x2584, 0x2580, 0x2588};
+              if(right_chars.contains(line_char)) {
+                int offset = single_rect_width*(_charWidth->font_width(line_char)-CharWidth::unicode_width(line_char));
+                painter.save();
+                QRect rightHalfRect(rect.x() + single_rect_width * i, rect.y(), single_rect_width, _fontHeight);
+                painter.setClipRect(rightHalfRect);
+                painter.drawText(rect.x() + single_rect_width * i - offset, rect.y() + _fontAscent + _lineSpacing, QString::fromWCharArray(&line_char,1));
+                painter.restore();
+              } else if(center_chars.contains(line_char)) {
+                int offset = single_rect_width*(_charWidth->font_width(line_char)-CharWidth::unicode_width(line_char))/2;
+                painter.save();
+                QRect rightHalfRect(rect.x() + single_rect_width * i, rect.y(), single_rect_width, _fontHeight);
+                painter.setClipRect(rightHalfRect);
+                painter.drawText(rect.x() + single_rect_width * i - offset, rect.y() + _fontAscent + _lineSpacing, QString::fromWCharArray(&line_char,1));
+                painter.restore();
+              } else if(left_chars.contains(line_char)) {
+                QRect rectangle(rect.x() + single_rect_width * i, rect.y(), single_rect_width, _fontHeight);
+                painter.drawText(rectangle, 0, QString::fromWCharArray(&line_char,1));
+              } else {
+                painter.drawText(rect.x() + single_rect_width * i, rect.y() + _fontAscent + _lineSpacing, QString::fromWCharArray(&line_char,1));
+              }
+            } else {
+              painter.drawText(rect.x() + single_rect_width * i, rect.y() + _fontAscent + _lineSpacing, QString::fromWCharArray(&line_char,1));
+            }
           }
         }
     } else {
@@ -3097,13 +3116,17 @@ void TerminalDisplay::bracketText(QString& text) const
     }
 }
 
-bool TerminalDisplay::multilineConfirmation(const QString& text)
+bool TerminalDisplay::multilineConfirmation(QString& text)
 {
     MultilineConfirmationMessageBox confirmation(messageParentWidget);
     confirmation.setWindowTitle(tr("Paste multiline text"));
     confirmation.setText(tr("Are you sure you want to paste this text?"));
     confirmation.setDetailedText(text);
-    return (confirmation.exec() == QDialog::Accepted);
+    if(confirmation.exec() == QDialog::Accepted){
+        text = confirmation.getDetailedText();
+        return true;
+    }
+    return false;
 }
 
 void TerminalDisplay::setSelection(const QString& t)

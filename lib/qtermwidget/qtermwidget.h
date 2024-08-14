@@ -275,6 +275,7 @@ public:
 
     void setMessageParentWidget(QWidget *parent);
     void reTranslateUi(void);
+    void set_fix_quardCRT_issue33(bool fix);
 
 signals:
     void finished();

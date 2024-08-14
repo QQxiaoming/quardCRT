@@ -585,6 +585,8 @@ public slots:
     #endif
     }
     void setMessageParentWidget(QWidget *parent) { messageParentWidget = parent; }
+    
+    void set_fix_quardCRT_issue33(bool fix) { _fix_quardCRT_issue33 = fix; }
 
 signals:
 
@@ -762,7 +764,7 @@ private:
     void scrollImage(int lines , const QRect& region);
 
     // shows the multiline prompt
-    bool multilineConfirmation(const QString& text);
+    bool multilineConfirmation(QString& text);
 
     void calcGeometry();
     void propagateSize();
@@ -943,6 +945,8 @@ private:
 
     QWidget *messageParentWidget = nullptr;
 
+    bool _fix_quardCRT_issue33 = false;
+
 public:
     static void setTransparencyEnabled(bool enable)
     {
@@ -983,7 +987,7 @@ public:
             new QSourceHighlite::QSourceHighliter(detailedText->document());
         highlighter->setCurrentLanguage(QSourceHighlite::QSourceHighliter::CodeBash);
         detailedText->setLineWrapMode(QPlainTextEdit::NoWrap);
-        detailedText->setReadOnly(true);
+        //detailedText->setReadOnly(true);
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     }
@@ -997,6 +1001,9 @@ public:
     }
     void setDetailedText(const QString &text) {
         detailedText->setPlainText(text);
+    }
+    QString getDetailedText() const {
+        return detailedText->toPlainText();
     }
 
 private:
