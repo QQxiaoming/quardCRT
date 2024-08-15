@@ -232,6 +232,9 @@ public:
     void setTerminalFont(const QFont & font) {
         if(term) term->setTerminalFont(font);
     }
+    void set_fix_quardCRT_issue33(bool fix) {
+        if(term) term->set_fix_quardCRT_issue33(fix);
+    }
     void setTerminalBackgroundMode(int mode) {
         if(term) term->setTerminalBackgroundMode(mode);
     }

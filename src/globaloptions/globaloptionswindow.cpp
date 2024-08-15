@@ -468,6 +468,14 @@ QFont GlobalOptionsWindow::getCurrentFont(void)
     return font;
 }
 
+bool GlobalOptionsWindow::isCurrentFontBuiltIn(void) {
+    GlobalSetting settings;
+    if(settings.contains("Global/Options/fontFamily"))
+        return settings.value("Global/Options/fontFamily").toString() == "Built-in";
+
+    return true;
+}
+
 void GlobalOptionsWindow::fontSizeChanged(int size)
 {
     font.setPointSize(size);

@@ -49,6 +49,7 @@ public:
     QString getCurrentColorScheme(void);
     QList<QColor> getColorTable(void);
     QFont getCurrentFont(void);
+    bool isCurrentFontBuiltIn(void);
     int getTransparency(void);
     QString getBackgroundImage(void);
     int getBackgroundImageMode(void);

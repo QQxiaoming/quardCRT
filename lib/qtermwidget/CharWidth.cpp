@@ -47,7 +47,7 @@ int CharWidth::string_font_width( const QString & str )
     return width;
 }
 
-int CharWidth::unicode_width(wchar_t ucs)
+int CharWidth::unicode_width(wchar_t ucs, bool fix_width)
 {
     utf8proc_category_t cat = utf8proc_category( ucs );
     if (cat == UTF8PROC_CATEGORY_CO) {
@@ -55,32 +55,35 @@ int CharWidth::unicode_width(wchar_t ucs)
         // assumes them to be width 1, and glibc's default width is also 1
         return 1;
     }
-    // Override width of YiJing Hexagram Symbols unicode characters (0x4dc0-0x4dff)
-    if(ucs >= 0x4dc0 && ucs <= 0x4dff) {
-        return 2;
+    if(fix_width) {
+        // TODO: Override
+        // Override width of YiJing Hexagram Symbols unicode characters (0x4dc0-0x4dff)
+        if(ucs >= 0x4dc0 && ucs <= 0x4dff) {
+            return 2;
+        }
     }
     return utf8proc_charwidth( ucs );
 }
 
-int CharWidth::unicode_width(const QChar & c)
+int CharWidth::unicode_width(const QChar & c, bool fix_width)
 {
-    return unicode_width(c.unicode());
+    return unicode_width(c.unicode(),fix_width);
 }
 
-int CharWidth::string_unicode_width( const std::wstring & wstr )
+int CharWidth::string_unicode_width(const std::wstring & wstr, bool fix_width)
 {
     int width = 0;
     for (auto & c : wstr) {
-        width += unicode_width(c);
+        width += unicode_width(c,fix_width);
     }
     return width;
 }
 
-int CharWidth::string_unicode_width( const QString & str )
+int CharWidth::string_unicode_width(const QString & str, bool fix_width)
 {
     int width = 0;
     for (auto & c : str) {
-        width += unicode_width(c.unicode());
+        width += unicode_width(c.unicode(),fix_width);
     }
     return width;
 }

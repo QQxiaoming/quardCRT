@@ -24,10 +24,10 @@ public:
     int string_font_width( const std::wstring & wstr );
     int string_font_width( const QString & str );
 
-    static int unicode_width(wchar_t ucs);
-    static int unicode_width(const QChar & c);
-    static int string_unicode_width( const std::wstring & wstr );
-    static int string_unicode_width( const QString & str );
+    static int unicode_width(wchar_t ucs, bool fix_width = true);
+    static int unicode_width(const QChar & c, bool fix_width = true);
+    static int string_unicode_width(const std::wstring & wstr, bool fix_width = true);
+    static int string_unicode_width(const QString & str, bool fix_width = true);
 
 private:
     QFontMetrics *fm;

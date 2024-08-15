@@ -595,6 +595,30 @@ void Screen::backspace()
 
     if (screenLines[cuY].size() < cuX+1)
         screenLines[cuY].resize(cuX+1);
+#if 0 //TODO: implement when unicode_width is fixed, we need more backspace/cursorMove
+    wchar_t c = 0;
+    if(cuX <= 0) {
+        if(cuY > 0) {
+            uint32_t endx = screenLines[cuY-1].size();
+            if(endx > 0) {
+                c = screenLines[cuY-1][endx-1].character;
+            }
+        }
+    } else {
+        c = screenLines[cuY][cuX-1].character;
+    }
+    if(c) {
+        int ow = CharWidth::unicode_width(c,false);
+        int w = CharWidth::unicode_width(c,true);
+        if(w == 2 && ow == 1) {
+            cuX = qMin(columns-1,cuX); // nowrap!
+            cuX = qMax(0,cuX-1);
+
+            if (screenLines[cuY].size() < cuX+1)
+                screenLines[cuY].resize(cuX+1);
+        }
+    }
+#endif
 }
 
 void Screen::tab(int n)

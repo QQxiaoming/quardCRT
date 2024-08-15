@@ -2973,6 +2973,7 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->setTerminalFont(globalOptionsWindow->getCurrentFont());
+        sessionsWindow->set_fix_quardCRT_issue33(globalOptionsWindow->isCurrentFontBuiltIn());
     });
     connect(layoutActionGroup,&QActionGroup::triggered,this,[=](QAction *action){
         int oldLayout = currentLayout;
@@ -3644,6 +3645,7 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
         window->setColorScheme(colorScheme);
     }
     window->setTerminalFont(globalOptionsWindow->getCurrentFont());
+    window->set_fix_quardCRT_issue33(globalOptionsWindow->isCurrentFontBuiltIn());
     window->setTerminalBackgroundMode(globalOptionsWindow->getBackgroundImageMode());
     window->setTerminalOpacity(globalOptionsWindow->getBackgroundImageOpacity());
     window->setHistorySize(globalOptionsWindow->getScrollbackLines());
