@@ -1165,52 +1165,52 @@
         <location filename="../src/mainwindow.cpp" line="1194"/>
         <location filename="../src/mainwindow.cpp" line="1197"/>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Surligner</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>Highlight selected text with random color</source>
-        <translation type="unfinished"></translation>
+        <translation>Surligner le texte sélectionné avec une couleur aléatoire</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1210"/>
         <source>Highlight (Custom)</source>
-        <translation type="unfinished"></translation>
+        <translation>Surligner (personnalisé)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1211"/>
         <source>Highlight selected text with custom color</source>
-        <translation type="unfinished"></translation>
+        <translation>Surligner le texte sélectionné avec une couleur personnalisée</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1223"/>
         <source>Unhighlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne plus surligner</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1224"/>
         <source>Unhighlight selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne plus surligner le texte sélectionné</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1230"/>
         <source>Clear Highlights</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer les surlignages</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Clear all highlighted text</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer tout le texte surligné</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1243"/>
         <source>Remove</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1248"/>
         <source>Change Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer la couleur</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1823"/>
@@ -2028,42 +2028,42 @@
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="14"/>
         <source>Key Generation</source>
-        <translation type="unfinished"></translation>
+        <translation>Génération de clé</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="22"/>
         <source>Private Key path</source>
-        <translation type="unfinished"></translation>
+        <translation>Chemin de la clé privée</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="39"/>
         <source>Key Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de clé</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="59"/>
         <source>Confirm Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmer la phrase secrète</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="66"/>
         <source>Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>Phrase secrète</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="79"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Commentaire</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="86"/>
         <source>Key length</source>
-        <translation type="unfinished"></translation>
+        <translation>Longueur de la clé</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="96"/>
         <source>Public key path</source>
-        <translation type="unfinished"></translation>
+        <translation>Chemin de la clé publique</translation>
     </message>
 </context>
 <context>
@@ -4578,7 +4578,7 @@ Si vous avez besoin d&apos;utiliser un autre shell, veuillez créer une session 
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="319"/>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="408"/>
         <source>SSH Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiffrement SSH</translation>
     </message>
     <message>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="346"/>

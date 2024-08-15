@@ -2043,27 +2043,27 @@
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="59"/>
         <source>Confirm Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>تأكيد كلمة المرور</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="66"/>
         <source>Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>كلمة المرور</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="79"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>تعليق</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="86"/>
         <source>Key length</source>
-        <translation type="unfinished"></translation>
+        <translation>طول المفتاح</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="96"/>
         <source>Public key path</source>
-        <translation type="unfinished"></translation>
+        <translation>مسار المفتاح العام</translation>
     </message>
 </context>
 <context>
@@ -4578,7 +4578,7 @@ If you need to use another shell, please create a session through [quick-connect
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="319"/>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="408"/>
         <source>SSH Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation>تشفير SSH</translation>
     </message>
     <message>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="346"/>

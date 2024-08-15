@@ -1165,52 +1165,52 @@
         <location filename="../src/mainwindow.cpp" line="1194"/>
         <location filename="../src/mainwindow.cpp" line="1197"/>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>하이라이트</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>Highlight selected text with random color</source>
-        <translation type="unfinished"></translation>
+        <translation>선택한 텍스트를 무작위 색상으로 하이라이트</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1210"/>
         <source>Highlight (Custom)</source>
-        <translation type="unfinished"></translation>
+        <translation>하이라이트(사용자 지정)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1211"/>
         <source>Highlight selected text with custom color</source>
-        <translation type="unfinished"></translation>
+        <translation>선택한 텍스트를 사용자 지정 색상으로 하이라이트</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1223"/>
         <source>Unhighlight</source>
-        <translation type="unfinished"></translation>
+        <translation>하이라이트 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1224"/>
         <source>Unhighlight selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>선택한 텍스트의 하이라이트 해제</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1230"/>
         <source>Clear Highlights</source>
-        <translation type="unfinished"></translation>
+        <translation>하이라이트 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Clear all highlighted text</source>
-        <translation type="unfinished"></translation>
+        <translation>모든 하이라이트 텍스트 지우기</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1243"/>
         <source>Remove</source>
-        <translation type="unfinished">제거</translation>
+        <translation>제거</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1248"/>
         <source>Change Color</source>
-        <translation type="unfinished"></translation>
+        <translation>색상 변경</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1823"/>
@@ -2028,42 +2028,42 @@
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="14"/>
         <source>Key Generation</source>
-        <translation type="unfinished"></translation>
+        <translation>키 생성</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="22"/>
         <source>Private Key path</source>
-        <translation type="unfinished"></translation>
+        <translation>개인 키 경로</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="39"/>
         <source>Key Type</source>
-        <translation type="unfinished"></translation>
+        <translation>키 유형</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="59"/>
         <source>Confirm Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>암호 확인</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="66"/>
         <source>Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>암호</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="79"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>주석</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="86"/>
         <source>Key length</source>
-        <translation type="unfinished"></translation>
+        <translation>키 길이</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="96"/>
         <source>Public key path</source>
-        <translation type="unfinished"></translation>
+        <translation>공개 키 경로</translation>
     </message>
 </context>
 <context>
@@ -4578,7 +4578,7 @@ PowerShell 5 이상을 사용하십시오!
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="319"/>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="408"/>
         <source>SSH Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH 암호화</translation>
     </message>
     <message>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="346"/>

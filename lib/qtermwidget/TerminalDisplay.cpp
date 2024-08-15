@@ -990,7 +990,7 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
               const QList<uint16_t> center_chars = 
                 {0x00D7, 0x00F7, 0x2016};
               const QList<uint16_t> left_chars = 
-                {0x201D, 0x2019, 0x2584, 0x2580, 0x2588};
+                {0x201D, 0x2019, 0x2580, 0x2584, 0x2588};
               if(right_chars.contains(line_char)) {
                 int offset = single_rect_width*(_charWidth->font_width(line_char)-CharWidth::unicode_width(line_char));
                 painter.save();

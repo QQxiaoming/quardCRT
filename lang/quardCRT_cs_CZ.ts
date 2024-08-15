@@ -1165,52 +1165,52 @@
         <location filename="../src/mainwindow.cpp" line="1194"/>
         <location filename="../src/mainwindow.cpp" line="1197"/>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvýraznit</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>Highlight selected text with random color</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvýraznit vybraný text náhodnou barvou</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1210"/>
         <source>Highlight (Custom)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvýraznit (vlastní)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1211"/>
         <source>Highlight selected text with custom color</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvýraznit vybraný text vlastní barvou</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1223"/>
         <source>Unhighlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Odzvýraznit</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1224"/>
         <source>Unhighlight selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>Odzvýraznit vybraný text</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1230"/>
         <source>Clear Highlights</source>
-        <translation type="unfinished"></translation>
+        <translation>Vymazat zvýraznění</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Clear all highlighted text</source>
-        <translation type="unfinished"></translation>
+        <translation>Vymazat veškerý zvýrazněný text</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1243"/>
         <source>Remove</source>
-        <translation type="unfinished">Odstranit</translation>
+        <translation>Odstranit</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1248"/>
         <source>Change Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit barvu</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1823"/>
@@ -2028,42 +2028,42 @@
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="14"/>
         <source>Key Generation</source>
-        <translation type="unfinished"></translation>
+        <translation>Generování klíče</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="22"/>
         <source>Private Key path</source>
-        <translation type="unfinished"></translation>
+        <translation>Cesta k privátnímu klíči</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="39"/>
         <source>Key Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ klíče</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="59"/>
         <source>Confirm Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrďte heslo</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="66"/>
         <source>Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>Heslo</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="79"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentář</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="86"/>
         <source>Key length</source>
-        <translation type="unfinished"></translation>
+        <translation>Délka klíče</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="96"/>
         <source>Public key path</source>
-        <translation type="unfinished"></translation>
+        <translation>Cesta k veřejnému klíči</translation>
     </message>
 </context>
 <context>
@@ -4578,7 +4578,7 @@ Pokud potřebujete použít jiný shell, vytvořte prosím relaci prostřednictv
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="319"/>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="408"/>
         <source>SSH Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation>Šifrování SSH</translation>
     </message>
     <message>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="346"/>

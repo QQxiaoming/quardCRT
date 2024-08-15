@@ -1165,52 +1165,52 @@
         <location filename="../src/mainwindow.cpp" line="1194"/>
         <location filename="../src/mainwindow.cpp" line="1197"/>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>ハイライト</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>Highlight selected text with random color</source>
-        <translation type="unfinished"></translation>
+        <translation>選択したテキストをランダムな色でハイライト</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1210"/>
         <source>Highlight (Custom)</source>
-        <translation type="unfinished"></translation>
+        <translation>ハイライト（カスタム）</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1211"/>
         <source>Highlight selected text with custom color</source>
-        <translation type="unfinished"></translation>
+        <translation>選択したテキストをカスタムカラーでハイライト</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1223"/>
         <source>Unhighlight</source>
-        <translation type="unfinished"></translation>
+        <translation>ハイライト解除</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1224"/>
         <source>Unhighlight selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>選択したテキストのハイライトを解除</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1230"/>
         <source>Clear Highlights</source>
-        <translation type="unfinished"></translation>
+        <translation>ハイライトをクリア</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Clear all highlighted text</source>
-        <translation type="unfinished"></translation>
+        <translation>全てのハイライトテキストをクリア</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1243"/>
         <source>Remove</source>
-        <translation type="unfinished">削除</translation>
+        <translation>削除</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1248"/>
         <source>Change Color</source>
-        <translation type="unfinished"></translation>
+        <translation>色を変更</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1823"/>
@@ -2028,42 +2028,42 @@
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="14"/>
         <source>Key Generation</source>
-        <translation type="unfinished"></translation>
+        <translation>キー生成</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="22"/>
         <source>Private Key path</source>
-        <translation type="unfinished"></translation>
+        <translation>プライベートキーパス</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="39"/>
         <source>Key Type</source>
-        <translation type="unfinished"></translation>
+        <translation>キータイプ</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="59"/>
         <source>Confirm Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>パスフレーズを確認</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="66"/>
         <source>Passphrase</source>
-        <translation type="unfinished"></translation>
+        <translation>パスフレーズ</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="79"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>コメント</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="86"/>
         <source>Key length</source>
-        <translation type="unfinished"></translation>
+        <translation>キー長</translation>
     </message>
     <message>
         <location filename="../src/createpublickeywindow/createpublickey.ui" line="96"/>
         <source>Public key path</source>
-        <translation type="unfinished"></translation>
+        <translation>公開キーパス</translation>
     </message>
 </context>
 <context>
@@ -4578,7 +4578,7 @@ PowerShell 5以降を使用してください！
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="319"/>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="408"/>
         <source>SSH Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH暗号化</translation>
     </message>
     <message>
         <location filename="../src/statusbarwidget/statusbarwidget.cpp" line="346"/>

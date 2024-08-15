@@ -306,6 +306,20 @@ void InternalCommandProcess::processLine(const QString &sline) {
                 }
             }
         },
+        {{"qrcode"},QStringList(),"generate qrcode"  ,
+            [&](void) {
+                if(args.size() != 1) {
+                    sendLineString("Invalid qrcode cmd!",31);
+                } else {
+                    QString qrCode = qrcodegen::generatorQrCodeASCII(args.at(0));
+                    if(qrCode.isEmpty()) {
+                        sendLineString("Generate qrcode failed!",31);
+                    } else {
+                        sendString(qrCode);
+                    }
+                }
+            }
+        },
     #ifdef ENABLE_PYTHON
         {{"run"},QStringList(), "run script"  ,
             [&](void) {

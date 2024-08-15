@@ -895,41 +895,50 @@ static QString qrToSvgString(const QrCode &qr, int border) {
     return svgString;
 }
 
-QString generatorQrCodeASCII(const QString &id, int num)
+QString generatorQrCodeASCII(const QString &id)
 {
     QString qrCode;
-    const QrCode qr = QrCode::encodeText(id.toLatin1(), QrCode::Ecc::LOW);
-    uint32_t width = qr.getSize();
-    QString empty = " ";
-    QString lowhalf  = "\342\226\204";
-    QString uphalf = "\342\226\200";
-    QString full = "\342\226\210";
-
-    for (uint32_t y = 0; y < width; y+=2) {
-        for (uint32_t x = 0; x < width; x++) {
-            bool down = y < width - 1 ? qr.getModule(x, y+1) : true;
-            if (qr.getModule(x, y+0)) {
-				if(down) {
-                    qrCode += empty;
+    try {
+        const QrCode qr = QrCode::encodeText(id.toLatin1(), QrCode::Ecc::LOW, 3);
+        uint32_t width = qr.getSize();
+        QString empty = " ";
+        QString lowhalf  = "\342\226\204";
+        QString uphalf = "\342\226\200";
+        QString full = "\342\226\210";
+        for (uint32_t y = 0; y < width; y+=2) {
+            for (uint32_t x = 0; x < width; x++) {
+                bool down = y < width - 1 ? qr.getModule(x, y+1) : true;
+                if (qr.getModule(x, y+0)) {
+                    if(down) {
+                        qrCode += empty;
+                    } else {
+                        qrCode += lowhalf;
+                    }
+                } else if(down) {
+                    qrCode += uphalf;
                 } else {
-                    qrCode += lowhalf;
+                    qrCode += full;
                 }
-            } else if(down) {
-                qrCode += uphalf;
-			} else {
-                qrCode += full;
-			}
-        }
+            }
 
-        qrCode += "\r\n";
+            qrCode += "\r\n";
+        }
+    } catch (const std::exception &e) {
+        return "";
     }
     return qrCode;
 }
 
 QString generatorQrCodeSvg(const QString &id)
 {
-    const QrCode qr = QrCode::encodeText(id.toLatin1(), QrCode::Ecc::LOW);
-    return qrToSvgString(qr, 3);
+    QString ret;
+    try {
+        const QrCode qr = QrCode::encodeText(id.toLatin1(), QrCode::Ecc::LOW, 3);
+        ret = qrToSvgString(qr, 3);
+    } catch (const std::exception &e) {
+        return "";
+    }
+    return ret;
 }
 
 QPixmap generatorQrCodePixmap(const QString &id, const QSize &requestedSize)
@@ -938,6 +947,8 @@ QPixmap generatorQrCodePixmap(const QString &id, const QSize &requestedSize)
     int height = 1000;
 
     QString svgString = generatorQrCodeSvg(id);
+    if(svgString.isEmpty())
+        return QPixmap();
     QSvgRenderer svgRenderer(svgString.toLatin1());
     QPixmap pixmap(requestedSize.width() > 0 ? requestedSize.width() : width,
                  requestedSize.height() > 0 ? requestedSize.height() : height);

@@ -52,6 +52,7 @@ InternalCommandWindow::InternalCommandWindow(QWidget *parent)
     term->setDrawLineChars(false);
     term->setSelectionOpacity(0.5);
     term->setEnableHandleCtrlC(true);
+    term->set_fix_quardCRT_issue33(true);
 
     QFont font = QApplication::font();
 #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)

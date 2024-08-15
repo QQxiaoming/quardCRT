@@ -34,7 +34,7 @@
 
 namespace qrcodegen {
 
-QString generatorQrCodeASCII(const QString &id, int num = 3);
+QString generatorQrCodeASCII(const QString &id);
 QString generatorQrCodeSvg(const QString &id);
 QPixmap generatorQrCodePixmap(const QString &id, const QSize &requestedSize = QSize(256,256));
 
