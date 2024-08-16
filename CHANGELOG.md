@@ -12,6 +12,7 @@ en-US:
 - Allow editing the text to be pasted when confirming multiple lines of paste
 - Fix the issue that clicking the new tab button in split screen mode may not create the session correctly or be located under the wrong tab group
 - Fix the issue that the SSH connection cannot be reconnected by tapping the Enter key in some cases
+- Fix the issue that the target session object is inaccurate when locking/unlocking the session
 
 zh-CN:
 
@@ -23,6 +24,7 @@ zh-CN:
 - 多行粘贴确认时允许编辑待粘贴文本
 - 修复分屏模式下某些情况点击新标签按钮会话未正确创建或位于错误的标签页组下
 - 修复ssh连接部分情况下无法通过敲击回车键发起重连的问题
+- 修复锁定/解锁会话时目标会话对象不准确
 
 ## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
 

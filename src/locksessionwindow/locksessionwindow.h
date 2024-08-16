@@ -39,7 +39,7 @@ public:
 
 signals:
     void sendLockSessionData(QString password, bool lockAllSession, bool lockAllSessionGroup);
-    void sendUnLockSessionData(QString password, bool lockAllSession);
+    void sendUnLockSessionData(QString password, bool lockAllSession, bool lockAllSessionGroup);
 
 private slots:
     void buttonBoxAccepted(void);

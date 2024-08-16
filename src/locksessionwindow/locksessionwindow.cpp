@@ -68,7 +68,7 @@ void LockSessionWindow::buttonBoxAccepted(void)
             return;
         }
         ui->passwordLineEdit->clear();
-        emit this->sendUnLockSessionData(password, ui->lockAllSessionCheckBox->isChecked());
+        emit this->sendUnLockSessionData(password, ui->lockAllSessionCheckBox->isChecked(), ui->lockAllSessionGroupCheckBox->isChecked());
     }
 
     emit this->accepted();
@@ -83,6 +83,7 @@ void LockSessionWindow::showLock(void)
 {
     ui->headerLabel->setText(tr("Enter the password that will be used to unlock the session:"));
     ui->lockAllSessionCheckBox->setText(tr("Lock all sessions"));
+    ui->lockAllSessionGroupCheckBox->setText(tr("Lock all sessions in tab group"));
     ui->lockAllSessionCheckBox->setVisible(true);
     ui->lockAllSessionGroupCheckBox->setVisible(true);
     ui->passwordLineEdit->setVisible(true);
@@ -97,8 +98,9 @@ void LockSessionWindow::showUnlock(void)
 {
     ui->headerLabel->setText(tr("Enter the password that was used to lock the session:"));
     ui->lockAllSessionCheckBox->setText(tr("Unlock all sessions"));
+    ui->lockAllSessionGroupCheckBox->setText(tr("Unlock all sessions in tab group"));
     ui->lockAllSessionCheckBox->setVisible(true);
-    ui->lockAllSessionGroupCheckBox->setVisible(false);
+    ui->lockAllSessionGroupCheckBox->setVisible(true);
     ui->passwordLineEdit->setVisible(true);
     ui->passwordLabel->setVisible(true);
     ui->reenterPasswordLineEdit->setVisible(false);

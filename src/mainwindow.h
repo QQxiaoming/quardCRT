@@ -289,7 +289,6 @@ private:
     QAction *connectAddressEditAction;
     QAction *disconnectAllAction;
     QAction *cloneSessionAction;
-    QAction *lockSessionAction;
     QAction *logSessionAction;
     QAction *rawLogSessionAction;
     QAction *hexViewAction;
@@ -417,6 +416,7 @@ private:
     KeyChainClass keyChainClass;
     QList<SessionsWindow *> sessionList;
     QList<SessionsWindow *> broadCastSessionList;
+    SessionsWindow *willLockUnLockSessions = nullptr;
     struct pluginState_t {
         PluginInterface *iface;
         bool state;
