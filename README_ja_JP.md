@@ -13,7 +13,7 @@
 
 <div style="text-align: right">
     <a href="https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct">
-        <img src="https://get.microsoft.com/images/ja-jp%20dark.svg" width="200"/>
+        <img src="https://get.microsoft.com/images/ja%20dark.svg" width="200"/>
     </a>
 </div>
 
