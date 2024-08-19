@@ -727,7 +727,7 @@ int QTermWidget::getMargin() const
     return m_impl->m_terminalDisplay->margin();
 }
 
-void QTermWidget::saveHistory(QTextStream *stream, int format)
+void QTermWidget::saveHistory(QTextStream *stream, int format, int start, int end)
 {
     TerminalCharacterDecoder *decoder;
     if(format == 0) {
@@ -736,14 +736,20 @@ void QTermWidget::saveHistory(QTextStream *stream, int format)
         decoder = new HTMLDecoder;
     }
     decoder->begin(stream);
-    m_impl->m_session->emulation()->writeToStream(decoder, 0, m_impl->m_session->emulation()->lineCount());
+    if(start < 0) {
+        start = 0;
+    }
+    if(end < 0) {
+        end = m_impl->m_session->emulation()->lineCount();
+    }
+    m_impl->m_session->emulation()->writeToStream(decoder, start, end);
     delete decoder;
 }
 
-void QTermWidget::saveHistory(QIODevice *device, int format)
+void QTermWidget::saveHistory(QIODevice *device, int format, int start, int end)
 {
     QTextStream stream(device);
-    saveHistory(&stream, format);
+    saveHistory(&stream, format, start, end);
 }
 
 void QTermWidget::screenShot(QPixmap *pixmap)

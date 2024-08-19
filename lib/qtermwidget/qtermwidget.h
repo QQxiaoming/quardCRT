@@ -356,8 +356,8 @@ public slots:
 
     void toggleShowSearchBar();
 
-    void saveHistory(QIODevice *device, int format = 0);
-    void saveHistory(QTextStream *stream, int format = 0);
+    void saveHistory(QIODevice *device, int format = 0, int start = -1, int end = -1);
+    void saveHistory(QTextStream *stream, int format = 0, int start = -1, int end = -1);
     void screenShot(QPixmap *pixmap);
     void screenShot(const QString &fileName);
     void repaintDisplay(void);

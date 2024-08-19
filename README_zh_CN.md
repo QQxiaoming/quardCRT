@@ -183,6 +183,8 @@ quardCRT将从V0.4.0版本开始支持插件，插件将以Qt Plug-in插件的�
 - [Kermit-Protocol](https://github.com/tazlauanubianca/Kermit-Protocol)
 - [QSourceHighlite](https://github.com/Waqar144/QSourceHighlite)
 - [qextserialport](https://github.com/qextserialport/qextserialport)
+- [Qt-QrCodeGenerator](https://github.com/alex-spataru/Qt-QrCodeGenerator)
+- [sqlite3](https://www.sqlite.org)
 
 ## Star 历史
 

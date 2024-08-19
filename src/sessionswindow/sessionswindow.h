@@ -294,11 +294,11 @@ public:
     void toggleShowSearchBar() {
         if(term) term->toggleShowSearchBar();
     }
-    void saveHistory(QTextStream *stream, int format = 0) {
-        if(term) term->saveHistory(stream,format);
+    void saveHistory(QTextStream *stream, int format = 0, int start = -1, int end = -1) {
+        if(term) term->saveHistory(stream,format,start,end);
     }
-    void saveHistory(QIODevice *device, int format = 0) {
-        if(term) term->saveHistory(device,format);
+    void saveHistory(QIODevice *device, int format = 0, int start = -1, int end = -1) {
+        if(term) term->saveHistory(device,format,start,end);
     }
     void screenShot(const QString &fileName) {
         if(term) term->screenShot(fileName);

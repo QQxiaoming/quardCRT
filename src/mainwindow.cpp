@@ -1181,6 +1181,10 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
     menu->addAction(selectAllAction);
     menu->addAction(findAction);
     menu->addSeparator();
+    menu->addAction(clearScrollbackAction);
+    menu->addAction(clearScreenAction);
+    menu->addAction(clearScreenAndScrollbackAction);
+    menu->addSeparator();
     QString text = term->selectedText();
     QMenu *highlightMenu = new QMenu(tr("Highlight"),this);
     menu->addMenu(highlightMenu);
