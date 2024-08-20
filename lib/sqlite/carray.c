@@ -153,6 +153,10 @@ static int carrayConnect(
     if( pNew==0 ) return SQLITE_NOMEM;
     memset(pNew, 0, sizeof(*pNew));
   }
+  (void)pAux;
+  (void)argc;
+  (void)argv;
+  (void)pzErr;
   return rc;
 }
 
@@ -173,6 +177,7 @@ static int carrayOpen(sqlite3_vtab *p, sqlite3_vtab_cursor **ppCursor){
   if( pCur==0 ) return SQLITE_NOMEM;
   memset(pCur, 0, sizeof(*pCur));
   *ppCursor = &pCur->base;
+  (void)p;
   return SQLITE_OK;
 }
 
@@ -311,6 +316,8 @@ static int carrayFilter(
     }
   }
   pCur->iRowid = 1;
+  (void)idxStr;
+  (void)argc;
   return SQLITE_OK;
 }
 
@@ -381,6 +388,7 @@ static int carrayBestIndex(
     pIdxInfo->estimatedRows = 2147483647;
     pIdxInfo->idxNum = 0;
   }
+  (void)tab;
   return SQLITE_OK;
 }
 
@@ -557,5 +565,6 @@ SQLITE_API int sqlite3_carray_init(
   }
 #endif /* SQLITE_TEST */
 #endif /* SQLITE_OMIT_VIRTUALTABLE */
+  (void)pzErrMsg;
   return rc;
 }

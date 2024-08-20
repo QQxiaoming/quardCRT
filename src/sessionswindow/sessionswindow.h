@@ -44,22 +44,26 @@ class SessionsWindow : public QObject
     Q_OBJECT
 public:
     enum SessionType {
-        Telnet,
+        Telnet = 0,
         Serial,
         LocalShell,
         RawSocket,
         NamePipe,
         SSH2,
         VNC,
+
+        SessionTypeMax,
     };
     enum ShellType {
-        UnixShell,
+        UnixShell = 0,
         PowerShell,
         WSL,
         Unknown,
+
+        ShellTypeMax,
     };
     enum SessionsState {
-        Connected,
+        Connected = 0,
         Disconnected,
         Locked,
         BroadCasted,
@@ -71,6 +75,15 @@ public:
         CR,
         LFLF,
         CRCR,
+
+        EndOfLineSeqMax,
+    };
+    enum ShowTitleType {
+        LongTitle = 0,
+        ShortTitle,
+        NameTitle,
+
+        TitleTypeMax,
     };
     struct StateInfo {
         SessionType type;
@@ -179,11 +192,21 @@ public:
     SessionType getSessionType() const { return type; }
     ShellType getShellType() const { return shellType; }
     QString getWSLUserName() const { return m_wslUserName; }
-    QString getTitle() const { return showShortTitle ? shortTitle : longTitle; }
+    void setShowTitleType(ShowTitleType type) { showTitleType = type; }
+    ShowTitleType getShowTitleType() const { return showTitleType; }
+    QString getTitle() const { 
+        switch(showTitleType) {
+        default:
+        case LongTitle:
+            return longTitle;
+        case ShortTitle:
+            return shortTitle;
+        case NameTitle:
+            return name;
+        }
+    }
     QString getLongTitle() const { return longTitle; }
     QString getShortTitle() const { return shortTitle; }
-    void setShowShortTitle(bool show) { showShortTitle = show; }
-    bool getShowShortTitle() const { return showShortTitle; }
     void setLongTitle(const QString &title) { longTitle = title; }
     void setShortTitle(const QString &title) { shortTitle = title; }
     void setName(const QString &name) { this->name = name; }
@@ -433,7 +456,7 @@ private:
     QString longTitle;
     QString shortTitle;
     QString name;
-    bool showShortTitle;
+    ShowTitleType showTitleType;
     QWidget *messageParentWidget;
     QTermWidget *term;
     QTelnet *telnet;

@@ -719,7 +719,12 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             QWidget *widget = mainWidgetGroup->sessionTab->widget(index);
             SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();            
             if(sessionsWindow->isLocked()) return;
-            sessionsWindow->setShowShortTitle(!sessionsWindow->getShowShortTitle());
+            SessionsWindow::ShowTitleType type = sessionsWindow->getShowTitleType();
+            type = static_cast<SessionsWindow::ShowTitleType>(type+1);
+            if(type == SessionsWindow::TitleTypeMax) {
+                type = static_cast<SessionsWindow::ShowTitleType>(0);
+            }
+            sessionsWindow->setShowTitleType(type);
             mainWidgetGroup->sessionTab->setTabText(index,sessionsWindow->getTitle());
         });
     #if defined(Q_OS_MACOS)
@@ -1001,7 +1006,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
             endOfLineSeqMenu->addAction(endOfLineSeqCRCRAction);
             connect(endOfLineSeqGroup,&QActionGroup::triggered,this,[=](QAction *action){
                 int index = endOfLineSeqGroup->actions().indexOf(action);
-                sessionsWindow->setEndOfLineSeq((SessionsWindow::EndOfLineSeq)index);
+                sessionsWindow->setEndOfLineSeq(static_cast<SessionsWindow::EndOfLineSeq>(index));
             });
             endOfLineSeqMenu->popup(QCursor::pos());
         }
@@ -4526,7 +4531,7 @@ int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,Sessi
             setGlobalOptions(sessionsWindowClone);
             sessionsWindowClone->setLongTitle(sessionsWindow->getLongTitle());
             sessionsWindowClone->setShortTitle(sessionsWindow->getShortTitle());
-            sessionsWindowClone->setShowShortTitle(sessionsWindow->getShowShortTitle());
+            sessionsWindowClone->setShowTitleType(sessionsWindow->getShowTitleType());
             int index = group->sessionTab->addTab(-1, sessionsWindowClone->getMainWidget(), group->sessionTab->tabTitle(group->sessionTab->indexOf(widget)));
             connectSessionStateChange(group->sessionTab,index,sessionsWindowClone);
             if(name.isEmpty()) {
@@ -4577,6 +4582,8 @@ int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,Sessi
             group->sessionTab->setCurrentIndex(group->sessionTab->count()-1);
             break;
         }
+        default:
+            break;
     }
     return 0;
 }

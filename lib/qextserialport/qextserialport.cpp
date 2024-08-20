@@ -36,6 +36,24 @@
 #include <QReadLocker>
 #include <QWriteLocker>
 
+#ifdef __has_cpp_attribute
+#  define QEXTSP_HAS_CPP_ATTRIBUTE(x)       __has_cpp_attribute(x)
+#else
+#  define QEXTSP_HAS_CPP_ATTRIBUTE(x)       0
+#endif
+#if defined(__cplusplus)
+#if QEXTSP_HAS_CPP_ATTRIBUTE(clang::fallthrough)
+#    define QEXTSPFALLTHROUGH() [[clang::fallthrough]]
+#elif QEXTSP_HAS_CPP_ATTRIBUTE(gnu::fallthrough)
+#    define QEXTSPFALLTHROUGH() [[gnu::fallthrough]]
+#elif QEXTSP_HAS_CPP_ATTRIBUTE(fallthrough)
+#  define QEXTSPFALLTHROUGH() [[fallthrough]]
+#endif
+#endif
+#ifndef QEXTSPFALLTHROUGH
+#    define QEXTSPFALLTHROUGH() (void)0
+#endif
+
 /*!
     \class PortSettings
 
@@ -83,6 +101,7 @@ void QextSerialPortPrivate::setBaudRate(BaudRateType baudRate, bool update)
     case BAUD128000:
     case BAUD256000:
         QESP_PORTABILITY_WARNING()<<"QextSerialPort Portability Warning: POSIX does not support baudRate:"<<baudRate;
+        QEXTSPFALLTHROUGH();
 #elif defined(Q_OS_UNIX)
     //Unix Special
     case BAUD50:
@@ -110,6 +129,7 @@ void QextSerialPortPrivate::setBaudRate(BaudRateType baudRate, bool update)
     case BAUD4000000:
 #  endif
         QESP_PORTABILITY_WARNING()<<"QextSerialPort Portability Warning: Windows does not support baudRate:"<<baudRate;
+        QEXTSPFALLTHROUGH();
 #endif
     case BAUD110:
     case BAUD300:
@@ -133,6 +153,7 @@ void QextSerialPortPrivate::setBaudRate(BaudRateType baudRate, bool update)
 #if !(defined(Q_OS_WIN) || defined(Q_OS_MAC))
     default:
         QESP_WARNING()<<"QextSerialPort does not support baudRate:"<<baudRate;
+        break;
 #endif
     }
 }

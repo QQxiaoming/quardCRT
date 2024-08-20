@@ -233,6 +233,11 @@ void StatusBarWidget::setEndOfLine(bool enable, SessionsWindow::EndOfLineSeq typ
         case SessionsWindow::CRCR:
             statusBarEndOfLine->setText("CRCR");
             break;
+        default:
+            statusBarEndOfLine->setText("/");
+            statusBarEndOfLine->setEnabled(false);
+            statusBarEndOfLine->setVisible(false);
+            return;
     }
     if(!statusBarEndOfLine->isEnabled()) {
         statusBarEndOfLine->setEnabled(true);

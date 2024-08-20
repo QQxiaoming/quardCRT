@@ -50,7 +50,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     : QObject(parent)
     , type(tp)
     , workingDirectory(QDir::homePath())
-    , showShortTitle(false)
+    , showTitleType(LongTitle)
     , messageParentWidget(parent)
     , term(nullptr)
     , telnet(nullptr)
@@ -117,7 +117,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
 
     switch (type) {
         case LocalShell: {
-            showShortTitle = true;
+            showTitleType = ShortTitle;
             localShell = PtyQt::createPtyProcess();
             connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
                 localShell->resize(columns,lines);
@@ -470,6 +470,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             break;
         }
         case VNC:
+        default:
             break;
     }
 
@@ -781,6 +782,8 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
         case VNC:
             startVNCSession(src->m_hostname, src->m_port, src->m_password);
             break;
+        default:
+            break;
         }
     }  
 }
@@ -1038,6 +1041,8 @@ void SessionsWindow::disconnect(void) {
             break;
         case VNC:
             vncClient->disconnectFromVncServer();
+            break;
+        default:
             break;
     }
 }
@@ -1758,6 +1763,7 @@ SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
         #endif
             break;
         case VNC:
+        default:
             break;
     }
     return info;

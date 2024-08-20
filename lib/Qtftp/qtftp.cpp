@@ -368,9 +368,8 @@ void QTftp::nak(TftpError error)
 		pe->e_msg = strerror(error - 100);
 		th->data.block = EUNDEF;   /* set 'undef' errorcode */
 	}
-
-	strcpy(th->data.data, pe->e_msg);
-	int length = strlen(pe->e_msg);
+    int length = strlen(pe->e_msg);
+    memcpy(th->data.data, pe->e_msg, length);
 	th->data.data[length] = 0;
 	length += 5;
 	sock->writeDatagram(buffer, length, rhost, rport);
