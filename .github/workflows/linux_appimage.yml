@@ -1,4 +1,4 @@
-name: linux
+name: linux_appimage
 
 on:
   push:
@@ -40,7 +40,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ubuntu-2004:
+  appimage:
     runs-on: ubuntu-20.04
 
     steps:
@@ -84,15 +84,16 @@ jobs:
         run: |
           git fetch --tags --force
           sed -i 's/--long --dirty/--long/g' ./tools/generate_info.sh
-          sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_deb.sh
+          sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_AppImage.sh
           sed -i 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
           mkdir prebuilt_plugins
           python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.json ./prebuilt_plugins
-          ./build_deb.sh
+          ./build_AppImage.sh
 
       - name: Upload build asserts
         uses: actions/upload-artifact@v4
         with:
-          name: quardCRT_Ubuntu2004
+          name: quardCRT_AppImage
           path: |
-            ./dpkg/*.deb
+            ./AppImageOut/*.AppImage
+            
