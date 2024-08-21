@@ -53,7 +53,8 @@ public:
             if (device.startsWith("/dev/"))
                 device = device.mid(5);
 
-            const char *d = device.toLatin1().constData();
+            QByteArray ba = device.toLatin1();
+            const char *d = ba.constData();
 
             strncpy(utmpxInfo.ut_line, d, sizeof(utmpxInfo.ut_line));
 

@@ -272,6 +272,7 @@ void QTermWidget::startTerminalTeletype()
 
 QTermWidget::~QTermWidget()
 {
+    setUrlFilterEnabled(true);
     clearHighLightTexts();
     delete m_searchBar;
     delete m_impl;
