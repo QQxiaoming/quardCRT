@@ -30,7 +30,7 @@ rm -f ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64.deb
 cp -r ./dpkg/quardCRT ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64
 # 使用linuxdeployqt拷贝依赖so库到打包目录
 export QMAKE=$QT_DIR/bin/qmake
-./tools/linuxdeploy-x86_64.AppImage --executable=./build_release/out/quardCRT --appdir=./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt --plugin=qt
+./tools/linuxdeploy-x86_64.AppImage --executable=./build_release/out/quardCRT --appdir=./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt --plugin qt --plugin checkrt
 rm -rf ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/apprun-hooks
 mv ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/usr ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT
 mv ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/bin/quardCRT ./dpkg/quardCRT_Linux_"$QUARDCRT_VERSION"_x86_64/opt/quardCRT/quardCRT
