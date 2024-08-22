@@ -180,8 +180,8 @@ private:
     int stopAllSession(bool force = false);
     int cloneTargetSession(MainWidgetGroup *group, QString name,SessionsWindow *sessionsWindow);
     int cloneCurrentSession(MainWidgetGroup *group, QString name = QString());
-    MainWidgetGroup *findCurrentFocusGroup(bool forceFind=true);
-    QWidget *findCurrentFocusWidget(void);
+    MainWidgetGroup *findCurrentFocusGroup(bool forceFind = true, bool includefloating = false);
+    QWidget *findCurrentFocusWidget(bool includefloating = false);
     QMenu *createPopupMenu(void) override;
     void setSessionClassActionEnable(bool enable);
     void setGlobalOptions(SessionsWindow *window);

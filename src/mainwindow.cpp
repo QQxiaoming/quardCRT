@@ -1555,9 +1555,9 @@ void CentralWidget::restoreSettings(void) {
     }
 }
 
-MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
+MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind, bool includefloating) {
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-        if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
+        if((!includefloating) && mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
             continue;
         }
         if(mainWidgetGroup->size().width() == 0) {
@@ -1568,7 +1568,7 @@ MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
         }
     }
     foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-        if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
+        if((!includefloating) && mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
             continue;
         }
         if(mainWidgetGroup->size().width() == 0) {
@@ -1580,7 +1580,7 @@ MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
     }
     if(forceFind) {
         foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-            if(mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
+            if((!includefloating) && mainWidgetGroup->type() != MainWidgetGroup::EMBEDDED) {
                 continue;
             }
             if(mainWidgetGroup->size().width() != 0) {
@@ -1593,8 +1593,8 @@ MainWidgetGroup* CentralWidget::findCurrentFocusGroup(bool forceFind) {
     }
 }
 
-QWidget *CentralWidget::findCurrentFocusWidget(void) {
-    SessionTab *sessionTab = findCurrentFocusGroup()->sessionTab;
+QWidget *CentralWidget::findCurrentFocusWidget(bool includefloating) {
+    SessionTab *sessionTab = findCurrentFocusGroup(true,includefloating)->sessionTab;
     if(sessionTab->count() == 0) return nullptr;
     return sessionTab->currentWidget();
 }
@@ -2830,13 +2830,13 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
 
     connect(copyAction,&QAction::triggered,this,[=](){
-        QWidget *widget = findCurrentFocusWidget();
+        QWidget *widget = findCurrentFocusWidget(true);
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->copyClipboard();
     });
     connect(pasteAction,&QAction::triggered,this,[=](){
-        QWidget *widget = findCurrentFocusWidget();
+        QWidget *widget = findCurrentFocusWidget(true);
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->pasteClipboard();
@@ -2849,13 +2849,13 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         sessionsWindow->pasteClipboard();
     });
     connect(selectAllAction,&QAction::triggered,this,[=](){
-        QWidget *widget = findCurrentFocusWidget();
+        QWidget *widget = findCurrentFocusWidget(true);
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->selectAll();
     });
     connect(findAction,&QAction::triggered,this,[=](){
-        QWidget *widget = findCurrentFocusWidget();
+        QWidget *widget = findCurrentFocusWidget(true);
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->toggleShowSearchBar();
@@ -2935,19 +2935,19 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(clearScrollbackAction,&QAction::triggered,this,[=](){
-        QWidget *widget = findCurrentFocusWidget();
+        QWidget *widget = findCurrentFocusWidget(true);
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->clearScrollback();
     });
     connect(clearScreenAction,&QAction::triggered,this,[=](){
-        QWidget *widget = findCurrentFocusWidget();
+        QWidget *widget = findCurrentFocusWidget(true);
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->clearScreen();
     });
     connect(clearScreenAndScrollbackAction,&QAction::triggered,this,[=](){
-        QWidget *widget = findCurrentFocusWidget();
+        QWidget *widget = findCurrentFocusWidget(true);
         if(widget == nullptr) return;
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->clear();

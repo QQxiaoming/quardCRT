@@ -14,6 +14,7 @@
 - Fix the issue that clicking the new tab button in split screen mode may not create the session correctly or be located under the wrong tab group
 - Fix the issue that the SSH connection cannot be reconnected by tapping the Enter key in some cases
 - Fix the issue that the target session object is inaccurate when locking/unlocking the session
+- Fix the issue that some functions in the context menu of the floating window cannot be used
 
 ## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
 
