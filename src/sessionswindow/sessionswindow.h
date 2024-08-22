@@ -124,11 +124,11 @@ public:
     SessionsWindow(SessionType tp, QWidget *parent = nullptr);
     ~SessionsWindow();
 
-    void cloneSession(SessionsWindow *src);
+    void cloneSession(SessionsWindow *src, QString profile = QString());
 #if defined(Q_OS_WIN)
-    int startLocalShellSession(const QString &command, ShellType sTp = PowerShell);
+    int startLocalShellSession(const QString &command, QString profile = QString(), ShellType sTp = PowerShell);
 #else
-    int startLocalShellSession(const QString &command, ShellType sTp = UnixShell);
+    int startLocalShellSession(const QString &command, QString profile = QString(), ShellType sTp = UnixShell);
 #endif
     int startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type);
     int startSerialSession(const QString &portName, uint32_t baudRate,

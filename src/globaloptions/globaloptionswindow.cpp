@@ -158,6 +158,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
 #endif
+#if defined(Q_OS_WIN)
+    globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(settings.value("PowerShellProfile", QApplication::applicationDirPath() + "/Profile.ps1").toString());
+#endif
     QString defaultLocalShell = settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
             "ENV:SHELL"
@@ -348,6 +351,24 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
             #endif
         }
     });
+#if defined(Q_OS_WIN)
+    connect(globalOptionsAdvancedWidget->ui->toolButtonPowerShellProfile, &QToolButton::clicked, this, [&](){
+        QString profile = FileDialog::getOpenFileName(this, tr("Select PowerShell Profile"), globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text(), tr("PowerShell Files (*.ps1)"));
+        if (!profile.isEmpty()) {
+            QFileInfo profileInfo(profile);
+            if(!profileInfo.exists() || !profileInfo.isFile()) {
+                QMessageBox::warning(this, tr("Warning"), tr("The PowerShell Profile is not a valid file!"));
+                return;
+            }
+            globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(profile);
+        } else {
+            globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(QApplication::applicationDirPath() + "/Profile.ps1");
+        }
+    });
+    connect(globalOptionsAdvancedWidget->ui->pushButtonPowerShellProfile, &QPushButton::clicked, this, [&](){
+        QDesktopServices::openUrl(QUrl::fromLocalFile(globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text()));
+    });
+#endif
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
 
@@ -627,6 +648,13 @@ bool GlobalOptionsWindow::getEnableCtrlC(void)
 }
 #endif
 
+#if defined(Q_OS_WIN)
+QString GlobalOptionsWindow::getPowerShellProfile(void) 
+{
+    return globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text();
+}
+#endif
+
 void GlobalOptionsWindow::buttonBoxAccepted(void)
 {
     GlobalSetting settings;
@@ -684,6 +712,9 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("Echo", globalOptionsTerminalWidget->ui->checkBoxEcho->isChecked());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     settings.setValue("EnableCtrlC", globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->isChecked());
+#endif
+#if defined(Q_OS_WIN)
+    settings.setValue("PowerShellProfile", globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text());
 #endif
     QString defaultLocalShell = globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->text();
     #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
@@ -768,6 +799,9 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
+#endif
+#if defined(Q_OS_WIN)
+    globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(settings.value("PowerShellProfile", QApplication::applicationDirPath() + "/Profile.ps1").toString());
 #endif
     globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)

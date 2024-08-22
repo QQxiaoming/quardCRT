@@ -4190,7 +4190,11 @@ QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, int groupI
     sessionsWindow->setName(name);
     QFileInfo workingDirectoryInfo(workingDirectory);
     sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
+#if defined(Q_OS_WIN)
+    sessionsWindow->startLocalShellSession(command,globalOptionsWindow->getPowerShellProfile());
+#else
     sessionsWindow->startLocalShellSession(command);
+#endif
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4241,7 +4245,7 @@ QString CentralWidget::startWslSession(MainWidgetGroup *group, int groupIndex, c
     sessionsWindow->setName(name);
     QFileInfo workingDirectoryInfo(workingDirectory);
     sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
-    sessionsWindow->startLocalShellSession(command,SessionsWindow::WSL);
+    sessionsWindow->startLocalShellSession(command,globalOptionsWindow->getPowerShellProfile(),SessionsWindow::WSL);
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4539,7 +4543,11 @@ int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,Sessi
                 checkSessionName(name);
             }
             sessionsWindowClone->setName(name);
+        #if defined(Q_OS_WIN)
+            sessionsWindowClone->cloneSession(sessionsWindow,globalOptionsWindow->getPowerShellProfile());
+        #else
             sessionsWindowClone->cloneSession(sessionsWindow);
+        #endif
             sessionList.push_back(sessionsWindowClone);
             connect(sessionsWindowClone, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
                 if(title == 0 || title == 2) {

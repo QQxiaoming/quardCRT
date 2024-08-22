@@ -83,6 +83,41 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_32">
+     <item>
+      <widget class="QLabel" name="labelPowerShellProfile">
+       <property name="text">
+        <string>PowerShell Profile</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditPowerShellProfile">
+       <property name="toolTip">
+        <string>Set the PowerShell profile path</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="toolButtonPowerShellProfile">
+       <property name="toolTip">
+        <string>Choose the PowerShell profile path</string>
+       </property>
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonPowerShellProfile">
+       <property name="text">
+        <string>Open</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <property name="spacing">
       <number>4</number>
@@ -186,11 +221,11 @@
    </item>
    <item>
     <widget class="QCheckBox" name="checkBoxEnableCtrlC">
-     <property name="text">
-      <string>Enable Ctrl+C for copy mode</string>
-     </property>
      <property name="toolTip">
       <string>Enable Ctrl+C for copy when characters are selected</string>
+     </property>
+     <property name="text">
+      <string>Enable Ctrl+C for copy mode</string>
      </property>
     </widget>
    </item>
@@ -217,7 +252,7 @@
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

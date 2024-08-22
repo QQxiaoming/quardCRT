@@ -11,6 +11,7 @@
 - Add custom color feature to the highlight
 - Allow editing the text to be pasted when confirming multiple lines of paste
 - Allow the tab title to display a custom session name
+- Add custom Local Shell Profile path feature for Windows
 - Fix the issue that clicking the new tab button in split screen mode may not create the session correctly or be located under the wrong tab group
 - Fix the issue that the SSH connection cannot be reconnected by tapping the Enter key in some cases
 - Fix the issue that the target session object is inaccurate when locking/unlocking the session

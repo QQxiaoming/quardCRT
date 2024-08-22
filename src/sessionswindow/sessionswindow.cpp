@@ -756,11 +756,11 @@ void SessionsWindow::preprocesseData(QByteArray &data) {
     }
 }
 
-void SessionsWindow::cloneSession(SessionsWindow *src) {
+void SessionsWindow::cloneSession(SessionsWindow *src, QString profile) {
     switch(src->getSessionType()) {
         case LocalShell: {
             setWorkingDirectory(src->getWorkingDirectory());
-            startLocalShellSession(src->m_command, src->getShellType());
+            startLocalShellSession(src->m_command, profile, src->getShellType());
             break;
         case Telnet:
             startTelnetSession(src->m_hostname, src->m_port, src->m_type);
@@ -788,19 +788,20 @@ void SessionsWindow::cloneSession(SessionsWindow *src) {
     }  
 }
 
-int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp) {
+int SessionsWindow::startLocalShellSession(const QString &command,QString profile, ShellType sTp) {
     QString shellPath;
     QStringList args;
     shellType = sTp;
     if(command.isEmpty()) {
     #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+        Q_UNUSED(profile);
         GlobalSetting settings;
         QString defaultLocalShell = settings.value("Global/Options/DefaultLocalShell", "ENV:SHELL").toString();
         if(defaultLocalShell != "ENV:SHELL") {
             QFileInfo shellInfo(defaultLocalShell);
             if(shellInfo.isExecutable()) {
                 shellPath = defaultLocalShell;
-            } 
+            }
         }
         if(shellPath.isEmpty()) shellPath = qEnvironmentVariable("SHELL");
         if(shellPath.isEmpty()) shellPath = "/bin/sh";
@@ -825,8 +826,13 @@ int SessionsWindow::startLocalShellSession(const QString &command, ShellType sTp
                     "-NoProfile",
                     "-NoExit",
                     "-File",
-                    "\"" + QApplication::applicationDirPath() + "/Profile.ps1\""
                 };
+                if(profile.isEmpty()) {
+                    profile = QString("\"") + QApplication::applicationDirPath() + "/Profile.ps1\"";
+                } else {
+                    profile = QString("\"") + profile + "\"";
+                }
+                args.append(profile);
                 break;
             }
             case WSL:

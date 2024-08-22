@@ -31,6 +31,17 @@ GlobalOptionsAdvancedWidget::GlobalOptionsAdvancedWidget(QWidget *parent) :
 #else
     ui->checkBoxEnableCtrlC->setVisible(false);
 #endif
+#if defined(Q_OS_WIN)
+    ui->labelPowerShellProfile->setVisible(true);
+    ui->lineEditPowerShellProfile->setVisible(true);
+    ui->toolButtonPowerShellProfile->setVisible(true);
+    ui->pushButtonPowerShellProfile->setVisible(true);
+#else
+    ui->labelPowerShellProfile->setVisible(false);
+    ui->lineEditPowerShellProfile->setVisible(false);
+    ui->toolButtonPowerShellProfile->setVisible(false);
+    ui->pushButtonPowerShellProfile->setVisible(false);
+#endif
 }
 
 GlobalOptionsAdvancedWidget::~GlobalOptionsAdvancedWidget()

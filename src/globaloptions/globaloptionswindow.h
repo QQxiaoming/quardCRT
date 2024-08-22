@@ -79,6 +79,9 @@ public:
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     bool getEnableCtrlC(void);
 #endif
+#if defined(Q_OS_WIN)
+    QString getPowerShellProfile(void);
+#endif
     bool updateColorButtons(const QString &text);
     void switchTheme(void);
 
