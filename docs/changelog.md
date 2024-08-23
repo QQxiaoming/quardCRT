@@ -16,6 +16,7 @@
 - Fix the issue that the SSH connection cannot be reconnected by tapping the Enter key in some cases
 - Fix the issue that the target session object is inaccurate when locking/unlocking the session
 - Fix the issue that some functions in the context menu of the floating window cannot be used
+- Update pre-built plugin [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp) to V0.0.3
 
 ## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
 
