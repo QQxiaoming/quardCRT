@@ -4,6 +4,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.5.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.0)] - 2024-08-26
+
 - Add Python scripting engine for scripting feature [#31](https://github.com/QQxiaoming/quardCRT/pull/31)
 - Add the feature of selecting end-of-line sequence
 - Add status bar log information, SSH ciphers information
