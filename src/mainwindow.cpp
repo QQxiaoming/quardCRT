@@ -4293,7 +4293,7 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group, int groupIndex,
     int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
     connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
-        name = "SSH2";
+        name = hostname;
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
@@ -4334,7 +4334,7 @@ QString CentralWidget::startVNCSession(MainWidgetGroup *group, int groupIndex, Q
     int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
     connectSessionStateChange(group->sessionTab,index,sessionsWindow);
     if(name.isEmpty()) {
-        name = "VNC";
+        name = hostname;
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
@@ -4351,6 +4351,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
         QString name = data.TelnetData.hostname;
         if(data.openInTab) {
             name = startTelnetSession(group,groupIndex,name,data.TelnetData.port,type);
+        } else {
+            checkSessionName(name);
         }
         if(data.saveSession) {
             addSessionToSessionManager(data,name, !data.openInTab);
@@ -4363,6 +4365,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
                         data.SerialData.dataBits,data.SerialData.parity,
                         data.SerialData.stopBits,data.SerialData.flowControl,
                         data.SerialData.xEnable);
+        } else {
+            checkSessionName(name);
         }
         if(data.saveSession) {
             addSessionToSessionManager(data,name, !data.openInTab);
@@ -4371,6 +4375,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
         QString name = "Local Shell";
         if(data.openInTab) {
             name = startLocalShellSession(group,groupIndex,data.LocalShellData.command,globalOptionsWindow->getNewTabWorkPath());
+        } else {
+            checkSessionName(name);
         }
         if(data.saveSession) {
             addSessionToSessionManager(data,name, !data.openInTab);
@@ -4379,6 +4385,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
         QString name = data.RawData.hostname;
         if(data.openInTab) {
             name = startRawSocketSession(group,groupIndex,name,data.RawData.port);
+        } else {
+            checkSessionName(name);
         }
         if(data.saveSession) {
             addSessionToSessionManager(data,name, !data.openInTab);
@@ -4387,6 +4395,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
         QString name = data.NamePipeData.pipeName;
         if(data.openInTab) {
             name = startNamePipeSession(group,groupIndex,name);
+        } else {
+            checkSessionName(name);
         }
         if(data.saveSession) {
             addSessionToSessionManager(data,name, !data.openInTab);
@@ -4395,6 +4405,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
         QString name = data.SSH2Data.hostname;
         if(data.openInTab) {
             name = startSSH2Session(group,groupIndex,name,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password);
+        } else {
+            checkSessionName(name);
         }
         if(data.saveSession) {
             addSessionToSessionManager(data,name, !data.openInTab);
@@ -4403,6 +4415,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
         QString name = data.VNCData.hostname;
         if(data.openInTab) {
             name = startVNCSession(group,groupIndex,name,data.VNCData.port,data.VNCData.password);
+        } else {
+            checkSessionName(name);
         }
         if(data.saveSession) {
             addSessionToSessionManager(data,name, !data.openInTab);

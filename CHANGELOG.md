@@ -16,6 +16,7 @@ en-US:
 - Fix the issue that the SSH connection cannot be reconnected by tapping the Enter key in some cases
 - Fix the issue that the target session object is inaccurate when locking/unlocking the session
 - Fix the issue that some functions in the context menu of the floating window cannot be used
+- Fix the issue of inconsistent new session names in different situations [#45](https://github.com/QQxiaoming/quardCRT/issues/45)
 - Update pre-built plugin [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp) to V0.0.3
 
 zh-CN:
@@ -32,6 +33,7 @@ zh-CN:
 - 修复ssh连接部分情况下无法通过敲击回车键发起重连的问题
 - 修复锁定/解锁会话时目标会话对象不准确
 - 修复浮动窗口上下文菜单中部分功能无法使用的问题
+- 修复不同情况下新建会话名称不一致问题 [#45](https://github.com/QQxiaoming/quardCRT/issues/45)
 - 更新预构建插件[timestamp](https://github.com/QuardCRT-platform/plugin-timestamp)到V0.0.3版本，更新预构建插件CharacterCode到V0.0.4版本
 
 ## [[V0.4.8](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.4.8)] - 2024-07-26
