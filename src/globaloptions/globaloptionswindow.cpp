@@ -651,6 +651,17 @@ bool GlobalOptionsWindow::getEnableCtrlC(void)
 #if defined(Q_OS_WIN)
 QString GlobalOptionsWindow::getPowerShellProfile(void) 
 {
+    GlobalSetting settings;
+    QString profile = settings.value("Global/Options/PowerShellProfile", QApplication::applicationDirPath() + "/Profile.ps1").toString();
+    if (!profile.isEmpty()) {
+        QFileInfo profileInfo(profile);
+        if(!profileInfo.exists() || !profileInfo.isFile()) {
+            globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(QApplication::applicationDirPath() + "/Profile.ps1");
+        }
+    } else {
+        globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(QApplication::applicationDirPath() + "/Profile.ps1");
+    }
+    settings.setValue("Global/Options/PowerShellProfile", globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text());
     return globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text();
 }
 #endif
