@@ -1655,6 +1655,7 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     disconnectAction->setStatusTip(tr("Disconnect current session"));
     connectAddressEdit->setPlaceholderText(tr("Enter host <Alt+R> to connect"));
     connectAddressEdit->setStatusTip(tr("Enter host <Alt+R> to connect"));
+    connectAddressEdit->setToolTip(tr("Enter host <Alt+R> to connect"));
     disconnectAllAction->setText(tr("Disconnect All"));
     disconnectAllAction->setStatusTip(tr("Disconnect all sessions"));
     cloneSessionAction->setText(tr("Clone Session"));
