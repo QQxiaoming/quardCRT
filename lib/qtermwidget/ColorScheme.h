@@ -18,11 +18,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
 #ifndef COLORSCHEME_H
 #define COLORSCHEME_H
 
-// Qt
 #include <QHash>
 #include <QList>
 #include <QMetaType>
@@ -30,14 +28,9 @@
 #include <QSet>
 #include <QSettings>
 
-// Konsole
 #include "CharacterColor.h"
 
 class QIODevice;
-//class KConfig;
-
-namespace Konsole
-{
 
 /**
  * Represents a color scheme for a terminal display.
@@ -310,8 +303,6 @@ private:
     static const ColorScheme _defaultColorScheme;
 };
 
-}
-
-Q_DECLARE_METATYPE(const Konsole::ColorScheme*)
+Q_DECLARE_METATYPE(const ColorScheme*)
 
 #endif //COLORSCHEME_H

@@ -20,13 +20,10 @@
     02110-1301  USA.
 
 */
-
 #include <QtDebug>
 
-// Own
 #include "BlockArray.h"
 
-// System
 #if defined(Q_OS_WIN)
 #include <windows.h>
 #if defined(Q_CC_GNU)
@@ -47,9 +44,6 @@
 #include <unistd.h>
 #endif
 #include <cstdio>
-
-
-using namespace Konsole;
 
 static int blocksize = 0;
 

@@ -24,7 +24,6 @@
 #include "CharWidth.h"
 #include <cwctype>
 
-using namespace Konsole;
 PlainTextDecoder::PlainTextDecoder()
  : _output(nullptr)
  , _includeTrailingWhitespace(true)

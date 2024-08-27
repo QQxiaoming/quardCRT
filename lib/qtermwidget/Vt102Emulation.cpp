@@ -19,7 +19,6 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
 #include "Vt102Emulation.h"
 #include "tools.h"
 #include <string>
@@ -34,9 +33,6 @@
 #include "KeyboardTranslator.h"
 #include "Screen.h"
 
-
-using namespace Konsole;
-
 Vt102Emulation::Vt102Emulation()
     : Emulation(),
      prevCC(0),
@@ -46,7 +42,7 @@ Vt102Emulation::Vt102Emulation()
 {
   _titleUpdateTimer->setSingleShot(true);
   QObject::connect(_titleUpdateTimer, &QTimer::timeout,
-          this, &Konsole::Vt102Emulation::updateTitle);
+          this, &Vt102Emulation::updateTitle);
   
   initTokenizer();
   reset();
@@ -1429,6 +1425,4 @@ void Vt102Emulation::reportDecodingError()
     return;
   qCDebug(qtermwidgetLogger) << "Undecodable sequence:" << QString::fromWCharArray(tokenBuffer, tokenBufferPos);
 }
-
-//#include "Vt102Emulation.moc"
 

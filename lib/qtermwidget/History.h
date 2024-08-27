@@ -21,7 +21,6 @@
 #ifndef TEHISTORY_H
 #define TEHISTORY_H
 
-// Qt
 #include <QBitRef>
 #include <QHash>
 #include <QVector>
@@ -36,9 +35,6 @@
 #include <sys/mman.h>
 #include <sys/param.h>
 #endif
-
-namespace Konsole
-{
 
 #if 1
 /*
@@ -495,7 +491,5 @@ protected:
 
 
 #endif
-
-}
 
 #endif // TEHISTORY_H

@@ -21,8 +21,6 @@
 #include <QtDebug>
 #include "Screen.h"
 
-using namespace Konsole;
-
 ScreenWindow::ScreenWindow(QObject* parent)
     : QObject(parent)
     , _screen(nullptr)
@@ -361,5 +359,3 @@ void ScreenWindow::handleCommandFromKeyboard(KeyboardTranslator::Command command
         Q_EMIT outputChanged();
     }
 }
-
-//#include "ScreenWindow.moc"

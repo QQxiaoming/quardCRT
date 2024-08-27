@@ -28,9 +28,6 @@
 
 class QTextStream;
 
-namespace Konsole
-{
-
 /**
  * Base class for terminal character decoders
  *
@@ -143,7 +140,5 @@ private:
     CharacterColor _lastForeColor;
     CharacterColor _lastBackColor;
 };
-
-}
 
 #endif

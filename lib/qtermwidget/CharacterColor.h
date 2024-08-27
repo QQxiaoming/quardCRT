@@ -19,15 +19,10 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
 #ifndef CHARACTERCOLOR_H
 #define CHARACTERCOLOR_H
 
-// Qt
 #include <QColor>
-
-namespace Konsole
-{
 
 /**
  * An entry in a terminal display's color palette.
@@ -300,8 +295,4 @@ inline void CharacterColor::setIntensive()
   }
 }
 
-
-}
-
 #endif // CHARACTERCOLOR_H
-

@@ -18,15 +18,11 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
-// Own
 #include "KeyboardTranslator.h"
 
-// System
 #include <cctype>
 #include <cstdio>
 
-// Qt
 #include <QBuffer>
 #include <QFile>
 #include <QFileInfo>
@@ -37,9 +33,6 @@
 #include <QRegularExpression>
 
 #include "tools.h"
-
-using namespace Konsole;
-
 
 const QByteArray KeyboardTranslatorManager::defaultTranslatorText(
 "keyboard \"Fallback Key Translator\"\n"

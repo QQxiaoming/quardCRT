@@ -27,9 +27,6 @@
 #include "Character.h"
 #include "KeyboardTranslator.h"
 
-namespace Konsole
-{
-
 class Screen;
 
 /**
@@ -268,5 +265,4 @@ private:
                        // the last call to resetScrollCount()
 };
 
-}
 #endif // SCREENWINDOW_H

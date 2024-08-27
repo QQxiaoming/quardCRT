@@ -30,8 +30,6 @@
 #include "Emulation.h"
 #include "TerminalCharacterDecoder.h"
 
-using namespace Konsole;
-
 typedef QPointer<Emulation> EmulationPtr;
 
 class HistorySearch : public QObject

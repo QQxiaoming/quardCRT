@@ -31,8 +31,6 @@
 #include "Emulation.h"
 #include "History.h"
 
-namespace Konsole {
-
 class Emulation;
 class TerminalDisplay;
 
@@ -51,7 +49,6 @@ class Session : public QObject {
     Q_OBJECT
 
 public:
-    Q_PROPERTY(QString name READ nameTitle)
     Q_PROPERTY(QString keyBindings READ keyBindings WRITE setKeyBindings)
     Q_PROPERTY(QSize size READ size WRITE setSize)
 
@@ -116,32 +113,6 @@ public:
     QString userTitle() const;
 
     /**
-     * This enum describes the contexts for which separate
-     * tab title formats may be specified.
-     */
-    enum TabTitleContext {
-        /** Default tab title format */
-        LocalTabTitle,
-        /**
-         * Tab title format used session currently contains
-         * a connection to a remote computer (via SSH)
-         */
-        RemoteTabTitle
-    };
-    /**
-     * Sets the format used by this session for tab titles.
-     *
-     * @param context The context whose format should be set.
-     * @param format The tab title format.  This may be a mixture
-     * of plain text and dynamic elements denoted by a '%' character
-     * followed by a letter.  (eg. %d for directory).  The dynamic
-     * elements available depend on the @p context
-     */
-    void setTabTitleFormat(TabTitleContext context , const QString & format);
-    /** Returns the format used by this session for tab titles. */
-    QString tabTitleFormat(TabTitleContext context) const;
-
-    /**
      * Sets the type of history store used by this session.
      * Lines of output produced by the terminal are added
      * to the history store.  The type of history store
@@ -197,38 +168,6 @@ public:
     void setKeyBindings(const QString & id);
     /** Returns the name of the key bindings used by this session. */
     QString keyBindings() const;
-
-    /**
-     * This enum describes the available title roles.
-     */
-    enum TitleRole {
-        /** The name of the session. */
-        NameRole,
-        /** The title of the session which is displayed in tabs etc. */
-        DisplayedTitleRole
-    };
-
-    /** Sets the session's title for the specified @p role to @p title. */
-    void setTitle(TitleRole role , const QString & title);
-    /** Returns the session's title for the specified @p role. */
-    QString title(TitleRole role) const;
-    /** Convenience method used to read the name property.  Returns title(Session::NameRole). */
-    QString nameTitle() const {
-        return title(Session::NameRole);
-    }
-
-    /** Sets the name of the icon associated with this session. */
-    void setIconName(const QString & iconName);
-    /** Returns the name of the icon associated with this session. */
-    QString iconName() const;
-
-    /** Sets the text of the icon associated with this session. */
-    void setIconText(const QString & iconText);
-    /** Returns the text of the icon associated with this session. */
-    QString iconText() const;
-
-    /** Flag if the title/icon was changed by user/shell. */
-    bool isTitleChanged() const;
 
     /**
      * Sets whether flow control is enabled for this terminal
@@ -319,7 +258,6 @@ public slots:
     void setUserTitle( int, const QString & caption );
 
 signals:
-
     /** Emitted when the terminal process starts. */
     void started();
 
@@ -410,26 +348,12 @@ signals:
 private slots:
     void onReceiveBlock( const char * buffer, int len );
     void monitorTimerDone();
-
-    void onViewSizeChange(int height, int width);
-    void onEmulationSizeChange(QSize);
-
     void activityStateSet(int);
-
     //automatically detach views from sessions when view is destroyed
     void viewDestroyed(QObject * view);
 
-//  void zmodemReadStatus();
-//  void zmodemReadAndSendBlock();
-//  void zmodemRcvBlock(const char *data, int len);
-//  void zmodemFinished();
-
-    // Relays the signal from Emulation and sets _isPrimaryScreen
-    void onPrimaryScreenInUse(bool use);
-
 private:
     void updateTerminalSize();
-    WId windowId() const;
 
     int            _uniqueIdentifier;
 
@@ -443,114 +367,19 @@ private:
     bool           _masterMode;
     bool           _wantedClose;
     QTimer    *    _monitorTimer;
-
     int            _silenceSeconds;
-
     QString        _nameTitle;
-    QString        _displayTitle;
     QString        _userTitle;
-
-    QString        _localTabTitleFormat;
-    QString        _remoteTabTitleFormat;
-
     QString        _iconName;
     QString        _iconText; // as set by: echo -en '\033]1;IconText\007
     bool           _isTitleChanged; ///< flag if the title/icon was changed by user
     bool           _flowControl;
-    bool           _fullScripting;
-
     int            _sessionId;
-
-    // ZModem
-//  bool           _zmodemBusy;
-//  KProcess*      _zmodemProc;
-//  ZModemDialog*  _zmodemProgress;
-
     // Color/Font Changes by ESC Sequences
-
     QColor         _modifiedBackground; // as set by: echo -en '\033]11;Color\007
-
-    QString        _profileKey;
-
-    bool _hasDarkBackground;
-
-    static int lastSessionId;
-
-    bool _isPrimaryScreen;
+    bool           _hasDarkBackground;
+    bool           _isPrimaryScreen;
+    static int     lastSessionId;
 };
-
-/**
- * Provides a group of sessions which is divided into master and slave sessions.
- * Activity in master sessions can be propagated to all sessions within the group.
- * The type of activity which is propagated and method of propagation is controlled
- * by the masterMode() flags.
- */
-class SessionGroup : public QObject {
-    Q_OBJECT
-
-public:
-    /** Constructs an empty session group. */
-    SessionGroup();
-    /** Destroys the session group and removes all connections between master and slave sessions. */
-    ~SessionGroup() override;
-
-    /** Adds a session to the group. */
-    void addSession( Session * session );
-    /** Removes a session from the group. */
-    void removeSession( Session * session );
-
-    /** Returns the list of sessions currently in the group. */
-    QList<Session *> sessions() const;
-
-    /**
-     * Sets whether a particular session is a master within the group.
-     * Changes or activity in the group's master sessions may be propagated
-     * to all the sessions in the group, depending on the current masterMode()
-     *
-     * @param session The session whose master status should be changed.
-     * @param master True to make this session a master or false otherwise
-     */
-    void setMasterStatus( Session * session , bool master );
-    /** Returns the master status of a session.  See setMasterStatus() */
-    bool masterStatus( Session * session ) const;
-
-    /**
-     * This enum describes the options for propagating certain activity or
-     * changes in the group's master sessions to all sessions in the group.
-     */
-    enum MasterMode {
-        /**
-         * Any input key presses in the master sessions are sent to all
-         * sessions in the group.
-         */
-        CopyInputToAll = 1
-    };
-
-    /**
-     * Specifies which activity in the group's master sessions is propagated
-     * to all sessions in the group.
-     *
-     * @param mode A bitwise OR of MasterMode flags.
-     */
-    void setMasterMode( int mode );
-    /**
-     * Returns a bitwise OR of the active MasterMode flags for this group.
-     * See setMasterMode()
-     */
-    int masterMode() const;
-
-private:
-    void connectPair(Session * master , Session * other) const;
-    void disconnectPair(Session * master , Session * other) const;
-    void connectAll(bool connect);
-    QList<Session *> masters() const;
-
-    // maps sessions to their master status
-    QHash<Session *,bool> _sessions;
-
-    int _masterMode;
-};
-
-}
 
 #endif

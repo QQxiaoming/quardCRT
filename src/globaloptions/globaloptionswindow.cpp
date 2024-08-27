@@ -434,7 +434,7 @@ void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)
     globalOptionsAppearanceWidget->ui->comBoxColorSchemes->addItems(colorSchemes);
     globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->clear();
     globalOptionsAppearanceWidget->ui->comBoxColorSchemesBak->addItems(colorSchemes);
-    const Konsole::ColorScheme *cs = Konsole::ColorSchemeManager::instance()->findColorScheme(defaultColorScheme);
+    const ColorScheme *cs = ColorSchemeManager::instance()->findColorScheme(defaultColorScheme);
     if(cs) cs->getColorTable(table);
 
     GlobalSetting settings;
@@ -883,7 +883,7 @@ bool GlobalOptionsWindow::updateColorButtons(const QString &text) {
     }
 
     if (QTermWidget::availableColorSchemes().contains(text)) {
-        const Konsole::ColorScheme *cs = Konsole::ColorSchemeManager::instance()->findColorScheme(text);
+        const ColorScheme *cs = ColorSchemeManager::instance()->findColorScheme(text);
         if (cs) {
             cs->getColorTable(table);
             for(int i = 0; i < TABLE_COLORS; i++) {

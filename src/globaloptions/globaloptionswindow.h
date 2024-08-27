@@ -117,7 +117,7 @@ private:
     QStringListModel *model;
     QFont font;
     QString cursorColorStr;
-    Konsole::ColorEntry table[TABLE_COLORS];
+    ColorEntry table[TABLE_COLORS];
 };
 
 #endif //GLOBALOPTIONSWINDOW_H

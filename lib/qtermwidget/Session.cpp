@@ -21,14 +21,10 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
-// Own
 #include "Session.h"
 
-// Standard
 #include <cstdlib>
 
-// Qt
 #include <QApplication>
 #include <QDir>
 #include <QFile>
@@ -39,8 +35,6 @@
 
 #include "TerminalDisplay.h"
 #include "Vt102Emulation.h"
-
-using namespace Konsole;
 
 int Session::lastSessionId = 0;
 
@@ -54,7 +48,6 @@ Session::Session(QObject* parent) :
         , _silenceSeconds(10)
         , _isTitleChanged(false)
         , _flowControl(true)
-        , _fullScripting(false)
         , _sessionId(0)
         , _hasDarkBackground(false)
         , _isPrimaryScreen(true)
@@ -64,38 +57,32 @@ Session::Session(QObject* parent) :
     //create emulation backend
     _emulation = new Vt102Emulation();
 
-    connect( _emulation, SIGNAL( titleChanged( int, const QString & ) ),
-             this, SLOT( setUserTitle( int, const QString & ) ) );
-    connect( _emulation, SIGNAL( stateSet(int) ),
-             this, SLOT( activityStateSet(int) ) );
-    connect( _emulation, SIGNAL( changeTabTextColorRequest( int ) ),
-             this, SIGNAL( changeTabTextColorRequest( int ) ) );
-    connect( _emulation, SIGNAL(profileChangeCommandReceived(const QString &)),
-             this, SIGNAL( profileChangeCommandReceived(const QString &)) );
+    connect( _emulation, &Emulation::titleChanged, this, &Session::setUserTitle);
+    connect( _emulation, &Emulation::stateSet, this, &Session::activityStateSet);
+    connect( _emulation, &Emulation::changeTabTextColorRequest, this, &Session::changeTabTextColorRequest);
+    connect( _emulation, &Emulation::profileChangeCommandReceived, this, &Session::profileChangeCommandReceived);
 
-    connect(_emulation, &Konsole::Emulation::primaryScreenInUse,
-            this, &Session::onPrimaryScreenInUse);
-    connect(_emulation, SIGNAL(imageResizeRequest(QSize)),
-            this, SLOT(onEmulationSizeChange(QSize)));
-    connect(_emulation, SIGNAL(imageSizeChanged(int, int)),
-            this, SLOT(onViewSizeChange(int, int)));
-    connect(_emulation, &Vt102Emulation::cursorChanged,
-            this, &Session::cursorChanged);
-
+    connect(_emulation, &Emulation::primaryScreenInUse, this, [this](bool use){
+        _isPrimaryScreen = use;
+        emit primaryScreenInUse(use);
+    });
+    connect(_emulation, &Emulation::imageResizeRequest, this, [this](const QSize& size){
+        setSize(size);
+    });
+    connect(_emulation, &Emulation::imageSizeChanged, this, [this](int /*height*/, int /*width*/){
+        updateTerminalSize();
+    });
+    connect(_emulation, &Vt102Emulation::cursorChanged, this, &Session::cursorChanged);
 
     //setup timer for monitoring session activity
     _monitorTimer = new QTimer(this);
     _monitorTimer->setSingleShot(true);
-    connect(_monitorTimer, SIGNAL(timeout()), this, SLOT(monitorTimerDone()));
+    connect(_monitorTimer, &QTimer::timeout, this, &Session::monitorTimerDone);
 }
 
-WId Session::windowId() const
+Session::~Session()
 {
-    // On Qt5, requesting window IDs breaks QQuickWidget and the likes,
-    // for example, see the following bug reports:
-    // https://bugreports.qt.io/browse/QTBUG-40765
-    // https://codereview.qt-project.org/#/c/94880/
-    return 0;
+    delete _emulation;
 }
 
 void Session::setDarkBackground(bool darkBackground)
@@ -126,36 +113,29 @@ void Session::addView(TerminalDisplay * widget)
 
     if ( _emulation != nullptr ) {
         // connect emulation - view signals and slots
-        connect( widget , &TerminalDisplay::keyPressedSignal, _emulation ,
-                 &Emulation::sendKeyEvent);
-        connect( widget , SIGNAL(mouseSignal(int,int,int,int)) , _emulation ,
-                 SLOT(sendMouseEvent(int,int,int,int)) );
-        connect( widget , SIGNAL(sendStringToEmu(const char *)) , _emulation ,
-                 SLOT(sendString(const char *)) );
+        connect(widget, &TerminalDisplay::keyPressedSignal, _emulation, &Emulation::sendKeyEvent);
+        connect(widget, &TerminalDisplay::mouseSignal, _emulation, &Emulation::sendMouseEvent);
+        connect(widget, &TerminalDisplay::sendStringToEmu, this, [this](const char* s){
+            _emulation->sendString(s);
+        });
 
         // allow emulation to notify view when the foreground process
         // indicates whether or not it is interested in mouse signals
-        connect( _emulation , SIGNAL(programUsesMouseChanged(bool)) , widget ,
-                 SLOT(setUsesMouse(bool)) );
-
-        widget->setUsesMouse( _emulation->programUsesMouse() );
-
-        connect( _emulation , SIGNAL(programBracketedPasteModeChanged(bool)) ,
-                 widget , SLOT(setBracketedPasteMode(bool)) );
-
+        connect(_emulation, &Emulation::programUsesMouseChanged, widget, &TerminalDisplay::setUsesMouse);
+        widget->setUsesMouse(_emulation->programUsesMouse() );
+        connect(_emulation, &Emulation::programBracketedPasteModeChanged, widget, &TerminalDisplay::setBracketedPasteMode);
         widget->setBracketedPasteMode(_emulation->programBracketedPasteMode());
-
         widget->setScreenWindow(_emulation->createWindow());
     }
 
     //connect view signals and slots
-    QObject::connect( widget ,SIGNAL(changedContentSizeSignal(int,int)),this,
-                      SLOT(onViewSizeChange(int,int)));
+    QObject::connect(widget, &TerminalDisplay::changedContentSizeSignal, this, [this](int /*height*/, int /*width*/){
+        updateTerminalSize();
+    });
 
-    QObject::connect( widget ,SIGNAL(destroyed(QObject *)) , this ,
-                      SLOT(viewDestroyed(QObject *)) );
+    QObject::connect(widget, &TerminalDisplay::destroyed, this, &Session::viewDestroyed);
 //slot for close
-    QObject::connect(this, SIGNAL(finished()), widget, SLOT(close()));
+    QObject::connect(this, &Session::finished, widget, &TerminalDisplay::close);
 //slot for primaryScreen
     QObject::connect(this, &Session::primaryScreenInUse, widget, &TerminalDisplay::usingPrimaryScreen);
 }
@@ -223,7 +203,6 @@ void Session::setUserTitle( int what, const QString & caption )
 
     if (what == 11) {
         QString colorString = caption.section(QLatin1Char(';'),0,0);
-        //qDebug() << __FILE__ << __LINE__ << ": setting background colour to " << colorString;
         QColor backColor = QColor(colorString);
         if (backColor.isValid()) { // change color via \033]11;Color\007
             if (backColor != _modifiedBackground) {
@@ -242,7 +221,7 @@ void Session::setUserTitle( int what, const QString & caption )
     if (what == 30) {
         _isTitleChanged = true;
         if ( _nameTitle != caption ) {
-            setTitle(Session::NameRole,caption);
+            _nameTitle=caption;
             return;
         }
     }
@@ -273,28 +252,6 @@ void Session::setUserTitle( int what, const QString & caption )
     }
 }
 
-QString Session::userTitle() const
-{
-    return _userTitle;
-}
-void Session::setTabTitleFormat(TabTitleContext context , const QString & format)
-{
-    if ( context == LocalTabTitle ) {
-        _localTabTitleFormat = format;
-    } else if ( context == RemoteTabTitle ) {
-        _remoteTabTitleFormat = format;
-    }
-}
-QString Session::tabTitleFormat(TabTitleContext context) const
-{
-    if ( context == LocalTabTitle ) {
-        return _localTabTitleFormat;
-    } else if ( context == RemoteTabTitle ) {
-        return _remoteTabTitleFormat;
-    }
-
-    return QString();
-}
 
 void Session::monitorTimerDone()
 {
@@ -349,20 +306,6 @@ void Session::activityStateSet(int state)
     emit stateChanged(state);
 }
 
-void Session::onViewSizeChange(int /*height*/, int /*width*/)
-{
-    updateTerminalSize();
-}
-void Session::onEmulationSizeChange(QSize size)
-{
-    setSize(size);
-}
-
-void Session::onPrimaryScreenInUse(bool use)
-{
-    _isPrimaryScreen = use;
-    emit primaryScreenInUse(use);
-}
 
 void Session::updateTerminalSize()
 {
@@ -426,21 +369,6 @@ void Session::sendKeyEvent(QKeyEvent* e) const
     _emulation->sendKeyEvent(e, false);
 }
 
-Session::~Session()
-{
-    delete _emulation;
-}
-
-void Session::setProfileKey(const QString & key)
-{
-    _profileKey = key;
-    emit profileChanged(key);
-}
-QString Session::profileKey() const
-{
-    return _profileKey;
-}
-
 Emulation * Session::emulation() const
 {
     return _emulation;
@@ -459,58 +387,6 @@ int Session::sessionId() const
 void Session::setKeyBindings(const QString & id)
 {
     _emulation->setKeyBindings(id);
-}
-
-void Session::setTitle(TitleRole role , const QString & newTitle)
-{
-    if ( title(role) != newTitle ) {
-        if ( role == NameRole ) {
-            _nameTitle = newTitle;
-        } else if ( role == DisplayedTitleRole ) {
-            _displayTitle = newTitle;
-        }
-
-        //emit titleChanged();
-    }
-}
-
-QString Session::title(TitleRole role) const
-{
-    if ( role == NameRole ) {
-        return _nameTitle;
-    } else if ( role == DisplayedTitleRole ) {
-        return _displayTitle;
-    } else {
-        return QString();
-    }
-}
-
-void Session::setIconName(const QString & iconName)
-{
-    if ( iconName != _iconName ) {
-        _iconName = iconName;
-        //emit titleChanged();
-    }
-}
-
-void Session::setIconText(const QString & iconText)
-{
-    _iconText = iconText;
-}
-
-QString Session::iconName() const
-{
-    return _iconName;
-}
-
-QString Session::iconText() const
-{
-    return _iconText;
-}
-
-bool Session::isTitleChanged() const
-{
-    return _isTitleChanged;
 }
 
 void Session::setHistoryType(const HistoryType & hType)
@@ -610,123 +486,5 @@ int Session::recvData(const char *buff, int len)
 {
     onReceiveBlock(buff,len);
     return len;
-}
-
-SessionGroup::SessionGroup()
-        : _masterMode(0)
-{
-}
-SessionGroup::~SessionGroup()
-{
-    // disconnect all
-    connectAll(false);
-}
-int SessionGroup::masterMode() const
-{
-    return _masterMode;
-}
-QList<Session *> SessionGroup::sessions() const
-{
-    return _sessions.keys();
-}
-bool SessionGroup::masterStatus(Session * session) const
-{
-    return _sessions[session];
-}
-
-void SessionGroup::addSession(Session * session)
-{
-    _sessions.insert(session,false);
-
-    QListIterator<Session *> masterIter(masters());
-
-    while ( masterIter.hasNext() ) {
-        connectPair(masterIter.next(),session);
-    }
-}
-void SessionGroup::removeSession(Session * session)
-{
-    setMasterStatus(session,false);
-
-    QListIterator<Session *> masterIter(masters());
-
-    while ( masterIter.hasNext() ) {
-        disconnectPair(masterIter.next(),session);
-    }
-
-    _sessions.remove(session);
-}
-void SessionGroup::setMasterMode(int mode)
-{
-    _masterMode = mode;
-
-    connectAll(false);
-    connectAll(true);
-}
-QList<Session *> SessionGroup::masters() const
-{
-    return _sessions.keys(true);
-}
-void SessionGroup::connectAll(bool connect)
-{
-    QListIterator<Session *> masterIter(masters());
-
-    while ( masterIter.hasNext() ) {
-        Session * master = masterIter.next();
-
-        QListIterator<Session *> otherIter(_sessions.keys());
-        while ( otherIter.hasNext() ) {
-            Session * other = otherIter.next();
-
-            if ( other != master ) {
-                if ( connect ) {
-                    connectPair(master,other);
-                } else {
-                    disconnectPair(master,other);
-                }
-            }
-        }
-    }
-}
-void SessionGroup::setMasterStatus(Session * session, bool master)
-{
-    bool wasMaster = _sessions[session];
-    _sessions[session] = master;
-
-    if (wasMaster == master) {
-        return;
-    }
-
-    QListIterator<Session *> iter(_sessions.keys());
-    while (iter.hasNext()) {
-        Session * other = iter.next();
-
-        if (other != session) {
-            if (master) {
-                connectPair(session, other);
-            } else {
-                disconnectPair(session, other);
-            }
-        }
-    }
-}
-
-void SessionGroup::connectPair(Session * master , Session * other) const
-{
-    if ( _masterMode & CopyInputToAll ) {
-        qDebug() << "Connection session " << master->nameTitle() << "to" << other->nameTitle();
-
-        connect( master->emulation() , SIGNAL(sendData(const char *,int)) , other->emulation() ,
-                 SLOT(sendString(const char *,int)) );
-    }
-}
-void SessionGroup::disconnectPair(Session * master , Session * other) const
-{
-    if ( _masterMode & CopyInputToAll ) {
-        qDebug() << "Disconnecting session " << master->nameTitle() << "from" << other->nameTitle();
-
-        disconnect( master->emulation() , SIGNAL(sendData(const char *,int)) , other->emulation() ,
-                    SLOT(sendString(const char *,int)) );
-    }
 }
 

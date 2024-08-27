@@ -48,9 +48,6 @@
 #define MODE_BracketedPaste  (MODES_SCREEN+13)  // Xterm-style bracketed paste mode
 #define MODE_total           (MODES_SCREEN+14)
 
-namespace Konsole
-{
-
 struct CharCodes
 {
   // coding info
@@ -194,7 +191,5 @@ private:
   bool _reportFocusEvents;
   QStringEncoder _toUtf8;
 };
-
-}
 
 #endif // VT102EMULATION_H

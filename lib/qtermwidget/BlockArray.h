@@ -29,8 +29,6 @@
 #define QTERMWIDGET_BLOCKSIZE (1 << 12)
 #define ENTRIES   (QTERMWIDGET_BLOCKSIZE - sizeof(size_t))
 
-namespace Konsole {
-
 struct Block {
     unsigned char data[ENTRIES] = {};
     size_t size = 0;
@@ -119,7 +117,5 @@ private:
     int ion;
     size_t length;
 };
-
-}
 
 #endif

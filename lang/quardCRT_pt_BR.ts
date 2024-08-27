@@ -2900,7 +2900,7 @@ Se você precisar usar outro shell, crie uma sessão através de [conexão rápi
     </message>
 </context>
 <context>
-    <name>Konsole::Session</name>
+    <name>Session</name>
     <message>
         <location filename="../lib/qtermwidget/Session.cpp" line="327"/>
         <source>Bell in session &apos;%1&apos;</source>
@@ -2908,7 +2908,7 @@ Se você precisar usar outro shell, crie uma sessão através de [conexão rápi
     </message>
 </context>
 <context>
-    <name>Konsole::TerminalDisplay</name>
+    <name>TerminalDisplay</name>
     <message>
         <location filename="../lib/qtermwidget/TerminalDisplay.cpp" line="1481"/>
         <source>Size: XXX x XXX</source>
@@ -2936,7 +2936,7 @@ Se você precisar usar outro shell, crie uma sessão através de [conexão rápi
     </message>
 </context>
 <context>
-    <name>Konsole::UrlFilter</name>
+    <name>UrlFilter</name>
     <message>
         <location filename="../lib/qtermwidget/Filter.cpp" line="467"/>
         <source>Follow link (ctrl + click)</source>
@@ -2949,7 +2949,7 @@ Se você precisar usar outro shell, crie uma sessão através de [conexão rápi
     </message>
 </context>
 <context>
-    <name>Konsole::Vt102Emulation</name>
+    <name>Vt102Emulation</name>
     <message>
         <location filename="../lib/qtermwidget/Vt102Emulation.cpp" line="1179"/>
         <source>No keyboard translator available.  The information needed to convert key presses into characters to send to the terminal is missing.</source>

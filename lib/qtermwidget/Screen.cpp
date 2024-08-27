@@ -19,24 +19,18 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
    02110-1301  USA.
    */
-
-// Own
 #include "Screen.h"
 
-// Standard
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <cctype>
 
-// Qt
 #include <QTextStream>
 #include <QDate>
 
 #include "CharWidth.h"
 #include "TerminalCharacterDecoder.h"
-
-using namespace Konsole;
 
 //Macro to convert x,y position on screen to position within an image.
 //

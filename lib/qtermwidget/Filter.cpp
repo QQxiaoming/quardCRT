@@ -17,13 +17,10 @@
     02110-1301  USA.
 */
 
-// Own
 #include "Filter.h"
 
-// System
 #include <iostream>
 
-// Qt
 #include <QAction>
 #include <QApplication>
 #include <QtAlgorithms>
@@ -40,23 +37,16 @@
 #include "CharWidth.h"
 #include "qtermwidget.h"
 
-using namespace Konsole;
-
 FilterChain::~FilterChain()
 {
-    QMutableListIterator<Filter*> iter(*this);
-
-    while ( iter.hasNext() )
-    {
-        Filter* filter = iter.next();
-        iter.remove();
-        delete filter;
-    }
+    while (!isEmpty())
+        delete takeFirst();
 }
 
 void FilterChain::addFilter(Filter* filter)
 {
-    append(filter);
+    if(!containsFilter(filter))
+        append(filter);
 }
 void FilterChain::removeFilter(Filter* filter)
 {
@@ -176,9 +166,7 @@ void TerminalImageFilterChain::setImage(const Character* const image , int lines
     decoder.end();
 }
 
-Filter::Filter() :
-_linePositions(nullptr),
-_buffer(nullptr)
+Filter::Filter() : QObject(nullptr)
 {
 }
 
@@ -187,6 +175,7 @@ Filter::~Filter()
     qDeleteAll(_hotspotList);
     _hotspotList.clear();
 }
+
 void Filter::reset()
 {
     qDeleteAll(_hotspotList);
@@ -321,7 +310,7 @@ void Filter::HotSpot::setColor(const QColor& color)
     _color = color;
 }
 
-RegExpFilter::RegExpFilter()
+RegExpFilter::RegExpFilter() : Filter()
 {
 }
 
@@ -529,7 +518,7 @@ const QRegularExpression UrlFilter::CompleteUrlRegExp(QLatin1Char('(')+
                                             FilePathRegExp.pattern()+
                                            QLatin1Char(')'));
 
-UrlFilter::UrlFilter()
+UrlFilter::UrlFilter() : RegExpFilter()
 {
     setRegExp( CompleteUrlRegExp );
 }
@@ -641,5 +630,3 @@ QList<QAction*> UrlFilter::HotSpot::actions()
 
     return list;
 }
-
-//#include "Filter.moc"

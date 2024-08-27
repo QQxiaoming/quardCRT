@@ -19,25 +19,18 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
 #ifndef EMULATION_H
 #define EMULATION_H
 
-// System
 #include <cstdio>
 
-// Qt
 #include <QKeyEvent>
-//#include <QPointer>
 #include <QStringDecoder>
 #include <QTextStream>
 #include <QTimer>
 #include <QStringEncoder>
 
 #include "KeyboardTranslator.h"
-
-namespace Konsole
-{
 
 class HistoryType;
 class Screen;
@@ -415,7 +408,7 @@ signals:
    * Emitted after receiving the escape sequence which asks to change
    * the terminal emulator's size
    */
-  void imageResizeRequest(const QSize& sizz);
+  void imageResizeRequest(const QSize& size);
 
   /**
    * Emitted when the terminal program requests to change various properties
@@ -531,7 +524,5 @@ private:
   QStringEncoder _fromUtf8;
   QByteArray dupCache;
 };
-
-}
 
 #endif // ifndef EMULATION_H

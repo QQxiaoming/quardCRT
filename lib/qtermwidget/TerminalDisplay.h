@@ -56,29 +56,24 @@ class QHideEvent;
 class QTimerEvent;
 class QWidget;
 
-//class KMenu;
-
-namespace Konsole
+enum MotionAfterPasting
 {
+    // No move screenwindow after pasting
+    NoMoveScreenWindow = 0,
+    // Move start of screenwindow after pasting
+    MoveStartScreenWindow = 1,
+    // Move end of screenwindow after pasting
+    MoveEndScreenWindow = 2
+};
 
-    enum MotionAfterPasting
-    {
-        // No move screenwindow after pasting
-        NoMoveScreenWindow = 0,
-        // Move start of screenwindow after pasting
-        MoveStartScreenWindow = 1,
-        // Move end of screenwindow after pasting
-        MoveEndScreenWindow = 2
-    };
-
-    enum BackgroundMode {
-        None,
-        Stretch,
-        Zoom,
-        Fit,
-        Center,
-        Tile
-    };
+enum BackgroundMode {
+    None,
+    Stretch,
+    Zoom,
+    Fit,
+    Center,
+    Tile
+};
 
 extern unsigned short vt100_graphics[32];
 
@@ -581,7 +576,7 @@ public slots:
         // this is a bad hack, but it works
     #if defined(Q_OS_LINUX)
         this->hide();
-        QTimer::singleShot(100, this, SLOT(show()));
+        QTimer::singleShot(100, this, [this](){ this->show(); });
     #endif
     }
     void setMessageParentWidget(QWidget *parent) { messageParentWidget = parent; }
@@ -1011,7 +1006,5 @@ private:
     QPlainTextEdit *detailedText;
     QDialogButtonBox *buttonBox;
 };
-
-}
 
 #endif // TERMINALDISPLAY_H

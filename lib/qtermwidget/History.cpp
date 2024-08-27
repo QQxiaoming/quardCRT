@@ -18,10 +18,8 @@
     02110-1301  USA.
 */
 
-// Own
 #include "History.h"
 
-// System
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
@@ -39,8 +37,6 @@
 
 // Reasonable line size
 #define LINE_SIZE    1024
-
-using namespace Konsole;
 
 /*
    An arbitrary long scroll.

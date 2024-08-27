@@ -327,12 +327,16 @@ bool UnixPtyProcess::hasChildProcess()
 UnixPtyProcess::pidTree_t UnixPtyProcess::processInfoTree()
 {
     QList<psInfo_t> psInfoList;
-    QString cmd = QString("ps");
+    QString cmd("ps");
     QStringList args = { "-o", "pid,ppid,command", "-ax" };
     QProcess ps;
     ps.start(cmd, args);
-    ps.waitForFinished(-1);
+    bool isOk = ps.waitForFinished();
     QString psResult = ps.readAllStandardOutput();
+    if((!isOk) || psResult.isEmpty()) {
+        pidTree_t tree = { { m_pid, 0, m_shellPath, QStringList() }, QList<pidTree_t>() };
+        return tree;
+    }
     QStringList psLines = psResult.split("\n");
     foreach (QString line, psLines)
     {

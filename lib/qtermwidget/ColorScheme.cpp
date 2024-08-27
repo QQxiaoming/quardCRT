@@ -18,12 +18,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
-// Own
 #include "ColorScheme.h"
 #include "tools.h"
 
-// Qt
 #include <QBrush>
 #include <QFile>
 #include <QFileInfo>
@@ -33,8 +30,6 @@
 #include <QRegularExpression>
 #include <QRandomGenerator>
 #include <QStringView>
-
-using namespace Konsole;
 
 const ColorEntry ColorScheme::defaultTable[TABLE_COLORS] =
  // The following are almost IBM standard color codes, with some slight

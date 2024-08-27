@@ -28,8 +28,9 @@
 #include "Filter.h"
 
 class QVBoxLayout;
-class TermWidgetImpl;
 class SearchBar;
+class Session;
+class TerminalDisplay;
 class QUrl;
 
 class QTermWidget : public QWidget {
@@ -53,7 +54,7 @@ public:
         OpenFromClick = 2
     };
 
-    using KeyboardCursorShape = Konsole::Emulation::KeyboardCursorShape;
+    using KeyboardCursorShape = Emulation::KeyboardCursorShape;
 
     //Creation of widget
     QTermWidget(QWidget *messageParentWidget = nullptr, QWidget *parent = nullptr);
@@ -215,12 +216,6 @@ public:
     void setBidiEnabled(bool enabled);
     bool isBidiEnabled();
 
-    QString title() const;
-    QString icon() const;
-
-    /** True if the title() or icon() was (ever) changed by the session. */
-    bool isTitleChanged() const;
-
     /** change and wrap text corresponding to paste mode **/
     void bracketText(QString& text);
 
@@ -280,82 +275,58 @@ public:
 signals:
     void finished();
     void copyAvailable(bool);
-
     void termGetFocus();
     void termLostFocus();
-
     void termKeyPressed(QKeyEvent *);
-
     void urlActivated(const QUrl&, uint32_t opcode);
-
     void bell(const QString& message);
-
-    void handleCtrlC(void);
-
     void activity();
     void silence();
-
     /**
      * Emitted when emulator send data to the terminal process
      * (redirected for external recipient). It can be used for
      * control and display the remote terminal.
      */
     void sendData(const char *,int);
-
     void dupDisplayOutput(const char* data,int len);
-
     void profileChanged(const QString & profile);
-
     void titleChanged(int title,const QString& newTitle);
-
     void termSizeChange(int lines, int columns);
-
     void mousePressEventForwarded(QMouseEvent* event);
-
     /**
      * Signals that we received new data from the process running in the
      * terminal emulator
      */
     void receivedData(const QString &text);
-
     void zmodemSendDetected();
     void zmodemRecvDetected();
+    void handleCtrlC(void);
 
 public slots:
     // Copy terminal to clipboard
     void copyClipboard();
-
     // Copy terminal to selection
     void copySelection();
-    
     // Paste clipboard to terminal
     void pasteClipboard();
-
     // Paste selection to terminal
     void pasteSelection();
-
     // Select all text
     void selectAll();
-
     // Set zoom
     int zoomIn();
     int zoomOut();
-
     // Set size
     void setSize(const QSize &);
-
     /*! Set named key binding for given widget
      */
     void setKeyBindings(const QString & kb);
-
     /*! Clear the terminal content and move to home position
      */
     void clearScrollback();
     void clearScreen();
     void clear();
-
     void toggleShowSearchBar();
-
     void saveHistory(QIODevice *device, int format = 0, int start = -1, int end = -1);
     void saveHistory(QTextStream *stream, int format = 0, int start = -1, int end = -1);
     void screenShot(QPixmap *pixmap);
@@ -370,25 +341,17 @@ protected slots:
     void selectionChanged(bool textSelected);
 
 private slots:
-    void find();
-    void findNext();
-    void findPrevious();
-    void matchFound(int startColumn, int startLine, int endColumn, int endLine);
-    void noMatchFound();
     /**
      * Emulation::cursorChanged() signal propagates to here and QTermWidget
      * sends the specified cursor states to the terminal display
      */
-    void cursorChanged(Konsole::Emulation::KeyboardCursorShape cursorShape, bool blinkingCursorEnabled);
-    void sizeChange(int lines, int columns){
-        emit termSizeChange(lines, columns);
-    }
+    void cursorChanged(Emulation::KeyboardCursorShape cursorShape, bool blinkingCursorEnabled);
 
 private:
     class HighLightText {
     public:
         HighLightText(const QString& text, const QColor& color) : text(text), color(color) {
-            regExpFilter = new Konsole::RegExpFilter();
+            regExpFilter = new RegExpFilter();
             regExpFilter->setRegExp(QRegularExpression(text));
             regExpFilter->setColor(color);
         }
@@ -397,17 +360,18 @@ private:
         }
         QString text;
         QColor color;
-        Konsole::RegExpFilter *regExpFilter;
+        RegExpFilter *regExpFilter;
     };
     void search(bool forwards, bool next);
     int setZoom(int step);
     QWidget *messageParentWidget = nullptr;
-    TermWidgetImpl * m_impl;
+    TerminalDisplay *m_terminalDisplay = nullptr;
+    Session *m_session = nullptr;
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;
     QList<HighLightText*> m_highLightTexts;
     bool m_echo = false;
-    Konsole::UrlFilter *urlFilter = nullptr;
+    UrlFilter *urlFilter = nullptr;
     bool m_UrlFilterEnable = true;
 };
 

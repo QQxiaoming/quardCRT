@@ -18,11 +18,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
 #ifndef KEYBOARDTRANSLATOR_H
 #define KEYBOARDTRANSLATOR_H
 
-// Qt
 #include <QHash>
 #include <QList>
 #include <QKeySequence>
@@ -31,9 +29,6 @@
 
 class QIODevice;
 class QTextStream;
-
-namespace Konsole
-{
 
 /**
  * A convertor which maps between key sequences pressed by the user and the
@@ -587,10 +582,8 @@ inline void KeyboardTranslator::Entry::setStateMask( States stateMask )
 }
 inline KeyboardTranslator::States KeyboardTranslator::Entry::stateMask() const { return _stateMask; }
 
-}
-
-Q_DECLARE_METATYPE(Konsole::KeyboardTranslator::Entry)
-Q_DECLARE_METATYPE(const Konsole::KeyboardTranslator*)
+Q_DECLARE_METATYPE(KeyboardTranslator::Entry)
+Q_DECLARE_METATYPE(const KeyboardTranslator*)
 
 #endif // KEYBOARDTRANSLATOR_H
 

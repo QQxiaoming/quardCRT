@@ -38,8 +38,6 @@
 #include "TerminalCharacterDecoder.h"
 #include "ScreenWindow.h"
 
-using namespace Konsole;
-
 Emulation::Emulation() :
   _currentScreen(nullptr),
   _keyTranslator(nullptr),
@@ -53,14 +51,14 @@ Emulation::Emulation() :
   _screen[1] = new Screen(40,80);
   _currentScreen = _screen[0];
 
-  QObject::connect(&_bulkTimer1, &QTimer::timeout, this, &Konsole::Emulation::showBulk);
-  QObject::connect(&_bulkTimer2, &QTimer::timeout, this, &Konsole::Emulation::showBulk);
+  QObject::connect(&_bulkTimer1, &QTimer::timeout, this, &Emulation::showBulk);
+  QObject::connect(&_bulkTimer2, &QTimer::timeout, this, &Emulation::showBulk);
 
   // listen for mouse status changes
-  connect(this, &Konsole::Emulation::programUsesMouseChanged,
-          this, &Konsole::Emulation::usesMouseChanged);
-  connect(this, &Konsole::Emulation::programBracketedPasteModeChanged,
-          this, &Konsole::Emulation::bracketedPasteModeChanged);
+  connect(this, &Emulation::programUsesMouseChanged,
+          this, &Emulation::usesMouseChanged);
+  connect(this, &Emulation::programBracketedPasteModeChanged,
+          this, &Emulation::bracketedPasteModeChanged);
 
   connect(this, &Emulation::cursorChanged, this, [this] (KeyboardCursorShape cursorShape, bool blinkingCursorEnabled) {
     emit titleChanged( 50, QString(QLatin1String("CursorShape=%1;BlinkingCursorEnabled=%2"))
@@ -94,11 +92,11 @@ ScreenWindow* Emulation::createWindow()
     window->setScreen(_currentScreen);
     _windows << window;
 
-    connect(window, &Konsole::ScreenWindow::selectionChanged,
-            this, &Konsole::Emulation::bufferedUpdate);
+    connect(window, &ScreenWindow::selectionChanged,
+            this, &Emulation::bufferedUpdate);
 
-    connect(this, &Konsole::Emulation::outputChanged,
-            window, &Konsole::ScreenWindow::notifyOutputChanged);
+    connect(this, &Emulation::outputChanged,
+            window, &ScreenWindow::notifyOutputChanged);
 
     connect(this, &Emulation::handleCommandFromKeyboard,
             window, &ScreenWindow::handleCommandFromKeyboard);
@@ -515,6 +513,4 @@ ExtendedCharTable::~ExtendedCharTable()
 // global instance
 ExtendedCharTable ExtendedCharTable::instance;
 
-
-//#include "Emulation.moc"
 

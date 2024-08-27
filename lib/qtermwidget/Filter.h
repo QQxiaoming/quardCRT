@@ -20,7 +20,6 @@
 #ifndef FILTER_H
 #define FILTER_H
 
-// Qt
 #include <QAction>
 #include <QList>
 #include <QObject>
@@ -29,11 +28,7 @@
 #include <QRegularExpression>
 #include <QColor>
 
-namespace Konsole
-{
-
-typedef unsigned char LineProperty;
-class Character;
+#include "Character.h"
 
 /**
  * A filter processes blocks of text looking for certain patterns (such as URLs or keywords from a list)
@@ -55,6 +50,7 @@ class Character;
  */
 class Filter : public QObject
 {
+    Q_OBJECT
 public:
     /**
     * Represents an area of text which matched the pattern a particular filter has been looking for.
@@ -176,8 +172,8 @@ private:
     QMultiHash<int,HotSpot*> _hotspots;
     QList<HotSpot*> _hotspotList;
 
-    const QList<int>* _linePositions;
-    const QString* _buffer;
+    const QList<int>* _linePositions = nullptr;
+    const QString* _buffer = nullptr;
 };
 
 /**
@@ -189,6 +185,7 @@ private:
  */
 class RegExpFilter : public Filter
 {
+    Q_OBJECT
 public:
     /**
      * Type of hotspot created by RegExpFilter.  The capturedTexts() method can be used to find the text
@@ -398,9 +395,5 @@ private:
     QString* _buffer;
     QList<int>* _linePositions;
 };
-
-}
-
-typedef Konsole::Filter Filter;
 
 #endif //FILTER_H
