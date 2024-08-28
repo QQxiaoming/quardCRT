@@ -39,8 +39,7 @@
 
 FilterChain::~FilterChain()
 {
-    while (!isEmpty())
-        delete takeFirst();
+
 }
 
 void FilterChain::addFilter(Filter* filter)

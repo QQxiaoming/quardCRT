@@ -6,6 +6,7 @@
 
 - Automatically use the default configuration if the Profile does not exist on Windows
 - Add ToolTip to the connection bar
+- Add system beep support
 
 ## [[V0.5.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.0)] - 2024-08-26
 

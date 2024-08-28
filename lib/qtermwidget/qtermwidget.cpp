@@ -51,7 +51,7 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
 
     m_terminalDisplay = new TerminalDisplay(this);
     m_emulation = new Vt102Emulation();
-    m_terminalDisplay->setBellMode(TerminalDisplay::NotifyBell);
+    m_terminalDisplay->setBellMode(TerminalDisplay::SystemBeepBell);
     m_terminalDisplay->setTerminalSizeHint(true);
     m_terminalDisplay->setTripleClickMode(TerminalDisplay::SelectWholeLine);
     m_terminalDisplay->setTerminalSizeStartup(true);
@@ -110,9 +110,9 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     connect( m_emulation, &Emulation::cursorChanged, this, &QTermWidget::cursorChanged);
 
     // That's OK, FilterChain's dtor takes care of UrlFilter.
-    urlFilter = new UrlFilter();
-    connect(urlFilter, &UrlFilter::activated, this, &QTermWidget::urlActivated);
-    m_terminalDisplay->filterChain()->addFilter(urlFilter);
+    m_urlFilter = new UrlFilter();
+    connect(m_urlFilter, &UrlFilter::activated, this, &QTermWidget::urlActivated);
+    m_terminalDisplay->filterChain()->addFilter(m_urlFilter);
     m_UrlFilterEnable = true;
 
     m_searchBar = new SearchBar(this);
@@ -165,8 +165,9 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
 
 QTermWidget::~QTermWidget()
 {
-    setUrlFilterEnabled(true);
+    setUrlFilterEnabled(false);
     clearHighLightTexts();
+    delete m_urlFilter;
     delete m_searchBar;
     emit destroyed();
     delete m_emulation;
@@ -466,7 +467,7 @@ void QTermWidget::monitorTimerDone()
 void QTermWidget::activityStateSet(int state)
 {
     if (state==NOTIFYBELL) {
-        m_terminalDisplay->bell(tr("Bell in session"));
+        m_terminalDisplay->bell("Bell in QTermWidget!");
     } else if (state==NOTIFYACTIVITY) {
         if (m_monitorSilence) {
             m_monitorTimer->start(m_silenceSeconds*1000);
@@ -954,9 +955,9 @@ void QTermWidget::setUrlFilterEnabled(bool enable) {
         return;
     }
     if(enable) {
-        m_terminalDisplay->filterChain()->addFilter(urlFilter);
+        m_terminalDisplay->filterChain()->addFilter(m_urlFilter);
     } else {
-        m_terminalDisplay->filterChain()->removeFilter(urlFilter);
+        m_terminalDisplay->filterChain()->removeFilter(m_urlFilter);
     }
 }
 

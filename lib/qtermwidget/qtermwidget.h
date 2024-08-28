@@ -374,11 +374,11 @@ private:
     QWidget *messageParentWidget = nullptr;
     TerminalDisplay *m_terminalDisplay = nullptr;
     Emulation  *m_emulation = nullptr;
-    SearchBar* m_searchBar;
-    QVBoxLayout *m_layout;
+    SearchBar* m_searchBar = nullptr;
+    QVBoxLayout *m_layout = nullptr;
     QList<HighLightText*> m_highLightTexts;
     bool m_echo = false;
-    UrlFilter *urlFilter = nullptr;
+    UrlFilter *m_urlFilter = nullptr;
     bool m_UrlFilterEnable = true;
     bool m_flowControl = true;
     // Color/Font Changes by ESC Sequences
@@ -386,7 +386,7 @@ private:
     bool m_monitorActivity = false;
     bool m_monitorSilence = false;
     bool m_notifiedActivity = false;
-    QTimer* m_monitorTimer;
+    QTimer* m_monitorTimer = nullptr;
     int m_silenceSeconds = 10;
 };
 
