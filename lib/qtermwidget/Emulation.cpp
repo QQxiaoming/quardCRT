@@ -61,7 +61,7 @@ Emulation::Emulation() :
           this, &Emulation::bracketedPasteModeChanged);
 
   connect(this, &Emulation::cursorChanged, this, [this] (KeyboardCursorShape cursorShape, bool blinkingCursorEnabled) {
-    emit titleChanged( 50, QString(QLatin1String("CursorShape=%1;BlinkingCursorEnabled=%2"))
+    emit profileChangeCommandReceived(QString(QLatin1String("CursorShape=%1;BlinkingCursorEnabled=%2"))
                                .arg(static_cast<int>(cursorShape)).arg(blinkingCursorEnabled) );
   });
 }

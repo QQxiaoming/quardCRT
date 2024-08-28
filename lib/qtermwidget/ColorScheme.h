@@ -77,8 +77,6 @@ public:
      *
      * @param table Array into which the color entries for this color scheme
      * are copied.
-     * @param randomSeed Color schemes may allow certain colors in their
-     * palette to be randomized.  The seed is used to pick the random color.
      */
     void getColorTable(ColorEntry* table) const;
 

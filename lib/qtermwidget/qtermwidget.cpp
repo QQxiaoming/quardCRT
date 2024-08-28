@@ -23,11 +23,11 @@
 #include <QRegularExpression>
 
 #include "ColorTables.h"
-#include "Session.h"
 #include "Screen.h"
 #include "ScreenWindow.h"
 #include "Emulation.h"
 #include "TerminalDisplay.h"
+#include "Vt102Emulation.h"
 #include "KeyboardTranslator.h"
 #include "ColorScheme.h"
 #include "SearchBar.h"
@@ -49,36 +49,66 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     m_layout->setContentsMargins(0, 0, 0, 0);
     setLayout(m_layout);
 
-    m_session = new Session(this);
-    m_session->setCodec(QStringEncoder{QStringConverter::Encoding::Utf8});
-    m_session->setFlowControlEnabled(true);
-    m_session->setHistoryType(HistoryTypeBuffer(1000));
-    m_session->setDarkBackground(true);
-    m_session->setKeyBindings(QString());
-
     m_terminalDisplay = new TerminalDisplay(this);
+    m_emulation = new Vt102Emulation();
     m_terminalDisplay->setBellMode(TerminalDisplay::NotifyBell);
     m_terminalDisplay->setTerminalSizeHint(true);
     m_terminalDisplay->setTripleClickMode(TerminalDisplay::SelectWholeLine);
     m_terminalDisplay->setTerminalSizeStartup(true);
-    m_terminalDisplay->setRandomSeed(m_session->sessionId() * 31);
+
+    connect(m_terminalDisplay, &TerminalDisplay::keyPressedSignal, m_emulation, &Emulation::sendKeyEvent);
+    connect(m_terminalDisplay, &TerminalDisplay::mouseSignal, m_emulation, &Emulation::sendMouseEvent);
+    connect(m_terminalDisplay, &TerminalDisplay::sendStringToEmu, this, [this](const char* s){
+        m_emulation->sendString(s);
+    });
+    connect(m_emulation, &Emulation::stateSet, this, &QTermWidget::activityStateSet);
+    //setup timer for monitoring session activity
+    m_monitorTimer = new QTimer(this);
+    m_monitorTimer->setSingleShot(true);
+    connect(m_monitorTimer, &QTimer::timeout, this, &QTermWidget::monitorTimerDone);
+    // allow emulation to notify view when the foreground process
+    // indicates whether or not it is interested in mouse signals
+    connect(m_emulation, &Emulation::programUsesMouseChanged, m_terminalDisplay, &TerminalDisplay::setUsesMouse);
+    m_terminalDisplay->setUsesMouse(m_emulation->programUsesMouse() );
+    connect(m_emulation, &Emulation::programBracketedPasteModeChanged, m_terminalDisplay, &TerminalDisplay::setBracketedPasteMode);
+    m_terminalDisplay->setBracketedPasteMode(m_emulation->programBracketedPasteMode());
+    m_terminalDisplay->setScreenWindow(m_emulation->createWindow());
+    connect(m_emulation, &Emulation::primaryScreenInUse, m_terminalDisplay, &TerminalDisplay::usingPrimaryScreen);
+    connect(m_emulation, &Emulation::imageSizeChanged, this, [this](int /*height*/, int /*width*/){
+        updateTerminalSize();
+    });
+    connect(m_terminalDisplay, &TerminalDisplay::changedContentSizeSignal, this, [this](int /*height*/, int /*width*/){
+        updateTerminalSize();
+    });
+
+    setFlowControlEnabled(true);
+    m_emulation->setCodec(QStringEncoder{QStringConverter::Encoding::Utf8});
+    m_emulation->setHistory(HistoryTypeBuffer(1000));
+    m_emulation->setKeyBindings(QString());
 
     m_layout->addWidget(m_terminalDisplay);
     m_terminalDisplay->setObjectName("terminalDisplay");
     setMessageParentWidget(messageParentWidget?messageParentWidget:this);
 
-    connect(m_session, &Session::bellRequest, m_terminalDisplay, &TerminalDisplay::bell);
     connect(m_terminalDisplay, &TerminalDisplay::notifyBell, this, &QTermWidget::bell);
     connect(m_terminalDisplay, &TerminalDisplay::handleCtrlC, this, &QTermWidget::handleCtrlC);
     connect(m_terminalDisplay, &TerminalDisplay::changedContentCountSignal, this, &QTermWidget::termSizeChange);
     connect(m_terminalDisplay, &TerminalDisplay::mousePressEventForwarded, this, &QTermWidget::mousePressEventForwarded);
-    connect(m_session, &Session::activity, this, &QTermWidget::activity);
-    connect(m_session, &Session::silence, this, &QTermWidget::silence);
-    connect(m_session, &Session::profileChangeCommandReceived, this, &QTermWidget::profileChanged);
-    connect(m_session, &Session::receivedData, this, &QTermWidget::receivedData);
-    connect(m_session->emulation(), &Emulation::zmodemRecvDetected, this, &QTermWidget::zmodemRecvDetected);
-    connect(m_session->emulation(), &Emulation::zmodemSendDetected, this, &QTermWidget::zmodemSendDetected);
-             
+    connect(m_emulation, &Emulation::profileChangeCommandReceived, this, &QTermWidget::profileChanged);
+    connect(m_emulation, &Emulation::zmodemRecvDetected, this, &QTermWidget::zmodemRecvDetected);
+    connect(m_emulation, &Emulation::zmodemSendDetected, this, &QTermWidget::zmodemSendDetected);
+    connect(m_emulation, &Emulation::titleChanged, this, &QTermWidget::titleChanged);
+    // redirect data from TTY to external recipient
+    connect(m_emulation, &Emulation::sendData, this, [this](const char *buff, int len) {
+        if (m_echo) {
+            recvData(buff, len);
+        }
+        emit sendData(buff, len);
+    });
+    connect( m_emulation, &Emulation::dupDisplayOutput, this, &QTermWidget::dupDisplayOutput);
+    connect( m_emulation, &Emulation::changeTabTextColorRequest, this, &QTermWidget::changeTabTextColorRequest);
+    connect( m_emulation, &Emulation::cursorChanged, this, &QTermWidget::cursorChanged);
+
     // That's OK, FilterChain's dtor takes care of UrlFilter.
     urlFilter = new UrlFilter();
     connect(urlFilter, &UrlFilter::activated, this, &QTermWidget::urlActivated);
@@ -125,14 +155,12 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     setScrollBarPosition(NoScrollBar);
     setKeyboardCursorShape(Emulation::KeyboardCursorShape::BlockCursor);
 
-    m_session->addView(m_terminalDisplay);
-
-    connect(m_session, &Session::resizeRequest, this, [this](const QSize & size){
+    connect(m_emulation, &Emulation::imageResizeRequest, this, [this](const QSize& size){
+        if ((size.width() <= 1) || (size.height() <= 1)) {
+            return;
+        }
         setSize(size);
     });
-    connect(m_session, &Session::finished, this, &QTermWidget::finished);
-    connect(m_session, &Session::titleChanged, this, &QTermWidget::titleChanged);
-    connect(m_session, &Session::cursorChanged, this, &QTermWidget::cursorChanged);
 }
 
 QTermWidget::~QTermWidget()
@@ -141,6 +169,7 @@ QTermWidget::~QTermWidget()
     clearHighLightTexts();
     delete m_searchBar;
     emit destroyed();
+    delete m_emulation;
 }
 
 void QTermWidget::selectionChanged(bool textSelected)
@@ -174,7 +203,7 @@ void QTermWidget::search(bool forwards, bool next)
     regExp.setPatternOptions(m_searchBar->matchCase() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
 
     HistorySearch *historySearch =
-            new HistorySearch(m_session->emulation(), regExp, forwards, startColumn, startLine, this);
+            new HistorySearch(m_emulation, regExp, forwards, startColumn, startLine, this);
     connect(historySearch, &HistorySearch::matchFound, this, [this](int startColumn, int startLine, int endColumn, int endLine){
         ScreenWindow* sw = m_terminalDisplay->screenWindow();
         //qDebug() << "Scroll to" << startLine;
@@ -206,19 +235,6 @@ void QTermWidget::setTerminalSizeHint(bool enabled)
 bool QTermWidget::terminalSizeHint()
 {
     return m_terminalDisplay->terminalSizeHint();
-}
-
-void QTermWidget::startTerminalTeletype()
-{
-    m_session->runEmptyPTY();
-    // redirect data from TTY to external recipient
-    connect( m_session->emulation(), &Emulation::sendData, this, [this](const char *buff, int len) {
-        if (m_echo) {
-            recvData(buff, len);
-        }
-        emit sendData(buff, len);
-    });
-    connect( m_session->emulation(), &Emulation::dupDisplayOutput, this, &QTermWidget::dupDisplayOutput);
 }
 
 void QTermWidget::setTerminalFont(const QFont &font)
@@ -258,9 +274,7 @@ void QTermWidget::setTerminalBackgroundMode(int mode)
 
 void QTermWidget::setTextCodec(QStringEncoder codec)
 {
-    if (!m_session)
-        return;
-    m_session->setCodec(std::move(codec));
+    m_emulation->setCodec(std::move(codec));
 }
 
 void QTermWidget::setColorScheme(const QString& origName)
@@ -301,7 +315,7 @@ void QTermWidget::setColorScheme(const QString& origName)
     ColorEntry table[TABLE_COLORS];
     cs->getColorTable(table);
     m_terminalDisplay->setColorTable(table);
-    m_session->setDarkBackground(cs->hasDarkBackground());
+    m_hasDarkBackground = cs->hasDarkBackground();
 }
 
 QStringList QTermWidget::getAvailableColorSchemes()
@@ -351,16 +365,16 @@ void QTermWidget::setSize(const QSize &size)
 void QTermWidget::setHistorySize(int lines)
 {
     if (lines < 0)
-        m_session->setHistoryType(HistoryTypeFile());
+        m_emulation->setHistory(HistoryTypeFile());
     else if (lines == 0)
-        m_session->setHistoryType(HistoryTypeNone());
+        m_emulation->setHistory(HistoryTypeNone());
     else
-        m_session->setHistoryType(HistoryTypeBuffer(lines));
+        m_emulation->setHistory(HistoryTypeBuffer(lines));
 }
 
 int QTermWidget::historySize() const
 {
-    const HistoryType& currentHistory = m_session->historyType();
+    const HistoryType& currentHistory = m_emulation->history();
 
      if (currentHistory.isEnabled()) {
          if (currentHistory.isUnlimited()) {
@@ -385,12 +399,12 @@ void QTermWidget::scrollToEnd()
 
 void QTermWidget::sendText(const QString &text)
 {
-    m_session->sendText(text);
+    m_emulation->sendText(text);
 }
 
 void QTermWidget::sendKeyEvent(QKeyEvent *e)
 {
-    m_session->sendKeyEvent(e);
+    m_emulation->sendKeyEvent(e, false);
 }
 
 void QTermWidget::resizeEvent(QResizeEvent*)
@@ -402,6 +416,111 @@ void QTermWidget::resizeEvent(QResizeEvent*)
 void QTermWidget::sessionFinished()
 {
     emit finished();
+}
+
+void QTermWidget::updateTerminalSize()
+{
+    int minLines = -1;
+    int minColumns = -1;
+
+    // minimum number of lines and columns that views require for
+    // their size to be taken into consideration ( to avoid problems
+    // with new view widgets which haven't yet been set to their correct size )
+    const int VIEW_LINES_THRESHOLD = 2;
+    const int VIEW_COLUMNS_THRESHOLD = 2;
+
+    //select largest number of lines and columns that will fit in all visible views
+    if ( m_terminalDisplay->isHidden() == false &&
+            m_terminalDisplay->lines() >= VIEW_LINES_THRESHOLD &&
+            m_terminalDisplay->columns() >= VIEW_COLUMNS_THRESHOLD ) {
+        minLines = (minLines == -1) ? m_terminalDisplay->lines() : qMin( minLines , m_terminalDisplay->lines() );
+        minColumns = (minColumns == -1) ? m_terminalDisplay->columns() : qMin( minColumns , m_terminalDisplay->columns() );
+    }
+
+    // backend emulation must have a _terminal of at least 1 column x 1 line in size
+    if ( minLines > 0 && minColumns > 0 ) {
+        m_emulation->setImageSize( minLines , minColumns );
+    }
+}
+
+void QTermWidget::monitorTimerDone()
+{
+    //FIXME: The idea here is that the notification popup will appear to tell the user than output from
+    //the terminal has stopped and the popup will disappear when the user activates the session.
+    //
+    //This breaks with the addition of multiple views of a session.  The popup should disappear
+    //when any of the views of the session becomes active
+
+
+    //FIXME: Make message text for this notification and the activity notification more descriptive.
+    if (m_monitorSilence) {
+        emit silence();
+        emit stateChanged(NOTIFYSILENCE);
+    } else {
+        emit stateChanged(NOTIFYNORMAL);
+    }
+
+    m_notifiedActivity=false;
+}
+
+void QTermWidget::activityStateSet(int state)
+{
+    if (state==NOTIFYBELL) {
+        m_terminalDisplay->bell(tr("Bell in session"));
+    } else if (state==NOTIFYACTIVITY) {
+        if (m_monitorSilence) {
+            m_monitorTimer->start(m_silenceSeconds*1000);
+        }
+
+        if ( m_monitorActivity ) {
+            //FIXME:  See comments in Session::monitorTimerDone()
+            if (!m_notifiedActivity) {
+                m_notifiedActivity=true;
+                emit activity();
+            }
+        }
+    }
+
+    if ( state==NOTIFYACTIVITY && !m_monitorActivity ) {
+        state = NOTIFYNORMAL;
+    }
+    if ( state==NOTIFYSILENCE && !m_monitorSilence ) {
+        state = NOTIFYNORMAL;
+    }
+
+    emit stateChanged(state);
+}
+
+void QTermWidget::setMonitorActivity(bool enabled)
+{
+    m_monitorActivity=enabled;
+    m_notifiedActivity=false;
+
+    activityStateSet(NOTIFYNORMAL);
+}
+
+void QTermWidget::setMonitorSilence(bool enabled)
+{
+    if (m_monitorSilence==enabled) {
+        return;
+    }
+
+    m_monitorSilence=enabled;
+    if (m_monitorSilence) {
+        m_monitorTimer->start(m_silenceSeconds*1000);
+    } else {
+        m_monitorTimer->stop();
+    }
+
+    activityStateSet(NOTIFYNORMAL);
+}
+
+void QTermWidget::setSilenceTimeout(int seconds)
+{
+    m_silenceSeconds=seconds;
+    if (m_monitorSilence) {
+        m_monitorTimer->start(m_silenceSeconds*1000);
+    }
 }
 
 void QTermWidget::bracketText(QString& text)
@@ -465,7 +584,7 @@ int QTermWidget::zoomOut()
 
 void QTermWidget::setKeyBindings(const QString & kb)
 {
-    m_session->setKeyBindings(kb);
+    m_emulation->setKeyBindings(kb);
 }
 
 void QTermWidget::clear()
@@ -476,23 +595,34 @@ void QTermWidget::clear()
 
 void QTermWidget::clearScrollback()
 {
-    m_session->clearHistory();
+    m_emulation->clearHistory();
 }
 
 void QTermWidget::clearScreen()
 {
-    m_session->emulation()->reset();
-    m_session->refresh();
+    m_emulation->reset();
+    /**
+     * TODO:
+     * Attempts to get the shell program to redraw the current display area.
+     * This can be used after clearing the screen, for example, to get the
+     * shell to redraw the prompt line.
+     */
 }
 
 void QTermWidget::setFlowControlEnabled(bool enabled)
 {
-    m_session->setFlowControlEnabled(enabled);
+    if (m_flowControl == enabled) {
+        return;
+    }
+
+    m_flowControl = enabled;
+
+    emit flowControlEnabledChanged(enabled);
 }
 
 bool QTermWidget::flowControlEnabled(void)
 {
-    return m_session->flowControlEnabled();
+    return m_flowControl;
 }
 
 void QTermWidget::setFlowControlWarningEnabled(bool enabled)
@@ -510,7 +640,7 @@ QStringList QTermWidget::availableKeyBindings()
 
 QString QTermWidget::keyBindings()
 {
-    return m_session->keyBindings();
+    return m_emulation->keyBindings();
 }
 
 void QTermWidget::toggleShowSearchBar()
@@ -568,21 +698,6 @@ QString QTermWidget::selectedText(bool preserveLineBreaks)
     return m_terminalDisplay->screenWindow()->screen()->selectedText(preserveLineBreaks);
 }
 
-void QTermWidget::setMonitorActivity(bool enabled)
-{
-    m_session->setMonitorActivity(enabled);
-}
-
-void QTermWidget::setMonitorSilence(bool enabled)
-{
-    m_session->setMonitorSilence(enabled);
-}
-
-void QTermWidget::setSilenceTimeout(int seconds)
-{
-    m_session->setMonitorSilenceSeconds(seconds);
-}
-
 Filter::HotSpot* QTermWidget::getHotSpotAt(const QPoint &pos) const
 {
     int row = 0, column = 0;
@@ -602,7 +717,8 @@ QList<QAction*> QTermWidget::filterActions(const QPoint& position)
 
 int QTermWidget::recvData(const char *buff, int len) const
 {
-    return m_session->recvData(buff,len);
+    m_emulation->receiveData( buff, len );
+    return len;
 }
 
 void QTermWidget::setKeyboardCursorShape(KeyboardCursorShape shape)
@@ -660,9 +776,9 @@ void QTermWidget::saveHistory(QTextStream *stream, int format, int start, int en
         start = 0;
     }
     if(end < 0) {
-        end = m_session->emulation()->lineCount();
+        end = m_emulation->lineCount();
     }
-    m_session->emulation()->writeToStream(decoder, start, end);
+    m_emulation->writeToStream(decoder, start, end);
     delete decoder;
 }
 
@@ -798,7 +914,7 @@ void QTermWidget::setShowResizeNotificationEnabled(bool enabled) {
 }
 
 void QTermWidget::setEnableHandleCtrlC(bool enable) {
-    m_session->emulation()->setEnableHandleCtrlC(enable);
+    m_emulation->setEnableHandleCtrlC(enable);
 }
 
 int QTermWidget::lines() {

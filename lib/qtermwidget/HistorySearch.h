@@ -24,7 +24,6 @@
 #include <QMap>
 #include <QRegularExpression>
 
-#include <Session.h>
 #include <ScreenWindow.h>
 
 #include "Emulation.h"

@@ -24,6 +24,7 @@
 #include <QLocale>
 #include <QWidget>
 #include <QClipboard>
+#include <QTimer>
 #include "Emulation.h"
 #include "Filter.h"
 
@@ -31,6 +32,7 @@ class QVBoxLayout;
 class SearchBar;
 class Session;
 class TerminalDisplay;
+class Emulation;
 class QUrl;
 
 class QTermWidget : public QWidget {
@@ -67,13 +69,6 @@ public:
     // expose TerminalDisplay::TerminalSizeHint, setTerminalSizeHint
     void setTerminalSizeHint(bool enabled);
     bool terminalSizeHint();
-
-    /**
-     * Start terminal teletype as is
-     * and redirect data for external recipient.
-     * It can be used for display and control a remote terminal.
-     */
-    void startTerminalTeletype();
 
     //look-n-feel, if you don`t like defaults
 
@@ -283,6 +278,19 @@ signals:
     void activity();
     void silence();
     /**
+     * Emitted when the activity state of this session changes.
+     *
+     * @param state The new state of the session.  This may be one
+     * of NOTIFYNORMAL, NOTIFYSILENCE or NOTIFYACTIVITY
+     */
+    void stateChanged(int state);
+    /**
+     * Emitted when the flow control state changes.
+     *
+     * @param enabled True if flow control is enabled or false otherwise.
+     */
+    void flowControlEnabledChanged(bool enabled);
+    /**
      * Emitted when emulator send data to the terminal process
      * (redirected for external recipient). It can be used for
      * control and display the remote terminal.
@@ -291,13 +299,9 @@ signals:
     void dupDisplayOutput(const char* data,int len);
     void profileChanged(const QString & profile);
     void titleChanged(int title,const QString& newTitle);
+    void changeTabTextColorRequest(int);
     void termSizeChange(int lines, int columns);
     void mousePressEventForwarded(QMouseEvent* event);
-    /**
-     * Signals that we received new data from the process running in the
-     * terminal emulator
-     */
-    void receivedData(const QString &text);
     void zmodemSendDetected();
     void zmodemRecvDetected();
     void handleCtrlC(void);
@@ -338,7 +342,10 @@ protected:
 
 protected slots:
     void sessionFinished();
+    void updateTerminalSize();
     void selectionChanged(bool textSelected);
+    void monitorTimerDone();
+    void activityStateSet(int);
 
 private slots:
     /**
@@ -366,13 +373,21 @@ private:
     int setZoom(int step);
     QWidget *messageParentWidget = nullptr;
     TerminalDisplay *m_terminalDisplay = nullptr;
-    Session *m_session = nullptr;
+    Emulation  *m_emulation = nullptr;
     SearchBar* m_searchBar;
     QVBoxLayout *m_layout;
     QList<HighLightText*> m_highLightTexts;
     bool m_echo = false;
     UrlFilter *urlFilter = nullptr;
     bool m_UrlFilterEnable = true;
+    bool m_flowControl = true;
+    // Color/Font Changes by ESC Sequences
+    bool m_hasDarkBackground = true;
+    bool m_monitorActivity = false;
+    bool m_monitorSilence = false;
+    bool m_notifiedActivity = false;
+    QTimer* m_monitorTimer;
+    int m_silenceSeconds = 10;
 };
 
 #endif

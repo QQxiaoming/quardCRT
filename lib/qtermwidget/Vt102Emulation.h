@@ -83,6 +83,15 @@ public:
   void reset() override;
   char eraseChar() const override;
 
+signals:
+  /**
+    * Requests that the background color of views on this session
+    * should be changed.
+    */
+  void changeBackgroundColorRequest(const QColor &);
+  /** TODO: Document me. */
+  void openUrlRequest(const QString & url);
+
 public slots:
   // reimplemented from Emulation
   void sendString(const char*,int length = -1) override;
@@ -104,6 +113,7 @@ private slots:
   void updateTitle();
 
 private:
+  void doTitleChanged( int what, const QString & caption );
   wchar_t applyCharset(wchar_t c);
   void setCharset(int n, int cs);
   void useCharset(int n);
@@ -190,6 +200,13 @@ private:
 
   bool _reportFocusEvents;
   QStringEncoder _toUtf8;
+
+  bool _isTitleChanged; ///< flag if the title/icon was changed by user
+  QString _userTitle;
+  QString _iconText; // as set by: echo -en '\033]1;IconText\007
+  QString _nameTitle;
+  QString _iconName;
+  QColor _modifiedBackground; // as set by: echo -en '\033]11;Color\007
 };
 
 #endif // VT102EMULATION_H

@@ -90,7 +90,6 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         term->setScrollBarPosition(QTermWidget::ScrollBarRight);
         term->setBlinkingCursor(true);
         term->setMargin(0);
-        term->startTerminalTeletype();
         term->setDrawLineChars(false);
         term->setSelectionOpacity(0.5);
 

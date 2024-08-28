@@ -324,7 +324,6 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
 ,_contentHeight(1)
 ,_contentWidth(1)
 ,_image(nullptr)
-,_randomSeed(0)
 ,_resizing(false)
 ,_terminalSizeHint(false)
 ,_terminalSizeStartup(true)
@@ -1088,9 +1087,6 @@ void TerminalDisplay::drawTextFragment(QPainter& painter ,
       }
     }
 }
-
-void TerminalDisplay::setRandomSeed(uint randomSeed) { _randomSeed = randomSeed; }
-uint TerminalDisplay::randomSeed() const { return _randomSeed; }
 
 #if 0
 /*!

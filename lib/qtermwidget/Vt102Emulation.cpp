@@ -28,6 +28,8 @@
 #include <QKeyEvent>
 #include <QClipboard>
 #include <QApplication>
+#include <QDir>
+#include <QRegularExpression>
 #include <QDebug>
 
 #include "KeyboardTranslator.h"
@@ -38,7 +40,8 @@ Vt102Emulation::Vt102Emulation()
      prevCC(0),
      _titleUpdateTimer(new QTimer(this)),
      _reportFocusEvents(false),
-     _toUtf8(QStringEncoder::Utf8)
+     _toUtf8(QStringEncoder::Utf8),
+     _isTitleChanged(false)
 {
   _titleUpdateTimer->setSingleShot(true);
   QObject::connect(_titleUpdateTimer, &QTimer::timeout,
@@ -461,9 +464,76 @@ void Vt102Emulation::updateTitle()
     QListIterator<int> iter( _pendingTitleUpdates.keys() );
     while (iter.hasNext()) {
         int arg = iter.next();
-        emit titleChanged( arg , _pendingTitleUpdates[arg] );
+        doTitleChanged( arg , _pendingTitleUpdates[arg] );
     }
     _pendingTitleUpdates.clear();
+}
+
+void Vt102Emulation::doTitleChanged( int what, const QString & caption )
+{
+    //set to true if anything is actually changed (eg. old _nameTitle != new _nameTitle )
+    bool modified = false;
+
+    // (btw: what=0 changes _userTitle and icon, what=1 only icon, what=2 only _nameTitle
+    if ((what == 0) || (what == 2)) {
+        _isTitleChanged = true;
+        if ( _userTitle != caption ) {
+            _userTitle = caption;
+            modified = true;
+        }
+    }
+
+    if ((what == 0) || (what == 1)) {
+        _isTitleChanged = true;
+        if ( _iconText != caption ) {
+            _iconText = caption;
+            modified = true;
+        }
+    }
+
+    if (what == 11) {
+        QString colorString = caption.section(QLatin1Char(';'),0,0);
+        QColor backColor = QColor(colorString);
+        if (backColor.isValid()) { // change color via \033]11;Color\007
+            if (backColor != _modifiedBackground) {
+                _modifiedBackground = backColor;
+                emit changeBackgroundColorRequest(backColor);
+            }
+        }
+    }
+
+    if (what == 30) {
+        _isTitleChanged = true;
+        if ( _nameTitle != caption ) {
+            _nameTitle=caption;
+            return;
+        }
+    }
+
+    if (what == 31) {
+        QString cwd=caption;
+        cwd=cwd.replace( QRegularExpression(QLatin1String("^~")), QDir::homePath() );
+        emit openUrlRequest(cwd);
+    }
+
+    // change icon via \033]32;Icon\007
+    if (what == 32) {
+        _isTitleChanged = true;
+        if ( _iconName != caption ) {
+            _iconName = caption;
+
+            modified = true;
+        }
+    }
+
+    if (what == 50) {
+        emit profileChangeCommandReceived(caption);
+        return;
+    }
+
+    if ( modified ) {
+        emit titleChanged(what,caption);
+    }
 }
 
 // Interpreting Codes ---------------------------------------------------------

@@ -171,7 +171,6 @@ InternalCommandWindow::InternalCommandWindow(QWidget *parent)
         show.exec();
     });
 
-    term->startTerminalTeletype();
     process->start();
 }
 
