@@ -1221,4 +1221,5 @@ bool ConPtyProcess::isAvailable()
 void ConPtyProcess::moveToThread(QThread *targetThread)
 {
     //nothing for now...
+    Q_UNUSED(targetThread);
 }

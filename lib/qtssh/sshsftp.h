@@ -42,7 +42,7 @@ public:
     QStringList readdir(const QString &d);
     bool isDir(const QString &d);
     bool isFile(const QString &d);
-    int mkpath(const QString &dest);
+    bool mkpath(const QString &dest);
     bool unlink(const QString &d);
     quint64 filesize(const QString &d);
     LIBSSH2_SFTP_ATTRIBUTES getFileInfo(const QString &path);

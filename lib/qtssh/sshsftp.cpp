@@ -154,7 +154,7 @@ bool SshSFtp::isFile(const QString &d)
     return LIBSSH2_SFTP_S_ISREG(fileinfo.permissions);
 }
 
-int SshSFtp::mkpath(const QString &dest)
+bool SshSFtp::mkpath(const QString &dest)
 {
     DEBUGCH << "mkpath(" << dest << ")";
     if(isDir(dest)) return true;
@@ -174,8 +174,8 @@ bool SshSFtp::unlink(const QString &d)
     DEBUGCH << "unlink(" << d << "," << d << ")";
     processCmd(&cmd);
     DEBUGCH << "unlink(" << d << ") = " << ((cmd.error())?("FAIL"):("OK"));
-    if(cmd.error()) return -1;
-    return 0;
+    if(cmd.error()) return false;
+    return true;
 }
 
 quint64 SshSFtp::filesize(const QString &d)

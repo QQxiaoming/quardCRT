@@ -121,7 +121,7 @@ static QString getRegKeyValue(HKEY key, LPCTSTR property)
     BYTE *buff = new BYTE[size];
     QString result;
     if (::RegQueryValueEx(key, property, NULL, &type, buff, &size) == ERROR_SUCCESS)
-        result = QString::fromUtf16(reinterpret_cast<ushort *>(buff));
+        result = QString::fromUtf16(reinterpret_cast<char16_t *>(buff));
     delete [] buff;
     return result;
 }
@@ -145,7 +145,7 @@ static QString getDeviceRegistryProperty(HDEVINFO devInfoSet, PSP_DEVINFO_DATA d
         return QString();
     BYTE *buff = new BYTE[buffSize];
     ::SetupDiGetDeviceRegistryProperty(devInfoSet, devInfoData, property, NULL, buff, buffSize, NULL);
-    QString result = QString::fromUtf16(reinterpret_cast<ushort *>(buff));
+    QString result = QString::fromUtf16(reinterpret_cast<char16_t *>(buff));
     delete [] buff;
     return result;
 }
@@ -263,7 +263,7 @@ LRESULT QextSerialEnumeratorPrivate::onDeviceChanged(WPARAM wParam, LPARAM lPara
         if (pHdr->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE) {
             PDEV_BROADCAST_DEVICEINTERFACE pDevInf = (PDEV_BROADCAST_DEVICEINTERFACE)pHdr;
              // delimiters are different across APIs...change to backslash.  ugh.
-            QString deviceID = QString::fromUtf16(reinterpret_cast<ushort *>(pDevInf->dbcc_name));
+            QString deviceID = QString::fromUtf16(reinterpret_cast<char16_t *>(pDevInf->dbcc_name));
             deviceID = deviceID.toUpper().replace(QLatin1String("#"), QLatin1String("\\"));
 
             matchAndDispatchChangedDevice(deviceID, GUID_DEVINTERFACE_COMPORT, wParam);
@@ -285,7 +285,7 @@ bool QextSerialEnumeratorPrivate::matchAndDispatchChangedDevice(const QString &d
             DWORD nSize = 0;
             TCHAR buf[MAX_PATH];
             if (SetupDiGetDeviceInstanceId(devInfoSet, &spDevInfoData, buf, MAX_PATH, &nSize)
-                    && deviceID.contains(QString::fromUtf16(reinterpret_cast<ushort *>(buf)))) { // we found a match
+                    && deviceID.contains(QString::fromUtf16(reinterpret_cast<char16_t *>(buf)))) { // we found a match
                 rv = true;
                 QextPortInfo info;
                 info.productID = info.vendorID = info.revision = 0;

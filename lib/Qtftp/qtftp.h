@@ -94,17 +94,23 @@ private:
 		{ ENOUSER,	 "No such user" },
 		{ -1,		 0 }
 	};
-
+#if defined(Q_CC_MSVC)
+#pragma warning( push )
+#pragma warning( disable : 4200 )
+#endif
 	struct tftp_header {
 		quint16 opcode;
 		union {
 			struct {
 				quint16 block;
-				char data[0];
+                char data[0];
 			} data;
-			char path[0];
+            char path[0];
 		};
 	};
+#if defined(Q_CC_MSVC)
+#pragma warning( pop )
+#endif
 
 	char buffer[9000 + sizeof(tftp_header)] = {0};
 

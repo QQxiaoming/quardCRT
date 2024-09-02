@@ -32,7 +32,7 @@
 #include <QColorDialog>
 #include "qtermwidget.h"
 #include "ColorScheme.h"
-#include "ColorTables.h"
+#include "CharacterColor.h"
 
 #include "filedialog.h"
 #include "globalsetting.h"

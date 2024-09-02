@@ -81,7 +81,7 @@ void WritePasswordJobPrivate::scheduledStart() {
     }
     if (err == RPC_S_INVALID_BOUND) {
         const size_t maxTargetName = CRED_MAX_GENERIC_TARGET_NAME_LENGTH;
-        if (key.size() > maxTargetName) {
+        if (((size_t)key.size()) > maxTargetName) {
             q->emitFinishedWithError(
                 OtherError,
                 tr("Credential key exceeds maximum size of %1").arg(maxTargetName));

@@ -179,7 +179,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 }
             });
             connect(telnet, &QTelnet::error, this, [=](QAbstractSocket::SocketError socketError){
-                QMessageBox::warning(messageParentWidget, tr("Telnet Error"), tr("Telnet error:\n%1.").arg(telnet->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Telnet Error"), getName() + "\n" + tr("Telnet error:\n%1.").arg(telnet->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 Q_UNUSED(socketError);
@@ -237,7 +237,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
                 if(serialPort->error() == QSerialPort::NoError) return;
                 if(state == Error) return;
-                QMessageBox::warning(messageParentWidget, tr("Serial Error"), tr("Serial error:\n%0\n%1.").arg(serialPort->portName()).arg(serialPort->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Serial Error"), getName() + "\n" + tr("Serial error:\n%0\n%1.").arg(serialPort->portName()).arg(serialPort->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 serialPort->close();
@@ -305,7 +305,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 }
             });
             connect(rawSocket, &QTcpSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError){
-                QMessageBox::warning(messageParentWidget, tr("Raw Socket Error"), tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Raw Socket Error"), getName() + "\n" + tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 Q_UNUSED(socketError);
@@ -364,7 +364,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 }
             });
             connect(namePipe, &QLocalSocket::errorOccurred, this, [=](QLocalSocket::LocalSocketError socketError){
-                QMessageBox::warning(messageParentWidget, tr("Name Pipe Error"), tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
+                QMessageBox::warning(messageParentWidget, tr("Name Pipe Error"), getName() + "\n" + tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
                 state = Error;
                 emit stateChanged(state);
                 Q_UNUSED(socketError);
@@ -378,7 +378,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
                 SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
                 if(shell == nullptr) {
-                    QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
+                    QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), getName() + "\n" + tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
                     state = Error;
                     emit stateChanged(state);
                     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
@@ -452,7 +452,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 emit stateChanged(state);
             });
             connect(ssh2Client, &SshClient::sshError, this, [=](){
-                QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
+                QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), getName() + "\n" + tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
                 state = Error;
                 emit stateChanged(state);
                 connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
@@ -885,7 +885,7 @@ int SessionsWindow::startLocalShellSession(const QString &command,QString profil
     if(!ret) {
         state = Error;
         emit stateChanged(state);
-        QMessageBox::warning(messageParentWidget, tr("Start Local Shell"), tr("Cannot start local shell:\n%1.").arg(localShell->lastError()));
+        QMessageBox::warning(messageParentWidget, tr("Start Local Shell"), getName() + "\n" + tr("Cannot start local shell:\n%1.").arg(localShell->lastError()));
         return -1;
     }
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
@@ -967,7 +967,7 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
             if(monitorPortName == info.portName) {
                 if(serialPort->isOpen()) {
                     serialPort->close();
-                    QMessageBox::warning(messageParentWidget, tr("Serial Error"), tr("Serial port %1 has been removed.").arg(info.portName));
+                    QMessageBox::warning(messageParentWidget, tr("Serial Error"), getName() + "\n" + tr("Serial port %1 has been removed.").arg(info.portName));
                     state = Error;
                     emit stateChanged(state);
                 }
@@ -1351,7 +1351,7 @@ void SessionsWindow::sendFileUseXModem(QString file, bool modem1KMode) {
                 } else {
                     float progress = (float)bytes_sent / (float)bytes_total * 100;
                     if(progress > 100) progress = 100;
-                    msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+                    msg = QString("\033[2K\r%1%%").arg(progress, 0, 'f', 2);
                 } 
                 QByteArray data = msg.toUtf8();
                 proxyRecvData(data);
@@ -1415,7 +1415,7 @@ void SessionsWindow::recvFileUseXModem(QString file) {
                 } else {
                     float progress = (float)bytes_sent / (float)bytes_total * 100;
                     if(progress > 100) progress = 100;
-                    msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+                    msg = QString("\033[2K\r%1%%").arg(progress, 0, 'f', 2);
                 } 
                 QByteArray data = msg.toUtf8();
                 proxyRecvData(data);
@@ -1467,7 +1467,7 @@ void SessionsWindow::sendFileUseYModem(QStringList fileList, bool modem1KMode) {
                 } else {
                     float progress = (float)bytes_sent / (float)bytes_total * 100;
                     if(progress > 100) progress = 100;
-                    msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+                    msg = QString("\033[2K\r%1%%").arg(progress, 0, 'f', 2);
                 } 
                 QByteArray data = msg.toUtf8();
                 proxyRecvData(data);
@@ -1525,7 +1525,7 @@ void SessionsWindow::recvFileUseYModem(const QString &downloadPath) {
                 } else {
                     float progress = (float)bytes_sent / (float)bytes_total * 100;
                     if(progress > 100) progress = 100;
-                    msg = QString("\033[2K\r%1\%").arg(progress, 0, 'f', 2);
+                    msg = QString("\033[2K\r%1%%").arg(progress, 0, 'f', 2);
                 } 
                 QByteArray data = msg.toUtf8();
                 proxyRecvData(data);
@@ -1589,13 +1589,13 @@ void SessionsWindow::sendFileUseZModem(QStringList fileList) {
                     if(progress > 100) progress = 100;
                     long last_bs = last_bps/8;
                     if(last_bs < 1024) {
-                        msg = QString("\033[2K\r%1\% %4B/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs).arg(min_left).arg(sec_left);
+                        msg = QString("\033[2K\r%1%% %4B/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs).arg(min_left).arg(sec_left);
                     } else if(last_bs < 1024*1024) {
-                        msg = QString("\033[2K\r%1\% %4KB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024).arg(min_left).arg(sec_left);                
+                        msg = QString("\033[2K\r%1%% %4KB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024).arg(min_left).arg(sec_left);
                     } else if(last_bs < 1024*1024*1024) {
-                        msg = QString("\033[2K\r%1\% %4MB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024).arg(min_left).arg(sec_left);
+                        msg = QString("\033[2K\r%1%% %4MB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024).arg(min_left).arg(sec_left);
                     } else {
-                        msg = QString("\033[2K\r%1\% %4GB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024/1024).arg(min_left).arg(sec_left);
+                        msg = QString("\033[2K\r%1%% %4GB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024/1024).arg(min_left).arg(sec_left);
                     }
                 } 
                 QByteArray data = msg.toUtf8();
@@ -1662,13 +1662,13 @@ void SessionsWindow::recvFileUseZModem(const QString &downloadPath) {
                     if(progress > 100) progress = 100;
                     long last_bs = last_bps/8;
                     if(last_bs < 1024) {
-                        msg = QString("\033[2K\r%1\% %4B/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs).arg(min_left).arg(sec_left);
+                        msg = QString("\033[2K\r%1%% %4B/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs).arg(min_left).arg(sec_left);
                     } else if(last_bs < 1024*1024) {
-                        msg = QString("\033[2K\r%1\% %4KB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024).arg(min_left).arg(sec_left);                
+                        msg = QString("\033[2K\r%1%% %4KB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024).arg(min_left).arg(sec_left);
                     } else if(last_bs < 1024*1024*1024) {
-                        msg = QString("\033[2K\r%1\% %4MB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024).arg(min_left).arg(sec_left);
+                        msg = QString("\033[2K\r%1%% %4MB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024).arg(min_left).arg(sec_left);
                     } else {
-                        msg = QString("\033[2K\r%1\% %4GB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024/1024).arg(min_left).arg(sec_left);
+                        msg = QString("\033[2K\r%1%% %4GB/s %5:%6").arg(progress, 0, 'f', 2).arg(last_bs/1024/1024/1024).arg(min_left).arg(sec_left);
                     }
                 } 
                 QByteArray data = msg.toUtf8();

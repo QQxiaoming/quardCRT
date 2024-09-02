@@ -31,8 +31,8 @@ class PtyBuffer : public QIODevice
     Q_OBJECT
 public:
     //just empty realization, we need only 'readyRead' signal of this class
-    qint64 readData(char *data, qint64 maxlen) { return 0; }
-    qint64 writeData(const char *data, qint64 len) { return 0; }
+    qint64 readData(char *data, qint64 maxlen) { Q_UNUSED(data); Q_UNUSED(maxlen); return 0; }
+    qint64 writeData(const char *data, qint64 len) { Q_UNUSED(data); Q_UNUSED(len); return 0; }
 
     bool   isSequential() const { return true; }
     qint64 bytesAvailable() const  { return m_readBuffer.size(); }

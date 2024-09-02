@@ -19,7 +19,6 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301  USA.
 */
-
 #ifndef SCREEN_H
 #define SCREEN_H
 
@@ -392,11 +391,9 @@ public:
 
 
     /** Return the number of lines. */
-    int getLines() const
-    { return lines; }
+    int getLines() const { return lines; }
     /** Return the number of columns. */
-    int getColumns() const
-    { return columns; }
+    int getColumns() const { return columns; }
     /** Return the number of lines in the history buffer. */
     int getHistLines() const;
     /**
@@ -665,8 +662,7 @@ private:
     CharacterColor effectiveBackground; // the cu_* variables above
     quint8 effectiveRendition;          // to speed up operation
 
-    class SavedState
-    {
+    class SavedState {
     public:
         SavedState()
         : cursorColumn(0),cursorLine(0),rendition(0) {}

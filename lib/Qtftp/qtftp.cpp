@@ -221,8 +221,10 @@ void QTftp::client_get(QString path, QString server)
 	m_segsize = 512;
 	m_timeout = 1000;
 	struct tftp_header *th = (struct tftp_header *)buffer;
-	strcpy(th->path, name.fileName().toUtf8().constData());
-	strcpy(th->path + name.fileName().length() + 1, "octect");
+    QByteArray baName = name.fileName().toUtf8();
+	memset(th->path, 0, baName.length()+8);
+    memcpy(th->path, baName.constData(), baName.length());
+    memcpy(th->path + baName.length() + 1, "octect", 6);
 
 	sock = new QUdpSocket(this);
 	sock->bind();
@@ -262,8 +264,9 @@ void QTftp::client_put(QString path, QString server)
 	m_segsize = 512;
 	m_timeout = 1000;
 	struct tftp_header *th = (struct tftp_header *)buffer;
-	strcpy(th->path, name.fileName().toUtf8().constData());
-	strcpy(th->path + name.fileName().length() + 1, "octect");
+    QByteArray baName = name.fileName().toUtf8();
+    memcpy(th->path, baName.constData(), baName.length());
+    memcpy(th->path + baName.length() + 1, "octect", 6);
 
 	sock = new QUdpSocket(this);
 	sock->bind();
@@ -368,7 +371,7 @@ void QTftp::nak(TftpError error)
 		pe->e_msg = strerror(error - 100);
 		th->data.block = EUNDEF;   /* set 'undef' errorcode */
 	}
-    int length = strlen(pe->e_msg);
+    int length = static_cast<int>(strlen(pe->e_msg));
     memcpy(th->data.data, pe->e_msg, length);
 	th->data.data[length] = 0;
 	length += 5;

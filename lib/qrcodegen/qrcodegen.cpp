@@ -924,6 +924,7 @@ QString generatorQrCodeASCII(const QString &id)
             qrCode += "\r\n";
         }
     } catch (const std::exception &e) {
+        Q_UNUSED(e);
         return "";
     }
     return qrCode;
@@ -936,6 +937,7 @@ QString generatorQrCodeSvg(const QString &id)
         const QrCode qr = QrCode::encodeText(id.toLatin1(), QrCode::Ecc::LOW, 3);
         ret = qrToSvgString(qr, 3);
     } catch (const std::exception &e) {
+        Q_UNUSED(e);
         return "";
     }
     return ret;

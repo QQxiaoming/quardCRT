@@ -30,7 +30,7 @@
 #include "globaloptionswindowwidget.h"
 #include "globaloptionstransferwidget.h"
 #include "globaloptionsadvancedwidget.h"
-#include "ColorTables.h"
+#include "CharacterColor.h"
 
 namespace Ui {
 class GlobalOptionsWindow;
