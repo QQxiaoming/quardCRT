@@ -84,6 +84,9 @@ public:
 
     QString filePath(const QModelIndex &index);
 
+    void setOnlyName(bool onlyName) { m_onlyName = onlyName; }
+    void setDistinguishType(bool distinguishType) { m_DistinguishType = distinguishType; }
+
     virtual QString separator() const = 0;
     virtual QStringList pathEntryList(const QString &path) = 0;
     virtual void pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) = 0;
@@ -91,6 +94,8 @@ public:
 private:
     QString m_rootPath;
     QCustomFileSystemItem *m_rootItem = nullptr;
+    bool m_onlyName = false;
+    bool m_DistinguishType = true;
 };
 
 class QNativeFileSystemModel : public QCustomFileSystemModel

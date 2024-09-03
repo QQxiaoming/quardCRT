@@ -18,7 +18,6 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include <QSplitter>
-#include <QTreeView>
 #include <QLabel>
 #include <QStringListModel>
 #include <QFont>
@@ -46,6 +45,79 @@
 #include "ui_globaloptionstransferwidget.h"
 #include "ui_globaloptionsadvancedwidget.h"
 
+GlobalOptionsModel::GlobalOptionsModel(QObject *parent) 
+    : QCustomFileSystemModel(parent) {
+}
+
+GlobalOptionsModel::~GlobalOptionsModel() {
+}
+
+QString GlobalOptionsModel::separator() const {
+    return "/";
+}
+
+GlobalOptionsModel::TreeNode GlobalOptionsModel::findNode(const QString &name, const TreeNode &fnode) {
+    foreach (const TreeNode &node, fnode.children) {
+        if(node.name == name) {
+            return node;
+        }
+    }
+    return TreeNode();
+};
+
+QStringList GlobalOptionsModel::pathEntryList(const QString &path) {
+    QStringList files;
+
+    if(path == "/") {
+        foreach (const TreeNode &node, rootInfo.children) {
+            files << node.name;
+        }
+        return files;
+    } else {
+        QStringList pathList = path.split(separator());
+        TreeNode node = rootInfo;
+        for(int i = 1; i < pathList.size(); i++) {
+            node = findNode(pathList[i], node);
+            if(node.name.isEmpty()) {
+                return files;
+            }
+        }
+        foreach (const TreeNode &child, node.children) {
+            files << child.name;
+        }
+    }
+
+    return files;
+}
+
+void GlobalOptionsModel::pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) {
+    isDir = false;
+    size = 0;
+    Q_UNUSED(lastModified);
+
+    if(path == "/") {
+        size = rootInfo.children.size();
+        if(size)
+            isDir = true;
+    } else {
+        QStringList pathList = path.split(separator());
+        TreeNode node = rootInfo;
+        for(int i = 1; i < pathList.size(); i++) {
+            node = findNode(pathList[i], node);
+            if(node.name.isEmpty()) {
+                return;
+            }
+        }
+        size = node.children.size();
+        if(size)
+            isDir = true;
+    }
+}
+
+void GlobalOptionsModel::setTree(const TreeNode &tree) {
+    rootInfo = tree;
+}
+
 const QString GlobalOptionsWindow::defaultColorScheme = "QuardCRT";
 const QString GlobalOptionsWindow::defaultColorSchemeBak = "QuardCRT Light";
 
@@ -61,10 +133,11 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
     splitter->setHandleWidth(1);
     ui->horizontalLayout->addWidget(splitter);
-    QTreeView *treeView = new QTreeView(this);
+    treeView = new QTreeView(this);
     treeView->setHeaderHidden(true);
-    model = new QStringListModel(treeView);
-    treeView->setModel(model);
+    model = new GlobalOptionsModel(treeView);
+    model->setOnlyName(true);
+    model->setDistinguishType(false);
     treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     splitter->addWidget(treeView);
     QWidget *widget = new QWidget(this);
@@ -88,9 +161,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsAdvancedWidget = new GlobalOptionsAdvancedWidget(widget);
     widget->layout()->addWidget(globalOptionsAdvancedWidget);
 
-    setActiveWidget(0);
-
+    treeView->setModel(model);
     retranslateUi();
+    setActiveWidget(globalOptionsGeneralWidget);
 
     GlobalSetting settings;
     globalOptionsAdvancedWidget->ui->lineEditConfigFile->setText(settings.fileName());
@@ -373,7 +446,17 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
 
     connect(treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
-        setActiveWidget(index.row());
+        QString filePath = model->filePath(index);
+        QStringList pathList = filePath.split(model->separator());
+        GlobalOptionsModel::TreeNode node = rootInfo;
+        for(int i = 1; i < pathList.size(); i++) {
+            node = GlobalOptionsModel::findNode(pathList[i], node);
+            if(node.name.isEmpty()) {
+                setActiveWidget(nullptr);
+                return;
+            }
+        }
+        setActiveWidget(node.widget);
     });
 }
 
@@ -384,7 +467,17 @@ GlobalOptionsWindow::~GlobalOptionsWindow()
 
 void GlobalOptionsWindow::retranslateUi()
 {
-    model->setStringList(QStringList() << tr("General") << tr("Appearance") << tr("Terminal") << tr("Window") << tr("Transfer") << tr("Advanced"));
+    rootInfo.children.clear();
+    GlobalOptionsModel::TreeNode generalNode(tr("General"),globalOptionsGeneralWidget);
+    GlobalOptionsModel::TreeNode appearance(tr("Appearance"),globalOptionsAppearanceWidget);
+    GlobalOptionsModel::TreeNode terminal(tr("Terminal"),globalOptionsTerminalWidget);
+    GlobalOptionsModel::TreeNode window(tr("Window"),globalOptionsWindowWidget);
+    GlobalOptionsModel::TreeNode transfer(tr("Transfer"),globalOptionsTransferWidget);
+    //transfer.children << GlobalOptionsModel::TreeNode(tr("Serial")) << GlobalOptionsModel::TreeNode("SSH");
+    GlobalOptionsModel::TreeNode advanced(tr("Advanced"),globalOptionsAdvancedWidget);
+    rootInfo.children << generalNode << appearance << terminal << window << transfer << advanced;
+    model->setTree(rootInfo);
+    treeView->setRootIndex(model->setRootPath("/"));
     ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
@@ -395,7 +488,7 @@ void GlobalOptionsWindow::retranslateUi()
     globalOptionsAdvancedWidget->ui->retranslateUi(this);
 }
 
-void GlobalOptionsWindow::setActiveWidget(int index)
+void GlobalOptionsWindow::setActiveWidget(QWidget *widget)
 {
     globalOptionsGeneralWidget->setVisible(false);
     globalOptionsAppearanceWidget->setVisible(false);
@@ -404,26 +497,8 @@ void GlobalOptionsWindow::setActiveWidget(int index)
     globalOptionsTransferWidget->setVisible(false);
     globalOptionsAdvancedWidget->setVisible(false);
 
-    switch(index) {
-    case 0:
-        globalOptionsGeneralWidget->setVisible(true);
-        break;
-    case 1:
-        globalOptionsAppearanceWidget->setVisible(true);
-        break;
-    case 2:
-        globalOptionsTerminalWidget->setVisible(true);
-        break;
-    case 3:
-        globalOptionsWindowWidget->setVisible(true);
-        break;
-    case 4:
-        globalOptionsTransferWidget->setVisible(true);
-        break;
-    case 5:
-        globalOptionsAdvancedWidget->setVisible(true);
-        break;
-    }
+    if(widget)
+        widget->setVisible(true);
 }
 
 void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)

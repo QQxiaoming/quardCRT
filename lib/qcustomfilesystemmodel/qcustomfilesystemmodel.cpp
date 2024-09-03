@@ -124,6 +124,7 @@ int QCustomFileSystemModel::rowCount(const QModelIndex &parent) const {
 }
 
 int QCustomFileSystemModel::columnCount(const QModelIndex &parent) const {
+    if(m_onlyName) return 1;
     if (parent.isValid() && indexValid(parent))
         return static_cast<QCustomFileSystemItem*>(parent.internalPointer())->columnCount();
     else
@@ -136,6 +137,8 @@ QVariant QCustomFileSystemModel::data(const QModelIndex &index, int role) const 
     if (!indexValid(index))
         return QVariant();
     if (role != Qt::DisplayRole && role != Qt::DecorationRole)
+        return QVariant();
+    if(m_onlyName && role == Qt::DecorationRole)
         return QVariant();
     QCustomFileSystemItem *item = static_cast<QCustomFileSystemItem*>(index.internalPointer());
     if(item->data().toString() == "")
@@ -259,6 +262,7 @@ QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
     QCustomFileSystemItem *rootItem = new QCustomFileSystemItem(path);
     m_rootPath = path;
     QStringList rootEntries = pathEntryList(m_rootPath);
+    QList<QCustomFileSystemItem*> allItems;
     QList<QCustomFileSystemItem*> dirItems;
     QList<QCustomFileSystemItem*> fileItems;
     for (int i = 0; i < rootEntries.count(); ++i) {
@@ -275,20 +279,34 @@ QModelIndex QCustomFileSystemModel::setRootPath(const QString &path) {
         if (isDir) {
             //QStringList childEntries = pathEntryList(childPath);
             //childItem->setSize(childEntries.count());
-            dirItems.append(childItem);
+            if(m_DistinguishType) {
+                dirItems.append(childItem);
+            } else {
+                allItems.append(childItem);
+            }
             //add dummy item
             QCustomFileSystemItem *dummyItem = new QCustomFileSystemItem("", childItem);
             childItem->appendChild(dummyItem);
         } else {
             childItem->setSize(size);
-            fileItems.append(childItem);
+            if(m_DistinguishType) {
+                fileItems.append(childItem);
+            } else {
+                allItems.append(childItem);
+            }
         }
     }
-    foreach(QCustomFileSystemItem *item, dirItems) {
-        rootItem->appendChild(item);
-    }
-    foreach(QCustomFileSystemItem *item, fileItems) {
-        rootItem->appendChild(item);
+    if(m_DistinguishType) {
+        foreach(QCustomFileSystemItem *item, dirItems) {
+            rootItem->appendChild(item);
+        }
+        foreach(QCustomFileSystemItem *item, fileItems) {
+            rootItem->appendChild(item);
+        }
+    } else {
+        foreach(QCustomFileSystemItem *item, allItems) {
+            rootItem->appendChild(item);
+        }
     }
     QModelIndex index = createIndex(0, 0, rootItem);
     m_rootItem = rootItem;

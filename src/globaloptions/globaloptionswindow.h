@@ -23,6 +23,7 @@
 #include <QDialog>
 #include <QStringListModel>
 #include <QColor>
+#include <QTreeView>
 #include <QList>
 #include "globaloptionsgeneralwidget.h"
 #include "globaloptionsappearancewidget.h"
@@ -31,10 +32,49 @@
 #include "globaloptionstransferwidget.h"
 #include "globaloptionsadvancedwidget.h"
 #include "CharacterColor.h"
+#include "qcustomfilesystemmodel.h"
 
 namespace Ui {
 class GlobalOptionsWindow;
 }
+
+class GlobalOptionsModel : public QCustomFileSystemModel
+{
+    Q_OBJECT
+public:
+    explicit GlobalOptionsModel(QObject *parent = 0);
+    ~GlobalOptionsModel();
+
+    QString separator() const override;
+    QStringList pathEntryList(const QString &path) override;
+    void pathInfo(QString path, bool &isDir, uint64_t &size, QDateTime &lastModified) override;
+
+    class TreeNode {
+    public:
+        TreeNode(const QString &name = QString(), QWidget *widget = nullptr, const QList<TreeNode> &children = QList<TreeNode>())
+            : name(name), widget(widget), children(children) {}
+        TreeNode(const TreeNode &node) {
+            name = node.name;
+            widget = node.widget;
+            children = node.children;
+        }
+        TreeNode& operator=(const TreeNode &node) {
+            if (this != &node) {
+                name = node.name;
+                widget = node.widget;
+                children = node.children;
+            }
+            return *this;
+        }
+        QString name;
+        QWidget *widget;
+        QList<TreeNode> children;
+    };
+    void setTree(const TreeNode &tree);
+    TreeNode rootInfo;
+    
+    static TreeNode findNode(const QString &name, const TreeNode &fnode);
+};
 
 class GlobalOptionsWindow : public QDialog
 {
@@ -89,7 +129,7 @@ public:
     const static QString defaultColorSchemeBak;
 
 private:
-    void setActiveWidget(int index);
+    void setActiveWidget(QWidget *widget);
 
 signals:
     void colorSchemeChanged(QString colorScheme);
@@ -114,10 +154,12 @@ private:
     GlobalOptionsWindowWidget *globalOptionsWindowWidget;
     GlobalOptionsTransferWidget *globalOptionsTransferWidget;
     GlobalOptionsAdvancedWidget *globalOptionsAdvancedWidget;
-    QStringListModel *model;
+    QTreeView *treeView;
+    GlobalOptionsModel *model;
     QFont font;
     QString cursorColorStr;
     ColorEntry table[TABLE_COLORS];
+    GlobalOptionsModel::TreeNode rootInfo;
 };
 
 #endif //GLOBALOPTIONSWINDOW_H
