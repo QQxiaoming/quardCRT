@@ -7,12 +7,16 @@ en-US:
 - Automatically use the default configuration if the Profile does not exist on Windows
 - Add ToolTip to the connection bar
 - Add system beep support
+- Add record script feature
+- Fix the small probability memory leak problem
 
 zh-CN:
 
 - Windows下Profile如果不存在则自动使用默认配置
 - 增加连接条ToolTip显示
 - 增加系统响铃支持
+- 增加记录脚本功能
+- 修复可能存在的小概率内存泄漏问题
 
 ## [[V0.5.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.0)] - 2024-08-26
 

@@ -65,6 +65,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , vncClient(nullptr)
     , enableLog(false)
     , enableRawLog(false)
+    , enableRecordingScript(false)
     , enableBroadCast(false) {
     zmodemUploadPath = QDir::homePath();
     zmodemDownloadPath = QDir::homePath();
@@ -126,47 +127,25 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         case Telnet: {
             telnet = new QTelnet(QTelnet::TCP, this);
             realtimespeed_timer = new QTimer(this);
-            connect(telnet,&QTelnet::newData,this,
-                [=](const char *data, int size){
+            connect(telnet,&QTelnet::newData,this,[=](const char *data, int size){
                 QByteArray dataBa(data,size);
-                if(modemProxyChannel) {
-                    emit modemProxyRecvData(dataBa);
-                    return;
+                if(doRecvData(dataBa)) {
+                    rx_total += size;
+                    rx_realtime += size;
+                    term->recvData(dataBa.data(), dataBa.size());
                 }
-                matchString(dataBa);
-                rx_total += size;
-                rx_realtime += size;
-                saveRawLog(data, size);
-                emit hexDataDup(data, size);
-                preprocesseData(dataBa);
-                term->recvData(dataBa.data(), dataBa.size());
             });
-            connect(this,&SessionsWindow::modemProxySendData,this,
-                [=](QByteArray data){
+            connect(this,&SessionsWindow::modemProxySendData,this, [=](QByteArray data){
                 if(modemProxyChannel) {
                     telnet->sendData(data.data(), data.size());
                 }
             });
-            connect(term, &QTermWidget::sendData,this,
-                [=](const char *data, int size){
-                if(modemProxyChannel) {
-                    return;
-                }
+            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
                 QByteArray sendData(data, size);
-                if(enableBroadCast) {
-                    emit broadCastSendData(sendData);
-                }
-                if(telnet->isConnected()) {
+                if(doSendData(sendData,telnet->isConnected())){
                     telnet->sendData(data, size);
                     tx_total += size;
                     tx_realtime += size;
-                } else {
-                    if(sendData.contains("\r") || sendData.contains("\n")) {
-                        if(!m_requestReconnect) {
-                            m_requestReconnect = true;
-                            emit requestReconnect();
-                        }
-                    }
                 }
             });
             connect(telnet, &QTelnet::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
@@ -189,49 +168,28 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         case Serial: {
             serialPort = new QSerialPort(this);
             realtimespeed_timer = new QTimer(this);
-            connect(serialPort,&QSerialPort::readyRead,this,
-                [=](){
+            connect(serialPort,&QSerialPort::readyRead,this,[=](){
                 QByteArray data = serialPort->readAll();
-                if(modemProxyChannel) {
-                    emit modemProxyRecvData(data);
-                    return;
+                uint64_t size = data.size();
+                if(doRecvData(data)) {
+                    rx_total += size;
+                    rx_realtime += size;
+                    term->recvData(data.data(), data.size());
                 }
-                matchString(data);
-                rx_total += data.size();
-                rx_realtime += data.size();
-                saveRawLog(data.data(), data.size());
-                emit hexDataDup(data.data(), data.size());
-                preprocesseData(data);
-                term->recvData(data.data(), data.size());
             });
-            connect(this,&SessionsWindow::modemProxySendData,this,
-                [=](QByteArray data){
+            connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
                 if(modemProxyChannel) {
                     if(state == Connected && serialPort->isOpen()) {
                         serialPort->write(data.data(), data.size());
                     }
                 }
             });
-            connect(term, &QTermWidget::sendData,this,
-                [=](const char *data, int size){
-                if(modemProxyChannel) {
-                    return;
-                }
+            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
                 QByteArray sendData(data, size);
-                if(enableBroadCast) {
-                    emit broadCastSendData(sendData);
-                }
-                if(state == Connected && serialPort->isOpen()) {
+                if(doSendData(sendData,(state == Connected && serialPort->isOpen()))){
                     serialPort->write(data, size);
                     tx_total += size;
                     tx_realtime += size;
-                } else {
-                    if(sendData.contains("\r") || sendData.contains("\n")) {
-                        if(!m_requestReconnect) {
-                            m_requestReconnect = true;
-                            emit requestReconnect();
-                        }
-                    }
                 }
             });
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
@@ -250,49 +208,28 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         case RawSocket: {
             rawSocket = new QTcpSocket(this);
             realtimespeed_timer = new QTimer(this);
-            connect(rawSocket,&QTcpSocket::readyRead,this,
-                [=](){
+            connect(rawSocket,&QTcpSocket::readyRead,this,[=](){
                 QByteArray data = rawSocket->readAll();
-                if(modemProxyChannel) {
-                    emit modemProxyRecvData(data);
-                    return;
+                uint64_t size = data.size();
+                if(doRecvData(data)) {
+                    rx_total += size;
+                    rx_realtime += size;
+                    term->recvData(data.data(), data.size());
                 }
-                matchString(data);
-                rx_total += data.size();
-                rx_realtime += data.size();
-                saveRawLog(data.data(), data.size());
-                emit hexDataDup(data.data(), data.size());
-                preprocesseData(data);
-                term->recvData(data.data(), data.size());
             });
-            connect(this,&SessionsWindow::modemProxySendData,this,
-                [=](QByteArray data){
+            connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
                 if(modemProxyChannel) {
                     if(rawSocket->state() == QAbstractSocket::ConnectedState) {
                         rawSocket->write(data.data(), data.size());
                     }
                 }
             });
-            connect(term, &QTermWidget::sendData,this,
-                [=](const char *data, int size){
-                if(modemProxyChannel) {
-                    return;
-                }
+            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
                 QByteArray sendData(data, size);
-                if(enableBroadCast) {
-                    emit broadCastSendData(sendData);
-                }
-                if(rawSocket->state() == QAbstractSocket::ConnectedState) {
+                if(doSendData(sendData,(rawSocket->state() == QAbstractSocket::ConnectedState))){
                     rawSocket->write(data, size);
                     tx_total += size;
                     tx_realtime += size;
-                } else {
-                    if(sendData.contains("\r") || sendData.contains("\n")) {
-                        if(!m_requestReconnect) {
-                            m_requestReconnect = true;
-                            emit requestReconnect();
-                        }
-                    }
                 }
             });
             connect(rawSocket, &QTcpSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
@@ -316,42 +253,21 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             namePipe = new QLocalSocket(this);
             connect(namePipe,&QLocalSocket::readyRead,this,[=](){
                 QByteArray data = namePipe->readAll();
-                if(modemProxyChannel) {
-                    emit modemProxyRecvData(data);
-                    return;
+                if(doRecvData(data)) {
+                    term->recvData(data.data(), data.size());
                 }
-                matchString(data);
-                saveRawLog(data.data(), data.size());
-                emit hexDataDup(data.data(), data.size());
-                preprocesseData(data);
-                term->recvData(data.data(), data.size());
             });
-            connect(this,&SessionsWindow::modemProxySendData,this,
-                [=](QByteArray data){
+            connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
                 if(modemProxyChannel) {
                     if(namePipe->state() == QLocalSocket::ConnectedState) {
                         namePipe->write(data.data(), data.size());
                     }
                 }
             });
-            connect(term, &QTermWidget::sendData,this,
-                [=](const char *data, int size){
-                if(modemProxyChannel) {
-                    return;
-                }
+            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
                 QByteArray sendData(data, size);
-                if(enableBroadCast) {
-                    emit broadCastSendData(sendData);
-                }
-                if(namePipe->state() == QLocalSocket::ConnectedState) {
+                if(doSendData(sendData,(namePipe->state() == QLocalSocket::ConnectedState))){
                     namePipe->write(data, size);
-                } else {
-                    if(sendData.contains("\r") || sendData.contains("\n")) {
-                        if(!m_requestReconnect) {
-                            m_requestReconnect = true;
-                            emit requestReconnect();
-                        }
-                    }
                 }
             });
             connect(namePipe, &QLocalSocket::stateChanged, this, [=](QLocalSocket::LocalSocketState socketState){
@@ -399,43 +315,23 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                 });
                 connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
                     QByteArray dataBa(data, size);
-                    if(modemProxyChannel) {
-                        emit modemProxyRecvData(dataBa);
-                        return;
+                    if(doRecvData(dataBa)) {
+                        rx_total += size;
+                        rx_realtime += size;
+                        term->recvData(dataBa.data(), dataBa.size());
                     }
-                    matchString(dataBa);
-                    rx_total += size;
-                    rx_realtime += size;
-                    saveRawLog(data, size);
-                    emit hexDataDup(data, size);
-                    preprocesseData(dataBa);
-                    term->recvData(dataBa.data(), dataBa.size());
                 });
-                connect(this,&SessionsWindow::modemProxySendData,this,
-                    [=](QByteArray data){
+                connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
                     if(modemProxyChannel) {
                         shell->sendData(data.data(), data.size());
                     }
                 });
                 connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-                    if(modemProxyChannel) {
-                        return;
-                    }
                     QByteArray sendData(data, size);
-                    if(enableBroadCast) {
-                        emit broadCastSendData(sendData);
-                    }
-                    if(state == Connected) {
+                    if(doSendData(sendData,(state == Connected))){
                         shell->sendData(data, size);
                         tx_total += size;
                         tx_realtime += size;
-                    } else {
-                        if(sendData.contains("\r") || sendData.contains("\n")) {
-                            if(!m_requestReconnect) {
-                                m_requestReconnect = true;
-                                emit requestReconnect();
-                            }
-                        }
                     }
                 });
                 connect(shell, &SshShell::failed, this, [=](){
@@ -480,6 +376,23 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
             saveLog(data, size);
             writeReceiveASCIIFile(data, size);
+            if(enableRecordingScript) {
+                QByteArray dataBa(data,size);
+                QMutexLocker locker(&recording_script_recv_mutex);
+                recordingScriptRecvBuffer.append(data);
+                recordingScriptRecvBuffer.replace("\r\n","\n");
+                recordingScriptRecvBuffer.replace("\r","\n");
+                do {
+                    int pos = recordingScriptRecvBuffer.indexOf('\n');
+                    if(pos!=-1) {
+                        QString line = QString::fromUtf8(recordingScriptRecvBuffer.left(pos+1));
+                        recordingScriptRecvBuffer.remove(0, pos + 1);
+                        addToRecordingScript(1,line);
+                    } else {
+                        break;
+                    }
+                }while(1);
+            }
         });
         connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, uint32_t opcode){
             QUrl u = url;
@@ -736,7 +649,49 @@ void SessionsWindow::matchString(QByteArray data) {
     }
 }
 
-void SessionsWindow::preprocesseData(QByteArray &data) {
+bool SessionsWindow::doSendData(QByteArray &data, bool isConnected) {
+    if(modemProxyChannel) {
+        return false;
+    }
+    if(enableBroadCast) {
+        emit broadCastSendData(data);
+    }
+    if(!isConnected) {
+        if(data.contains("\r") || data.contains("\n")) {
+            if(!m_requestReconnect) {
+                m_requestReconnect = true;
+                emit requestReconnect();
+            }
+        }
+        return false;
+    }
+    if(enableRecordingScript) {
+        QMutexLocker locker(&recording_script_send_mutex);
+        recordingScriptSendBuffer.append(data);
+        recordingScriptSendBuffer.replace("\r\n","\n");
+        recordingScriptSendBuffer.replace("\r","\n");
+        do {
+            int pos = recordingScriptSendBuffer.indexOf('\n');
+            if(pos!=-1) {
+                QString line = QString::fromUtf8(recordingScriptSendBuffer.left(pos + 1));
+                recordingScriptSendBuffer.remove(0, pos + 1);
+                addToRecordingScript(0,line);
+            } else {
+                break;
+            }
+        }while(1);
+    }
+    return true;
+}
+
+bool SessionsWindow::doRecvData(QByteArray &data) {
+    if(modemProxyChannel) {
+        emit modemProxyRecvData(data);
+        return false;
+    }
+    matchString(data);
+    saveRawLog(data.data(), data.size());
+    emit hexDataDup(data.data(), data.size());
     switch(endOfLineSeq) {
         case LF:
             data.replace("\r","\r\n");
@@ -753,6 +708,7 @@ void SessionsWindow::preprocesseData(QByteArray &data) {
         default:
             break;
     }
+    return true;
 }
 
 void SessionsWindow::cloneSession(SessionsWindow *src, QString profile) {
@@ -890,30 +846,20 @@ int SessionsWindow::startLocalShellSession(const QString &command,QString profil
     }
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
-        if(modemProxyChannel) {
-            emit modemProxyRecvData(data);
-            return;
+        if(doRecvData(data)) {
+            term->recvData(data.data(), data.size());
         }
-        matchString(data);
-        saveRawLog(data.data(), data.size());
-        emit hexDataDup(data.data(), data.size());
-        preprocesseData(data);
-        term->recvData(data.data(), data.size());
     });
-    connect(this,&SessionsWindow::modemProxySendData,this,
-        [=](QByteArray data){
+    connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
         if(modemProxyChannel) {
             localShell->write(data);
         }
     });
     connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-        if(modemProxyChannel) {
-            return;
+        QByteArray sendData(data, size);
+        if(doSendData(sendData,true)){
+            localShell->write(QByteArray(data, size));
         }
-        if(enableBroadCast) {
-            emit broadCastSendData(QByteArray(data, size));
-        }
-        localShell->write(QByteArray(data, size));
     });
     m_command = command;
     state = Connected;
@@ -1144,6 +1090,108 @@ QString SessionsWindow::getRawLogFileName(void) {
         ret = raw_log_file->fileName();
     }
     raw_log_file_mutex.unlock();
+    return ret;
+}
+
+int SessionsWindow::startRecordingScript(void) {
+    int ret = 0;
+    recording_script_file_mutex.lock();
+    enableRecordingScript = true;
+    recordingScript.clear();
+    recording_script_file_mutex.unlock();
+    recording_script_recv_mutex.lock();
+    recordingScriptRecvBuffer.clear();
+    recording_script_recv_mutex.unlock();
+    recording_script_send_mutex.lock();
+    recordingScriptSendBuffer.clear();
+    recording_script_send_mutex.unlock();
+    return ret;
+}
+
+void SessionsWindow::addToRecordingScript(int type, QString str) {
+    QMutexLocker locker(&recording_script_file_mutex);
+    QPair<int, QByteArray> cmd(type,str.toUtf8());
+    recordingScript.append(cmd);
+}
+
+void SessionsWindow::addToRecordingScript(int type, QByteArray ba) {
+    QMutexLocker locker(&recording_script_file_mutex);
+    QPair<int, QByteArray> cmd(type,ba);
+    recordingScript.append(cmd);
+}
+
+int SessionsWindow::stopRecordingScript(void) {
+    int ret = -1;
+    QString savefile_name = FileDialog::getSaveFileName(term, tr("Save script..."),
+        QDir::homePath() + QDate::currentDate().toString("/script-yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".py", tr("Python files (*.py)"));
+    if (!savefile_name.isEmpty()) {
+        QFile scriptFile(savefile_name);
+        if (!scriptFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
+            QMessageBox::warning(messageParentWidget, tr("Save script"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(scriptFile.errorString()));
+        } else {
+            QTextStream out(&scriptFile);
+            
+            recording_script_file_mutex.lock();
+            out << "#!/usr/bin/env python3\n";
+            out << "# -*- coding: utf-8 -*-\n";
+            out << "#\n";
+            out << "# $interface = \"1.0\"\n";
+            out << "# Script generated by QuardCRT\n";
+            out << "# Date: " << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << "\n";
+            out << "#\n";
+            out << "# This automatically generated script may need to be\n";
+            out << "# edited in order to work correctly.\n";
+            out << "\n";
+            out << "import sys\n";
+            out << "from quardCRT import crt\n";
+            out << "\n";
+            out << "def main():\n";
+            out << "    crt.Screen.Synchronous = True\n";
+            out << "\n";
+            foreach(auto cmd, recordingScript) {
+                QByteArray cmdData = cmd.second;
+                cmdData.replace("\n","\\n");
+                cmdData.replace("\r","\\r");
+                cmdData.replace("\"", "\\\"");
+                if(cmd.first == 0) {
+                    out << "    crt.Screen.Send(\"" << cmdData << "\")\n";
+                } else {
+                    out << "    crt.Screen.WaitForString(\"" << cmdData << "\")\n";
+                }
+            }
+            out << "\n";
+            out << "if __name__ == \'__main__\':\n";
+            out << "    main()\n";
+            out << "\n";
+
+            enableRecordingScript = false;
+            recordingScript.clear();
+            recording_script_file_mutex.unlock();
+            recording_script_recv_mutex.lock();
+            recordingScriptRecvBuffer.clear();
+            recording_script_recv_mutex.unlock();
+            recording_script_send_mutex.lock();
+            recordingScriptSendBuffer.clear();
+            recording_script_send_mutex.unlock();
+            ret = 0;
+            scriptFile.close();
+        }
+    }
+    return ret;
+}
+
+int SessionsWindow::canlcelRecordingScript(void) {
+    int ret = 0;
+    recording_script_file_mutex.lock();
+    enableRecordingScript = false;
+    recordingScript.clear();
+    recording_script_file_mutex.unlock();
+    recording_script_recv_mutex.lock();
+    recordingScriptRecvBuffer.clear();
+    recording_script_recv_mutex.unlock();
+    recording_script_send_mutex.lock();
+    recordingScriptSendBuffer.clear();
+    recording_script_send_mutex.unlock();
     return ret;
 }
 

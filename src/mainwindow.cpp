@@ -371,6 +371,12 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                     if(sessionsWindow->getMainWidget() == widget) {
                         logSessionAction->setChecked(sessionsWindow->isLog());
                         rawLogSessionAction->setChecked(sessionsWindow->isRawLog());
+                    #ifdef ENABLE_PYTHON
+                        bool isRS = sessionsWindow->isRecordingScript();
+                        startRecordingScriptAction->setEnabled(!isRS);
+                        stopRecordingScriptAction->setEnabled(isRS);
+                        canlcelRecordingScriptAction->setEnabled(isRS);
+                    #endif
                         if(hexViewAction->isChecked()) {
                             connect(sessionsWindow,&SessionsWindow::hexDataDup,
                                         hexViewWindow,&HexViewWindow::recvData);
@@ -378,6 +384,12 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                         receiveASCIIAction->setChecked(sessionsWindow->isReceiveASCIIFile());
                     }
                 }
+            } else {
+            #ifdef ENABLE_PYTHON
+                startRecordingScriptAction->setEnabled(false);
+                stopRecordingScriptAction->setEnabled(false);
+                canlcelRecordingScriptAction->setEnabled(false);
+            #endif
             }
             refreshStatusBar();
             refreshTagColor();
@@ -1126,9 +1138,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     });
 
     // TODO:Unimplemented functions are temporarily closed
-    startRecordingScriptAction->setEnabled(false);
-    stopRecordingScriptAction->setEnabled(false);
-    canlcelRecordingScriptAction->setEnabled(false);
     createPublicKeyAction->setEnabled(false);
     publickeyManagerAction->setEnabled(false);
     tileAction->setEnabled(false);
@@ -2193,10 +2202,13 @@ void CentralWidget::menuAndToolBarInit(void) {
     scriptMenu->addAction(cancelAction);
     scriptMenu->addSeparator();
     startRecordingScriptAction = new QAction(this);
+    startRecordingScriptAction->setEnabled(false);
     scriptMenu->addAction(startRecordingScriptAction);
     stopRecordingScriptAction = new QAction(this);
+    stopRecordingScriptAction->setEnabled(false);
     scriptMenu->addAction(stopRecordingScriptAction);
     canlcelRecordingScriptAction = new QAction(this);
+    canlcelRecordingScriptAction->setEnabled(false);
     scriptMenu->addAction(canlcelRecordingScriptAction);
 
     addBookmarkAction = new QAction(this);
@@ -3368,6 +3380,48 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(cancelAction,&QAction::triggered,this,[=](){
         pyRun->cancelScript();
+    });
+    connect(startRecordingScriptAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) {
+            return;
+        }
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(!sessionsWindow->isRecordingScript()) {
+            sessionsWindow->startRecordingScript();
+        }
+        bool isRS = sessionsWindow->isRecordingScript();
+        startRecordingScriptAction->setEnabled(!isRS);
+        stopRecordingScriptAction->setEnabled(isRS);
+        canlcelRecordingScriptAction->setEnabled(isRS);
+    });
+    connect(stopRecordingScriptAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) {
+            return;
+        }
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isRecordingScript()) {
+            sessionsWindow->stopRecordingScript();
+        }
+        bool isRS = sessionsWindow->isRecordingScript();
+        startRecordingScriptAction->setEnabled(!isRS);
+        stopRecordingScriptAction->setEnabled(isRS);
+        canlcelRecordingScriptAction->setEnabled(isRS);
+    });
+    connect(canlcelRecordingScriptAction,&QAction::triggered,this,[=](){
+        QWidget *widget = findCurrentFocusWidget();
+        if(widget == nullptr) {
+            return;
+        }
+        SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
+        if(sessionsWindow->isRecordingScript()) {
+            sessionsWindow->canlcelRecordingScript();
+        }
+        bool isRS = sessionsWindow->isRecordingScript();
+        startRecordingScriptAction->setEnabled(!isRS);
+        stopRecordingScriptAction->setEnabled(isRS);
+        canlcelRecordingScriptAction->setEnabled(isRS);
     });
 #endif
     connect(addBookmarkAction, &QAction::triggered, this, [&]() {
