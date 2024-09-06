@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>449</width>
-    <height>397</height>
+    <height>459</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -58,6 +58,12 @@
     <layout class="QHBoxLayout" name="horizontalLayout_31">
      <item>
       <widget class="QLabel" name="label_5">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Default LocalShell</string>
        </property>
@@ -86,6 +92,12 @@
     <layout class="QHBoxLayout" name="horizontalLayout_32">
      <item>
       <widget class="QLabel" name="labelPowerShellProfile">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>PowerShell Profile</string>
        </property>
@@ -124,6 +136,12 @@
      </property>
      <item>
       <widget class="QLabel" name="label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>User Plugins Path</string>
        </property>

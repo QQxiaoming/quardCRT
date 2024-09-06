@@ -102,7 +102,7 @@ Protocol selection interface:
 |                                                                      |
 | Session label tag color                                              |
 |                                                                      |
-| block selection (Shift+click) and column selection (Alt+Shift+click) |
+| Block selection (Shift+click) and column selection (Alt+Shift+click) |
 |                                                                      |
 
 ## Planned features

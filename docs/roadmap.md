@@ -5,11 +5,14 @@
 quardCRT's development plan and roadmap.
 
 - Version 0.5.x
-    - [ ] Scripts Engine
+    - [x] Scripts Engine
 
 - Version 0.4.x
     - [x] Modern and elegant main UI
     - [x] XYZmodem file transfer
+    - [x] Broadcast session
+    - [x] Session label tag color
+    - [x] Block selection (Shift+click) and column selection (Alt+Shift+click)
     - [x] Plugins system
     - [x] German/Portuguese(Brazil)/Czech/Arabic
 
