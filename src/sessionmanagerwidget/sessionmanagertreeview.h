@@ -33,8 +33,10 @@ public:
     explicit SessionManagerTreeView(QWidget *parent = 0);
     ~SessionManagerTreeView();
 
-    void addSession(QString str, int type);
+    bool addSession(QString str, int type, QString path = QString());
+    bool addGroup(QString str, QString path = QString());
     void removeSession(QString str);
+    void removeGroup(QString str);
     void setCurrentSession(QString str);
     bool checkSession(QString str);
     void retranslateUi();
@@ -51,6 +53,9 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
+    QModelIndex path2Group(const QString &path);
+    QModelIndex findItemsRecursion(const QString &str, QModelIndex index);
+
     SessionManagerTreeModel *mode;
     QModelIndex rootIndex;
 };

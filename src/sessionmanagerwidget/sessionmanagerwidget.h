@@ -40,9 +40,9 @@ public:
 
     void addActionOnToolBar(QAction *action);
     void retranslateUi();
-    void addSession(QString str, int type);
-    void setCurrentSession(QString str);
+    bool addSession(QString str, int type, QString path = QString("/"));
     void removeSession(QString str);
+    void setCurrentSession(QString str);
     bool checkSession(QString str);
 
 signals:

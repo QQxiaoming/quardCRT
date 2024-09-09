@@ -46,6 +46,8 @@
 #include "misc.h"
 #include "qextserialenumerator.h"
 
+QString SessionsWindow::saveRecordingPath = QDir::homePath();
+
 SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     : QObject(parent)
     , type(tp)
@@ -1008,9 +1010,14 @@ int SessionsWindow::setLog(bool enable) {
     log_file_mutex.lock(); 
     if(enable) {
         if(log_file == nullptr) {
+            QFileInfo path(saveRecordingPath);
+            if(!path.isDir()) {
+                saveRecordingPath = QDir::homePath();
+            }
             QString savefile_name = FileDialog::getSaveFileName(term, tr("Save log..."),
-                QDir::homePath() + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".log", tr("log files (*.log)"));
+                saveRecordingPath + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".log", tr("log files (*.log)"));
             if (!savefile_name.isEmpty()) {
+                saveRecordingPath = QFileInfo(savefile_name).absolutePath();
                 log_file = new QFile(savefile_name);
                 if (!log_file->open(QIODevice::WriteOnly|QIODevice::Text)) {
                     QMessageBox::warning(messageParentWidget, tr("Save log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
@@ -1053,9 +1060,14 @@ int SessionsWindow::setRawLog(bool enable) {
     raw_log_file_mutex.lock(); 
     if(enable) {
         if(raw_log_file == nullptr) {
+            QFileInfo path(saveRecordingPath);
+            if(!path.isDir()) {
+                saveRecordingPath = QDir::homePath();
+            }
             QString savefile_name = FileDialog::getSaveFileName(term, tr("Save Raw log..."),
-                QDir::homePath() + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".bin", tr("binary files (*.bin)"));
+                saveRecordingPath + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".bin", tr("binary files (*.bin)"));
             if (!savefile_name.isEmpty()) {
+                saveRecordingPath = QFileInfo(savefile_name).absolutePath();
                 raw_log_file = new QFile(savefile_name);
                 if (!raw_log_file->open(QIODevice::WriteOnly)) {
                     QMessageBox::warning(messageParentWidget, tr("Save Raw log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
@@ -1122,9 +1134,14 @@ void SessionsWindow::addToRecordingScript(int type, QByteArray ba) {
 
 int SessionsWindow::stopRecordingScript(void) {
     int ret = -1;
+    QFileInfo path(saveRecordingPath);
+    if(!path.isDir()) {
+        saveRecordingPath = QDir::homePath();
+    }
     QString savefile_name = FileDialog::getSaveFileName(term, tr("Save script..."),
-        QDir::homePath() + QDate::currentDate().toString("/script-yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".py", tr("Python files (*.py)"));
+        saveRecordingPath + QDate::currentDate().toString("/script-yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".py", tr("Python files (*.py)"));
     if (!savefile_name.isEmpty()) {
+        saveRecordingPath = QFileInfo(savefile_name).absolutePath();
         QFile scriptFile(savefile_name);
         if (!scriptFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
             QMessageBox::warning(messageParentWidget, tr("Save script"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(scriptFile.errorString()));

@@ -162,6 +162,26 @@ void SessionManagerTreeModel::info(const QModelIndex &index, int &type, QString 
 	name = p->data();
 }
 
+QString SessionManagerTreeModel::path(const QModelIndex &index, const QModelIndex &rootIndex) {
+	if(!index.isValid()) { return QString(); }
+    if(!rootIndex.isValid()) { return QString(); }
+
+	if(index == rootIndex) {
+		return QString();
+	}
+    TreeItem *root = static_cast<TreeItem *>(rootIndex.internalPointer()) ;
+	TreeItem *p = static_cast<TreeItem *>(index.internalPointer()) ;
+	if(p->parent() == root) {
+		return QString("/");
+	}
+	QString path;
+    while(p->parent() != root){
+		p = p->parent();
+		path = QString("/") + p->data() + path;
+	}
+	return path;
+}
+
 int SessionManagerTreeModel::rowCount(const QModelIndex &parent) const
 {
 	TreeItem *p = m_pRootItem ;
@@ -273,60 +293,6 @@ QVariant SessionManagerTreeModel::headerData(int section, Qt::Orientation orient
 	}
 	return QVariant() ;
 }
-
-// drag and drop 処理 ----------------------------------------
-Qt::DropActions SessionManagerTreeModel::supportedDropActions() const
-{
-	return Qt::CopyAction | Qt::MoveAction ;
-}
-
-QStringList SessionManagerTreeModel::mimeTypes() const
-{
-	QStringList types ;
-	types << "application/tree.item.list" ;
-	return types ;
-}
-
-QMimeData *SessionManagerTreeModel::mimeData(const QModelIndexList &indexes) const
-{
-	QMimeData *mimeData = new QMimeData() ;
-	QByteArray encodeData ;
-
-	QDataStream stream(&encodeData, QIODevice::WriteOnly) ;
-	foreach ( const QModelIndex &index, indexes ) {
-		if ( index.isValid() ) {
-			stream << reinterpret_cast<quint64>(index.internalPointer()) ;
-		}
-	}
-	mimeData->setData("application/tree.item.list", encodeData) ;
-	return mimeData ;
-}
-
-bool SessionManagerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
-{
-    Q_UNUSED(row);
-
-	if ( action == Qt::IgnoreAction ) { return true ; }
-	if ( !data->hasFormat("application/tree.item.list") ) { return false ; }
-	if ( column > 0 ) { return false ; }
-
-	QByteArray encodeData = data->data("application/tree.item.list") ;
-	QDataStream stream(&encodeData, QIODevice::ReadOnly) ;
-
-	while ( !stream.atEnd() ) {
-		quint64 val ;
-		TreeItem *p ;
-		stream >> val ;
-		p = reinterpret_cast<TreeItem *>(val) ;
-
-		QString text = p->data() ;
-        QModelIndex index = addTree(text, 0, parent) ;
-		TreeItem *newItem = static_cast<TreeItem *>(index.internalPointer()) ;
-		newItem->copy(p) ;
-	}
-	return true;
-}
-// drag and drop 処理 ここまで ----------------------------------
 
 QModelIndex SessionManagerTreeModel::addTree(QString str, int type, const QModelIndex &parent)
 {

@@ -538,6 +538,8 @@ private:
     QString m_pipeName;
     QString m_username;
     QString m_password;
+
+    static QString saveRecordingPath;
 };
 
 #endif // SESSIONSWINDOW_H

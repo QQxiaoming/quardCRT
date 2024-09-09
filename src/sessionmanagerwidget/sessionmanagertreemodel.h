@@ -47,16 +47,10 @@ public:
 	QModelIndex parent(const QModelIndex &child) const ;
 	QVariant headerData(int section, Qt::Orientation orientation, int role) const ;
 
-	// drag and drop 追加
-	Qt::DropActions supportedDropActions() const ;
-	QStringList mimeTypes() const ;
-	QMimeData *mimeData(const QModelIndexList &indexes) const ;
-	bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) ;
-	// -----------------
-
     QModelIndex addTree(QString str, int type, const QModelIndex &parent) ;
-    void removeTree(QModelIndex &parent) ;
+    void removeTree(QModelIndex &parent);
 	void info(const QModelIndex &index, int &type, QString &name);
+    QString path(const QModelIndex &index, const QModelIndex &rootIndex);
 	QModelIndex findItems(QString str, QModelIndex &index);
 
 	void setFilter(QString str) ;

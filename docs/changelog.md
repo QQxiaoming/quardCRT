@@ -8,6 +8,7 @@
 - Add ToolTip to the connection bar
 - Add system beep support
 - Add record script feature
+- Improve the default path of recording logs, etc. to the last saved path
 - Fix the small probability memory leak problem
 
 ## [[V0.5.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.0)] - 2024-08-26

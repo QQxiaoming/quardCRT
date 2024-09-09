@@ -195,15 +195,15 @@ private:
     bool checkSessionName(QString &name);
     int addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name);
     int addSessionToSessionManager(const QuickConnectWindow::QuickConnectData &data, QString &name, bool checkname = true, int64_t id = -1);
-    int64_t removeSessionFromSessionManager(QString name);
+    int64_t removeSessionFromSessionManager(const QString &name);
     void connectSessionFromSessionManager(QString name);
     void restoreSessionToSessionManager(void);
     void saveSettings(void);
     void restoreSettings(void);
     void connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow);
     void sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name);
-    int setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name, bool skipPassword = false);
-    void infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name, bool skipPassword = false);
+    int setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name, QString &group, bool skipPassword = false);
+    void infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name,const QString &group, bool skipPassword = false);
     void moveToAnotherTab(int src,int dst, int index);
     void floatingWindow(MainWidgetGroup *g, int index);
     void terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *term,const QPoint& position);
@@ -291,7 +291,6 @@ private:
     QAction *cloneSessionAction;
     QAction *logSessionAction;
     QAction *rawLogSessionAction;
-    QAction *hexViewAction;
     QAction *exitAction;
     QAction *copyAction;
     QAction *pasteAction;
@@ -325,6 +324,7 @@ private:
     QAction *cmdWindowAction;
     QAction *connectBarAction;
     QAction *sideWindowAction;
+    QAction *hexViewAction;
     QAction *windwosTransparencyAction;
     QAction *verticalScrollBarAction;
     QAction *allwaysOnTopAction;

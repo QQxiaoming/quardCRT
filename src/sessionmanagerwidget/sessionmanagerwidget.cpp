@@ -69,9 +69,9 @@ void SessionManagerWidget::retranslateUi()
     tree->retranslateUi();
 }
 
-void SessionManagerWidget::addSession(QString str, int type)
+bool SessionManagerWidget::addSession(QString str, int type, QString path)
 {
-    tree->addSession(str, type);
+    return tree->addSession(str, type, path);
 }
 
 void SessionManagerWidget::removeSession(QString str)

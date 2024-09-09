@@ -20,6 +20,7 @@
 #include <QTreeView>
 #include <QMenu>
 #include <QMessageBox>
+#include <QInputDialog>
 
 #include "qfonticon.h"
 
@@ -54,21 +55,70 @@ SessionManagerTreeView::~SessionManagerTreeView() {
     delete mode;
 }
 
-void SessionManagerTreeView::addSession(QString str, int type) {
-    mode->addTree(str, type, rootIndex);
+QModelIndex SessionManagerTreeView::path2Group(const QString &path) {
+    QModelIndex index = rootIndex;
+    if((!path.isEmpty()) && (path != "/") && (path.startsWith("/"))) {
+        QStringList pathList = path.split("/");
+        for(int i = 1; i < pathList.size(); i++) {
+            index = mode->findItems(pathList[i], index);
+            if(!index.isValid()) {
+                return index;
+            }
+            int type; QString name;
+            mode->info(index, type, name);
+            if(type != -1) {
+                return index;
+            }
+        }
+    }
+    return index;
+}
+
+QModelIndex SessionManagerTreeView::findItemsRecursion(const QString &str, QModelIndex index) {
+    QModelIndex findex = mode->findItems(str, index);
+    if (findex.isValid()) {
+        return findex;
+    }
+    for (int i = 0; i < mode->rowCount(index); i++) {
+        QModelIndex cindex = mode->index(i, 0, index);
+        if (mode->hasChildren(cindex)) {
+            findex = findItemsRecursion(str, cindex);
+            if (findex.isValid()) {
+                return findex;
+            }
+        }
+    }
+    return QModelIndex();
+}
+
+bool SessionManagerTreeView::addSession(QString str, int type, QString path) {
+    QModelIndex index = path2Group(path);
+    mode->addTree(str, type, index);
+    return true;
+}
+
+bool SessionManagerTreeView::addGroup(QString str, QString path) {
+    if(!checkSession(str)){
+        return addSession(str, -1, path);
+    }
+    return false;
 }
 
 void SessionManagerTreeView::removeSession(QString str) {
-    QModelIndex index = mode->findItems(str, rootIndex);
+    QModelIndex index = findItemsRecursion(str, rootIndex);
     mode->removeTree(index);
 }
 
+void SessionManagerTreeView::removeGroup(QString str) {
+    removeSession(str);
+}
+
 void SessionManagerTreeView::setCurrentSession(QString str) {
-    setCurrentIndex(mode->findItems(str, rootIndex));
+    setCurrentIndex(findItemsRecursion(str, rootIndex));
 }
 
 bool SessionManagerTreeView::checkSession(QString str) {
-    QModelIndex index = mode->findItems(str, rootIndex);
+    QModelIndex index = findItemsRecursion(str, rootIndex);
     if (index.isValid()) {
         return true;
     }
@@ -84,6 +134,7 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
     if (tIndex.isValid()) {
         int type; QString name;
         mode->info(tIndex, type, name);
+        QString path = mode->path(tIndex,rootIndex);
         QMenu *contextMenu = new QMenu(this); 
         if(type != -1) {
             QAction *connectTerminalAction = new QAction(tr("Connect Terminal"), contextMenu);
@@ -118,6 +169,36 @@ void SessionManagerTreeView::contextMenuEvent(QContextMenuEvent *event) {
             connect(propertiesAction, &QAction::triggered, this, [&,name](){
                 emit sessionShowProperties(name);
             });
+        } else {
+            QAction *newGroupAction = new QAction(tr("New Group"), contextMenu);
+            contextMenu->addAction(newGroupAction);
+            connect(newGroupAction, &QAction::triggered, this, [&,path,name](){
+                QString newGroup = QInputDialog::getText(this, tr("New Group"), tr("Enter the name of the new group:"));
+                if(!newGroup.isEmpty()) {
+                    bool ret = false;
+                    if(path.isEmpty()) {
+                        ret = addGroup(newGroup, "/");
+                    } else {
+                        if(path == "/") {
+                            ret = addGroup(newGroup, path + name);
+                        } else {
+                            ret = addGroup(newGroup, path + "/" + name);
+                        }
+                    }
+                    if(!ret) {
+                        QMessageBox::warning(this, tr("New Group"), tr("The group already exists!"));
+                    }
+                }
+            });
+            if(!path.isEmpty()) {
+                QAction *deleteGroupAction = new QAction(tr("Delete"), contextMenu);
+                contextMenu->addAction(deleteGroupAction);
+                connect(deleteGroupAction, &QAction::triggered, this, [&,path,name](){
+                    if(QMessageBox::question(this, tr("Delete Group"), tr("Are you sure you want to delete the group?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+                        removeGroup(name);
+                    }
+                });
+            }
         }
 
         if(!contextMenu->isEmpty()) {

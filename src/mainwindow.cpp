@@ -792,9 +792,10 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         for(int i=0;i<size;i++) {
             settings.setArrayIndex(i);
             QString current_name = settings.value("name").toString();
+            QString current_group = settings.value("group", "/").toString();
             if(current_name == str) {
                 QuickConnectWindow::QuickConnectData data;
-                if(setting2InfoData(&settings, data, current_name) != 0) {
+                if(setting2InfoData(&settings, data, current_name,current_group) != 0) {
                     QMessageBox::warning(this, tr("Warning"), tr("Session properties error!"));
                     return;
                 }
@@ -1674,8 +1675,6 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     logSessionAction->setStatusTip(tr("Create a log file for current session"));
     rawLogSessionAction->setText(tr("Raw Log Session"));
     logSessionAction->setStatusTip(tr("Create a raw log file for current session"));
-    hexViewAction->setText(tr("Hex View"));
-    hexViewAction->setStatusTip(tr("Show/Hide Hex View for current session"));
     exitAction->setText(tr("Exit"));
     exitAction->setStatusTip(tr("Quit the application"));
 
@@ -1779,6 +1778,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     connectBarAction->setStatusTip(tr("Show/Hide Connect Bar"));
     sideWindowAction->setText(tr("Side Window"));
     sideWindowAction->setStatusTip(tr("Show/Hide Side Window"));
+    hexViewAction->setText(tr("Hex View"));
+    hexViewAction->setStatusTip(tr("Show/Hide Hex View for current session"));
     windwosTransparencyAction->setText(tr("Windows Transparency"));
     windwosTransparencyAction->setStatusTip(tr("Enable/Disable alpha transparency"));
     verticalScrollBarAction->setText(tr("Vertical Scroll Bar"));
@@ -2006,9 +2007,6 @@ void CentralWidget::menuAndToolBarInit(void) {
     rawLogSessionAction->setCheckable(true);
     rawLogSessionAction->setChecked(false);
     fileMenu->addAction(rawLogSessionAction);
-    hexViewAction = new QAction(this);
-    hexViewAction->setCheckable(true);
-    fileMenu->addAction(hexViewAction);
     fileMenu->addSeparator();
     exitAction = new QAction(this);
     fileMenu->addAction(exitAction);
@@ -2123,6 +2121,10 @@ void CentralWidget::menuAndToolBarInit(void) {
     sideWindowAction->setCheckable(true);
     sideWindowAction->setChecked(true);
     viewMenu->addAction(sideWindowAction);
+    viewMenu->addSeparator();
+    hexViewAction = new QAction(this);
+    hexViewAction->setCheckable(true);
+    viewMenu->addAction(hexViewAction);
     viewMenu->addSeparator();
     windwosTransparencyAction = new QAction(this);
     windwosTransparencyAction->setCheckable(true);
@@ -2768,24 +2770,6 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             }
         }
     );
-    connect(hexViewAction,&QAction::triggered,this,[=](){
-        if(hexViewAction->isChecked()) {
-            hexViewWindow->show();
-            QWidget *widget = findCurrentFocusWidget();
-            if(widget == nullptr) return;
-            foreach(SessionsWindow *sessionsWindow, sessionList) {
-                disconnect(sessionsWindow,&SessionsWindow::hexDataDup,hexViewWindow,&HexViewWindow::recvData);
-                if(sessionsWindow->getMainWidget() == widget) {
-                    connect(sessionsWindow,&SessionsWindow::hexDataDup,hexViewWindow,&HexViewWindow::recvData);
-                }
-            }
-        }
-        else
-            hexViewWindow->hide();
-    });
-    connect(hexViewWindow,&HexViewWindow::hideOrClose,this,[=](){
-        hexViewAction->setChecked(false);
-    });
     connect(globalOptionsWindow,&GlobalOptionsWindow::colorSchemeChanged,this,[=](QString colorScheme){
         if(colorScheme == "Custom") {
             foreach(SessionsWindow *sessionsWindow, sessionList) {
@@ -3171,6 +3155,24 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(sideWindowAction,&QAction::triggered,this,[=](bool checked){
         ui->sidewidget->setVisible(checked);
+    });
+    connect(hexViewAction,&QAction::triggered,this,[=](){
+        if(hexViewAction->isChecked()) {
+            hexViewWindow->show();
+            QWidget *widget = findCurrentFocusWidget();
+            if(widget == nullptr) return;
+            foreach(SessionsWindow *sessionsWindow, sessionList) {
+                disconnect(sessionsWindow,&SessionsWindow::hexDataDup,hexViewWindow,&HexViewWindow::recvData);
+                if(sessionsWindow->getMainWidget() == widget) {
+                    connect(sessionsWindow,&SessionsWindow::hexDataDup,hexViewWindow,&HexViewWindow::recvData);
+                }
+            }
+        }
+        else
+            hexViewWindow->hide();
+    });
+    connect(hexViewWindow,&HexViewWindow::hideOrClose,this,[=](){
+        hexViewAction->setChecked(false);
     });
     connect(windwosTransparencyAction,&QAction::triggered,this,[=](bool checked){
         windowTransparencyEnabled = checked;
@@ -3780,7 +3782,8 @@ void CentralWidget::restoreSessionToSessionManager(void)
         settings.setArrayIndex(i);
         QString name = settings.value("name").toString();
         int type = settings.value("type").toInt();
-        sessionManagerWidget->addSession(name,type);
+        QString group = settings.value("group", "/").toString();
+        sessionManagerWidget->addSession(name,type,group);
     }
     settings.endArray();
 }
@@ -3800,7 +3803,7 @@ bool CentralWidget::checkSessionName(QString &name)
 int CentralWidget::addSessionToSessionManager(SessionsWindow *sessionsWindow, QString &name)
 {
     checkSessionName(name);
-    sessionManagerWidget->addSession(name,sessionsWindow->getSessionType());
+    sessionManagerWidget->addSession(name,sessionsWindow->getSessionType(),"/");
 
     GlobalSetting settings;
     int size = settings.beginReadArray("Global/Session");
@@ -3809,6 +3812,7 @@ int CentralWidget::addSessionToSessionManager(SessionsWindow *sessionsWindow, QS
     settings.setArrayIndex(size);
     settings.setValue("name",name);
     settings.setValue("type",sessionsWindow->getSessionType());
+    settings.setValue("group","/");
     switch(sessionsWindow->getSessionType()) {
     case SessionsWindow::Telnet:
         settings.setValue("hostname",sessionsWindow->getHostname());
@@ -3858,20 +3862,21 @@ int CentralWidget::addSessionToSessionManager(const QuickConnectWindow::QuickCon
         settings.endArray();
         settings.beginWriteArray("Global/Session");
         settings.setArrayIndex(size);
-        infoData2Setting(&settings, data, name);
+        infoData2Setting(&settings, data, name, "/");
         settings.endArray();
-        sessionManagerWidget->addSession(name,data.type);
+        sessionManagerWidget->addSession(name,data.type,"/");
     } else {
-        QList<QPair<QString,QuickConnectWindow::QuickConnectData>> infoList;
+        QList<QPair<QPair<QString,QString>,QuickConnectWindow::QuickConnectData>> infoList;
         for(int i=0;i<size;i++) {
             settings.setArrayIndex(i);
             QuickConnectWindow::QuickConnectData dataInfo;
             QString current_name;
-            setting2InfoData(&settings, dataInfo, current_name, true);
+            QString current_group;
+            setting2InfoData(&settings, dataInfo, current_name, current_group, true);
             if(i == id) {
-                infoList.append(QPair<QString,QuickConnectWindow::QuickConnectData>(name,data));
+                infoList.append(QPair<QPair<QString,QString>,QuickConnectWindow::QuickConnectData>(QPair<QString,QString>(name,"/"),data));
             }
-            infoList.append(QPair<QString,QuickConnectWindow::QuickConnectData>(current_name,dataInfo));
+            infoList.append(QPair<QPair<QString,QString>,QuickConnectWindow::QuickConnectData>(QPair<QString,QString>(current_name,current_group),dataInfo));
             sessionManagerWidget->removeSession(current_name);
         }
         settings.endArray();
@@ -3881,14 +3886,14 @@ int CentralWidget::addSessionToSessionManager(const QuickConnectWindow::QuickCon
         settings.beginWriteArray("Global/Session");
         // write infoMap to settings
         for(int i=0;i<infoList.size();i++) {
-            QPair<QString,QuickConnectWindow::QuickConnectData> info = infoList.at(i);
+            QPair<QPair<QString,QString>,QuickConnectWindow::QuickConnectData> info = infoList.at(i);
             QuickConnectWindow::QuickConnectData dataR = info.second;
             settings.setArrayIndex(i);
-            sessionManagerWidget->addSession(info.first,dataR.type);
+            sessionManagerWidget->addSession(info.first.first,dataR.type,info.first.second);
             if(i == id) {
-                infoData2Setting(&settings, dataR, info.first);
+                infoData2Setting(&settings, dataR, info.first.first,info.first.second);
             } else {
-                infoData2Setting(&settings, dataR, info.first, true);
+                infoData2Setting(&settings, dataR, info.first.first,info.first.second, true);
             }
         }
         settings.endArray();
@@ -3897,18 +3902,19 @@ int CentralWidget::addSessionToSessionManager(const QuickConnectWindow::QuickCon
     return 0;
 }
 
-int64_t CentralWidget::removeSessionFromSessionManager(QString name)
+int64_t CentralWidget::removeSessionFromSessionManager(const QString &name)
 {
     int64_t matched = -1;
     sessionManagerWidget->removeSession(name);
     GlobalSetting settings;
-    QList<QPair<QString,QuickConnectWindow::QuickConnectData>> infoList;
+    QList<QPair<QPair<QString,QString>,QuickConnectWindow::QuickConnectData>> infoList;
     int size = settings.beginReadArray("Global/Session");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
         QuickConnectWindow::QuickConnectData data;
         QString current_name;
-        setting2InfoData(&settings, data, current_name, true);
+        QString current_group;
+        setting2InfoData(&settings, data, current_name,current_group,true);
         if(current_name == name) {
             if(data.type == QuickConnectWindow::SSH2) {
                 keyChainClass.deleteKey(name);
@@ -3916,7 +3922,7 @@ int64_t CentralWidget::removeSessionFromSessionManager(QString name)
             matched = i;
             continue;
         } else {
-            infoList.append(QPair<QString,QuickConnectWindow::QuickConnectData>(current_name,data));
+            infoList.append(QPair<QPair<QString,QString>,QuickConnectWindow::QuickConnectData>(QPair<QString,QString>(current_name,current_group),data));
         }
     }
     settings.endArray();
@@ -3926,10 +3932,10 @@ int64_t CentralWidget::removeSessionFromSessionManager(QString name)
     settings.beginWriteArray("Global/Session");
     // write infoMap to settings
     for(int i=0;i<infoList.size();i++) {
-        QPair<QString,QuickConnectWindow::QuickConnectData> info = infoList.at(i);
+        QPair<QPair<QString,QString>,QuickConnectWindow::QuickConnectData> info = infoList.at(i);
         QuickConnectWindow::QuickConnectData dataR = info.second;
         settings.setArrayIndex(i);
-        infoData2Setting(&settings, dataR, info.first, true);
+        infoData2Setting(&settings, dataR, info.first.first,info.first.second, true);
     }
     settings.endArray();
 
@@ -3949,9 +3955,10 @@ void CentralWidget::connectSessionFromSessionManager(QString name)
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
         QString current_name = settings.value("name").toString();
+        QString current_group = settings.value("group", "/").toString();
         if(current_name == name) {
             QuickConnectWindow::QuickConnectData data;
-            if(setting2InfoData(&settings,data,current_name) != 0) {
+            if(setting2InfoData(&settings,data,current_name,current_group) != 0) {
                 settings.endArray();
                 QMessageBox::warning(this,tr("Warning"),tr("Session information get failed."),QMessageBox::Ok);
                 return;
@@ -4710,9 +4717,10 @@ void CentralWidget::sessionWindow2InfoData(SessionsWindow *sessionsWindow, Quick
     }
 }
 
-int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name,bool skipPassword)
+int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, QString &name, QString &group, bool skipPassword)
 {
     name = settings->value("name").toString();
+    group = settings->value("group", "/").toString();
     data.type = (QuickConnectWindow::QuickConnectType)(settings->value("type").toInt());
     switch(data.type) {
     case QuickConnectWindow::Telnet:
@@ -4768,9 +4776,10 @@ int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow:
     return 0;
 }
 
-void CentralWidget::infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name,bool skipPassword) {
+void CentralWidget::infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name,const QString &group,bool skipPassword) {
     settings->setValue("name",name);
     settings->setValue("type",data.type);
+    settings->setValue("group",group);
     switch(data.type) {
     case QuickConnectWindow::Telnet:
         settings->setValue("hostname",data.TelnetData.hostname);
