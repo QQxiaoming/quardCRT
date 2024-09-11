@@ -130,38 +130,32 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     setWindowModality(Qt::ApplicationModal);
     setWindowFlags(Qt::Tool);
 
-    QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
-    splitter->setHandleWidth(1);
-    ui->horizontalLayout->addWidget(splitter);
-    treeView = new QTreeView(this);
-    treeView->setHeaderHidden(true);
-    model = new GlobalOptionsModel(treeView);
+    ui->splitter->setHandleWidth(1);
+    ui->treeView->setHeaderHidden(true);
+    model = new GlobalOptionsModel(ui->treeView);
     model->setOnlyName(true);
     model->setDistinguishType(false);
-    treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    splitter->addWidget(treeView);
-    QWidget *widget = new QWidget(this);
-    splitter->addWidget(widget);
-    widget->setLayout(new QVBoxLayout(widget));
-    widget->layout()->setContentsMargins(0,0,0,0);
-    splitter->setSizes(QList<int>() << 1 << 100);
-    splitter->setCollapsible(0,false);
-    splitter->setCollapsible(1,false);
+    ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    emptyWidget = new QWidget(this);
+    ui->stackedWidget->addWidget(emptyWidget);
+    ui->splitter->setSizes(QList<int>() << 1 << 100);
+    ui->splitter->setCollapsible(0,false);
+    ui->splitter->setCollapsible(1,false);
 
-    globalOptionsGeneralWidget = new GlobalOptionsGeneralWidget(widget);
-    widget->layout()->addWidget(globalOptionsGeneralWidget);
-    globalOptionsAppearanceWidget = new GlobalOptionsAppearanceWidget(widget);
-    widget->layout()->addWidget(globalOptionsAppearanceWidget);
-    globalOptionsTerminalWidget = new GlobalOptionsTerminalWidget(widget);
-    widget->layout()->addWidget(globalOptionsTerminalWidget);
-    globalOptionsWindowWidget = new GlobalOptionsWindowWidget(widget);
-    widget->layout()->addWidget(globalOptionsWindowWidget);
-    globalOptionsTransferWidget = new GlobalOptionsTransferWidget(widget);
-    widget->layout()->addWidget(globalOptionsTransferWidget);
-    globalOptionsAdvancedWidget = new GlobalOptionsAdvancedWidget(widget);
-    widget->layout()->addWidget(globalOptionsAdvancedWidget);
+    globalOptionsGeneralWidget = new GlobalOptionsGeneralWidget(this);
+    ui->stackedWidget->addWidget(globalOptionsGeneralWidget);
+    globalOptionsAppearanceWidget = new GlobalOptionsAppearanceWidget(this);
+    ui->stackedWidget->addWidget(globalOptionsAppearanceWidget);
+    globalOptionsTerminalWidget = new GlobalOptionsTerminalWidget(this);
+    ui->stackedWidget->addWidget(globalOptionsTerminalWidget);
+    globalOptionsWindowWidget = new GlobalOptionsWindowWidget(this);
+    ui->stackedWidget->addWidget(globalOptionsWindowWidget);
+    globalOptionsTransferWidget = new GlobalOptionsTransferWidget(this);
+    ui->stackedWidget->addWidget(globalOptionsTransferWidget);
+    globalOptionsAdvancedWidget = new GlobalOptionsAdvancedWidget(this);
+    ui->stackedWidget->addWidget(globalOptionsAdvancedWidget);
 
-    treeView->setModel(model);
+    ui->treeView->setModel(model);
     retranslateUi();
     setActiveWidget(globalOptionsGeneralWidget);
 
@@ -177,6 +171,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
     if (fontFamilies.size() > 0) {
         font.setFamily(fontFamilies[0]);
+        qDebug() << fontFamilies[0];
     }
     globalOptionsAppearanceWidget->ui->pushButtonSelectSeriesFont->setText("Built-in");
     if(settings.contains("fontFamily")) {
@@ -192,6 +187,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         font.setPointSize(12);
         settings.setValue("fontPointSize", font.pointSize());
     }
+    qDebug() << font;
     globalOptionsAppearanceWidget->ui->spinBoxFontSize->setValue(font.pointSize());
 
     globalOptionsAppearanceWidget->ui->comBoxColorSchemes->setEditable(true);
@@ -445,7 +441,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &GlobalOptionsWindow::buttonBoxAccepted);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &GlobalOptionsWindow::buttonBoxRejected);
 
-    connect(treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
+    connect(ui->treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
         QString filePath = model->filePath(index);
         QStringList pathList = filePath.split(model->separator());
         GlobalOptionsModel::TreeNode node = rootInfo;
@@ -477,7 +473,7 @@ void GlobalOptionsWindow::retranslateUi()
     GlobalOptionsModel::TreeNode advanced(tr("Advanced"),globalOptionsAdvancedWidget);
     rootInfo.children << generalNode << appearance << terminal << window << transfer << advanced;
     model->setTree(rootInfo);
-    treeView->setRootIndex(model->setRootPath("/"));
+    ui->treeView->setRootIndex(model->setRootPath("/"));
     ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
@@ -490,15 +486,10 @@ void GlobalOptionsWindow::retranslateUi()
 
 void GlobalOptionsWindow::setActiveWidget(QWidget *widget)
 {
-    globalOptionsGeneralWidget->setVisible(false);
-    globalOptionsAppearanceWidget->setVisible(false);
-    globalOptionsTerminalWidget->setVisible(false);
-    globalOptionsWindowWidget->setVisible(false);
-    globalOptionsTransferWidget->setVisible(false);
-    globalOptionsAdvancedWidget->setVisible(false);
+    ui->stackedWidget->setCurrentWidget(emptyWidget);
 
     if(widget)
-        widget->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(widget);
 }
 
 void GlobalOptionsWindow::setAvailableColorSchemes(QStringList colorSchemes)

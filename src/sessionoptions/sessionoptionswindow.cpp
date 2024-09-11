@@ -50,62 +50,54 @@ SessionOptionsWindow::SessionOptionsWindow(QWidget *parent) :
     setWindowModality(Qt::ApplicationModal);
     setWindowFlags(Qt::Tool);
 
-    QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
-    splitter->setHandleWidth(1);
-    ui->horizontalLayout->addWidget(splitter);
-    QTreeView *treeView = new QTreeView(this);
-    treeView->setMinimumWidth(140);
-    treeView->setHeaderHidden(true);
-    model = new QStringListModel(treeView);
-    treeView->setModel(model);
-    splitter->addWidget(treeView);
-    QWidget *widget = new QWidget(this);
-    splitter->addWidget(widget);
-    widget->setLayout(new QVBoxLayout(widget));
-    widget->layout()->setContentsMargins(0,0,0,0);
-    splitter->setSizes(QList<int>() << 140 << 500);
-    splitter->setCollapsible(0,false);
-    splitter->setCollapsible(1,false);
+    ui->splitter->setHandleWidth(1);
+    ui->treeView->setMinimumWidth(140);
+    ui->treeView->setHeaderHidden(true);
+    model = new QStringListModel(ui->treeView);
+    ui->treeView->setModel(model);
+    emptyWidget = new QWidget(this);
+    ui->stackedWidget->addWidget(emptyWidget);
+    ui->splitter->setSizes(QList<int>() << 140 << 500);
+    ui->splitter->setCollapsible(0,false);
+    ui->splitter->setCollapsible(1,false);
 
-    sessionOptionsGeneralWidget = new SessionOptionsGeneralWidget(widget);
-    widget->layout()->addWidget(sessionOptionsGeneralWidget);
-    sessionOptionsTelnetProperties = new SessionOptionsTelnetProperties(widget);
-    widget->layout()->addWidget(sessionOptionsTelnetProperties);
-    sessionOptionsSerialProperties = new SessionOptionsSerialProperties(widget);
-    widget->layout()->addWidget(sessionOptionsSerialProperties);
-    sessionOptionsLocalShellProperties = new SessionOptionsLocalShellProperties(widget);
-    widget->layout()->addWidget(sessionOptionsLocalShellProperties);
-    sessionOptionsNamePipeProperties = new SessionOptionsNamePipeProperties(widget);
-    widget->layout()->addWidget(sessionOptionsNamePipeProperties);
-    sessionOptionsRawProperties = new SessionOptionsRawProperties(widget);
-    widget->layout()->addWidget(sessionOptionsRawProperties);
-    sessionOptionsSSH2Properties = new SessionOptionsSsh2Properties(widget);
-    widget->layout()->addWidget(sessionOptionsSSH2Properties);
-    sessionOptionsVNCProperties = new SessionOptionsVNCProperties(widget);
-    widget->layout()->addWidget(sessionOptionsVNCProperties);
+    sessionOptionsGeneralWidget = new SessionOptionsGeneralWidget(this);
+    ui->stackedWidget->addWidget(sessionOptionsGeneralWidget);
+    sessionOptionsTelnetProperties = new SessionOptionsTelnetProperties(this);
+    ui->stackedWidget->addWidget(sessionOptionsTelnetProperties);
+    sessionOptionsSerialProperties = new SessionOptionsSerialProperties(this);
+    ui->stackedWidget->addWidget(sessionOptionsSerialProperties);
+    sessionOptionsLocalShellProperties = new SessionOptionsLocalShellProperties(this);
+    ui->stackedWidget->addWidget(sessionOptionsLocalShellProperties);
+    sessionOptionsNamePipeProperties = new SessionOptionsNamePipeProperties(this);
+    ui->stackedWidget->addWidget(sessionOptionsNamePipeProperties);
+    sessionOptionsRawProperties = new SessionOptionsRawProperties(this);
+    ui->stackedWidget->addWidget(sessionOptionsRawProperties);
+    sessionOptionsSSH2Properties = new SessionOptionsSsh2Properties(this);
+    ui->stackedWidget->addWidget(sessionOptionsSSH2Properties);
+    sessionOptionsVNCProperties = new SessionOptionsVNCProperties(this);
+    ui->stackedWidget->addWidget(sessionOptionsVNCProperties);
 
-    sessionOptionsLocalShellState = new SessionOptionsLocalShellState(widget);
-    widget->layout()->addWidget(sessionOptionsLocalShellState);
-    sessionOptionsSerialState = new SessionOptionsSerialState(widget);
-    widget->layout()->addWidget(sessionOptionsSerialState);
+    sessionOptionsLocalShellState = new SessionOptionsLocalShellState(this);
+    ui->stackedWidget->addWidget(sessionOptionsLocalShellState);
+    sessionOptionsSerialState = new SessionOptionsSerialState(this);
+    ui->stackedWidget->addWidget(sessionOptionsSerialState);
 
-    sessionOptionsGeneralWidget->setVisible(true);
     setactiveProperties(-1);
     setactiveState(-1);
+    ui->stackedWidget->setCurrentWidget(sessionOptionsGeneralWidget);
 
     retranslateUi();
 
-    connect(treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
+    connect(ui->treeView, &QTreeView::clicked, [&](const QModelIndex &index) {
         if (index.row() == 0) {
-            sessionOptionsGeneralWidget->setVisible(true);
             setactiveProperties(-1);
             setactiveState(-1);
+            ui->stackedWidget->setCurrentWidget(sessionOptionsGeneralWidget);
         } else if (index.row() == 1) {
-            sessionOptionsGeneralWidget->setVisible(false);
             setactiveState(-1);
             setactiveProperties(sessionOptionsGeneralWidget->ui->comboBoxProtocol->currentIndex());
         } else if (index.row() == 2) {
-            sessionOptionsGeneralWidget->setVisible(false);
             setactiveProperties(-1);
             setactiveState(sessionOptionsGeneralWidget->ui->comboBoxProtocol->currentIndex());
         }
@@ -151,56 +143,48 @@ void SessionOptionsWindow::retranslateUi()
 
 void SessionOptionsWindow::setactiveProperties(int index)
 {
-    sessionOptionsTelnetProperties->setVisible(false);
-    sessionOptionsSerialProperties->setVisible(false);
-    sessionOptionsLocalShellProperties->setVisible(false);
-    sessionOptionsNamePipeProperties->setVisible(false);
-    sessionOptionsRawProperties->setVisible(false);
-    sessionOptionsSSH2Properties->setVisible(false);
-    sessionOptionsVNCProperties->setVisible(false);
-
+    ui->stackedWidget->setCurrentWidget(emptyWidget);
     if(index == -1) {
         return;
     }
     switch(index) {
     case 0:
-        sessionOptionsTelnetProperties->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsTelnetProperties);
         break;
     case 1:
-        sessionOptionsSerialProperties->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsSerialProperties);
         break;
     case 2:
-        sessionOptionsLocalShellProperties->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsLocalShellProperties);
         break;
     case 3:
-        sessionOptionsRawProperties->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsRawProperties);
         break;
     case 4:
-        sessionOptionsNamePipeProperties->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsNamePipeProperties);
         break;
     case 5:
-        sessionOptionsSSH2Properties->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsSSH2Properties);
         break;
     case 6:
-        sessionOptionsVNCProperties->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsVNCProperties);
         break;
     }
 }
 
 void SessionOptionsWindow::setactiveState(int index)
 {
-    sessionOptionsLocalShellState->setVisible(false);
-    sessionOptionsSerialState->setVisible(false);
+    ui->stackedWidget->setCurrentWidget(emptyWidget);
 
     if(index == -1) {
         return;
     }
     switch(index) {
     case 1:
-        sessionOptionsSerialState->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsSerialState);
         break;
     case 2:
-        sessionOptionsLocalShellState->setVisible(true);
+        ui->stackedWidget->setCurrentWidget(sessionOptionsLocalShellState);
         break;
     }
 }
@@ -441,9 +425,9 @@ void SessionOptionsWindow::buttonBoxRejected(void)
 
 void SessionOptionsWindow::showEvent(QShowEvent *event)
 {
-    sessionOptionsGeneralWidget->setVisible(true);
     setactiveProperties(-1);
     setactiveState(-1);
+    ui->stackedWidget->setCurrentWidget(sessionOptionsGeneralWidget);
     retranslateUi();
     QDialog::showEvent(event);
 }

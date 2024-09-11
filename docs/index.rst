@@ -114,6 +114,26 @@ Install from store
    :target: https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct
    :alt: Microsoft Store
 
+----------------------------------
+Donate
+----------------------------------
+
+If you like this project, you can donate to the author to support the development of the project.
+
+.. list-table:: 
+   :widths: 33 33 33
+   :header-rows: 0
+
+   * - .. image:: ./img/donate/paypal.jpg
+          :align: center
+     - .. image:: ./img/donate/alipay.jpg
+          :align: center
+     - .. image:: ./img/donate/wechat.jpg
+          :align: center
+   * - paypal
+     - alipay
+     - wechat
+
 .. toctree::
    :maxdepth: 3
    :caption: Contents:

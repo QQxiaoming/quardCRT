@@ -151,6 +151,14 @@ quardCRT將從V0.4.0版本開始支持Plugin，以Qt Plug-in的形式提供，�
 
 目前項目建議使用版本Qt6.5.0及更高版本。
 
+## 捐赠
+
+如果您覺得本項目對您有幫助，您可以通過以下方式捐赠：
+
+| ![paypal](./docs/img/donate/paypal.jpg)  | ![alipay](./docs/img/donate/alipay.jpg) | ![wechat](./docs/img/donate/wechat.jpg) |
+| ------ | ------ | ------ |
+| paypal | alipay | wechat |
+
 ## 特別
 
 項目目前為個人業餘時間開發，為提高開發效率，本項目較為大量的使用了GitHub Copilot協助程式碼編寫，部分程式碼的人類可讀性可能不是很好，作者也會盡量在後續版本中進行最佳化。

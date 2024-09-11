@@ -151,6 +151,14 @@ If you want to improve/fix the known issues, you can check [TODO](./TODO.md).
 
 The current project is recommended to use version Qt6.5.0 and above.
 
+## Donate
+
+If you like this project, you can donate to the author to support the development of the project.
+
+| ![paypal](./docs/img/donate/paypal.jpg)  | ![alipay](./docs/img/donate/alipay.jpg) | ![wechat](./docs/img/donate/wechat.jpg) |
+| ------ | ------ | ------ |
+| paypal | alipay | wechat |
+
 ## Special
 
 The project is currently developed in my spare time. In order to improve the development efficiency, this project uses GitHub Copilot to assist in code writing. The readability of some code may not be very good, and the author will try to optimize it in subsequent versions.

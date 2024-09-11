@@ -25,6 +25,8 @@
 #include <QColor>
 #include <QTreeView>
 #include <QList>
+#include <QStackedWidget>
+
 #include "globaloptionsgeneralwidget.h"
 #include "globaloptionsappearancewidget.h"
 #include "globaloptionsterminalwidget.h"
@@ -148,13 +150,13 @@ protected:
 
 private:
     Ui::GlobalOptionsWindow *ui;
+    QWidget *emptyWidget;
     GlobalOptionsGeneralWidget *globalOptionsGeneralWidget;
     GlobalOptionsAppearanceWidget *globalOptionsAppearanceWidget;
     GlobalOptionsTerminalWidget *globalOptionsTerminalWidget;
     GlobalOptionsWindowWidget *globalOptionsWindowWidget;
     GlobalOptionsTransferWidget *globalOptionsTransferWidget;
     GlobalOptionsAdvancedWidget *globalOptionsAdvancedWidget;
-    QTreeView *treeView;
     GlobalOptionsModel *model;
     QFont font;
     QString cursorColorStr;

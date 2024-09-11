@@ -23,6 +23,7 @@
 #include <QDialog>
 #include <QShowEvent>
 #include <QStringListModel>
+#include <QStackedWidget>
 
 #include "ptyqt.h"
 #include "quickconnectwindow.h"
@@ -75,6 +76,7 @@ private:
 
 private:
     Ui::SessionOptionsWindow *ui;
+    QWidget *emptyWidget;
     SessionOptionsGeneralWidget *sessionOptionsGeneralWidget;
     SessionOptionsTelnetProperties *sessionOptionsTelnetProperties;
     SessionOptionsSerialProperties *sessionOptionsSerialProperties;
