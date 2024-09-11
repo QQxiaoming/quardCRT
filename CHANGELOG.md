@@ -9,6 +9,7 @@ en-US:
 - Add system beep support
 - Add record script feature
 - Improve the default path of recording logs, etc. to the last saved path
+- Improve the appearance of the session tabs
 - Fix the small probability memory leak problem
 
 zh-CN:
@@ -18,6 +19,7 @@ zh-CN:
 - 增加系统响铃支持
 - 增加记录脚本功能
 - 改进记录日志等默认路径为上次保存路径
+- 改进会话标签外观
 - 修复可能存在的小概率内存泄漏问题
 
 ## [[V0.5.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.0)] - 2024-08-26

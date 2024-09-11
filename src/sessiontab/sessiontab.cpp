@@ -146,6 +146,7 @@ SessionTabBar::SessionTabBar(QWidget *parent)
     : QTabBar(parent) {
     tabBarInstances << this;
     setAttribute(Qt::WA_Hover, true);
+    setExpanding(false);
     preview = new SessionTabBarPreviewWidget;
     preview->hide();
     preview->window()->lower();
@@ -463,9 +464,9 @@ void SessionTab::setTabStaticText(TitleScrollMode mode, int index, QString title
             }
         }
         txt = txt + "...";
-        title = txt + QString(titleWidth - CharWidth::string_unicode_width(txt),' ');
+        title = txt + QString(titleWidth - CharWidth::string_unicode_width(txt),QChar(0x00A0));
     } else {
-        title = title + QString(titleWidth - CharWidth::string_unicode_width(title),' ');
+        title = title + QString(titleWidth - CharWidth::string_unicode_width(title),QChar(0x00A0));
     }
     FancyTabWidget::setTabText(index,title);
 }
