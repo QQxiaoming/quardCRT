@@ -389,6 +389,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 startRecordingScriptAction->setEnabled(false);
                 stopRecordingScriptAction->setEnabled(false);
                 canlcelRecordingScriptAction->setEnabled(false);
+                cleanAllRecentScriptAction->setEnabled(false);
             #endif
             }
             refreshStatusBar();
@@ -1836,6 +1837,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     stopRecordingScriptAction->setStatusTip(tr("Stop recording script"));
     canlcelRecordingScriptAction->setText(tr("Cancel Recording Script"));
     canlcelRecordingScriptAction->setStatusTip(tr("Cancel recording script"));
+    cleanAllRecentScriptAction->setText(tr("Clean all recent script"));
+    cleanAllRecentScriptAction->setStatusTip(tr("Clean all recent script"));
 
     addBookmarkAction->setText(tr("Add Bookmark"));
     addBookmarkAction->setStatusTip(tr("Add a bookmark"));
@@ -2212,6 +2215,27 @@ void CentralWidget::menuAndToolBarInit(void) {
     canlcelRecordingScriptAction = new QAction(this);
     canlcelRecordingScriptAction->setEnabled(false);
     scriptMenu->addAction(canlcelRecordingScriptAction);
+    scriptMenu->addSeparator();
+    cleanAllRecentScriptAction = new QAction(this);
+    scriptMenu->addAction(cleanAllRecentScriptAction);
+    int size = settings.beginReadArray("Global/RecentScript");
+    for(int i=0;i<size;i++) {
+        settings.setArrayIndex(i);
+        QString path = settings.value("path").toString();
+        QAction *action = new QAction(path,scriptMenu);
+        action->setStatusTip(path);
+        scriptMenu->addAction(action);
+        connect(action,&QAction::triggered,this,[=](){
+        #ifdef ENABLE_PYTHON
+            if(pyRun->isRunning()){
+                return;
+            }
+            runScriptFullName = path;
+            pyRun->runScriptFile(path);
+        #endif
+        });
+    }
+    settings.endArray();
 
     addBookmarkAction = new QAction(this);
     bookmarkMenu->addAction(addBookmarkAction);
@@ -2220,7 +2244,7 @@ void CentralWidget::menuAndToolBarInit(void) {
     cleanAllBookmarkAction = new QAction(this);
     bookmarkMenu->addAction(cleanAllBookmarkAction);
     bookmarkMenu->addSeparator();
-    int size = settings.beginReadArray("Global/Bookmark");
+    size = settings.beginReadArray("Global/Bookmark");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
         QString path = settings.value("path").toString();
@@ -3377,6 +3401,32 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         QString scriptPath = FileDialog::getOpenFileName(this, tr("Select a script file"), scriptDir, tr("Python Files (*.py);;All Files (*)"));
         if(scriptPath.isEmpty()) return;
         settings.setValue("Global/Options/ScriptPath",QFileInfo(scriptPath).absolutePath());
+        int size = settings.beginReadArray("Global/RecentScript");
+        bool get = false;
+        for(int i=0;i<size;i++) {
+            settings.setArrayIndex(i);
+            if(settings.value("path").toString() == scriptPath){
+                get = true;
+                break;
+            }
+        }
+        settings.endArray();
+        if(!get) {
+            settings.beginWriteArray("Global/RecentScript");
+            settings.setArrayIndex(size);
+            settings.setValue("path",scriptPath);
+            settings.endArray();
+            QAction *action = new QAction(scriptPath,scriptMenu);
+            action->setStatusTip(scriptPath);
+            scriptMenu->addAction(action);
+            connect(action,&QAction::triggered,this,[=](){
+                if(pyRun->isRunning()){
+                    return;
+                }
+                runScriptFullName = scriptPath;
+                pyRun->runScriptFile(scriptPath);
+            });
+        }
         runScriptFullName = scriptPath;
         pyRun->runScriptFile(scriptPath);
     });
@@ -3424,6 +3474,24 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         startRecordingScriptAction->setEnabled(!isRS);
         stopRecordingScriptAction->setEnabled(isRS);
         canlcelRecordingScriptAction->setEnabled(isRS);
+    });
+    connect(cleanAllRecentScriptAction, &QAction::triggered, this, [&]() {
+        if(QMessageBox::question(this,tr("Clean All Recent script"),tr("Are you sure to clean all recent script?"),QMessageBox::Yes|QMessageBox::No) == QMessageBox::No) 
+            return;
+        
+        GlobalSetting settings;
+        settings.beginWriteArray("Global/RecentScript");
+        settings.remove("");
+        settings.endArray();
+        scriptMenu->clear();
+        scriptMenu->addAction(runAction);
+        scriptMenu->addAction(cancelAction);
+        scriptMenu->addSeparator();
+        scriptMenu->addAction(startRecordingScriptAction);
+        scriptMenu->addAction(stopRecordingScriptAction);
+        scriptMenu->addAction(canlcelRecordingScriptAction);
+        scriptMenu->addSeparator();
+        scriptMenu->addAction(cleanAllRecentScriptAction);
     });
 #endif
     connect(addBookmarkAction, &QAction::triggered, this, [&]() {

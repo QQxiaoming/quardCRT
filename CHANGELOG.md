@@ -8,6 +8,7 @@ en-US:
 - Add ToolTip to the connection bar
 - Add system beep support
 - Add record script feature
+- Add recently loaded script feature
 - Improve the default path of recording logs, etc. to the last saved path
 - Improve the appearance of the session tabs
 - Fix the small probability memory leak problem
@@ -18,6 +19,7 @@ zh-CN:
 - 增加连接条ToolTip显示
 - 增加系统响铃支持
 - 增加记录脚本功能
+- 增加最近加载的脚本功能
 - 改进记录日志等默认路径为上次保存路径
 - 改进会话标签外观
 - 修复可能存在的小概率内存泄漏问题

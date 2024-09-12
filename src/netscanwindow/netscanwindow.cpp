@@ -21,6 +21,7 @@
 #include <QHostAddress>
 #include <QDebug>
 #include <QList>
+#include <QClipboard>
 
 #include "QTelnet.h"
 #include "netscanwindow.h"
@@ -38,6 +39,28 @@ NetScanWindow::NetScanWindow(QWidget *parent) :
     ui->tableWidget->setColumnWidth(2,150);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
+    QAction *copyAction = new QAction(tr("Copy"), ui->tableWidget);
+    ui->tableWidget->addAction(copyAction);
+    connect(copyAction, &QAction::triggered, [&]() {
+        QItemSelectionModel *selection = ui->tableWidget->selectionModel();
+        QModelIndexList indexes = selection->selectedIndexes();
+
+        if (indexes.size() < 1)
+            return;
+
+        QString selected_text;
+        for (int i = 0; i < indexes.size(); ++i) {
+            QModelIndex index = indexes.at(i);
+            QString text = ui->tableWidget->model()->data(index).toString();
+            selected_text.append(text);
+            if (i < indexes.size() - 1)
+                selected_text.append("\t");
+        }
+
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(selected_text);
+    });
 }
 
 NetScanWindow::~NetScanWindow()

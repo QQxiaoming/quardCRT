@@ -350,6 +350,7 @@ private:
     QAction *startRecordingScriptAction;
     QAction *stopRecordingScriptAction;
     QAction *canlcelRecordingScriptAction;
+    QAction *cleanAllRecentScriptAction;
     QAction *addBookmarkAction;
     QAction *removeBookmarkAction;
     QAction *cleanAllBookmarkAction;
