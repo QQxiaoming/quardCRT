@@ -71,7 +71,7 @@
 #include "ui_mainwindow.h"
 
 CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool isDark,
-     QString start_know_session, QWidget *parent)
+     QString start_know_session, bool disable_plugin, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CentralWidget)
     , windowTransparency(1.0)
@@ -232,7 +232,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
         mainWidgetGroup->sessionTab->setPreviewWidth(globalOptionsWindow->getTabPreviewWidth());
     }
 
-    menuAndToolBarInit();
+    menuAndToolBarInit(disable_plugin);
 
     /* connect signals */
     menuAndToolBarConnectSignals();
@@ -1928,7 +1928,7 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     pluginInfoAction->setStatusTip(tr("Display plugin information dialog"));
 }
 
-void CentralWidget::menuAndToolBarInit(void) {
+void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     GlobalSetting settings;
 
     ui->toolBar->setIconSize(QSize(16,16));
@@ -2403,133 +2403,138 @@ void CentralWidget::menuAndToolBarInit(void) {
     laboratoryMenu->addSeparator();
     pluginInfoAction = new QAction(this);
 
-    QTimer::singleShot(200, this, [&](){
-        QStringList pluginsDirList;
-        QDir defPluginsDir(QCoreApplication::applicationDirPath());
-        if(!defPluginsDir.cd("plugins")) {
-            defPluginsDir = QDir(QCoreApplication::applicationDirPath()+"/..");
+    if(!disable_plugin) {
+        QTimer::singleShot(200, this, [&](){
+            QStringList pluginsDirList;
+            QDir defPluginsDir(QCoreApplication::applicationDirPath());
             if(!defPluginsDir.cd("plugins")) {
-                qInfo() << "plugins dir not exist:" << defPluginsDir.absolutePath();
+                defPluginsDir = QDir(QCoreApplication::applicationDirPath()+"/..");
+                if(!defPluginsDir.cd("plugins")) {
+                    qInfo() << "plugins dir not exist:" << defPluginsDir.absolutePath();
+                    goto loadPlugin;
+                }
+            }
+            if(!defPluginsDir.cd("QuardCRT")) {
+                qInfo() << "plugins/QuardCRT dir not exist:" << defPluginsDir.absolutePath();
                 goto loadPlugin;
             }
-        }
-        if(!defPluginsDir.cd("QuardCRT")) {
-            qInfo() << "plugins/QuardCRT dir not exist:" << defPluginsDir.absolutePath();
-            goto loadPlugin;
-        }
-        pluginsDirList.append(defPluginsDir.absolutePath());
-    loadPlugin:
-        GlobalSetting settings;
-        QString userPluginsDir = settings.value("Global/Options/UserPluginsPath",QString()).toString();
-        if(!userPluginsDir.isEmpty()) {
-            QDir userDir(userPluginsDir);
-            if(userDir.exists()) {
-                pluginsDirList.append(userDir.absolutePath());
+            pluginsDirList.append(defPluginsDir.absolutePath());
+        loadPlugin:
+            GlobalSetting settings;
+            QString userPluginsDir = settings.value("Global/Options/UserPluginsPath",QString()).toString();
+            if(!userPluginsDir.isEmpty()) {
+                QDir userDir(userPluginsDir);
+                if(userDir.exists()) {
+                    pluginsDirList.append(userDir.absolutePath());
+                }
             }
-        }
-    #if defined(Q_OS_WIN)
-        qApp->addLibraryPath(QCoreApplication::applicationDirPath());
-    #elif defined(Q_OS_MACOS)
-        qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/../Frameworks");
-    #elif defined(Q_OS_LINUX)
-        qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/lib");
-        qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"../lib");
-    #endif
-        foreach (QString pluginsDirStr, pluginsDirList) {
-            QDir pluginsDir(pluginsDirStr);
-            qApp->addLibraryPath(pluginsDir.absolutePath());
-            foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-                QString absoluteFilePath = pluginsDir.absoluteFilePath(fileName);
-                QPluginLoader loader(absoluteFilePath,this);
-                QJsonObject metaData = loader.metaData();
-                if(!metaData.contains("MetaData")) {
-                    pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin metaData not found!"),0,false,true);
-                    continue;
-                }
-                QJsonObject metaDataObject = metaData.value("MetaData").toObject();
-                qInfo() << metaDataObject;
-                if(!metaDataObject.contains("APIVersion")) {
-                    pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin api version not found!"),0,false,true);
-                    continue;
-                }
-                int apiVersion = metaDataObject.value("APIVersion").toInt();
-                QList<uint32_t> supportVersion = PluginInfoWindow::supportAPIVersionList();
-                if(!supportVersion.contains((uint32_t)apiVersion)) {
-                    pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin api version not match!"),apiVersion,false,true);         
-                    continue;
-                }
-                QObject *plugin = loader.instance();
-                if(plugin) {
-                    PluginInterface *iface = qobject_cast<PluginInterface *>(plugin);
-                    if(iface) {
-                        QMap<QString, QString> params;
-                        params.insert("version",VERSION);
-                        params.insert("git_tag",GIT_TAG);
-                        params.insert("build_date",DATE_TAG);
-                        qDebug() << "we will load plugin:" << iface->name();
-                        if(iface->init(params, this) == 0) {
-                            GlobalSetting settings;
-                            bool state = settings.value("Global/Plugin/"+iface->name()+"/State",true).toBool();
-                            pluginState_t pluginStruct;
-                            pluginStruct.iface = iface;
-                            connect(iface,SIGNAL(requestTelnetConnect(QString, int, int)),this,SLOT(onPluginRequestTelnetConnect(QString, int, int)));
-                            connect(iface,SIGNAL(requestSerialConnect(QString, uint32_t, int, int, int, bool, bool)),this,SLOT(onPluginRequestSerialConnect(QString, uint32_t, int, int, int, bool, bool)));
-                            connect(iface,SIGNAL(requestLocalShellConnect(QString, QString)),this,SLOT(onPluginRequestLocalShellConnect(QString, QString)));
-                            connect(iface,SIGNAL(requestRawSocketConnect(QString, int)),this,SLOT(onPluginRequestRawSocketConnect(QString, int)));
-                            connect(iface,SIGNAL(requestNamePipeConnect(QString)),this,SLOT(onPluginRequestNamePipeConnect(QString)));
-                            connect(iface,SIGNAL(requestSSH2Connect(QString, QString, QString, int)),this,SLOT(onPluginRequestSSH2Connect(QString, QString, QString, int)));
-                            connect(iface,SIGNAL(requestVNCConnect(QString, QString, int)),this,SLOT(onPluginRequestVNCConnect(QString, QString, int)));
-                            connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
-                            connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
-                            connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
-                            QString website;
-                            QMap<QString,void *> map = iface->metaObject();
-                            bool findMenu = false;
-                            foreach (QString key, map.keys()) {
-                                if(key == "MainMenuAction" || key == "QAction") {
-                                    QAction *action = (QAction *)map.value(key);
-                                    laboratoryMenu->addAction(action);
-                                    action->setVisible(state);
-                                    findMenu = true;
-                                } else if(key == "MainMenuMenu" || key == "QMenu") {
-                                    QMenu *menu = (QMenu *)map.value(key);
-                                    laboratoryMenu->addMenu(menu);
-                                    menu->menuAction()->setVisible(state);
-                                    findMenu = true;
-                                } else if(key == "MainWidget" || key == "QWidget") {
-                                    QWidget *widget = (QWidget *)map.value(key);
-                                    if(pluginViewerWidget->addPlugin(widget,iface->name())) {
-                                        pluginViewerWidget->setPluginVisible(iface->name(),state);
+        #if defined(Q_OS_WIN)
+            qApp->addLibraryPath(QCoreApplication::applicationDirPath());
+        #elif defined(Q_OS_MACOS)
+            qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/../Frameworks");
+        #elif defined(Q_OS_LINUX)
+            qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/lib");
+            qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"../lib");
+        #endif
+            foreach (QString pluginsDirStr, pluginsDirList) {
+                QDir pluginsDir(pluginsDirStr);
+                qApp->addLibraryPath(pluginsDir.absolutePath());
+                foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+                    QString absoluteFilePath = pluginsDir.absoluteFilePath(fileName);
+                    QPluginLoader loader(absoluteFilePath,this);
+                    QJsonObject metaData = loader.metaData();
+                    if(!metaData.contains("MetaData")) {
+                        pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin metaData not found!"),0,false,true);
+                        continue;
+                    }
+                    QJsonObject metaDataObject = metaData.value("MetaData").toObject();
+                    qInfo() << metaDataObject;
+                    if(!metaDataObject.contains("APIVersion")) {
+                        pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin api version not found!"),0,false,true);
+                        continue;
+                    }
+                    int apiVersion = metaDataObject.value("APIVersion").toInt();
+                    QList<uint32_t> supportVersion = PluginInfoWindow::supportAPIVersionList();
+                    if(!supportVersion.contains((uint32_t)apiVersion)) {
+                        pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin api version not match!"),apiVersion,false,true);         
+                        continue;
+                    }
+                    QObject *plugin = loader.instance();
+                    if(plugin) {
+                        PluginInterface *iface = qobject_cast<PluginInterface *>(plugin);
+                        if(iface) {
+                            QMap<QString, QString> params;
+                            params.insert("version",VERSION);
+                            params.insert("git_tag",GIT_TAG);
+                            params.insert("build_date",DATE_TAG);
+                            qDebug() << "we will load plugin:" << iface->name();
+                            if(iface->init(params, this) == 0) {
+                                GlobalSetting settings;
+                                bool state = settings.value("Global/Plugin/"+iface->name()+"/State",true).toBool();
+                                pluginState_t pluginStruct;
+                                pluginStruct.iface = iface;
+                                connect(iface,SIGNAL(requestTelnetConnect(QString, int, int)),this,SLOT(onPluginRequestTelnetConnect(QString, int, int)));
+                                connect(iface,SIGNAL(requestSerialConnect(QString, uint32_t, int, int, int, bool, bool)),this,SLOT(onPluginRequestSerialConnect(QString, uint32_t, int, int, int, bool, bool)));
+                                connect(iface,SIGNAL(requestLocalShellConnect(QString, QString)),this,SLOT(onPluginRequestLocalShellConnect(QString, QString)));
+                                connect(iface,SIGNAL(requestRawSocketConnect(QString, int)),this,SLOT(onPluginRequestRawSocketConnect(QString, int)));
+                                connect(iface,SIGNAL(requestNamePipeConnect(QString)),this,SLOT(onPluginRequestNamePipeConnect(QString)));
+                                connect(iface,SIGNAL(requestSSH2Connect(QString, QString, QString, int)),this,SLOT(onPluginRequestSSH2Connect(QString, QString, QString, int)));
+                                connect(iface,SIGNAL(requestVNCConnect(QString, QString, int)),this,SLOT(onPluginRequestVNCConnect(QString, QString, int)));
+                                connect(iface,SIGNAL(sendCommand(QString)),this,SLOT(onPluginSendCommand(QString)));
+                                connect(iface,SIGNAL(writeSettings(QString, QString, QVariant)),this,SLOT(onPluginWriteSettings(QString, QString, QVariant)));
+                                connect(iface,SIGNAL(readSettings(QString, QString, QVariant &)),this,SLOT(onPluginReadSettings(QString, QString, QVariant &)));
+                                QString website;
+                                QMap<QString,void *> map = iface->metaObject();
+                                bool findMenu = false;
+                                foreach (QString key, map.keys()) {
+                                    if(key == "MainMenuAction" || key == "QAction") {
+                                        QAction *action = (QAction *)map.value(key);
+                                        laboratoryMenu->addAction(action);
+                                        action->setVisible(state);
+                                        findMenu = true;
+                                    } else if(key == "MainMenuMenu" || key == "QMenu") {
+                                        QMenu *menu = (QMenu *)map.value(key);
+                                        laboratoryMenu->addMenu(menu);
+                                        menu->menuAction()->setVisible(state);
+                                        findMenu = true;
+                                    } else if(key == "MainWidget" || key == "QWidget") {
+                                        QWidget *widget = (QWidget *)map.value(key);
+                                        if(pluginViewerWidget->addPlugin(widget,iface->name())) {
+                                            pluginViewerWidget->setPluginVisible(iface->name(),state);
+                                        }
+                                    } else if(key == "website") {
+                                        website = *(QString *)map.value(key);
                                     }
-                                } else if(key == "website") {
-                                    website = *(QString *)map.value(key);
                                 }
-                            }
-                            if(findMenu) {
-                                iface->setLanguage(language,qApp);
-                                iface->retranslateUi();
-                                pluginInfoWindow->addPluginInfo(iface,absoluteFilePath,apiVersion,state,false,website);
+                                if(findMenu) {
+                                    iface->setLanguage(language,qApp);
+                                    iface->retranslateUi();
+                                    pluginInfoWindow->addPluginInfo(iface,absoluteFilePath,apiVersion,state,false,website);
+                                } else {
+                                    state = false;
+                                    pluginViewerWidget->setPluginVisible(iface->name(),state);
+                                    pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin menu not found!"),apiVersion,false,true);
+                                }
+                                pluginStruct.state = state;
+                                pluginList.append(pluginStruct);
                             } else {
-                                state = false;
-                                pluginViewerWidget->setPluginVisible(iface->name(),state);
-                                pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin menu not found!"),apiVersion,false,true);
+                                pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin init failed!"),apiVersion,false,true);
                             }
-                            pluginStruct.state = state;
-                            pluginList.append(pluginStruct);
                         } else {
-                            pluginInfoWindow->addPluginInfo(fileName,"",tr("Plugin init failed!"),apiVersion,false,true);
+                            pluginInfoWindow->addPluginInfo(fileName,"",loader.errorString(),apiVersion,false,true);
                         }
                     } else {
                         pluginInfoWindow->addPluginInfo(fileName,"",loader.errorString(),apiVersion,false,true);
                     }
-                } else {
-                    pluginInfoWindow->addPluginInfo(fileName,"",loader.errorString(),apiVersion,false,true);
                 }
+                laboratoryMenu->addSeparator();
             }
-            laboratoryMenu->addSeparator();
-        }
+            laboratoryMenu->addAction(pluginInfoAction);
+        });
+    } else {
         laboratoryMenu->addAction(pluginInfoAction);
-    });
+        pluginInfoAction->setDisabled(true);
+    }
 
     menuAndToolBarRetranslateUi();
 
@@ -5827,9 +5832,10 @@ void CentralWidget::se_tabActivate(int tabId, int screenId) {
 }
 #endif
 
-MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, QString start_know_session, QWidget *parent) 
+MainWindow::MainWindow(QString dir, CentralWidget::StartupUIMode mode, QLocale lang, bool isDark, 
+    QString start_know_session, bool disable_plugin, QWidget *parent) 
     : QGoodWindow(parent) {
-    m_central_widget = new CentralWidget(dir,mode,lang,isDark,start_know_session,this);
+    m_central_widget = new CentralWidget(dir,mode,lang,isDark,start_know_session,disable_plugin,this);
     m_central_widget->setWindowFlags(Qt::Widget);
 
     m_good_central_widget = new QGoodCentralWidget(this);

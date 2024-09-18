@@ -68,7 +68,7 @@ private:
             QCommandLineOption(
                 {"d","dark_theme"},
                 "GUI dark theme",
-                "dark-theme",
+                "auto/true/false",
                 "auto"
             )
         },
@@ -76,7 +76,7 @@ private:
             QCommandLineOption(
                 {"l","language"},
                 "application language",
-                "language",
+                "language code",
                 "auto"
             )
         },
@@ -84,7 +84,7 @@ private:
             QCommandLineOption(
                 {"m","miniui"},
                 "miniui mode",
-                "miniui",
+                "true/false",
                 "false"
             )
         },
@@ -92,7 +92,7 @@ private:
             QCommandLineOption(
                 {"s","start_dir"},
                 "start with directory",
-                "start_dir",
+                "start dir path",
                 ""
             )
         },
@@ -100,15 +100,23 @@ private:
             QCommandLineOption(
                 {"k","start_know_session"},
                 "start a known session",
-                "start_know_session",
+                "session name",
                 ""
+            )
+        },
+        {"disable_plugin",
+            QCommandLineOption(
+                {"dp","disable_plugin"},
+                "disable plugin",
+                "true/false",
+                "false"
             )
         },
         {"override_python_lib",
             QCommandLineOption(
                 {"ovp","override_python_lib"},
                 "override python lib path",
-                "override_python_lib",
+                "python lib path",
                 ""
             )
         },
@@ -219,6 +227,7 @@ int main(int argc, char *argv[])
     QString dark_theme = "true";
     QString app_lang;
     bool isMiniUI = false;
+    bool disable_plugin = false;
     QString dir;
     QString start_know_session;
 
@@ -283,6 +292,9 @@ int main(int argc, char *argv[])
     if(AppComLineParser->isSetOpt("start_know_session")) {
         start_know_session = AppComLineParser->getOpt("start_know_session");
     }
+    if(AppComLineParser->isSetOpt("disable_plugin")) {
+        disable_plugin = AppComLineParser->getOpt("disable_plugin") == "true"?true:false;
+    }
 #ifdef ENABLE_PYTHON
     if(AppComLineParser->isSetOpt("override_python_lib")) {
         QString path = AppComLineParser->getOpt("override_python_lib");
@@ -335,7 +347,8 @@ int main(int argc, char *argv[])
             isMiniUI?CentralWidget::MINIUI_MODE:CentralWidget::STDUI_MODE,
             locale,
             isDarkTheme,
-            start_know_session);
+            start_know_session,
+            disable_plugin);
     window.show();
 
     return application.exec();
