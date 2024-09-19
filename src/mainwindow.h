@@ -74,6 +74,36 @@ extern QString HASH_TAG;
 extern QString SHORT_HASH_TAG;
 extern QDateTime START_TIME;
 
+class FloatingTab : public QDialog {
+    Q_OBJECT
+public:
+    explicit FloatingTab(QWidget *parent = nullptr) : QDialog(parent) {
+        setWindowFlags(Qt::Window);
+        resize(800,480);
+        setLayout(new QVBoxLayout);
+    }
+    void forceClose(void) {
+        doNotAskClose = true;
+        close();
+    }
+protected:
+    void closeEvent(QCloseEvent *event) override {
+        if(doNotAskClose) {
+            QDialog::closeEvent(event);
+        } else {
+            QMessageBox::StandardButton ret = QMessageBox::question(this, tr("Close"),tr("Do you want to close this window?"),QMessageBox::Yes|QMessageBox::No);
+            if(ret == QMessageBox::Yes) {
+                doNotAskClose = true;
+                event->accept();
+            } else {
+                event->ignore();
+            }
+        }
+    }
+private:
+    bool doNotAskClose = false;
+};
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class CentralWidget; }
 QT_END_NAMESPACE

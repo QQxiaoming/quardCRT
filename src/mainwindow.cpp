@@ -389,7 +389,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 startRecordingScriptAction->setEnabled(false);
                 stopRecordingScriptAction->setEnabled(false);
                 canlcelRecordingScriptAction->setEnabled(false);
-                cleanAllRecentScriptAction->setEnabled(false);
             #endif
             }
             refreshStatusBar();
@@ -1375,10 +1374,7 @@ void CentralWidget::terminalWidgetContextMenuBase(QMenu *menu,SessionsWindow *te
 }
 
 void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
-    QDialog *dialog = new QDialog(this);
-    dialog->setWindowFlags(Qt::Window);
-    dialog->resize(800,480);
-    dialog->setLayout(new QVBoxLayout);
+    FloatingTab *dialog = new FloatingTab(this);
     MainWidgetGroup *group = new MainWidgetGroup(MainWidgetGroup::FLOATING,dialog);
     mainWidgetGroupList.append(group);
     int newGroup = mainWidgetGroupList.count()-1;
@@ -1402,7 +1398,7 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
         menu->addAction(floatBackAction);
         connect(floatBackAction,&QAction::triggered,this,[=](){
             moveToAnotherTab(newGroup,0,1);
-            dialog->close();
+            dialog->forceClose();
         });
         if(menu->isEmpty()) {
             delete menu;
@@ -1423,7 +1419,7 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->proxySendData(data);
     });
-    connect(dialog, &QDialog::finished, this, [=](int result){
+    connect(dialog, &FloatingTab::finished, this, [=](int result){
         MainWidgetGroup *group = mainWidgetGroupList.at(newGroup);
         stopSession(group,1,true);
         mainWidgetGroupList.removeAt(newGroup);
@@ -2218,6 +2214,7 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     scriptMenu->addSeparator();
     cleanAllRecentScriptAction = new QAction(this);
     scriptMenu->addAction(cleanAllRecentScriptAction);
+#ifdef ENABLE_PYTHON
     int size = settings.beginReadArray("Global/RecentScript");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
@@ -2226,16 +2223,15 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
         action->setStatusTip(path);
         scriptMenu->addAction(action);
         connect(action,&QAction::triggered,this,[=](){
-        #ifdef ENABLE_PYTHON
             if(pyRun->isRunning()){
                 return;
             }
             runScriptFullName = path;
             pyRun->runScriptFile(path);
-        #endif
         });
     }
     settings.endArray();
+#endif
 
     addBookmarkAction = new QAction(this);
     bookmarkMenu->addAction(addBookmarkAction);

@@ -10,6 +10,7 @@
 - Add record script feature
 - Add recently loaded script feature
 - Add disable plugin command line option
+- Add reconfirm when closing the floating window
 - Improve the default path of recording logs, etc. to the last saved path
 - Improve the appearance of the session tabs
 - Fix the small probability memory leak problem
