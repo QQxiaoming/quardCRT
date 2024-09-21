@@ -1926,6 +1926,7 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
 
 void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     GlobalSetting settings;
+    int size = 0;
 
     ui->toolBar->setIconSize(QSize(16,16));
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -2215,7 +2216,7 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     cleanAllRecentScriptAction = new QAction(this);
     scriptMenu->addAction(cleanAllRecentScriptAction);
 #ifdef ENABLE_PYTHON
-    int size = settings.beginReadArray("Global/RecentScript");
+    size = settings.beginReadArray("Global/RecentScript");
     for(int i=0;i<size;i++) {
         settings.setArrayIndex(i);
         QString path = settings.value("path").toString();

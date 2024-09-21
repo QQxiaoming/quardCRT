@@ -20,7 +20,7 @@
         },
         {
             "name": "plugin-ListSerial",
-            "url": "https://github.com/QuardCRT-platform/plugin-ListSerial/releases/download/V0.0.4",
+            "url": "https://github.com/QuardCRT-platform/plugin-ListSerial/releases/download/V0.0.5",
             "filetagname": "listserial",
             "platform": ["linux_x86_64", "windows_x86_64_mingw", "windows_x86_64_msvc", "macos_x86_64", "macos_arm64"]
         },

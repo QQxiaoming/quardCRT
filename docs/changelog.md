@@ -14,6 +14,7 @@
 - Improve the default path of recording logs, etc. to the last saved path
 - Improve the appearance of the session tabs
 - Fix the small probability memory leak problem
+- Update pre-built plugin [ListSerial](https://github.com/QuardCRT-platform/plugin-ListSerial) to V0.0.5
 
 ## [[V0.5.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.0)] - 2024-08-26
 
