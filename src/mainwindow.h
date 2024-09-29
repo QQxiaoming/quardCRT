@@ -76,6 +76,7 @@ extern QDateTime START_TIME;
 
 class FloatingTab : public QDialog {
     Q_OBJECT
+
 public:
     explicit FloatingTab(QWidget *parent = nullptr) : QDialog(parent) {
         setWindowFlags(Qt::Window);
@@ -86,6 +87,7 @@ public:
         doNotAskClose = true;
         close();
     }
+
 protected:
     void closeEvent(QCloseEvent *event) override {
         if(doNotAskClose) {
@@ -100,6 +102,7 @@ protected:
             }
         }
     }
+
 private:
     bool doNotAskClose = false;
 };
