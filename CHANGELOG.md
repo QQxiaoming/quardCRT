@@ -2,6 +2,14 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+en-US:
+
+- Fix the main window error raise
+
+zh-CN:
+
+- 修复主窗口错误的提升
+
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 
 en-US:

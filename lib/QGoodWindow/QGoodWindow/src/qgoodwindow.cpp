@@ -1915,7 +1915,7 @@ bool QGoodWindow::event(QEvent *event)
         if (FIXED_SIZE(this))
             break;
 
-        activateWindow();
+        //activateWindow();
 
         if (!windowState().testFlag(Qt::WindowNoState))
             break;
