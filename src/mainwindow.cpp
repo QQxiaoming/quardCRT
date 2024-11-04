@@ -3813,6 +3813,7 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setTrimPastedTrailingNewlines(globalOptionsWindow->getTrimPastedTrailingNewlines());
     window->setEcho(globalOptionsWindow->getEcho());
     window->setCursorColor(globalOptionsWindow->getCursorColor());
+    window->setLogOnEachLine(globalOptionsWindow->getLogOnEachLine());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     window->setEnableHandleCtrlC(globalOptionsWindow->getEnableCtrlC());
 #endif

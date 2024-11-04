@@ -156,6 +156,7 @@ public:
 
     int setLog(bool enable);
     bool isLog(void) { return enableLog; }
+    void setLogOnEachLine(QString onEachLine) {add_time_on_each_line = onEachLine;};
     QString getLogFileName(void);
     int setRawLog(bool enable);
     bool isRawLog(void) { return enableRawLog; }
@@ -490,6 +491,7 @@ private:
     QMutex recording_script_send_mutex;
     QFile *log_file = nullptr;
     QFile *raw_log_file = nullptr;
+    QString add_time_on_each_line;
     bool fflush_file = true;
     QByteArray password_hash;
     bool locked = false;

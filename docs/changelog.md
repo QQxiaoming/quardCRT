@@ -4,6 +4,9 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+- Fix the main window error raise
+- Add the ability to add custom data to the log
+
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 
 - Automatically use the default configuration if the Profile does not exist on Windows

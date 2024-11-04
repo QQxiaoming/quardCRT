@@ -41,6 +41,7 @@
 #include "ui_globaloptionsgeneralwidget.h"
 #include "ui_globaloptionsappearancewidget.h"
 #include "ui_globaloptionsterminalwidget.h"
+#include "ui_globaloptionslogfilewidget.h"
 #include "ui_globaloptionswindowwidget.h"
 #include "ui_globaloptionstransferwidget.h"
 #include "ui_globaloptionsadvancedwidget.h"
@@ -148,6 +149,8 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     ui->stackedWidget->addWidget(globalOptionsAppearanceWidget);
     globalOptionsTerminalWidget = new GlobalOptionsTerminalWidget(this);
     ui->stackedWidget->addWidget(globalOptionsTerminalWidget);
+    globalOptionsLogFileWidget = new GlobalOptionsLogFileWidget(this);
+    ui->stackedWidget->addWidget(globalOptionsLogFileWidget);
     globalOptionsWindowWidget = new GlobalOptionsWindowWidget(this);
     ui->stackedWidget->addWidget(globalOptionsWindowWidget);
     globalOptionsTransferWidget = new GlobalOptionsTransferWidget(this);
@@ -224,6 +227,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
+    globalOptionsLogFileWidget->ui->lineEditOnEachLine->setText(settings.value("OnEachLine", "%h:%m:%s-%t:").toString());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
 #endif
@@ -461,24 +465,54 @@ GlobalOptionsWindow::~GlobalOptionsWindow()
     delete ui;
 }
 
+void GlobalOptionsWindow::expandAllItems()
+{
+    // Get the model associated with the QTreeView
+    QAbstractItemModel *model = ui->treeView->model();
+
+    // Iterate through all the items in the model
+    for (int row = 0; row < model->rowCount(); ++row) {
+        QModelIndex index = model->index(row, 0);
+        expandRecursively(index);
+    }
+}
+
+void GlobalOptionsWindow::expandRecursively(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    // Expand the current index
+    ui->treeView->setExpanded(index, true);
+
+    // Recursively expand all children
+    const QAbstractItemModel *model = index.model();
+    for (int i = 0; i < model->rowCount(index); ++i) {
+        QModelIndex childIndex = model->index(i, 0, index);
+        expandRecursively(childIndex);
+    }
+}
+
 void GlobalOptionsWindow::retranslateUi()
 {
     rootInfo.children.clear();
     GlobalOptionsModel::TreeNode generalNode(tr("General"),globalOptionsGeneralWidget);
     GlobalOptionsModel::TreeNode appearance(tr("Appearance"),globalOptionsAppearanceWidget);
     GlobalOptionsModel::TreeNode terminal(tr("Terminal"),globalOptionsTerminalWidget);
+    terminal.children << GlobalOptionsModel::TreeNode(tr("Log File"),globalOptionsLogFileWidget);
     GlobalOptionsModel::TreeNode window(tr("Window"),globalOptionsWindowWidget);
     GlobalOptionsModel::TreeNode transfer(tr("Transfer"),globalOptionsTransferWidget);
-    //transfer.children << GlobalOptionsModel::TreeNode(tr("Serial")) << GlobalOptionsModel::TreeNode("SSH");
     GlobalOptionsModel::TreeNode advanced(tr("Advanced"),globalOptionsAdvancedWidget);
     rootInfo.children << generalNode << appearance << terminal << window << transfer << advanced;
     model->setTree(rootInfo);
     ui->treeView->setRootIndex(model->setRootPath("/"));
+    expandAllItems();
     ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
     globalOptionsGeneralWidget->ui->retranslateUi(this);
     globalOptionsAppearanceWidget->ui->retranslateUi(this);
     globalOptionsTerminalWidget->ui->retranslateUi(this);
+    globalOptionsLogFileWidget->ui->retranslateUi(this);
     globalOptionsWindowWidget->ui->retranslateUi(this);
     globalOptionsTransferWidget->ui->retranslateUi(this);
     globalOptionsAdvancedWidget->ui->retranslateUi(this);
@@ -707,6 +741,10 @@ QColor GlobalOptionsWindow::getCursorColor(void)
     }
 }
 
+QString GlobalOptionsWindow::getLogOnEachLine(void){
+    return globalOptionsLogFileWidget->ui->lineEditOnEachLine->text();
+}
+
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
 bool GlobalOptionsWindow::getEnableCtrlC(void) 
 {
@@ -787,6 +825,7 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("ConfirmMultilinePaste", globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->isChecked());
     settings.setValue("TrimPastedTrailingNewlines", globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked());
     settings.setValue("Echo", globalOptionsTerminalWidget->ui->checkBoxEcho->isChecked());
+    settings.setValue("OnEachLine", globalOptionsLogFileWidget->ui->lineEditOnEachLine->text());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     settings.setValue("EnableCtrlC", globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->isChecked());
 #endif
@@ -874,6 +913,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTerminalWidget->ui->checkBoxConfirmMultilinePaste->setChecked(settings.value("ConfirmMultilinePaste", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
+    globalOptionsLogFileWidget->ui->lineEditOnEachLine->setText(settings.value("OnEachLine", "%h:%m:%s-%t:").toString());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
 #endif

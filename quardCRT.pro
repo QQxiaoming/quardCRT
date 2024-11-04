@@ -62,6 +62,7 @@ INCLUDEPATH += \
 SOURCES += \
     src/createpublickeywindow/createpublickey.cpp \
     src/globaloptions/globaloptionstransferwidget.cpp \
+    src/globaloptions/globaloptionslogfilewidget.cpp \
     src/internalcommandwindow/internalcommandprocess.cpp \
     src/internalcommandwindow/internalcommandwindow.cpp \
     src/notifictionwidget/notificationitem.cpp \
@@ -112,6 +113,7 @@ SOURCES += \
 HEADERS += \
     src/createpublickeywindow/createpublickey.h \
     src/globaloptions/globaloptionstransferwidget.h \
+    src/globaloptions/globaloptionslogfilewidget.h \
     src/internalcommandwindow/internalcommandprocess.h \
     src/internalcommandwindow/internalcommandwindow.h \
     src/notifictionwidget/notificationitem.h \
@@ -167,6 +169,7 @@ FORMS += \
     src/globaloptions/globaloptionsterminalwidget.ui \
     src/globaloptions/globaloptionstransferwidget.ui \
     src/globaloptions/globaloptionswindowwidget.ui \
+    src/globaloptions/globaloptionslogfilewidget.ui \
     src/internalcommandwindow/internalcommandwindow.ui \
     src/notifictionwidget/notificationitem.ui \
     src/notifictionwidget/notifictionwidget.ui \

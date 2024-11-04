@@ -30,6 +30,7 @@
 #include "globaloptionsgeneralwidget.h"
 #include "globaloptionsappearancewidget.h"
 #include "globaloptionsterminalwidget.h"
+#include "globaloptionslogfilewidget.h"
 #include "globaloptionswindowwidget.h"
 #include "globaloptionstransferwidget.h"
 #include "globaloptionsadvancedwidget.h"
@@ -118,6 +119,7 @@ public:
     bool getTrimPastedTrailingNewlines(void);
     bool getEcho(void);
     QColor getCursorColor(void);
+    QString getLogOnEachLine(void);
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     bool getEnableCtrlC(void);
 #endif
@@ -132,6 +134,8 @@ public:
 
 private:
     void setActiveWidget(QWidget *widget);
+    void expandAllItems();
+    void expandRecursively(const QModelIndex &index);
 
 signals:
     void colorSchemeChanged(QString colorScheme);
@@ -154,6 +158,7 @@ private:
     GlobalOptionsGeneralWidget *globalOptionsGeneralWidget;
     GlobalOptionsAppearanceWidget *globalOptionsAppearanceWidget;
     GlobalOptionsTerminalWidget *globalOptionsTerminalWidget;
+    GlobalOptionsLogFileWidget *globalOptionsLogFileWidget;
     GlobalOptionsWindowWidget *globalOptionsWindowWidget;
     GlobalOptionsTransferWidget *globalOptionsTransferWidget;
     GlobalOptionsAdvancedWidget *globalOptionsAdvancedWidget;

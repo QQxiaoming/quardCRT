@@ -1217,6 +1217,29 @@ int SessionsWindow::saveLog(const char *data, int size) {
     if(enableLog) {
         if(log_file_mutex.tryLock()) {
             if(log_file != nullptr) {
+                if(!add_time_on_each_line.isEmpty()) {
+                    //%H - hostname 
+                    //%S - session name 
+                    //%Y - 4-digit year
+                    //%M - 2-digit month
+                    //%D - 2-digit day 
+                    //%h - 2-digit hour 
+                    //%m - 2-digit minute
+                    //%s - 2-digit second
+                    //%t - 3-digit millisecond
+                    QDateTime now = QDateTime::currentDateTime();
+                    QString lineText = add_time_on_each_line;
+                    lineText.replace("%H", getHostname());
+                    lineText.replace("%S", getName());
+                    lineText.replace("%Y", now.toString("yyyy"));
+                    lineText.replace("%M", now.toString("MM"));
+                    lineText.replace("%D", now.toString("dd"));
+                    lineText.replace("%h", now.toString("hh"));
+                    lineText.replace("%m", now.toString("mm"));
+                    lineText.replace("%s", now.toString("ss"));
+                    lineText.replace("%t", now.toString("zzz"));
+                    log_file->write(lineText.toUtf8());
+                }
                 ret = log_file->write(data, size);
                 if(fflush_file) {
                     log_file->flush();

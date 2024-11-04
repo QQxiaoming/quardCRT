@@ -2800,7 +2800,12 @@ If you need to use another shell, please create a session through [quick-connect
         <translation>终端</translation>
     </message>
     <message>
-        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="470"/>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="502"/>
+        <source>Log File</source>
+        <translation>日志</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionswindow.cpp" line="503"/>
         <source>Window</source>
         <translation>窗口</translation>
     </message>
