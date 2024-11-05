@@ -6,11 +6,13 @@ en-US:
 
 - Fix the main window error raise
 - Add the ability to add custom data to the log
+- Improve the log file path setting option
 
 zh-CN:
 
 - 修复主窗口错误的提升
 - 增加日志中允许添加自定义数据功能
+- 改进记录日志文件路径设置选项
 
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 

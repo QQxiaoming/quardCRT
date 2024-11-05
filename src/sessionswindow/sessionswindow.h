@@ -157,6 +157,9 @@ public:
     int setLog(bool enable);
     bool isLog(void) { return enableLog; }
     void setLogOnEachLine(QString onEachLine) {add_time_on_each_line = onEachLine;};
+    void setLogFilePath(QString logFilePath) {logPath = logFilePath;};
+    void setRawLogFilePath(QString logFilePath) {rawLogPath = logFilePath;};
+    void setScriptLogFilePath(QString logFilePath) {scriptLogPath = logFilePath;};
     QString getLogFileName(void);
     int setRawLog(bool enable);
     bool isRawLog(void) { return enableRawLog; }
@@ -456,6 +459,7 @@ private:
     bool doRecvData(QByteArray &data);
     void addToRecordingScript(int type, QString str);
     void addToRecordingScript(int type, QByteArray ba);
+    void prepareString(QString &str);
 
 private:
     SessionType type;
@@ -541,7 +545,10 @@ private:
     QString m_username;
     QString m_password;
 
-    static QString saveRecordingPath;
+    QString logPath;
+    QString rawLogPath;
+    QString scriptLogPath;
+    static QString saveRecordingTempDirPath;
 };
 
 #endif // SESSIONSWINDOW_H

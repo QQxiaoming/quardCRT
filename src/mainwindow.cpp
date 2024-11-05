@@ -3814,6 +3814,9 @@ void CentralWidget::setGlobalOptions(SessionsWindow *window) {
     window->setEcho(globalOptionsWindow->getEcho());
     window->setCursorColor(globalOptionsWindow->getCursorColor());
     window->setLogOnEachLine(globalOptionsWindow->getLogOnEachLine());
+    window->setLogFilePath(globalOptionsWindow->getLogFilePath());
+    window->setRawLogFilePath(globalOptionsWindow->getLogRawFilePath());
+    window->setScriptLogFilePath(globalOptionsWindow->getScriptLogFilePath());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     window->setEnableHandleCtrlC(globalOptionsWindow->getEnableCtrlC());
 #endif

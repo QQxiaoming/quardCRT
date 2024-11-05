@@ -120,6 +120,9 @@ public:
     bool getEcho(void);
     QColor getCursorColor(void);
     QString getLogOnEachLine(void);
+    QString getLogFilePath(void);
+    QString getLogRawFilePath(void);
+    QString getScriptLogFilePath(void);
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     bool getEnableCtrlC(void);
 #endif

@@ -6,11 +6,59 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
-    <height>428</height>
+    <width>521</width>
+    <height>541</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_15">
+     <property name="text">
+      <string>Log file path</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="lineEditRawLogFilePath"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLineEdit" name="lineEditScriptLogFilePath"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QToolButton" name="toolButtonScriptLogFilePath">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QToolButton" name="toolButtonRawLogFilePath">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLineEdit" name="lineEditLogFilePath">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QToolButton" name="toolButtonLogFilePath">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item>
     <widget class="QLabel" name="label_10">
      <property name="text">
@@ -20,6 +68,26 @@
    </item>
    <item>
     <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Upon connect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEditUponConnect"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Upon disconnect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditUponDisconnect"/>
+     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -29,26 +97,6 @@
      </item>
      <item row="2" column="1">
       <widget class="QLineEdit" name="lineEditOnEachLine"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Upon connect</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Upon disconnect</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEditUponConnect"/>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEditUponDisconnect"/>
      </item>
     </layout>
    </item>

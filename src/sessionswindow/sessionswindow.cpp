@@ -46,7 +46,7 @@
 #include "misc.h"
 #include "qextserialenumerator.h"
 
-QString SessionsWindow::saveRecordingPath = QDir::homePath();
+QString SessionsWindow::saveRecordingTempDirPath = QDir::homePath();
 
 SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     : QObject(parent)
@@ -1005,19 +1005,41 @@ void SessionsWindow::setWorkingDirectory(const QString &dir)
     workingDirectory = dir;
 }
 
+void SessionsWindow::prepareString(QString &str) {
+    //%H - hostname 
+    //%S - session name 
+    //%Y - 4-digit year
+    //%M - 2-digit month
+    //%D - 2-digit day 
+    //%h - 2-digit hour 
+    //%m - 2-digit minute
+    //%s - 2-digit second
+    //%t - 3-digit millisecond
+    QDateTime now = QDateTime::currentDateTime();
+    str.replace("%H", getHostname());
+    str.replace("%S", getName());
+    str.replace("%Y", now.toString("yyyy"));
+    str.replace("%M", now.toString("MM"));
+    str.replace("%D", now.toString("dd"));
+    str.replace("%h", now.toString("hh"));
+    str.replace("%m", now.toString("mm"));
+    str.replace("%s", now.toString("ss"));
+    str.replace("%t", now.toString("zzz"));
+}
+
 int SessionsWindow::setLog(bool enable) {
     int ret = -1;
     log_file_mutex.lock(); 
     if(enable) {
         if(log_file == nullptr) {
-            QFileInfo path(saveRecordingPath);
-            if(!path.isDir()) {
-                saveRecordingPath = QDir::homePath();
+            QString savefile_name = logPath;
+            prepareString(savefile_name);
+            if(savefile_name.isEmpty()) {
+                savefile_name = FileDialog::getSaveFileName(term, tr("Save log..."),
+                    saveRecordingTempDirPath + "/" + getName() + QDate::currentDate().toString("-yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".log", tr("log files (*.log)"));
             }
-            QString savefile_name = FileDialog::getSaveFileName(term, tr("Save log..."),
-                saveRecordingPath + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".log", tr("log files (*.log)"));
             if (!savefile_name.isEmpty()) {
-                saveRecordingPath = QFileInfo(savefile_name).absolutePath();
+                saveRecordingTempDirPath = QFileInfo(savefile_name).absolutePath();
                 log_file = new QFile(savefile_name);
                 if (!log_file->open(QIODevice::WriteOnly|QIODevice::Text)) {
                     QMessageBox::warning(messageParentWidget, tr("Save log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
@@ -1060,14 +1082,14 @@ int SessionsWindow::setRawLog(bool enable) {
     raw_log_file_mutex.lock(); 
     if(enable) {
         if(raw_log_file == nullptr) {
-            QFileInfo path(saveRecordingPath);
-            if(!path.isDir()) {
-                saveRecordingPath = QDir::homePath();
+            QString savefile_name = rawLogPath;
+            prepareString(savefile_name);
+            if(savefile_name.isEmpty()) {
+                savefile_name = FileDialog::getSaveFileName(term, tr("Save Raw log..."),
+                    saveRecordingTempDirPath + "/" + getName() + QDate::currentDate().toString("-yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".bin", tr("binary files (*.bin)"));
             }
-            QString savefile_name = FileDialog::getSaveFileName(term, tr("Save Raw log..."),
-                saveRecordingPath + QDate::currentDate().toString("/yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".bin", tr("binary files (*.bin)"));
             if (!savefile_name.isEmpty()) {
-                saveRecordingPath = QFileInfo(savefile_name).absolutePath();
+                saveRecordingTempDirPath = QFileInfo(savefile_name).absolutePath();
                 raw_log_file = new QFile(savefile_name);
                 if (!raw_log_file->open(QIODevice::WriteOnly)) {
                     QMessageBox::warning(messageParentWidget, tr("Save Raw log"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(log_file->errorString()));
@@ -1134,14 +1156,14 @@ void SessionsWindow::addToRecordingScript(int type, QByteArray ba) {
 
 int SessionsWindow::stopRecordingScript(void) {
     int ret = -1;
-    QFileInfo path(saveRecordingPath);
-    if(!path.isDir()) {
-        saveRecordingPath = QDir::homePath();
+    QString savefile_name = scriptLogPath;
+    prepareString(savefile_name);
+    if(savefile_name.isEmpty()) {
+        savefile_name = FileDialog::getSaveFileName(term, tr("Save script..."),
+            saveRecordingTempDirPath + "/script-" + getName() + QDate::currentDate().toString("-yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".py", tr("Python files (*.py)"));
     }
-    QString savefile_name = FileDialog::getSaveFileName(term, tr("Save script..."),
-        saveRecordingPath + QDate::currentDate().toString("/script-yyyy-MM-dd-") + QTime::currentTime().toString("hh-mm-ss") + ".py", tr("Python files (*.py)"));
     if (!savefile_name.isEmpty()) {
-        saveRecordingPath = QFileInfo(savefile_name).absolutePath();
+        saveRecordingTempDirPath = QFileInfo(savefile_name).absolutePath();
         QFile scriptFile(savefile_name);
         if (!scriptFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
             QMessageBox::warning(messageParentWidget, tr("Save script"), tr("Cannot write file %1:\n%2.").arg(savefile_name).arg(scriptFile.errorString()));
@@ -1218,26 +1240,8 @@ int SessionsWindow::saveLog(const char *data, int size) {
         if(log_file_mutex.tryLock()) {
             if(log_file != nullptr) {
                 if(!add_time_on_each_line.isEmpty()) {
-                    //%H - hostname 
-                    //%S - session name 
-                    //%Y - 4-digit year
-                    //%M - 2-digit month
-                    //%D - 2-digit day 
-                    //%h - 2-digit hour 
-                    //%m - 2-digit minute
-                    //%s - 2-digit second
-                    //%t - 3-digit millisecond
-                    QDateTime now = QDateTime::currentDateTime();
                     QString lineText = add_time_on_each_line;
-                    lineText.replace("%H", getHostname());
-                    lineText.replace("%S", getName());
-                    lineText.replace("%Y", now.toString("yyyy"));
-                    lineText.replace("%M", now.toString("MM"));
-                    lineText.replace("%D", now.toString("dd"));
-                    lineText.replace("%h", now.toString("hh"));
-                    lineText.replace("%m", now.toString("mm"));
-                    lineText.replace("%s", now.toString("ss"));
-                    lineText.replace("%t", now.toString("zzz"));
+                    prepareString(lineText);
                     log_file->write(lineText.toUtf8());
                 }
                 ret = log_file->write(data, size);

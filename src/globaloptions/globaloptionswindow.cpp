@@ -136,6 +136,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     model = new GlobalOptionsModel(ui->treeView);
     model->setOnlyName(true);
     model->setDistinguishType(false);
+    ui->treeView->setAnimated(true);
     ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     emptyWidget = new QWidget(this);
     ui->stackedWidget->addWidget(emptyWidget);
@@ -228,6 +229,9 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
     globalOptionsLogFileWidget->ui->lineEditOnEachLine->setText(settings.value("OnEachLine", "%h:%m:%s-%t:").toString());
+    globalOptionsLogFileWidget->ui->lineEditLogFilePath->setText(settings.value("LogFilePath", QDir::homePath() + "/%S-%Y-%M-%D-%h:%m:%s.log").toString());
+    globalOptionsLogFileWidget->ui->lineEditRawLogFilePath->setText(settings.value("RawLogFilePath", QDir::homePath() + "/%S-%Y-%M-%D-%h:%m:%s.bin").toString());
+    globalOptionsLogFileWidget->ui->lineEditScriptLogFilePath->setText(settings.value("ScriptLogFilePath", QDir::homePath() + "/script-%S-%Y-%M-%D-%h:%m:%s.py").toString());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
 #endif
@@ -745,6 +749,18 @@ QString GlobalOptionsWindow::getLogOnEachLine(void){
     return globalOptionsLogFileWidget->ui->lineEditOnEachLine->text();
 }
 
+QString GlobalOptionsWindow::getLogFilePath(void){
+    return globalOptionsLogFileWidget->ui->lineEditLogFilePath->text();
+}
+
+QString GlobalOptionsWindow::getLogRawFilePath(void){
+    return globalOptionsLogFileWidget->ui->lineEditRawLogFilePath->text();
+}
+
+QString GlobalOptionsWindow::getScriptLogFilePath(void){
+    return globalOptionsLogFileWidget->ui->lineEditScriptLogFilePath->text();
+}
+
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
 bool GlobalOptionsWindow::getEnableCtrlC(void) 
 {
@@ -826,6 +842,9 @@ void GlobalOptionsWindow::buttonBoxAccepted(void)
     settings.setValue("TrimPastedTrailingNewlines", globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->isChecked());
     settings.setValue("Echo", globalOptionsTerminalWidget->ui->checkBoxEcho->isChecked());
     settings.setValue("OnEachLine", globalOptionsLogFileWidget->ui->lineEditOnEachLine->text());
+    settings.setValue("LogFilePath", globalOptionsLogFileWidget->ui->lineEditLogFilePath->text());
+    settings.setValue("RawLogFilePath", globalOptionsLogFileWidget->ui->lineEditRawLogFilePath->text());
+    settings.setValue("ScriptLogFilePath", globalOptionsLogFileWidget->ui->lineEditScriptLogFilePath->text());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     settings.setValue("EnableCtrlC", globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->isChecked());
 #endif
@@ -914,6 +933,9 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsTerminalWidget->ui->checkBoxTrimPastedTrailingNewlines->setChecked(settings.value("TrimPastedTrailingNewlines", true).toBool());
     globalOptionsTerminalWidget->ui->checkBoxEcho->setChecked(settings.value("Echo", false).toBool());
     globalOptionsLogFileWidget->ui->lineEditOnEachLine->setText(settings.value("OnEachLine", "%h:%m:%s-%t:").toString());
+    globalOptionsLogFileWidget->ui->lineEditLogFilePath->setText(settings.value("LogFilePath", QDir::homePath() + "/%S-%Y-%M-%D-%h:%m:%s.log").toString());
+    globalOptionsLogFileWidget->ui->lineEditRawLogFilePath->setText(settings.value("RawLogFilePath", QDir::homePath() + "/%S-%Y-%M-%D-%h:%m:%s.bin").toString());
+    globalOptionsLogFileWidget->ui->lineEditScriptLogFilePath->setText(settings.value("ScriptLogFilePath", QDir::homePath() + "/script-%S-%Y-%M-%D-%h:%m:%s.py").toString());
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
 #endif
