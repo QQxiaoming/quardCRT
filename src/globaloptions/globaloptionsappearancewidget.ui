@@ -739,6 +739,39 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comBoxColorSchemes</tabstop>
+  <tabstop>checkBoxColorSchemesBak</tabstop>
+  <tabstop>comBoxColorSchemesBak</tabstop>
+  <tabstop>pushButtonColor1</tabstop>
+  <tabstop>pushButtonColor2</tabstop>
+  <tabstop>pushButtonColor3</tabstop>
+  <tabstop>pushButtonColor4</tabstop>
+  <tabstop>pushButtonColor5</tabstop>
+  <tabstop>pushButtonColor6</tabstop>
+  <tabstop>pushButtonColor7</tabstop>
+  <tabstop>pushButtonColor8</tabstop>
+  <tabstop>pushButtonColor9</tabstop>
+  <tabstop>pushButtonColor10</tabstop>
+  <tabstop>pushButtonColor11</tabstop>
+  <tabstop>pushButtonColor12</tabstop>
+  <tabstop>pushButtonColor13</tabstop>
+  <tabstop>pushButtonColor14</tabstop>
+  <tabstop>pushButtonColor15</tabstop>
+  <tabstop>pushButtonColor16</tabstop>
+  <tabstop>pushButtonColor17</tabstop>
+  <tabstop>pushButtonColor18</tabstop>
+  <tabstop>pushButtonColor19</tabstop>
+  <tabstop>pushButtonColor20</tabstop>
+  <tabstop>spinBoxPreeditColorIndex</tabstop>
+  <tabstop>pushButtonSelectSeriesFont</tabstop>
+  <tabstop>spinBoxFontSize</tabstop>
+  <tabstop>lineEditBackgroundImage</tabstop>
+  <tabstop>toolButtonBackgroundImage</tabstop>
+  <tabstop>toolButtonClearBackgroundImage</tabstop>
+  <tabstop>comboBoxBackgroundMode</tabstop>
+  <tabstop>horizontalSliderBackgroundImageOpacity</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

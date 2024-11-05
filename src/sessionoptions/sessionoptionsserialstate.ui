@@ -126,6 +126,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditTx1</tabstop>
+  <tabstop>lineEditTx2</tabstop>
+  <tabstop>lineEditRx1</tabstop>
+  <tabstop>lineEditRx2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

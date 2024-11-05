@@ -383,6 +383,22 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comboBoxProtocol</tabstop>
+  <tabstop>lineEditHostname</tabstop>
+  <tabstop>comboBoxHostname</tabstop>
+  <tabstop>pushButtonRefresh</tabstop>
+  <tabstop>spinBoxPort</tabstop>
+  <tabstop>comboBoxWebSocket</tabstop>
+  <tabstop>lineEditUsername</tabstop>
+  <tabstop>comboBoxDataBits</tabstop>
+  <tabstop>comboBoxParity</tabstop>
+  <tabstop>comboBoxStopBits</tabstop>
+  <tabstop>checkBoxFlowCtrl</tabstop>
+  <tabstop>checkBoxXEnable</tabstop>
+  <tabstop>checkBoxSaveSession</tabstop>
+  <tabstop>checkBoxOpenInTab</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

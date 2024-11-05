@@ -223,6 +223,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditPathLocal</tabstop>
+  <tabstop>toolButtonPathLocal</tabstop>
+  <tabstop>lineEditPathRemote</tabstop>
+  <tabstop>toolButtonPathRemote</tabstop>
+  <tabstop>treeViewLocal</tabstop>
+  <tabstop>treeViewRemote</tabstop>
+  <tabstop>listWidgetTransfer</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

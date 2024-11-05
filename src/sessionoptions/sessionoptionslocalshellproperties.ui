@@ -61,6 +61,9 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditCommand</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

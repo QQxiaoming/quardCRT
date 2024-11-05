@@ -240,6 +240,20 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comboBoxPortName</tabstop>
+  <tabstop>lineEditReadOnlyPortName</tabstop>
+  <tabstop>pushButtonRefresh</tabstop>
+  <tabstop>spinBoxBaudRate</tabstop>
+  <tabstop>comboBoxDataBits</tabstop>
+  <tabstop>lineEditReadOnlyDataBits</tabstop>
+  <tabstop>comboBoxParity</tabstop>
+  <tabstop>lineEditReadOnlyParity</tabstop>
+  <tabstop>comboBoxStopBits</tabstop>
+  <tabstop>lineEditReadOnlyStopBits</tabstop>
+  <tabstop>checkBoxFlowControl</tabstop>
+  <tabstop>checkBoxXEnable</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -88,6 +88,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditHostname</tabstop>
+  <tabstop>spinBoxPort</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

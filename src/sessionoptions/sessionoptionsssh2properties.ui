@@ -117,6 +117,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditHostname</tabstop>
+  <tabstop>spinBoxPort</tabstop>
+  <tabstop>lineEditUserName</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

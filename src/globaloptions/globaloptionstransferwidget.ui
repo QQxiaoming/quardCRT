@@ -194,6 +194,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditUpload</tabstop>
+  <tabstop>lineEditDownload</tabstop>
+  <tabstop>toolButtonUpload</tabstop>
+  <tabstop>toolButtonDownload</tabstop>
+  <tabstop>radioButton128Bytes</tabstop>
+  <tabstop>radioButton1KBytes</tabstop>
+  <tabstop>checkBoxZmodemOnline</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

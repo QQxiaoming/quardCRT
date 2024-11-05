@@ -180,6 +180,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>spinBox</tabstop>
+  <tabstop>uploadLineEdit</tabstop>
+  <tabstop>uploadToolButton</tabstop>
+  <tabstop>downloadLineEdit</tabstop>
+  <tabstop>downloadToolButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

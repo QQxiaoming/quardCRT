@@ -53,6 +53,9 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>listWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

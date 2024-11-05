@@ -126,6 +126,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditName</tabstop>
+  <tabstop>comboBoxProtocol</tabstop>
+  <tabstop>lineEditReadOnlyProtocol</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

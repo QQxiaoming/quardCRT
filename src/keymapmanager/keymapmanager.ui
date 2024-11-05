@@ -46,6 +46,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comboBoxKeyBinding</tabstop>
+  <tabstop>plainTextEditKeyBinding</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

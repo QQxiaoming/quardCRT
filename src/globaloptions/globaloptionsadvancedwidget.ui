@@ -291,6 +291,23 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditConfigFile</tabstop>
+  <tabstop>lineEditDefaultLocalShell</tabstop>
+  <tabstop>lineEditPowerShellProfile</tabstop>
+  <tabstop>lineEditUserPluginsPath</tabstop>
+  <tabstop>toolButtonOpenConfigFile</tabstop>
+  <tabstop>toolButtonDefaultLocalShell</tabstop>
+  <tabstop>toolButtonPowerShellProfile</tabstop>
+  <tabstop>toolButtonUserPluginsPath</tabstop>
+  <tabstop>pushButtonPowerShellProfile</tabstop>
+  <tabstop>pushButtonUserPluginsPathClear</tabstop>
+  <tabstop>comboBoxTranslateService</tabstop>
+  <tabstop>checkBoxTerminalBackgroundAnimation</tabstop>
+  <tabstop>checkBoxEnableCtrlC</tabstop>
+  <tabstop>checkBoxNativeUI</tabstop>
+  <tabstop>checkBoxGithubCopilot</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

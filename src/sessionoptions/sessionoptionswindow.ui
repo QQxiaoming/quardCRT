@@ -41,6 +41,9 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>treeView</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

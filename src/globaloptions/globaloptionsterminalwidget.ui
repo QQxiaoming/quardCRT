@@ -232,6 +232,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>spinBoxScrollbackLines</tabstop>
+  <tabstop>comboBoxCursorShape</tabstop>
+  <tabstop>checkBoxCursorBlink</tabstop>
+  <tabstop>pushButtonCursorColor</tabstop>
+  <tabstop>lineEditWordCharacters</tabstop>
+  <tabstop>horizontalSliderSelectedTextAccentColorTransparency</tabstop>
+  <tabstop>checkBoxConfirmMultilinePaste</tabstop>
+  <tabstop>checkBoxTrimPastedTrailingNewlines</tabstop>
+  <tabstop>checkBoxEcho</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

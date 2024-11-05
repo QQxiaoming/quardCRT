@@ -2515,6 +2515,84 @@
     </message>
 </context>
 <context>
+    <name>GlobalOptionsLogFileWidget</name>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="17"/>
+        <source>Log file path</source>
+        <translation>日志文件路径</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="65"/>
+        <source>Custom log data</source>
+        <translation>自定义日志数据</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="74"/>
+        <source>Upon connect</source>
+        <translation>连接时</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="84"/>
+        <source>Upon disconnect</source>
+        <translation>断开连接时</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="94"/>
+        <source>On each line</source>
+        <translation>每行时</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="106"/>
+        <source>Substitutions</source>
+        <translation>替换</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="115"/>
+        <source>%s - 2-digit second</source>
+        <translation>%s - 秒（2位数）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="122"/>
+        <source>%H - hostname</source>
+        <translation>%H - 主机名</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="129"/>
+        <source>%D - 2-digit day</source>
+        <translation>%D - 日期（2位数）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="136"/>
+        <source>%M - 2-digit month</source>
+        <translation>%M - 月份（2位数）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="143"/>
+        <source>%S - session name</source>
+        <translation>%S - 会话名</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="150"/>
+        <source>%Y - 4-digit year</source>
+        <translation>%Y - 年份（4位数）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="157"/>
+        <source>%h - 2-digit hour</source>
+        <translation>%h - 小时（2位数）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="164"/>
+        <source>%m - 2-digit minute</source>
+        <translation>%m - 分钟（2位数）</translation>
+    </message>
+    <message>
+        <location filename="../src/globaloptions/globaloptionslogfilewidget.ui" line="171"/>
+        <source>%t - 3-digit millisecond</source>
+        <translation>%t - 毫秒（3位数）</translation>
+    </message>
+</context>
+<context>
     <name>GlobalOptionsTerminalWidget</name>
     <message>
         <location filename="../src/globaloptions/globaloptionsterminalwidget.ui" line="29"/>

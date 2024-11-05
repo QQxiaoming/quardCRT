@@ -64,6 +64,9 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>horizontalSliderTransparent</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -161,6 +161,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>commandPlainEdit</tabstop>
+  <tabstop>asciiRadioButton</tabstop>
+  <tabstop>hexRadioButton</tabstop>
+  <tabstop>autoSendIntervalSpinBox</tabstop>
+  <tabstop>autoSendCheckBox</tabstop>
+  <tabstop>comboBoxSendMode</tabstop>
+  <tabstop>sendPushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

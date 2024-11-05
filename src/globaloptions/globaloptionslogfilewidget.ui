@@ -29,14 +29,14 @@
      <item row="3" column="2">
       <widget class="QToolButton" name="toolButtonScriptLogFilePath">
        <property name="text">
-        <string>...</string>
+        <string notr="true">...</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QToolButton" name="toolButtonRawLogFilePath">
        <property name="text">
-        <string>...</string>
+        <string notr="true">...</string>
        </property>
       </widget>
      </item>
@@ -53,7 +53,7 @@
      <item row="0" column="2">
       <widget class="QToolButton" name="toolButtonLogFilePath">
        <property name="text">
-        <string>...</string>
+        <string notr="true">...</string>
        </property>
       </widget>
      </item>
@@ -189,6 +189,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditLogFilePath</tabstop>
+  <tabstop>lineEditRawLogFilePath</tabstop>
+  <tabstop>lineEditScriptLogFilePath</tabstop>
+  <tabstop>lineEditUponConnect</tabstop>
+  <tabstop>lineEditUponDisconnect</tabstop>
+  <tabstop>lineEditOnEachLine</tabstop>
+  <tabstop>toolButtonLogFilePath</tabstop>
+  <tabstop>toolButtonRawLogFilePath</tabstop>
+  <tabstop>toolButtonScriptLogFilePath</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

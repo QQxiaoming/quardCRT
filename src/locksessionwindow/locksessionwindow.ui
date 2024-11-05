@@ -115,6 +115,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>passwordLineEdit</tabstop>
+  <tabstop>reenterPasswordLineEdit</tabstop>
+  <tabstop>lockAllSessionCheckBox</tabstop>
+  <tabstop>lockAllSessionGroupCheckBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

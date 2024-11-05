@@ -111,6 +111,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comboBoxKeyType</tabstop>
+  <tabstop>spinBoxKeyLength</tabstop>
+  <tabstop>lineEditPassphrase</tabstop>
+  <tabstop>lineEditConfirmPassphrase</tabstop>
+  <tabstop>lineEditComment</tabstop>
+  <tabstop>lineEditPrivateKeyPath</tabstop>
+  <tabstop>lineEditPublicKeyPath</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

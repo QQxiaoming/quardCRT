@@ -66,6 +66,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditAPIVersion</tabstop>
+  <tabstop>comboBoxPluginsPath</tabstop>
+  <tabstop>pushButtonInstallPlugin</tabstop>
+  <tabstop>tableWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

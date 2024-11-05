@@ -123,6 +123,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditHostname</tabstop>
+  <tabstop>spinBoxPort</tabstop>
+  <tabstop>comboBoxWebSocket</tabstop>
+  <tabstop>lineEditReadOnlyWebSocket</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
