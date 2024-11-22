@@ -1316,6 +1316,7 @@ void TerminalDisplay::updateImage() {
             }
         }
 
+        QFontMetrics fm(font());
         if (!_resizing) // not while _resizing, we're expecting a paintEvent
             for (x = 0; x < columnsToUpdate; ++x) {
                 if ((newLine[x].rendition & RE_BLINK) != 0) {
@@ -1335,6 +1336,7 @@ void TerminalDisplay::updateImage() {
                     bool doubleWidth = (x + 1 == columnsToUpdate)
                                                                  ? false
                                                                  : (newLine[x + 1].character == 0);
+                    bool smallWidth = fm.horizontalAdvance(QChar(c)) < _fontWidth;
                     cr = newLine[x].rendition;
                     _clipboard = newLine[x].backgroundColor;
                     if (newLine[x].foregroundColor != cf)
@@ -1350,11 +1352,19 @@ void TerminalDisplay::updateImage() {
                                 (x + len + 1 == columnsToUpdate)
                                         ? false
                                         : (newLine[x + len + 1].character == 0);
+                        bool nextIsSmallWidth = newLine[x+len].character
+                                    ? fm.horizontalAdvance(QChar(newLine[x+len].character)) < _fontWidth
+                                    : false;
 
-                        if (ch.foregroundColor != cf || ch.backgroundColor != _clipboard ||
-                                ch.rendition != cr || !dirtyMask[x + len] ||
-                                isLineChar(c) != lineDraw || nextIsDoubleWidth != doubleWidth)
+                        if (ch.foregroundColor != cf ||
+                            ch.backgroundColor != _clipboard ||
+                            ch.rendition != cr ||
+                            !dirtyMask[x+len] ||
+                            isLineChar(c) != lineDraw ||
+                            nextIsDoubleWidth != doubleWidth ||
+                            smallWidth || nextIsSmallWidth) {
                             break;
+                        }
 
                         disstrU[p++] = c; // fontMap(c);
                     }

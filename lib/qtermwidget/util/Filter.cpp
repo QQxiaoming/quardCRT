@@ -119,7 +119,9 @@ void TerminalImageFilterChain::setImage(
     reset();
 
     PlainTextDecoder decoder;
-    decoder.setTrailingWhitespace(false);
+    // Include trailing whitespace because otherwise, if a string is wrapped at
+    // the end of a space, that space will not be taken into account in _buffer.
+    decoder.setTrailingWhitespace(true);
 
     // setup new shared buffers for the filters to process on
     QString *newBuffer = new QString();

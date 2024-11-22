@@ -904,12 +904,12 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     } else {
         state = Connected;
         emit stateChanged(state);
-        #if defined(Q_OS_WIN)
+    #if defined(Q_OS_WIN)
         QString monitorPortName = serialPort->portName();
-        #else
+    #else
         QSerialPortInfo sinfo(*serialPort);
         QString monitorPortName = sinfo.systemLocation();
-        #endif
+    #endif
         connect(serialMonitor, &QextSerialEnumerator::deviceRemoved, this, 
             [&,monitorPortName](const QextPortInfo &info) {
             if(monitorPortName == info.portName) {
