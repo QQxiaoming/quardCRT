@@ -42,7 +42,7 @@ cp -r $python_stdlib/../../lib/libpython3.11.dylib ./quardCRT.app/Contents/Frame
 install_name_tool -change /Library/Frameworks/Python.framework/Versions/3.11/Python @executable_path/../Frameworks/pythonlib/lib/libpython3.11.dylib ./quardCRT.app/Contents/MacOS/quardCRT 
 install_name_tool -change /Library/Frameworks/Python.framework/Versions/3.11/Python @executable_path/../pythonlib/libpython3.11.dylib ./quardCRT.app/Contents/Frameworks/pythonlib/lib/libpython3.11.dylib
 codesign --force --deep --sign - ./quardCRT.app/Contents/Frameworks/pythonlib/lib/libpython3.11.dylib
-./build-dmg.sh quardCRT
+sudo ./build-dmg.sh quardCRT
 cd ../../
 mkdir dmgOut
 cpu=$(sysctl -n machdep.cpu.brand_string)
