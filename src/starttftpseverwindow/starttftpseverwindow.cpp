@@ -24,6 +24,7 @@
 
 #include "filedialog.h"
 #include "starttftpseverwindow.h"
+#include "globalsetting.h"
 #include "ui_starttftpseverwindow.h"
 
 StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
@@ -34,19 +35,35 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
     ui->uploadLineEdit->setText(QDir::homePath());
     ui->downloadLineEdit->setText(QDir::homePath());
 
+    GlobalSetting settings;
+    int port = settings.value("Global/misc/TftpSeverPort", 69).toInt();
+    if(port < 0 || port > 65535) {
+        port = 69;
+    }
+    ui->spinBox->setValue(port);
+    settings.setValue("Global/misc/TftpSeverPort", port);
+
     connect(ui->uploadToolButton, &QToolButton::clicked, this, [&](){
+        GlobalSetting settings;
+        QString uploadDir = settings.value("Global/misc/TftpSeverUploadDir",QDir::homePath()).toString();
         QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
-                                QDir::homePath(),
+                                uploadDir,
                                 QFileDialog::ShowDirsOnly
                                 | QFileDialog::DontResolveSymlinks);
-        ui->uploadLineEdit->setText(dir);
+        if(!dir.isEmpty()){
+            ui->uploadLineEdit->setText(dir);
+        }
     });
     connect(ui->downloadToolButton, &QToolButton::clicked, this, [&](){
+        GlobalSetting settings;
+        QString downloadDir = settings.value("Global/misc/TftpSeverDownloadDir",QDir::homePath()).toString();
         QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
-                                QDir::homePath(),
+                                downloadDir,
                                 QFileDialog::ShowDirsOnly
                                 | QFileDialog::DontResolveSymlinks);
-        ui->downloadLineEdit->setText(dir);
+        if(!dir.isEmpty()){
+            ui->downloadLineEdit->setText(dir);
+        }
     });
 
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &StartTftpSeverWindow::buttonBoxAccepted);
@@ -77,6 +94,10 @@ void StartTftpSeverWindow::buttonBoxAccepted(void)
         QMessageBox::warning(this, tr("Warning"), tr("Please select a valid directory!"));
         return;
     }
+    GlobalSetting settings;
+    settings.setValue("Global/misc/TftpSeverUploadDir", ui->uploadLineEdit->text());
+    settings.setValue("Global/misc/TftpSeverDownloadDir", ui->downloadLineEdit->text());
+    settings.setValue("Global/misc/TftpSeverPort", ui->spinBox->value());
     emit setTftpInfo(ui->spinBox->value(), ui->uploadLineEdit->text(), ui->downloadLineEdit->text());
     
     emit this->accepted();
