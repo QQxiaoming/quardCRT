@@ -32,8 +32,6 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
     ui(new Ui::StartTftpSeverWindow)
 {
     ui->setupUi(this);
-    ui->uploadLineEdit->setText(QDir::homePath());
-    ui->downloadLineEdit->setText(QDir::homePath());
 
     GlobalSetting settings;
     int port = settings.value("Global/misc/TftpSeverPort", 69).toInt();
@@ -42,12 +40,12 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
     }
     ui->spinBox->setValue(port);
     settings.setValue("Global/misc/TftpSeverPort", port);
+    ui->uploadLineEdit->setText(settings.value("Global/misc/TftpSeverUploadDir",QDir::homePath()).toString());
+    ui->downloadLineEdit->setText(settings.value("Global/misc/TftpSeverDownloadDir",QDir::homePath()).toString());
 
     connect(ui->uploadToolButton, &QToolButton::clicked, this, [&](){
-        GlobalSetting settings;
-        QString uploadDir = settings.value("Global/misc/TftpSeverUploadDir",QDir::homePath()).toString();
         QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
-                                uploadDir,
+                                ui->uploadLineEdit->text(),
                                 QFileDialog::ShowDirsOnly
                                 | QFileDialog::DontResolveSymlinks);
         if(!dir.isEmpty()){
@@ -55,10 +53,8 @@ StartTftpSeverWindow::StartTftpSeverWindow(QWidget *parent) :
         }
     });
     connect(ui->downloadToolButton, &QToolButton::clicked, this, [&](){
-        GlobalSetting settings;
-        QString downloadDir = settings.value("Global/misc/TftpSeverDownloadDir",QDir::homePath()).toString();
         QString dir = FileDialog::getExistingDirectory(this, tr("Open Directory"),
-                                downloadDir,
+                                ui->downloadLineEdit->text(),
                                 QFileDialog::ShowDirsOnly
                                 | QFileDialog::DontResolveSymlinks);
         if(!dir.isEmpty()){
