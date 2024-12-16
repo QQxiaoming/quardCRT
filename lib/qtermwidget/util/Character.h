@@ -23,6 +23,7 @@
 #define CHARACTER_H
 
 #include <QHash>
+#include <QSet>
 
 #include "CharacterColor.h"
 
@@ -46,6 +47,8 @@ static const int LINE_DOUBLEHEIGHT     = (1 << 2);
 #define RE_STRIKEOUT       (1 << 8)
 #define RE_CONCEAL         (1 << 9)
 #define RE_OVERLINE        (1 << 10)
+
+class ScreenWindow;
 
 /**
  * A single character in the terminal which consists of a unicode character
@@ -73,18 +76,12 @@ public:
         , backgroundColor(_b) {
     }
 
-    union {
-        /** The unicode character value for this character. */
-        wchar_t character;
-        /**
-         * Experimental addition which allows a single Character instance to contain more than
-         * one unicode character.
-         *
-         * charSequence is a hash code which can be used to look up the unicode
-         * character sequence in the ExtendedCharTable used to create the sequence.
-         */
-        quint16 charSequence;
-    };
+    /** The unicode character value for this character.
+    *
+    * RE_EXTENDED_CHAR character is a hash code which can be used to look up the unicode
+    * character sequence in the ExtendedCharTable used to create the sequence.
+    */
+    wchar_t character;
 
     /** A combination of RENDITION flags which specify options for drawing the character. */
     quint8  rendition;
@@ -121,6 +118,15 @@ public:
      * renditions or colors.
      */
     friend bool operator != (const Character& a, const Character& b);
+
+
+    inline bool isLineChar() const {
+        return (rendition & RE_EXTENDED_CHAR) ? false : ((character & 0xFF80) == 0x2500);
+    }
+
+    inline bool isSpace() const {
+        return (rendition & RE_EXTENDED_CHAR) ? false : QChar(character).isSpace();
+    }
 };
 
 inline bool operator == (const Character& a, const Character& b) {
@@ -183,7 +189,7 @@ public:
      * @param unicodePoints An array of unicode character points
      * @param length Length of @p unicodePoints
      */
-    ushort createExtendedChar(ushort* unicodePoints , ushort length);
+    uint createExtendedChar(uint* unicodePoints , ushort length);
     /**
      * Looks up and returns a pointer to a sequence of unicode characters
      * which was added to the table using createExtendedChar().
@@ -194,20 +200,26 @@ public:
      *
      * @return A unicode character sequence of size @p length.
      */
-    ushort* lookupExtendedChar(ushort hash , ushort& length) const;
+    uint* lookupExtendedChar(uint hash , ushort& length) const;
+
+    /**
+     * Keeps track of all screens.
+     * Used in createExtendedChar for checking all screens.
+     */
+    QSet<ScreenWindow*> windows;
 
     /** The global ExtendedCharTable instance. */
     static ExtendedCharTable instance;
 private:
     // calculates the hash key of a sequence of unicode points of size 'length'
-    ushort extendedCharHash(ushort* unicodePoints , ushort length) const;
+    uint extendedCharHash(uint* unicodePoints , ushort length) const;
     // tests whether the entry in the table specified by 'hash' matches the
     // character sequence 'unicodePoints' of size 'length'
-    bool extendedCharMatch(ushort hash , ushort* unicodePoints , ushort length) const;
+    bool extendedCharMatch(uint hash , uint* unicodePoints , ushort length) const;
     // internal, maps hash keys to character sequence buffers.  The first ushort
     // in each value is the length of the buffer, followed by the ushorts in the buffer
     // themselves.
-    QHash<ushort,ushort*> extendedCharTable;
+    QHash<uint,uint*> extendedCharTable;
 };
 
 Q_DECLARE_TYPEINFO(Character, Q_MOVABLE_TYPE);
