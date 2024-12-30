@@ -1,6 +1,6 @@
 [![Windows ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/windows.yml?branch=main&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+V2luZG93czwvdGl0bGU+PHBhdGggZD0iTTAsMEgxMS4zNzdWMTEuMzcySDBaTTEyLjYyMywwSDI0VjExLjM3MkgxMi42MjNaTTAsMTIuNjIzSDExLjM3N1YyNEgwWm0xMi42MjMsMEgyNFYyNEgxMi42MjMiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=)](https://github.com/QQxiaoming/quardCRT/actions/workflows/windows.yml)
 [![Linux ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/linux.yml?branch=main&logo=linux&logoColor=white)](https://github.com/QQxiaoming/quardCRT/actions/workflows/linux.yml)
-[![Macos ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/macos.yml?branch=main&logo=apple)](https://github.com/QQxiaoming/quardCRT/actions/workflows/macos.yml)
+[![Macos ci](https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/macos_arm64.yml?branch=main&logo=apple)](https://github.com/QQxiaoming/quardCRT/actions/workflows/macos_arm64.yml)
 [![CodeFactor](https://img.shields.io/codefactor/grade/github/qqxiaoming/quardCRT.svg?logo=codefactor)](https://www.codefactor.io/repository/github/qqxiaoming/quardCRT)
 [![Documentation Status](https://img.shields.io/readthedocs/quardcrt.svg?logo=readthedocs)](https://quardcrt.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/github/license/qqxiaoming/quardCRT.svg?colorB=f48041&logo=gnu)](https://github.com/QQxiaoming/quardCRT)
@@ -14,6 +14,12 @@
 <div style="text-align: right">
     <a href="https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct">
         <img src="https://get.microsoft.com/images/zh-cn%20dark.svg" width="200"/>
+    </a>
+    <a href="https://spk-resolv.spark-app.store/?spk=spk://store/development/quardcrt">
+        <div style="text-align: right display: flex; align-items: center;">
+            <img src="https://www.spark-app.store/assets/favicon-96x96-BB0Q9LsV.png" height="50"/>
+            <span>从Spark Store获取</span>
+        </div>
     </a>
 </div>
 
@@ -149,7 +155,7 @@ quardCRT将从V0.4.0版本开始支持插件，插件将以Qt Plug-in插件的�
 
 如果您希望改进/修复目前已知的问题，您可以查看[TODO](./TODO.md)。
 
-目前项目建议使用版本Qt6.5.0及更高版本。
+目前项目建议使用版本Qt6.6.0及更高版本。
 
 ## 捐赠
 

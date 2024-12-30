@@ -43,6 +43,7 @@ namespace QGoodWindowUtils
 {
 class NativeEventFilter;
 }
+#include <windows.h>
 #endif
 
 #if defined Q_OS_WIN || defined Q_OS_LINUX

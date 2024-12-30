@@ -49,9 +49,9 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.5.3'
+          version: '6.8.1'
           modules: 'qtwebsockets qtserialport qtmultimedia'
-          aqtversion: ==3.1.7
+          aqtversion: '==3.1.20'
 
       - name: Install prerequisites
         run: |
@@ -84,7 +84,7 @@ jobs:
         run: |
           git fetch --tags --force
           sed -i 's/--long --dirty/--long/g' ./tools/generate_info.sh
-          sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.5.3\/gcc_64/g' build_deb.sh
+          sed -i 's/QT_DIR=\/opt\/Qt6.2.0\/6.2.0\/gcc_64/QT_DIR=$(cd "$(dirname "$0")";pwd)\/..\/Qt\/6.8.1\/gcc_64/g' build_deb.sh
           sed -i 's/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=\/usr\/local\/output/g' ./lib/qtssh/qtssh.pri
           mkdir prebuilt_plugins
           python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.json ./prebuilt_plugins

@@ -90,6 +90,13 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     pyRun = new PyRun(this);
 #endif
 
+    m_mediaCaptureSession = new QMediaCaptureSession(this);
+    m_windowCapture = new QWindowCapture(this);
+    m_mediaRecorder = new QMediaRecorder(this);
+    m_mediaCaptureSession->setWindowCapture(m_windowCapture);
+    m_mediaCaptureSession->setRecorder(m_mediaRecorder);
+    m_mediaRecorder->setQuality(QMediaRecorder::HighQuality);
+
     splitter = new QSplitter(Qt::Horizontal,this);
     splitter->setHandleWidth(1);
     ui->centralwidget->layout()->addWidget(splitter);
@@ -1710,6 +1717,9 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     screenShotAction->setIcon(QFontIcon::icon(QChar(0xf03e)));
     screenShotAction->setStatusTip(tr("Screen shot current screen <Alt+P>"));
     screenShotAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_P));
+    screenRecordingAction->setText(tr("Screen Recording"));
+    screenRecordingAction->setStatusTip(tr("Screen recording current screen"));
+    screenRecordingAction->setShortcut(QKeySequence(Qt::ALT|Qt::Key_G));
     sessionExportAction->setText(tr("Session Export"));
     sessionExportAction->setIcon(QFontIcon::icon(QChar(0xf093)));
     sessionExportAction->setStatusTip(tr("Export current session to a file <Alt+O>"));
@@ -2035,6 +2045,9 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     ui->toolBar->addAction(printScreenAction);
     screenShotAction = new QAction(this);
     editMenu->addAction(screenShotAction);
+    screenRecordingAction = new QAction(this);
+    screenRecordingAction->setCheckable(true);
+    editMenu->addAction(screenRecordingAction);
     sessionExportAction = new QAction(this);
     editMenu->addAction(sessionExportAction);
     editMenu->addSeparator();
@@ -2604,6 +2617,7 @@ void CentralWidget::setSessionClassActionEnable(bool enable)
     findAction->setEnabled(enable);
     printScreenAction->setEnabled(enable);
     screenShotAction->setEnabled(enable);
+    screenRecordingAction->setEnabled(enable);
     sessionExportAction->setEnabled(enable);
     clearScrollbackAction->setEnabled(enable);
     clearScreenAction->setEnabled(enable);
@@ -2927,6 +2941,48 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         sessionsWindow->screenShot(fileName);
         settings.setValue("Global/Options/ScreenShotPath",QFileInfo(fileName).absolutePath());
         ui->statusBar->showMessage(tr("Screenshot saved to %1").arg(fileName),3000);
+    });
+    connect(screenRecordingAction,&QAction::triggered,this,[=](){
+        if(!screenRecordingAction->isChecked()) {
+            m_mediaRecorder->stop();
+            m_windowCapture->stop();
+            ui->statusBar->showMessage(tr("ScreenRecording stop."),3000);
+        } else {
+            QWidget *widget = findCurrentFocusWidget();
+            if(widget == nullptr) return;
+
+            QList<QCapturableWindow> windowList = QWindowCapture::capturableWindows();
+            bool find = false;
+            foreach(const QCapturableWindow &w, windowList) {
+                auto handle = QCapturableWindowPrivate::handle(w);
+                if(handle && handle->id == this->mainWindow->winId()) {
+                    m_windowCapture->setWindow(w);
+                    find = true;
+                    break;
+                }
+            }
+            if(!find) {
+                screenRecordingAction->setChecked(false);
+                return;
+            }
+
+            GlobalSetting settings;
+            QString screenRecordingPath = settings.value("Global/Options/ScreenRecordingPath",QDir::homePath()).toString();
+            QString willsaveName = screenRecordingPath + "/quartCRT-" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".mp4";
+            QString fileName = FileDialog::getSaveFileName(this,tr("Save Screenshot"),willsaveName,tr("Video Files (*.mp4)"));
+            if(fileName.isEmpty()) {
+                screenRecordingAction->setChecked(false);
+                return;
+            }
+            if(!fileName.endsWith(".mp4")) fileName.append(".mp4");
+
+            m_mediaRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
+            m_windowCapture->start();
+            m_mediaRecorder->record();
+
+            settings.setValue("Global/Options/ScreenRecordingPath",QFileInfo(fileName).absolutePath());
+            ui->statusBar->showMessage(tr("ScreenRecording saved to %1").arg(fileName),3000);
+        }
     });
     connect(sessionExportAction,&QAction::triggered,this,[=](){
         QWidget *widget = findCurrentFocusWidget();

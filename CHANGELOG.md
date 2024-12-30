@@ -8,6 +8,7 @@ en-US:
 - Add the ability to add custom data to the log
 - Improve the log file path setting option
 - Add TFTP server configuration to settings
+- Add terminal recording video feature
 
 zh-CN:
 
@@ -15,6 +16,7 @@ zh-CN:
 - 增加日志中允许添加自定义数据功能
 - 改进记录日志文件路径设置选项
 - 增加TFTP服务器配置到设置中
+- 增加终端录制视频功能
 
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 

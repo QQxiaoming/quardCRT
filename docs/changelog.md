@@ -8,6 +8,7 @@
 - Add the ability to add custom data to the log
 - Improve the log file path setting option
 - Add TFTP server configuration to settings
+- Add terminal recording video feature
 
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 

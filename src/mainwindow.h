@@ -34,6 +34,9 @@
 #include <QStatusTipEvent>
 #include <QFontMetrics>
 #include <QDateTime>
+#include <QMediaCaptureSession>
+#include <QWindowCapture>
+#include <QMediaRecorder>
 
 #include "mainwidgetgroup.h"
 #include "sessiontab.h"
@@ -337,6 +340,7 @@ private:
     QAction *findAction;
     QAction *printScreenAction;
     QAction *screenShotAction;
+    QAction *screenRecordingAction;
     QAction *sessionExportAction;
     QAction *clearScrollbackAction;
     QAction *clearScreenAction;
@@ -443,6 +447,10 @@ private:
     QShortcut *shortcutConnectAddressEdit;
     QShortcut *shortcutExitFullScreen;
 
+    QMediaCaptureSession *m_mediaCaptureSession;
+    QWindowCapture *m_windowCapture;
+    QMediaRecorder *m_mediaRecorder;
+
     QLabel *statusBarMessage;
     StatusBarWidget *statusBarWidget;
     QTimer *statusBarWidgetRefreshTimer;
@@ -527,6 +535,21 @@ private:
     QGoodCentralWidget *m_good_central_widget;
     QMenuBar *m_menu_bar = nullptr;
     CentralWidget *m_central_widget;
+};
+
+class QCapturableWindowPrivate : public QSharedData {
+public:
+    using Id = size_t;
+
+    QString description;
+    Id id = 0;
+
+    static const QCapturableWindowPrivate *handle(const QCapturableWindow &window)
+    {
+        return window.d.get();
+    }
+
+    QCapturableWindow create() { return QCapturableWindow(this); }
 };
 
 #endif // MAINWINDOW_H

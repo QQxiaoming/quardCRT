@@ -50,9 +50,10 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           arch: win64_mingw
-          version: '6.5.3'
+          version: '6.8.1'
           modules: 'qtwebsockets qtserialport qtmultimedia'
-          aqtversion: ==3.1.7
+          aqtversion: '==3.1.19'
+          tools: 'tools_mingw1310'
 
       - name: Install cmake
         uses: crazy-max/ghaction-chocolatey@v3
@@ -78,6 +79,7 @@ jobs:
         run: |
           pacman --noconfirm -S make cmake autoconf automake bison diffutils libtool texinfo xmlto
           pacman --noconfirm -S base-devel msys2-devel mingw-w64-{x86_64,i686}-toolchain 
+          gcc --version
           mkdir mingw-w64-libpython
           cp -r ${Python3_ROOT_DIR}/include ./mingw-w64-libpython/
           mkdir mingw-w64-libpython/lib
@@ -118,8 +120,8 @@ jobs:
         run: |
           git fetch --tags --force
           ./tools/sed/sed.exe -i 's/--long --dirty/--long/g' ./tools/generate_info.ps1
-          ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/mingw81_32\/bin/QT_DIR=%Qt5_Dir%/g" ./build_setup.bat
-          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/mingw810_32\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/mingw64\/bin/g" ./build_setup.bat
+          ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/mingw81_32\/bin/QT_DIR=%QT_ROOT_DIR%\/bin/g" ./build_setup.bat
+          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/mingw810_32\/bin/QT_TOOLS_DIR=%IQTA_TOOLS%\/mingw1310\/bin/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/mingw32-make -j8/mingw32-make -j1/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri

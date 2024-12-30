@@ -40,7 +40,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  windows_msvc2019:
+  windows_msvc2022:
     runs-on: windows-2022
 
     steps:
@@ -49,10 +49,10 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          arch: 'win64_msvc2019_64'
-          version: '6.5.3'
+          arch: 'win64_msvc2022_64'
+          version: '6.8.1'
           modules: 'qtwebsockets qtserialport qtmultimedia'
-          aqtversion: '==3.1.7'
+          aqtversion: '==3.1.19'
 
       - name: Install cmake
         uses: crazy-max/ghaction-chocolatey@v3
@@ -81,7 +81,6 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x64
-          toolset: 14.29
 
       - name: Install libssh2
         run: |
@@ -111,7 +110,7 @@ jobs:
       - name: Upload build asserts
         uses: actions/upload-artifact@v4
         with:
-          name: quardCRT_windows_msvc2019
+          name: quardCRT_windows_msvc2022
           path: |
             ./output/*.exe
 

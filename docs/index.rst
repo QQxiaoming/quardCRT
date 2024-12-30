@@ -11,8 +11,8 @@ quardCRT
 .. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/linux.yml?branch=main&logo=linux&logoColor=white
    :target: https://github.com/QQxiaoming/quardCRT/actions/workflows/linux.yml
    :alt: Linux ci
-.. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/macos.yml?branch=main&logo=apple
-   :target: https://github.com/QQxiaoming/quardCRT/actions/workflows/macos.yml
+.. image:: https://img.shields.io/github/actions/workflow/status/qqxiaoming/quardCRT/macos_arm64.yml?branch=main&logo=apple
+   :target: https://github.com/QQxiaoming/quardCRT/actions/workflows/macos_arm64.yml
    :alt: Macos ci
 .. image:: https://img.shields.io/codefactor/grade/github/qqxiaoming/quardCRT.svg?logo=codefactor
    :target: https://www.codefactor.io/repository/github/qqxiaoming/quardCRT
@@ -110,9 +110,14 @@ quardCRT supports plugins from version V0.4.0, plugins will be provided in the f
 Install from store
 ----------------------------------
 
-.. image:: https://get.microsoft.com/images/en-us%20dark.svg
+- .. image:: https://get.microsoft.com/images/en-us%20dark.svg
    :target: https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct
    :alt: Microsoft Store
+
+- .. image:: https://www.spark-app.store/assets/favicon-96x96-BB0Q9LsV.png
+   :target: spk://store/development/quardcrt
+   :alt: Spark Store
+   Spark Store
 
 ----------------------------------
 Donate
