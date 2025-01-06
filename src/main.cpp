@@ -24,16 +24,17 @@
 #include <QStyleFactory>
 #include <QRegularExpression>
 #include <QFileInfo>
+#include <QDateTime>
 #include <QSysInfo>
 
 #include "qfonticon.h"
 
 #include "mainwindow.h"
 #include "globalsetting.h"
-#include "logger.h"
 #ifdef ENABLE_PYTHON
 #include "pyrun.h"
 #endif
+#include "qspdlogger.h"
 
 #include "build_info.inc"
 
@@ -208,11 +209,16 @@ int main(int argc, char *argv[])
     bool debugMode = settings.value("Debug/DebugMode",false).toBool();
     QString debugLogFile;
     QtMsgType debugLevel = QtInfoMsg;
+    QSpdLogger::Instance()->installMessageHandler();
     if(debugMode) {
         debugLevel = settings.value("Debug/DebugLevel",QtInfoMsg).value<QtMsgType>();
         debugLogFile = settings.value("Debug/DebugLogFile","").toString();
+        QSpdLogger::Instance()->setLogLevel(debugLevel);
+        QString current_date_file_name = QDateTime::currentDateTime().toString("yyyy-MM-dd");
+        QSpdLogger::Instance()->addFileSink(debugLogFile+"/"+current_date_file_name+"/log.txt",1024*1024*20,1000);
+    } else {
+        QSpdLogger::Instance()->setLogLevel(debugLevel);
     }
-    Logger::Instance()->installMessageHandler(debugLogFile,debugLevel);
     qDebug() << "DebugMode:" << debugMode;
     qDebug() << "DebugLevel:" << debugLevel;
     qDebug() << "DebugLogFile:" << debugLogFile;

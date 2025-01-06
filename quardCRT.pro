@@ -34,6 +34,7 @@ include(./lib/qkermit/qkermit.pri)
 include(./lib/QSourceHighlite/QSourceHighlite.pri)
 include(./lib/qextserialport/qextserialport.pri)
 include(./lib/qrcodegen/qrcodegen.pri)
+include(./lib/qspdlog/qspdlog.pri)
 include(./lib/sqlite/sqlite.pri)
 
 INCLUDEPATH += \
@@ -72,7 +73,6 @@ SOURCES += \
     src/pluginviewerwidget/pluginviewerwidget.cpp \
     src/sessionoptions/sessionoptionsserialstate.cpp \
     src/statusbarwidget/statusbarwidget.cpp \
-    src/util/logger.cpp \
     src/util/misc.cpp \
     src/util/globalsetting.cpp \
     src/util/keychainclass.cpp \
@@ -123,7 +123,6 @@ HEADERS += \
     src/pluginviewerwidget/pluginviewerwidget.h \
     src/sessionoptions/sessionoptionsserialstate.h \
     src/statusbarwidget/statusbarwidget.h \
-    src/util/logger.h \
     src/util/misc.h \
     src/util/argv_split.h \
     src/util/filedialog.h \
