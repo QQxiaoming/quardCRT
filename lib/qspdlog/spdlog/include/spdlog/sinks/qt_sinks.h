@@ -122,6 +122,10 @@ public:
         return default_color_;
     }
 
+    QTextEdit *textEdit() const {
+        return qt_text_edit_;
+    }
+
 protected:
     struct invoke_params {
         invoke_params(int max_lines,

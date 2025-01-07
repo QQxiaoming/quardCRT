@@ -320,6 +320,27 @@ void InternalCommandProcess::processLine(const QString &sline) {
                 }
             }
         },
+        {{"logit"},QStringList(),"Test print log"  ,
+            [&](void) {
+                if(args.size() != 2) {
+                    sendLineString("Invalid logit cmd!",31);
+                } else {
+                    if(args.at(0) == "debug") {
+                        qDebug().noquote() << args.at(1);
+                    } else if(args.at(0) == "info") {
+                        qInfo().noquote() << args.at(1);
+                    } else if(args.at(0) == "warning") {
+                        qWarning().noquote() << args.at(1);
+                    } else if(args.at(0) == "critical") {
+                        qCritical().noquote() << args.at(1);
+                    } else if(args.at(0) == "fatal") {
+                        qFatal("%s", args.at(1).toUtf8().constData());
+                    } else {
+                        sendLineString("Invalid logit level!",31);
+                    }
+                }
+            }
+        },
     #ifdef ENABLE_PYTHON
         {{"run"},QStringList(), "run script"  ,
             [&](void) {

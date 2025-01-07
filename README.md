@@ -198,6 +198,7 @@ The code of this project references or partially refers to or depends on the fol
 - [QSourceHighlite](https://github.com/Waqar144/QSourceHighlite)
 - [qextserialport](https://github.com/qextserialport/qextserialport)
 - [Qt-QrCodeGenerator](https://github.com/alex-spataru/Qt-QrCodeGenerator)
+- [spdlog](https://github.com/gabime/spdlog)
 - [sqlite3](https://www.sqlite.org)
 
 ## Star History

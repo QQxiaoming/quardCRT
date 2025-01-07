@@ -9,6 +9,7 @@
 - Improve the log file path setting option
 - Add TFTP server configuration to settings
 - Add terminal recording video feature
+- Add view own log window for quardCRT self debug
 
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 

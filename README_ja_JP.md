@@ -198,6 +198,7 @@ quardCRT はバージョン V0.4.0 からプラグインをサポートします
 - [QSourceHighlite](https://github.com/Waqar144/QSourceHighlite)
 - [qextserialport](https://github.com/qextserialport/qextserialport)
 - [Qt-QrCodeGenerator](https://github.com/alex-spataru/Qt-QrCodeGenerator)
+- [spdlog](https://github.com/gabime/spdlog)
 - [sqlite3](https://www.sqlite.org)
 
 ## Star 歴史

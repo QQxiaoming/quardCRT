@@ -44,6 +44,7 @@
 #include "quickconnectwindow.h"
 #include "keymapmanager.h"
 #include "internalcommandwindow.h"
+#include "internallogwindow.h"
 #include "globaloptionswindow.h"
 #include "hexviewwindow.h"
 #include "sessionmanagerwidget.h"
@@ -287,6 +288,7 @@ private:
     MainWidgetGroup *quickConnectMainWidgetGroup;
     keyMapManager *keyMapManagerWindow;
     InternalCommandWindow *internalCommandWindow;
+    InternalLogWindow *internalLogWindow;
     GlobalOptionsWindow *globalOptionsWindow;
     SessionOptionsWindow *sessionOptionsWindow;
     HexViewWindow *hexViewWindow;
@@ -400,6 +402,7 @@ private:
     QAction *createPublicKeyAction;
     QAction *publickeyManagerAction;
     QAction *internalCommandAction;
+    QAction *internalLogAction;
     QAction *sshScanningAction;
     QAction *pluginInfoAction;
     QActionGroup *windowActionGroup;

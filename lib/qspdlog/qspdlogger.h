@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QTextEdit>
 #include "spdlog/spdlog.h"
 
 class QSpdLogger: public QObject
@@ -37,19 +38,28 @@ public:
     static  QSpdLogger* Instance();
     void installMessageHandler();
     void uninstallMessageHandler();
-    int  addFileSink(QString filename, uint32_t max_size = 0, uint32_t max_files = 0);
-    int  removeFileSink(QString filename);
-    int  addUdpSink(QString ip, uint16_t port);
-    int  removeUdpSink(QString ip, uint16_t port);
-    int  addTcpSink(QString ip, uint16_t port);
-    int  removeTcpSink(QString ip, uint16_t port);
-    int  setGlobalLogPattern(const QString &format);
+
+    int setGlobalLogPattern(const QString &format);
     void clearGlobalLogPattern(void);
     void setLogLevel(QtMsgType level);
     void setStdLogLevel(QtMsgType level);
+
+    int addFileSink(QString filename, uint32_t max_size = 0, uint32_t max_files = 0);
     void setFileSinkLogLevel(QString filename, QtMsgType level);
+    int removeFileSink(QString filename);
+
+    int addUdpSink(QString ip, uint16_t port);
     void setUdpSinkLogLevel(QString ip, uint16_t port, QtMsgType level);
+    int removeUdpSink(QString ip, uint16_t port);
+
+    int addTcpSink(QString ip, uint16_t port);
     void setTcpSinkLogLevel(QString ip, uint16_t port, QtMsgType level);
+    int removeTcpSink(QString ip, uint16_t port);
+
+    int addQTextEditSink(QTextEdit *qt_text_edit, int max_lines,
+                                        bool dark_colors, bool is_utf8);
+    void setQTextEditSinkLogLevel(QTextEdit *qt_text_edit, QtMsgType level);
+    int removeQTextEditSink(QTextEdit *qt_text_edit);
 
 signals:
     void sigDebugStrData(const QString &);

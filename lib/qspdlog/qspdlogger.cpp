@@ -25,6 +25,7 @@
 #include "spdlog/sinks/udp_sink.h"
 #include "spdlog/sinks/tcp_sink.h"
 #include "spdlog/sinks/dist_sink.h"
+#include "spdlog/sinks/qt_sinks.h"
 #include <QMutex>
 #include <QCoreApplication>
 #include <QMap>
@@ -34,8 +35,8 @@ static const QMap<QtMsgType, spdlog::level::level_enum> level_map = {
     {QtDebugMsg, spdlog::level::debug},
     {QtInfoMsg, spdlog::level::info},
     {QtWarningMsg, spdlog::level::warn},
-    {QtFatalMsg, spdlog::level::err},
     {QtCriticalMsg, spdlog::level::critical},
+    {QtFatalMsg, spdlog::level::err},
 };
 
 void outputMessage(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
@@ -77,11 +78,12 @@ void QSpdLogger::installMessageHandler() {
         spdlog::set_default_logger(logger);
         spdlog::set_level(spdlog::level::trace);
         setGlobalLogPattern(logPattern);
+        qInstallMessageHandler(outputMessage);
     } catch (const spdlog::spdlog_ex &ex) {
         setGlobalLogPattern(logPattern);
         spdlog::log(spdlog::level::err, "TySpdLog initialization failed\n");
+        qInstallMessageHandler(outputMessage);
     }
-    qInstallMessageHandler(outputMessage);
 }
 
 void QSpdLogger::uninstallMessageHandler() {
@@ -185,7 +187,7 @@ int QSpdLogger::removeUdpSink(QString ip, uint16_t port) {
 }
 
 int QSpdLogger::addTcpSink(QString ip, uint16_t port) {
-        try {
+    try {
         std::shared_ptr<spdlog::sinks::dist_sink_mt> dist_sink = std::dynamic_pointer_cast<spdlog::sinks::dist_sink_mt>(spdlog::default_logger()->sinks().front());
         std::vector<spdlog::sink_ptr> sinks = dist_sink->sinks();
         for (auto it = sinks.begin(); it != sinks.end(); ++it) {
@@ -219,6 +221,45 @@ int QSpdLogger::removeTcpSink(QString ip, uint16_t port) {
             }
         }
     } catch (const spdlog::spdlog_ex &ex) {    
+        return -1;
+    }
+    return -1;
+}
+
+int QSpdLogger::addQTextEditSink(QTextEdit *qt_text_edit, int max_lines,
+                                    bool dark_colors, bool is_utf8) {
+    try {
+        std::shared_ptr<spdlog::sinks::dist_sink_mt> dist_sink = std::dynamic_pointer_cast<spdlog::sinks::dist_sink_mt>(spdlog::default_logger()->sinks().front());
+        std::vector<spdlog::sink_ptr> sinks = dist_sink->sinks();
+        for (auto it = sinks.begin(); it != sinks.end(); ++it) {
+            if (auto qt_sink = std::dynamic_pointer_cast<spdlog::sinks::qt_color_sink_mt>(*it)) {
+                if (qt_sink->textEdit() == qt_text_edit) {
+                    return -1;
+                }
+            }
+        }
+        std::shared_ptr<spdlog::sinks::qt_color_sink_mt> qt_sink = std::make_shared<spdlog::sinks::qt_color_sink_mt>(qt_text_edit, max_lines, dark_colors, is_utf8);
+        qt_sink->set_pattern(logPattern.toStdString());
+        dist_sink->add_sink(qt_sink);
+    } catch (const spdlog::spdlog_ex &ex) {
+        return -1;
+    }
+    return 0;
+}
+
+int QSpdLogger::removeQTextEditSink(QTextEdit *qt_text_edit) {
+    try {
+        std::shared_ptr<spdlog::sinks::dist_sink_mt> dist_sink = std::dynamic_pointer_cast<spdlog::sinks::dist_sink_mt>(spdlog::default_logger()->sinks().front());
+        std::vector<spdlog::sink_ptr> sinks = dist_sink->sinks();
+        for (auto it = sinks.begin(); it != sinks.end(); ++it) {
+            if (auto qt_sink = std::dynamic_pointer_cast<spdlog::sinks::qt_color_sink_mt>(*it)) {
+                if (qt_sink->textEdit() == qt_text_edit) {
+                    dist_sink->remove_sink(qt_sink);
+                    return 0;
+                }
+            }
+        }
+    } catch (const spdlog::spdlog_ex &ex) {
         return -1;
     }
     return -1;
@@ -310,6 +351,22 @@ void QSpdLogger::setTcpSinkLogLevel(QString ip, uint16_t port, QtMsgType level) 
             const spdlog::sinks::tcp_sink_config config = tcp_sink->config();
             if (config.server_host == ip.toStdString() && config.server_port == port) {
                 tcp_sink->set_level(spd_level);
+            }
+        }
+    }
+}
+
+void QSpdLogger::setQTextEditSinkLogLevel(QTextEdit *qt_text_edit, QtMsgType level) {
+    spdlog::level::level_enum spd_level = spdlog::level::info;
+    if(level_map.contains(level)) {
+        spd_level = level_map[level];
+    }
+    std::shared_ptr<spdlog::sinks::dist_sink_mt> dist_sink = std::dynamic_pointer_cast<spdlog::sinks::dist_sink_mt>(spdlog::default_logger()->sinks().front());
+    std::vector<spdlog::sink_ptr> sinks = dist_sink->sinks();
+    for (auto it = sinks.begin(); it != sinks.end(); ++it) {
+        if (auto qt_sink = std::dynamic_pointer_cast<spdlog::sinks::qt_color_sink_mt>(*it)) {
+            if (qt_sink->textEdit() == qt_text_edit) {
+                qt_sink->set_level(spd_level);
             }
         }
     }

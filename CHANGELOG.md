@@ -9,6 +9,7 @@ en-US:
 - Improve the log file path setting option
 - Add TFTP server configuration to settings
 - Add terminal recording video feature
+- Add view own log window for quardCRT self debug
 
 zh-CN:
 
@@ -17,6 +18,7 @@ zh-CN:
 - 改进记录日志文件路径设置选项
 - 增加TFTP服务器配置到设置中
 - 增加终端录制视频功能
+- 增加查看自身log窗口，用于quardCRT自身debug
 
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 

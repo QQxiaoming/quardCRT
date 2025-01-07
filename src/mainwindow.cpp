@@ -79,6 +79,9 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     , language(lang)
     , isDarkTheme(isDark)
     , mainWindow(static_cast<MainWindow *>(parent)) {
+
+    internalLogWindow = new InternalLogWindow(this);
+
     ui->setupUi(this);
     restoreSettings();
 
@@ -1861,6 +1864,8 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     publickeyManagerAction->setStatusTip(tr("Display publickey manager"));
     internalCommandAction->setText(tr("Internal Command"));
     internalCommandAction->setStatusTip(tr("Display Internal Command window"));
+    internalLogAction->setText(tr("Internal Log"));
+    internalLogAction->setStatusTip(tr("Display Internal Log window"));
 
     tabAction->setText(tr("Tab"));
     tabAction->setStatusTip(tr("Arrange sessions in tabs"));
@@ -2277,6 +2282,8 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     toolsMenu->addSeparator();
     internalCommandAction = new QAction(this);
     toolsMenu->addAction(internalCommandAction);
+    internalLogAction = new QAction(this);
+    toolsMenu->addAction(internalLogAction);
 
     windowActionGroup = new QActionGroup(this);
     tabAction = new QAction(this);
@@ -3625,6 +3632,9 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
     });
     connect(internalCommandAction,&QAction::triggered,this,[=](){
         internalCommandWindow->show();
+    });
+    connect(internalLogAction,&QAction::triggered,this,[=](){
+        internalLogWindow->show();
     });
     connect(sshScanningAction,&QAction::triggered,this,[=](){
         bool isOk = false;
