@@ -25,6 +25,7 @@
 #include "globalsetting.h"
 #include "qfonticon.h"
 #include "qrcodegen.h"
+#include "qspdlogger.h"
 
 InternalCommandProcess::InternalCommandProcess(CentralWidget *mainWidget, QObject *parent)
     : QThread(parent)
@@ -338,6 +339,15 @@ void InternalCommandProcess::processLine(const QString &sline) {
                     } else {
                         sendLineString("Invalid logit level!",31);
                     }
+                }
+            }
+        },
+        {{"dmesg"},QStringList(),"show dmesg log"  ,
+            [&](void) {
+                QStringList logs = QSPDLogger->getRingBufferSinkLog("dmesg");
+                foreach(QString log, logs) {
+                    log.replace("\n","\r\n");
+                    sendString(log);
                 }
             }
         },

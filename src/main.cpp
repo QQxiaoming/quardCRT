@@ -209,16 +209,17 @@ int main(int argc, char *argv[])
     bool debugMode = settings.value("Debug/DebugMode",false).toBool();
     QString debugLogFile;
     QtMsgType debugLevel = QtInfoMsg;
-    QSpdLogger::Instance()->installMessageHandler();
+    QSPDLogger->installMessageHandler();
     if(debugMode) {
         debugLevel = settings.value("Debug/DebugLevel",QtInfoMsg).value<QtMsgType>();
         debugLogFile = settings.value("Debug/DebugLogFile","").toString();
-        QSpdLogger::Instance()->setLogLevel(debugLevel);
+        QSPDLogger->setLogLevel(debugLevel);
         QString current_date_file_name = QDateTime::currentDateTime().toString("yyyy-MM-dd");
-        QSpdLogger::Instance()->addFileSink(debugLogFile+"/"+current_date_file_name+"/log.txt",1024*1024*20,1000);
+        QSPDLogger->addFileSink(debugLogFile+"/"+current_date_file_name+"/log.txt",1024*1024*20,1000);
     } else {
-        QSpdLogger::Instance()->setLogLevel(debugLevel);
+        QSPDLogger->setLogLevel(debugLevel);
     }
+    QSPDLogger->addRingBufferSink("dmesg");
     qDebug() << "DebugMode:" << debugMode;
     qDebug() << "DebugLevel:" << debugLevel;
     qDebug() << "DebugLogFile:" << debugLogFile;
@@ -357,5 +358,7 @@ int main(int argc, char *argv[])
             disable_plugin);
     window.show();
 
-    return application.exec();
+    int ret = application.exec();
+    QSPDLogger->uninstallMessageHandler();
+    return ret;
 }

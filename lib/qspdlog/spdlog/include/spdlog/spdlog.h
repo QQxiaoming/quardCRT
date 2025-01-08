@@ -87,6 +87,10 @@ inline void flush_every(std::chrono::duration<Rep, Period> interval) {
     details::registry::instance().flush_every(interval);
 }
 
+inline void flush_all() {
+    details::registry::instance().flush_all();
+}
+
 // Set global error handler
 SPDLOG_API void set_error_handler(void (*handler)(const std::string &msg));
 

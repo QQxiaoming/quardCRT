@@ -20,8 +20,8 @@ namespace sinks {
 template <typename Mutex>
 class ringbuffer_sink final : public base_sink<Mutex> {
 public:
-    explicit ringbuffer_sink(size_t n_items)
-        : q_{n_items} {}
+    explicit ringbuffer_sink(std::string name, size_t n_items)
+        : _name{std::move(name)}, q_{n_items} {}
 
     std::vector<details::log_msg_buffer> last_raw(size_t lim = 0) {
         std::lock_guard<Mutex> lock(base_sink<Mutex>::mutex_);
@@ -49,6 +49,8 @@ public:
         return ret;
     }
 
+    std::string name() {return _name;}
+
 protected:
     void sink_it_(const details::log_msg &msg) override {
         q_.push_back(details::log_msg_buffer{msg});
@@ -56,6 +58,7 @@ protected:
     void flush_() override {}
 
 private:
+    std::string _name;
     details::circular_q<details::log_msg_buffer> q_;
 };
 

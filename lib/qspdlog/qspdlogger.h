@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <QTextEdit>
 #include "spdlog/spdlog.h"
 
@@ -32,7 +33,11 @@ private:
     explicit QSpdLogger(QObject *parent = nullptr);
     ~QSpdLogger();
     static QSpdLogger* self;
+#if defined(QT_NO_DEBUG)
+    QString logPattern = "(%Y-%m-%d %T:%f) [%10t] [%^%10l%$] %v";
+#else
     QString logPattern = "(%Y-%m-%d %T:%f) [%10t] [%^%10l%$] [%s:%#:%!] %v";
+#endif
 
 public:
     static  QSpdLogger* Instance();
@@ -43,27 +48,29 @@ public:
     void clearGlobalLogPattern(void);
     void setLogLevel(QtMsgType level);
     void setStdLogLevel(QtMsgType level);
+    void flush(void);
 
-    int addFileSink(QString filename, uint32_t max_size = 0, uint32_t max_files = 0);
-    void setFileSinkLogLevel(QString filename, QtMsgType level);
-    int removeFileSink(QString filename);
+    int addFileSink(const QString &filename, uint32_t max_size = 0, uint32_t max_files = 0);
+    void setFileSinkLogLevel(const QString &filename, QtMsgType level);
+    int removeFileSink(const QString &filename);
 
-    int addUdpSink(QString ip, uint16_t port);
-    void setUdpSinkLogLevel(QString ip, uint16_t port, QtMsgType level);
-    int removeUdpSink(QString ip, uint16_t port);
+    int addUdpSink(const QString &ip, uint16_t port);
+    void setUdpSinkLogLevel(const QString &ip, uint16_t port, QtMsgType level);
+    int removeUdpSink(const QString &ip, uint16_t port);
 
-    int addTcpSink(QString ip, uint16_t port);
-    void setTcpSinkLogLevel(QString ip, uint16_t port, QtMsgType level);
-    int removeTcpSink(QString ip, uint16_t port);
+    int addTcpSink(const QString &ip, uint16_t port);
+    void setTcpSinkLogLevel(const QString &ip, uint16_t port, QtMsgType level);
+    int removeTcpSink(const QString &ip, uint16_t port);
 
     int addQTextEditSink(QTextEdit *qt_text_edit, int max_lines,
                                         bool dark_colors, bool is_utf8);
     void setQTextEditSinkLogLevel(QTextEdit *qt_text_edit, QtMsgType level);
     int removeQTextEditSink(QTextEdit *qt_text_edit);
 
-signals:
-    void sigDebugStrData(const QString &);
-    void sigDebugHtmlData(const QString &);
+    int addRingBufferSink(const QString &name);
+    void setRingBufferSinkLogLevel(const QString &name, QtMsgType level);
+    int removeRingBufferSink(const QString &name);
+    QStringList getRingBufferSinkLog(const QString &name);
 
 private:
     class GC
@@ -72,5 +79,7 @@ private:
         ~GC();
     };
 };
+
+#define QSPDLogger    QSpdLogger::Instance()
 
 #endif // QSPDQSpdLogger_H
