@@ -173,6 +173,30 @@
          </item>
         </widget>
        </item>
+       <item>
+        <widget class="QComboBox" name="comboBoxRawMode">
+         <item>
+          <property name="text">
+           <string>TCP Client</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TCP Server</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>UDP Send</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>UDP Recv</string>
+          </property>
+         </item>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
@@ -332,7 +356,7 @@
      <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
-        <enum>Qt::Vertical</enum>
+        <enum>Qt::Orientation::Vertical</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -372,10 +396,10 @@
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+        <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
        </property>
       </widget>
      </item>

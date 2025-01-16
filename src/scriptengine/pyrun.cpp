@@ -256,8 +256,8 @@ PyRun::PyRun(QObject *parent)
                 resultList->append(QString::number(centralWidget->se_sessionGetLogging(id)));
         } else if (cmd == "sessionConnect") {
             int id = cmdList.at(1).toInt();
-            QString cmd = cmdList.at(2);
-            centralWidget->se_sessionConnect(cmd,id);
+            QString ccmd = cmdList.at(2);
+            centralWidget->se_sessionConnect(ccmd,id);
         } else if (cmd == "sessionDisconnect") {
             int id = cmdList.at(1).toInt();
             centralWidget->se_sessionDisconnect(id);

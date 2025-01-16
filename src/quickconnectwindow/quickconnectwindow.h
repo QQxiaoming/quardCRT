@@ -67,6 +67,7 @@ public:
         struct {
             QString hostname;
             int port;
+            int mode;
         }RawData;
         struct {
             QString pipeName;

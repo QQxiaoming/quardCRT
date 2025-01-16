@@ -80,6 +80,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         case Telnet: {
             ui->labelHostname->setText(tr("Hostname"));
             ui->labelPort->setText(tr("Port"));
+            ui->labelWebSocket->setText(tr("WebSocket"));
             ui->comboBoxHostname->setVisible(false);
             ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
@@ -88,6 +89,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(true);
             ui->comboBoxWebSocket->setVisible(true);
+            ui->comboBoxRawMode->setVisible(false);
             ui->labelDataBits->setVisible(false);
             ui->comboBoxDataBits->setVisible(false);
             ui->labelParity->setVisible(false);
@@ -121,6 +123,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
             ui->spinBoxPort->setToolTip(tr("e.g. 110, 300, 600, 1200, 2400, \n4800, 9600, 14400, 19200, 38400, \n56000, 57600, 115200, 128000, 256000, \n460800, 921600"));
+            ui->comboBoxRawMode->setVisible(false);
             ui->labelWebSocket->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(true);
@@ -164,6 +167,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->spinBoxPort->setVisible(false);
             ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(false);
+            ui->comboBoxRawMode->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
             ui->comboBoxDataBits->setVisible(false);
@@ -180,6 +184,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
         case Raw: {
             ui->labelHostname->setText(tr("Hostname"));
             ui->labelPort->setText(tr("Port"));
+            ui->labelWebSocket->setText(tr("Mode"));
             ui->comboBoxHostname->setVisible(false);
             ui->pushButtonRefresh->setVisible(false);
             ui->lineEditHostname->setVisible(true);
@@ -190,7 +195,8 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelPort->setVisible(true);
             ui->spinBoxPort->setVisible(true);
             ui->spinBoxPort->setToolTip("");
-            ui->labelWebSocket->setVisible(false);
+            ui->labelWebSocket->setVisible(true);
+            ui->comboBoxRawMode->setVisible(true);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
             ui->comboBoxDataBits->setVisible(false);
@@ -205,6 +211,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->spinBoxPort->setMinimum(0);
             ui->spinBoxPort->setMaximum(65535);
             ui->spinBoxPort->setValue(8080);
+            ui->comboBoxRawMode->setCurrentIndex(0);
             break;
         }
         case NamePipe:{
@@ -219,6 +226,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelPort->setVisible(false);
             ui->spinBoxPort->setVisible(false);
             ui->spinBoxPort->setToolTip("");
+            ui->comboBoxRawMode->setVisible(false);
             ui->labelWebSocket->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
@@ -251,6 +259,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->spinBoxPort->setVisible(true);
             ui->spinBoxPort->setToolTip("");
             ui->labelWebSocket->setVisible(false);
+            ui->comboBoxRawMode->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
             ui->comboBoxDataBits->setVisible(false);
@@ -281,6 +290,7 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
             ui->labelWebSocket->setVisible(false);
             ui->labelUsername->setVisible(false);
             ui->lineEditUsername->setVisible(false);
+            ui->comboBoxRawMode->setVisible(false);
             ui->comboBoxWebSocket->setVisible(false);
             ui->labelDataBits->setVisible(false);
             ui->comboBoxDataBits->setVisible(false);
@@ -332,6 +342,7 @@ void QuickConnectWindow::buttonBoxAccepted(void)
         case Raw:
             data.RawData.hostname = ui->lineEditHostname->text();
             data.RawData.port = ui->spinBoxPort->value();
+            data.RawData.mode = ui->comboBoxRawMode->currentIndex();
             emit this->sendQuickConnectData(data);
             break;
         case NamePipe:
@@ -399,6 +410,7 @@ void QuickConnectWindow::setQuickConnectData(QuickConnectData data)
         case Raw:
             ui->lineEditHostname->setText(data.RawData.hostname);
             ui->spinBoxPort->setValue(data.RawData.port);
+            ui->comboBoxRawMode->setCurrentIndex(data.RawData.mode);
             break;
         case NamePipe:
             ui->lineEditHostname->setText(data.NamePipeData.pipeName);

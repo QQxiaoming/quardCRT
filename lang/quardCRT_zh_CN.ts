@@ -39,8 +39,8 @@
         <location filename="../src/mainwindow.cpp" line="3872"/>
         <location filename="../src/mainwindow.cpp" line="4103"/>
         <location filename="../src/mainwindow.cpp" line="4680"/>
-        <location filename="../src/mainwindow.cpp" line="5080"/>
-        <location filename="../src/mainwindow.cpp" line="5085"/>
+        <location filename="../src/mainwindow.cpp" line="5083"/>
+        <location filename="../src/mainwindow.cpp" line="5088"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1398,7 +1398,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1912"/>
-        <location filename="../src/mainwindow.cpp" line="5044"/>
+        <location filename="../src/mainwindow.cpp" line="5047"/>
         <source>Keyborad Shortcuts Reference</source>
         <translation>键盘快捷键参考</translation>
     </message>
@@ -1409,7 +1409,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1918"/>
-        <location filename="../src/mainwindow.cpp" line="4993"/>
+        <location filename="../src/mainwindow.cpp" line="4996"/>
         <source>Privacy Statement</source>
         <translation>隐私声明</translation>
     </message>
@@ -1420,7 +1420,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1928"/>
-        <location filename="../src/mainwindow.cpp" line="5036"/>
+        <location filename="../src/mainwindow.cpp" line="5039"/>
         <source>About Python</source>
         <translation>关于 Python</translation>
     </message>
@@ -1581,58 +1581,58 @@
         <translation>&quot; 会话？</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4995"/>
+        <location filename="../src/mainwindow.cpp" line="4998"/>
         <source>This software is a terminal emulator that provides a secure shell (SSH) connection, telnet connection, serial port connection, and other functions.</source>
         <translation>此软件是一个终端仿真器，提供安全外壳 (SSH) 连接、 Telnet 连接、串口连接和其他功能。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4997"/>
+        <location filename="../src/mainwindow.cpp" line="5000"/>
         <source>This software does not collect any personal information, and does not send any information to the server.</source>
         <translation>此软件不收集任何个人信息，也不向服务器发送任何信息。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4999"/>
+        <location filename="../src/mainwindow.cpp" line="5002"/>
         <source>This software does not contain any malicious code, and does not contain any backdoors.</source>
         <translation>此软件不包含任何恶意代码，也不包含任何后门。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5001"/>
+        <location filename="../src/mainwindow.cpp" line="5004"/>
         <source>This software is open source software, you can view the source code on the github website.</source>
         <translation>此软件是开源软件，您可以在 github 网站上查看源代码。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5003"/>
+        <location filename="../src/mainwindow.cpp" line="5006"/>
         <source>This software is provided as is, without any warranty.</source>
         <translation>此软件按原样提供，不提供任何保证。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5005"/>
+        <location filename="../src/mainwindow.cpp" line="5008"/>
         <source>If you have any questions or suggestions, please contact the author.</source>
         <translation>如果您有任何问题或建议，请联系作者。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5020"/>
+        <location filename="../src/mainwindow.cpp" line="5023"/>
         <source>Version</source>
         <translation>版本</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5022"/>
+        <location filename="../src/mainwindow.cpp" line="5025"/>
         <source>Commit</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5024"/>
+        <location filename="../src/mainwindow.cpp" line="5027"/>
         <source>Date</source>
         <translation>日期</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5006"/>
-        <location filename="../src/mainwindow.cpp" line="5026"/>
+        <location filename="../src/mainwindow.cpp" line="5009"/>
+        <location filename="../src/mainwindow.cpp" line="5029"/>
         <source>Author</source>
         <translation>作者</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5028"/>
+        <location filename="../src/mainwindow.cpp" line="5031"/>
         <source>Website</source>
         <translation>网站</translation>
     </message>
@@ -1783,7 +1783,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1921"/>
-        <location filename="../src/mainwindow.cpp" line="5018"/>
+        <location filename="../src/mainwindow.cpp" line="5021"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1830,7 +1830,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2950"/>
-        <location filename="../src/mainwindow.cpp" line="5775"/>
+        <location filename="../src/mainwindow.cpp" line="5779"/>
         <source>Screenshot saved to %1</source>
         <translation>屏幕截图保存到 %1</translation>
     </message>
@@ -1958,67 +1958,67 @@
         <translation>本机终端 - </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5046"/>
+        <location filename="../src/mainwindow.cpp" line="5049"/>
         <source>Global Shortcuts:</source>
         <translation>全局快捷键：</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5047"/>
+        <location filename="../src/mainwindow.cpp" line="5050"/>
         <source>show/hide menu bar</source>
         <translation>显示/隐藏菜单栏</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5048"/>
+        <location filename="../src/mainwindow.cpp" line="5051"/>
         <source>connect to LocalShell</source>
         <translation>连接到本机终端</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5049"/>
+        <location filename="../src/mainwindow.cpp" line="5052"/>
         <source>clone current session</source>
         <translation>克隆当前会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5050"/>
+        <location filename="../src/mainwindow.cpp" line="5053"/>
         <source>switch ui to STD mode</source>
         <translation>切换 UI 到标准模式</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5051"/>
+        <location filename="../src/mainwindow.cpp" line="5054"/>
         <source>switch ui to MINI mode</source>
         <translation>切换 UI 到迷你模式</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5052"/>
+        <location filename="../src/mainwindow.cpp" line="5055"/>
         <source>switch to previous session</source>
         <translation>切换到上一个会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5053"/>
+        <location filename="../src/mainwindow.cpp" line="5056"/>
         <source>switch to next session</source>
         <translation>切换到下一个会话</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5054"/>
+        <location filename="../src/mainwindow.cpp" line="5057"/>
         <source>switch to session [num]</source>
         <translation>切换到会话 [num]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5055"/>
+        <location filename="../src/mainwindow.cpp" line="5058"/>
         <source>Go to line start</source>
         <translation>跳转到行首</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5056"/>
+        <location filename="../src/mainwindow.cpp" line="5059"/>
         <source>Go to line end</source>
         <translation>跳转到行尾</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5080"/>
+        <location filename="../src/mainwindow.cpp" line="5083"/>
         <source>There are sessions that have not yet been unlocked, please unlock them first.</source>
         <translation>有会话尚未解锁，请先解锁。</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="5085"/>
+        <location filename="../src/mainwindow.cpp" line="5088"/>
         <source>Are you sure to quit?</source>
         <translation>确定要退出吗？</translation>
     </message>
@@ -3852,9 +3852,9 @@ If you need to use another shell, please create a session through [quick-connect
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="98"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="81"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="181"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="241"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="271"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="185"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="249"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="280"/>
         <source>Hostname</source>
         <translation>主机地址</translation>
     </message>
@@ -3866,15 +3866,15 @@ If you need to use another shell, please create a session through [quick-connect
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="137"/>
         <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="82"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="182"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="242"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="272"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="186"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="250"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="281"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="161"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="267"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="291"/>
         <source>None</source>
         <translation>无</translation>
     </message>
@@ -3889,57 +3889,78 @@ If you need to use another shell, please create a session through [quick-connect
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="192"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="180"/>
+        <source>TCP Client</source>
+        <translation>TCP客户端</translation>
+    </message>
+    <message>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="185"/>
+        <source>TCP Server</source>
+        <translation>TCP服务端</translation>
+    </message>
+    <message>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
+        <source>UDP Send</source>
+        <translation>UDP发送</translation>
+        </message>
+    <message>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="195"/>
+        <source>UDP Recv</source>
+        <translation>UDP接收</translation>
+    </message>
+    <message>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="216"/>
         <source>Username</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="202"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="226"/>
         <source>Password</source>
         <translation>密码</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="222"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="246"/>
         <source>DataBits</source>
         <translation>数据位</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="259"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="283"/>
         <source>Parity</source>
         <translation>校验位</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="272"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="296"/>
         <source>Odd</source>
         <translation>奇</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="277"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="301"/>
         <source>Even</source>
         <translation>偶</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="298"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="322"/>
         <source>StopBits</source>
         <translation>停止位</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="353"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="377"/>
         <source>Save session</source>
         <translation>保存会话</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="363"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="387"/>
         <source>Open in tab</source>
         <translation>在标签中打开</translation>
     </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="153"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="83"/>
         <source>WebSocket</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="424"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="436"/>
         <source>Quick Connect</source>
         <translation>快速连接</translation>
     </message>
@@ -3954,25 +3975,25 @@ If you need to use another shell, please create a session through [quick-connect
         <translation>本机终端</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="104"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="204"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="264"/>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="294"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="106"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="210"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="273"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="304"/>
         <source>e.g. 127.0.0.1</source>
         <translation>例如 127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="112"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="114"/>
         <source>Port Name</source>
         <translation>端口名称</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="113"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="115"/>
         <source>Baud Rate</source>
         <translation>波特率</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="123"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="125"/>
         <source>e.g. 110, 300, 600, 1200, 2400, 
 4800, 9600, 14400, 19200, 38400, 
 56000, 57600, 115200, 128000, 256000, 
@@ -3983,27 +4004,32 @@ If you need to use another shell, please create a session through [quick-connect
 460800, 921600</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="155"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="158"/>
         <source>Command</source>
         <translation>命令</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="177"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="181"/>
         <source>e.g. /bin/bash</source>
         <translation>例如 /bin/bash</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="211"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="187"/>
+        <source>Mode</source>
+        <translation>模式</translation>
+    </message>
+    <message>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="218"/>
         <source>Pipe Name</source>
         <translation>管道名称</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="234"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="242"/>
         <source>e.g. \\\.\pipe\namedpipe</source>
         <translation>例如 \\\.\pipe\namedpipe</translation>
     </message>
     <message>
-        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="236"/>
+        <location filename="../src/quickconnectwindow/quickconnectwindow.cpp" line="244"/>
         <source>e.g. /tmp/socket</source>
         <translation>例如 /tmp/socket</translation>
     </message>
@@ -4253,6 +4279,31 @@ If you need to use another shell, please create a session through [quick-connect
         <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="60"/>
         <source>Port</source>
         <translation>端口</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="80"/>
+        <source>Mode</source>
+        <translation>模式</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="88"/>
+        <source>TCP Client</source>
+        <translation>TCP客户端</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="93"/>
+        <source>TCP Server</source>
+        <translation>TCP服务端</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="98"/>
+        <source>UDP Send</source>
+        <translation>UDP发送</translation>
+    </message>
+    <message>
+        <location filename="../src/sessionoptions/sessionoptionsrawproperties.ui" line="103"/>
+        <source>UDP Recv</source>
+        <translation>UDP接收</translation>
     </message>
 </context>
 <context>
@@ -4526,72 +4577,72 @@ If you need to use another shell, please create a session through [quick-connect
         <translation>串行端口 %1 已被移除。</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1038"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
         <source>Save log...</source>
         <translation>保存日志...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1039"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1040"/>
         <source>log files (*.log)</source>
         <translation>日志文件 (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1045"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1046"/>
         <source>Save log</source>
         <translation>保存日志</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1045"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1095"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1169"/>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1318"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1046"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1096"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1170"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1319"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>无法写入文件 %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1088"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1089"/>
         <source>Save Raw log...</source>
         <translation>保存原始日志...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1089"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1090"/>
         <source>binary files (*.bin)</source>
         <translation>二进制文件 (*.bin)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1095"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1096"/>
         <source>Save Raw log</source>
         <translation>保存原始日志</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1162"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1163"/>
         <source>Save script...</source>
         <translation>保存脚本...</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1163"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1164"/>
         <source>Python files (*.py)</source>
         <translation>Python 文件 (*.py)</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1169"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1170"/>
         <source>Save script</source>
         <translation>保存脚本</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1289"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1290"/>
         <source>Unlock Session</source>
         <translation>解锁会话</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1289"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1290"/>
         <source>Wrong password!</source>
         <translation>密码错误！</translation>
     </message>
     <message>
-        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1318"/>
+        <location filename="../src/sessionswindow/sessionswindow.cpp" line="1319"/>
         <source>Receive ASCII File</source>
         <translation>接收 ASCII 文件</translation>
     </message>

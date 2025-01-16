@@ -115,9 +115,8 @@ Install from store
    :alt: Microsoft Store
 
 - .. image:: https://www.spark-app.store/assets/favicon-96x96-BB0Q9LsV.png
-   :target: spk://store/development/quardcrt
+   :target: https://spk-resolv.spark-app.store/?spk=spk://store/development/quardcrt
    :alt: Spark Store
-   Spark Store
 
 ----------------------------------
 Donate

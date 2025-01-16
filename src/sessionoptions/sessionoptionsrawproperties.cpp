@@ -25,6 +25,7 @@ SessionOptionsRawProperties::SessionOptionsRawProperties(QWidget *parent) :
     ui(new Ui::SessionOptionsRawProperties)
 {
     ui->setupUi(this);
+    ui->lineEditReadOnlyRawMode->setVisible(true);
 }
 
 SessionOptionsRawProperties::~SessionOptionsRawProperties()

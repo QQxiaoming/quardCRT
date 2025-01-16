@@ -211,7 +211,7 @@ private:
 #if defined(Q_OS_WIN)
     QString startWslSession(MainWidgetGroup *group, int groupIndex,  const QString &command = QString(), const QString &workingDirectory = QDir::homePath(), QString name = QString());
 #endif
-    QString startRawSocketSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, QString name = QString());
+    QString startRawSocketSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, int mode, QString name = QString());
     QString startNamePipeSession(MainWidgetGroup *group, int groupIndex,  QString namePipe, QString name = QString());
     QString startSSH2Session(MainWidgetGroup *group, int groupIndex, 
         QString hostname, quint16 port, QString username, QString password, QString name = QString());

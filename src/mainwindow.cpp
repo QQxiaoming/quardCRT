@@ -927,7 +927,7 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
                 } else if(type == "localshell") {
                     startLocalShellSession(findCurrentFocusGroup(),-1);
                 } else if(type == "raw") {
-                    startRawSocketSession(findCurrentFocusGroup(),-1,hostname,port.toInt());
+                    startRawSocketSession(findCurrentFocusGroup(),-1,hostname,port.toInt(),0);
                 } else if(type == "namepipe") {
                     startNamePipeSession(findCurrentFocusGroup(),-1,hostname);
                 } else if(type == "ssh") {
@@ -2571,7 +2571,7 @@ void CentralWidget::onPluginRequestLocalShellConnect(QString command, QString wo
 }
 
 void CentralWidget::onPluginRequestRawSocketConnect(QString host, int port) {
-    startRawSocketSession(findCurrentFocusGroup(),-1,host,port);
+    startRawSocketSession(findCurrentFocusGroup(),-1,host,port,0);
 }
 
 void CentralWidget::onPluginRequestNamePipeConnect(QString namePipe) {
@@ -4120,7 +4120,7 @@ void CentralWidget::connectSessionFromSessionManager(QString name)
                 startLocalShellSession(findCurrentFocusGroup(),-1,data.LocalShellData.command,globalOptionsWindow->getNewTabWorkPath(),current_name);
                 break;
             case QuickConnectWindow::Raw:
-                startRawSocketSession(findCurrentFocusGroup(),-1,data.RawData.hostname,data.RawData.port, current_name);
+                startRawSocketSession(findCurrentFocusGroup(),-1,data.RawData.hostname,data.RawData.port,data.RawData.mode,current_name);
                 break;
             case QuickConnectWindow::NamePipe:
                 startNamePipeSession(findCurrentFocusGroup(),-1,data.NamePipeData.pipeName, current_name);
@@ -4247,7 +4247,7 @@ QString CentralWidget::startSerialSession(MainWidgetGroup *group, int groupIndex
     return name;
 }
 
-QString CentralWidget::startRawSocketSession(MainWidgetGroup *group, int groupIndex, QString hostname, quint16 port, QString name)
+QString CentralWidget::startRawSocketSession(MainWidgetGroup *group, int groupIndex, QString hostname, quint16 port, int mode, QString name)
 {
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::RawSocket,this);
     setGlobalOptions(sessionsWindow);
@@ -4260,7 +4260,7 @@ QString CentralWidget::startRawSocketSession(MainWidgetGroup *group, int groupIn
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->startRawSocketSession(hostname,port);
+    sessionsWindow->startRawSocketSession(hostname,port,mode);
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4586,7 +4586,7 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
     } else if(data.type == QuickConnectWindow::Raw) {
         QString name = data.RawData.hostname;
         if(data.openInTab) {
-            name = startRawSocketSession(group,groupIndex,name,data.RawData.port);
+            name = startRawSocketSession(group,groupIndex,name,data.RawData.port,data.RawData.mode);
         } else {
             checkSessionName(name);
         }
@@ -4837,6 +4837,7 @@ void CentralWidget::sessionWindow2InfoData(SessionsWindow *sessionsWindow, Quick
         case QuickConnectWindow::Raw:
             data.RawData.hostname = sessionsWindow->getHostname();
             data.RawData.port = sessionsWindow->getPort();
+            data.RawData.mode = sessionsWindow->getRawMode();
             break;
         case QuickConnectWindow::NamePipe:
             data.NamePipeData.pipeName = sessionsWindow->getPipeName();
@@ -4883,6 +4884,7 @@ int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow:
     case QuickConnectWindow::Raw:
         data.RawData.hostname = settings->value("hostname").toString();
         data.RawData.port = settings->value("port").toInt();
+        data.RawData.mode = settings->value("mode").toInt();
         break;
     case QuickConnectWindow::NamePipe:
         data.NamePipeData.pipeName = settings->value("pipeName").toString();
@@ -4941,6 +4943,7 @@ void CentralWidget::infoData2Setting(GlobalSetting *settings,const QuickConnectW
     case QuickConnectWindow::Raw:
         settings->setValue("hostname",data.RawData.hostname);
         settings->setValue("port",data.RawData.port);
+        settings->setValue("mode",data.RawData.mode);
         break;
     case QuickConnectWindow::NamePipe:
         settings->setValue("pipeName",data.NamePipeData.pipeName);
@@ -5380,10 +5383,11 @@ int CentralWidget::se_sessionConnect(const QString &cmd,int id) {
                 return 0;
             } 
         } else if(args[i] == "-raw") {
-            if(i+2 < args.size()) {
+            if(i+3 < args.size()) {
                 QString hostname = args[i+1];
                 quint16 port = args[i+2].toUShort();
-                startRawSocketSession(findCurrentFocusGroup(),-1,hostname,port);
+                int mode = args[i+3].toInt();
+                startRawSocketSession(findCurrentFocusGroup(),-1,hostname,port,mode);
                 return 0;
             } 
         } else if(args[i] == "-namepipe") {

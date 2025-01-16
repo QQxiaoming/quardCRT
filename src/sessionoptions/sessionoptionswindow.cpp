@@ -234,6 +234,7 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
     case QuickConnectWindow::Raw:
         sessionOptionsRawProperties->ui->lineEditHostname->setText(data.RawData.hostname);
         sessionOptionsRawProperties->ui->spinBoxPort->setValue(data.RawData.port);
+        sessionOptionsRawProperties->ui->comboBoxRawMode->setCurrentIndex(data.RawData.mode);
         break;
     case QuickConnectWindow::NamePipe:
         sessionOptionsNamePipeProperties->ui->lineEditPipeName->setText(data.NamePipeData.pipeName);
@@ -357,6 +358,7 @@ void SessionOptionsWindow::setReadOnly(bool enable) {
 
     sessionOptionsRawProperties->ui->lineEditHostname->setReadOnly(enable);
     sessionOptionsRawProperties->ui->spinBoxPort->setReadOnly(enable);
+    comboxSetReadOnly(sessionOptionsRawProperties->ui->comboBoxRawMode, sessionOptionsRawProperties->ui->lineEditReadOnlyRawMode);
 
     sessionOptionsNamePipeProperties->ui->lineEditPipeName->setReadOnly(enable);
 
@@ -398,6 +400,7 @@ void SessionOptionsWindow::buttonBoxAccepted(void)
     case QuickConnectWindow::Raw:
         data.RawData.hostname = sessionOptionsRawProperties->ui->lineEditHostname->text();
         data.RawData.port = sessionOptionsRawProperties->ui->spinBoxPort->value();
+        data.RawData.mode = sessionOptionsRawProperties->ui->comboBoxRawMode->currentIndex();
         break;
     case QuickConnectWindow::NamePipe:
         data.NamePipeData.pipeName = sessionOptionsNamePipeProperties->ui->lineEditPipeName->text();

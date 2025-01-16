@@ -208,9 +208,9 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             break;
         }
         case RawSocket: {
-            rawSocket = new QTcpSocket(this);
+            rawSocket = new QRawSocket(this);
             realtimespeed_timer = new QTimer(this);
-            connect(rawSocket,&QTcpSocket::readyRead,this,[=](){
+            connect(rawSocket,&QRawSocket::readyRead,this,[=](){
                 QByteArray data = rawSocket->readAll();
                 uint64_t size = data.size();
                 if(doRecvData(data)) {
@@ -234,7 +234,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     tx_realtime += size;
                 }
             });
-            connect(rawSocket, &QTcpSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
+            connect(rawSocket, &QRawSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
                 if(socketState == QAbstractSocket::ConnectedState) {
                     state = Connected;
                     emit stateChanged(state);
@@ -243,7 +243,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     emit stateChanged(state);
                 }
             });
-            connect(rawSocket, &QTcpSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError){
+            connect(rawSocket, &QRawSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError){
                 QMessageBox::warning(messageParentWidget, tr("Raw Socket Error"), getName() + "\n" + tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
                 state = Error;
                 emit stateChanged(state);
@@ -726,7 +726,7 @@ void SessionsWindow::cloneSession(SessionsWindow *src, QString profile) {
             startSerialSession(src->m_portName, src->m_baudRate, src->m_dataBits, src->m_parity, src->m_stopBits, src->m_flowControl, src->m_xEnable);
             break;
         case RawSocket:
-            startRawSocketSession(src->m_hostname, src->m_port);
+            startRawSocketSession(src->m_hostname, src->m_port, src->getRawMode());
             break;
         case NamePipe:
             startNamePipeSession(src->m_pipeName);
@@ -933,7 +933,8 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
     return 0;
 }
 
-int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port) {
+int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port, int mode) {
+    rawSocket->setRawMode(mode);
     rawSocket->connectToHost(hostname, port);
     m_hostname = hostname;
     m_port = port;
