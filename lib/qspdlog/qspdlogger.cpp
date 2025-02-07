@@ -73,7 +73,7 @@ void QSpdLogger::installMessageHandler() {
         spdlog::init_thread_pool(8192, 1);
         std::shared_ptr<spdlog::sinks::dist_sink_mt> dist_sink = std::make_shared<spdlog::sinks::dist_sink_mt>();
         std::vector<spdlog::sink_ptr> sinks = {dist_sink};
-        std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::async_logger>("QSpdLogger", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
+        std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::async_logger>("QSpdLogger", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::overrun_oldest);
         std::shared_ptr<spdlog::sinks::stdout_color_sink_mt> console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         dist_sink->add_sink(console_sink);
         spdlog::set_default_logger(logger);
