@@ -16,6 +16,7 @@
 #include <functional>
 #include <mutex>
 #include <string>
+#include <future>
 
 #pragma once
 
@@ -60,15 +61,31 @@ protected:
     void sink_it_(const spdlog::details::log_msg &msg) override {
         spdlog::memory_buf_t formatted;
         spdlog::sinks::base_sink<Mutex>::formatter_->format(msg, formatted);
-        if (!client_.is_connected()) {
-            client_.connect(config_.server_host, config_.server_port);
+
+        if (client_.is_connected()) {
+            client_.send(formatted.data(), formatted.size());
+        } else {
+            // drop the log.
+        #if 0 //Is it desired to automatically reconnect after disconnecting
+            if (!is_connecting_) {
+                is_connecting_ = true;
+                std::async(std::launch::async, [this]() {
+                    try {
+                        client_.connect(config_.server_host, config_.server_port);
+                    } catch (const spdlog::spdlog_ex& ex) {
+                        // Not connected. Nothing to do.
+                    }
+                    is_connecting_ = false;
+                });
+            }
+        #endif
         }
-        client_.send(formatted.data(), formatted.size());
     }
 
     void flush_() override {}
     tcp_sink_config config_;
     details::tcp_client client_;
+    std::atomic<bool> is_connecting_{false};
 };
 
 using tcp_sink_mt = tcp_sink<std::mutex>;

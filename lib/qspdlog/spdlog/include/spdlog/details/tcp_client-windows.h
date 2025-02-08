@@ -77,7 +77,7 @@ public:
         int last_error = 0;
         if (rv != 0) {
             last_error = ::WSAGetLastError();
-            WSACleanup();
+            //WSACleanup();
             throw_winsock_error_("getaddrinfo failed", last_error);
         }
 
@@ -87,7 +87,7 @@ public:
             socket_ = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
             if (socket_ == INVALID_SOCKET) {
                 last_error = ::WSAGetLastError();
-                WSACleanup();
+                //WSACleanup();
                 continue;
             }
             if (::connect(socket_, rp->ai_addr, (int)rp->ai_addrlen) == 0) {
@@ -99,7 +99,7 @@ public:
         }
         ::freeaddrinfo(addrinfo_result);
         if (socket_ == INVALID_SOCKET) {
-            WSACleanup();
+            //WSACleanup();
             throw_winsock_error_("connect failed", last_error);
         }
 
