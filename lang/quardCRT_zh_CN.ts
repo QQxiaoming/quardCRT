@@ -3902,7 +3902,7 @@ If you need to use another shell, please create a session through [quick-connect
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="190"/>
         <source>UDP Send</source>
         <translation>UDP发送</translation>
-        </message>
+    </message>
     <message>
         <location filename="../src/quickconnectwindow/quickconnectwindow.ui" line="195"/>
         <source>UDP Recv</source>
