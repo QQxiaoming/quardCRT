@@ -92,14 +92,19 @@ public:
         close();
     }
 
+signals:
+    void willExit(void);
+
 protected:
     void closeEvent(QCloseEvent *event) override {
         if(doNotAskClose) {
+            emit willExit();
             QDialog::closeEvent(event);
         } else {
             QMessageBox::StandardButton ret = QMessageBox::question(this, tr("Close"),tr("Do you want to close this window?"),QMessageBox::Yes|QMessageBox::No);
             if(ret == QMessageBox::Yes) {
                 doNotAskClose = true;
+                emit willExit();
                 event->accept();
             } else {
                 event->ignore();

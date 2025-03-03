@@ -1429,12 +1429,11 @@ void CentralWidget::floatingWindow(MainWidgetGroup *g, int index) {
         SessionsWindow *sessionsWindow = widget->property("session").value<SessionsWindow *>();
         sessionsWindow->proxySendData(data);
     });
-    connect(dialog, &FloatingTab::finished, this, [=](int result){
+    connect(dialog, &FloatingTab::willExit, this, [=](void){
         MainWidgetGroup *group = mainWidgetGroupList.at(newGroup);
         stopSession(group,1,true);
         mainWidgetGroupList.removeAt(newGroup);
-        delete dialog;
-        Q_UNUSED(result);
+        dialog->deleteLater();
     });
     dialog->show();
 }

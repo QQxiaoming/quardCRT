@@ -11,6 +11,8 @@
 - Add terminal recording video feature
 - Raw protocol adds four modes TCP Client, TCP Server, UDP Send, UDP Receive
 - Add view own log window for quardCRT self debug
+- Improve tftp protocol logic
+- Fix the problem that some resources are not correctly released after the floating window is closed [#50](https://github.com/QQxiaoming/quardCRT/issues/50)
 
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
 
