@@ -20,6 +20,8 @@ public:
 	void setDownDir(QString path) { downPath = path; }
 	int getPort() { return m_port; }
 	void setPort(int port) { m_port = port; }
+	int getRetries() { return m_retries; }
+	void setRetries(int retries) { m_retries = retries; }
 
 	void client_get(QString path, QString server);
 	void client_put(QString path, QString server);

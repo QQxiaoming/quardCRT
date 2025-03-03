@@ -35,6 +35,7 @@ void QTftp::server()
 {
 	sock = new QUdpSocket();
 	if(!sock->bind(m_port)) {
+        qWarning() << "Failed to bind to port" << m_port;
 		sock->close();
 		delete sock;
 		sever_running = false;
@@ -116,19 +117,22 @@ void QTftp::server_get()
 		}
 
 	quint16 block = 0;
-	th->opcode = qToBigEndian((quint16)OPTACK);
-    int pktnum = snprintf(th->path,512,"timeout%c%d%cblksize%c%llu%c",0,m_timeout/1000,0,0,m_segsize,0);
-	int i;
-	for(i = 0; i < m_retries; i++) {
-		sock->writeDatagram(buffer, sizeof(struct tftp_header) + pktnum-2, rhost, rport);
-		if(waitForAck(block)) {
-			block++;
-			break;
+    int i;
+	if(m_segsize != 512) {
+		th->opcode = qToBigEndian((quint16)OPTACK);
+		int pktnum = snprintf(th->path,512,"timeout%c%d%cblksize%c%llu%c",0,m_timeout/1000,0,0,m_segsize,0);
+		for(i = 0; i < m_retries; i++) {
+			sock->writeDatagram(buffer, sizeof(struct tftp_header) + pktnum-2, rhost, rport);
+			if(waitForAck(block)) {
+				block++;
+				break;
+			}
 		}
+		if(i == m_retries)
+			return;
+	} else {
+		block = 1;
 	}
-	if(i == m_retries)
-		return;
-
 	quint64 readed;
 	do {
 		qint64 blocks = file.size() / m_segsize;
@@ -154,7 +158,7 @@ void QTftp::server_get()
 			emit progress(newp);
 		}
 	} while(readed == m_segsize);
-	waitForAck(block-1);
+	//waitForAck(block-1);
 	qDebug("sent %d blocks, %llu bytes", (block - 1), (block - 2) * m_segsize + readed);
 }
 
@@ -343,6 +347,9 @@ bool QTftp::waitForAck(quint16 block)
 		} else if(h != rhost || p != rport)
 			continue;
 		
+		if(th.opcode == qToBigEndian((quint16)ERR))
+			return false;
+
 		if(th.opcode == qToBigEndian((quint16)ACK) && qFromBigEndian(th.data.block) == block)
 			return true;
 	}
