@@ -848,8 +848,21 @@ int SessionsWindow::startLocalShellSession(const QString &command,QString profil
     }
     connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
         QByteArray data = localShell->readAll();
-        if(doRecvData(data)) {
-            term->recvData(data.data(), data.size());
+        if (!data.isEmpty()) {
+            if(doRecvData(data)) {
+                term->recvData(data.data(), data.size());
+            }
+        }
+    });
+    connect(localShell->notifier(), &QIODevice::aboutToClose, this, [this] {
+        if (localShell) {
+            QByteArray restOfOutput = localShell->readAll();
+            if (!restOfOutput.isEmpty()) {
+                if(doRecvData(restOfOutput)) {
+                    term->recvData(restOfOutput.data(), restOfOutput.size());
+                }
+                localShell->notifier()->disconnect();
+            }
         }
     });
     connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
