@@ -1074,7 +1074,7 @@ bool ConPtyProcess::kill()
     // Cleanup attribute list
     if (m_shellStartupInfo.lpAttributeList) {
         DeleteProcThreadAttributeList(m_shellStartupInfo.lpAttributeList);
-        HeapFree(GetProcessHeap(), 0, m_shellStartupInfo.lpAttributeList);
+        //HeapFree(GetProcessHeap(), 0, m_shellStartupInfo.lpAttributeList);
     }
 
     return true;
