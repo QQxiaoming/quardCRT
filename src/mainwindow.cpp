@@ -79,7 +79,6 @@ CentralWidget::CentralWidget(QString dir, StartupUIMode mode, QLocale lang, bool
     , language(lang)
     , isDarkTheme(isDark)
     , mainWindow(static_cast<MainWindow *>(parent)) {
-
     internalLogWindow = new InternalLogWindow(this);
 
     ui->setupUi(this);
