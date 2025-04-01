@@ -39,7 +39,6 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QRegularExpression>
-#include <QScrollBar>
 #include <QStyle>
 #include <QTime>
 #include <QTimer>
@@ -116,6 +115,15 @@ const QChar LTR_OVERRIDE_CHAR(0x202D);
     ANSI  (bgr) Black   Red     Green   Yellow  Blue    Magenta Cyan    White
     IBMPC (rgb) Black   Blue    Green   Cyan    Red     Magenta Yellow  White
 */
+
+// using global statics for the unclutter feature makes tracking the override cursor simple
+// there's only one cursor to override and only one terminal relevant for that at any time
+// gs_deadSpot serves as flag and also allows a position check - it doesn't matter that this isn't
+// correct when checking the position across instances as its only purpose is to catch judder when
+// the user doesn't really touch the mouse - once the mouse moves we'll quickly be out of the deadzone
+static QPoint gs_deadSpot(-1,-1);
+static QPoint gs_futureDeadSpot;
+std::shared_ptr<QTimer> TerminalDisplay::_hideMouseTimer;
 
 ScreenWindow *TerminalDisplay::screenWindow() const { return _screenWindow; }
 void TerminalDisplay::setScreenWindow(ScreenWindow *window) {
@@ -325,7 +333,7 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
         _filterChain(new TerminalImageFilterChain()),
         _cursorShape(Emulation::KeyboardCursorShape::BlockCursor),
         mMotionAfterPasting(NoMoveScreenWindow), _leftBaseMargin(1),
-        _topBaseMargin(1), _drawLineChars(true) {
+        _topBaseMargin(1), _drawLineChars(true),_mouseAutohideDelay(-1) {
     // variables for draw text
     _drawTextAdditionHeight = 0;
     _drawTextTestFlag = false;
@@ -343,7 +351,7 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
     // create scroll bar for scrolling output up and down
     // set the scroll bar's slider to occupy the whole area of the scroll bar
     // initially
-    _scrollBar = new QScrollBar(this);
+    _scrollBar = new ScrollBar(this);
     QString style_sheet = qApp->styleSheet();
     _scrollBar->setStyleSheet(style_sheet);
     // since the contrast with the terminal background may not be enough,
@@ -365,8 +373,6 @@ TerminalDisplay::TerminalDisplay(QWidget *parent)
     _blinkCursorTimer = new QTimer(this);
     connect(_blinkCursorTimer, &QTimer::timeout, this,
                     &TerminalDisplay::blinkCursorEvent);
-
-    //  KCursor::setAutoHideCursor( this, true );
 
     setUsesMouse(true);
     setBracketedPasteMode(false);
@@ -424,6 +430,8 @@ TerminalDisplay::~TerminalDisplay() {
     }
     disconnect(_blinkTimer);
     disconnect(_blinkCursorTimer);
+    if (_hideMouseTimer)
+        disconnect(_hideMouseTimer.get());
     qApp->removeEventFilter(this);
 
     delete[] _image;
@@ -1491,8 +1499,11 @@ void TerminalDisplay::showResizeNotification() {
 void TerminalDisplay::setBlinkingCursor(bool blink) {
     _hasBlinkingCursor = blink;
 
-    if (blink && !_blinkCursorTimer->isActive())
-        _blinkCursorTimer->start(QApplication::cursorFlashTime() / 2);
+    if (blink && !_blinkCursorTimer->isActive() && hasFocus()) {
+        // QApplication::cursorFlashTime() may be negative, and a too fast
+        // blinking is not good. Also, see TerminalDisplay::keyPressEvent.
+        _blinkCursorTimer->start(std::max(QApplication::cursorFlashTime(), 1000) / 2);
+    }
 
     if (!blink && _blinkCursorTimer->isActive()) {
         _blinkCursorTimer->stop();
@@ -1506,7 +1517,7 @@ void TerminalDisplay::setBlinkingCursor(bool blink) {
 void TerminalDisplay::setBlinkingTextEnabled(bool blink) {
     _allowBlinkingText = blink;
 
-    if (blink && !_blinkTimer->isActive())
+    if (blink && !_blinkTimer->isActive() && hasFocus())
         _blinkTimer->start(TEXT_BLINK_DELAY);
 
     if (!blink && _blinkTimer->isActive()) {
@@ -1516,28 +1527,57 @@ void TerminalDisplay::setBlinkingTextEnabled(bool blink) {
 }
 
 void TerminalDisplay::focusOutEvent(QFocusEvent *) {
-    emit termLostFocus();
     // trigger a repaint of the cursor so that it is both visible (in case
     // it was hidden during blinking)
     // and drawn in a focused out state
     _cursorBlinking = false;
     updateCursor();
-
     _blinkCursorTimer->stop();
+
     if (_blinking)
         blinkEvent();
 
     _blinkTimer->stop();
+
+    // This signal should be emitted only in the end
+    // because the focus may change in response to it.
+    emit termLostFocus();
 }
 void TerminalDisplay::focusInEvent(QFocusEvent *) {
-    emit termGetFocus();
     if (_hasBlinkingCursor) {
-        _blinkCursorTimer->start();
+        // see TerminalDisplay::setBlinkingCursor
+        _blinkCursorTimer->start(std::max(QApplication::cursorFlashTime(), 1000) / 2);
     }
     updateCursor();
 
     if (_hasBlinker)
-        _blinkTimer->start();
+        _blinkTimer->start(TEXT_BLINK_DELAY);
+
+    // This signal should be emitted only in the end
+    // because the focus may change in response to it.
+    emit termGetFocus();
+}
+
+void TerminalDisplay::enterEvent(QEnterEvent* event)
+{
+  if (gs_deadSpot.x() < 0 && _hideMouseTimer
+      // NOTE: scrollBar->underMouse() doesn't work here
+      && !_scrollBar->rect().contains(_scrollBar->mapFromParent(event->position().toPoint())))
+  {
+    gs_futureDeadSpot = event->position().toPoint();
+    _hideMouseTimer->start(_mouseAutohideDelay);
+  }
+  QWidget::enterEvent(event);
+}
+
+void TerminalDisplay::leaveEvent(QEvent* event)
+{
+  if (gs_deadSpot.x() > -1)
+  {
+    gs_deadSpot = QPoint(-1,-1);
+    QApplication::restoreOverrideCursor();
+  }
+  QWidget::leaveEvent(event);
 }
 
 void TerminalDisplay::paintEvent(QPaintEvent *pe) {
@@ -2328,7 +2368,54 @@ QList<QAction *> TerminalDisplay::filterActions(const QPoint &position) {
     return spot ? spot->actions() : QList<QAction *>();
 }
 
+void TerminalDisplay::hideStaleMouse() const
+{
+    if (gs_deadSpot.x() > -1) // we already have a dead spot
+        return;
+    if (gs_futureDeadSpot.x() < 0) // that's not expected nor gonna end well
+        return;
+    if (!underMouse()) // we don't care about the mouse
+        return;
+    if (QApplication::activeWindow() && QApplication::activeWindow() != window()) // some other app window has the focus
+        return;
+    if (_scrollBar->underMouse()) // the mouse is over the scrollbar
+        return;
+    gs_deadSpot = gs_futureDeadSpot;
+    QApplication::setOverrideCursor(Qt::BlankCursor);
+}
+
+void TerminalDisplay::autoHideMouseAfter(int delay)
+{
+    if (delay > -1 && !_hideMouseTimer)
+    {
+        _hideMouseTimer = std::make_shared<QTimer>();
+        _hideMouseTimer->setSingleShot(true);
+    }
+    if ((_mouseAutohideDelay < 0) == (delay < 0))
+    {
+        _mouseAutohideDelay = delay;
+        return;
+    }
+    if (delay > -1)
+        connect(_hideMouseTimer.get(), &QTimer::timeout, this, &TerminalDisplay::hideStaleMouse);
+    else if (_hideMouseTimer)
+        disconnect(_hideMouseTimer.get(), &QTimer::timeout, this, &TerminalDisplay::hideStaleMouse);
+    _mouseAutohideDelay = delay;
+}
+
 void TerminalDisplay::mouseMoveEvent(QMouseEvent *ev) {
+    // unclutter
+    if (_mouseAutohideDelay > -1) {
+        if (gs_deadSpot.x() > -1 && (ev->pos() - gs_deadSpot).manhattanLength() > 8)
+        {
+            gs_deadSpot = QPoint(-1,-1);
+            QApplication::restoreOverrideCursor();
+        }
+        gs_futureDeadSpot = ev->position().toPoint();
+        Q_ASSERT(_hideMouseTimer);
+        _hideMouseTimer->start(_mouseAutohideDelay);
+    }
+
     int charLine = 0;
     int charColumn = 0;
     int leftMargin = _leftBaseMargin +
@@ -2338,7 +2425,7 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent *ev) {
                             ? _scrollBar->width()
                             : 0);
 
-    getCharacterPosition(ev->pos(), charLine, charColumn);
+    getCharacterPosition(ev->position().toPoint(), charLine, charColumn);
 
     // handle filters
     // change link hot-spot appearance on mouse-over
@@ -2452,7 +2539,7 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent *ev) {
     if (ev->buttons() & Qt::MiddleButton)
         return;
 
-    extendSelection(ev->pos());
+    extendSelection(ev->position().toPoint());
 }
 
 void TerminalDisplay::extendSelection(const QPoint &position) {
@@ -3132,7 +3219,8 @@ void TerminalDisplay::keyPressEvent(QKeyEvent *event) {
                  // know where the current selection is.
 
     if (_hasBlinkingCursor) {
-        _blinkCursorTimer->start(QApplication::cursorFlashTime() / 2);
+        // see TerminalDisplay::setBlinkingCursor
+        _blinkCursorTimer->start(std::max(QApplication::cursorFlashTime(), 1000) / 2);
         if (_cursorBlinking)
             blinkCursorEvent();
         else
@@ -3585,4 +3673,17 @@ bool AutoScrollHandler::eventFilter(QObject *watched, QEvent *event) {
     };
 
     return false;
+}
+
+ScrollBar::ScrollBar(QWidget* parent) : QScrollBar(parent) {}
+
+void ScrollBar::enterEvent(QEnterEvent* event)
+{
+  // show the mouse cursor that was auto-hidden
+  if (gs_deadSpot.x() > -1)
+  {
+    gs_deadSpot = QPoint(-1,-1);
+    QApplication::restoreOverrideCursor();
+  }
+  QScrollBar::enterEvent(event);
 }

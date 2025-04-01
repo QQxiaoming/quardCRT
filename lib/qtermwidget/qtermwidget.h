@@ -246,6 +246,9 @@ public:
 
     void setWordCharacters(const QString &wordCharacters);
     QString wordCharacters(void);
+
+    void autoHideMouseAfter(int delay);
+
     void setShowResizeNotificationEnabled(bool enabled);
 
     void setEnableHandleCtrlC(bool enable);

@@ -476,6 +476,9 @@ public:
     void setWordCharacters(const QString &wordCharacters) {
         if(term) term->setWordCharacters(wordCharacters);
     }
+    void setAutoHideMouseAfter(int delay) {
+        if(term) term->autoHideMouseAfter(delay);
+    }
     void setPreeditColorIndex(int index) {
         if(term) term->setPreeditColorIndex(index);
     }

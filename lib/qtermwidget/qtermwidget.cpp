@@ -789,6 +789,11 @@ QString QTermWidget::wordCharacters(void) {
     return m_terminalDisplay->wordCharacters();
 }
 
+void QTermWidget::autoHideMouseAfter(int delay)
+{
+    m_terminalDisplay->autoHideMouseAfter(delay);
+}
+
 void QTermWidget::setShowResizeNotificationEnabled(bool enabled) {
     m_terminalDisplay->setShowResizeNotificationEnabled(enabled);
 }
