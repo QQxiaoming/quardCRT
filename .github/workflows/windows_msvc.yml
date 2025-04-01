@@ -54,10 +54,10 @@ jobs:
           modules: 'qtwebsockets qtserialport qtmultimedia'
           aqtversion: '==3.1.19'
 
-      - name: Install cmake
-        uses: crazy-max/ghaction-chocolatey@v3
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v2
         with:
-          args: install cmake --no-progress
+          cmake-version: '3.20.0'
 
       - name: Install innosetup
         uses: crazy-max/ghaction-chocolatey@v3
