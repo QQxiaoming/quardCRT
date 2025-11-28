@@ -108,14 +108,14 @@ jobs:
           ./build_setup_msvc.bat
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: quardCRT_windows_msvc2022
           path: |
             ./output/*.exe
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: quardCRT_patch_for_msix
           path: |

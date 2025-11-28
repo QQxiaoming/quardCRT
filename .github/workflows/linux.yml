@@ -91,7 +91,7 @@ jobs:
           ./build_deb.sh
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: quardCRT_Ubuntu2204
           path: |
