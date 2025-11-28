@@ -94,6 +94,15 @@ bool UnixPtyProcess::startProcess(const QString &executable,
         return false;
     }
 
+    // set master to non-blocking to avoid long blocking read() in notifier
+    int flags = fcntl(m_shellProcess.m_handleMaster, F_GETFL, 0);
+    if (flags == -1 || fcntl(m_shellProcess.m_handleMaster, F_SETFL, flags | O_NONBLOCK) == -1)
+    {
+        m_lastError = QString("UnixPty Error: unable to set O_NONBLOCK for master -> %1").arg(strerror(errno));
+        kill();
+        return false;
+    }
+
     rc = fcntl(m_shellProcess.m_handleSlave, F_SETFD, FD_CLOEXEC);
     if (rc == -1)
     {
@@ -161,19 +170,47 @@ bool UnixPtyProcess::startProcess(const QString &executable,
         Q_UNUSED(socket)
 
         QByteArray buffer;
-        int size = 1025;
-        int readSize = 1024;
-        QByteArray data;
-        do
-        {
-            char nativeBuffer[size];
-            int len = ::read(m_shellProcess.m_handleMaster, nativeBuffer, readSize);
-            data = QByteArray(nativeBuffer, len);
-            buffer.append(data);
-        } while (data.size() == readSize); //last data block always < readSize
+        const int readSize = 1024;
+        char nativeBuffer[readSize];
 
-        m_shellReadBuffer.append(buffer);
-        m_shellProcess.emitReadyRead();
+        while (true)
+        {
+            int len = ::read(m_shellProcess.m_handleMaster, nativeBuffer, readSize);
+
+            if (len > 0)
+            {
+                buffer.append(nativeBuffer, len);
+
+                if (len < readSize)
+                    break;
+            }
+            else if (len == 0)
+            {
+                // EOF from master side
+                break;
+            }
+            else
+            {
+                if (errno == EAGAIN || errno == EWOULDBLOCK)
+                {
+                    // no more data currently available
+                    break;
+                }
+                if (errno == EINTR)
+                {
+                    // interrupted by signal, retry read
+                    continue;
+                }
+                // other errors, stop reading this time
+                break;
+            }
+        }
+
+        if (!buffer.isEmpty())
+        {
+            m_shellReadBuffer.append(buffer);
+            m_shellProcess.emitReadyRead();
+        }
     });
 
     QStringList defaultVars;
