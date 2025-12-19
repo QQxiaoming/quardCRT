@@ -131,7 +131,7 @@ jobs:
           ./build_setup.bat
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: quardCRT_windows
           path: |
