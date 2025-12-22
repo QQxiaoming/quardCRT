@@ -1342,6 +1342,10 @@ void QGoodWindow::activateWindow()
 #endif
 }
 
+#if defined(Q_OS_MAC)
+static void adjustForMacSafeArea(class QGoodWindow *gw);
+#endif
+
 void QGoodWindow::show()
 {
 #ifdef Q_OS_WIN
@@ -1353,6 +1357,9 @@ void QGoodWindow::show()
 
     ShowWindow(m_hwnd, SW_SHOW);
 #else
+#if defined(Q_OS_MAC)
+    QTimer::singleShot(0, this, [this](){ adjustForMacSafeArea(this); });
+#endif
     QMainWindow::show();
 #endif
 }
@@ -4291,6 +4298,37 @@ void QGoodWindow::fixWhenShowQuardCRTTabPreviewIssue() {
         setMacOSStyle(int(macOSNative::StyleType::NoState),false);
 }
 
+#include <QTimer>
+static void adjustForMacSafeArea(class QGoodWindow *gw)
+{
+    if (!gw || !gw->isVisible())
+        return;
+
+    // Get outer/native frame via existing macOSNative helper
+    int fx = 0, fy = 0, fw = 0, fh = 0;
+    macOSNative::frameGeometry(long(gw->winId()), &fx, &fy, &fw, &fh);
+    QRect frameRect(fx, fy, fw, fh);
+
+    // Qt's geometry() is the content rect (position of content relative to screen)
+    QRect contentRect = gw->geometry();
+    int safeTop = contentRect.y() - frameRect.y();
+
+    // If there is a positive safeTop (content pushed down), shift content up
+    if (safeTop > 0) {
+        QWidget *cw = gw->centralWidget();
+        if (cw) {
+            QMargins m = cw->contentsMargins();
+            // Subtract safeTop from top margin (allow clamping if needed)
+            int newTop = m.top() - safeTop;
+            cw->setContentsMargins(m.left(), newTop, m.right(), m.bottom());
+        } else {
+            QMargins m = gw->contentsMargins();
+            int newTop = m.top() - safeTop;
+            gw->setContentsMargins(m.left(), newTop, m.right(), m.bottom());
+        }
+    }
+}
+
 void QGoodWindow::notificationReceiver(const QByteArray &notification)
 {
     if (notification == "NSWindowWillEnterFullScreenNotification")
@@ -4316,6 +4354,12 @@ void QGoodWindow::notificationReceiver(const QByteArray &notification)
     else if (notification == "AppleInterfaceThemeChangedNotification")
     {
         QTimer::singleShot(0, this, &QGoodWindow::themeChanged);
+    }
+    else if (notification == "NSViewFrameDidChangeNotification" ||
+         notification == "NSViewBoundsDidChangeNotification" ||
+         notification == "NSWindowDidChangeScreenParametersNotification")
+    {
+        QTimer::singleShot(0, this, [this](){ adjustForMacSafeArea(this); });
     }
 }
 #endif
