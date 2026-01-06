@@ -196,7 +196,7 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             });
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
                 if(serialPort->error() == QSerialPort::NoError) return;
-                if(state == Error) return;
+                if(state == Error || state == Disconnected) return;
                 QMessageBox::warning(messageParentWidget, tr("Serial Error"), getName() + "\n" + tr("Serial error:\n%0\n%1.").arg(serialPort->portName()).arg(serialPort->errorString()));
                 state = Error;
                 emit stateChanged(state);
@@ -915,6 +915,7 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
         state = Error;
         emit stateChanged(state);
     } else {
+        serialPort->setBreakEnabled(xEnable);
         state = Connected;
         emit stateChanged(state);
     #if defined(Q_OS_WIN)
@@ -934,7 +935,6 @@ int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRat
                 }
             }
         });
-        serialPort->setBreakEnabled(xEnable);
     }
     m_portName = portName;
     m_baudRate = baudRate;

@@ -12,6 +12,8 @@ en-US:
 - Raw protocol adds four modes TCP Client, TCP Server, UDP Send, UDP Receive
 - Add view own log window for quardCRT self debug
 - Improve tftp protocol logic
+- Fix the problem that the terminal freezes under specific characters in specific cases on linux
+- Fix the problem that the serial port cannot be opened when the serial port driver does not support Break on linux
 - Fix the problem that some resources are not correctly released after the floating window is closed [#50](https://github.com/QQxiaoming/quardCRT/issues/50)
 
 zh-CN:
@@ -24,6 +26,8 @@ zh-CN:
 - Raw协议增加四种模式TCP Client、TCP Server、UDP Send、UDP Receive
 - 增加查看自身log窗口，用于quardCRT自身debug
 - 改进tftp协议逻辑
+- 修复linux上存在特定字符特定情况下终端卡死问题
+- 修复linux上串口驱动不支持Break时无法打开串口问题
 - 修复浮动窗口关闭后未能正确释放部分资源问题 [#50](https://github.com/QQxiaoming/quardCRT/issues/50)
 
 ## [[V0.5.1](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.5.1)] - 2024-09-26
