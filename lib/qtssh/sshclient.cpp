@@ -219,6 +219,12 @@ void SshClient::setKeys(const QString &publicKey, const QString &privateKey)
     m_privateKey = privateKey;
 }
 
+void SshClient::setKeyFiles(const QString &publicKey, const QString &privateKey)
+{
+    m_publicKeyFile = publicKey;
+    m_privateKeyFile = privateKey;
+}
+
 bool SshClient::saveKnownHosts(const QString & file)
 {
     bool res = (libssh2_knownhost_writefile(m_knownHosts, qPrintable(file), LIBSSH2_KNOWNHOST_FILE_OPENSSH) == 0);
@@ -492,16 +498,36 @@ void SshClient::_ssh_processEvent()
             {
                 if(m_authenticationMethodes.first() == "publickey")
                 {
-                    int ret = libssh2_userauth_publickey_frommemory(
+                    int ret = 0;
+                    if(!m_privateKeyFile.isEmpty())
+                    {
+                        QByteArray username = m_username.toLocal8Bit();
+                        QByteArray publicKey = m_publicKeyFile.toLocal8Bit();
+                        QByteArray privateKey = m_privateKeyFile.toLocal8Bit();
+                        QByteArray passphrase = m_passphrase.toLocal8Bit();
+                        const char *publicKeyPtr = m_publicKeyFile.isEmpty() ? nullptr : publicKey.constData();
+                        const char *passphrasePtr = m_passphrase.isEmpty() ? nullptr : passphrase.constData();
+                        ret = libssh2_userauth_publickey_fromfile_ex(
                                     m_session,
-                                    m_username.toStdString().c_str(),
-                                    static_cast<size_t>(m_username.length()),
-                                    m_publicKey.toStdString().c_str(),
-                                    static_cast<size_t>(m_publicKey.length()),
-                                    m_privateKey.toStdString().c_str(),
-                                    static_cast<size_t>(m_privateKey.length()),
-                                    m_passphrase.toStdString().c_str()
-                            );
+                                    username.constData(),
+                                    static_cast<unsigned int>(username.length()),
+                                    publicKeyPtr,
+                                    privateKey.constData(),
+                                    passphrasePtr);
+                    }
+                    else
+                    {
+                        ret = libssh2_userauth_publickey_frommemory(
+                                        m_session,
+                                        m_username.toStdString().c_str(),
+                                        static_cast<size_t>(m_username.length()),
+                                        m_publicKey.toStdString().c_str(),
+                                        static_cast<size_t>(m_publicKey.length()),
+                                        m_privateKey.toStdString().c_str(),
+                                        static_cast<size_t>(m_privateKey.length()),
+                                        m_passphrase.toStdString().c_str()
+                                );
+                    }
                     if(ret == LIBSSH2_ERROR_EAGAIN)
                     {
                         return;

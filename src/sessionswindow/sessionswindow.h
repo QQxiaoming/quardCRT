@@ -276,6 +276,10 @@ public:
 
         TitleTypeMax,
     };
+    enum SshAuthMethod {
+        SshAuthPassword = 0,
+        SshAuthPublicKey,
+    };
     struct StateInfo {
         SessionType type;
         SessionsState state;
@@ -328,6 +332,8 @@ public:
     int startNamePipeSession(const QString &name);
 #ifdef ENABLE_SSH
     int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password);
+    int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password,
+                         int authType, const QString &privateKeyPath, const QString &publicKeyPath, const QString &passphrase);
 #endif
     int startVNCSession(const QString &hostname, quint16 port, const QString &password);
 
@@ -436,6 +442,10 @@ public:
     QString getPipeName() const { return m_pipeName; }
     QString getUserName() const { return m_username; }
     QString getPassWord() const { return m_password; }
+    int getSshAuthType() const { return m_sshAuthType; }
+    QString getPrivateKeyPath() const { return m_privateKeyPath; }
+    QString getPublicKeyPath() const { return m_publicKeyPath; }
+    QString getPassphrase() const { return m_passphrase; }
 
     void setScrollBarPosition(QTermWidget::ScrollBarPosition position) {
         if(term) term->setScrollBarPosition(position);
@@ -739,6 +749,10 @@ private:
     QString m_pipeName;
     QString m_username;
     QString m_password;
+    QString m_passphrase;
+    QString m_privateKeyPath;
+    QString m_publicKeyPath;
+    int m_sshAuthType = SshAuthPassword;
 
     QString logPath;
     QString rawLogPath;

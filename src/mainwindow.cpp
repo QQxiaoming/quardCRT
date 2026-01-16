@@ -4125,7 +4125,8 @@ void CentralWidget::connectSessionFromSessionManager(QString name)
                 break;
             case QuickConnectWindow::SSH2:
                 startSSH2Session(findCurrentFocusGroup(),-1,data.SSH2Data.hostname,data.SSH2Data.port,
-                                 data.SSH2Data.username,data.SSH2Data.password, current_name);
+                                 data.SSH2Data.username,data.SSH2Data.password, data.SSH2Data.authType,
+                                 data.SSH2Data.privateKey, data.SSH2Data.publicKey, data.SSH2Data.passphrase, current_name);
                 break;
             case QuickConnectWindow::VNC:
                 startVNCSession(findCurrentFocusGroup(),-1,data.VNCData.hostname,data.VNCData.port,
@@ -4483,7 +4484,8 @@ QString CentralWidget::startWslSession(MainWidgetGroup *group, int groupIndex, c
 #endif
 
 QString CentralWidget::startSSH2Session(MainWidgetGroup *group, int groupIndex, 
-        QString hostname, quint16 port, QString username, QString password, QString name)
+        QString hostname, quint16 port, QString username, QString password,
+        int authType, QString privateKey, QString publicKey, QString passphrase, QString name)
 {
 #ifdef ENABLE_SSH
     SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::SSH2,this);
@@ -4497,7 +4499,7 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group, int groupIndex,
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->startSSH2Session(hostname,port,username,password);
+    sessionsWindow->startSSH2Session(hostname, port, username, password, authType, privateKey, publicKey, passphrase);
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4604,7 +4606,8 @@ void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickCo
     } else if(data.type == QuickConnectWindow::SSH2) {
         QString name = data.SSH2Data.hostname;
         if(data.openInTab) {
-            name = startSSH2Session(group,groupIndex,name,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password);
+            name = startSSH2Session(group,groupIndex,name,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password,
+                                    data.SSH2Data.authType, data.SSH2Data.privateKey, data.SSH2Data.publicKey, data.SSH2Data.passphrase);
         } else {
             checkSessionName(name);
         }
@@ -4845,6 +4848,10 @@ void CentralWidget::sessionWindow2InfoData(SessionsWindow *sessionsWindow, Quick
             data.SSH2Data.port = sessionsWindow->getPort();
             data.SSH2Data.username = sessionsWindow->getUserName();
             data.SSH2Data.password = sessionsWindow->getPassWord();
+            data.SSH2Data.authType = sessionsWindow->getSshAuthType();
+            data.SSH2Data.privateKey = sessionsWindow->getPrivateKeyPath();
+            data.SSH2Data.publicKey = sessionsWindow->getPublicKeyPath();
+            data.SSH2Data.passphrase = sessionsWindow->getPassphrase();
             break;
         case QuickConnectWindow::VNC:
             data.VNCData.hostname = sessionsWindow->getHostname();
@@ -4891,10 +4898,19 @@ int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow:
         data.SSH2Data.hostname = settings->value("hostname").toString();
         data.SSH2Data.port = settings->value("port").toInt();
         data.SSH2Data.username = settings->value("username").toString();
+        data.SSH2Data.authType = settings->value("authType", QuickConnectWindow::SshAuthPassword).toInt();
+        data.SSH2Data.privateKey = settings->value("privateKey").toString();
+        data.SSH2Data.publicKey = settings->value("publicKey").toString();
+        data.SSH2Data.password.clear();
+        data.SSH2Data.passphrase.clear();
         if(!skipPassword){
-            bool isOK = keyChainClass.readKey(name,data.SSH2Data.password);
-            if(!isOK) {
-                return -1;
+            if(data.SSH2Data.authType == QuickConnectWindow::SshAuthPassword) {
+                bool isOK = keyChainClass.readKey(name,data.SSH2Data.password);
+                if(!isOK) {
+                    return -1;
+                }
+            } else {
+                keyChainClass.readKey(name + "/ssh2/passphrase", data.SSH2Data.passphrase);
             }
         }
         break;
@@ -4950,8 +4966,16 @@ void CentralWidget::infoData2Setting(GlobalSetting *settings,const QuickConnectW
         settings->setValue("hostname",data.SSH2Data.hostname);
         settings->setValue("port",data.SSH2Data.port);
         settings->setValue("username",data.SSH2Data.username);
-        if(!skipPassword)
-            keyChainClass.writeKey(name,data.SSH2Data.password);
+        settings->setValue("authType", data.SSH2Data.authType);
+        settings->setValue("privateKey", data.SSH2Data.privateKey);
+        settings->setValue("publicKey", data.SSH2Data.publicKey);
+        if(!skipPassword) {
+            if(data.SSH2Data.authType == QuickConnectWindow::SshAuthPassword) {
+                keyChainClass.writeKey(name, data.SSH2Data.password);
+            } else {
+                keyChainClass.writeKey(name + "/ssh2/passphrase", data.SSH2Data.passphrase);
+            }
+        }
         break;
     case QuickConnectWindow::VNC:
         settings->setValue("hostname",data.VNCData.hostname);

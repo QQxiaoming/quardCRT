@@ -733,7 +733,8 @@ void SessionsWindow::cloneSession(SessionsWindow *src, QString profile) {
             break;
         case SSH2:
         #ifdef ENABLE_SSH
-            startSSH2Session(src->m_hostname, src->m_port, src->m_username, src->m_password);
+            startSSH2Session(src->m_hostname, src->m_port, src->m_username, src->m_password,
+                             src->m_sshAuthType, src->m_privateKeyPath, src->m_publicKeyPath, src->m_passphrase);
         #endif
             break;
         case VNC:
@@ -962,14 +963,41 @@ int SessionsWindow::startNamePipeSession(const QString &name) {
 
 #ifdef ENABLE_SSH
 int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password) {
+    return startSSH2Session(hostname, port, username, password, SshAuthPassword, QString(), QString(), QString());
+}
+
+int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password,
+                                     int authType, const QString &privateKeyPath, const QString &publicKeyPath, const QString &passphrase) {
     QByteArrayList methodes;
-    methodes.append("password");
-    ssh2Client->setPassphrase(password);
+    if(authType == SshAuthPublicKey) {
+        if(privateKeyPath.isEmpty()) {
+            QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("Private key is required for public key authentication."));
+            return -1;
+        }
+        methodes.append("publickey");
+        QString resolvedPublicKeyPath = publicKeyPath;
+        if(resolvedPublicKeyPath.isEmpty()) {
+            QString candidate = privateKeyPath + ".pub";
+            if(QFileInfo::exists(candidate)) {
+                resolvedPublicKeyPath = candidate;
+            }
+        }
+        ssh2Client->setKeyFiles(resolvedPublicKeyPath, privateKeyPath);
+        ssh2Client->setPassphrase(passphrase);
+    } else {
+        methodes.append("password");
+        ssh2Client->setKeyFiles(QString(), QString());
+        ssh2Client->setPassphrase(password);
+    }
     ssh2Client->connectToHost(username, hostname, port, methodes);
     m_hostname = hostname;
     m_port = port;
     m_username = username;
     m_password = password;
+    m_passphrase = passphrase;
+    m_privateKeyPath = privateKeyPath;
+    m_publicKeyPath = publicKeyPath;
+    m_sshAuthType = authType;
     return 0;
 }
 #endif

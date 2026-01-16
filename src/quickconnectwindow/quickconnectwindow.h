@@ -45,6 +45,10 @@ public:
         SSH2,
         VNC,
     };
+    enum SshAuthMethod : int {
+        SshAuthPassword = 0,
+        SshAuthPublicKey = 1,
+    };
     struct QuickConnectData {
         QuickConnectType type;
         struct {
@@ -77,8 +81,10 @@ public:
             int port;
             QString username;
             QString password;
+            QString publicKey;
             QString privateKey;
             QString passphrase;
+            int authType;
         }SSH2Data;
         struct {
             QString hostname;

@@ -19,6 +19,7 @@
  */
 #include "sessionoptionsssh2properties.h"
 #include "ui_sessionoptionsssh2properties.h"
+#include <QFileDialog>
 
 SessionOptionsSsh2Properties::SessionOptionsSsh2Properties(QWidget *parent) :
     QWidget(parent),
@@ -27,6 +28,39 @@ SessionOptionsSsh2Properties::SessionOptionsSsh2Properties(QWidget *parent) :
     ui->setupUi(this);
     lineEditPassword = new PasswordEdit(true, this);
     ui->horizontalLayoutPassword->addWidget(lineEditPassword);
+    lineEditPassphrase = new PasswordEdit(true, this);
+    ui->horizontalLayoutPassphrase->addWidget(lineEditPassphrase);
+
+    auto updateAuthFields = [this]() {
+        bool usePublicKey = (ui->comboBoxAuthMethod->currentIndex() == 1);
+        ui->label_4->setVisible(!usePublicKey);
+        lineEditPassword->setVisible(!usePublicKey);
+        ui->labelPrivateKey->setVisible(usePublicKey);
+        ui->lineEditPrivateKey->setVisible(usePublicKey);
+        ui->toolButtonBrowsePrivateKey->setVisible(usePublicKey);
+        ui->labelPublicKey->setVisible(usePublicKey);
+        ui->lineEditPublicKey->setVisible(usePublicKey);
+        ui->toolButtonBrowsePublicKey->setVisible(usePublicKey);
+        ui->labelPassphrase->setVisible(usePublicKey);
+        lineEditPassphrase->setVisible(usePublicKey);
+    };
+
+    connect(ui->comboBoxAuthMethod, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, [=](int) { updateAuthFields(); });
+    connect(ui->toolButtonBrowsePrivateKey, &QToolButton::clicked, this, [=]() {
+        QString path = QFileDialog::getOpenFileName(this, tr("Select Private Key"), ui->lineEditPrivateKey->text());
+        if(!path.isEmpty()) {
+            ui->lineEditPrivateKey->setText(path);
+        }
+    });
+    connect(ui->toolButtonBrowsePublicKey, &QToolButton::clicked, this, [=]() {
+        QString path = QFileDialog::getOpenFileName(this, tr("Select Public Key"), ui->lineEditPublicKey->text());
+        if(!path.isEmpty()) {
+            ui->lineEditPublicKey->setText(path);
+        }
+    });
+
+    updateAuthFields();
 }
 
 SessionOptionsSsh2Properties::~SessionOptionsSsh2Properties()
