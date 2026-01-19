@@ -18,6 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include <QSerialPortInfo>
+#include <QMessageBox>
 
 #include "quickconnectwindow.h"
 #include "ui_quickconnectwindow.h"
@@ -39,8 +40,6 @@ QuickConnectWindow::QuickConnectWindow(QWidget *parent) :
     comboBoxProtocolChanged(0);
 
     connect(ui->comboBoxProtocol, &QComboBox::currentIndexChanged, this, &QuickConnectWindow::comboBoxProtocolChanged);
-    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &QuickConnectWindow::buttonBoxAccepted);
-    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QuickConnectWindow::buttonBoxRejected);
     connect(ui->pushButtonRefresh, &QPushButton::clicked, this, [this](){
         ui->comboBoxHostname->clear();
         QSerialPortInfo serialPortInfo;
@@ -314,6 +313,11 @@ void QuickConnectWindow::comboBoxProtocolChanged(int index)
 
 void QuickConnectWindow::buttonBoxAccepted(void)
 {
+    accept();
+}
+
+void QuickConnectWindow::accept()
+{
     QuickConnectData data;
     data.type = (QuickConnectType)ui->comboBoxProtocol->currentIndex();
     data.saveSession = ui->checkBoxSaveSession->isChecked();
@@ -382,7 +386,7 @@ void QuickConnectWindow::buttonBoxAccepted(void)
             break;
     }
 
-    emit this->accepted();
+    QDialog::accept();
 }
 
 void QuickConnectWindow::buttonBoxRejected(void)

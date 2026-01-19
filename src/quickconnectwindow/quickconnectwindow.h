@@ -111,6 +111,7 @@ private slots:
 
 protected:
     void showEvent(QShowEvent *event);
+    void accept() override;
 
 private:
     Ui::QuickConnectWindow *ui;
