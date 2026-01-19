@@ -350,6 +350,14 @@ void QuickConnectWindow::buttonBoxAccepted(void)
             emit this->sendQuickConnectData(data);
             break;
         case SSH2:
+            if(ui->lineEditUsername->text().isEmpty()) {
+                QMessageBox::warning(this, tr("Warning"), tr("Username can not be empty!"), QMessageBox::Ok);
+                return;
+            }
+            if(lineEditPassword->text().isEmpty()) {
+                QMessageBox::warning(this, tr("Warning"), tr("Password can not be empty!"), QMessageBox::Ok);
+                return;
+            }
             data.SSH2Data.hostname = ui->lineEditHostname->text();
             data.SSH2Data.port = ui->spinBoxPort->value();
             data.SSH2Data.username = ui->lineEditUsername->text();
@@ -361,6 +369,10 @@ void QuickConnectWindow::buttonBoxAccepted(void)
             emit this->sendQuickConnectData(data);
             break;
         case VNC:
+            if(lineEditPassword->text().isEmpty()) {
+                QMessageBox::warning(this, tr("Warning"), tr("Password can not be empty!"), QMessageBox::Ok);
+                return;
+            }
             data.VNCData.hostname = ui->lineEditHostname->text();
             data.VNCData.port = ui->spinBoxPort->value();
             data.VNCData.password = lineEditPassword->text();
