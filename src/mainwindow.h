@@ -219,7 +219,9 @@ private:
     QString startRawSocketSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, int mode, QString name = QString());
     QString startNamePipeSession(MainWidgetGroup *group, int groupIndex,  QString namePipe, QString name = QString());
     QString startSSH2Session(MainWidgetGroup *group, int groupIndex, 
-        QString hostname, quint16 port, QString username, QString password, QString name = QString());
+        QString hostname, quint16 port, QString username, QString password,
+        int authType = SessionsWindow::SshAuthPassword, QString privateKey = QString(),
+        QString publicKey = QString(), QString passphrase = QString(), QString name = QString());
     QString startVNCSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, QString password, QString name = QString());
     void startSession(MainWidgetGroup *group, int groupIndex, QuickConnectWindow::QuickConnectData data);
     int reconnectSession(SessionsWindow *sessionsWindow);

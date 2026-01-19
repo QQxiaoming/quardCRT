@@ -37,6 +37,7 @@ public:
 
     Ui::SessionOptionsSsh2Properties *ui;
     PasswordEdit *lineEditPassword;
+    PasswordEdit *lineEditPassphrase;
 };
 
 #endif // SESSIONOPTIONSSSH2PROPERTIES_H

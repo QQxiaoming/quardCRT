@@ -245,6 +245,11 @@ void SessionOptionsWindow::setSessionProperties(QString name, QuickConnectWindow
         sessionOptionsSSH2Properties->ui->lineEditUserName->setText(data.SSH2Data.username);
         sessionOptionsSSH2Properties->lineEditPassword->setText(data.SSH2Data.password);
         sessionOptionsSSH2Properties->lineEditPassword->setPasswordShown(false);
+        sessionOptionsSSH2Properties->ui->comboBoxAuthMethod->setCurrentIndex(data.SSH2Data.authType);
+        sessionOptionsSSH2Properties->ui->lineEditPrivateKey->setText(data.SSH2Data.privateKey);
+        sessionOptionsSSH2Properties->ui->lineEditPublicKey->setText(data.SSH2Data.publicKey);
+        sessionOptionsSSH2Properties->lineEditPassphrase->setText(data.SSH2Data.passphrase);
+        sessionOptionsSSH2Properties->lineEditPassphrase->setPasswordShown(false);
         break;
     case QuickConnectWindow::VNC:
         sessionOptionsVNCProperties->ui->lineEditHostname->setText(data.VNCData.hostname);
@@ -366,6 +371,12 @@ void SessionOptionsWindow::setReadOnly(bool enable) {
     sessionOptionsSSH2Properties->ui->spinBoxPort->setReadOnly(enable);
     sessionOptionsSSH2Properties->ui->lineEditUserName->setReadOnly(enable);
     sessionOptionsSSH2Properties->lineEditPassword->setReadOnly(enable);
+    sessionOptionsSSH2Properties->ui->comboBoxAuthMethod->setEnabled(!enable);
+    sessionOptionsSSH2Properties->ui->lineEditPrivateKey->setReadOnly(enable);
+    sessionOptionsSSH2Properties->ui->lineEditPublicKey->setReadOnly(enable);
+    sessionOptionsSSH2Properties->lineEditPassphrase->setReadOnly(enable);
+    sessionOptionsSSH2Properties->ui->toolButtonBrowsePrivateKey->setEnabled(!enable);
+    sessionOptionsSSH2Properties->ui->toolButtonBrowsePublicKey->setEnabled(!enable);
 
     sessionOptionsVNCProperties->ui->lineEditHostname->setReadOnly(enable);
     sessionOptionsVNCProperties->ui->spinBoxPort->setReadOnly(enable);
@@ -409,7 +420,18 @@ void SessionOptionsWindow::buttonBoxAccepted(void)
         data.SSH2Data.hostname = sessionOptionsSSH2Properties->ui->lineEditHostname->text();
         data.SSH2Data.port = sessionOptionsSSH2Properties->ui->spinBoxPort->value();
         data.SSH2Data.username = sessionOptionsSSH2Properties->ui->lineEditUserName->text();
-        data.SSH2Data.password = sessionOptionsSSH2Properties->lineEditPassword->text();
+        data.SSH2Data.authType = sessionOptionsSSH2Properties->ui->comboBoxAuthMethod->currentIndex();
+        if(data.SSH2Data.authType == QuickConnectWindow::SshAuthPassword) {
+            data.SSH2Data.password = sessionOptionsSSH2Properties->lineEditPassword->text();
+            data.SSH2Data.publicKey.clear();
+            data.SSH2Data.privateKey.clear();
+            data.SSH2Data.passphrase.clear();
+        } else {
+            data.SSH2Data.password.clear();
+            data.SSH2Data.privateKey = sessionOptionsSSH2Properties->ui->lineEditPrivateKey->text();
+            data.SSH2Data.publicKey = sessionOptionsSSH2Properties->ui->lineEditPublicKey->text();
+            data.SSH2Data.passphrase = sessionOptionsSSH2Properties->lineEditPassphrase->text();
+        }
         break;
     case QuickConnectWindow::VNC:
         data.VNCData.hostname = sessionOptionsVNCProperties->ui->lineEditHostname->text();

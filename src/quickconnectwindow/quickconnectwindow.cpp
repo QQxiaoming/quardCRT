@@ -354,6 +354,10 @@ void QuickConnectWindow::buttonBoxAccepted(void)
             data.SSH2Data.port = ui->spinBoxPort->value();
             data.SSH2Data.username = ui->lineEditUsername->text();
             data.SSH2Data.password = lineEditPassword->text();
+            data.SSH2Data.authType = SshAuthPassword;
+            data.SSH2Data.publicKey.clear();
+            data.SSH2Data.privateKey.clear();
+            data.SSH2Data.passphrase.clear();
             emit this->sendQuickConnectData(data);
             break;
         case VNC:
@@ -419,7 +423,11 @@ void QuickConnectWindow::setQuickConnectData(QuickConnectData data)
             ui->lineEditHostname->setText(data.SSH2Data.hostname);
             ui->spinBoxPort->setValue(data.SSH2Data.port);
             ui->lineEditUsername->setText(data.SSH2Data.username);
-            lineEditPassword->setText(data.SSH2Data.password);
+            if(data.SSH2Data.authType == SshAuthPassword) {
+                lineEditPassword->setText(data.SSH2Data.password);
+            } else {
+                lineEditPassword->clear();
+            }
             break;
         case VNC:
             ui->lineEditHostname->setText(data.VNCData.hostname);

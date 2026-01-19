@@ -132,6 +132,7 @@ public:
     }
 
     void setKeys(const QString &publicKey, const QString &privateKey);
+    void setKeyFiles(const QString &publicKey, const QString &privateKey);
     void setPassphrase(const QString & pass);
     bool saveKnownHosts(const QString &file);
     void setKownHostFile(const QString &file);
@@ -168,6 +169,8 @@ private: /* New function implementation with state machine */
     QByteArrayList m_authenticationMethodes;
     void setSshState(const SshState &sshState);
     QString m_sshErrorString;
+    QString m_publicKeyFile;
+    QString m_privateKeyFile;
 
 private slots: /* New function implementation with state machine */
     void _connection_socketTimeout();
