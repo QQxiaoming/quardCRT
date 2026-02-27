@@ -84,7 +84,7 @@ jobs:
           mv ./build_release/out/quardCRT.dmg ./build_release/out/quardCRT_arm64.dmg
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: quardCRT_macos_arm64
           path: |

@@ -91,7 +91,7 @@ jobs:
           ./build_AppImage.sh
 
       - name: Upload build asserts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: quardCRT_AppImage
           path: |
