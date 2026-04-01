@@ -36,6 +36,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QScrollBar>
+#include <QString>
 
 #include "Filter.h"
 #include "Character.h"

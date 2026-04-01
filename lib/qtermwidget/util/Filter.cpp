@@ -39,6 +39,25 @@
 FilterChain::~FilterChain() {
 }
 
+RegExpFilter* FilterChain::getRegExpFilter(const QString& name) const
+{
+    QListIterator<Filter*> iter(*this);
+    while (iter.hasNext())
+    {
+        Filter* filter = iter.next();
+        if (auto f = qobject_cast<RegExpFilter*>(filter))
+        {
+            if (qobject_cast<UrlFilter*>(filter) == nullptr)
+            {
+                if (name.isEmpty() || f->objectName() == name) {
+                    return f;
+                }
+            }
+        }
+    }
+    return nullptr;
+}
+
 void FilterChain::addFilter(Filter *filter) {
     if (!containsFilter(filter))
         append(filter);
@@ -168,6 +187,11 @@ Filter::~Filter() {
 
 void Filter::reset() {
     qDeleteAll(_hotspotList);
+    _hotspots.clear();
+    _hotspotList.clear();
+}
+
+void Filter::clear() {
     _hotspots.clear();
     _hotspotList.clear();
 }
@@ -305,11 +329,7 @@ void RegExpFilter::process() {
         getLineColumn(match.capturedStart(), startLine, startColumn);
         getLineColumn(match.capturedEnd(), endLine, endColumn);
 
-        RegExpFilter::HotSpot *spot =
-            newHotSpot(startLine, startColumn, endLine, endColumn);
-        spot->setCapturedTexts(captureList);
-
-        addHotSpot(spot);
+        newHotSpot(startLine, startColumn, endLine, endColumn, captureList);
 
         // if capturedLength == 0, the program will get stuck in an infinite loop
         if (match.capturedLength() == 0) {
@@ -320,21 +340,68 @@ void RegExpFilter::process() {
     }
 }
 
-RegExpFilter::HotSpot *RegExpFilter::newHotSpot(int startLine, int startColumn,
-                                                int endLine, int endColumn) {
-    HotSpot *spot =
-        new RegExpFilter::HotSpot(startLine, startColumn, endLine, endColumn);
-    spot->setColor(color());
-    return spot;
+void RegExpFilter::newHotSpot(int startLine, int startColumn, int endLine, int endColumn,
+                              const QStringList& captureList) {
+    RegExpFilter::HotSpot* spot = new RegExpFilter::HotSpot(startLine, startColumn, endLine, endColumn);
+    spot->setCapturedTexts(captureList);
+    addHotSpot(spot);
 }
 
-RegExpFilter::HotSpot *UrlFilter::newHotSpot(int startLine, int startColumn,
-                                             int endLine, int endColumn) {
-    HotSpot *spot =
-        new UrlFilter::HotSpot(startLine, startColumn, endLine, endColumn);
-    connect(spot->getUrlObject(), &FilterObject::activated, this,
-            &UrlFilter::activated);
-    return spot;
+void UrlFilter::process()
+{
+    RegExpFilter::process();
+
+    // Delete invalid old hotspots if any.
+    const auto hotspotList = hotSpots();
+    for (const auto& hs : hotspotList)
+    {
+        if (UrlFilter::HotSpot* UrlHs = dynamic_cast<UrlFilter::HotSpot*>(hs))
+        {
+            _oldHotspotList.removeAll(UrlHs);
+        }
+    }
+    qDeleteAll(_oldHotspotList);
+    _oldHotspotList.clear();
+
+    // Repopulate _oldHotspotList with the valid hotspots.
+    for (const auto& hs : hotspotList)
+    {
+        if (UrlFilter::HotSpot* UrlHs = dynamic_cast<UrlFilter::HotSpot*>(hs))
+        {
+            _oldHotspotList << UrlHs;
+        }
+    }
+}
+
+void UrlFilter::newHotSpot(int startLine, int startColumn, int endLine, int endColumn,
+                           const QStringList& captureList)
+{
+    // Use the old hotspot if existing.
+    for (const auto& hs : std::as_const(_oldHotspotList))
+    {
+        if (hs->startLine() == startLine &&
+            hs->endLine() == endLine &&
+            hs->startColumn() == startColumn &&
+            hs->endColumn() == endColumn)
+        {
+            hs->setCapturedTexts(captureList);
+            addHotSpot(hs);
+            return;
+        }
+    }
+
+    UrlFilter::HotSpot* spot = new UrlFilter::HotSpot(startLine, startColumn, endLine, endColumn);
+    connect(spot->getUrlObject(), &FilterObject::activated, this, &UrlFilter::activated);
+    spot->setCapturedTexts(captureList);
+    addHotSpot(spot);
+}
+
+void UrlFilter::reset()
+{
+    // Clear hotspots without deleting them because, otherwise, their corresponding actions
+    // will be deleted too, while they may have not changed. Hotspots will be deleted in
+    // "UrlFilter::process" if not valid and also in the d-tor of "UrlFilter".
+    clear();
 }
 
 UrlFilter::HotSpot::HotSpot(int startLine, int startColumn, int endLine,
@@ -414,14 +481,13 @@ void UrlFilter::HotSpot::clickAction(void) {
 
 // regexp matches:
 //  full url:
-//  protocolname:// or www. followed by anything other than whitespaces, <, >, '
-//  or ", and ends before whitespaces, <, >, ', ", ], !, comma and dot
+//  NOTE: It is supposed that a URL does not end with a punctuation mark, parenthesis, bracket or single-quotation mark.
 const QRegularExpression UrlFilter::FullUrlRegExp(QLatin1String(
-    "(www\\.(?!\\.)|[a-z][a-z0-9+.-]*://)[^\\s<>'\"]+[^!,\\.\\s<>'\"\\]]"));
+    "[A-Za-z0-9_\\-]+://((?!&quot;|&gt;|&lt;)[A-Za-z0-9_.+/\\?\\=~&%#,;!@\\*\'\\-:\\(\\)\\[\\]])+(?<!\\.|\\?|!|:|;|,|\\(|\\)|\\[|\\]|\')"));
 // email address:
 // [word chars, dots or dashes]@[word chars, dots or dashes].[word chars]
 const QRegularExpression UrlFilter::EmailAddressRegExp(
-    QLatin1String("\\b(\\w|\\.|-)+@(\\w|\\.|-)+\\.\\w+\\b"));
+    QLatin1String("([A-Za-z0-9_.\\-]+@[A-Za-z0-9_\\-]+\\.[A-Za-z0-9.]+)(?<!\\.)"));
 // file path:
 // '[drive letter]:\' '\\' '.\' or '..\' followed by anything other than
 // whitespaces, <, >, ' or ", and ends before whitespaces, <, >, ', ", ], !,
@@ -444,6 +510,12 @@ const QRegularExpression UrlFilter::CompleteUrlRegExp(
 
 UrlFilter::UrlFilter() : RegExpFilter() { 
     setRegExp(CompleteUrlRegExp); 
+}
+
+UrlFilter::~UrlFilter(){
+    clear(); // makes the d-tor of "Filter" return without doing anything
+    qDeleteAll(_oldHotspotList); // deletes all hotspots, whether before processing or after it
+    _oldHotspotList.clear();
 }
 
 UrlFilter::HotSpot::~HotSpot() { 

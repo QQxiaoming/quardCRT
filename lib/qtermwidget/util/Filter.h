@@ -139,7 +139,12 @@ public:
      * Empties the filters internal buffer and resets the line count back to 0.
      * All hotspots are deleted.
      */
-    void reset();
+    virtual void reset();
+
+    /**
+     * Clears the lists of hotspots without deleting hotspots.
+     */
+    void clear();
 
     /** Adds a new line of text to the filter and increments the line count */
     //void addLine(const QString& string);
@@ -232,11 +237,11 @@ public:
 
 protected:
     /**
-     * Called when a match for the regular expression is encountered.  Subclasses should reimplement this
-     * to return custom hotspot types
+     * Called when a match for the regular expression is encountered. Subclasses should reimplement
+     * this to get custom hotspot types and add them to the lists of hotspots.
      */
-    virtual RegExpFilter::HotSpot* newHotSpot(int startLine,int startColumn,
-                                    int endLine,int endColumn);
+    virtual void newHotSpot(int startLine, int startColumn, int endLine, int endColumn,
+                            const QStringList& captureList);
 
 private:
     QRegularExpression _searchText;
@@ -287,9 +292,14 @@ public:
     };
 
     UrlFilter();
+    ~UrlFilter() override;
+
+    void process() override;
+
+    void reset() override;
 
 protected:
-    RegExpFilter::HotSpot* newHotSpot(int,int,int,int) override;
+    void newHotSpot(int, int, int, int, const QStringList&) override;
 
 private:
     static const QRegularExpression FullUrlRegExp;
@@ -301,6 +311,7 @@ private:
     // combined OR of FullUrlRegExp and EmailAddressRegExp and FilePathRegExp
     static const QRegularExpression CompleteUrlRegExp;
 
+    QList<UrlFilter::HotSpot*> _oldHotspotList;
 signals:
     void activated(const QUrl& url, uint32_t opcode);
 };
@@ -359,6 +370,9 @@ public:
 
     /** Sets the buffer for each filter in the chain to process. */
     void setBuffer(const QString* buffer , const QList<int>* linePositions);
+
+    /** Gets the (first named) RegExpFilter that is not a UrlFilter. */
+    RegExpFilter* getRegExpFilter(const QString& name = QString()) const;
 
     /** Returns the first hotspot which occurs at @p line, @p column or 0 if no hotspot was found */
     Filter::HotSpot* hotSpotAt(int line , int column) const;

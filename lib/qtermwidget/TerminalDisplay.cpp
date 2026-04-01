@@ -52,6 +52,8 @@
 #include "ScreenWindow.h"
 #include "TerminalCharacterDecoder.h"
 
+using namespace Qt::Literals::StringLiterals;
+
 #ifndef loc
 #define loc(X, Y) ((Y) * _columns + (X))
 #endif
@@ -3099,7 +3101,8 @@ void TerminalDisplay::emitSelection(bool useXselection, bool appendReturn) {
         text.replace(QLatin1Char('\n'), QLatin1Char('\r'));
 
         if (_trimPastedTrailingNewlines) {
-            text.replace(QRegularExpression(QStringLiteral("\\r+$")), QString());
+            static const QRegularExpression regexp{u"\\r+$"_s};
+            text.replace(regexp, QString());
         }
 
         if (_confirmMultilinePaste && text.contains(QLatin1Char('\r'))) {
@@ -3530,7 +3533,8 @@ void TerminalDisplay::dropEvent(QDropEvent *event) {
         dropText.replace(QLatin1String("\r\n"), QLatin1String("\n"));
         dropText.replace(QLatin1Char('\n'), QLatin1Char('\r'));
         if (_trimPastedTrailingNewlines) {
-            dropText.replace(QRegularExpression(QStringLiteral("\\r+$")), QString());
+            static const QRegularExpression regexp{u"\\r+$"_s};
+            dropText.replace(regexp, QString());
         }
         if (_confirmMultilinePaste && dropText.contains(QLatin1Char('\r'))) {
             if (!multilineConfirmation(dropText)) {

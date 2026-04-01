@@ -34,6 +34,8 @@
 #include "SearchBar.h"
 #include "qtermwidget.h"
 
+#define QTERMW_HLIGHT "qtermw_hlight"
+
 
 QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     : QWidget(parent) {
@@ -120,6 +122,14 @@ QTermWidget::QTermWidget(QWidget *messageParentWidget, QWidget *parent)
     });
     m_layout->addWidget(m_searchBar);
     m_searchBar->hide();
+    connect(m_searchBar, &SearchBar::madeHidden, this, [this]() {
+        if (auto regexFilter = m_terminalDisplay->filterChain()->getRegExpFilter(QLatin1String(QTERMW_HLIGHT)))
+        {
+            m_terminalDisplay->filterChain()->removeFilter(regexFilter);
+            delete regexFilter;
+        }
+    });
+
     QString style_sheet = qApp->styleSheet();
     m_searchBar->setStyleSheet(style_sheet);
     
@@ -201,6 +211,24 @@ void QTermWidget::search(bool forwards, bool next) {
     });
     connect(historySearch, &HistorySearch::noMatchFound, m_searchBar, &SearchBar::noMatchFound);
     historySearch->search();
+
+    // Highlighting all matches.
+    auto regexFilter = m_terminalDisplay->filterChain()->getRegExpFilter(QLatin1String(QTERMW_HLIGHT));
+    if (regexFilter) {
+        if (m_searchBar->highlightAllMatches() && regexFilter->regExp() == regExp) {
+            return;
+        }
+        m_terminalDisplay->filterChain()->removeFilter(regexFilter);
+        delete regexFilter;
+        m_terminalDisplay->update();
+    }
+    if (m_searchBar->highlightAllMatches() && !regExp.pattern().isEmpty()) {
+        regexFilter = new RegExpFilter();
+        regexFilter->setObjectName(QLatin1String(QTERMW_HLIGHT));
+        regexFilter->setRegExp(regExp);
+        m_terminalDisplay->filterChain()->addFilter(regexFilter);
+        m_terminalDisplay->update();
+    }
 }
 
 QSize QTermWidget::sizeHint() const {

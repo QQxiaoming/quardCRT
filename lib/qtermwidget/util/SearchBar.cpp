@@ -51,6 +51,7 @@ SearchBar::SearchBar(QWidget *parent) : QWidget(parent) {
     m_highlightMatchesMenuEntry->setCheckable(true);
     m_highlightMatchesMenuEntry->setChecked(true);
     connect(m_highlightMatchesMenuEntry, &QAction::toggled, this, &SearchBar::highlightMatchesChanged);
+    connect(m_highlightMatchesMenuEntry, &QAction::toggled, this, &SearchBar::searchCriteriaChanged);
 
     retranslateUi();
 }
@@ -87,6 +88,7 @@ void SearchBar::hide() {
     {
         p->setFocus(Qt::OtherFocusReason); // give the focus to the parent widget on hiding
     }
+    emit madeHidden();
 }
 
 void SearchBar::noMatchFound() {

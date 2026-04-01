@@ -30,6 +30,8 @@
 #include <QStringView>
 #include <QtDebug>
 
+using namespace Qt::Literals::StringLiterals;
+
 // The following are almost IBM standard color codes, with some slight
 // gamma correction for the dim colors to compensate for bright X screens.
 // It contains the 8 ansiterm/xterm colors in 2 intensities.
@@ -320,7 +322,7 @@ void ColorScheme::readColorEntry(QSettings *s, int index) {
     ColorEntry entry;
 
     QVariant colorValue = s->value(QLatin1String("Color"));
-    QString colorStr;
+    QStringView colorStr;
     int r, g, b;
     bool ok = false;
     // XXX: Undocumented(?) QSettings behavior: values with commas are parsed
@@ -341,14 +343,13 @@ void ColorScheme::readColorEntry(QSettings *s, int index) {
         }
     } else {
         colorStr = colorValue.toString();
-        QRegularExpression hexColorPattern(
-            QLatin1String("^#[0-9a-f]{6}$"),
-            QRegularExpression::CaseInsensitiveOption);
-        if (hexColorPattern.match(colorStr).hasMatch()) {
-            // Parsing is always ok as already matched by the regexp
-            r = QStringView{colorStr}.mid(1, 2).toInt(nullptr, 16);
-            g = QStringView{colorStr}.mid(3, 2).toInt(nullptr, 16);
-            b = QStringView{colorStr}.mid(5, 2).toInt(nullptr, 16);
+        static const QRegularExpression hexColorPattern{"^#[0-9a-f]{6}$"_L1,
+                                           QRegularExpression::CaseInsensitiveOption};
+        if (hexColorPattern.matchView(colorStr).hasMatch()) {
+            // If we got a match, colorStr size is 7
+            r = colorStr.sliced(1, 2).toInt(nullptr, 16);
+            g = colorStr.sliced(3, 2).toInt(nullptr, 16);
+            b = colorStr.sliced(5, 2).toInt(nullptr, 16);
             ok = true;
         }
     }
