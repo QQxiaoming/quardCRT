@@ -30,6 +30,7 @@
 #include <QLocalSocket>
 #include <QMutex>
 #include <QMutexLocker>
+#include <functional>
 
 #ifdef ENABLE_SSH
 #include "sshclient.h"
@@ -669,6 +670,15 @@ private:
     void showSimpleTransferProgress(long bytesSent, long bytesTotal, bool *ret);
     void showZmodemTransferProgress(long bytesSent, long bytesTotal, long lastBps,
                                     int minLeft, int secLeft, bool *ret);
+    void updateConnectionState(bool connected);
+    void reportSessionError(const QString &title, const QString &message);
+    void forwardReceivedData(QByteArray data, bool countTraffic);
+    void setupModemProxyForward(const std::function<bool()> &canWrite,
+                                const std::function<void(const QByteArray &)> &writer);
+    void setupTerminalSendForward(const std::function<bool()> &isConnected,
+                                  const std::function<void(const char *, int)> &writer,
+                                  bool countTraffic);
+    void setupReconnectOnEnterRequest();
     void addToRecordingScript(int type, QString str);
     void addToRecordingScript(int type, QByteArray ba);
     void prepareString(QString &str);

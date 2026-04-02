@@ -130,39 +130,27 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             telnet = new QTelnet(QTelnet::TCP, this);
             realtimespeed_timer = new QTimer(this);
             connect(telnet,&QTelnet::newData,this,[=](const char *data, int size){
-                QByteArray dataBa(data,size);
-                if(doRecvData(dataBa)) {
-                    rx_total += size;
-                    rx_realtime += size;
-                    term->recvData(dataBa.data(), dataBa.size());
-                }
+                forwardReceivedData(QByteArray(data, size), true);
             });
-            connect(this,&SessionsWindow::modemProxySendData,this, [=](QByteArray data){
-                if(modemProxyChannel) {
-                    telnet->sendData(data.data(), data.size());
-                }
+            setupModemProxyForward([=]() {
+                return true;
+            }, [=](const QByteArray &data) {
+                telnet->sendData(data.data(), data.size());
             });
-            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
-                QByteArray sendData(data, size);
-                if(doSendData(sendData,telnet->isConnected())){
-                    telnet->sendData(data, size);
-                    tx_total += size;
-                    tx_realtime += size;
-                }
-            });
+            setupTerminalSendForward([=]() {
+                return telnet->isConnected();
+            }, [=](const char *data, int size) {
+                telnet->sendData(data, size);
+            }, true);
             connect(telnet, &QTelnet::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
                 if(socketState == QAbstractSocket::ConnectedState) {
-                    state = Connected;
-                    emit stateChanged(state);
+                    updateConnectionState(true);
                 } else if(socketState == QAbstractSocket::UnconnectedState) {
-                    state = Disconnected;
-                    emit stateChanged(state);
+                    updateConnectionState(false);
                 }
             });
             connect(telnet, &QTelnet::error, this, [=](QAbstractSocket::SocketError socketError){
-                QMessageBox::warning(messageParentWidget, tr("Telnet Error"), getName() + "\n" + tr("Telnet error:\n%1.").arg(telnet->errorString()));
-                state = Error;
-                emit stateChanged(state);
+                reportSessionError(tr("Telnet Error"), tr("Telnet error:\n%1.").arg(telnet->errorString()));
                 Q_UNUSED(socketError);
             });
             break;
@@ -171,35 +159,22 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             serialPort = new QSerialPort(this);
             realtimespeed_timer = new QTimer(this);
             connect(serialPort,&QSerialPort::readyRead,this,[=](){
-                QByteArray data = serialPort->readAll();
-                uint64_t size = data.size();
-                if(doRecvData(data)) {
-                    rx_total += size;
-                    rx_realtime += size;
-                    term->recvData(data.data(), data.size());
-                }
+                forwardReceivedData(serialPort->readAll(), true);
             });
-            connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
-                if(modemProxyChannel) {
-                    if(state == Connected && serialPort->isOpen()) {
-                        serialPort->write(data.data(), data.size());
-                    }
-                }
+            setupModemProxyForward([=]() {
+                return state == Connected && serialPort->isOpen();
+            }, [=](const QByteArray &data) {
+                serialPort->write(data.data(), data.size());
             });
-            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
-                QByteArray sendData(data, size);
-                if(doSendData(sendData,(state == Connected && serialPort->isOpen()))){
-                    serialPort->write(data, size);
-                    tx_total += size;
-                    tx_realtime += size;
-                }
-            });
+            setupTerminalSendForward([=]() {
+                return state == Connected && serialPort->isOpen();
+            }, [=](const char *data, int size) {
+                serialPort->write(data, size);
+            }, true);
             connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
                 if(serialPort->error() == QSerialPort::NoError) return;
                 if(state == Error || state == Disconnected) return;
-                QMessageBox::warning(messageParentWidget, tr("Serial Error"), getName() + "\n" + tr("Serial error:\n%0\n%1.").arg(serialPort->portName()).arg(serialPort->errorString()));
-                state = Error;
-                emit stateChanged(state);
+                reportSessionError(tr("Serial Error"), tr("Serial error:\n%0\n%1.").arg(serialPort->portName()).arg(serialPort->errorString()));
                 serialPort->close();
                 Q_UNUSED(serialPortError);
             });
@@ -211,42 +186,27 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             rawSocket = new QRawSocket(this);
             realtimespeed_timer = new QTimer(this);
             connect(rawSocket,&QRawSocket::readyRead,this,[=](){
-                QByteArray data = rawSocket->readAll();
-                uint64_t size = data.size();
-                if(doRecvData(data)) {
-                    rx_total += size;
-                    rx_realtime += size;
-                    term->recvData(data.data(), data.size());
-                }
+                forwardReceivedData(rawSocket->readAll(), true);
             });
-            connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
-                if(modemProxyChannel) {
-                    if(rawSocket->state() == QAbstractSocket::ConnectedState) {
-                        rawSocket->write(data.data(), data.size());
-                    }
-                }
+            setupModemProxyForward([=]() {
+                return rawSocket->state() == QAbstractSocket::ConnectedState;
+            }, [=](const QByteArray &data) {
+                rawSocket->write(data.data(), data.size());
             });
-            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
-                QByteArray sendData(data, size);
-                if(doSendData(sendData,(rawSocket->state() == QAbstractSocket::ConnectedState))){
-                    rawSocket->write(data, size);
-                    tx_total += size;
-                    tx_realtime += size;
-                }
-            });
+            setupTerminalSendForward([=]() {
+                return rawSocket->state() == QAbstractSocket::ConnectedState;
+            }, [=](const char *data, int size) {
+                rawSocket->write(data, size);
+            }, true);
             connect(rawSocket, &QRawSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
                 if(socketState == QAbstractSocket::ConnectedState) {
-                    state = Connected;
-                    emit stateChanged(state);
+                    updateConnectionState(true);
                 } else if(socketState == QAbstractSocket::UnconnectedState) {
-                    state = Disconnected;
-                    emit stateChanged(state);
+                    updateConnectionState(false);
                 }
             });
             connect(rawSocket, &QRawSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError){
-                QMessageBox::warning(messageParentWidget, tr("Raw Socket Error"), getName() + "\n" + tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
-                state = Error;
-                emit stateChanged(state);
+                reportSessionError(tr("Raw Socket Error"), tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
                 Q_UNUSED(socketError);
             });
             break;
@@ -254,37 +214,27 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         case NamePipe: {
             namePipe = new QLocalSocket(this);
             connect(namePipe,&QLocalSocket::readyRead,this,[=](){
-                QByteArray data = namePipe->readAll();
-                if(doRecvData(data)) {
-                    term->recvData(data.data(), data.size());
-                }
+                forwardReceivedData(namePipe->readAll(), false);
             });
-            connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
-                if(modemProxyChannel) {
-                    if(namePipe->state() == QLocalSocket::ConnectedState) {
-                        namePipe->write(data.data(), data.size());
-                    }
-                }
+            setupModemProxyForward([=]() {
+                return namePipe->state() == QLocalSocket::ConnectedState;
+            }, [=](const QByteArray &data) {
+                namePipe->write(data.data(), data.size());
             });
-            connect(term, &QTermWidget::sendData,this,[=](const char *data, int size){
-                QByteArray sendData(data, size);
-                if(doSendData(sendData,(namePipe->state() == QLocalSocket::ConnectedState))){
-                    namePipe->write(data, size);
-                }
-            });
+            setupTerminalSendForward([=]() {
+                return namePipe->state() == QLocalSocket::ConnectedState;
+            }, [=](const char *data, int size) {
+                namePipe->write(data, size);
+            }, false);
             connect(namePipe, &QLocalSocket::stateChanged, this, [=](QLocalSocket::LocalSocketState socketState){
                 if(socketState == QLocalSocket::ConnectedState) {
-                    state = Connected;
-                    emit stateChanged(state);
+                    updateConnectionState(true);
                 } else if(socketState == QLocalSocket::UnconnectedState) {
-                    state = Disconnected;
-                    emit stateChanged(state);
+                    updateConnectionState(false);
                 }
             });
             connect(namePipe, &QLocalSocket::errorOccurred, this, [=](QLocalSocket::LocalSocketError socketError){
-                QMessageBox::warning(messageParentWidget, tr("Name Pipe Error"), getName() + "\n" + tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
-                state = Error;
-                emit stateChanged(state);
+                reportSessionError(tr("Name Pipe Error"), tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
                 Q_UNUSED(socketError);
             });
             break;
@@ -296,18 +246,8 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
             connect(ssh2Client, &SshClient::sshReady, this, [=](){
                 SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
                 if(shell == nullptr) {
-                    QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), getName() + "\n" + tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
-                    state = Error;
-                    emit stateChanged(state);
-                    connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-                        QByteArray sendData(data, size);
-                        if(sendData.contains("\r") || sendData.contains("\n")) {
-                            if(!m_requestReconnect) {
-                                m_requestReconnect = true;
-                                emit requestReconnect();
-                            }
-                        }
-                    });
+                    reportSessionError(tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
+                    setupReconnectOnEnterRequest();
                     return;
                 }
                 shell->initSize(term->columns(),term->lines());
@@ -316,52 +256,32 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
                     shell->resize(columns,lines);
                 });
                 connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
-                    QByteArray dataBa(data, size);
-                    if(doRecvData(dataBa)) {
-                        rx_total += size;
-                        rx_realtime += size;
-                        term->recvData(dataBa.data(), dataBa.size());
-                    }
+                    forwardReceivedData(QByteArray(data, size), true);
                 });
-                connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
-                    if(modemProxyChannel) {
-                        shell->sendData(data.data(), data.size());
-                    }
+                setupModemProxyForward([=]() {
+                    return state == Connected;
+                }, [=](const QByteArray &data) {
+                    shell->sendData(data.data(), data.size());
                 });
-                connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-                    QByteArray sendData(data, size);
-                    if(doSendData(sendData,(state == Connected))){
-                        shell->sendData(data, size);
-                        tx_total += size;
-                        tx_realtime += size;
-                    }
-                });
+                setupTerminalSendForward([=]() {
+                    return state == Connected;
+                }, [=](const char *data, int size) {
+                    shell->sendData(data, size);
+                }, true);
                 connect(shell, &SshShell::failed, this, [=](){
                     disconnect();
                 });
                 connect(shell, &SshShell::finished, this, [=](){
                     disconnect();
                 });
-                state = Connected;
-                emit stateChanged(state);
+                updateConnectionState(true);
             });
             connect(ssh2Client, &SshClient::sshDisconnected, this, [=](){
-                state = Disconnected;
-                emit stateChanged(state);
+                updateConnectionState(false);
             });
             connect(ssh2Client, &SshClient::sshError, this, [=](){
-                QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), getName() + "\n" + tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
-                state = Error;
-                emit stateChanged(state);
-                connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-                    QByteArray sendData(data, size);
-                    if(sendData.contains("\r") || sendData.contains("\n")) {
-                        if(!m_requestReconnect) {
-                            m_requestReconnect = true;
-                            emit requestReconnect();
-                        }
-                    }
-                });
+                reportSessionError(tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
+                setupReconnectOnEnterRequest();
             });
         #endif
             break;
@@ -1388,6 +1308,64 @@ void SessionsWindow::reverseProxySendData(QByteArray data) {
             modemProxyChannel = false;
         }
     }
+}
+
+void SessionsWindow::updateConnectionState(bool connected) {
+    state = connected ? Connected : Disconnected;
+    emit stateChanged(state);
+}
+
+void SessionsWindow::reportSessionError(const QString &title, const QString &message) {
+    QMessageBox::warning(messageParentWidget, title, getName() + "\n" + message);
+    state = Error;
+    emit stateChanged(state);
+}
+
+void SessionsWindow::forwardReceivedData(QByteArray data, bool countTraffic) {
+    if(doRecvData(data)) {
+        if(countTraffic) {
+            const uint64_t size = data.size();
+            rx_total += size;
+            rx_realtime += size;
+        }
+        term->recvData(data.data(), data.size());
+    }
+}
+
+void SessionsWindow::setupModemProxyForward(const std::function<bool()> &canWrite,
+                                            const std::function<void(const QByteArray &)> &writer) {
+    connect(this, &SessionsWindow::modemProxySendData, this, [=](QByteArray data) {
+        if(modemProxyChannel && canWrite()) {
+            writer(data);
+        }
+    });
+}
+
+void SessionsWindow::setupTerminalSendForward(const std::function<bool()> &isConnected,
+                                              const std::function<void(const char *, int)> &writer,
+                                              bool countTraffic) {
+    connect(term, &QTermWidget::sendData, this, [=](const char *data, int size) {
+        QByteArray sendData(data, size);
+        if(doSendData(sendData, isConnected())) {
+            writer(data, size);
+            if(countTraffic) {
+                tx_total += size;
+                tx_realtime += size;
+            }
+        }
+    });
+}
+
+void SessionsWindow::setupReconnectOnEnterRequest() {
+    connect(term, &QTermWidget::sendData, this, [=](const char *data, int size) {
+        QByteArray sendData(data, size);
+        if(sendData.contains("\r") || sendData.contains("\n")) {
+            if(!m_requestReconnect) {
+                m_requestReconnect = true;
+                emit requestReconnect();
+            }
+        }
+    });
 }
 
 void SessionsWindow::beginModemTransfer(const QString &protocolName) {
