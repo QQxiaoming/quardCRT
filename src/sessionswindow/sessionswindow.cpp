@@ -151,6 +151,23 @@ SessionsWindow::~SessionsWindow() {
     }
 }
 
+int SessionsWindow::startSession(const QVariantMap &commonMeta, const QVariantMap &protocolMeta) {
+    if(!protocol) {
+        return -1;
+    }
+    int ret = protocol->startSession(this, commonMeta, protocolMeta);
+    if(ret != 0) {
+        return ret;
+    }
+    if(commonMeta.contains("hostname")) {
+        m_hostname = commonMeta.value("hostname").toString();
+    }
+    if(commonMeta.contains("port")) {
+        m_port = static_cast<quint16>(commonMeta.value("port").toUInt());
+    }
+    return 0;
+}
+
 void SessionsWindow::cloneSession(SessionsWindow *src, QString profile) {
     if(src && src->protocol) {
         const QVariantMap commonMeta = {

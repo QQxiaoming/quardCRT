@@ -35,8 +35,7 @@ public:
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
         Q_UNUSED(profile);
-        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
-        target->startVNCSession(args.hostname, args.port, args.password);
+        target->startSession(commonMeta, protocolMeta);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -119,24 +118,4 @@ private:
 SessionProtocolRegistrar kVNCProtocolRegistrar(
     SessionsWindow::VNC,
     []() { return std::make_unique<VNCProtocol>(); });
-}
-
-int SessionsWindow::startVNCSession(const QString &hostname, quint16 port, const QString &password) {
-    if(!protocol) {
-        return -1;
-    }
-    const QVariantMap commonMeta = {
-        {"hostname", hostname},
-        {"port", port}
-    };
-    const QVariantMap protocolMeta = {
-        {"password", password}
-    };
-    int ret = protocol->startSession(this, commonMeta, protocolMeta);
-    if(ret != 0) {
-        return ret;
-    }
-    m_hostname = hostname;
-    m_port = port;
-    return 0;
 }

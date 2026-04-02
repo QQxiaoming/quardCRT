@@ -156,24 +156,8 @@ public:
     SessionsWindow(SessionType tp, QWidget *parent = nullptr);
     ~SessionsWindow();
 
+    int startSession(const QVariantMap &commonMeta, const QVariantMap &protocolMeta);
     void cloneSession(SessionsWindow *src, QString profile = QString());
-#if defined(Q_OS_WIN)
-    int startLocalShellSession(const QString &command, QString profile = QString(), ShellType sTp = PowerShell);
-#else
-    int startLocalShellSession(const QString &command, QString profile = QString(), ShellType sTp = UnixShell);
-#endif
-    int startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type);
-    int startSerialSession(const QString &portName, uint32_t baudRate,
-                    int dataBits, int parity, int stopBits, bool flowControl, bool xEnable );
-    int startRawSocketSession(const QString &hostname, quint16 port, int mode);
-    int startNamePipeSession(const QString &name);
-#ifdef ENABLE_SSH
-    int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password);
-    int startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password,
-                         int authType, const QString &privateKeyPath, const QString &publicKeyPath, const QString &passphrase);
-#endif
-    int startVNCSession(const QString &hostname, quint16 port, const QString &password);
-
     void disconnect(void);
 
     void setWorkingDirectory(const QString &dir);

@@ -38,9 +38,11 @@ public:
                  const QVariantMap &commonMeta,
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
-        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
-        target->setWorkingDirectory(args.workingDirectory);
-        target->startLocalShellSession(args.command, profile, args.shellType);
+        QVariantMap common = commonMeta;
+        QVariantMap proto = protocolMeta;
+        proto.insert("profile", profile);
+        target->setWorkingDirectory(common.value("workingDirectory").toString());
+        target->startSession(common, proto);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -280,18 +282,4 @@ private:
 SessionProtocolRegistrar kLocalShellProtocolRegistrar(
     SessionsWindow::LocalShell,
     []() { return std::make_unique<LocalShellProtocol>(); });
-}
-
-int SessionsWindow::startLocalShellSession(const QString &command, QString profile, ShellType sTp) {
-    if(!protocol) {
-        return -1;
-    }
-    const QVariantMap commonMeta = {
-        {"shellType", static_cast<int>(sTp)}
-    };
-    const QVariantMap protocolMeta = {
-        {"command", command},
-        {"profile", profile}
-    };
-    return protocol->startSession(this, commonMeta, protocolMeta);
 }

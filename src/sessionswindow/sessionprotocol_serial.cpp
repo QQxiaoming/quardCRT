@@ -58,14 +58,7 @@ public:
                  const QString &profile) override {
         Q_UNUSED(profile);
         Q_UNUSED(commonMeta);
-        const StartArgs args = parseStartArgs(protocolMeta);
-        target->startSerialSession(args.portName,
-                       args.baudRate,
-                       args.dataBits,
-                       args.parity,
-                       args.stopBits,
-                       args.flowControl,
-                       args.xEnable);
+        target->startSession(QVariantMap(), protocolMeta);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -219,25 +212,4 @@ private:
 SessionProtocolRegistrar kSerialProtocolRegistrar(
     SessionsWindow::Serial,
     []() { return std::make_unique<SerialProtocol>(); });
-}
-
-int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRate,
-                                       int dataBits, int parity, int stopBits, bool flowControl, bool xEnable) {
-    if(!protocol) {
-        return -1;
-    }
-    const QVariantMap protocolMeta = {
-        {"portName", portName},
-        {"baudRate", static_cast<qulonglong>(baudRate)},
-        {"dataBits", dataBits},
-        {"parity", parity},
-        {"stopBits", stopBits},
-        {"flowControl", flowControl},
-        {"xEnable", xEnable}
-    };
-    int ret = protocol->startSession(this, QVariantMap(), protocolMeta);
-    if(ret != 0) {
-        return ret;
-    }
-    return 0;
 }

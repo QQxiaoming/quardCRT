@@ -52,8 +52,7 @@ public:
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
         Q_UNUSED(profile);
-        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
-        target->startRawSocketSession(args.hostname, args.port, args.rawMode);
+        target->startSession(commonMeta, protocolMeta);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -121,22 +120,3 @@ SessionProtocolRegistrar kRawSocketProtocolRegistrar(
     []() { return std::make_unique<RawSocketProtocol>(); });
 }
 
-int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port, int mode) {
-    if(!protocol) {
-        return -1;
-    }
-    const QVariantMap commonMeta = {
-        {"hostname", hostname},
-        {"port", port}
-    };
-    const QVariantMap protocolMeta = {
-        {"rawMode", mode}
-    };
-    int ret = protocol->startSession(this, commonMeta, protocolMeta);
-    if(ret != 0) {
-        return ret;
-    }
-    m_hostname = hostname;
-    m_port = port;
-    return 0;
-}

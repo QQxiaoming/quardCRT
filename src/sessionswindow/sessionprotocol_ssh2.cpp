@@ -86,15 +86,7 @@ public:
                  const QString &profile) override {
         Q_UNUSED(profile);
 #ifdef ENABLE_SSH
-        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
-        target->startSSH2Session(args.hostname,
-                     args.port,
-                     args.userName,
-                     args.password,
-                     args.sshAuthType,
-                     args.privateKeyPath,
-                     args.publicKeyPath,
-                     args.passphrase);
+        target->startSession(commonMeta, protocolMeta);
 #else
         Q_UNUSED(target);
         Q_UNUSED(commonMeta);
@@ -264,35 +256,3 @@ SessionProtocolRegistrar kSSH2ProtocolRegistrar(
     SessionsWindow::SSH2,
     []() { return std::make_unique<SSH2Protocol>(); });
 }
-
-#ifdef ENABLE_SSH
-int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password) {
-    return startSSH2Session(hostname, port, username, password, SshAuthPassword, QString(), QString(), QString());
-}
-
-int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password,
-                                     int authType, const QString &privateKeyPath, const QString &publicKeyPath, const QString &passphrase) {
-    if(!protocol) {
-        return -1;
-    }
-    const QVariantMap commonMeta = {
-        {"hostname", hostname},
-        {"port", port}
-    };
-    const QVariantMap protocolMeta = {
-        {"userName", username},
-        {"password", password},
-        {"sshAuthType", authType},
-        {"privateKeyPath", privateKeyPath},
-        {"publicKeyPath", publicKeyPath},
-        {"passphrase", passphrase}
-    };
-    int ret = protocol->startSession(this, commonMeta, protocolMeta);
-    if(ret != 0) {
-        return ret;
-    }
-    m_hostname = hostname;
-    m_port = port;
-    return 0;
-}
-#endif

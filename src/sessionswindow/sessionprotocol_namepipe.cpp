@@ -49,8 +49,7 @@ public:
                  const QString &profile) override {
         Q_UNUSED(profile);
         Q_UNUSED(commonMeta);
-        const StartArgs args = parseStartArgs(protocolMeta);
-        target->startNamePipeSession(args.pipeName);
+        target->startSession(QVariantMap(), protocolMeta);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -114,18 +113,4 @@ private:
 SessionProtocolRegistrar kNamePipeProtocolRegistrar(
     SessionsWindow::NamePipe,
     []() { return std::make_unique<NamePipeProtocol>(); });
-}
-
-int SessionsWindow::startNamePipeSession(const QString &name) {
-    if(!protocol) {
-        return -1;
-    }
-    const QVariantMap protocolMeta = {
-        {"pipeName", name}
-    };
-    int ret = protocol->startSession(this, QVariantMap(), protocolMeta);
-    if(ret != 0) {
-        return ret;
-    }
-    return 0;
 }

@@ -51,8 +51,7 @@ public:
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
         Q_UNUSED(profile);
-        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
-        target->startTelnetSession(args.hostname, args.port, args.socketType);
+        target->startSession(commonMeta, protocolMeta);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -120,24 +119,4 @@ private:
 SessionProtocolRegistrar kTelnetProtocolRegistrar(
     SessionsWindow::Telnet,
     []() { return std::make_unique<TelnetProtocol>(); });
-}
-
-int SessionsWindow::startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type) {
-    if(!protocol) {
-        return -1;
-    }
-    const QVariantMap commonMeta = {
-        {"hostname", hostname},
-        {"port", port}
-    };
-    const QVariantMap protocolMeta = {
-        {"socketType", static_cast<int>(type)}
-    };
-    int ret = protocol->startSession(this, commonMeta, protocolMeta);
-    if(ret != 0) {
-        return ret;
-    }
-    m_hostname = hostname;
-    m_port = port;
-    return 0;
 }

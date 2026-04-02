@@ -4194,7 +4194,12 @@ QString CentralWidget::startTelnetSession(MainWidgetGroup *group, int groupIndex
         checkSessionName(name);
     } 
     sessionsWindow->setName(name);
-    sessionsWindow->startTelnetSession(hostname,port,type);
+    sessionsWindow->startSession({
+        {"hostname", hostname},
+        {"port", port}
+    }, {
+        {"socketType", static_cast<int>(type)}
+    });
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4227,7 +4232,15 @@ QString CentralWidget::startSerialSession(MainWidgetGroup *group, int groupIndex
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->startSerialSession(portName,baudRate,dataBits,parity,stopBits,flowControl,xEnable);
+    sessionsWindow->startSession(QVariantMap(), {
+        {"portName", portName},
+        {"baudRate", static_cast<qulonglong>(baudRate)},
+        {"dataBits", dataBits},
+        {"parity", parity},
+        {"stopBits", stopBits},
+        {"flowControl", flowControl},
+        {"xEnable", xEnable}
+    });
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4259,7 +4272,12 @@ QString CentralWidget::startRawSocketSession(MainWidgetGroup *group, int groupIn
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->startRawSocketSession(hostname,port,mode);
+    sessionsWindow->startSession({
+        {"hostname", hostname},
+        {"port", port}
+    }, {
+        {"rawMode", mode}
+    });
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4291,7 +4309,9 @@ QString CentralWidget::startNamePipeSession(MainWidgetGroup *group, int groupInd
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->startNamePipeSession(pipeName);
+    sessionsWindow->startSession(QVariantMap(), {
+        {"pipeName", pipeName}
+    });
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4392,9 +4412,19 @@ QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, int groupI
     QFileInfo workingDirectoryInfo(workingDirectory);
     sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
 #if defined(Q_OS_WIN)
-    sessionsWindow->startLocalShellSession(command,globalOptionsWindow->getPowerShellProfile());
+    sessionsWindow->startSession({
+        {"shellType", static_cast<int>(SessionsWindow::PowerShell)}
+    }, {
+        {"command", command},
+        {"profile", globalOptionsWindow->getPowerShellProfile()}
+    });
 #else
-    sessionsWindow->startLocalShellSession(command);
+    sessionsWindow->startSession({
+        {"shellType", static_cast<int>(SessionsWindow::UnixShell)}
+    }, {
+        {"command", command},
+        {"profile", QString()}
+    });
 #endif
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
@@ -4446,7 +4476,12 @@ QString CentralWidget::startWslSession(MainWidgetGroup *group, int groupIndex, c
     sessionsWindow->setName(name);
     QFileInfo workingDirectoryInfo(workingDirectory);
     sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
-    sessionsWindow->startLocalShellSession(command,globalOptionsWindow->getPowerShellProfile(),SessionsWindow::WSL);
+    sessionsWindow->startSession({
+        {"shellType", static_cast<int>(SessionsWindow::WSL)}
+    }, {
+        {"command", command},
+        {"profile", globalOptionsWindow->getPowerShellProfile()}
+    });
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4499,7 +4534,17 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group, int groupIndex,
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->startSSH2Session(hostname, port, username, password, authType, privateKey, publicKey, passphrase);
+    sessionsWindow->startSession({
+        {"hostname", hostname},
+        {"port", port}
+    }, {
+        {"userName", username},
+        {"password", password},
+        {"sshAuthType", authType},
+        {"privateKeyPath", privateKey},
+        {"publicKeyPath", publicKey},
+        {"passphrase", passphrase}
+    });
     sessionList.push_back(sessionsWindow);
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
@@ -4540,7 +4585,12 @@ QString CentralWidget::startVNCSession(MainWidgetGroup *group, int groupIndex, Q
         checkSessionName(name);
     }
     sessionsWindow->setName(name);
-    sessionsWindow->startVNCSession(hostname,port,password);
+    sessionsWindow->startSession({
+        {"hostname", hostname},
+        {"port", port}
+    }, {
+        {"password", password}
+    });
     sessionList.push_back(sessionsWindow);
     group->sessionTab->setCurrentIndex(index-1);
     return name;
