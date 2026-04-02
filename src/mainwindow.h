@@ -37,6 +37,7 @@
 #include <QMediaCaptureSession>
 #include <QWindowCapture>
 #include <QMediaRecorder>
+#include <functional>
 
 #include "mainwidgetgroup.h"
 #include "sessiontab.h"
@@ -209,6 +210,17 @@ private:
     void menuAndToolBarInit(bool disable_plugin);
     void menuAndToolBarRetranslateUi(void);
     void menuAndToolBarConnectSignals(void);
+    QString createSessionByProtocol(MainWidgetGroup *group,
+                                    int groupIndex,
+                                    SessionsWindow::SessionType type,
+                                    const QString &longTitle,
+                                    const QString &shortTitle,
+                                    const QString &defaultName,
+                                    const QVariantMap &commonMeta,
+                                    const QVariantMap &protocolMeta,
+                                    QString name = QString(),
+                                    const std::function<void(SessionsWindow *)> &beforeStart = std::function<void(SessionsWindow *)>(),
+                                    const std::function<void(SessionsWindow *, int, const QString &)> &onTitleChanged = std::function<void(SessionsWindow *, int, const QString &)>());
     QString startTelnetSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, QTelnet::SocketType type, QString name = QString());
     QString startSerialSession(MainWidgetGroup *group, int groupIndex,  QString portName, uint32_t baudRate,
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, QString name = QString());
@@ -223,6 +235,26 @@ private:
         int authType = SessionsWindow::SshAuthPassword, QString privateKey = QString(),
         QString publicKey = QString(), QString passphrase = QString(), QString name = QString());
     QString startVNCSession(MainWidgetGroup *group, int groupIndex,  QString hostname, quint16 port, QString password, QString name = QString());
+    struct ProtocolDescriptor {
+        std::function<QString(const QuickConnectWindow::QuickConnectData &)> defaultName;
+        std::function<QString(MainWidgetGroup *, int, const QuickConnectWindow::QuickConnectData &, const QString &)> start;
+    };
+    struct ProtocolStorageDescriptor {
+        std::function<void(SessionsWindow *, QuickConnectWindow::QuickConnectData &)> fromSession;
+        std::function<int(GlobalSetting *, QuickConnectWindow::QuickConnectData &, const QString &, bool)> fromSettings;
+        std::function<void(GlobalSetting *, const QuickConnectWindow::QuickConnectData &, const QString &, bool)> toSettings;
+    };
+    struct ProtocolRuntimeDescriptor {
+        ProtocolDescriptor dispatch;
+        ProtocolStorageDescriptor storage;
+    };
+    QMap<int, ProtocolRuntimeDescriptor> buildProtocolRuntimeTable(void);
+    QMap<int, ProtocolDescriptor> buildProtocolDispatchTable(void);
+    QMap<int, ProtocolStorageDescriptor> buildProtocolStorageTable(void);
+    QString resolveSessionNameByProtocol(const QuickConnectWindow::QuickConnectData &data, QString name = QString());
+    QString dispatchStartSessionByProtocol(MainWidgetGroup *group, int groupIndex,
+                                           const QuickConnectWindow::QuickConnectData &data,
+                                           QString name = QString());
     void startSession(MainWidgetGroup *group, int groupIndex, QuickConnectWindow::QuickConnectData data);
     int reconnectSession(SessionsWindow *sessionsWindow);
     int stopSession(MainWidgetGroup *group, int index, bool force = false);

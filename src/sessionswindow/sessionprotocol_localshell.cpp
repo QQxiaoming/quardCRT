@@ -17,6 +17,21 @@
 #include "misc.h"
 
 namespace sessionprotocol {
+static SessionProtocolRegistry::ProtocolSpec localShellProtocolSpec()
+{
+    return {
+        "localshell",
+        "Local Shell",
+        {
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "workingDirectory", ""},
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "shellType", ""},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "command", "command"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "profile", ""},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "wslUserName", ""}
+        }
+    };
+}
+
 class LocalShellProtocol final : public SessionProtocolBase {
 public:
     struct StartArgs {
@@ -281,5 +296,6 @@ private:
 
 SessionProtocolRegistrar kLocalShellProtocolRegistrar(
     SessionsWindow::LocalShell,
-    []() { return std::make_unique<LocalShellProtocol>(); });
+    []() { return std::make_unique<LocalShellProtocol>(); },
+    localShellProtocolSpec());
 }

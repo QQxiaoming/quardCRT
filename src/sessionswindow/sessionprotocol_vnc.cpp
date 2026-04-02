@@ -8,6 +8,19 @@
 #include "qvncclientwidget.h"
 
 namespace sessionprotocol {
+static SessionProtocolRegistry::ProtocolSpec vncProtocolSpec()
+{
+    return {
+        "vnc",
+        "VNC",
+        {
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "hostname", "hostname"},
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "port", "port"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "password", ""}
+        }
+    };
+}
+
 class VNCProtocol final : public SessionProtocolBase {
 public:
     struct StartArgs {
@@ -117,5 +130,6 @@ private:
 
 SessionProtocolRegistrar kVNCProtocolRegistrar(
     SessionsWindow::VNC,
-    []() { return std::make_unique<VNCProtocol>(); });
+    []() { return std::make_unique<VNCProtocol>(); },
+    vncProtocolSpec());
 }

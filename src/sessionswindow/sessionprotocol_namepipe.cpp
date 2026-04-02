@@ -7,6 +7,17 @@
 #include "sessionswindow.h"
 
 namespace sessionprotocol {
+static SessionProtocolRegistry::ProtocolSpec namePipeProtocolSpec()
+{
+    return {
+        "namepipe",
+        "NamePipe",
+        {
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "pipeName", "pipeName"}
+        }
+    };
+}
+
 class NamePipeProtocol final : public SessionProtocolBase {
 public:
     struct StartArgs {
@@ -112,5 +123,6 @@ private:
 
 SessionProtocolRegistrar kNamePipeProtocolRegistrar(
     SessionsWindow::NamePipe,
-    []() { return std::make_unique<NamePipeProtocol>(); });
+    []() { return std::make_unique<NamePipeProtocol>(); },
+    namePipeProtocolSpec());
 }

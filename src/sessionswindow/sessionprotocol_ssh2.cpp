@@ -14,6 +14,24 @@
 #endif
 
 namespace sessionprotocol {
+static SessionProtocolRegistry::ProtocolSpec ssh2ProtocolSpec()
+{
+    return {
+        "ssh2",
+        "SSH2",
+        {
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "hostname", "hostname"},
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "port", "port"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "userName", "username"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "password", ""},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "sshAuthType", "authType"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "privateKeyPath", "privateKey"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "publicKeyPath", "publicKey"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "passphrase", ""}
+        }
+    };
+}
+
 class SSH2Protocol final : public SessionProtocolBase {
 public:
 #ifdef ENABLE_SSH
@@ -254,5 +272,6 @@ private:
 
 SessionProtocolRegistrar kSSH2ProtocolRegistrar(
     SessionsWindow::SSH2,
-    []() { return std::make_unique<SSH2Protocol>(); });
+    []() { return std::make_unique<SSH2Protocol>(); },
+    ssh2ProtocolSpec());
 }

@@ -7,6 +7,19 @@
 #include "sessionswindow.h"
 
 namespace sessionprotocol {
+static SessionProtocolRegistry::ProtocolSpec telnetProtocolSpec()
+{
+    return {
+        "telnet",
+        "Telnet",
+        {
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "hostname", "hostname"},
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "port", "port"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "socketType", "socketType"}
+        }
+    };
+}
+
 class TelnetProtocol final : public SessionProtocolBase {
 public:
     struct StartArgs {
@@ -118,5 +131,6 @@ private:
 
 SessionProtocolRegistrar kTelnetProtocolRegistrar(
     SessionsWindow::Telnet,
-    []() { return std::make_unique<TelnetProtocol>(); });
+    []() { return std::make_unique<TelnetProtocol>(); },
+    telnetProtocolSpec());
 }

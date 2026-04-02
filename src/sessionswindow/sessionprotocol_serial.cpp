@@ -11,6 +11,23 @@
 #include "qextserialenumerator.h"
 
 namespace sessionprotocol {
+static SessionProtocolRegistry::ProtocolSpec serialProtocolSpec()
+{
+    return {
+        "serial",
+        "Serial",
+        {
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "portName", "portName"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "baudRate", "baudRate"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "dataBits", "dataBits"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "parity", "parity"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "stopBits", "stopBits"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "flowControl", "flowControl"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "xEnable", "xEnable"}
+        }
+    };
+}
+
 class SerialProtocol final : public SessionProtocolBase {
 public:
     struct StartArgs {
@@ -211,5 +228,6 @@ private:
 
 SessionProtocolRegistrar kSerialProtocolRegistrar(
     SessionsWindow::Serial,
-    []() { return std::make_unique<SerialProtocol>(); });
+    []() { return std::make_unique<SerialProtocol>(); },
+    serialProtocolSpec());
 }

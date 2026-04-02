@@ -62,6 +62,7 @@
 #include "commandwidget.h"
 #include "mainwindow.h"
 #include "globalsetting.h"
+#include "sessionprotocol.h"
 #include "sessionoptionswindow.h"
 #ifdef ENABLE_SSH
 #include "sshsftp.h"
@@ -4101,42 +4102,11 @@ void CentralWidget::connectSessionFromSessionManager(QString name)
                 QMessageBox::warning(this,tr("Warning"),tr("Session information get failed."),QMessageBox::Ok);
                 return;
             }
-            switch(data.type) {
-            case QuickConnectWindow::Telnet:
-                startTelnetSession(findCurrentFocusGroup(),-1,data.TelnetData.hostname,data.TelnetData.port,
-                                   data.TelnetData.webSocket == 0?QTelnet::TCP:
-                                   data.TelnetData.webSocket == 1?QTelnet::WEBSOCKET:
-                                   QTelnet::SECUREWEBSOCKET, current_name);
-                break;
-            case QuickConnectWindow::Serial:
-                startSerialSession(findCurrentFocusGroup(),-1,data.SerialData.portName,data.SerialData.baudRate,
-                                   data.SerialData.dataBits,data.SerialData.parity,
-                                   data.SerialData.stopBits,data.SerialData.flowControl,
-                                   data.SerialData.xEnable, current_name);
-                break;
-            case QuickConnectWindow::LocalShell:
-                startLocalShellSession(findCurrentFocusGroup(),-1,data.LocalShellData.command,globalOptionsWindow->getNewTabWorkPath(),current_name);
-                break;
-            case QuickConnectWindow::Raw:
-                startRawSocketSession(findCurrentFocusGroup(),-1,data.RawData.hostname,data.RawData.port,data.RawData.mode,current_name);
-                break;
-            case QuickConnectWindow::NamePipe:
-                startNamePipeSession(findCurrentFocusGroup(),-1,data.NamePipeData.pipeName, current_name);
-                break;
-            case QuickConnectWindow::SSH2:
-                startSSH2Session(findCurrentFocusGroup(),-1,data.SSH2Data.hostname,data.SSH2Data.port,
-                                 data.SSH2Data.username,data.SSH2Data.password, data.SSH2Data.authType,
-                                 data.SSH2Data.privateKey, data.SSH2Data.publicKey, data.SSH2Data.passphrase, current_name);
-                break;
-            case QuickConnectWindow::VNC:
-                startVNCSession(findCurrentFocusGroup(),-1,data.VNCData.hostname,data.VNCData.port,
-                                data.VNCData.password, current_name);
-            default:
-                break;
-            }
+            dispatchStartSessionByProtocol(findCurrentFocusGroup(), -1, data, current_name);
             break;
         }
     }
+    settings.endArray();
 }
 
 void CentralWidget::connectSessionStateChange(SessionTab *tab, int index, SessionsWindow *sessionsWindow)
@@ -4181,153 +4151,135 @@ void CentralWidget::connectSessionStateChange(SessionTab *tab, int index, Sessio
     });
 }
 
-QString CentralWidget::startTelnetSession(MainWidgetGroup *group, int groupIndex, QString hostname, quint16 port, QTelnet::SocketType type, QString name)
+QString CentralWidget::createSessionByProtocol(MainWidgetGroup *group,
+                                               int groupIndex,
+                                               SessionsWindow::SessionType type,
+                                               const QString &longTitle,
+                                               const QString &shortTitle,
+                                               const QString &defaultName,
+                                               const QVariantMap &commonMeta,
+                                               const QVariantMap &protocolMeta,
+                                               QString name,
+                                               const std::function<void(SessionsWindow *)> &beforeStart,
+                                               const std::function<void(SessionsWindow *, int, const QString &)> &onTitleChanged)
 {
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Telnet,this);
+    SessionsWindow *sessionsWindow = new SessionsWindow(type, this);
     setGlobalOptions(sessionsWindow);
-    sessionsWindow->setLongTitle(tr("Telnet - ")+hostname+":"+QString::number(port));
-    sessionsWindow->setShortTitle(tr("Telnet"));
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
+    sessionsWindow->setLongTitle(longTitle);
+    sessionsWindow->setShortTitle(shortTitle);
+    int index = group->sessionTab->addTab(groupIndex, sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
+    connectSessionStateChange(group->sessionTab, index, sessionsWindow);
     if(name.isEmpty()) {
-        name = hostname;
+        name = defaultName;
         checkSessionName(name);
-    } 
+    }
     sessionsWindow->setName(name);
-    sessionsWindow->startSession({
-        {"hostname", hostname},
-        {"port", port}
-    }, {
-        {"socketType", static_cast<int>(type)}
-    });
+    if(beforeStart) {
+        beforeStart(sessionsWindow);
+    }
+    int ret = sessionsWindow->startSession(commonMeta, protocolMeta);
+    if(ret != 0) {
+        group->sessionTab->removeTab(index);
+        delete sessionsWindow;
+        return QString();
+    }
     sessionList.push_back(sessionsWindow);
-    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
+    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title, const QString &newTitle){
         if(title == 0 || title == 2) {
-            sessionsWindow->setLongTitle(newTitle);
-            sessionsWindow->setShortTitle(newTitle);
+            if(onTitleChanged) {
+                onTitleChanged(sessionsWindow, title, newTitle);
+            } else {
+                sessionsWindow->setLongTitle(newTitle);
+                sessionsWindow->setShortTitle(newTitle);
+            }
             foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
+                int tabIndex = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
+                if(tabIndex >= 0) {
+                    mainWidgetGroup->sessionTab->setTabText(tabIndex, sessionsWindow->getTitle());
                     break;
                 }
             }
         }
     });
-    group->sessionTab->setCurrentIndex(index-1);
+    group->sessionTab->setCurrentIndex(index - 1);
     return name;
+}
+
+QString CentralWidget::startTelnetSession(MainWidgetGroup *group, int groupIndex, QString hostname, quint16 port, QTelnet::SocketType type, QString name)
+{
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::Telnet,
+        tr("Telnet - ") + hostname + ":" + QString::number(port),
+        tr("Telnet"),
+        hostname,
+        {
+            {"hostname", hostname},
+            {"port", port}
+        }, 
+        {
+            {"socketType", static_cast<int>(type)}
+        },
+        name);
 }
 
 QString CentralWidget::startSerialSession(MainWidgetGroup *group, int groupIndex, QString portName, uint32_t baudRate,
                 int dataBits, int parity, int stopBits, bool flowControl, bool xEnable, QString name)
 {
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::Serial,this);
-    setGlobalOptions(sessionsWindow);
-    sessionsWindow->setLongTitle(tr("Serial - ")+portName);
-    sessionsWindow->setShortTitle(tr("Serial"));
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
-    if(name.isEmpty()) {
-        name = portName;
-        checkSessionName(name);
-    }
-    sessionsWindow->setName(name);
-    sessionsWindow->startSession(QVariantMap(), {
-        {"portName", portName},
-        {"baudRate", static_cast<qulonglong>(baudRate)},
-        {"dataBits", dataBits},
-        {"parity", parity},
-        {"stopBits", stopBits},
-        {"flowControl", flowControl},
-        {"xEnable", xEnable}
-    });
-    sessionList.push_back(sessionsWindow);
-    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 0 || title == 2) {
-            sessionsWindow->setLongTitle(newTitle);
-            sessionsWindow->setShortTitle(newTitle);
-            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
-                    break;
-                }
-            }
-        }
-    });
-    group->sessionTab->setCurrentIndex(index-1);
-    return name;
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::Serial,
+        tr("Serial - ") + portName,
+        tr("Serial"),
+        portName,
+        QVariantMap(), 
+        {
+            {"portName", portName},
+            {"baudRate", static_cast<qulonglong>(baudRate)},
+            {"dataBits", dataBits},
+            {"parity", parity},
+            {"stopBits", stopBits},
+            {"flowControl", flowControl},
+            {"xEnable", xEnable}
+        },
+        name);
 }
 
 QString CentralWidget::startRawSocketSession(MainWidgetGroup *group, int groupIndex, QString hostname, quint16 port, int mode, QString name)
 {
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::RawSocket,this);
-    setGlobalOptions(sessionsWindow);
-    sessionsWindow->setLongTitle(tr("Raw - ")+hostname+":"+QString::number(port));
-    sessionsWindow->setShortTitle(tr("Raw"));
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
-    if(name.isEmpty()) {
-        name = hostname;
-        checkSessionName(name);
-    }
-    sessionsWindow->setName(name);
-    sessionsWindow->startSession({
-        {"hostname", hostname},
-        {"port", port}
-    }, {
-        {"rawMode", mode}
-    });
-    sessionList.push_back(sessionsWindow);
-    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 0 || title == 2) {
-            sessionsWindow->setLongTitle(newTitle);
-            sessionsWindow->setShortTitle(newTitle);
-            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
-                    break;
-                }
-            }
-        }
-    });
-    group->sessionTab->setCurrentIndex(index-1);
-    return name;
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::RawSocket,
+        tr("Raw - ") + hostname + ":" + QString::number(port),
+        tr("Raw"),
+        hostname,
+        {
+            {"hostname", hostname},
+            {"port", port}
+        }, 
+        {
+            {"rawMode", mode}
+        },
+        name);
 }
 
 QString CentralWidget::startNamePipeSession(MainWidgetGroup *group, int groupIndex, QString pipeName, QString name)
 {
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::NamePipe,this);
-    setGlobalOptions(sessionsWindow);
-    sessionsWindow->setLongTitle(tr("NamePipe - ")+pipeName);
-    sessionsWindow->setShortTitle(tr("NamePipe"));
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
-    if(name.isEmpty()) {
-        name = pipeName;
-        checkSessionName(name);
-    }
-    sessionsWindow->setName(name);
-    sessionsWindow->startSession(QVariantMap(), {
-        {"pipeName", pipeName}
-    });
-    sessionList.push_back(sessionsWindow);
-    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 0 || title == 2) {
-            sessionsWindow->setLongTitle(newTitle);
-            sessionsWindow->setShortTitle(newTitle);
-            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
-                    break;
-                }
-            }
-        }
-    });
-    group->sessionTab->setCurrentIndex(index-1);
-    return name;
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::NamePipe,
+        tr("NamePipe - ") + pipeName,
+        tr("NamePipe"),
+        pipeName,
+        QVariantMap(), 
+        {
+            {"pipeName", pipeName}
+        },
+        name);
 }
 
 void CentralWidget::initSysEnv(void) {
@@ -4394,47 +4346,33 @@ QString CentralWidget::getDirAndcheckeSysName(const QString &title, SessionsWind
 
 QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, int groupIndex, const QString &command, const QString &workingDirectory, QString name)
 {
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
-    setGlobalOptions(sessionsWindow);
-    if(command.isEmpty()) {
-        sessionsWindow->setLongTitle(tr("Local Shell"));
-    } else {
-        sessionsWindow->setLongTitle(tr("Local Shell - ")+command);
-    }
-    sessionsWindow->setShortTitle(tr("Local Shell"));
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
-    if(name.isEmpty()) {
-        name = "Local Shell";
-        checkSessionName(name);
-    }
-    sessionsWindow->setName(name);
     QFileInfo workingDirectoryInfo(workingDirectory);
-    sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
 #if defined(Q_OS_WIN)
-    sessionsWindow->startSession({
-        {"shellType", static_cast<int>(SessionsWindow::PowerShell)}
-    }, {
-        {"command", command},
-        {"profile", globalOptionsWindow->getPowerShellProfile()}
-    });
-#else
-    sessionsWindow->startSession({
-        {"shellType", static_cast<int>(SessionsWindow::UnixShell)}
-    }, {
-        {"command", command},
-        {"profile", QString()}
-    });
-#endif
-    sessionList.push_back(sessionsWindow);
-    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 0 || title == 2) {
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::LocalShell,
+        command.isEmpty() ? tr("Local Shell") : tr("Local Shell - ") + command,
+        tr("Local Shell"),
+        "Local Shell",
+        {
+            {"shellType", static_cast<int>(SessionsWindow::PowerShell)}
+        }, 
+        {
+            {"command", command},
+            {"profile", globalOptionsWindow->getPowerShellProfile()}
+        },
+        name,
+        [=](SessionsWindow *sessionsWindow){
+            sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir() ? workingDirectory : QDir::homePath());
+        },
+        [=](SessionsWindow *sessionsWindow, int, const QString &newTitle){
             sessionsWindow->setLongTitle(newTitle);
-            QString workDir = getDirAndcheckeSysName(newTitle,sessionsWindow->getShellType());
+            QString workDir = getDirAndcheckeSysName(newTitle, sessionsWindow->getShellType());
             if(!workDir.isEmpty()) {
                 sessionsWindow->setShortTitle(workDir);
                 if(workDir.startsWith("~/")) {
-                    workDir = workDir.replace(0,1,QDir::homePath());
+                    workDir = workDir.replace(0, 1, QDir::homePath());
                 }
                 QFileInfo fileInfo(workDir);
                 if(fileInfo.isDir()) {
@@ -4443,48 +4381,67 @@ QString CentralWidget::startLocalShellSession(MainWidgetGroup *group, int groupI
             } else {
                 sessionsWindow->setShortTitle(newTitle);
             }
-            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
-                    break;
+        });
+#else
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::LocalShell,
+        command.isEmpty() ? tr("Local Shell") : tr("Local Shell - ") + command,
+        tr("Local Shell"),
+        "Local Shell",
+        { 
+            {"shellType", static_cast<int>(SessionsWindow::UnixShell)} 
+        }, 
+        { 
+            {"command", command}, {"profile", QString()} 
+        },
+        name,
+        [=](SessionsWindow *sessionsWindow){
+            sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir() ? workingDirectory : QDir::homePath());
+        },
+        [=](SessionsWindow *sessionsWindow, int, const QString &newTitle){
+            sessionsWindow->setLongTitle(newTitle);
+            QString workDir = getDirAndcheckeSysName(newTitle, sessionsWindow->getShellType());
+            if(!workDir.isEmpty()) {
+                sessionsWindow->setShortTitle(workDir);
+                if(workDir.startsWith("~/")) {
+                    workDir = workDir.replace(0, 1, QDir::homePath());
                 }
+                QFileInfo fileInfo(workDir);
+                if(fileInfo.isDir()) {
+                    sessionsWindow->setWorkingDirectory(workDir);
+                }
+            } else {
+                sessionsWindow->setShortTitle(newTitle);
             }
-        }
-    });
-    group->sessionTab->setCurrentIndex(index-1);
-    return name;
+        });
+#endif
 }
 
 #if defined(Q_OS_WIN)
 QString CentralWidget::startWslSession(MainWidgetGroup *group, int groupIndex, const QString &command, const QString &workingDirectory, QString name)
 {
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::LocalShell,this);
-    setGlobalOptions(sessionsWindow);
-    if(command.isEmpty()) {
-        sessionsWindow->setLongTitle("WSL");
-    } else {
-        sessionsWindow->setLongTitle("WSL - "+command);
-    }
-    sessionsWindow->setShortTitle("WSL");
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
-    if(name.isEmpty()) {
-        name = "WSL";
-        checkSessionName(name);
-    }
-    sessionsWindow->setName(name);
     QFileInfo workingDirectoryInfo(workingDirectory);
-    sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir()?workingDirectory:QDir::homePath());
-    sessionsWindow->startSession({
-        {"shellType", static_cast<int>(SessionsWindow::WSL)}
-    }, {
-        {"command", command},
-        {"profile", globalOptionsWindow->getPowerShellProfile()}
-    });
-    sessionList.push_back(sessionsWindow);
-    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 0 || title == 2) {
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::LocalShell,
+        command.isEmpty() ? QString("WSL") : QString("WSL - ") + command,
+        QString("WSL"),
+        QString("WSL"),
+        {
+            {"shellType", static_cast<int>(SessionsWindow::WSL)}
+        }, 
+        {
+            {"command", command},
+            {"profile", globalOptionsWindow->getPowerShellProfile()}
+        },
+        name,
+        [=](SessionsWindow *sessionsWindow){
+            sessionsWindow->setWorkingDirectory(workingDirectoryInfo.isDir() ? workingDirectory : QDir::homePath());
+        },
+        [=](SessionsWindow *sessionsWindow, int, const QString &newTitle){
             sessionsWindow->setLongTitle(newTitle);
             QString workDir = getDirAndcheckeSysName(newTitle, sessionsWindow->getShellType(), sessionsWindow->protocolMetaValue("wslUserName").toString());
             if(!workDir.isEmpty()) {
@@ -4492,10 +4449,10 @@ QString CentralWidget::startWslSession(MainWidgetGroup *group, int groupIndex, c
                 // replace /mnt/xxx to XXX:
                 static QRegularExpression wslDirFormat("^/mnt/(\\S+)/(.*)$");
                 if(wslDirFormat.match(workDir).hasMatch()) {
-                    QString workDirFix = wslDirFormat.match(workDir).captured(1).toUpper()+":/"+wslDirFormat.match(workDir).captured(2);
-                    workDir = workDirFix;     
+                    QString workDirFix = wslDirFormat.match(workDir).captured(1).toUpper() + ":/" + wslDirFormat.match(workDir).captured(2);
+                    workDir = workDirFix;
                 } else if(workDir.startsWith("/mnt/")) {
-                    workDir = workDir.remove(0, 5).toUpper()+":/";
+                    workDir = workDir.remove(0, 5).toUpper() + ":/";
                 }
                 QFileInfo fileInfo(workDir);
                 if(fileInfo.isDir()) {
@@ -4504,17 +4461,7 @@ QString CentralWidget::startWslSession(MainWidgetGroup *group, int groupIndex, c
             } else {
                 sessionsWindow->setShortTitle(newTitle);
             }
-            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
-                    break;
-                }
-            }
-        }
-    });
-    group->sessionTab->setCurrentIndex(index-1);
-    return name;
+        });
 }
 #endif
 
@@ -4523,44 +4470,26 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group, int groupIndex,
         int authType, QString privateKey, QString publicKey, QString passphrase, QString name)
 {
 #ifdef ENABLE_SSH
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::SSH2,this);
-    setGlobalOptions(sessionsWindow);
-    sessionsWindow->setLongTitle("SSH2 - "+username+"@"+hostname);
-    sessionsWindow->setShortTitle("SSH2");
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
-    if(name.isEmpty()) {
-        name = hostname;
-        checkSessionName(name);
-    }
-    sessionsWindow->setName(name);
-    sessionsWindow->startSession({
-        {"hostname", hostname},
-        {"port", port}
-    }, {
-        {"userName", username},
-        {"password", password},
-        {"sshAuthType", authType},
-        {"privateKeyPath", privateKey},
-        {"publicKeyPath", publicKey},
-        {"passphrase", passphrase}
-    });
-    sessionList.push_back(sessionsWindow);
-    connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
-        if(title == 0 || title == 2) {
-            sessionsWindow->setLongTitle(newTitle);
-            sessionsWindow->setShortTitle(newTitle);
-            foreach(MainWidgetGroup *mainWidgetGroup, mainWidgetGroupList) {
-                int index = mainWidgetGroup->sessionTab->indexOf(sessionsWindow->getMainWidget());
-                if(index >= 0) {
-                    mainWidgetGroup->sessionTab->setTabText(index, sessionsWindow->getTitle());
-                    break;
-                }
-            }
-        }
-    });
-    group->sessionTab->setCurrentIndex(index-1);
-    return name;
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::SSH2,
+        QString("SSH2 - ") + username + "@" + hostname,
+        QString("SSH2"),
+        hostname,
+        {
+            {"hostname", hostname},
+            {"port", port}
+        }, 
+        {
+            {"userName", username},
+            {"password", password},
+            {"sshAuthType", authType},
+            {"privateKeyPath", privateKey},
+            {"publicKeyPath", publicKey},
+            {"passphrase", passphrase}
+        },
+        name);
 #else
     Q_UNUSED(group);
     Q_UNUSED(groupIndex);
@@ -4574,106 +4503,94 @@ QString CentralWidget::startSSH2Session(MainWidgetGroup *group, int groupIndex,
 
 QString CentralWidget::startVNCSession(MainWidgetGroup *group, int groupIndex, QString hostname, quint16 port, QString password, QString name)
 {
-    SessionsWindow *sessionsWindow = new SessionsWindow(SessionsWindow::VNC,this);
-    setGlobalOptions(sessionsWindow);
-    sessionsWindow->setLongTitle("VNC - "+hostname);
-    sessionsWindow->setShortTitle("VNC");
-    int index = group->sessionTab->addTab(groupIndex,sessionsWindow->getMainWidget(), sessionsWindow->getTitle());
-    connectSessionStateChange(group->sessionTab,index,sessionsWindow);
-    if(name.isEmpty()) {
-        name = hostname;
-        checkSessionName(name);
+    return createSessionByProtocol(
+        group,
+        groupIndex,
+        SessionsWindow::VNC,
+        QString("VNC - ") + hostname,
+        QString("VNC"),
+        hostname,
+        {
+            {"hostname", hostname},
+            {"port", port}
+        }, 
+        {
+            {"password", password}
+        },
+        name);
+}
+
+QMap<int, CentralWidget::ProtocolDescriptor> CentralWidget::buildProtocolDispatchTable(void)
+{
+    QMap<int, ProtocolDescriptor> dispatchTable;
+    const QMap<int, ProtocolRuntimeDescriptor> runtimeTable = buildProtocolRuntimeTable();
+    for(auto it = runtimeTable.constBegin(); it != runtimeTable.constEnd(); ++it) {
+        if(it.value().dispatch.defaultName && it.value().dispatch.start) {
+            dispatchTable.insert(it.key(), it.value().dispatch);
+        }
     }
-    sessionsWindow->setName(name);
-    sessionsWindow->startSession({
-        {"hostname", hostname},
-        {"port", port}
-    }, {
-        {"password", password}
-    });
-    sessionList.push_back(sessionsWindow);
-    group->sessionTab->setCurrentIndex(index-1);
-    return name;
+    return dispatchTable;
+}
+
+QString CentralWidget::resolveSessionNameByProtocol(const QuickConnectWindow::QuickConnectData &data, QString name)
+{
+    if(!name.isEmpty()) {
+        return name;
+    }
+
+    QMap<int, ProtocolRuntimeDescriptor> protocolTable = buildProtocolRuntimeTable();
+    auto it = protocolTable.constFind(static_cast<int>(data.type));
+    if(it == protocolTable.constEnd()) {
+        SessionProtocolRegistry::ProtocolSpec spec = SessionProtocolRegistry::instance().spec(static_cast<SessionsWindow::SessionType>(data.type));
+        return spec.defaultName;
+    }
+
+    QString resolvedName = it.value().dispatch.defaultName(data);
+    if(!resolvedName.isEmpty()) {
+        return resolvedName;
+    }
+
+    SessionProtocolRegistry::ProtocolSpec spec = SessionProtocolRegistry::instance().spec(static_cast<SessionsWindow::SessionType>(data.type));
+    return spec.defaultName;
+}
+
+QString CentralWidget::dispatchStartSessionByProtocol(MainWidgetGroup *group,
+                                                      int groupIndex,
+                                                      const QuickConnectWindow::QuickConnectData &data,
+                                                      QString name)
+{
+    QMap<int, ProtocolRuntimeDescriptor> protocolTable = buildProtocolRuntimeTable();
+
+    auto it = protocolTable.constFind(static_cast<int>(data.type));
+    if(it == protocolTable.constEnd()) {
+        return QString();
+    }
+
+    QString resolvedName = resolveSessionNameByProtocol(data, name);
+    if(resolvedName.isEmpty()) {
+        return QString();
+    }
+
+    return it.value().dispatch.start(group, groupIndex, data, resolvedName);
 }
 
 void CentralWidget::startSession(MainWidgetGroup *group, int groupIndex, QuickConnectWindow::QuickConnectData data) {
-    if(data.type == QuickConnectWindow::Telnet) {
-        QTelnet::SocketType type = QTelnet::TCP;
-        type = (QTelnet::SocketType)data.TelnetData.webSocket;
-        QString name = data.TelnetData.hostname;
-        if(data.openInTab) {
-            name = startTelnetSession(group,groupIndex,name,data.TelnetData.port,type);
-        } else {
-            checkSessionName(name);
+    QString name = resolveSessionNameByProtocol(data);
+    if(name.isEmpty()) {
+        return;
+    }
+
+    if(data.openInTab) {
+        name = dispatchStartSessionByProtocol(group, groupIndex, data, name);
+        if(name.isEmpty()) {
+            return;
         }
-        if(data.saveSession) {
-            addSessionToSessionManager(data,name, !data.openInTab);
-        }
-    } else if(data.type == QuickConnectWindow::Serial) {
-        QString name = data.SerialData.portName;
-        if(data.openInTab) {
-            name = startSerialSession(group,groupIndex,
-                        name,data.SerialData.baudRate,
-                        data.SerialData.dataBits,data.SerialData.parity,
-                        data.SerialData.stopBits,data.SerialData.flowControl,
-                        data.SerialData.xEnable);
-        } else {
-            checkSessionName(name);
-        }
-        if(data.saveSession) {
-            addSessionToSessionManager(data,name, !data.openInTab);
-        }
-    } else if(data.type == QuickConnectWindow::LocalShell) {
-        QString name = "Local Shell";
-        if(data.openInTab) {
-            name = startLocalShellSession(group,groupIndex,data.LocalShellData.command,globalOptionsWindow->getNewTabWorkPath());
-        } else {
-            checkSessionName(name);
-        }
-        if(data.saveSession) {
-            addSessionToSessionManager(data,name, !data.openInTab);
-        }
-    } else if(data.type == QuickConnectWindow::Raw) {
-        QString name = data.RawData.hostname;
-        if(data.openInTab) {
-            name = startRawSocketSession(group,groupIndex,name,data.RawData.port,data.RawData.mode);
-        } else {
-            checkSessionName(name);
-        }
-        if(data.saveSession) {
-            addSessionToSessionManager(data,name, !data.openInTab);
-        }
-    } else if(data.type == QuickConnectWindow::NamePipe) {
-        QString name = data.NamePipeData.pipeName;
-        if(data.openInTab) {
-            name = startNamePipeSession(group,groupIndex,name);
-        } else {
-            checkSessionName(name);
-        }
-        if(data.saveSession) {
-            addSessionToSessionManager(data,name, !data.openInTab);
-        } 
-    } else if(data.type == QuickConnectWindow::SSH2) {
-        QString name = data.SSH2Data.hostname;
-        if(data.openInTab) {
-            name = startSSH2Session(group,groupIndex,name,data.SSH2Data.port,data.SSH2Data.username,data.SSH2Data.password,
-                                    data.SSH2Data.authType, data.SSH2Data.privateKey, data.SSH2Data.publicKey, data.SSH2Data.passphrase);
-        } else {
-            checkSessionName(name);
-        }
-        if(data.saveSession) {
-            addSessionToSessionManager(data,name, !data.openInTab);
-        }
-    } else if(data.type == QuickConnectWindow::VNC) {
-        QString name = data.VNCData.hostname;
-        if(data.openInTab) {
-            name = startVNCSession(group,groupIndex,name,data.VNCData.port,data.VNCData.password);
-        } else {
-            checkSessionName(name);
-        }
-        if(data.saveSession) {
-            addSessionToSessionManager(data,name, !data.openInTab);
-        }
+    } else {
+        checkSessionName(name);
+    }
+
+    if(data.saveSession) {
+        addSessionToSessionManager(data,name, !data.openInTab);
     }
 }
 
@@ -4863,53 +4780,360 @@ int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,Sessi
     return 0;
 }
 
+QMap<int, CentralWidget::ProtocolStorageDescriptor> CentralWidget::buildProtocolStorageTable(void)
+{
+    QMap<int, ProtocolStorageDescriptor> storageTable;
+    const QMap<int, ProtocolRuntimeDescriptor> runtimeTable = buildProtocolRuntimeTable();
+    for(auto it = runtimeTable.constBegin(); it != runtimeTable.constEnd(); ++it) {
+        if(it.value().storage.fromSession || it.value().storage.fromSettings || it.value().storage.toSettings) {
+            storageTable.insert(it.key(), it.value().storage);
+        }
+    }
+    return storageTable;
+}
+
+QMap<int, CentralWidget::ProtocolRuntimeDescriptor> CentralWidget::buildProtocolRuntimeTable(void)
+{
+    QMap<int, ProtocolRuntimeDescriptor> runtimeTable;
+    const SessionProtocolRegistry &registry = SessionProtocolRegistry::instance();
+    const QString telnetDefaultName = registry.spec(SessionsWindow::Telnet).defaultName;
+    const QString serialDefaultName = registry.spec(SessionsWindow::Serial).defaultName;
+    const QString localShellDefaultName = registry.spec(SessionsWindow::LocalShell).defaultName;
+    const QString rawDefaultName = registry.spec(SessionsWindow::RawSocket).defaultName;
+    const QString namePipeDefaultName = registry.spec(SessionsWindow::NamePipe).defaultName;
+    const QString ssh2DefaultName = registry.spec(SessionsWindow::SSH2).defaultName;
+    const QString vncDefaultName = registry.spec(SessionsWindow::VNC).defaultName;
+
+    const QMap<int, ProtocolDescriptor> dispatchTable = {
+        {QuickConnectWindow::Telnet, {
+            [telnetDefaultName](const QuickConnectWindow::QuickConnectData &quickData) {
+                return quickData.TelnetData.hostname.isEmpty() ? telnetDefaultName : quickData.TelnetData.hostname;
+            },
+            [this](MainWidgetGroup *targetGroup, int targetGroupIndex, const QuickConnectWindow::QuickConnectData &quickData, const QString &sessionName) {
+                return startTelnetSession(targetGroup,
+                                          targetGroupIndex,
+                                          quickData.TelnetData.hostname,
+                                          quickData.TelnetData.port,
+                                          static_cast<QTelnet::SocketType>(quickData.TelnetData.webSocket),
+                                          sessionName);
+            }
+        }},
+        {QuickConnectWindow::Serial, {
+            [serialDefaultName](const QuickConnectWindow::QuickConnectData &quickData) {
+                return quickData.SerialData.portName.isEmpty() ? serialDefaultName : quickData.SerialData.portName;
+            },
+            [this](MainWidgetGroup *targetGroup, int targetGroupIndex, const QuickConnectWindow::QuickConnectData &quickData, const QString &sessionName) {
+                return startSerialSession(targetGroup,
+                                          targetGroupIndex,
+                                          quickData.SerialData.portName,
+                                          quickData.SerialData.baudRate,
+                                          quickData.SerialData.dataBits,
+                                          quickData.SerialData.parity,
+                                          quickData.SerialData.stopBits,
+                                          quickData.SerialData.flowControl,
+                                          quickData.SerialData.xEnable,
+                                          sessionName);
+            }
+        }},
+        {QuickConnectWindow::LocalShell, {
+            [localShellDefaultName](const QuickConnectWindow::QuickConnectData &) {
+                return localShellDefaultName;
+            },
+            [this](MainWidgetGroup *targetGroup, int targetGroupIndex, const QuickConnectWindow::QuickConnectData &quickData, const QString &sessionName) {
+                return startLocalShellSession(targetGroup,
+                                              targetGroupIndex,
+                                              quickData.LocalShellData.command,
+                                              globalOptionsWindow->getNewTabWorkPath(),
+                                              sessionName);
+            }
+        }},
+        {QuickConnectWindow::Raw, {
+            [rawDefaultName](const QuickConnectWindow::QuickConnectData &quickData) {
+                return quickData.RawData.hostname.isEmpty() ? rawDefaultName : quickData.RawData.hostname;
+            },
+            [this](MainWidgetGroup *targetGroup, int targetGroupIndex, const QuickConnectWindow::QuickConnectData &quickData, const QString &sessionName) {
+                return startRawSocketSession(targetGroup,
+                                             targetGroupIndex,
+                                             quickData.RawData.hostname,
+                                             quickData.RawData.port,
+                                             quickData.RawData.mode,
+                                             sessionName);
+            }
+        }},
+        {QuickConnectWindow::NamePipe, {
+            [namePipeDefaultName](const QuickConnectWindow::QuickConnectData &quickData) {
+                return quickData.NamePipeData.pipeName.isEmpty() ? namePipeDefaultName : quickData.NamePipeData.pipeName;
+            },
+            [this](MainWidgetGroup *targetGroup, int targetGroupIndex, const QuickConnectWindow::QuickConnectData &quickData, const QString &sessionName) {
+                return startNamePipeSession(targetGroup,
+                                            targetGroupIndex,
+                                            quickData.NamePipeData.pipeName,
+                                            sessionName);
+            }
+        }},
+        {QuickConnectWindow::SSH2, {
+            [ssh2DefaultName](const QuickConnectWindow::QuickConnectData &quickData) {
+                return quickData.SSH2Data.hostname.isEmpty() ? ssh2DefaultName : quickData.SSH2Data.hostname;
+            },
+            [this](MainWidgetGroup *targetGroup, int targetGroupIndex, const QuickConnectWindow::QuickConnectData &quickData, const QString &sessionName) {
+                return startSSH2Session(targetGroup,
+                                        targetGroupIndex,
+                                        quickData.SSH2Data.hostname,
+                                        quickData.SSH2Data.port,
+                                        quickData.SSH2Data.username,
+                                        quickData.SSH2Data.password,
+                                        quickData.SSH2Data.authType,
+                                        quickData.SSH2Data.privateKey,
+                                        quickData.SSH2Data.publicKey,
+                                        quickData.SSH2Data.passphrase,
+                                        sessionName);
+            }
+        }},
+        {QuickConnectWindow::VNC, {
+            [vncDefaultName](const QuickConnectWindow::QuickConnectData &quickData) {
+                return quickData.VNCData.hostname.isEmpty() ? vncDefaultName : quickData.VNCData.hostname;
+            },
+            [this](MainWidgetGroup *targetGroup, int targetGroupIndex, const QuickConnectWindow::QuickConnectData &quickData, const QString &sessionName) {
+                return startVNCSession(targetGroup,
+                                       targetGroupIndex,
+                                       quickData.VNCData.hostname,
+                                       quickData.VNCData.port,
+                                       quickData.VNCData.password,
+                                       sessionName);
+            }
+        }}
+    };
+
+    struct ProtocolResolvedKeys {
+        QMap<QString, QByteArray> metaKeys;
+        QMap<QString, QString> settingsKeys;
+    };
+
+    const auto resolveProtocolKeys = [&registry](SessionsWindow::SessionType type) {
+        ProtocolResolvedKeys keys;
+        const SessionProtocolRegistry::ProtocolSpec spec = registry.spec(type);
+        for(const SessionProtocolRegistry::ProtocolMetaField &field : spec.fields) {
+            if(field.metaKey.isEmpty()) {
+                continue;
+            }
+            const QString defaultMeta = field.metaKey;
+            const QString defaultSettings = field.settingsKey.isEmpty() ? field.metaKey : field.settingsKey;
+            keys.metaKeys.insert(field.metaKey, registry.metaKey(type, field.metaKey, field.source, defaultMeta).toLatin1());
+            keys.settingsKeys.insert(field.metaKey, registry.settingsKey(type, field.metaKey, defaultSettings));
+        }
+        return keys;
+    };
+
+    const ProtocolResolvedKeys telnetKeys = resolveProtocolKeys(SessionsWindow::Telnet);
+    const ProtocolResolvedKeys serialKeys = resolveProtocolKeys(SessionsWindow::Serial);
+    const ProtocolResolvedKeys localShellKeys = resolveProtocolKeys(SessionsWindow::LocalShell);
+    const ProtocolResolvedKeys rawKeys = resolveProtocolKeys(SessionsWindow::RawSocket);
+    const ProtocolResolvedKeys namePipeKeys = resolveProtocolKeys(SessionsWindow::NamePipe);
+    const ProtocolResolvedKeys ssh2Keys = resolveProtocolKeys(SessionsWindow::SSH2);
+    const ProtocolResolvedKeys vncKeys = resolveProtocolKeys(SessionsWindow::VNC);
+
+    const QMap<int, ProtocolStorageDescriptor> storageTable = {
+        {QuickConnectWindow::Telnet, {
+            [telnetKeys](SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data) {
+                const QByteArray socketTypeMetaKey = telnetKeys.metaKeys.value(QStringLiteral("socketType"), QByteArrayLiteral("socketType"));
+                data.TelnetData.hostname = sessionsWindow->getHostname();
+                data.TelnetData.port = sessionsWindow->getPort();
+                data.TelnetData.webSocket = static_cast<QTelnet::SocketType>(sessionsWindow->protocolMetaValue(socketTypeMetaKey.constData(), QTelnet::TCP).toInt());
+            },
+            [telnetKeys](GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                data.TelnetData.hostname = settings->value(telnetKeys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname"))).toString();
+                data.TelnetData.port = settings->value(telnetKeys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port"))).toInt();
+                data.TelnetData.webSocket = settings->value(telnetKeys.settingsKeys.value(QStringLiteral("socketType"), QStringLiteral("socketType"))).toInt();
+                return 0;
+            },
+            [telnetKeys](GlobalSetting *settings, const QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                settings->setValue(telnetKeys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname")), data.TelnetData.hostname);
+                settings->setValue(telnetKeys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port")), data.TelnetData.port);
+                settings->setValue(telnetKeys.settingsKeys.value(QStringLiteral("socketType"), QStringLiteral("socketType")), data.TelnetData.webSocket);
+            }
+        }},
+        {QuickConnectWindow::Serial, {
+            [serialKeys](SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data) {
+                data.SerialData.portName = sessionsWindow->protocolMetaValue(serialKeys.metaKeys.value(QStringLiteral("portName"), QByteArrayLiteral("portName")).constData()).toString();
+                data.SerialData.baudRate = sessionsWindow->protocolMetaValue(serialKeys.metaKeys.value(QStringLiteral("baudRate"), QByteArrayLiteral("baudRate")).constData()).toUInt();
+                data.SerialData.dataBits = sessionsWindow->protocolMetaValue(serialKeys.metaKeys.value(QStringLiteral("dataBits"), QByteArrayLiteral("dataBits")).constData()).toInt();
+                data.SerialData.parity = sessionsWindow->protocolMetaValue(serialKeys.metaKeys.value(QStringLiteral("parity"), QByteArrayLiteral("parity")).constData()).toInt();
+                data.SerialData.stopBits = sessionsWindow->protocolMetaValue(serialKeys.metaKeys.value(QStringLiteral("stopBits"), QByteArrayLiteral("stopBits")).constData()).toInt();
+                data.SerialData.flowControl = sessionsWindow->protocolMetaValue(serialKeys.metaKeys.value(QStringLiteral("flowControl"), QByteArrayLiteral("flowControl")).constData()).toBool();
+                data.SerialData.xEnable = sessionsWindow->protocolMetaValue(serialKeys.metaKeys.value(QStringLiteral("xEnable"), QByteArrayLiteral("xEnable")).constData()).toBool();
+            },
+            [serialKeys](GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                data.SerialData.portName = settings->value(serialKeys.settingsKeys.value(QStringLiteral("portName"), QStringLiteral("portName"))).toString();
+                data.SerialData.baudRate = settings->value(serialKeys.settingsKeys.value(QStringLiteral("baudRate"), QStringLiteral("baudRate"))).toInt();
+                data.SerialData.dataBits = settings->value(serialKeys.settingsKeys.value(QStringLiteral("dataBits"), QStringLiteral("dataBits"))).toInt();
+                data.SerialData.parity = settings->value(serialKeys.settingsKeys.value(QStringLiteral("parity"), QStringLiteral("parity"))).toInt();
+                data.SerialData.stopBits = settings->value(serialKeys.settingsKeys.value(QStringLiteral("stopBits"), QStringLiteral("stopBits"))).toInt();
+                data.SerialData.flowControl = settings->value(serialKeys.settingsKeys.value(QStringLiteral("flowControl"), QStringLiteral("flowControl"))).toBool();
+                data.SerialData.xEnable = settings->value(serialKeys.settingsKeys.value(QStringLiteral("xEnable"), QStringLiteral("xEnable"))).toBool();
+                return 0;
+            },
+            [serialKeys](GlobalSetting *settings, const QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                settings->setValue(serialKeys.settingsKeys.value(QStringLiteral("portName"), QStringLiteral("portName")), data.SerialData.portName);
+                settings->setValue(serialKeys.settingsKeys.value(QStringLiteral("baudRate"), QStringLiteral("baudRate")), data.SerialData.baudRate);
+                settings->setValue(serialKeys.settingsKeys.value(QStringLiteral("dataBits"), QStringLiteral("dataBits")), data.SerialData.dataBits);
+                settings->setValue(serialKeys.settingsKeys.value(QStringLiteral("parity"), QStringLiteral("parity")), data.SerialData.parity);
+                settings->setValue(serialKeys.settingsKeys.value(QStringLiteral("stopBits"), QStringLiteral("stopBits")), data.SerialData.stopBits);
+                settings->setValue(serialKeys.settingsKeys.value(QStringLiteral("flowControl"), QStringLiteral("flowControl")), data.SerialData.flowControl);
+                settings->setValue(serialKeys.settingsKeys.value(QStringLiteral("xEnable"), QStringLiteral("xEnable")), data.SerialData.xEnable);
+            }
+        }},
+        {QuickConnectWindow::LocalShell, {
+            [localShellKeys](SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data) {
+                data.LocalShellData.command = sessionsWindow->protocolMetaValue(localShellKeys.metaKeys.value(QStringLiteral("command"), QByteArrayLiteral("command")).constData()).toString();
+            },
+            [localShellKeys](GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                data.LocalShellData.command = settings->value(localShellKeys.settingsKeys.value(QStringLiteral("command"), QStringLiteral("command"))).toString();
+                return 0;
+            },
+            [localShellKeys](GlobalSetting *settings, const QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                settings->setValue(localShellKeys.settingsKeys.value(QStringLiteral("command"), QStringLiteral("command")), data.LocalShellData.command);
+            }
+        }},
+        {QuickConnectWindow::Raw, {
+            [rawKeys](SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data) {
+                data.RawData.hostname = sessionsWindow->getHostname();
+                data.RawData.port = sessionsWindow->getPort();
+                data.RawData.mode = sessionsWindow->protocolMetaValue(rawKeys.metaKeys.value(QStringLiteral("rawMode"), QByteArrayLiteral("rawMode")).constData()).toInt();
+            },
+            [rawKeys](GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                data.RawData.hostname = settings->value(rawKeys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname"))).toString();
+                data.RawData.port = settings->value(rawKeys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port"))).toInt();
+                data.RawData.mode = settings->value(rawKeys.settingsKeys.value(QStringLiteral("rawMode"), QStringLiteral("mode"))).toInt();
+                return 0;
+            },
+            [rawKeys](GlobalSetting *settings, const QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                settings->setValue(rawKeys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname")), data.RawData.hostname);
+                settings->setValue(rawKeys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port")), data.RawData.port);
+                settings->setValue(rawKeys.settingsKeys.value(QStringLiteral("rawMode"), QStringLiteral("mode")), data.RawData.mode);
+            }
+        }},
+        {QuickConnectWindow::NamePipe, {
+            [namePipeKeys](SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data) {
+                data.NamePipeData.pipeName = sessionsWindow->protocolMetaValue(namePipeKeys.metaKeys.value(QStringLiteral("pipeName"), QByteArrayLiteral("pipeName")).constData()).toString();
+            },
+            [namePipeKeys](GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                data.NamePipeData.pipeName = settings->value(namePipeKeys.settingsKeys.value(QStringLiteral("pipeName"), QStringLiteral("pipeName"))).toString();
+                return 0;
+            },
+            [namePipeKeys](GlobalSetting *settings, const QuickConnectWindow::QuickConnectData &data, const QString &, bool) {
+                settings->setValue(namePipeKeys.settingsKeys.value(QStringLiteral("pipeName"), QStringLiteral("pipeName")), data.NamePipeData.pipeName);
+            }
+        }},
+        {QuickConnectWindow::SSH2, {
+            [ssh2Keys](SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data) {
+                data.SSH2Data.hostname = sessionsWindow->getHostname();
+                data.SSH2Data.port = sessionsWindow->getPort();
+                data.SSH2Data.username = sessionsWindow->protocolMetaValue(ssh2Keys.metaKeys.value(QStringLiteral("userName"), QByteArrayLiteral("userName")).constData()).toString();
+                data.SSH2Data.password = sessionsWindow->protocolMetaValue(ssh2Keys.metaKeys.value(QStringLiteral("password"), QByteArrayLiteral("password")).constData()).toString();
+                data.SSH2Data.authType = sessionsWindow->protocolMetaValue(ssh2Keys.metaKeys.value(QStringLiteral("sshAuthType"), QByteArrayLiteral("sshAuthType")).constData(), SessionsWindow::SshAuthPassword).toInt();
+                data.SSH2Data.privateKey = sessionsWindow->protocolMetaValue(ssh2Keys.metaKeys.value(QStringLiteral("privateKeyPath"), QByteArrayLiteral("privateKeyPath")).constData()).toString();
+                data.SSH2Data.publicKey = sessionsWindow->protocolMetaValue(ssh2Keys.metaKeys.value(QStringLiteral("publicKeyPath"), QByteArrayLiteral("publicKeyPath")).constData()).toString();
+                data.SSH2Data.passphrase = sessionsWindow->protocolMetaValue(ssh2Keys.metaKeys.value(QStringLiteral("passphrase"), QByteArrayLiteral("passphrase")).constData()).toString();
+            },
+            [this,
+             ssh2Keys](GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, const QString &name, bool skipPassword) {
+                data.SSH2Data.hostname = settings->value(ssh2Keys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname"))).toString();
+                data.SSH2Data.port = settings->value(ssh2Keys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port"))).toInt();
+                data.SSH2Data.username = settings->value(ssh2Keys.settingsKeys.value(QStringLiteral("userName"), QStringLiteral("username"))).toString();
+                data.SSH2Data.authType = settings->value(ssh2Keys.settingsKeys.value(QStringLiteral("sshAuthType"), QStringLiteral("authType")), QuickConnectWindow::SshAuthPassword).toInt();
+                data.SSH2Data.privateKey = settings->value(ssh2Keys.settingsKeys.value(QStringLiteral("privateKeyPath"), QStringLiteral("privateKey"))).toString();
+                data.SSH2Data.publicKey = settings->value(ssh2Keys.settingsKeys.value(QStringLiteral("publicKeyPath"), QStringLiteral("publicKey"))).toString();
+                data.SSH2Data.password.clear();
+                data.SSH2Data.passphrase.clear();
+                if(!skipPassword) {
+                    if(data.SSH2Data.authType == QuickConnectWindow::SshAuthPassword) {
+                        bool isOK = keyChainClass.readKey(name, data.SSH2Data.password);
+                        if(!isOK) {
+                            return -1;
+                        }
+                    } else {
+                        keyChainClass.readKey(name + "/ssh2/passphrase", data.SSH2Data.passphrase);
+                    }
+                }
+                return 0;
+            },
+            [this,
+             ssh2Keys](GlobalSetting *settings, const QuickConnectWindow::QuickConnectData &data, const QString &name, bool skipPassword) {
+                settings->setValue(ssh2Keys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname")), data.SSH2Data.hostname);
+                settings->setValue(ssh2Keys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port")), data.SSH2Data.port);
+                settings->setValue(ssh2Keys.settingsKeys.value(QStringLiteral("userName"), QStringLiteral("username")), data.SSH2Data.username);
+                settings->setValue(ssh2Keys.settingsKeys.value(QStringLiteral("sshAuthType"), QStringLiteral("authType")), data.SSH2Data.authType);
+                settings->setValue(ssh2Keys.settingsKeys.value(QStringLiteral("privateKeyPath"), QStringLiteral("privateKey")), data.SSH2Data.privateKey);
+                settings->setValue(ssh2Keys.settingsKeys.value(QStringLiteral("publicKeyPath"), QStringLiteral("publicKey")), data.SSH2Data.publicKey);
+                if(!skipPassword) {
+                    if(data.SSH2Data.authType == QuickConnectWindow::SshAuthPassword) {
+                        keyChainClass.writeKey(name, data.SSH2Data.password);
+                    } else {
+                        keyChainClass.writeKey(name + "/ssh2/passphrase", data.SSH2Data.passphrase);
+                    }
+                }
+            }
+        }},
+        {QuickConnectWindow::VNC, {
+            [vncKeys](SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data) {
+                data.VNCData.hostname = sessionsWindow->getHostname();
+                data.VNCData.port = sessionsWindow->getPort();
+                data.VNCData.password = sessionsWindow->protocolMetaValue(vncKeys.metaKeys.value(QStringLiteral("password"), QByteArrayLiteral("password")).constData()).toString();
+            },
+            [this, vncKeys](GlobalSetting *settings, QuickConnectWindow::QuickConnectData &data, const QString &name, bool skipPassword) {
+                data.VNCData.hostname = settings->value(vncKeys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname"))).toString();
+                data.VNCData.port = settings->value(vncKeys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port"))).toInt();
+                if(!skipPassword) {
+                    bool isOK = keyChainClass.readKey(name, data.VNCData.password);
+                    if(!isOK) {
+                        return -1;
+                    }
+                }
+                return 0;
+            },
+            [this, vncKeys](GlobalSetting *settings, const QuickConnectWindow::QuickConnectData &data, const QString &name, bool skipPassword) {
+                settings->setValue(vncKeys.settingsKeys.value(QStringLiteral("hostname"), QStringLiteral("hostname")), data.VNCData.hostname);
+                settings->setValue(vncKeys.settingsKeys.value(QStringLiteral("port"), QStringLiteral("port")), data.VNCData.port);
+                if(!skipPassword) {
+                    keyChainClass.writeKey(name, data.VNCData.password);
+                }
+            }
+        }}
+    };
+
+    for(auto it = dispatchTable.constBegin(); it != dispatchTable.constEnd(); ++it) {
+        ProtocolRuntimeDescriptor runtime;
+        runtime.dispatch = it.value();
+        if(storageTable.contains(it.key())) {
+            runtime.storage = storageTable.value(it.key());
+        }
+        runtimeTable.insert(it.key(), runtime);
+    }
+
+    for(auto it = storageTable.constBegin(); it != storageTable.constEnd(); ++it) {
+        if(runtimeTable.contains(it.key())) {
+            continue;
+        }
+        ProtocolRuntimeDescriptor runtime;
+        runtime.storage = it.value();
+        runtimeTable.insert(it.key(), runtime);
+    }
+
+    return runtimeTable;
+}
+
 void CentralWidget::sessionWindow2InfoData(SessionsWindow *sessionsWindow, QuickConnectWindow::QuickConnectData &data, QString &name)
 {
     name = sessionsWindow->getName();
     data.type = (QuickConnectWindow::QuickConnectType)sessionsWindow->getSessionType();
-    switch(data.type) {
-        case QuickConnectWindow::Telnet:
-            data.TelnetData.hostname = sessionsWindow->getHostname();
-            data.TelnetData.port = sessionsWindow->getPort();
-            data.TelnetData.webSocket = static_cast<QTelnet::SocketType>(sessionsWindow->protocolMetaValue("socketType", QTelnet::TCP).toInt());
-            break;
-        case QuickConnectWindow::Serial:
-            data.SerialData.portName = sessionsWindow->protocolMetaValue("portName").toString();
-            data.SerialData.baudRate = sessionsWindow->protocolMetaValue("baudRate").toUInt();
-            data.SerialData.dataBits = sessionsWindow->protocolMetaValue("dataBits").toInt();
-            data.SerialData.parity = sessionsWindow->protocolMetaValue("parity").toInt();
-            data.SerialData.stopBits = sessionsWindow->protocolMetaValue("stopBits").toInt();
-            data.SerialData.flowControl = sessionsWindow->protocolMetaValue("flowControl").toBool();
-            data.SerialData.xEnable = sessionsWindow->protocolMetaValue("xEnable").toBool();
-            break;
-        case QuickConnectWindow::LocalShell:
-            data.LocalShellData.command = sessionsWindow->protocolMetaValue("command").toString();
-            break;
-        case QuickConnectWindow::Raw:
-            data.RawData.hostname = sessionsWindow->getHostname();
-            data.RawData.port = sessionsWindow->getPort();
-            data.RawData.mode = sessionsWindow->protocolMetaValue("rawMode").toInt();
-            break;
-        case QuickConnectWindow::NamePipe:
-            data.NamePipeData.pipeName = sessionsWindow->protocolMetaValue("pipeName").toString();
-            break;
-        case QuickConnectWindow::SSH2:
-            data.SSH2Data.hostname = sessionsWindow->getHostname();
-            data.SSH2Data.port = sessionsWindow->getPort();
-            data.SSH2Data.username = sessionsWindow->protocolMetaValue("userName").toString();
-            data.SSH2Data.password = sessionsWindow->protocolMetaValue("password").toString();
-            data.SSH2Data.authType = sessionsWindow->protocolMetaValue("sshAuthType", SessionsWindow::SshAuthPassword).toInt();
-            data.SSH2Data.privateKey = sessionsWindow->protocolMetaValue("privateKeyPath").toString();
-            data.SSH2Data.publicKey = sessionsWindow->protocolMetaValue("publicKeyPath").toString();
-            data.SSH2Data.passphrase = sessionsWindow->protocolMetaValue("passphrase").toString();
-            break;
-        case QuickConnectWindow::VNC:
-            data.VNCData.hostname = sessionsWindow->getHostname();
-            data.VNCData.port = sessionsWindow->getPort();
-            data.VNCData.password = sessionsWindow->protocolMetaValue("password").toString();
-            break;
-        default:
-            break;
+    QMap<int, ProtocolRuntimeDescriptor> runtimeTable = buildProtocolRuntimeTable();
+    auto descriptorIt = runtimeTable.constFind(static_cast<int>(data.type));
+    if(descriptorIt == runtimeTable.constEnd()) {
+        return;
+    }
+
+    if(descriptorIt.value().storage.fromSession) {
+        descriptorIt.value().storage.fromSession(sessionsWindow, data);
     }
 }
 
@@ -4918,123 +5142,31 @@ int CentralWidget::setting2InfoData(GlobalSetting *settings, QuickConnectWindow:
     name = settings->value("name").toString();
     group = settings->value("group", "/").toString();
     data.type = (QuickConnectWindow::QuickConnectType)(settings->value("type").toInt());
-    switch(data.type) {
-    case QuickConnectWindow::Telnet:
-        data.TelnetData.hostname = settings->value("hostname").toString();
-        data.TelnetData.port = settings->value("port").toInt();
-        data.TelnetData.webSocket = settings->value("socketType").toInt();
-        break;
-    case QuickConnectWindow::Serial:
-        data.SerialData.portName = settings->value("portName").toString();
-        data.SerialData.baudRate = settings->value("baudRate").toInt();
-        data.SerialData.dataBits = settings->value("dataBits").toInt();
-        data.SerialData.parity = settings->value("parity").toInt();
-        data.SerialData.stopBits = settings->value("stopBits").toInt();
-        data.SerialData.flowControl = settings->value("flowControl").toBool();
-        data.SerialData.xEnable = settings->value("xEnable").toBool();
-        break;
-    case QuickConnectWindow::LocalShell:
-        data.LocalShellData.command = settings->value("command").toString();
-        break;
-    case QuickConnectWindow::Raw:
-        data.RawData.hostname = settings->value("hostname").toString();
-        data.RawData.port = settings->value("port").toInt();
-        data.RawData.mode = settings->value("mode").toInt();
-        break;
-    case QuickConnectWindow::NamePipe:
-        data.NamePipeData.pipeName = settings->value("pipeName").toString();
-        break;
-    case QuickConnectWindow::SSH2:{
-        data.SSH2Data.hostname = settings->value("hostname").toString();
-        data.SSH2Data.port = settings->value("port").toInt();
-        data.SSH2Data.username = settings->value("username").toString();
-        data.SSH2Data.authType = settings->value("authType", QuickConnectWindow::SshAuthPassword).toInt();
-        data.SSH2Data.privateKey = settings->value("privateKey").toString();
-        data.SSH2Data.publicKey = settings->value("publicKey").toString();
-        data.SSH2Data.password.clear();
-        data.SSH2Data.passphrase.clear();
-        if(!skipPassword){
-            if(data.SSH2Data.authType == QuickConnectWindow::SshAuthPassword) {
-                bool isOK = keyChainClass.readKey(name,data.SSH2Data.password);
-                if(!isOK) {
-                    return -1;
-                }
-            } else {
-                keyChainClass.readKey(name + "/ssh2/passphrase", data.SSH2Data.passphrase);
-            }
-        }
-        break;
+    QMap<int, ProtocolRuntimeDescriptor> runtimeTable = buildProtocolRuntimeTable();
+    auto descriptorIt = runtimeTable.constFind(static_cast<int>(data.type));
+    if(descriptorIt == runtimeTable.constEnd()) {
+        return 0;
     }
-    case QuickConnectWindow::VNC: {
-        data.VNCData.hostname = settings->value("hostname").toString();
-        data.VNCData.port = settings->value("port").toInt();
-        if(!skipPassword){
-            bool isOK = keyChainClass.readKey(name,data.VNCData.password);
-            if(!isOK) {
-                return -1;
-            }
-        }
-        break;
+
+    if(!descriptorIt.value().storage.fromSettings) {
+        return 0;
     }
-    default:
-        break;
-    }
-    return 0;
+
+    return descriptorIt.value().storage.fromSettings(settings, data, name, skipPassword);
 }
 
 void CentralWidget::infoData2Setting(GlobalSetting *settings,const QuickConnectWindow::QuickConnectData &data,const QString &name,const QString &group,bool skipPassword) {
     settings->setValue("name",name);
     settings->setValue("type",data.type);
     settings->setValue("group",group);
-    switch(data.type) {
-    case QuickConnectWindow::Telnet:
-        settings->setValue("hostname",data.TelnetData.hostname);
-        settings->setValue("port",data.TelnetData.port);
-        settings->setValue("socketType",data.TelnetData.webSocket);
-        break;
-    case QuickConnectWindow::Serial:
-        settings->setValue("portName",data.SerialData.portName);
-        settings->setValue("baudRate",data.SerialData.baudRate);
-        settings->setValue("dataBits",data.SerialData.dataBits);
-        settings->setValue("parity",data.SerialData.parity);
-        settings->setValue("stopBits",data.SerialData.stopBits);
-        settings->setValue("flowControl",data.SerialData.flowControl);
-        settings->setValue("xEnable",data.SerialData.xEnable);
-        break;
-    case QuickConnectWindow::LocalShell:
-        settings->setValue("command",data.LocalShellData.command);
-        break;
-    case QuickConnectWindow::Raw:
-        settings->setValue("hostname",data.RawData.hostname);
-        settings->setValue("port",data.RawData.port);
-        settings->setValue("mode",data.RawData.mode);
-        break;
-    case QuickConnectWindow::NamePipe:
-        settings->setValue("pipeName",data.NamePipeData.pipeName);
-        break;
-    case QuickConnectWindow::SSH2:
-        settings->setValue("hostname",data.SSH2Data.hostname);
-        settings->setValue("port",data.SSH2Data.port);
-        settings->setValue("username",data.SSH2Data.username);
-        settings->setValue("authType", data.SSH2Data.authType);
-        settings->setValue("privateKey", data.SSH2Data.privateKey);
-        settings->setValue("publicKey", data.SSH2Data.publicKey);
-        if(!skipPassword) {
-            if(data.SSH2Data.authType == QuickConnectWindow::SshAuthPassword) {
-                keyChainClass.writeKey(name, data.SSH2Data.password);
-            } else {
-                keyChainClass.writeKey(name + "/ssh2/passphrase", data.SSH2Data.passphrase);
-            }
-        }
-        break;
-    case QuickConnectWindow::VNC:
-        settings->setValue("hostname",data.VNCData.hostname);
-        settings->setValue("port",data.VNCData.port);
-        if(!skipPassword)
-            keyChainClass.writeKey(name,data.VNCData.password);
-        break;
-    default:
-        break;
+    QMap<int, ProtocolRuntimeDescriptor> runtimeTable = buildProtocolRuntimeTable();
+    auto descriptorIt = runtimeTable.constFind(static_cast<int>(data.type));
+    if(descriptorIt == runtimeTable.constEnd()) {
+        return;
+    }
+
+    if(descriptorIt.value().storage.toSettings) {
+        descriptorIt.value().storage.toSettings(settings, data, name, skipPassword);
     }
 }
 

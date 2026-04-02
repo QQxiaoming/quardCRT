@@ -9,6 +9,8 @@
 #include <functional>
 #include <memory>
 #include <unordered_map>
+#include <QString>
+#include <QList>
 #include <QVariantMap>
 
 #include "sessionswindow.h"
@@ -77,20 +79,50 @@ public:
 
 class SessionProtocolRegistry {
 public:
+    struct ProtocolMetaField {
+        enum MetaSource {
+            CommonMeta,
+            ProtocolMeta,
+        };
+
+        MetaSource source = ProtocolMeta;
+        QString metaKey;
+        QString settingsKey;
+    };
+
+    struct ProtocolSpec {
+        QString protocolId;
+        QString defaultName;
+        QList<ProtocolMetaField> fields;
+    };
+
     using Factory = std::function<std::unique_ptr<SessionProtocolBase>()>;
 
     static SessionProtocolRegistry &instance();
 
     void registerFactory(SessionsWindow::SessionType type, Factory factory);
+    void registerSpec(SessionsWindow::SessionType type, ProtocolSpec spec);
     std::unique_ptr<SessionProtocolBase> create(SessionsWindow::SessionType type) const;
+    bool hasSpec(SessionsWindow::SessionType type) const;
+    ProtocolSpec spec(SessionsWindow::SessionType type) const;
+    QString settingsKey(SessionsWindow::SessionType type,
+                       const QString &metaKey,
+                       const QString &fallback = QString()) const;
+    QString metaKey(SessionsWindow::SessionType type,
+                    const QString &metaKey,
+                    ProtocolMetaField::MetaSource source,
+                    const QString &fallback = QString()) const;
 
 private:
     std::unordered_map<int, Factory> factories;
+    std::unordered_map<int, ProtocolSpec> specs;
 };
 
 class SessionProtocolRegistrar {
 public:
-    SessionProtocolRegistrar(SessionsWindow::SessionType type, SessionProtocolRegistry::Factory factory);
+    SessionProtocolRegistrar(SessionsWindow::SessionType type,
+                            SessionProtocolRegistry::Factory factory,
+                            SessionProtocolRegistry::ProtocolSpec spec = SessionProtocolRegistry::ProtocolSpec());
 };
 
 #endif // SESSIONPROTOCOL_H

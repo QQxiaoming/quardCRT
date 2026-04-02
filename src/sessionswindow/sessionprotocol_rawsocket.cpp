@@ -8,6 +8,19 @@
 #include "sessionprotocol_rawsocket.h"
 
 namespace sessionprotocol {
+static SessionProtocolRegistry::ProtocolSpec rawSocketProtocolSpec()
+{
+    return {
+        "raw",
+        "Raw",
+        {
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "hostname", "hostname"},
+            {SessionProtocolRegistry::ProtocolMetaField::CommonMeta, "port", "port"},
+            {SessionProtocolRegistry::ProtocolMetaField::ProtocolMeta, "rawMode", "mode"}
+        }
+    };
+}
+
 class RawSocketProtocol final : public SessionProtocolBase {
 public:
     struct StartArgs {
@@ -117,6 +130,7 @@ private:
 
 SessionProtocolRegistrar kRawSocketProtocolRegistrar(
     SessionsWindow::RawSocket,
-    []() { return std::make_unique<RawSocketProtocol>(); });
+    []() { return std::make_unique<RawSocketProtocol>(); },
+    rawSocketProtocolSpec());
 }
 
