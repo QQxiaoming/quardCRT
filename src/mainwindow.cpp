@@ -5691,9 +5691,9 @@ int CentralWidget::se_getActiveSessionId(void) {
 
 void CentralWidget::se_activateWindow(void) {
     if(mainWindow) {
-        activateWindow();
-    } else {
         mainWindow->activateWindow();
+    } else {
+        activateWindow();
     }
 }
 
