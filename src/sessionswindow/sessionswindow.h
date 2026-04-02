@@ -29,6 +29,7 @@
 #include <QSerialPort>
 #include <QLocalSocket>
 #include <QMutex>
+#include <QVariant>
 #include <QMutexLocker>
 #include <functional>
 #include <memory>
@@ -259,6 +260,7 @@ public:
 #ifdef ENABLE_SSH
     SshSFtp *getSshSFtpChannel(void);
 #endif
+    QVariant protocolMetaValue(const char *key, const QVariant &defaultValue = QVariant()) const;
 
     QString getHostname() const { return m_hostname; }
     quint16 getPort() const { return m_port; }

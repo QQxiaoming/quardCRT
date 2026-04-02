@@ -47,6 +47,8 @@
 #include "qextserialenumerator.h"
 #include "sessionprotocol.h"
 
+
+
 QString SessionsWindow::saveRecordingTempDirPath = QDir::homePath();
 
 SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
@@ -1241,93 +1243,83 @@ SshSFtp *SessionsWindow::getSshSFtpChannel(void) {
 }
 #endif
 
+QVariant SessionsWindow::protocolMetaValue(const char *key, const QVariant &defaultValue) const {
+    if(!protocol) {
+        return defaultValue;
+    }
+    return protocol->exportMeta().value(QLatin1String(key), defaultValue);
+}
+
 QString SessionsWindow::getWSLUserName() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("wslUserName").toString();
+    return protocolMetaValue("wslUserName").toString();
 }
 
 QString SessionsWindow::getPortName() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("portName").toString();
+    return protocolMetaValue("portName").toString();
 }
 
 QTelnet::SocketType SessionsWindow::getSocketType() const {
-    if(!protocol) return QTelnet::TCP;
-    return static_cast<QTelnet::SocketType>(protocol->exportMeta().value("socketType", QTelnet::TCP).toInt());
+    return static_cast<QTelnet::SocketType>(protocolMetaValue("socketType", QTelnet::TCP).toInt());
 }
 
 uint32_t SessionsWindow::getBaudRate() const {
-    if(!protocol) return 0;
-    return protocol->exportMeta().value("baudRate").toUInt();
+    return protocolMetaValue("baudRate").toUInt();
 }
 
 int SessionsWindow::getDataBits() const {
-    if(!protocol) return 0;
-    return protocol->exportMeta().value("dataBits").toInt();
+    return protocolMetaValue("dataBits").toInt();
 }
 
 int SessionsWindow::getParity() const {
-    if(!protocol) return 0;
-    return protocol->exportMeta().value("parity").toInt();
+    return protocolMetaValue("parity").toInt();
 }
 
 int SessionsWindow::getStopBits() const {
-    if(!protocol) return 0;
-    return protocol->exportMeta().value("stopBits").toInt();
+    return protocolMetaValue("stopBits").toInt();
 }
 
 bool SessionsWindow::getFlowControl() const {
-    if(!protocol) return false;
-    return protocol->exportMeta().value("flowControl").toBool();
+    return protocolMetaValue("flowControl").toBool();
 }
 
 bool SessionsWindow::getXEnable() const {
-    if(!protocol) return false;
-    return protocol->exportMeta().value("xEnable").toBool();
+    return protocolMetaValue("xEnable").toBool();
 }
 
 QString SessionsWindow::getCommand() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("command").toString();
+    return protocolMetaValue("command").toString();
 }
 
 QString SessionsWindow::getPipeName() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("pipeName").toString();
+    return protocolMetaValue("pipeName").toString();
 }
 
 QString SessionsWindow::getUserName() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("userName").toString();
+    return protocolMetaValue("userName").toString();
 }
 
 QString SessionsWindow::getPassWord() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("password").toString();
+    return protocolMetaValue("password").toString();
 }
 
 int SessionsWindow::getSshAuthType() const {
-    if(!protocol) return SshAuthPassword;
-    return protocol->exportMeta().value("sshAuthType", SshAuthPassword).toInt();
+    return protocolMetaValue("sshAuthType", SshAuthPassword).toInt();
 }
 
 QString SessionsWindow::getPrivateKeyPath() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("privateKeyPath").toString();
+    return protocolMetaValue("privateKeyPath").toString();
 }
 
 QString SessionsWindow::getPublicKeyPath() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("publicKeyPath").toString();
+    return protocolMetaValue("publicKeyPath").toString();
 }
 
 QString SessionsWindow::getPassphrase() const {
-    if(!protocol) return QString();
-    return protocol->exportMeta().value("passphrase").toString();
+    return protocolMetaValue("passphrase").toString();
 }
 
 int SessionsWindow::getRawMode() const {
-    return protocol->getRawMode();
+    return protocolMetaValue("rawMode").toInt();
 }
 
 void SessionsWindow::screenShot(const QString &fileName) {

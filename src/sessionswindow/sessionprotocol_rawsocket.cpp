@@ -75,12 +75,9 @@ public:
             rawSocket = nullptr;
         }
     }    
-    int getRawMode() const override {
-        return rawSocket->getRawMode();
-    }
     QVariantMap exportMeta() const override {
         return {
-            {"rawMode", getRawMode()}
+            {"rawMode", rawSocket->getRawMode()}
         };
     }
     void importMeta(const QVariantMap &meta) override {

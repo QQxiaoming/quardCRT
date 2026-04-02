@@ -65,9 +65,6 @@ public:
         Q_UNUSED(protocolMeta);
         return -1;
     }
-    virtual int getRawMode() const {
-        return 0;
-    }
     virtual void screenShot(SessionsWindow *session, const QString &fileName) {
         Q_UNUSED(session);
         Q_UNUSED(fileName);
