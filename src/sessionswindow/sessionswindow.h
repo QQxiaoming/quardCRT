@@ -230,7 +230,6 @@ public:
     bool isTerminal() const;
     SessionType getSessionType() const { return type; }
     ShellType getShellType() const { return shellType; }
-    QString getWSLUserName() const;
     void setShowTitleType(ShowTitleType type) { showTitleType = type; }
     ShowTitleType getShowTitleType() const { return showTitleType; }
     QString getTitle() const { 
@@ -264,23 +263,6 @@ public:
 
     QString getHostname() const { return m_hostname; }
     quint16 getPort() const { return m_port; }
-    QString getPortName() const;
-    QTelnet::SocketType getSocketType() const;
-    int getRawMode() const;
-    uint32_t getBaudRate() const;
-    int getDataBits() const;
-    int getParity() const;
-    int getStopBits() const;
-    bool getFlowControl() const;
-    bool getXEnable() const;
-    QString getCommand() const;
-    QString getPipeName() const;
-    QString getUserName() const;
-    QString getPassWord() const;
-    int getSshAuthType() const;
-    QString getPrivateKeyPath() const;
-    QString getPublicKeyPath() const;
-    QString getPassphrase() const;
 
     void setScrollBarPosition(QTermWidget::ScrollBarPosition position) {
         if(isConsoleSession()) term->setScrollBarPosition(position);

@@ -16,6 +16,19 @@
 namespace sessionprotocol {
 class SSH2Protocol final : public SessionProtocolBase {
 public:
+#ifdef ENABLE_SSH
+    struct StartArgs {
+        QString hostname;
+        quint16 port = 0;
+        QString userName;
+        QString password;
+        int sshAuthType = SessionsWindow::SshAuthPassword;
+        QString privateKeyPath;
+        QString publicKeyPath;
+        QString passphrase;
+    };
+#endif
+
     SessionsWindow::SessionType type() const override { return SessionsWindow::SSH2; }
     SessionsWindow::SessionCategory category() const override { return SessionsWindow::ConsoleSession; }
     void initialize(SessionsWindow *session) override {
@@ -73,14 +86,15 @@ public:
                  const QString &profile) override {
         Q_UNUSED(profile);
 #ifdef ENABLE_SSH
-        target->startSSH2Session(commonMeta.value("hostname").toString(),
-                                 static_cast<quint16>(commonMeta.value("port").toUInt()),
-                                 protocolMeta.value("userName").toString(),
-                                 protocolMeta.value("password").toString(),
-                                 protocolMeta.value("sshAuthType", SessionsWindow::SshAuthPassword).toInt(),
-                                 protocolMeta.value("privateKeyPath").toString(),
-                                 protocolMeta.value("publicKeyPath").toString(),
-                                 protocolMeta.value("passphrase").toString());
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        target->startSSH2Session(args.hostname,
+                     args.port,
+                     args.userName,
+                     args.password,
+                     args.sshAuthType,
+                     args.privateKeyPath,
+                     args.publicKeyPath,
+                     args.passphrase);
 #else
         Q_UNUSED(target);
         Q_UNUSED(commonMeta);
@@ -195,19 +209,35 @@ public:
     int startSession(SessionsWindow *session,
                      const QVariantMap &commonMeta,
                      const QVariantMap &protocolMeta) override {
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
         return startSSH2Session(session,
-                                commonMeta.value("hostname").toString(),
-                                static_cast<quint16>(commonMeta.value("port").toUInt()),
-                                protocolMeta.value("userName").toString(),
-                                protocolMeta.value("password").toString(),
-                                protocolMeta.value("sshAuthType", SessionsWindow::SshAuthPassword).toInt(),
-                                protocolMeta.value("privateKeyPath").toString(),
-                                protocolMeta.value("publicKeyPath").toString(),
-                                protocolMeta.value("passphrase").toString());
+                                args.hostname,
+                                args.port,
+                                args.userName,
+                                args.password,
+                                args.sshAuthType,
+                                args.privateKeyPath,
+                                args.publicKeyPath,
+                                args.passphrase);
     }
 #endif
 
 private:
+#ifdef ENABLE_SSH
+    static StartArgs parseStartArgs(const QVariantMap &commonMeta, const QVariantMap &protocolMeta) {
+        StartArgs args;
+        args.hostname = commonMeta.value("hostname").toString();
+        args.port = static_cast<quint16>(commonMeta.value("port").toUInt());
+        args.userName = protocolMeta.value("userName").toString();
+        args.password = protocolMeta.value("password").toString();
+        args.sshAuthType = protocolMeta.value("sshAuthType", SessionsWindow::SshAuthPassword).toInt();
+        args.privateKeyPath = protocolMeta.value("privateKeyPath").toString();
+        args.publicKeyPath = protocolMeta.value("publicKeyPath").toString();
+        args.passphrase = protocolMeta.value("passphrase").toString();
+        return args;
+    }
+#endif
+
     void installReconnectOnEnterRequest(SessionsWindow *session) {
         QObject::connect(session->term, &QTermWidget::sendData, session, [=](const char *data, int size) {
             QByteArray sendData(data, size);

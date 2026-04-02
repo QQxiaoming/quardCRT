@@ -9,6 +9,12 @@
 namespace sessionprotocol {
 class TelnetProtocol final : public SessionProtocolBase {
 public:
+    struct StartArgs {
+        QString hostname;
+        quint16 port = 0;
+        QTelnet::SocketType socketType = QTelnet::TCP;
+    };
+
     SessionsWindow::SessionType type() const override { return SessionsWindow::Telnet; }
     SessionsWindow::SessionCategory category() const override { return SessionsWindow::ConsoleSession; }
     void initialize(SessionsWindow *session) override {
@@ -45,9 +51,8 @@ public:
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
         Q_UNUSED(profile);
-        target->startTelnetSession(commonMeta.value("hostname").toString(),
-                                   static_cast<quint16>(commonMeta.value("port").toUInt()),
-                                   static_cast<QTelnet::SocketType>(protocolMeta.value("socketType", QTelnet::TCP).toInt()));
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        target->startTelnetSession(args.hostname, args.port, args.socketType);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -95,12 +100,19 @@ public:
                      const QVariantMap &commonMeta,
                      const QVariantMap &protocolMeta) override {
         Q_UNUSED(session);
-        return startTelnetSession(commonMeta.value("hostname").toString(),
-                                  static_cast<quint16>(commonMeta.value("port").toUInt()),
-                                  static_cast<QTelnet::SocketType>(protocolMeta.value("socketType", QTelnet::TCP).toInt()));
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        return startTelnetSession(args.hostname, args.port, args.socketType);
     }
 
 private:
+    static StartArgs parseStartArgs(const QVariantMap &commonMeta, const QVariantMap &protocolMeta) {
+        StartArgs args;
+        args.hostname = commonMeta.value("hostname").toString();
+        args.port = static_cast<quint16>(commonMeta.value("port").toUInt());
+        args.socketType = static_cast<QTelnet::SocketType>(protocolMeta.value("socketType", QTelnet::TCP).toInt());
+        return args;
+    }
+
     QTelnet *telnet = nullptr;
     QTelnet::SocketType socketTypeValue = QTelnet::TCP;
 };

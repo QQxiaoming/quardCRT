@@ -3955,32 +3955,32 @@ int CentralWidget::addSessionToSessionManager(SessionsWindow *sessionsWindow, QS
     case SessionsWindow::Telnet:
         settings.setValue("hostname",sessionsWindow->getHostname());
         settings.setValue("port",sessionsWindow->getPort());
-        settings.setValue("socketType",(int)(sessionsWindow->getSocketType()));
+        settings.setValue("socketType", sessionsWindow->protocolMetaValue("socketType", QTelnet::TCP).toInt());
         break;
     case SessionsWindow::Serial:
-        settings.setValue("portName",sessionsWindow->getPortName());
-        settings.setValue("baudRate",sessionsWindow->getBaudRate());
-        settings.setValue("dataBits",sessionsWindow->getDataBits());
-        settings.setValue("parity",sessionsWindow->getParity());
-        settings.setValue("stopBits",sessionsWindow->getStopBits());
-        settings.setValue("flowControl",sessionsWindow->getFlowControl());
-        settings.setValue("xEnable",sessionsWindow->getXEnable());
+        settings.setValue("portName", sessionsWindow->protocolMetaValue("portName").toString());
+        settings.setValue("baudRate", sessionsWindow->protocolMetaValue("baudRate").toUInt());
+        settings.setValue("dataBits", sessionsWindow->protocolMetaValue("dataBits").toInt());
+        settings.setValue("parity", sessionsWindow->protocolMetaValue("parity").toInt());
+        settings.setValue("stopBits", sessionsWindow->protocolMetaValue("stopBits").toInt());
+        settings.setValue("flowControl", sessionsWindow->protocolMetaValue("flowControl").toBool());
+        settings.setValue("xEnable", sessionsWindow->protocolMetaValue("xEnable").toBool());
         break;
     case SessionsWindow::LocalShell:
-        settings.setValue("command",sessionsWindow->getCommand());
+        settings.setValue("command", sessionsWindow->protocolMetaValue("command").toString());
         break;
     case SessionsWindow::RawSocket:
         settings.setValue("hostname",sessionsWindow->getHostname());
         settings.setValue("port",sessionsWindow->getPort());
         break;
     case SessionsWindow::NamePipe:
-        settings.setValue("pipeName",sessionsWindow->getPipeName());
+        settings.setValue("pipeName", sessionsWindow->protocolMetaValue("pipeName").toString());
         break;
     case SessionsWindow::SSH2:
         settings.setValue("hostname",sessionsWindow->getHostname());
         settings.setValue("port",sessionsWindow->getPort());
-        settings.setValue("username",sessionsWindow->getUserName());
-        keyChainClass.writeKey(name,sessionsWindow->getPassWord());
+        settings.setValue("username", sessionsWindow->protocolMetaValue("userName").toString());
+        keyChainClass.writeKey(name, sessionsWindow->protocolMetaValue("password").toString());
         break;
     default:
         break;
@@ -4451,7 +4451,7 @@ QString CentralWidget::startWslSession(MainWidgetGroup *group, int groupIndex, c
     connect(sessionsWindow, &SessionsWindow::titleChanged, this, [=](int title,const QString& newTitle){
         if(title == 0 || title == 2) {
             sessionsWindow->setLongTitle(newTitle);
-            QString workDir = getDirAndcheckeSysName(newTitle,sessionsWindow->getShellType(),sessionsWindow->getWSLUserName());
+            QString workDir = getDirAndcheckeSysName(newTitle, sessionsWindow->getShellType(), sessionsWindow->protocolMetaValue("wslUserName").toString());
             if(!workDir.isEmpty()) {
                 sessionsWindow->setShortTitle(workDir);
                 // replace /mnt/xxx to XXX:
@@ -4770,7 +4770,7 @@ int CentralWidget::cloneTargetSession(MainWidgetGroup *group, QString name,Sessi
                 if(title == 0 || title == 2) {
                     sessionsWindowClone->setLongTitle(newTitle);
                     SessionsWindow::ShellType shellType = sessionsWindowClone->getShellType();
-                    QString workDir = getDirAndcheckeSysName(newTitle,shellType,shellType==SessionsWindow::WSL?sessionsWindowClone->getWSLUserName():"");
+                    QString workDir = getDirAndcheckeSysName(newTitle, shellType, shellType == SessionsWindow::WSL ? sessionsWindowClone->protocolMetaValue("wslUserName").toString() : "");
                     if(!workDir.isEmpty()) {
                         if(shellType==SessionsWindow::WSL) {
                             sessionsWindowClone->setShortTitle(workDir);
@@ -4821,42 +4821,42 @@ void CentralWidget::sessionWindow2InfoData(SessionsWindow *sessionsWindow, Quick
         case QuickConnectWindow::Telnet:
             data.TelnetData.hostname = sessionsWindow->getHostname();
             data.TelnetData.port = sessionsWindow->getPort();
-            data.TelnetData.webSocket = sessionsWindow->getSocketType();
+            data.TelnetData.webSocket = static_cast<QTelnet::SocketType>(sessionsWindow->protocolMetaValue("socketType", QTelnet::TCP).toInt());
             break;
         case QuickConnectWindow::Serial:
-            data.SerialData.portName = sessionsWindow->getPortName();
-            data.SerialData.baudRate = sessionsWindow->getBaudRate();
-            data.SerialData.dataBits = sessionsWindow->getDataBits();
-            data.SerialData.parity = sessionsWindow->getParity();
-            data.SerialData.stopBits = sessionsWindow->getStopBits();
-            data.SerialData.flowControl = sessionsWindow->getFlowControl();
-            data.SerialData.xEnable = sessionsWindow->getXEnable();
+            data.SerialData.portName = sessionsWindow->protocolMetaValue("portName").toString();
+            data.SerialData.baudRate = sessionsWindow->protocolMetaValue("baudRate").toUInt();
+            data.SerialData.dataBits = sessionsWindow->protocolMetaValue("dataBits").toInt();
+            data.SerialData.parity = sessionsWindow->protocolMetaValue("parity").toInt();
+            data.SerialData.stopBits = sessionsWindow->protocolMetaValue("stopBits").toInt();
+            data.SerialData.flowControl = sessionsWindow->protocolMetaValue("flowControl").toBool();
+            data.SerialData.xEnable = sessionsWindow->protocolMetaValue("xEnable").toBool();
             break;
         case QuickConnectWindow::LocalShell:
-            data.LocalShellData.command = sessionsWindow->getCommand();
+            data.LocalShellData.command = sessionsWindow->protocolMetaValue("command").toString();
             break;
         case QuickConnectWindow::Raw:
             data.RawData.hostname = sessionsWindow->getHostname();
             data.RawData.port = sessionsWindow->getPort();
-            data.RawData.mode = sessionsWindow->getRawMode();
+            data.RawData.mode = sessionsWindow->protocolMetaValue("rawMode").toInt();
             break;
         case QuickConnectWindow::NamePipe:
-            data.NamePipeData.pipeName = sessionsWindow->getPipeName();
+            data.NamePipeData.pipeName = sessionsWindow->protocolMetaValue("pipeName").toString();
             break;
         case QuickConnectWindow::SSH2:
             data.SSH2Data.hostname = sessionsWindow->getHostname();
             data.SSH2Data.port = sessionsWindow->getPort();
-            data.SSH2Data.username = sessionsWindow->getUserName();
-            data.SSH2Data.password = sessionsWindow->getPassWord();
-            data.SSH2Data.authType = sessionsWindow->getSshAuthType();
-            data.SSH2Data.privateKey = sessionsWindow->getPrivateKeyPath();
-            data.SSH2Data.publicKey = sessionsWindow->getPublicKeyPath();
-            data.SSH2Data.passphrase = sessionsWindow->getPassphrase();
+            data.SSH2Data.username = sessionsWindow->protocolMetaValue("userName").toString();
+            data.SSH2Data.password = sessionsWindow->protocolMetaValue("password").toString();
+            data.SSH2Data.authType = sessionsWindow->protocolMetaValue("sshAuthType", SessionsWindow::SshAuthPassword).toInt();
+            data.SSH2Data.privateKey = sessionsWindow->protocolMetaValue("privateKeyPath").toString();
+            data.SSH2Data.publicKey = sessionsWindow->protocolMetaValue("publicKeyPath").toString();
+            data.SSH2Data.passphrase = sessionsWindow->protocolMetaValue("passphrase").toString();
             break;
         case QuickConnectWindow::VNC:
             data.VNCData.hostname = sessionsWindow->getHostname();
             data.VNCData.port = sessionsWindow->getPort();
-            data.VNCData.password = sessionsWindow->getPassWord();
+            data.VNCData.password = sessionsWindow->protocolMetaValue("password").toString();
             break;
         default:
             break;

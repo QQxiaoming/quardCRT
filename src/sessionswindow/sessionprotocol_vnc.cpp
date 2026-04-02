@@ -10,6 +10,12 @@
 namespace sessionprotocol {
 class VNCProtocol final : public SessionProtocolBase {
 public:
+    struct StartArgs {
+        QString hostname;
+        quint16 port = 0;
+        QString password;
+    };
+
     SessionsWindow::SessionType type() const override { return SessionsWindow::VNC; }
     SessionsWindow::SessionCategory category() const override { return SessionsWindow::DesktopSession; }
     void initialize(SessionsWindow *session) override {
@@ -29,9 +35,8 @@ public:
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
         Q_UNUSED(profile);
-        target->startVNCSession(commonMeta.value("hostname").toString(),
-                                static_cast<quint16>(commonMeta.value("port").toUInt()),
-                                protocolMeta.value("password").toString());
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        target->startVNCSession(args.hostname, args.port, args.password);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -94,13 +99,19 @@ public:
     int startSession(SessionsWindow *session,
                      const QVariantMap &commonMeta,
                      const QVariantMap &protocolMeta) override {
-        return startVNCSession(session,
-                               commonMeta.value("hostname").toString(),
-                               static_cast<quint16>(commonMeta.value("port").toUInt()),
-                               protocolMeta.value("password").toString());
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        return startVNCSession(session, args.hostname, args.port, args.password);
     }
 
 private:
+    static StartArgs parseStartArgs(const QVariantMap &commonMeta, const QVariantMap &protocolMeta) {
+        StartArgs args;
+        args.hostname = commonMeta.value("hostname").toString();
+        args.port = static_cast<quint16>(commonMeta.value("port").toUInt());
+        args.password = protocolMeta.value("password").toString();
+        return args;
+    }
+
     QVNCClientWidget *vncClient = nullptr;
     QString passwordValue;
 };

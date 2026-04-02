@@ -10,6 +10,12 @@
 namespace sessionprotocol {
 class RawSocketProtocol final : public SessionProtocolBase {
 public:
+    struct StartArgs {
+        QString hostname;
+        quint16 port = 0;
+        int rawMode = 0;
+    };
+
     SessionsWindow::SessionType type() const override { return SessionsWindow::RawSocket; }
     SessionsWindow::SessionCategory category() const override { return SessionsWindow::ConsoleSession; }
     void initialize(SessionsWindow *session) override {
@@ -46,9 +52,8 @@ public:
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
         Q_UNUSED(profile);
-        target->startRawSocketSession(commonMeta.value("hostname").toString(),
-                                      static_cast<quint16>(commonMeta.value("port").toUInt()),
-                                      protocolMeta.value("rawMode", 0).toInt());
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        target->startRawSocketSession(args.hostname, args.port, args.rawMode);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -87,9 +92,8 @@ public:
                      const QVariantMap &commonMeta,
                      const QVariantMap &protocolMeta) override {
         Q_UNUSED(session);
-        return startRawSocketSession(commonMeta.value("hostname").toString(),
-                                     static_cast<quint16>(commonMeta.value("port").toUInt()),
-                                     protocolMeta.value("rawMode", 0).toInt());
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        return startRawSocketSession(args.hostname, args.port, args.rawMode);
     }
     int startRawSocketSession(const QString &hostname, quint16 port, int mode) {
         if(!rawSocket) {
@@ -101,6 +105,14 @@ public:
     }
 
 private:
+    static StartArgs parseStartArgs(const QVariantMap &commonMeta, const QVariantMap &protocolMeta) {
+        StartArgs args;
+        args.hostname = commonMeta.value("hostname").toString();
+        args.port = static_cast<quint16>(commonMeta.value("port").toUInt());
+        args.rawMode = protocolMeta.value("rawMode", 0).toInt();
+        return args;
+    }
+
     QRawSocket *rawSocket = nullptr;
 };
 

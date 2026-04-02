@@ -13,6 +13,16 @@
 namespace sessionprotocol {
 class SerialProtocol final : public SessionProtocolBase {
 public:
+    struct StartArgs {
+        QString portName;
+        uint32_t baudRate = 0;
+        int dataBits = 0;
+        int parity = 0;
+        int stopBits = 0;
+        bool flowControl = false;
+        bool xEnable = false;
+    };
+
     SessionsWindow::SessionType type() const override { return SessionsWindow::Serial; }
     SessionsWindow::SessionCategory category() const override { return SessionsWindow::ConsoleSession; }
     void initialize(SessionsWindow *session) override {
@@ -48,13 +58,14 @@ public:
                  const QString &profile) override {
         Q_UNUSED(profile);
         Q_UNUSED(commonMeta);
-        target->startSerialSession(protocolMeta.value("portName").toString(),
-                                   protocolMeta.value("baudRate").toUInt(),
-                                   protocolMeta.value("dataBits").toInt(),
-                                   protocolMeta.value("parity").toInt(),
-                                   protocolMeta.value("stopBits").toInt(),
-                                   protocolMeta.value("flowControl").toBool(),
-                                   protocolMeta.value("xEnable").toBool());
+        const StartArgs args = parseStartArgs(protocolMeta);
+        target->startSerialSession(args.portName,
+                       args.baudRate,
+                       args.dataBits,
+                       args.parity,
+                       args.stopBits,
+                       args.flowControl,
+                       args.xEnable);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -170,17 +181,30 @@ public:
                      const QVariantMap &commonMeta,
                      const QVariantMap &protocolMeta) override {
         Q_UNUSED(commonMeta);
+        const StartArgs args = parseStartArgs(protocolMeta);
         return startSerialSession(session,
-                                  protocolMeta.value("portName").toString(),
-                                  protocolMeta.value("baudRate").toUInt(),
-                                  protocolMeta.value("dataBits").toInt(),
-                                  protocolMeta.value("parity").toInt(),
-                                  protocolMeta.value("stopBits").toInt(),
-                                  protocolMeta.value("flowControl").toBool(),
-                                  protocolMeta.value("xEnable").toBool());
+                                  args.portName,
+                                  args.baudRate,
+                                  args.dataBits,
+                                  args.parity,
+                                  args.stopBits,
+                                  args.flowControl,
+                                  args.xEnable);
     }
 
 private:
+    static StartArgs parseStartArgs(const QVariantMap &protocolMeta) {
+        StartArgs args;
+        args.portName = protocolMeta.value("portName").toString();
+        args.baudRate = protocolMeta.value("baudRate").toUInt();
+        args.dataBits = protocolMeta.value("dataBits").toInt();
+        args.parity = protocolMeta.value("parity").toInt();
+        args.stopBits = protocolMeta.value("stopBits").toInt();
+        args.flowControl = protocolMeta.value("flowControl").toBool();
+        args.xEnable = protocolMeta.value("xEnable").toBool();
+        return args;
+    }
+
     QSerialPort *serialPort = nullptr;
     QextSerialEnumerator *serialMonitor = nullptr;
     QString portNameValue;

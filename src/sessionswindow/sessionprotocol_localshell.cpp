@@ -19,6 +19,12 @@
 namespace sessionprotocol {
 class LocalShellProtocol final : public SessionProtocolBase {
 public:
+    struct StartArgs {
+        QString workingDirectory;
+        QString command;
+        SessionsWindow::ShellType shellType = SessionsWindow::Unknown;
+    };
+
     SessionsWindow::SessionType type() const override { return SessionsWindow::LocalShell; }
     SessionsWindow::SessionCategory category() const override { return SessionsWindow::ConsoleSession; }
     void initialize(SessionsWindow *session) override {
@@ -32,11 +38,9 @@ public:
                  const QVariantMap &commonMeta,
                  const QVariantMap &protocolMeta,
                  const QString &profile) override {
-        target->setWorkingDirectory(commonMeta.value("workingDirectory").toString());
-        target->startLocalShellSession(
-            protocolMeta.value("command").toString(),
-            profile,
-            static_cast<SessionsWindow::ShellType>(commonMeta.value("shellType", SessionsWindow::Unknown).toInt()));
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        target->setWorkingDirectory(args.workingDirectory);
+        target->startLocalShellSession(args.command, profile, args.shellType);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -251,14 +255,23 @@ public:
     int startSession(SessionsWindow *session,
                      const QVariantMap &commonMeta,
                      const QVariantMap &protocolMeta) override {
-        return startLocalShellSession(
-            session,
-            protocolMeta.value("command").toString(),
-            protocolMeta.value("profile").toString(),
-            static_cast<SessionsWindow::ShellType>(commonMeta.value("shellType", SessionsWindow::Unknown).toInt()));
+        const StartArgs args = parseStartArgs(commonMeta, protocolMeta);
+        return startLocalShellSession(session,
+                                      args.command,
+                                      protocolMeta.value("profile").toString(),
+                                      args.shellType);
     }
 
 private:
+    static StartArgs parseStartArgs(const QVariantMap &commonMeta, const QVariantMap &protocolMeta) {
+        StartArgs args;
+        args.workingDirectory = commonMeta.value("workingDirectory").toString();
+        args.command = protocolMeta.value("command").toString();
+        args.shellType = static_cast<SessionsWindow::ShellType>(
+            commonMeta.value("shellType", SessionsWindow::Unknown).toInt());
+        return args;
+    }
+
     IPtyProcess *localShell = nullptr;
     QString commandValue;
     QString wslUserNameValue;

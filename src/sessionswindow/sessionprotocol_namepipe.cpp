@@ -9,6 +9,10 @@
 namespace sessionprotocol {
 class NamePipeProtocol final : public SessionProtocolBase {
 public:
+    struct StartArgs {
+        QString pipeName;
+    };
+
     SessionsWindow::SessionType type() const override { return SessionsWindow::NamePipe; }
     SessionsWindow::SessionCategory category() const override { return SessionsWindow::ConsoleSession; }
     void initialize(SessionsWindow *session) override {
@@ -45,7 +49,8 @@ public:
                  const QString &profile) override {
         Q_UNUSED(profile);
         Q_UNUSED(commonMeta);
-        target->startNamePipeSession(protocolMeta.value("pipeName").toString());
+        const StartArgs args = parseStartArgs(protocolMeta);
+        target->startNamePipeSession(args.pipeName);
     }
     void disconnect(SessionsWindow *session) override {
         Q_UNUSED(session);
@@ -91,10 +96,17 @@ public:
                      const QVariantMap &protocolMeta) override {
         Q_UNUSED(session);
         Q_UNUSED(commonMeta);
-        return startNamePipeSession(protocolMeta.value("pipeName").toString());
+        const StartArgs args = parseStartArgs(protocolMeta);
+        return startNamePipeSession(args.pipeName);
     }
 
 private:
+    static StartArgs parseStartArgs(const QVariantMap &protocolMeta) {
+        StartArgs args;
+        args.pipeName = protocolMeta.value("pipeName").toString();
+        return args;
+    }
+
     QLocalSocket *namePipe = nullptr;
     QString pipeNameValue;
 };
