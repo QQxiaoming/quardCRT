@@ -31,6 +31,7 @@
 #include <QMutex>
 #include <QMutexLocker>
 #include <functional>
+#include <memory>
 
 #ifdef ENABLE_SSH
 #include "sshclient.h"
@@ -40,200 +41,30 @@
 #include "qtermwidget.h"
 #include "QTelnet.h"
 #include "ptyqt.h"
-#include "qvncclientwidget.h"
 #include "qextserialenumerator.h"
 
-class QRawSocket : public QObject
-{
-    Q_OBJECT
-public:
-    QRawSocket(QObject *parent = nullptr)
-        : QObject(parent){}
-    ~QRawSocket() {
-        disconnectFromHost();
-        switch (m_rawMode) {
-        case 0:
-            delete tcpSocket;
-            break;
-        case 1:
-            if(tcpSocket) {
-                delete tcpSocket;
-            }
-            delete tcpServer;
-            break;
-        case 2:
-        case 3:
-            delete udpSocket;
-            break;
-        default:
-            break;
-        }
-    }
-    int setRawMode(int mode) {
-        if(m_rawMode == -1) {
-            switch (mode) {
-            case 0:
-                tcpSocket = new QTcpSocket(this);
-                connect(tcpSocket,&QTcpSocket::readyRead,this,&QRawSocket::readyRead);
-                connect(tcpSocket,&QTcpSocket::errorOccurred,this,&QRawSocket::errorOccurred);
-                connect(tcpSocket,&QTcpSocket::stateChanged,this,&QRawSocket::stateChanged);
-                break;
-            case 1:
-                tcpServer = new QTcpServer(this);
-                connect(tcpServer, &QTcpServer::newConnection, [&](){
-                    if (tcpSocket) {
-                        // If there is already a connection, reject the new one
-                        QTcpSocket *newSocket = tcpServer->nextPendingConnection();
-                        newSocket->disconnectFromHost();
-                        newSocket->deleteLater();
-                        return;
-                    }
-                    tcpSocket = tcpServer->nextPendingConnection();
-                    connect(tcpSocket,&QTcpSocket::readyRead,this,&QRawSocket::readyRead);
-                    connect(tcpSocket,&QTcpSocket::errorOccurred,this,&QRawSocket::errorOccurred);
-                    connect(tcpSocket,&QTcpSocket::stateChanged,this,&QRawSocket::stateChanged);
-                    emit stateChanged(tcpSocket->state());
-                });
-                break;
-            case 2:
-                udpSocket = new QUdpSocket(this);
-                connect(udpSocket,&QUdpSocket::errorOccurred,this,&QRawSocket::errorOccurred);
-                break;
-            case 3:
-                udpSocket = new QUdpSocket(this);
-                connect(udpSocket,&QUdpSocket::readyRead,this,&QRawSocket::readyRead);
-                connect(udpSocket,&QUdpSocket::errorOccurred,this,&QRawSocket::errorOccurred);
-                break;
-            default:
-                return -1;
-            }
-            m_rawMode = mode;
-            return 0;
-        }
-        return -1;
-    }
-    int getRawMode() const { return m_rawMode; }
-    void connectToHost(const QString &hostName, quint16 port) {
-        switch(m_rawMode) {
-        case 0:
-            tcpSocket->connectToHost(hostName,port);
-            return;
-        case 1:
-            tcpServer->listen(QHostAddress(hostName),port);
-            return;
-        case 2:
-            udpSocket->connectToHost(hostName,port);
-            udpstate = QAbstractSocket::ConnectedState;
-            emit stateChanged(udpstate);
-            return;
-        case 3:
-            udpSocket->bind(QHostAddress(hostName),port);
-            udpstate = QAbstractSocket::ConnectedState;
-            emit stateChanged(udpstate);
-            return;
-        }
-    }
-    void disconnectFromHost() {
-        switch(m_rawMode) {
-        case 0:
-            tcpSocket->disconnectFromHost();
-            return;
-        case 1:
-            if(tcpSocket)
-                tcpSocket->close();
-            tcpServer->close();
-            return;
-        case 2:
-            udpSocket->disconnectFromHost();
-            udpstate = QAbstractSocket::ClosingState;
-            emit stateChanged(udpstate);
-            return;
-        case 3:
-            udpSocket->close();
-            udpstate = QAbstractSocket::ClosingState;
-            emit stateChanged(udpstate);
-            return;
-        }
-    }
-    QByteArray readAll() {
-        switch(m_rawMode) {
-        case 0:
-            return tcpSocket->readAll();
-        case 1:
-            if(tcpSocket)
-                return tcpSocket->readAll();
-            return QByteArray();
-        case 3:
-            QByteArray data;
-            while (udpSocket->hasPendingDatagrams()) {
-                QNetworkDatagram datagram = udpSocket->receiveDatagram();
-                data.append(datagram.data());
-            }
-            return data;
-        }
-        return QByteArray();
-    }
-    qint64 write(const QByteArray &data) {
-        switch(m_rawMode) {
-        case 0:
-            return tcpSocket->write(data);
-        case 1:
-            if(tcpSocket)
-                return tcpSocket->write(data);
-            return 0;
-        case 2:
-            return udpSocket->write(data);
-        }
-        return 0;
-    }
-    qint64 write(const char *data, qint64 len) {
-        return this->write(QByteArray(data,len));
-    }
-    QAbstractSocket::SocketState state() const {
-        switch(m_rawMode) {
-        case 0:
-            return tcpSocket->state();
-        case 1:
-            if(tcpSocket)
-                return tcpSocket->state();
-            return QAbstractSocket::UnconnectedState;
-        case 2:
-        case 3:
-            return udpstate;
-        }
-        return QAbstractSocket::UnconnectedState;
-    }
-    QString errorString() const {
-        switch(m_rawMode) {
-        case 0:
-            return tcpSocket->errorString();
-        case 1:
-            if(tcpSocket)
-                return tcpSocket->errorString();
-            return QString();
-        case 2:
-        case 3:
-            return udpSocket->errorString();
-        }
-        return QString();
-    }
+class SessionProtocolBase;
+namespace sessionprotocol {
+class LocalShellProtocol;
+class TelnetProtocol;
+class SerialProtocol;
+class RawSocketProtocol;
+class NamePipeProtocol;
+class SSH2Protocol;
+class VNCProtocol;
+}
 
-signals:
-    void readyRead();
-    void errorOccurred(QAbstractSocket::SocketError socketError);
-    void stateChanged(QAbstractSocket::SocketState);
-
-private:
-    QTcpSocket *tcpSocket = nullptr;
-    QTcpServer *tcpServer = nullptr;
-    QUdpSocket *udpSocket = nullptr;
-    int m_rawMode = -1;
-    QAbstractSocket::SocketState udpstate = QAbstractSocket::ClosingState;
-};
 
 class SessionsWindow : public QObject
 {
     Q_OBJECT
+    friend class sessionprotocol::LocalShellProtocol;
+    friend class sessionprotocol::TelnetProtocol;
+    friend class sessionprotocol::SerialProtocol;
+    friend class sessionprotocol::RawSocketProtocol;
+    friend class sessionprotocol::NamePipeProtocol;
+    friend class sessionprotocol::SSH2Protocol;
+    friend class sessionprotocol::VNCProtocol;
 public:
     enum SessionType {
         Telnet = 0,
@@ -245,6 +76,10 @@ public:
         VNC,
 
         SessionTypeMax,
+    };
+    enum SessionCategory {
+        ConsoleSession = 0,
+        DesktopSession,
     };
     enum ShellType {
         UnixShell = 0,
@@ -388,16 +223,13 @@ public:
         return 0;
     }
 
-    QWidget *getMainWidget() const { 
-        if(type == VNC)
-            return static_cast<QWidget *>(vncClient);
-        else
-            return static_cast<QWidget *>(term); 
-    }
-    bool isTerminal() const { return type != VNC; }
+    bool isConsoleSession() const;
+    bool isDesktopSession() const;
+    QWidget *getMainWidget() const;
+    bool isTerminal() const;
     SessionType getSessionType() const { return type; }
     ShellType getShellType() const { return shellType; }
-    QString getWSLUserName() const { return m_wslUserName; }
+    QString getWSLUserName() const;
     void setShowTitleType(ShowTitleType type) { showTitleType = type; }
     ShowTitleType getShowTitleType() const { return showTitleType; }
     QString getTitle() const { 
@@ -430,71 +262,71 @@ public:
 
     QString getHostname() const { return m_hostname; }
     quint16 getPort() const { return m_port; }
-    QString getPortName() const { return m_portName; }
-    QTelnet::SocketType getSocketType() const { return m_type; }
-    int getRawMode() const { if(rawSocket) return rawSocket->getRawMode(); else return 0;}
-    uint32_t getBaudRate() const { return m_baudRate; }
-    int getDataBits() const { return m_dataBits; }
-    int getParity() const { return m_parity; }
-    int getStopBits() const { return m_stopBits; }
-    bool getFlowControl() const { return m_flowControl; }
-    bool getXEnable() const { return m_xEnable; }
-    QString getCommand() const { return m_command; }
-    QString getPipeName() const { return m_pipeName; }
-    QString getUserName() const { return m_username; }
-    QString getPassWord() const { return m_password; }
-    int getSshAuthType() const { return m_sshAuthType; }
-    QString getPrivateKeyPath() const { return m_privateKeyPath; }
-    QString getPublicKeyPath() const { return m_publicKeyPath; }
-    QString getPassphrase() const { return m_passphrase; }
+    QString getPortName() const;
+    QTelnet::SocketType getSocketType() const;
+    int getRawMode() const;
+    uint32_t getBaudRate() const;
+    int getDataBits() const;
+    int getParity() const;
+    int getStopBits() const;
+    bool getFlowControl() const;
+    bool getXEnable() const;
+    QString getCommand() const;
+    QString getPipeName() const;
+    QString getUserName() const;
+    QString getPassWord() const;
+    int getSshAuthType() const;
+    QString getPrivateKeyPath() const;
+    QString getPublicKeyPath() const;
+    QString getPassphrase() const;
 
     void setScrollBarPosition(QTermWidget::ScrollBarPosition position) {
-        if(term) term->setScrollBarPosition(position);
+        if(isConsoleSession()) term->setScrollBarPosition(position);
     }
     void reTranslateUi(void) {
-        if(term) term->reTranslateUi();
+        if(isConsoleSession()) term->reTranslateUi();
     }
     void setKeyBindings(const QString & kb) {
-        if(term) term->setKeyBindings(kb);
+        if(isConsoleSession()) term->setKeyBindings(kb);
     }
     void setColorScheme(const QString & name) {
-        if(term) term->setColorScheme(name);
+        if(isConsoleSession()) term->setColorScheme(name);
     }
     void setANSIColor(int index, const QColor & color) {
-        if(term) term->setANSIColor(index,color);
+        if(isConsoleSession()) term->setANSIColor(index,color);
     }
     void setTerminalFont(const QFont & font) {
-        if(term) term->setTerminalFont(font);
+        if(isConsoleSession()) term->setTerminalFont(font);
     }
     void set_fix_quardCRT_issue33(bool fix) {
-        if(term) term->set_fix_quardCRT_issue33(fix);
+        if(isConsoleSession()) term->set_fix_quardCRT_issue33(fix);
     }
     void setTerminalBackgroundMode(int mode) {
-        if(term) term->setTerminalBackgroundMode(mode);
+        if(isConsoleSession()) term->setTerminalBackgroundMode(mode);
     }
     void setTerminalOpacity(qreal level) {
-        if(term) term->setTerminalOpacity(level);
+        if(isConsoleSession()) term->setTerminalOpacity(level);
     }
     void setHistorySize(int lines) {
-        if(term) term->setHistorySize(lines);
+        if(isConsoleSession()) term->setHistorySize(lines);
     }
     void setKeyboardCursorShape(uint32_t shape) {
-        if(term) term->setKeyboardCursorShape(shape);
+        if(isConsoleSession()) term->setKeyboardCursorShape(shape);
     }
     void setBlinkingCursor(bool blink) {
-        if(term) term->setBlinkingCursor(blink);
+        if(isConsoleSession()) term->setBlinkingCursor(blink);
     }
     void setWordCharacters(const QString &wordCharacters) {
-        if(term) term->setWordCharacters(wordCharacters);
+        if(isConsoleSession()) term->setWordCharacters(wordCharacters);
     }
     void setAutoHideMouseAfter(int delay) {
-        if(term) term->autoHideMouseAfter(delay);
+        if(isConsoleSession()) term->autoHideMouseAfter(delay);
     }
     void setPreeditColorIndex(int index) {
-        if(term) term->setPreeditColorIndex(index);
+        if(isConsoleSession()) term->setPreeditColorIndex(index);
     }
     void setSelectedTextAccentColorTransparency(int transparency) {
-        if(term) {
+        if(isConsoleSession()) {
             if(transparency >= 100)
                 term->setSelectionOpacity(1.0);
             else if(transparency <= 10)
@@ -504,114 +336,108 @@ public:
         }
     }
     void setTerminalBackgroundImage(const QString& backgroundImage) {
-        if(term) term->setTerminalBackgroundImage(backgroundImage);
+        if(isConsoleSession()) term->setTerminalBackgroundImage(backgroundImage);
     }
     void setTerminalBackgroundMovie(const QString& backgroundMovie) {
-        if(term) term->setTerminalBackgroundMovie(backgroundMovie);
+        if(isConsoleSession()) term->setTerminalBackgroundMovie(backgroundMovie);
     }
     void setTerminalBackgroundVideo(const QString& backgroundVideo) {
-        if(term) term->setTerminalBackgroundVideo(backgroundVideo);
+        if(isConsoleSession()) term->setTerminalBackgroundVideo(backgroundVideo);
     }
     QString selectedText(bool preserveLineBreaks = true) {
-        if(term) return term->selectedText(preserveLineBreaks);
+        if(isConsoleSession()) return term->selectedText(preserveLineBreaks);
         return QString();
     }
     void setShowResizeNotificationEnabled(bool enabled) {
-        if(term) term->setShowResizeNotificationEnabled(enabled);
+        if(isConsoleSession()) term->setShowResizeNotificationEnabled(enabled);
     }
     void copyClipboard() {
-        if(term) term->copyClipboard();
+        if(isConsoleSession()) term->copyClipboard();
     }
     void pasteClipboard() {
-        if(term) term->pasteClipboard();
+        if(isConsoleSession()) term->pasteClipboard();
     }
     void selectAll() {
-        if(term) term->selectAll();
+        if(isConsoleSession()) term->selectAll();
     }
     void toggleShowSearchBar() {
-        if(term) term->toggleShowSearchBar();
+        if(isConsoleSession()) term->toggleShowSearchBar();
     }
     void saveHistory(QTextStream *stream, int format = 0, int start = -1, int end = -1) {
-        if(term) term->saveHistory(stream,format,start,end);
+        if(isConsoleSession()) term->saveHistory(stream,format,start,end);
     }
     void saveHistory(QIODevice *device, int format = 0, int start = -1, int end = -1) {
-        if(term) term->saveHistory(device,format,start,end);
+        if(isConsoleSession()) term->saveHistory(device,format,start,end);
     }
-    void screenShot(const QString &fileName) {
-        if(term) term->screenShot(fileName);
-        if(vncClient) vncClient->screenShot(fileName);
-    }
-    void screenShot(QPixmap *pixmap) {
-        if(term) term->screenShot(pixmap);
-        if(vncClient) vncClient->screenShot(pixmap);
-    }
+    void screenShot(const QString &fileName);
+    void screenShot(QPixmap *pixmap);
     void clearScrollback() {
-        if(term) term->clearScrollback();
+        if(isConsoleSession()) term->clearScrollback();
     }
     void clearScreen() {
-        if(term) term->clearScreen();
+        if(isConsoleSession()) term->clearScreen();
     }
     QString screenGet(int row1, int col1, int row2, int col2, int mode) {
-        if(term) return term->screenGet(row1, col1, row2, col2, mode);
+        if(isConsoleSession()) return term->screenGet(row1, col1, row2, col2, mode);
         return QString();
     }
     void clear() {
-        if(term) term->clear();
+        if(isConsoleSession()) term->clear();
     }
     void zoomIn() {
-        if(term) term->zoomIn();
+        if(isConsoleSession()) term->zoomIn();
     }
     void zoomOut() {
-        if(term) term->zoomOut();
+        if(isConsoleSession()) term->zoomOut();
     }
     void proxySendData(QByteArray data) {
-        if(term) term->proxySendData(data);
+        if(isConsoleSession()) term->proxySendData(data);
     }
     void proxyRecvData(QByteArray data) {
-        if(term) term->recvData(data.data(),data.size());
+        if(isConsoleSession()) term->recvData(data.data(),data.size());
     }
     void reverseProxySendData(QByteArray data);
     QList<QAction*> filterActions(const QPoint& position) {
-        if(term) {
+        if(isConsoleSession()) {
             QPoint maptermWidgetPos = term->mapFromGlobal(position);
             return term->filterActions(maptermWidgetPos);
         }
         return QList<QAction*>();
     }
     void addHighLightText(const QString &text, const QColor &color) {
-        if(term) term->addHighLightText(text,color);
+        if(isConsoleSession()) term->addHighLightText(text,color);
     }
     bool isContainHighLightText(const QString &text) {
-        if(term) return term->isContainHighLightText(text);
+        if(isConsoleSession()) return term->isContainHighLightText(text);
         return false;
     }
     void removeHighLightText(const QString &text) {
-        if(term) term->removeHighLightText(text);
+        if(isConsoleSession()) term->removeHighLightText(text);
     }
     void clearHighLightTexts(void) {
-        if(term) term->clearHighLightTexts();
+        if(isConsoleSession()) term->clearHighLightTexts();
     }
     QMap<QString, QColor> getHighLightTexts(void) {
-        if(term) return term->getHighLightTexts();
+        if(isConsoleSession()) return term->getHighLightTexts();
         return QMap<QString, QColor>();
     }
     void repaintDisplay(void) {
-        if(term) term->repaintDisplay();
+        if(isConsoleSession()) term->repaintDisplay();
     }
     int getLineCount(void) {
-        if(term) return term->lines();
+        if(isConsoleSession()) return term->lines();
         return -1;
     }
     int getColumnCount(void) {
-        if(term) return term->columns();
+        if(isConsoleSession()) return term->columns();
         return -1;
     }
     int getCursorLineCount(void) {
-        if(term) return term->getCursorY();
+        if(isConsoleSession()) return term->getCursorY();
         return -1;
     }
     int getCursorColumnCount(void){
-        if(term) return term->getCursorX();
+        if(isConsoleSession()) return term->getCursorX();
         return -1;
     }
     void setZmodemUploadPath(const QString &path) {
@@ -624,19 +450,19 @@ public:
         zmodemOnlie = enable;
     }
     void setConfirmMultilinePaste(bool enable) {
-        if(term) term->setConfirmMultilinePaste(enable);
+        if(isConsoleSession()) term->setConfirmMultilinePaste(enable);
     }
     void setTrimPastedTrailingNewlines(bool enable) {
-        if(term) term->setTrimPastedTrailingNewlines(enable);
+        if(isConsoleSession()) term->setTrimPastedTrailingNewlines(enable);
     }
     void setEcho(bool enable) {
-        if(term) term->setEcho(enable);
+        if(isConsoleSession()) term->setEcho(enable);
     }
     void setCursorColor(const QColor &color) {
-        if(term) term->setKeyboardCursorColor(false,color);
+        if(isConsoleSession()) term->setKeyboardCursorColor(false,color);
     }
     void setEnableHandleCtrlC(bool enable) {
-        if(term) term->setEnableHandleCtrlC(enable);
+        if(isConsoleSession()) term->setEnableHandleCtrlC(enable);
     }
     int getEndOfLineSeq(void) {
         return endOfLineSeq;
@@ -670,6 +496,11 @@ private:
     void showSimpleTransferProgress(long bytesSent, long bytesTotal, bool *ret);
     void showZmodemTransferProgress(long bytesSent, long bytesTotal, long lastBps,
                                     int minLeft, int secLeft, bool *ret);
+    void setupTerminalStateConnections();
+    void setupTerminalOutputConnections();
+    void setupTerminalUrlActivationConnection();
+    void setupTerminalClipboardAndCtrlCConnections();
+    void setupTerminalZModemConnections(QWidget *parent);
     void updateConnectionState(bool connected);
     void reportSessionError(const QString &title, const QString &message);
     void forwardReceivedData(QByteArray data, bool countTraffic);
@@ -678,7 +509,6 @@ private:
     void setupTerminalSendForward(const std::function<bool()> &isConnected,
                                   const std::function<void(const char *, int)> &writer,
                                   bool countTraffic);
-    void setupReconnectOnEnterRequest();
     void addToRecordingScript(int type, QString str);
     void addToRecordingScript(int type, QByteArray ba);
     void prepareString(QString &str);
@@ -693,16 +523,6 @@ private:
     ShowTitleType showTitleType;
     QWidget *messageParentWidget;
     QTermWidget *term;
-    QTelnet *telnet;
-    QSerialPort *serialPort;
-    QextSerialEnumerator *serialMonitor;
-    QRawSocket *rawSocket;
-    IPtyProcess *localShell;
-    QLocalSocket *namePipe;
-#ifdef ENABLE_SSH
-    SshClient *ssh2Client;
-#endif
-    QVNCClientWidget *vncClient;
     bool enableLog;
     bool enableRawLog;
     bool enableRecordingScript;
@@ -753,28 +573,12 @@ private:
 
     QString m_hostname;
     quint16 m_port;
-    QTelnet::SocketType m_type;
-    QString m_portName;
-    uint32_t m_baudRate;
-    int m_dataBits;
-    int m_parity;
-    int m_stopBits;
-    bool m_flowControl;
-    bool m_xEnable;
-    QString m_command;
-    QString m_wslUserName;
-    QString m_pipeName;
-    QString m_username;
-    QString m_password;
-    QString m_passphrase;
-    QString m_privateKeyPath;
-    QString m_publicKeyPath;
-    int m_sshAuthType = SshAuthPassword;
 
     QString logPath;
     QString rawLogPath;
     QString scriptLogPath;
     static QString saveRecordingTempDirPath;
+    std::unique_ptr<SessionProtocolBase> protocol;
 };
 
 #endif // SESSIONSWINDOW_H

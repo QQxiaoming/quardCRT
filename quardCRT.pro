@@ -107,6 +107,14 @@ SOURCES += \
     src/hexviewwindow/hexviewwindow.cpp \
     src/netscanwindow/netscanwindow.cpp \
     src/sessiontab/sessiontab.cpp \
+    src/sessionswindow/sessionprotocol.cpp \
+    src/sessionswindow/sessionprotocol_localshell.cpp \
+    src/sessionswindow/sessionprotocol_telnet.cpp \
+    src/sessionswindow/sessionprotocol_serial.cpp \
+    src/sessionswindow/sessionprotocol_rawsocket.cpp \
+    src/sessionswindow/sessionprotocol_namepipe.cpp \
+    src/sessionswindow/sessionprotocol_ssh2.cpp \
+    src/sessionswindow/sessionprotocol_vnc.cpp \
     src/sessionswindow/sessionswindow.cpp \
     src/mainwidgetgroup.cpp \
     src/mainwindow.cpp \
@@ -160,6 +168,8 @@ HEADERS += \
     src/starttftpseverwindow/starttftpseverwindow.h \
     src/netscanwindow/netscanwindow.h \
     src/sessiontab/sessiontab.h \
+    src/sessionswindow/sessionprotocol_rawsocket.h \
+    src/sessionswindow/sessionprotocol.h \
     src/sessionswindow/sessionswindow.h \
     src/mainwidgetgroup.h \
     src/mainwindow.h

@@ -45,6 +45,7 @@
 #include "argv_split.h"
 #include "misc.h"
 #include "qextserialenumerator.h"
+#include "sessionprotocol.h"
 
 QString SessionsWindow::saveRecordingTempDirPath = QDir::homePath();
 
@@ -55,16 +56,6 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     , showTitleType(LongTitle)
     , messageParentWidget(parent)
     , term(nullptr)
-    , telnet(nullptr)
-    , serialPort(nullptr)
-    , serialMonitor(nullptr)
-    , rawSocket(nullptr)
-    , localShell(nullptr)
-    , namePipe(nullptr)
-#ifdef ENABLE_SSH
-    , ssh2Client(nullptr)
-#endif
-    , vncClient(nullptr)
     , enableLog(false)
     , enableRawLog(false)
     , enableRecordingScript(false)
@@ -72,21 +63,13 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
     zmodemUploadPath = QDir::homePath();
     zmodemDownloadPath = QDir::homePath();
     shellType = Unknown;
-    if(type == VNC) {
-        vncClient = new QVNCClientWidget(parent);
-        vncClient->setProperty("session", QVariant::fromValue(this));
-        vncClient->setFullScreen(false);
-        vncClient->setMouseHide(false);
-        connect(vncClient, &QVNCClientWidget::connected, this, [=](bool connected){
-            if(connected) {
-                state = Connected;
-                emit stateChanged(state);
-            } else {
-                state = Disconnected;
-                emit stateChanged(state);
-            }
-        });
-    } else {
+    protocol = SessionProtocolRegistry::instance().create(type);
+    if(!protocol) {
+        QMessageBox::critical(messageParentWidget, "Error", "Failed to create session protocol");
+        return;
+    }
+
+    if(isConsoleSession()) {
         term = new QTermWidget(parent,parent);
         term->setProperty("session", QVariant::fromValue(this));
 
@@ -117,332 +100,14 @@ SessionsWindow::SessionsWindow(SessionType tp, QWidget *parent)
         }
     }
 
-    switch (type) {
-        case LocalShell: {
-            showTitleType = ShortTitle;
-            localShell = PtyQt::createPtyProcess();
-            connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
-                localShell->resize(columns,lines);
-            });
-            break;
-        }
-        case Telnet: {
-            telnet = new QTelnet(QTelnet::TCP, this);
-            realtimespeed_timer = new QTimer(this);
-            connect(telnet,&QTelnet::newData,this,[=](const char *data, int size){
-                forwardReceivedData(QByteArray(data, size), true);
-            });
-            setupModemProxyForward([=]() {
-                return true;
-            }, [=](const QByteArray &data) {
-                telnet->sendData(data.data(), data.size());
-            });
-            setupTerminalSendForward([=]() {
-                return telnet->isConnected();
-            }, [=](const char *data, int size) {
-                telnet->sendData(data, size);
-            }, true);
-            connect(telnet, &QTelnet::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
-                if(socketState == QAbstractSocket::ConnectedState) {
-                    updateConnectionState(true);
-                } else if(socketState == QAbstractSocket::UnconnectedState) {
-                    updateConnectionState(false);
-                }
-            });
-            connect(telnet, &QTelnet::error, this, [=](QAbstractSocket::SocketError socketError){
-                reportSessionError(tr("Telnet Error"), tr("Telnet error:\n%1.").arg(telnet->errorString()));
-                Q_UNUSED(socketError);
-            });
-            break;
-        }
-        case Serial: {
-            serialPort = new QSerialPort(this);
-            realtimespeed_timer = new QTimer(this);
-            connect(serialPort,&QSerialPort::readyRead,this,[=](){
-                forwardReceivedData(serialPort->readAll(), true);
-            });
-            setupModemProxyForward([=]() {
-                return state == Connected && serialPort->isOpen();
-            }, [=](const QByteArray &data) {
-                serialPort->write(data.data(), data.size());
-            });
-            setupTerminalSendForward([=]() {
-                return state == Connected && serialPort->isOpen();
-            }, [=](const char *data, int size) {
-                serialPort->write(data, size);
-            }, true);
-            connect(serialPort, &QSerialPort::errorOccurred, this, [=](QSerialPort::SerialPortError serialPortError){
-                if(serialPort->error() == QSerialPort::NoError) return;
-                if(state == Error || state == Disconnected) return;
-                reportSessionError(tr("Serial Error"), tr("Serial error:\n%0\n%1.").arg(serialPort->portName()).arg(serialPort->errorString()));
-                serialPort->close();
-                Q_UNUSED(serialPortError);
-            });
-            serialMonitor = new QextSerialEnumerator();
-            serialMonitor->setUpNotifications();
-            break;
-        }
-        case RawSocket: {
-            rawSocket = new QRawSocket(this);
-            realtimespeed_timer = new QTimer(this);
-            connect(rawSocket,&QRawSocket::readyRead,this,[=](){
-                forwardReceivedData(rawSocket->readAll(), true);
-            });
-            setupModemProxyForward([=]() {
-                return rawSocket->state() == QAbstractSocket::ConnectedState;
-            }, [=](const QByteArray &data) {
-                rawSocket->write(data.data(), data.size());
-            });
-            setupTerminalSendForward([=]() {
-                return rawSocket->state() == QAbstractSocket::ConnectedState;
-            }, [=](const char *data, int size) {
-                rawSocket->write(data, size);
-            }, true);
-            connect(rawSocket, &QRawSocket::stateChanged, this, [=](QAbstractSocket::SocketState socketState){
-                if(socketState == QAbstractSocket::ConnectedState) {
-                    updateConnectionState(true);
-                } else if(socketState == QAbstractSocket::UnconnectedState) {
-                    updateConnectionState(false);
-                }
-            });
-            connect(rawSocket, &QRawSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError){
-                reportSessionError(tr("Raw Socket Error"), tr("Raw Socket error:\n%1.").arg(rawSocket->errorString()));
-                Q_UNUSED(socketError);
-            });
-            break;
-        }
-        case NamePipe: {
-            namePipe = new QLocalSocket(this);
-            connect(namePipe,&QLocalSocket::readyRead,this,[=](){
-                forwardReceivedData(namePipe->readAll(), false);
-            });
-            setupModemProxyForward([=]() {
-                return namePipe->state() == QLocalSocket::ConnectedState;
-            }, [=](const QByteArray &data) {
-                namePipe->write(data.data(), data.size());
-            });
-            setupTerminalSendForward([=]() {
-                return namePipe->state() == QLocalSocket::ConnectedState;
-            }, [=](const char *data, int size) {
-                namePipe->write(data, size);
-            }, false);
-            connect(namePipe, &QLocalSocket::stateChanged, this, [=](QLocalSocket::LocalSocketState socketState){
-                if(socketState == QLocalSocket::ConnectedState) {
-                    updateConnectionState(true);
-                } else if(socketState == QLocalSocket::UnconnectedState) {
-                    updateConnectionState(false);
-                }
-            });
-            connect(namePipe, &QLocalSocket::errorOccurred, this, [=](QLocalSocket::LocalSocketError socketError){
-                reportSessionError(tr("Name Pipe Error"), tr("Name Pipe error:\n%1.").arg(namePipe->errorString()));
-                Q_UNUSED(socketError);
-            });
-            break;
-        }
-        case SSH2: {
-        #ifdef ENABLE_SSH
-            ssh2Client = new SshClient("ssh2",this);
-            realtimespeed_timer = new QTimer(this);
-            connect(ssh2Client, &SshClient::sshReady, this, [=](){
-                SshShell *shell = ssh2Client->getChannel<SshShell>("quardCRT.shell");
-                if(shell == nullptr) {
-                    reportSessionError(tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
-                    setupReconnectOnEnterRequest();
-                    return;
-                }
-                shell->initSize(term->columns(),term->lines());
-                ssh2Client->startChannel<SshShell>(shell);
-                connect(term, &QTermWidget::termSizeChange, this, [=](int lines, int columns){
-                    shell->resize(columns,lines);
-                });
-                connect(shell, &SshShell::readyRead, this, [=](const char *data, int size){
-                    forwardReceivedData(QByteArray(data, size), true);
-                });
-                setupModemProxyForward([=]() {
-                    return state == Connected;
-                }, [=](const QByteArray &data) {
-                    shell->sendData(data.data(), data.size());
-                });
-                setupTerminalSendForward([=]() {
-                    return state == Connected;
-                }, [=](const char *data, int size) {
-                    shell->sendData(data, size);
-                }, true);
-                connect(shell, &SshShell::failed, this, [=](){
-                    disconnect();
-                });
-                connect(shell, &SshShell::finished, this, [=](){
-                    disconnect();
-                });
-                updateConnectionState(true);
-            });
-            connect(ssh2Client, &SshClient::sshDisconnected, this, [=](){
-                updateConnectionState(false);
-            });
-            connect(ssh2Client, &SshClient::sshError, this, [=](){
-                reportSessionError(tr("SSH2 Error"), tr("SSH2 error:\n%1.").arg(ssh2Client->sshErrorString()));
-                setupReconnectOnEnterRequest();
-            });
-        #endif
-            break;
-        }
-        case VNC:
-        default:
-            break;
-    }
+    protocol->initialize(this);
 
-    if(type != VNC) {
-        connect(term, &QTermWidget::titleChanged, this, &SessionsWindow::titleChanged);
-        connect(term, &QTermWidget::termGetFocus, this, &SessionsWindow::termGetFocus);
-        connect(term, &QTermWidget::termLostFocus, this, &SessionsWindow::termLostFocus);
-        connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
-            saveLog(data, size);
-            writeReceiveASCIIFile(data, size);
-            if(enableRecordingScript) {
-                QByteArray dataBa(data,size);
-                QMutexLocker locker(&recording_script_recv_mutex);
-                recordingScriptRecvBuffer.append(data);
-                recordingScriptRecvBuffer.replace("\r\n","\n");
-                recordingScriptRecvBuffer.replace("\r","\n");
-                do {
-                    int pos = recordingScriptRecvBuffer.indexOf('\n');
-                    if(pos!=-1) {
-                        QString line = QString::fromUtf8(recordingScriptRecvBuffer.left(pos+1));
-                        recordingScriptRecvBuffer.remove(0, pos + 1);
-                        addToRecordingScript(1,line);
-                    } else {
-                        break;
-                    }
-                }while(1);
-            }
-        });
-        connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, uint32_t opcode){
-            QUrl u = url;
-            QString path = u.toString();
-            if(path.startsWith("relative:") ) {
-                if(getSessionType() == LocalShell) {
-                    path.remove("relative:");
-                    path = getWorkingDirectory() + "/" + path;
-                    u = QUrl::fromLocalFile(path);
-                } else {
-                    return;
-                }
-            } 
-        #if defined(Q_OS_WIN)
-            else if(path.startsWith("file://") ) {
-                if(getSessionType() == LocalShell) {
-                    if(getShellType() == WSL) {
-                        path.remove("file://");
-                        static QRegularExpression wslDirFormat("^/mnt/(\\S+)/(.*)$");
-                        if(wslDirFormat.match(path).hasMatch()) {
-                            QString pathFix = wslDirFormat.match(path).captured(1).toUpper()+":/"+wslDirFormat.match(path).captured(2);
-                            u = QUrl::fromLocalFile(pathFix);
-                        } else if(path.startsWith("/mnt/")) {
-                            u = QUrl::fromLocalFile(path.remove(0, 5).toUpper()+":/");
-                        }
-                    }
-                }
-            }
-        #endif
-            QString target = u.toString();
-            if(target.startsWith("file://")) {
-                target.remove("file://");
-                // check endsWith '$' '#'
-                if(target.endsWith('$') || target.endsWith('#')) {
-                    // check file exists
-                    // FIXME: That's not a good way to fix filePath match issue
-                    if(!QFile::exists(target)) {
-                        target.chop(1);
-                        u = QUrl::fromLocalFile(target);
-                    }
-                }
-            }
-            switch(opcode) {
-                case QTermWidget::OpenFromContextMenu:
-                case QTermWidget::OpenFromClick: {
-                    bool ret = QDesktopServices::openUrl(u);
-                    if(!ret) {
-                        QMessageBox::warning(messageParentWidget, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
-                    }
-                    break;
-                }
-                case QTermWidget::OpenContainingFromContextMenu: {
-                    QFileInfo fileInfo(u.toLocalFile());
-                    QDir dir = fileInfo.dir();
-                    if(dir.exists()) {
-                        bool ret = QDesktopServices::openUrl(QUrl::fromLocalFile(dir.path()));
-                        if(!ret) {
-                            QMessageBox::warning(messageParentWidget, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
-                        }
-                    }
-                    break;
-                }
-                default:
-                    break;
-            }
-        });
-        // only windows and macos need do this, because linux support Selection Clipboard by default
-        bool supportSelection = QApplication::clipboard()->supportsSelection();
-        if(!supportSelection) {
-            connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event) {
-                if(event->button() == Qt::MiddleButton) {
-                    term->copyClipboard();
-                    term->pasteClipboard();
-                }
-            });
-        }
-        connect(term, &QTermWidget::zmodemSendDetected, this, [&](){
-            if(zmodemOnlie) {
-                modemProxyChannelMutex.lock();
-                if(modemProxyChannel) {
-                    modemProxyChannelMutex.unlock();
-                    return;
-                }
-                modemProxyChannel = true;
-                modemProxyChannelMutex.unlock();
-                QString msg = QString("\033[2K\rZModem transfer detected");
-                QByteArray data = msg.toUtf8();
-                proxyRecvData(data);
-                modemProxyChannelMutex.lock();
-                modemProxyChannel = false;
-                modemProxyChannelMutex.unlock();
-                recvFileUseZModem(zmodemDownloadPath);
-            }
-        });
-    #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
-        connect(term, &QTermWidget::handleCtrlC, this, [&](void){
-            QString text = term->selectedText();
-            if(!text.isEmpty()) {
-                QApplication::clipboard()->setText(text, QClipboard::Clipboard);
-            }
-        });
-    #endif
-        connect(term, &QTermWidget::zmodemRecvDetected, this, [&,parent](){
-            if(zmodemOnlie) {
-                modemProxyChannelMutex.lock();
-                if(modemProxyChannel) {
-                    modemProxyChannelMutex.unlock();
-                    return;
-                }
-                modemProxyChannel = true;
-                modemProxyChannelMutex.unlock();
-                QString msg = QString("\033[2K\rZModem transfer detected");
-                QByteArray data = msg.toUtf8();
-                proxyRecvData(data);
-
-                // FIXME: we should not use CentralWidget here
-                CentralWidget *mainwindow = static_cast<CentralWidget*>(parent);
-                QStringList files = mainwindow->requestZmodemUploadList();
-
-                if(files.isEmpty())
-                    files = FileDialog::getItemsPathsWithPickBox(term, tr("Select Files to Send using Zmodem"), zmodemUploadPath, tr("All Files (*)"));
-                // if files is empty, we also start zmodem send, it will fast abort
-                modemProxyChannelMutex.lock();
-                modemProxyChannel = false;
-                modemProxyChannelMutex.unlock();
-                sendFileUseZModem(files); 
-            }
-        });
+    if(isConsoleSession()) {
+        setupTerminalStateConnections();
+        setupTerminalOutputConnections();
+        setupTerminalUrlActivationConnection();
+        setupTerminalClipboardAndCtrlCConnections();
+        setupTerminalZModemConnections(parent);
     }
 
     if(realtimespeed_timer) {
@@ -473,47 +138,225 @@ SessionsWindow::~SessionsWindow() {
         raw_log_file = nullptr;
     }
     raw_log_file_mutex.unlock();
-    if(localShell) {
-        localShell->kill();
-        delete localShell;
+    if(protocol) {
+        protocol->cleanup(this);
     }
-    if(telnet) {
-        if(telnet->isConnected()) telnet->disconnectFromHost();
-        delete telnet;
-    }
-    if(serialPort) {
-        if (serialPort->isOpen()) {
-            serialPort->clear();
-            serialPort->waitForBytesWritten(1000);
-            serialPort->close();
-        }
-        delete serialPort;
-        delete serialMonitor;
-    }
-    if(rawSocket){
-        if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
-        delete rawSocket;
-    }
-    if(namePipe){
-        if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
-        delete namePipe;
-    }
-#ifdef ENABLE_SSH
-    if(ssh2Client) {
-        ssh2Client->disconnectFromHost();
-        delete ssh2Client;
-    }
-#endif
     if(realtimespeed_timer) {
         delete realtimespeed_timer;
-    }
-    if(vncClient) {
-        vncClient->disconnectFromVncServer();
-        delete vncClient;
     }
     if(term) {
         delete term;
     }
+}
+
+void SessionsWindow::cloneSession(SessionsWindow *src, QString profile) {
+    if(src && src->protocol) {
+        const QVariantMap commonMeta = {
+            {"hostname", src->m_hostname},
+            {"port", src->m_port},
+            {"shellType", static_cast<int>(src->shellType)},
+            {"workingDirectory", src->workingDirectory}
+        };
+        src->protocol->cloneTo(this, commonMeta, src->protocol->exportMeta(), profile);
+    }
+}
+
+void SessionsWindow::disconnect(void) {
+    if(protocol) {
+        protocol->disconnect(this);
+    }
+}
+
+bool SessionsWindow::hasChildProcess() {
+    if(protocol) {
+        return protocol->hasChildProcess(this);
+    }
+    return false;
+}
+
+SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
+    StateInfo info;
+    info.type = type;
+    info.state = state;
+    info.endOfLine = endOfLineSeq;
+    if(protocol) {
+        protocol->fillStateInfo(this, info);
+    }
+    return info;
+}
+
+void SessionsWindow::refeshTermSize(void) {
+    if(protocol) {
+        protocol->refreshTermSize(this);
+    }
+}
+
+bool SessionsWindow::isConsoleSession() const {
+    return protocol->category() == ConsoleSession;
+}
+
+bool SessionsWindow::isDesktopSession() const {
+    return protocol->category() == DesktopSession;
+}
+
+QWidget *SessionsWindow::getMainWidget() const {
+    if(isDesktopSession()) {
+        QWidget *widget = protocol->mainWidget(const_cast<SessionsWindow *>(this));
+        if(widget) {
+            return widget;
+        }
+    }
+    return static_cast<QWidget *>(term);
+}
+
+bool SessionsWindow::isTerminal() const {
+    return isConsoleSession();
+}
+
+void SessionsWindow::setupTerminalStateConnections() {
+    connect(term, &QTermWidget::titleChanged, this, &SessionsWindow::titleChanged);
+    connect(term, &QTermWidget::termGetFocus, this, &SessionsWindow::termGetFocus);
+    connect(term, &QTermWidget::termLostFocus, this, &SessionsWindow::termLostFocus);
+}
+
+void SessionsWindow::setupTerminalOutputConnections() {
+    connect(term, &QTermWidget::dupDisplayOutput, this, [&](const char *data, int size){
+        saveLog(data, size);
+        writeReceiveASCIIFile(data, size);
+        if(enableRecordingScript) {
+            QByteArray dataBa(data,size);
+            QMutexLocker locker(&recording_script_recv_mutex);
+            recordingScriptRecvBuffer.append(data);
+            recordingScriptRecvBuffer.replace("\r\n","\n");
+            recordingScriptRecvBuffer.replace("\r","\n");
+            do {
+                int pos = recordingScriptRecvBuffer.indexOf('\n');
+                if(pos!=-1) {
+                    QString line = QString::fromUtf8(recordingScriptRecvBuffer.left(pos+1));
+                    recordingScriptRecvBuffer.remove(0, pos + 1);
+                    addToRecordingScript(1,line);
+                } else {
+                    break;
+                }
+            }while(1);
+            Q_UNUSED(dataBa);
+        }
+    });
+}
+
+void SessionsWindow::setupTerminalUrlActivationConnection() {
+    connect(term, &QTermWidget::urlActivated, this, [&](const QUrl& url, uint32_t opcode){
+        QUrl u = url;
+        if(!protocol->preprocessActivatedUrl(this, u)) {
+            return;
+        }
+        if(protocol->supportsUrlPostProcess(this)) {
+            QString target = u.toString();
+            if(target.startsWith("file://")) {
+                target.remove("file://");
+                // check endsWith '$' '#'
+                if(target.endsWith('$') || target.endsWith('#')) {
+                    // check file exists
+                    // FIXME: That's not a good way to fix filePath match issue
+                    if(!QFile::exists(target)) {
+                        target.chop(1);
+                        u = QUrl::fromLocalFile(target);
+                    }
+                }
+            }
+        }
+        switch(opcode) {
+            case QTermWidget::OpenFromContextMenu:
+            case QTermWidget::OpenFromClick: {
+                bool ret = QDesktopServices::openUrl(u);
+                if(!ret) {
+                    QMessageBox::warning(messageParentWidget, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
+                }
+                break;
+            }
+            case QTermWidget::OpenContainingFromContextMenu: {
+                QFileInfo fileInfo(u.toLocalFile());
+                QDir dir = fileInfo.dir();
+                if(dir.exists()) {
+                    bool ret = QDesktopServices::openUrl(QUrl::fromLocalFile(dir.path()));
+                    if(!ret) {
+                        QMessageBox::warning(messageParentWidget, tr("Open URL"), tr("Cannot open URL %1.").arg(u.toString()));
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    });
+}
+
+void SessionsWindow::setupTerminalClipboardAndCtrlCConnections() {
+    // only windows and macos need do this, because linux support Selection Clipboard by default
+    bool supportSelection = QApplication::clipboard()->supportsSelection();
+    if(!supportSelection) {
+        connect(term, &QTermWidget::mousePressEventForwarded, this, [&](QMouseEvent *event) {
+            if(event->button() == Qt::MiddleButton) {
+                term->copyClipboard();
+                term->pasteClipboard();
+            }
+        });
+    }
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    connect(term, &QTermWidget::handleCtrlC, this, [&](void){
+        QString text = term->selectedText();
+        if(!text.isEmpty()) {
+            QApplication::clipboard()->setText(text, QClipboard::Clipboard);
+        }
+    });
+#endif
+}
+
+void SessionsWindow::setupTerminalZModemConnections(QWidget *parent) {
+    connect(term, &QTermWidget::zmodemSendDetected, this, [&](){
+        if(zmodemOnlie) {
+            modemProxyChannelMutex.lock();
+            if(modemProxyChannel) {
+                modemProxyChannelMutex.unlock();
+                return;
+            }
+            modemProxyChannel = true;
+            modemProxyChannelMutex.unlock();
+            QString msg = QString("\033[2K\rZModem transfer detected");
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+            modemProxyChannelMutex.lock();
+            modemProxyChannel = false;
+            modemProxyChannelMutex.unlock();
+            recvFileUseZModem(zmodemDownloadPath);
+        }
+    });
+    connect(term, &QTermWidget::zmodemRecvDetected, this, [&,parent](){
+        if(zmodemOnlie) {
+            modemProxyChannelMutex.lock();
+            if(modemProxyChannel) {
+                modemProxyChannelMutex.unlock();
+                return;
+            }
+            modemProxyChannel = true;
+            modemProxyChannelMutex.unlock();
+            QString msg = QString("\033[2K\rZModem transfer detected");
+            QByteArray data = msg.toUtf8();
+            proxyRecvData(data);
+
+            // FIXME: we should not use CentralWidget here
+            CentralWidget *mainwindow = static_cast<CentralWidget*>(parent);
+            QStringList files = mainwindow->requestZmodemUploadList();
+
+            if(files.isEmpty())
+                files = FileDialog::getItemsPathsWithPickBox(term, tr("Select Files to Send using Zmodem"), zmodemUploadPath, tr("All Files (*)"));
+            // if files is empty, we also start zmodem send, it will fast abort
+            modemProxyChannelMutex.lock();
+            modemProxyChannel = false;
+            modemProxyChannelMutex.unlock();
+            sendFileUseZModem(files);
+        }
+    });
 }
 
 void SessionsWindow::matchString(QByteArray data) {
@@ -631,335 +474,6 @@ bool SessionsWindow::doRecvData(QByteArray &data) {
             break;
     }
     return true;
-}
-
-void SessionsWindow::cloneSession(SessionsWindow *src, QString profile) {
-    switch(src->getSessionType()) {
-        case LocalShell: {
-            setWorkingDirectory(src->getWorkingDirectory());
-            startLocalShellSession(src->m_command, profile, src->getShellType());
-            break;
-        case Telnet:
-            startTelnetSession(src->m_hostname, src->m_port, src->m_type);
-            break;
-        case Serial:
-            startSerialSession(src->m_portName, src->m_baudRate, src->m_dataBits, src->m_parity, src->m_stopBits, src->m_flowControl, src->m_xEnable);
-            break;
-        case RawSocket:
-            startRawSocketSession(src->m_hostname, src->m_port, src->getRawMode());
-            break;
-        case NamePipe:
-            startNamePipeSession(src->m_pipeName);
-            break;
-        case SSH2:
-        #ifdef ENABLE_SSH
-            startSSH2Session(src->m_hostname, src->m_port, src->m_username, src->m_password,
-                             src->m_sshAuthType, src->m_privateKeyPath, src->m_publicKeyPath, src->m_passphrase);
-        #endif
-            break;
-        case VNC:
-            startVNCSession(src->m_hostname, src->m_port, src->m_password);
-            break;
-        default:
-            break;
-        }
-    }  
-}
-
-int SessionsWindow::startLocalShellSession(const QString &command,QString profile, ShellType sTp) {
-    QString shellPath;
-    QStringList args;
-    shellType = sTp;
-    if(command.isEmpty()) {
-    #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
-        Q_UNUSED(profile);
-        GlobalSetting settings;
-        QString defaultLocalShell = settings.value("Global/Options/DefaultLocalShell", "ENV:SHELL").toString();
-        if(defaultLocalShell != "ENV:SHELL") {
-            QFileInfo shellInfo(defaultLocalShell);
-            if(shellInfo.isExecutable()) {
-                shellPath = defaultLocalShell;
-            }
-        }
-        if(shellPath.isEmpty()) shellPath = qEnvironmentVariable("SHELL");
-        if(shellPath.isEmpty()) shellPath = "/bin/sh";
-    #elif defined(Q_OS_WIN)
-        GlobalSetting setting;
-        QString wslUserName = setting.value("Global/Options/WSLUserName", "root").toString();
-        QString wslDistro = setting.value("Global/Options/WSLDistroName", "Ubuntu").toString();
-        m_wslUserName = wslUserName;
-        switch (shellType) {
-            case PowerShell:
-            default: {
-                QString defaultLocalShell = setting.value("Global/Options/DefaultLocalShell", "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe").toString();
-                QFileInfo shellInfo(defaultLocalShell);
-                if(shellInfo.isExecutable()) {
-                    shellPath = defaultLocalShell;
-                } 
-                if(shellPath.isEmpty()) shellPath = "c:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
-                args =  {
-                    "-ExecutionPolicy",
-                    "Bypass",
-                    "-NoLogo",
-                    "-NoProfile",
-                    "-NoExit",
-                    "-File",
-                };
-                if(profile.isEmpty()) {
-                    profile = QString("\"") + QApplication::applicationDirPath() + "/Profile.ps1\"";
-                } else {
-                    profile = QString("\"") + profile + "\"";
-                }
-                args.append(profile);
-                break;
-            }
-            case WSL:
-                shellPath = "c:\\Windows\\System32\\wsl.exe";
-                args = {
-                    "-u",
-                    wslUserName,
-                    "-d",
-                    wslDistro,
-                };
-                break;
-        }
-    #endif
-    } else {
-        argv_split parser;
-        parser.parse(command.toStdString());
-        for(auto &it : parser.getArguments()) {
-            args.append(QString::fromStdString(it));
-        }
-        shellPath = args.first();
-        args.removeFirst();
-    }
-    QStringList envs = QProcessEnvironment::systemEnvironment().toStringList();
-    #if defined(Q_OS_WIN)
-    if(envs.contains("quardcrt_computername")) {
-        envs.replaceInStrings("quardcrt_computername", MiscWin32::getComputerName());
-    } else {
-        envs.append("quardcrt_computername=" + MiscWin32::getComputerName());
-    }
-    if(envs.contains("quardcrt_username")) {
-        envs.replaceInStrings("quardcrt_username", MiscWin32::getUserName());
-    } else {
-        envs.append("quardcrt_username=" + MiscWin32::getUserName());
-    }
-    #endif
-    GlobalSetting setting;
-#if defined(Q_OS_MACOS)
-    bool defaultForceUTF8 = true;
-#else
-    bool defaultForceUTF8 = false;
-#endif
-    bool forceUTF8 = setting.value("Global/misc/forceUTF8", defaultForceUTF8).toBool();
-    if(forceUTF8) {
-        envs.append("LC_CTYPE=UTF-8");
-    }
-    QFileInfo fileInfo(workingDirectory);
-    if(!fileInfo.exists() || !fileInfo.isDir()) {
-        workingDirectory = QDir::homePath();
-    }
-    bool ret = localShell->startProcess(shellPath, args, workingDirectory, envs, term->screenColumnsCount(), term->screenLinesCount());
-    if(!ret) {
-        state = Error;
-        emit stateChanged(state);
-        QMessageBox::warning(messageParentWidget, tr("Start Local Shell"), getName() + "\n" + tr("Cannot start local shell:\n%1.").arg(localShell->lastError()));
-        return -1;
-    }
-    connect(localShell->notifier(), &QIODevice::readyRead, this, [=](){
-        QByteArray data = localShell->readAll();
-        if (!data.isEmpty()) {
-            if(doRecvData(data)) {
-                term->recvData(data.data(), data.size());
-            }
-        }
-    });
-    connect(localShell->notifier(), &QIODevice::aboutToClose, this, [this] {
-        if (localShell) {
-            QByteArray restOfOutput = localShell->readAll();
-            if (!restOfOutput.isEmpty()) {
-                if(doRecvData(restOfOutput)) {
-                    term->recvData(restOfOutput.data(), restOfOutput.size());
-                }
-                localShell->notifier()->disconnect();
-            }
-        }
-    });
-    connect(this,&SessionsWindow::modemProxySendData,this,[=](QByteArray data){
-        if(modemProxyChannel) {
-            localShell->write(data);
-        }
-    });
-    connect(term, &QTermWidget::sendData, this, [=](const char *data, int size){
-        QByteArray sendData(data, size);
-        if(doSendData(sendData,true)){
-            localShell->write(QByteArray(data, size));
-        }
-    });
-    m_command = command;
-    state = Connected;
-    emit stateChanged(state);
-    return 0;
-}
-
-int SessionsWindow::startTelnetSession(const QString &hostname, quint16 port, QTelnet::SocketType type) {
-    telnet->setType(type);
-    telnet->connectToHost(hostname, port);
-    m_hostname = hostname;
-    m_port = port;
-    m_type = type;
-    return 0;
-}
-
-int SessionsWindow::startSerialSession(const QString &portName, uint32_t baudRate
-    , int dataBits, int parity, int stopBits, bool flowControl, bool xEnable ) {
-    serialPort->setPortName(portName);
-    serialPort->setBaudRate(baudRate);
-    serialPort->setDataBits(static_cast<QSerialPort::DataBits>(dataBits));
-    switch (parity)
-    {
-    case 0:
-    default:
-        serialPort->setParity(QSerialPort::NoParity);
-        break;
-    case 1:
-        serialPort->setParity(QSerialPort::OddParity);
-        break;
-    case 2:
-        serialPort->setParity(QSerialPort::EvenParity);
-        break;
-    }
-    serialPort->setStopBits(static_cast<QSerialPort::StopBits>(stopBits));
-    serialPort->setFlowControl(flowControl?QSerialPort::HardwareControl:QSerialPort::NoFlowControl);
-    if(!serialPort->open(QIODevice::ReadWrite)) {
-        state = Error;
-        emit stateChanged(state);
-    } else {
-        serialPort->setBreakEnabled(xEnable);
-        state = Connected;
-        emit stateChanged(state);
-    #if defined(Q_OS_WIN)
-        QString monitorPortName = serialPort->portName();
-    #else
-        QSerialPortInfo sinfo(*serialPort);
-        QString monitorPortName = sinfo.systemLocation();
-    #endif
-        connect(serialMonitor, &QextSerialEnumerator::deviceRemoved, this, 
-            [&,monitorPortName](const QextPortInfo &info) {
-            if(monitorPortName == info.portName) {
-                if(serialPort->isOpen()) {
-                    serialPort->close();
-                    QMessageBox::warning(messageParentWidget, tr("Serial Error"), getName() + "\n" + tr("Serial port %1 has been removed.").arg(info.portName));
-                    state = Error;
-                    emit stateChanged(state);
-                }
-            }
-        });
-    }
-    m_portName = portName;
-    m_baudRate = baudRate;
-    m_dataBits = dataBits;
-    m_parity = parity;
-    m_stopBits = stopBits;
-    m_flowControl = flowControl;
-    m_xEnable = xEnable;
-    return 0;
-}
-
-int SessionsWindow::startRawSocketSession(const QString &hostname, quint16 port, int mode) {
-    rawSocket->setRawMode(mode);
-    rawSocket->connectToHost(hostname, port);
-    m_hostname = hostname;
-    m_port = port;
-    return 0;
-}
-
-int SessionsWindow::startNamePipeSession(const QString &name) {
-    namePipe->connectToServer(name);
-    m_pipeName = name;
-    return 0;
-}
-
-#ifdef ENABLE_SSH
-int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password) {
-    return startSSH2Session(hostname, port, username, password, SshAuthPassword, QString(), QString(), QString());
-}
-
-int SessionsWindow::startSSH2Session(const QString &hostname, quint16 port, const QString &username, const QString &password,
-                                     int authType, const QString &privateKeyPath, const QString &publicKeyPath, const QString &passphrase) {
-    QByteArrayList methodes;
-    if(authType == SshAuthPublicKey) {
-        if(privateKeyPath.isEmpty()) {
-            QMessageBox::warning(messageParentWidget, tr("SSH2 Error"), tr("Private key is required for public key authentication."));
-            return -1;
-        }
-        methodes.append("publickey");
-        QString resolvedPublicKeyPath = publicKeyPath;
-        if(resolvedPublicKeyPath.isEmpty()) {
-            QString candidate = privateKeyPath + ".pub";
-            if(QFileInfo::exists(candidate)) {
-                resolvedPublicKeyPath = candidate;
-            }
-        }
-        ssh2Client->setKeyFiles(resolvedPublicKeyPath, privateKeyPath);
-        ssh2Client->setPassphrase(passphrase);
-    } else {
-        methodes.append("password");
-        ssh2Client->setKeyFiles(QString(), QString());
-        ssh2Client->setPassphrase(password);
-    }
-    ssh2Client->connectToHost(username, hostname, port, methodes);
-    m_hostname = hostname;
-    m_port = port;
-    m_username = username;
-    m_password = password;
-    m_passphrase = passphrase;
-    m_privateKeyPath = privateKeyPath;
-    m_publicKeyPath = publicKeyPath;
-    m_sshAuthType = authType;
-    return 0;
-}
-#endif
-
-int SessionsWindow::startVNCSession(const QString &hostname, quint16 port, const QString &password) {
-    vncClient->connectToVncServer(hostname,password,port);
-    m_hostname = hostname;
-    m_port = port;
-    m_password = password;
-    return 0;
-}
-
-void SessionsWindow::disconnect(void) {
-    switch (type) {
-        case LocalShell:
-            localShell->kill();
-            state = Disconnected;
-            emit stateChanged(state);
-            break;
-        case Telnet:
-            if(telnet->isConnected()) telnet->disconnectFromHost();
-            break;
-        case Serial:
-            if(serialPort->isOpen()) serialPort->close();
-            break;
-        case RawSocket:
-            if(rawSocket->state() == QAbstractSocket::ConnectedState) rawSocket->disconnectFromHost();
-            break;
-        case NamePipe:
-            if(namePipe->state() == QLocalSocket::ConnectedState) namePipe->disconnectFromServer();
-            break;
-        case SSH2:
-        #ifdef ENABLE_SSH
-            ssh2Client->disconnectFromHost();
-        #endif
-            break;
-        case VNC:
-            vncClient->disconnectFromVncServer();
-            break;
-        default:
-            break;
-    }
 }
 
 void SessionsWindow::setWorkingDirectory(const QString &dir)
@@ -1356,18 +870,6 @@ void SessionsWindow::setupTerminalSendForward(const std::function<bool()> &isCon
     });
 }
 
-void SessionsWindow::setupReconnectOnEnterRequest() {
-    connect(term, &QTermWidget::sendData, this, [=](const char *data, int size) {
-        QByteArray sendData(data, size);
-        if(sendData.contains("\r") || sendData.contains("\n")) {
-            if(!m_requestReconnect) {
-                m_requestReconnect = true;
-                emit requestReconnect();
-            }
-        }
-    });
-}
-
 void SessionsWindow::beginModemTransfer(const QString &protocolName) {
     stopModemProxy = false;
     modemProxyChannel = true;
@@ -1735,72 +1237,112 @@ void SessionsWindow::recvFileUseZModem(const QString &downloadPath) {
 
 #ifdef ENABLE_SSH
 SshSFtp *SessionsWindow::getSshSFtpChannel(void) {
-    if(type == SSH2) {
-        SshSFtp *res = ssh2Client->getChannel<SshSFtp>("quardCRT.sftp");
-        ssh2Client->startChannel<SshSFtp>(res);
-        return res;
-    }
-    return nullptr;
+    return protocol->getSshSFtpChannel(this);
 }
 #endif
 
-bool SessionsWindow::hasChildProcess() {
-    if(type == LocalShell) {
-        return localShell->hasChildProcess();
-    } else {
-        return false;
+QString SessionsWindow::getWSLUserName() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("wslUserName").toString();
+}
+
+QString SessionsWindow::getPortName() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("portName").toString();
+}
+
+QTelnet::SocketType SessionsWindow::getSocketType() const {
+    if(!protocol) return QTelnet::TCP;
+    return static_cast<QTelnet::SocketType>(protocol->exportMeta().value("socketType", QTelnet::TCP).toInt());
+}
+
+uint32_t SessionsWindow::getBaudRate() const {
+    if(!protocol) return 0;
+    return protocol->exportMeta().value("baudRate").toUInt();
+}
+
+int SessionsWindow::getDataBits() const {
+    if(!protocol) return 0;
+    return protocol->exportMeta().value("dataBits").toInt();
+}
+
+int SessionsWindow::getParity() const {
+    if(!protocol) return 0;
+    return protocol->exportMeta().value("parity").toInt();
+}
+
+int SessionsWindow::getStopBits() const {
+    if(!protocol) return 0;
+    return protocol->exportMeta().value("stopBits").toInt();
+}
+
+bool SessionsWindow::getFlowControl() const {
+    if(!protocol) return false;
+    return protocol->exportMeta().value("flowControl").toBool();
+}
+
+bool SessionsWindow::getXEnable() const {
+    if(!protocol) return false;
+    return protocol->exportMeta().value("xEnable").toBool();
+}
+
+QString SessionsWindow::getCommand() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("command").toString();
+}
+
+QString SessionsWindow::getPipeName() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("pipeName").toString();
+}
+
+QString SessionsWindow::getUserName() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("userName").toString();
+}
+
+QString SessionsWindow::getPassWord() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("password").toString();
+}
+
+int SessionsWindow::getSshAuthType() const {
+    if(!protocol) return SshAuthPassword;
+    return protocol->exportMeta().value("sshAuthType", SshAuthPassword).toInt();
+}
+
+QString SessionsWindow::getPrivateKeyPath() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("privateKeyPath").toString();
+}
+
+QString SessionsWindow::getPublicKeyPath() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("publicKeyPath").toString();
+}
+
+QString SessionsWindow::getPassphrase() const {
+    if(!protocol) return QString();
+    return protocol->exportMeta().value("passphrase").toString();
+}
+
+int SessionsWindow::getRawMode() const {
+    return protocol->getRawMode();
+}
+
+void SessionsWindow::screenShot(const QString &fileName) {
+    if(isConsoleSession()) {
+        term->screenShot(fileName);
+    } else if(isDesktopSession()) {
+        protocol->screenShot(this,fileName);
     }
 }
 
-SessionsWindow::StateInfo SessionsWindow::getStateInfo(void) {
-    StateInfo info;
-    info.type = type;
-    info.state = state;
-    info.endOfLine = endOfLineSeq;
-    switch (type) {
-        case Telnet:
-            info.telnet.tx_total = tx_total;
-            info.telnet.rx_total = rx_total;
-            info.telnet.tx_speed = tx_speed;
-            info.telnet.rx_speed = rx_speed;
-            break;
-        case Serial:
-            info.serial.tx_total = tx_total;
-            info.serial.rx_total = rx_total;
-            info.serial.tx_speed = tx_speed;
-            info.serial.rx_speed = rx_speed;
-            break;
-        case LocalShell:
-            if(state == Connected) {
-                info.localShell.tree = localShell->processInfoTree();
-            }
-            break;
-        case RawSocket:
-            info.rawSocket.tx_total = tx_total;
-            info.rawSocket.rx_total = rx_total;
-            info.rawSocket.tx_speed = tx_speed;
-            info.rawSocket.rx_speed = rx_speed;
-            break;
-        case NamePipe:
-            break;
-        case SSH2:
-            info.ssh2.tx_total = tx_total;
-            info.ssh2.rx_total = rx_total;
-            info.ssh2.tx_speed = tx_speed;
-            info.ssh2.rx_speed = rx_speed;
-        #ifdef ENABLE_SSH
-            info.ssh2.encryption_method = ssh2Client->getEncryptionMethod();
-        #endif
-            break;
-        case VNC:
-        default:
-            break;
+void SessionsWindow::screenShot(QPixmap *pixmap) {
+    if(isConsoleSession()) {
+        term->screenShot(pixmap);
+    } else if(isDesktopSession()) {
+        protocol->screenShot(this,pixmap);
     }
-    return info;
 }
 
-void SessionsWindow::refeshTermSize(void) {
-    if(type == LocalShell) {
-        localShell->resize(term->columns(),term->lines());
-    }
-}
