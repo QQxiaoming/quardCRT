@@ -495,6 +495,8 @@ QGoodWindow::QGoodWindow(QWidget *parent, const QColor &clear_color) : QMainWind
         macOSNative::registerThemeChangeNotification();
     }
 
+    // >qt6.8.0 need WA_ContentsMarginsRespectsSafeArea to be set to false
+    setAttribute(Qt::WA_ContentsMarginsRespectsSafeArea, false);
     if (!m_parent)
         QMainWindow::setWindowFlags(Qt::Window);
     else
