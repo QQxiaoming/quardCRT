@@ -662,6 +662,13 @@ private:
     void matchString(QByteArray data);
     bool doSendData(QByteArray &data, bool isConnected);
     bool doRecvData(QByteArray &data);
+    void beginModemTransfer(const QString &protocolName);
+    void finishModemTransfer(QObject *worker);
+    void showTransferingFile(const QString &filename, bool useBaseName = false);
+    void showTransferComplete(int result);
+    void showSimpleTransferProgress(long bytesSent, long bytesTotal, bool *ret);
+    void showZmodemTransferProgress(long bytesSent, long bytesTotal, long lastBps,
+                                    int minLeft, int secLeft, bool *ret);
     void addToRecordingScript(int type, QString str);
     void addToRecordingScript(int type, QByteArray ba);
     void prepareString(QString &str);
