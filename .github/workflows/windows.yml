@@ -50,9 +50,9 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           arch: win64_mingw
-          version: '6.9.0'
+          version: '6.9.3'
           modules: 'qtwebsockets qtserialport qtmultimedia'
-          aqtversion: '==3.1.19'
+          aqtversion: '==3.3.0'
           tools: 'tools_mingw1310'
 
       - name: Install cmake
