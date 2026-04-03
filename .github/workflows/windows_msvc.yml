@@ -59,11 +59,6 @@ jobs:
         with:
           cmake-version: '3.20.0'
 
-      - name: Install innosetup
-        uses: crazy-max/ghaction-chocolatey@v4
-        with:
-          args: install innosetup --no-progress
-
       - name: Install setup python
         uses: actions/setup-python@v6
         with:
