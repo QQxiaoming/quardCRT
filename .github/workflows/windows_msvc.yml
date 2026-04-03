@@ -50,19 +50,14 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           arch: 'win64_msvc2022_64'
-          version: '6.8.1'
+          version: '6.9.3'
           modules: 'qtwebsockets qtserialport qtmultimedia'
-          aqtversion: '==3.1.19'
+          aqtversion: '==3.3.0'
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v2
         with:
           cmake-version: '3.20.0'
-
-      - name: Install innosetup
-        uses: crazy-max/ghaction-chocolatey@v4
-        with:
-          args: install innosetup --no-progress
 
       - name: Install setup python
         uses: actions/setup-python@v6
