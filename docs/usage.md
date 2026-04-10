@@ -2,11 +2,46 @@
 
 # Usage
 
-QuardCRT's main window includes a menu bar, a toolbar, a sidebar, tab pages, a status bar, and a terminal area.
+This page explains the main window layout and the most common tasks you will perform after installation.
+
+quardCRT is organized around saved sessions and tab-based terminal workflows. Most users start by opening a quick connection, saving it as a session, and then tuning the global appearance and terminal settings.
+
+## Main window overview
+
+The main window is composed of these primary areas:
+
+- Menu bar: complete access to commands and settings.
+- Toolbar: quick access to commonly used actions.
+- Sidebar: session manager and plugin area.
+- Tab pages: one or more live sessions.
+- Terminal area: the active terminal or remote desktop content.
+- Status bar: state and prompt information.
+
+![Toolbar](./img/toolbar.png)
+
+## First things to try
+
+### Quick connect
+
+Use `File > Quick Connect` when you want to open a one-off connection without creating a fully prepared saved session first. Select a protocol, fill in the required connection fields, and open it in the current window or a new tab.
+
+![Protocol selection interface](./img/img.png)
+
+### Saved sessions
+
+Use the session manager in the left sidebar to browse saved sessions, reconnect to recent targets, and organize entries into folders. Saved sessions are the recommended way to manage frequently used SSH, serial, raw socket, or VNC targets.
+
+### Local shell
+
+If you only need a local terminal, use `File > Connect Local Terminal`. This creates a terminal tab on the current machine without setting up a remote connection.
+
+### Appearance and language
+
+Use the `Theme` and `Language` menus for fast UI changes. For deeper adjustments such as fonts, background images, cursor style, and transfer directories, open `Options > Global Options`.
 
 ## Menu Bar
 
-Menu bar includes File, Edit, View, Options, Transfer, Script, Bookmark, Tools, Window, Language, Theme, Help, etc.
+The menu bar contains the full command surface of quardCRT: File, Edit, View, Options, Transfer, Script, Bookmark, Tools, Window, Language, Theme, and Help.
 
 ### File
 
@@ -244,7 +279,7 @@ Menu bar includes File, Edit, View, Options, Transfer, Script, Bookmark, Tools, 
 
 ### Script
 
-(Not implemented in the current version)
+Scripting support is documented in the [scripts guide](./scripts.md). In releases that include scripting support, this menu is used to run and manage scripts. In older builds, some script-related actions may be unavailable.
 
 ### Bookmark
 
@@ -372,18 +407,24 @@ Menu bar includes File, Edit, View, Options, Transfer, Script, Bookmark, Tools, 
 
 ## Toolbar
 
-The toolbar mainly displays some common functions in the menu bar in the form of icons, which is convenient for users to operate quickly.
+The toolbar exposes a subset of frequently used menu actions as icons, which is useful when you need to reconnect, copy or paste, search, print, open settings, or trigger connection-related commands quickly.
 
 ![Toolbar](./img/toolbar.png)
 
 ## Sidebar
 
-The sidebar includes the session manager and plugins.
+The sidebar contains the session manager and plugin-provided panels. In daily use, this is the fastest place to browse saved sessions, filter by name, and reopen existing connections.
 
 ## Tab Pages
 
-Tab pages are one of the core functions of QuardCRT, and users can manage multiple sessions through tab pages.
+Tabs are one of quardCRT's core workflows. You can open multiple sessions at once, clone tabs, rearrange them, or move them into split and floating layouts depending on your workflow.
 
 ## Status Bar
 
-The status bar displays prompt information, session information, etc.
+The status bar shows prompt information, connection state, and contextual session details.
+
+## Suggested next reading
+
+- Read [configuration](./configuration.md) to tune fonts, themes, scrollback, transfer paths, and advanced options.
+- Read [scripts](./scripts.md) if you want automation.
+- Read [plugins](./plugins.md) if you want to extend quardCRT with Qt plugins.

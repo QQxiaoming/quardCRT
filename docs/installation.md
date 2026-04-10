@@ -2,52 +2,60 @@
 
 # Installation
 
-QuardCRT is a cross-platform terminal emulator that supports Windows, MacOS, and Linux. If possible, we first recommend that you install QuardCRT through the official application market of the native platform.
+quardCRT provides packages for Windows, macOS, and Linux. If your platform has an official app store entry, that is usually the simplest installation path. Otherwise, download a release package from GitHub, Gitee, or SourceForge.
+
+## Before you download
+
+- If you only want to install and use quardCRT, pick the package for your operating system and CPU architecture.
+- If you plan to build or load native plugins on Windows, prefer the MSVC installer so the runtime matches a typical MSVC plugin toolchain.
+- If you use Apple Silicon, choose the `arm64` macOS package.
+- On Linux, use AppImage for a portable single-file launch or `deb` for package-managed installation on Debian-based systems.
 
 ## App Stores
 
-QuardCRT is now available in the following app stores.
+quardCRT is currently available in the following app stores:
 
 - [![Microsoft Store](https://get.microsoft.com/images/en-us%20dark.svg)](https://apps.microsoft.com/detail/quardCRT/9p6102k9qb3t?mode=direct)
 - [Spark Store](https://www.spark-app.store/store/application/quardcrt)
 - Deepin Store
 
-More app stores will be available in the future.
-
-Of course, you can also download the corresponding installation package according to your own platform.
+If your distribution or platform package store is not listed here, use the release packages below.
 
 ## Download
 
 ### All platforms
 
-If you want to download the latest version of QuardCRT, you can go to the following links:
+To download the latest version, use one of these release pages:
 
 - [GitHub Releases](https://github.com/QQxiaoming/quardCRT/releases)
 - [Gitee Releases](https://gitee.com/QQxiaoming/quardCRT/releases)
 - [SourceForge](https://sourceforge.net/projects/quardcrt/files/)
 
-You should download the corresponding package according to your platform. We provide the following packages:
+Release assets are published in these package formats:
 
-- Windows: 
+- Windows:
     - `quardCRT_windows_Vxxx_x86_64_setup.exe`
     - `quardCRT_windows_Vxxx_x86_64_msvc_setup.exe`
-- MacOS: 
+- macOS:
     - `quardCRT_macos_Vxxx_x86_64.dmg`
     - `quardCRT_macos_Vxxx_arm64.dmg`
-- Linux: 
+- Linux:
     - `quardCRT_Linux_Vxxx_x86_64.AppImage`
     - `quardCRT_Linux_Vxxx_x86_64.deb`
-- Source code: 
+- Source code:
     - `quardCRT_Vxxx_source.tar.gz`
     - `quardCRT_Vxxx_source.zip`
 
 ### Windows
 
-If you are using Windows, you can download the `quardCRT_windows_Vxxx_x86_64_setup.exe` or `quardCRT_windows_Vxxx_x86_64_msvc_setup.exe` package. The `quardCRT_windows_Vxxx_x86_64_setup.exe` package is built with MinGW, and the `quardCRT_windows_Vxxx_x86_64_msvc_setup.exe` package is built with MSVC. You can choose the package according to your needs. If you don't care about custom plugins, you can choose the `quardCRT_windows_Vxxx_x86_64_setup.exe` package, which has better compatibility.
+Download either `quardCRT_windows_Vxxx_x86_64_setup.exe` or `quardCRT_windows_Vxxx_x86_64_msvc_setup.exe`.
+
+- `setup.exe`: MinGW build with broad compatibility for regular end users.
+- `msvc_setup.exe`: MSVC build, recommended if you need runtime compatibility with MSVC-built plugins or related native components.
 
 #### Install
 
-You can install QuardCRT by double-clicking the package, and then follow the prompts to complete the installation.
+Run the installer and follow the setup wizard:
 
 1. Select the language, and click `OK`.
 
@@ -73,38 +81,46 @@ You can install QuardCRT by double-clicking the package, and then follow the pro
 
 ![Install example under Windows](./img/installation_9.png)
 
-### MacOS
+After installation, you can launch quardCRT from the Start menu or the optional desktop shortcut.
 
-If you are using MacOS, you can download the `quardCRT_macos_Vxxx_x86_64.dmg` or `quardCRT_macos_Vxxx_arm64.dmg` package. The `quardCRT_macos_Vxxx_x86_64.dmg` package is built with x86_64, and the `quardCRT_macos_Vxxx_arm64.dmg` package is built with arm64. If you are using an Apple Silicon Mac, you should choose the `quardCRT_macos_Vxxx_arm64.dmg` package.
+### macOS
+
+Download `quardCRT_macos_Vxxx_x86_64.dmg` for Intel Macs or `quardCRT_macos_Vxxx_arm64.dmg` for Apple Silicon Macs.
 
 #### Install
 
-You can install QuardCRT by double-clicking the package, and then follow the prompts to complete the installation.
+Open the DMG and install the app in the standard macOS way:
 
 1. Double-click the `quardCRT` icon.
 2. Drag the `quardCRT` icon to the `Applications` folder.
 
-![Install example under MacOS](./img/installation_3.png)
+![Install example under macOS](./img/installation_3.png)
 
-> Note: Because the pre-built binary packages we currently release are not officially signed by Apple, when you open the program for the first time, you maybe receive a warning message that the program is from an unidentified developer. If you trust our program, you may need to open terminal and run `xattr -cr /Applications/quardCRT.app` to remove the quarantine attribute. But if you don't trust our program, you shouldn't run it. You can choose to source compile the program by yourself.
+> Note: The prebuilt macOS packages are currently not signed by Apple. On first launch, macOS may warn that the app is from an unidentified developer. If you trust the downloaded package, you can remove the quarantine attribute with `xattr -cr /Applications/quardCRT.app`. If you do not trust the binary package, do not bypass the warning and build the project from source instead.
 
 ### Linux
 
-If you are using Linux, you can download the `quardCRT_Linux_Vxxx_x86_64.AppImage` or `quardCRT_Linux_Vxxx_x86_64.deb` package. The `quardCRT_Linux_Vxxx_x86_64.AppImage` package is an AppImage package, and the `quardCRT_Linux_Vxxx_x86_64.deb` package is a deb package. You can choose the package according to your needs.
+For Linux, choose between:
+
+- `quardCRT_Linux_Vxxx_x86_64.AppImage` for a portable single executable
+- `quardCRT_Linux_Vxxx_x86_64.deb` for Debian, Ubuntu, Deepin, and other Debian-based distributions
 
 #### Install
 
 - AppImage
 
-The AppImage package is a portable package, you can run it directly without installation. You can run the following command to make it executable:
+The AppImage package does not require installation. Mark it executable and run it directly:
 
 ```bash
 chmod +x quardCRT_Linux_Vxxx_x86_64.AppImage
+./quardCRT_Linux_Vxxx_x86_64.AppImage
 ```
 
 - deb
 
-You can install the deb package by double-clicking the package, and then follow the prompts to complete the installation.
+You can install the Debian package with a graphical package manager or on the command line.
+
+Graphical install:
 
 1. Double-click the package.
 2. Click `Install Package`.
@@ -116,8 +132,25 @@ You can install the deb package by double-clicking the package, and then follow 
 
 ![Install example under Linux](./img/installation_2.png)
 
-Or you can install the deb package by running the following command:
+Command-line install:
 
 ```bash
 sudo dpkg -i quardCRT_Linux_Vxxx_x86_64.deb
 ```
+
+If your distribution reports dependency issues, use your package manager to resolve them, for example:
+
+```bash
+sudo apt install ./quardCRT_Linux_Vxxx_x86_64.deb
+```
+
+## First launch
+
+After installation, the usual first steps are:
+
+1. Open quardCRT.
+2. Pick the application language if your platform package prompts for it.
+3. Create a connection from the session manager or quick connect dialog.
+4. Open `Options > Global Options` if you want to change theme, font, transfer paths, or advanced settings.
+
+Continue with the [usage guide](./usage.md) for the main window layout and common workflows.

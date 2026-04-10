@@ -46,7 +46,28 @@ quardCRT
    :align: center
    :alt: quardCRT
 
-quardCRT is a terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions. The design purpose of quardCRT is to create a terminal software that is as user-friendly, feature-rich, and cross-platform consistent as possible. Compared to many professional high-performance terminals, quardCRT will be more suitable for beginners and light users to quickly configure the required terminal environment, but this does not mean that quardCRT does not pursue high performance.
+quardCRT is a cross-platform terminal emulator and remote desktop client for Windows, Linux, and macOS. It focuses on a consistent user experience across platforms while still exposing the features expected from a modern daily-use terminal: multi-tab workflows, session management, file transfer, theming, language switching, and a growing plugin ecosystem.
+
+quardCRT is designed for users who want a tool that is easy to start with, but still capable enough for regular development, embedded debugging, server maintenance, and light remote desktop work.
+
+----------------------------------
+Quick start
+----------------------------------
+
+1. Read the :doc:`installation guide <installation>` and choose the package that matches your platform.
+2. Follow the :doc:`usage guide <usage>` to learn the main window layout, quick connection flow, and common operations.
+3. Use the :doc:`configuration guide <configuration>` to tune global preferences such as appearance, terminal behavior, transfer directories, and advanced settings.
+
+----------------------------------
+What quardCRT provides
+----------------------------------
+
+- Cross-platform desktop client with a largely consistent workflow on Windows, Linux, and macOS
+- Common terminal and remote access protocols in one application
+- Saved sessions, tabbed workflows, split layouts, and floating windows
+- File transfer support for SFTP, Xmodem, Ymodem, Zmodem, and Kermit
+- User-facing customization for fonts, color schemes, cursor, scrollback, and background media
+- Multi-language interface and plugin extensibility
 
 .. list-table:: 
    :widths: 33 33 33
@@ -69,17 +90,16 @@ quardCRT is a terminal emulation and remote desktop software that supports multi
 Features
 ----------------------------------
 
-- **Cross-platform**: Windows, MacOS, Linux
-- **Multiple protocols**: SSH, Telnet, Serial, LocalShell, RawSocket, NamedPipe, VNC
-- **Multiple sessions**: Multi-tab, multi-window, multi-monitor, floating window
-- **Multiple languages**: English, Simple Chinese, Traditional Chinese, Japanese, Korean, Spanish, French, Russian, German, Portuguese (Brazil), Czech, Arabic
-- **Multiple themes**: Light, Dark
-- **Session history management**: Session history management, session history search
-- **Session management**: Session management, session import and export
-- **HEX display**: HEX display
+- **Cross-platform**: Windows, macOS, Linux
+- **Protocols**: SSH, Telnet, Serial, Local Shell, Raw Socket, Named Pipe, VNC
+- **Session workflows**: Multi-tab, multi-window, split view, floating window
+- **Languages**: English, Simplified Chinese, Traditional Chinese, Japanese, Korean, Spanish, French, Russian, German, Portuguese (Brazil), Czech, Arabic
+- **Themes**: Light and Dark
+- **Session history**: History storage and quick search
+- **Session management**: Create, save, organize, import, and export sessions
+- **HEX display**: Inspect terminal output in hexadecimal form
 - **File transfer**: SFTP, Xmodem, Ymodem, Zmodem, Kermit
-- **Script**: Script recording, script playback
-- **Terminal customization**: Terminal font, color, size, cursor, scrollback, background, etc.
+- **Terminal customization**: Font, colors, cursor, scrollback, background image or video, and more
 
 ----------------------------------
 Special functions
@@ -101,10 +121,21 @@ Special functions
 - block selection (Shift+click) and column selection (Alt+Shift+click)
 
 ----------------------------------
+Documentation guide
+----------------------------------
+
+- :doc:`Installation <installation>`: download sources, package selection, and platform-specific installation steps
+- :doc:`Usage <usage>`: interface overview, first actions, menu and toolbar reference
+- :doc:`Configuration <configuration>`: global options, session behavior, storage, and advanced settings
+- :doc:`Scripts <scripts>`: scripting support and API overview
+- :doc:`Plugins <plugins>`: plugin model, template project, and examples
+- :doc:`FAQ <faq>`: licensing, privacy, and common questions
+
+----------------------------------
 Plugin
 ----------------------------------
 
-quardCRT supports plugins from version V0.4.0, plugins will be provided in the form of Qt plugins, loaded in the form of dynamic libraries, to learn more about plugin development information, please refer to the plugin open `platform <https://github.com/QuardCRT-platform>`_. This platform will provide template repositories and related examples for plugin development. At present, the plugin function is still in the early development stage. If you have good ideas or suggestions, please submit issues or discussions on `GitHub <https://github.com/QQxiaoming/quardCRT>`_ or `Gitee <https://gitee.com/QQxiaoming/quardCRT>`_
+quardCRT supports plugins from version V0.4.0. Plugins are provided as Qt plugins and loaded as dynamic libraries. For plugin development resources, templates, and examples, see the plugin `platform <https://github.com/QuardCRT-platform>`_. If you have ideas or suggestions for the plugin system, please open an issue or discussion on `GitHub <https://github.com/QQxiaoming/quardCRT>`_ or `Gitee <https://gitee.com/QQxiaoming/quardCRT>`_.
 
 ----------------------------------
 Install from store
@@ -122,7 +153,7 @@ Install from store
 Donate
 ----------------------------------
 
-If you like this project, you can donate to the author to support the development of the project.
+If you find quardCRT useful, you can support ongoing development with a donation.
 
 .. list-table:: 
    :widths: 33 33 33

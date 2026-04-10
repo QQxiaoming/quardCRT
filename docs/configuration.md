@@ -2,19 +2,41 @@
 
 # Configuration
 
-QuardCRT Includes global configuration and session configuration. Global configuration is the global setting of QuardCRT, which is persistently saved in the configuration file for the convenience of users' personalized use. Session configuration is used to temporarily adjust the settings of the current specific session.
+quardCRT has two layers of configuration:
+
+- Global configuration: defaults and preferences that apply across the application.
+- Session configuration: settings that affect the current session or a specific saved connection.
+
+In practice, you usually start with global options for appearance and workflow defaults, then adjust session-specific settings only when a target requires different behavior.
 
 ## Global Configuration
 
-First of all, the global configuration file of QuardCRT is located at `<user directory>/.config/QuardCRT/QuardCRT.ini`, you can also open the main interface of QuardCRT, select Options --> Global Options --> Advanced to view the current configuration file path.
+The global configuration file is typically stored under your user profile, for example at `<user directory>/.config/QuardCRT/QuardCRT.ini`. The most reliable way to confirm the active path on your machine is to open `Options > Global Options > Advanced` and read the `Configuration File Path` field.
 
 ![Configuration file path](./img/configuration_1.png)
 
-The following introduces the various parts of the classified global configuration.
+For security-sensitive data such as saved passwords, quardCRT relies on the system keychain service instead of storing plain-text passwords in this configuration file. See the [FAQ](./faq.md) for details.
+
+## How to choose between global and session settings
+
+- Use global settings for items you want in every tab or most sessions, such as theme, font, scrollback size, transfer directories, and default window behavior.
+- Use session settings when a single host or device needs a different protocol, port, baud rate, authentication mode, or terminal behavior.
+- If you are unsure, change the global option first and only override it at the session level when necessary.
+
+## Recommended starting points
+
+Most new users typically review these sections first:
+
+- `Appearance` to choose a theme, font, and optional background media.
+- `Terminal` to set scrollback size, cursor behavior, and word selection behavior.
+- `Transfer` to choose upload and download directories.
+- `Advanced` to verify the configuration path and optional UI integrations.
+
+The following sections describe each part of the global configuration in more detail.
 
 ### General
 
-General configuration includes some basic settings of QuardCRT.
+General controls how new tabs and previews behave across the application.
 
 - New Tab Mode
 
@@ -50,7 +72,7 @@ General configuration includes some basic settings of QuardCRT.
 
 ### Appearance
 
-Appearance configuration includes the appearance settings of the terminal.
+Appearance controls the visual style of the terminal.
 
 - Color Scheme
 
@@ -62,7 +84,7 @@ Appearance configuration includes the appearance settings of the terminal.
 
 - Background Image
 
-    The background image settings of the terminal, users can choose their favorite background image as the background of the terminal. Supported image formats include: bmp, jpg, jpeg, png, gif. Images in gif format will be displayed on the terminal background in the form of animation. If `Terminal Background Supports Animation` is checked in the advanced options, you can also choose mp4, avi, mov, wkv and other video formats as the background of the terminal, but this will consume a lot of system resources. Click the clear button to clear the current background image selection.
+    Users can choose an image as the terminal background. Supported image formats include `bmp`, `jpg`, `jpeg`, `png`, and `gif`. GIF files are displayed as animated terminal backgrounds. If `Terminal Background Supports Animation` is enabled in `Advanced`, you can also choose video files such as `mp4`, `avi`, `mov`, and `mkv`, but this can noticeably increase resource usage. Use the clear button to remove the current background.
 
 - Background Mode
 
@@ -81,7 +103,7 @@ Appearance configuration includes the appearance settings of the terminal.
 
 ### Terminal
 
-Terminal configuration includes some basic settings of the terminal.
+Terminal contains the core behavior settings for the terminal widget itself.
 
 - Scrollback Lines
 
@@ -105,13 +127,15 @@ Terminal configuration includes some basic settings of the terminal.
 
 ### Window
 
-Window configuration includes the window settings of QuardCRT.
+Window contains application-level window behavior.
 
 - Window Opacity
 
     The transparency of the entire application window, the value range is 0-100, 0 means completely transparent, 100 means completely opaque.
 
 ### Transfer
+
+Transfer sets the default paths and behavior for built-in file transfer features.
 
 - Upload Directory
 
@@ -131,7 +155,7 @@ Window configuration includes the window settings of QuardCRT.
 
 ### Advanced
 
-Advanced configuration includes some advanced settings of QuardCRT.
+Advanced contains configuration path visibility and opt-in features that may affect integration or performance.
 
 - Configuration File Path
 
@@ -147,8 +171,18 @@ Advanced configuration includes some advanced settings of QuardCRT.
 
 - Native UI
 
-    Check to indicate the use of the native UI, mainly for MacOS users. After checking, QuardCRT's UI will be more in line with the style of MacOS. However, it is not recommended for multi-platform users to check to maintain the unified style and usage habits of QuardCRT. (This option needs to be restarted QuardCRT to take effect)
+    Check to use the native UI, mainly for macOS users. After enabling it, quardCRT aligns more closely with the native macOS look and feel. Users who frequently move between operating systems may prefer to leave this disabled to keep a more uniform cross-platform interface. Restart quardCRT after changing this option.
 
 - Github Copilot
 
-    This feature is not yet available, please look forward to it.
+    This feature is reserved for future use and is not currently available.
+
+## Session configuration
+
+Session configuration is useful when one connection needs settings that differ from your global defaults. Typical examples include:
+
+- a serial device that requires a specific baud rate and flow control mode
+- an SSH server that needs key-based authentication instead of a password
+- a host that should always open with a specific name, protocol, or connection port
+
+If you use the same target repeatedly, save it as a session after confirming the settings once.

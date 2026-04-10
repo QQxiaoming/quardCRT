@@ -4,6 +4,8 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+## [[V0.6.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.6.0)] - 2026-04-10
+
 - Fix the main window error raise
 - Add the ability to add custom data to the log
 - Improve the log file path setting option

@@ -1,0 +1,178 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'V*.*.*'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish_release_assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate semantic version tag
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" != "tag" ]]; then
+            echo "Release workflow must run on a tag ref (Vx.x.x). Current ref type: ${GITHUB_REF_TYPE}"
+            exit 1
+          fi
+
+          tag="${GITHUB_REF_NAME}"
+          if [[ ! "$tag" =~ ^V[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag '$tag' is not a valid semantic version in Vx.x.x format"
+            exit 1
+          fi
+
+      - name: Create or update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+
+      - name: Wait for tag CI workflows to complete
+        id: wait_for_tag_ci
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          required_workflows=(
+            "linux"
+            "linux_appimage"
+            "macos"
+            "macos_arm64"
+            "windows"
+            "windows_msvc"
+          )
+
+          max_attempts=240
+          attempt=1
+          declare -A run_ids=()
+
+          while (( attempt <= max_attempts )); do
+            echo "Checking required workflow runs for tag ${TAG} (attempt ${attempt}/${max_attempts})"
+
+            runs_json=$(gh api --method GET "/repos/${REPO}/actions/runs" -f event=push -f per_page=100)
+
+            pending=()
+            failed=()
+
+            for wf in "${required_workflows[@]}"; do
+              wf_run=$(echo "${runs_json}" | jq -c --arg wf "${wf}" --arg tag "${TAG}" '
+                [ .workflow_runs[]
+                  | select(.name == $wf and .head_branch == $tag)
+                ]
+                | sort_by(.run_number)
+                | last
+              ')
+
+              if [[ "${wf_run}" == "null" ]]; then
+                pending+=("${wf}")
+                continue
+              fi
+
+              status=$(echo "${wf_run}" | jq -r '.status')
+              conclusion=$(echo "${wf_run}" | jq -r '.conclusion')
+              run_id=$(echo "${wf_run}" | jq -r '.id')
+
+              if [[ "${status}" != "completed" ]]; then
+                pending+=("${wf}")
+              elif [[ "${conclusion}" != "success" ]]; then
+                failed+=("${wf}:${conclusion}")
+              else
+                run_ids["${wf}"]="${run_id}"
+              fi
+            done
+
+            if (( ${#failed[@]} > 0 )); then
+              echo "These required workflows failed for tag ${TAG}: ${failed[*]}"
+              exit 1
+            fi
+
+            if (( ${#pending[@]} == 0 )); then
+              echo "All required workflows completed successfully for tag ${TAG}"
+              break
+            fi
+
+            echo "Waiting for workflows: ${pending[*]}"
+            attempt=$((attempt + 1))
+            sleep 60
+          done
+
+          if (( attempt > max_attempts )); then
+            echo "Timeout waiting for required workflows for tag ${TAG}"
+            exit 1
+          fi
+
+          for wf in "${required_workflows[@]}"; do
+            echo "${wf}_run_id=${run_ids[${wf}]}" >> "$GITHUB_OUTPUT"
+          done
+
+      - name: Download linux artifact
+        uses: dawidd6/action-download-artifact@v20
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ steps.wait_for_tag_ci.outputs.linux_run_id }}
+          name: quardCRT_Ubuntu2204
+          path: dist/linux
+          if_no_artifact_found: fail
+
+      - name: Download linux AppImage artifact
+        uses: dawidd6/action-download-artifact@v20
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ steps.wait_for_tag_ci.outputs.linux_appimage_run_id }}
+          name: quardCRT_AppImage
+          path: dist/linux-appimage
+          if_no_artifact_found: fail
+
+      - name: Download macOS Intel artifact
+        uses: dawidd6/action-download-artifact@v20
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ steps.wait_for_tag_ci.outputs.macos_run_id }}
+          name: quardCRT_macos
+          path: dist/macos-intel
+          if_no_artifact_found: fail
+
+      - name: Download macOS arm64 artifact
+        uses: dawidd6/action-download-artifact@v20
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ steps.wait_for_tag_ci.outputs.macos_arm64_run_id }}
+          name: quardCRT_macos_arm64
+          path: dist/macos-arm64
+          if_no_artifact_found: fail
+
+      - name: Download windows MinGW artifact
+        uses: dawidd6/action-download-artifact@v20
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ steps.wait_for_tag_ci.outputs.windows_run_id }}
+          name: quardCRT_windows
+          path: dist/windows-mingw
+          if_no_artifact_found: fail
+
+      - name: Download windows MSVC artifact
+        uses: dawidd6/action-download-artifact@v20
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ steps.wait_for_tag_ci.outputs.windows_msvc_run_id }}
+          name: quardCRT_windows_msvc2022
+          path: dist/windows-msvc
+          if_no_artifact_found: fail
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/linux/*.deb
+            dist/linux-appimage/*.AppImage
+            dist/macos-intel/*.dmg
+            dist/macos-arm64/*.dmg
+            dist/windows-mingw/*.exe
+            dist/windows-msvc/*.exe
+          fail_on_unmatched_files: true
