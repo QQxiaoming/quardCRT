@@ -2,18 +2,70 @@
 
 # Plugins
 
-quardCRT supports plugins from version V0.4.0, plugins will be provided in the form of Qt plugins, loaded in the form of dynamic libraries.
+quardCRT supports plugins from version V0.4.0. Plugins are implemented as Qt plugins and loaded as dynamic libraries.
+
+This page covers both sides of the plugin system:
+
+- what plugin support means for regular users
+- how developers can build plugins against the quardCRT plugin API
+
+## For users
+
+Plugins can extend quardCRT in several ways, depending on what the plugin provides:
+
+- add actions or menus to the main interface
+- add items to the terminal context menu
+- provide custom plugin widgets inside the application sidebar area
+- trigger connection-related actions such as opening SSH, serial, raw socket, or VNC sessions
+
+quardCRT also includes a plugin information window that shows plugin state, compatibility information, and initialization errors.
+
+### Plugin loading behavior
+
+At startup, quardCRT tries to load bundled plugins from its plugin directory. It can also load plugins from an optional user-defined plugin directory if one is configured in the application settings.
+
+If a plugin cannot be loaded, quardCRT records the failure in the plugin information dialog instead of silently treating it as a working plugin.
+
+Typical reasons a plugin may not load include:
+
+- missing plugin metadata
+- unsupported plugin API version
+- initialization failure
+- missing menu or widget entry points expected by quardCRT
+
+### Enabling and disabling plugins
+
+Plugin enable state is persisted in application settings. Supported plugins can be enabled or disabled from the plugin information dialog.
+
+This is useful when:
+
+- you want to temporarily disable a plugin without removing its files
+- you are testing a new plugin and want a simple rollback path
+- you want different plugin combinations on different machines
+
+## For developers
 
 ## Plugin Development
 
 ### API
 
-quardCRT's plugin standard API specification is located at [plugininterface](https://github.com/QuardCRT-platform/plugininterface), if you want to develop your custom plugin, the steps are as follows:
+The plugin API specification is maintained in the [plugininterface](https://github.com/QuardCRT-platform/plugininterface) repository.
+
+To develop a custom plugin, the usual flow is:
 
 - Include plugininterface.h header file
 - Define your plugin class and inherit
 - Implement the relevant methods required by PluginInterface
-- Build DLL/so/dylib according to your native platform and load it using the quardCRT main program
+- Build a native plugin library for your platform, such as `dll`, `so`, or `dylib`
+- Place the built plugin where quardCRT can load it
+
+In practice, a useful plugin usually provides one or more of the following:
+
+- a main menu action or menu
+- a sidebar widget
+- terminal context menu entries
+- settings storage via the plugin read or write settings hooks
+- localization support through `setLanguage()` and `retranslateUi()`
 
 Here is a simple example:
 
@@ -71,24 +123,46 @@ private:
 
 ### Template Project
 
-For developing plugins, we recommend using the Github template project [plugin-template](https://github.com/QuardCRT-platform/plugin-template), enter the git repository, click use this template in the upper right corner, and you can immediately create your new plugin repository. We have configured the build script, project (pro) file, and enabled github action as CI/CD in the template repository. You only need to focus on your C++ code development and submit it, you can get your plugin build immediately through github action.
+For new plugin development, the recommended starting point is the GitHub template project [plugin-template](https://github.com/QuardCRT-platform/plugin-template).
+
+The template helps you get started faster because it already includes:
+
+- a project structure for plugin development
+- build script and project configuration
+- CI setup through GitHub Actions
+
+This lets you focus on plugin logic instead of building the project skeleton from scratch.
+
+### Compatibility notes
+
+When building plugins, keep these points in mind:
+
+- plugins must target the quardCRT plugin API version expected by the running application
+- plugins are native binaries, so compiler, Qt version, architecture, and platform compatibility matter
+- if a plugin depends on extra shared libraries, those libraries must also be available at runtime
+
+If a plugin looks correct but still fails to load, the plugin information window is the first place to check.
 
 ## Example
 
-Currently quardCRT already has some plugins and is packaged in the binary installation program, these plugins are still open source, and provided as plugin examples for reference here:
+quardCRT already has several open source plugins that can be used as references:
 
 - [plugin-SearchOnWeb](https://github.com/QuardCRT-platform/plugin-SearchOnWeb)
 
-Add right-click context menu to quickly jump the selected terminal content to the search engine, support Google, Bing, Baidu, Github, Stack Overflower.
+Adds terminal context menu actions that search selected text on Google, Bing, Baidu, GitHub, and similar services.
 
 - [plugin-quickcomplete](https://github.com/QuardCRT-platform/plugin-quickcomplete)
 
-Provide user-defined commands for quick sending to the session.
+Provides user-defined commands for quick sending to the current session.
 
 - [plugin-onestep](https://github.com/QuardCRT-platform/plugin-onestep)
 
-Provide custom pre-filled ssh information, quickly select the host address in the context to quickly connect. (Common operation for initializing production devices in embedded development).
+Provides pre-filled SSH connection information and faster host selection workflows, which can be useful in embedded development or device initialization scenarios.
 
 ## More
 
-For more information about plugin development, please refer to the plugin open platform [https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform), the plugin function is still in the early development stage. If you have good ideas or suggestions, please submit issues or discussions on GitHub or Gitee.
+For more information, templates, and related repositories, see the quardCRT plugin platform:
+
+- [https://github.com/QuardCRT-platform](https://github.com/QuardCRT-platform)
+
+The plugin system is still evolving. If you have ideas for plugin APIs, extension points, or developer tooling, open an issue or discussion on GitHub or Gitee.
