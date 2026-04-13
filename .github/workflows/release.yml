@@ -28,7 +28,7 @@ jobs:
           fi
 
       - name: Create or update GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
 
@@ -166,7 +166,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: Upload release assets
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/linux/*.deb
