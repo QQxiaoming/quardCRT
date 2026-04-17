@@ -24,6 +24,7 @@
 
 #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
 
+#include <QString>
 #include <QUrl>
 #include <QWidget>
 
@@ -35,6 +36,9 @@ bool isRunningWithPackageIdentity(void);
 QUrl getMicrosoftStoreProductUrl(void);
 QUrl getMicrosoftStoreReviewUrl(void);
 bool openMicrosoftStorePage(QWidget *parent, const QUrl &url);
+QString getAppLicenseMessage(void);
+QString getAppLicenseSummary(void);
+bool showAppLicenseDialog(QWidget *parent);
 
 }
 

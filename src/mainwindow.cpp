@@ -1912,12 +1912,13 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     keyboradShortcutsReferenceAction->setText(tr("Keyborad Shortcuts Reference"));
     keyboradShortcutsReferenceAction->setIcon(QFontIcon::icon(QChar(0xf128)));
     keyboradShortcutsReferenceAction->setStatusTip(tr("Display keyborad shortcuts reference"));
-    checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf09b)));
 #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
     if (MicrosoftStoreApi::isMicrosoftStoreBuild()) {
-        checkUpdateAction->setText(tr("Open Microsoft Store"));
-        checkUpdateAction->setStatusTip(tr("Open app page in Microsoft Store"));
+        checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf17a)));
+        checkUpdateAction->setText(tr("Check Update (Microsoft Store)"));
+        checkUpdateAction->setStatusTip(tr("Check for updates in Microsoft Store"));
     } else {
+        checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf09b)));
         checkUpdateAction->setText(tr("Check Update"));
         checkUpdateAction->setStatusTip(tr("Check for updates"));
     }
@@ -1926,6 +1927,7 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     rateInMicrosoftStoreAction->setStatusTip(tr("Open the review page in Microsoft Store"));
     rateInMicrosoftStoreAction->setVisible(MicrosoftStoreApi::isMicrosoftStoreBuild());
 #else
+    checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf09b)));
     checkUpdateAction->setText(tr("Check Update"));
     checkUpdateAction->setStatusTip(tr("Check for updates"));
 #endif

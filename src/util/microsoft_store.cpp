@@ -23,12 +23,56 @@
 #include <windows.h>
 #include <appmodel.h>
 
+#include <QDateTime>
 #include <QUrl>
 #include <QString>
+#include <QStringList>
 #include <QDesktopServices>
 #include <QMessageBox>
 
+#include <chrono>
 #include <string>
+
+#include <winrt/base.h>
+#include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Services.Store.h>
+
+namespace {
+
+void ensureWinrtApartment(void)
+{
+    static bool initialized = false;
+    if (initialized) {
+        return;
+    }
+
+    try {
+        winrt::init_apartment();
+    } catch (const winrt::hresult_error &error) {
+        if (error.code() != winrt::hresult_error(RPC_E_CHANGED_MODE).code()) {
+            throw;
+        }
+    }
+    initialized = true;
+}
+
+QString qStringFromHString(const winrt::hstring &value)
+{
+    return QString::fromWCharArray(value.c_str(), static_cast<int>(value.size()));
+}
+
+QString formatLicenseDateTime(const winrt::Windows::Foundation::DateTime &dateTime)
+{
+    if (dateTime.time_since_epoch().count() == 0) {
+        return QObject::tr("Never");
+    }
+
+    const auto sysTime = winrt::clock::to_sys(dateTime);
+    const auto msSinceEpoch = std::chrono::duration_cast<std::chrono::milliseconds>(sysTime.time_since_epoch()).count();
+    return QDateTime::fromMSecsSinceEpoch(msSinceEpoch, Qt::UTC).toLocalTime().toString(Qt::ISODate);
+}
+
+}
 
 namespace MicrosoftStoreApi {
 
@@ -96,6 +140,67 @@ bool openMicrosoftStorePage(QWidget *parent, const QUrl &url)
                                  QObject::tr("This feature requires the packaged MSIX application with package identity. Please install and launch the Microsoft Store build."));
     }
     return false;
+}
+
+QString getAppLicenseMessage(void)
+{
+    if (!isMicrosoftStoreBuild()) {
+        return QObject::tr("Microsoft Store APIs are only enabled in the dedicated Store build.");
+    }
+
+    if (!isRunningWithPackageIdentity()) {
+        return QObject::tr("The current process has no package identity. Launch the installed MSIX package to query Microsoft Store license information.");
+    }
+
+    try {
+        ensureWinrtApartment();
+
+        using namespace winrt::Windows::Services::Store;
+
+        const StoreContext storeContext = StoreContext::GetDefault();
+        const StoreAppLicense appLicense = storeContext.GetAppLicenseAsync().get();
+
+        QStringList lines;
+        lines << QObject::tr("License Active: %0").arg(appLicense.IsActive() ? QObject::tr("Yes") : QObject::tr("No"));
+        lines << QObject::tr("Trial License: %0").arg(appLicense.IsTrial() ? QObject::tr("Yes") : QObject::tr("No"));
+        lines << QObject::tr("Expiration Date: %0").arg(formatLicenseDateTime(appLicense.ExpirationDate()));
+
+        const QString skuStoreId = qStringFromHString(appLicense.SkuStoreId());
+        if (!skuStoreId.isEmpty()) {
+            lines << QObject::tr("SKU Store ID: %0").arg(skuStoreId);
+        }
+
+        lines << QObject::tr("Add-on Licenses: %0").arg(appLicense.AddOnLicenses().Size());
+
+        const QString extendedJson = qStringFromHString(appLicense.ExtendedJsonData());
+        if (!extendedJson.isEmpty()) {
+            lines << QObject::tr("Extended Data Available: Yes");
+        }
+
+        return lines.join('\n');
+    } catch (const winrt::hresult_error &error) {
+        return QObject::tr("Failed to query Microsoft Store license information: %0").arg(qStringFromHString(error.message()));
+    } catch (const std::exception &error) {
+        return QObject::tr("Failed to query Microsoft Store license information: %0").arg(QString::fromLocal8Bit(error.what()));
+    }
+}
+
+QString getAppLicenseSummary(void)
+{
+    const QString message = getAppLicenseMessage();
+    const QStringList lines = message.split('\n', Qt::SkipEmptyParts);
+    if (lines.isEmpty()) {
+        return message;
+    }
+    return lines.first();
+}
+
+bool showAppLicenseDialog(QWidget *parent)
+{
+    QMessageBox::information(parent,
+                             QObject::tr("Microsoft Store License"),
+                             getAppLicenseMessage());
+    return true;
 }
 
 }
