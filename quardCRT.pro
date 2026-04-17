@@ -76,6 +76,7 @@ SOURCES += \
     src/sessionoptions/sessionoptionsserialstate.cpp \
     src/statusbarwidget/statusbarwidget.cpp \
     src/util/misc.cpp \
+    src/util/microsoft_store.cpp \
     src/util/globalsetting.cpp \
     src/util/keychainclass.cpp \
     src/util/filedialog.cpp \
@@ -135,6 +136,7 @@ HEADERS += \
     src/sessionoptions/sessionoptionsserialstate.h \
     src/statusbarwidget/statusbarwidget.h \
     src/util/misc.h \
+    src/util/microsoft_store.h \
     src/util/argv_split.h \
     src/util/filedialog.h \
     src/util/globalsetting.h \
@@ -305,6 +307,10 @@ win32:{
         contains(DEFINES, ENABLE_PYTHON) {
             INCLUDEPATH += $${Python3_DIR}\include
             LIBS += $${Python3_DIR}\lib\python311.lib
+        }
+        contains(CONFIG, microsoft_store_build) {
+            DEFINES += MICROSOFT_STORE_BUILD
+            message("Microsoft Store build enabled")
         }
     }
 

@@ -2,7 +2,7 @@
  * This file is part of the https://github.com/QQxiaoming/quardCRT.git
  * project.
  *
- * Copyright (C) 2023 Quard <2014500726@smail.xtu.edu.cn>
+ * Copyright (C) 2023 Quard <qiaoqm@aliyun.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,6 +68,7 @@
 #include "sshsftp.h"
 #endif
 #include "misc.h"
+#include "microsoft_store.h"
 
 #include "ui_mainwindow.h"
 
@@ -1911,9 +1912,23 @@ void CentralWidget::menuAndToolBarRetranslateUi(void) {
     keyboradShortcutsReferenceAction->setText(tr("Keyborad Shortcuts Reference"));
     keyboradShortcutsReferenceAction->setIcon(QFontIcon::icon(QChar(0xf128)));
     keyboradShortcutsReferenceAction->setStatusTip(tr("Display keyborad shortcuts reference"));
-    checkUpdateAction->setText(tr("Check Update"));
     checkUpdateAction->setIcon(QFontIcon::icon(QChar(0xf09b)));
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    if (MicrosoftStoreApi::isMicrosoftStoreBuild()) {
+        checkUpdateAction->setText(tr("Open Microsoft Store"));
+        checkUpdateAction->setStatusTip(tr("Open app page in Microsoft Store"));
+    } else {
+        checkUpdateAction->setText(tr("Check Update"));
+        checkUpdateAction->setStatusTip(tr("Check for updates"));
+    }
+    rateInMicrosoftStoreAction->setText(tr("Rate In Microsoft Store"));
+    rateInMicrosoftStoreAction->setIcon(QFontIcon::icon(QChar(0xf005)));
+    rateInMicrosoftStoreAction->setStatusTip(tr("Open the review page in Microsoft Store"));
+    rateInMicrosoftStoreAction->setVisible(MicrosoftStoreApi::isMicrosoftStoreBuild());
+#else
+    checkUpdateAction->setText(tr("Check Update"));
     checkUpdateAction->setStatusTip(tr("Check for updates"));
+#endif
     privacyStatementAction->setText(tr("Privacy Statement"));
     privacyStatementAction->setIcon(QFontIcon::icon(QChar(0xf023)));
     privacyStatementAction->setStatusTip(tr("Display privacy statement"));
@@ -2384,6 +2399,10 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     helpMenu->addAction(keyboradShortcutsReferenceAction);
     checkUpdateAction = new QAction(this);
     helpMenu->addAction(checkUpdateAction);
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    rateInMicrosoftStoreAction = new QAction(this);
+    helpMenu->addAction(rateInMicrosoftStoreAction);
+#endif
     helpMenu->addSeparator();
     privacyStatementAction = new QAction(this);
     helpMenu->addAction(privacyStatementAction);
@@ -3788,6 +3807,12 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
         }
     });
     connect(checkUpdateAction, &QAction::triggered, this, [&]() {
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+        if (MicrosoftStoreApi::isMicrosoftStoreBuild()) {
+            MicrosoftStoreApi::openMicrosoftStorePage(this, MicrosoftStoreApi::getMicrosoftStoreProductUrl());
+            return;
+        }
+#endif
         QLocale locale;
         QLocale::Language lang = locale.language();
         if(lang == QLocale::Chinese && language == QLocale::Chinese) {
@@ -3796,6 +3821,11 @@ void CentralWidget::menuAndToolBarConnectSignals(void) {
             QDesktopServices::openUrl(QUrl("https://github.com/QQxiaoming/quardCRT/releases"));
         }
     });
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    connect(rateInMicrosoftStoreAction, &QAction::triggered, this, [&]() {
+        MicrosoftStoreApi::openMicrosoftStorePage(this, MicrosoftStoreApi::getMicrosoftStoreReviewUrl());
+    });
+#endif
     connect(privacyStatementAction, &QAction::triggered, this, [&]() {
         if(mainWindow) {
             CentralWidget::appPrivacyStatement(mainWindow);
@@ -5211,7 +5241,7 @@ void CentralWidget::appPrivacyStatement(QWidget *parent)
                            QString("</p><p>") + 
                            tr("If you have any questions or suggestions, please contact the author.") +
                            QString("</p><p></p><p>") + tr("Author") +
-                           QString(":<a href='mailto:2014500726@smail.xtu.edu.cn'>2014500726@smail.xtu.edu.cn</a></p>") +
+                           QString(":<a href='mailto:qiaoqm@aliyun.com'>qiaoqm@aliyun.com</a></p>") +
                            "<p>Github:<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</a></p>" +
                            "<p>Gitee:<a href='https://gitee.com/QQxiaoming/quardCRT'>https://gitee.com/QQxiaoming</a></p>"
                        );
@@ -5222,6 +5252,26 @@ void CentralWidget::appAbout(QWidget *parent)
     uint32_t timestamps = DATE_TIMESTAMPS_TAG.toUInt();
     uint32_t current = QDateTime::currentDateTimeUtc().toSecsSinceEpoch();
     uint32_t days = (current - timestamps) / 86400;
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    QString distributionInfo;
+    if (MicrosoftStoreApi::isMicrosoftStoreBuild()) {
+        const QString packageFamilyName = MicrosoftStoreApi::getCurrentPackageFamilyName();
+        distributionInfo = QString("<p>") +
+                           tr("Distribution") +
+                           QString("</p><p>&nbsp;") +
+                           tr("Microsoft Store build") +
+                           QString("</p>");
+        if (packageFamilyName.isEmpty()) {
+            distributionInfo += QString("<p>&nbsp;") +
+                                tr("Current process has no package identity. Launch the installed MSIX package to use Microsoft Store integration.") +
+                                QString("</p>");
+        } else {
+            distributionInfo += QString("<p>") +
+                                tr("Package Family Name") +
+                                QString("</p><p>&nbsp;%0</p>").arg(packageFamilyName.toHtmlEscaped());
+        }
+    }
+#endif
     QMessageBox::about(parent, tr("About"),
                            QString("<p>") + 
                            tr("Version") +
@@ -5230,8 +5280,11 @@ void CentralWidget::appAbout(QWidget *parent)
                            QString("</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT/commit/%0'>%1</a></p><p>").arg(HASH_TAG).arg(GIT_TAG) +
                            tr("Date") +
                            QString("</p><p>&nbsp;%0 (%1 days ago)</p><p>").arg(DATE_TAG).arg(days) +
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+                           distributionInfo +
+#endif
                            tr("Author") +
-                           "</p><p>&nbsp;<a href='mailto:2014500726@smail.xtu.edu.cn'>2014500726@smail.xtu.edu.cn</a></p><p>" +
+                           "</p><p>&nbsp;<a href='mailto:qiaoqm@aliyun.com'>qiaoqm@aliyun.com</a></p><p>" +
                            tr("Website") +
                            "</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT'>https://github.com/QQxiaoming</a></p>" +
                            "<p>&nbsp;<a href='https://gitee.com/QQxiaoming/quardCRT'>https://gitee.com/QQxiaoming</a></p>"

@@ -2,7 +2,7 @@
  * This file is part of the https://github.com/QQxiaoming/QCustomFileSystemModel.git
  * project.
  *
- * Copyright (C) 2023 Quard <2014500726@smail.xtu.edu.cn>
+ * Copyright (C) 2023 Quard <qiaoqm@aliyun.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

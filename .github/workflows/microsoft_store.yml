@@ -1,4 +1,4 @@
-name: windows_msvc
+name: microsoft_store
 
 on:
   push:
@@ -40,7 +40,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  windows_msvc2022:
+  microsoft_store:
     runs-on: windows-2022
 
     steps:
@@ -93,21 +93,28 @@ jobs:
         run: |
           git fetch --tags --force
           ./tools/sed/sed.exe -i 's/--long --dirty/--long/g' ./tools/generate_info.ps1
-          ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/msvc64\/bin/QT_DIR=%Qt6_DIR%/g" ./build_setup_msvc.bat
-          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/msvc64\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/msvc64\/bin/g" ./build_setup_msvc.bat
+          ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/msvc64\/bin/QT_DIR=%Qt6_DIR%/g" ./build_microsoft_store_package.bat
+          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/msvc64\/bin/QT_TOOLS_DIR=C:\/ProgramData\/Chocolatey\/lib\/mingw\/tools\/install\/msvc64\/bin/g" ./build_microsoft_store_package.bat
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri
           ./tools/sed/sed.exe -i "s/Python3_DIR=\/python3_root_dir/Python3_DIR=msvc-libpython/g" ./quardCRT.pro
           c:/Windows/system32/WindowsPowerShell/v1.0/powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -File "./tools/generate_info.ps1" > ./build_info.inc
           mkdir prebuilt_plugins
           python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.json ./prebuilt_plugins msvc
-          ./build_setup_msvc.bat
+          ./build_microsoft_store_package.bat
 
       - name: Upload build asserts
         uses: actions/upload-artifact@v7
         with:
-          name: quardCRT_windows_msvc2022
+          name: quardCRT_microsoft_store
           path: |
             ./output/*.exe
+
+      - name: Upload build asserts
+        uses: actions/upload-artifact@v7
+        with:
+          name: quardCRT_patch_for_msix
+          path: |
+            ./build_release/out/quardCRT.exe
 
       - name: Run tests
         run: |

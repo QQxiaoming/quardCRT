@@ -14,7 +14,7 @@ This software is provided as is, without any warranty.
 
 If you have any questions or suggestions, please contact the author.
 
-Author:[2014500726@smail.xtu.edu.cn](mailto:2014500726@smail.xtu.edu.cn)
+Author:[qiaoqm@aliyun.com](mailto:qiaoqm@aliyun.com)
 
 Github:[https://github.com/QQxiaoming/quardCRT](https://github.com/QQxiaoming)
 

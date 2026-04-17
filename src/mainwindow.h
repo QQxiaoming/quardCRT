@@ -2,7 +2,7 @@
  * This file is part of the https://github.com/QQxiaoming/quardCRT.git
  * project.
  *
- * Copyright (C) 2023 Quard <2014500726@smail.xtu.edu.cn>
+ * Copyright (C) 2023 Quard <qiaoqm@aliyun.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -468,6 +468,9 @@ private:
     QAction *helpAction;
     QAction *keyboradShortcutsReferenceAction;
     QAction *checkUpdateAction;
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+    QAction *rateInMicrosoftStoreAction;
+#endif
     QAction *privacyStatementAction;
     QAction *aboutAction;
     QAction *aboutQtAction;

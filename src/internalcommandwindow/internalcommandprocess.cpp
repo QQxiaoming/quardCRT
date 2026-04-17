@@ -2,7 +2,7 @@
  * This file is part of the https://github.com/QQxiaoming/quardCRT.git
  * project.
  *
- * Copyright (C) 2024 Quard <2014500726@smail.xtu.edu.cn>
+ * Copyright (C) 2024 Quard <qiaoqm@aliyun.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -145,7 +145,7 @@ void InternalCommandProcess::processLine(const QString &sline) {
         },
         {{"authors"},QStringList(), "show the authors of the QuardCRT"     , 
             [&](void) {
-                sendLineString("QuardCRT is authored by the Quard <2014500726@smail.xtu.edu.cn>.");
+                sendLineString("QuardCRT is authored by the Quard <qiaoqm@aliyun.com>.");
             }
         },
         {{"credits"}, {"credits()"}, "show the credits of the QuardCRT"     , 
@@ -155,7 +155,7 @@ void InternalCommandProcess::processLine(const QString &sline) {
         },
         {{"copyright"}, {"copyright()"}, "show the copyright of the QuardCRT"     , 
             [&](void) {
-                sendLineString("Copyright (C) 2023-2024 Quard <2014500726@smail.xtu.edu.cn>");
+                sendLineString("Copyright (C) 2023-2024 Quard <qiaoqm@aliyun.com>");
             }
         },
         {{"AskQuard"},QStringList(), QString()                             , 

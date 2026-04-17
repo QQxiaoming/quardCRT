@@ -80,6 +80,7 @@ build
 build_info.inc
 build_*
 .vscode
+!build_microsoft_store_package.bat
 !build_setup_msvc.bat
 !build_setup.bat
 !build_deb.sh

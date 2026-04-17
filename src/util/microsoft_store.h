@@ -2,7 +2,7 @@
  * This file is part of the https://github.com/QQxiaoming/quardCRT.git
  * project.
  *
- * Copyright (C) 2024 Quard <qiaoqm@aliyun.com>
+ * Copyright (C) 2026 Quard <qiaoqm@aliyun.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,30 +17,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PLUGINVIEWERHOMEWIDGET_H
-#define PLUGINVIEWERHOMEWIDGET_H
+#ifndef MICROSOFT_STORE_H
+#define MICROSOFT_STORE_H
 
+#include <QApplication>
+
+#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
+
+#include <QUrl>
 #include <QWidget>
-#include <QMouseEvent>
 
-namespace Ui {
-class PluginViewerHomeWidget;
+namespace MicrosoftStoreApi {
+
+bool isMicrosoftStoreBuild(void);
+QString getCurrentPackageFamilyName(void);
+bool isRunningWithPackageIdentity(void);
+QUrl getMicrosoftStoreProductUrl(void);
+QUrl getMicrosoftStoreReviewUrl(void);
+bool openMicrosoftStorePage(QWidget *parent, const QUrl &url);
+
 }
 
-class PluginViewerHomeWidget : public QWidget
-{
-    Q_OBJECT
+#endif
 
-public:
-    explicit PluginViewerHomeWidget(QWidget *parent = nullptr);
-    ~PluginViewerHomeWidget();
-    void retranslateUi(void);
-
-protected:
-    void mousePressEvent(QMouseEvent *event) override;
-
-private:
-    Ui::PluginViewerHomeWidget *ui;
-};
-
-#endif // PLUGINVIEWERHOMEWIDGET_H
+#endif // MICROSOFT_STORE_H
