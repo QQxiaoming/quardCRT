@@ -310,7 +310,7 @@ win32:{
         }
         contains(CONFIG, microsoft_store_build) {
             DEFINES += MICROSOFT_STORE_BUILD
-            LIBS += runtimeobject.lib
+            LIBS += runtimeobject.lib windowsapp.lib
             message("Microsoft Store build enabled")
         }
     }

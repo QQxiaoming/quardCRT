@@ -33,8 +33,10 @@
 #include <chrono>
 #include <string>
 
+#ifdef MICROSOFT_STORE_BUILD
 #include <winrt/base.h>
 #include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Services.Store.h>
 
 namespace {
@@ -73,6 +75,8 @@ QString formatLicenseDateTime(const winrt::Windows::Foundation::DateTime &dateTi
 }
 
 }
+#endif
+
 
 namespace MicrosoftStoreApi {
 
@@ -144,6 +148,7 @@ bool openMicrosoftStorePage(QWidget *parent, const QUrl &url)
 
 QString getAppLicenseMessage(void)
 {
+#ifdef MICROSOFT_STORE_BUILD
     if (!isMicrosoftStoreBuild()) {
         return QObject::tr("Microsoft Store APIs are only enabled in the dedicated Store build.");
     }
@@ -183,6 +188,9 @@ QString getAppLicenseMessage(void)
     } catch (const std::exception &error) {
         return QObject::tr("Failed to query Microsoft Store license information: %0").arg(QString::fromLocal8Bit(error.what()));
     }
+#else
+    return QObject::tr("Microsoft Store APIs are only enabled in the dedicated Store build.");
+#endif
 }
 
 QString getAppLicenseSummary(void)
