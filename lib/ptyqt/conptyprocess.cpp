@@ -837,6 +837,8 @@ HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOE
 
     if (pStartupInfo)
     {
+        cleanupStartupInfo();
+
         SIZE_T attrListSize{};
 
         pStartupInfo->StartupInfo.hStdInput = m_hPipeIn;
@@ -857,6 +859,8 @@ HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOE
         if (pStartupInfo->lpAttributeList
                 && InitializeProcThreadAttributeList(pStartupInfo->lpAttributeList, 1, 0, &attrListSize))
         {
+            m_shellStartupInfoInitialized = true;
+
             // Set Pseudo Console attribute
             hr = UpdateProcThreadAttribute(
                         pStartupInfo->lpAttributeList,
@@ -868,13 +872,33 @@ HRESULT ConPtyProcess::initializeStartupInfoAttachedToPseudoConsole(STARTUPINFOE
                         NULL)
                     ? S_OK
                     : HRESULT_FROM_WIN32(GetLastError());
+
+            if (hr != S_OK) {
+                cleanupStartupInfo();
+            }
         }
         else
         {
             hr = HRESULT_FROM_WIN32(GetLastError());
+            cleanupStartupInfo();
         }
     }
     return hr;
+}
+
+void ConPtyProcess::cleanupStartupInfo() noexcept
+{
+    if (m_shellStartupInfo.lpAttributeList) {
+        if (m_shellStartupInfoInitialized) {
+            DeleteProcThreadAttributeList(m_shellStartupInfo.lpAttributeList);
+            m_shellStartupInfoInitialized = false;
+        }
+
+        HeapFree(GetProcessHeap(), 0, m_shellStartupInfo.lpAttributeList);
+        m_shellStartupInfo.lpAttributeList = nullptr;
+    }
+
+    m_shellStartupInfo = {};
 }
 
 Q_DECLARE_METATYPE(HANDLE)
@@ -920,6 +944,7 @@ bool ConPtyProcess::startProcess(const QString &executable,
     m_shellPath = executable;
     m_shellPath.replace('/', '\\');
     m_size = QPair<qint16, qint16>(cols, rows);
+    m_aboutToDestruct = false;
 
     //env
     const QString env = environment.join(QChar(QChar::Null)) + QChar(QChar::Null);
@@ -944,6 +969,7 @@ bool ConPtyProcess::startProcess(const QString &executable,
     // Initialize the necessary startup info struct
     if (S_OK != initializeStartupInfoAttachedToPseudoConsole(&m_shellStartupInfo, m_ptyHandler)) {
         m_lastError = QString("ConPty Error: InitializeStartupInfoAttachedToPseudoConsole fail");
+        kill();
         return false;
     }
 
@@ -962,6 +988,7 @@ bool ConPtyProcess::startProcess(const QString &executable,
 
     if (S_OK != hr) {
         m_lastError = QString("ConPty Error: Cannot create process -> %1").arg(hr);
+        kill();
         return false;
     }
 
@@ -1047,10 +1074,14 @@ bool ConPtyProcess::kill()
     }
 
     // Clean-up the pipes
-    if (INVALID_HANDLE_VALUE != m_hPipeOut)
+    if (INVALID_HANDLE_VALUE != m_hPipeOut) {
         CloseHandle(m_hPipeOut);
-    if (INVALID_HANDLE_VALUE != m_hPipeIn)
+        m_hPipeOut = INVALID_HANDLE_VALUE;
+    }
+    if (INVALID_HANDLE_VALUE != m_hPipeIn) {
         CloseHandle(m_hPipeIn);
+        m_hPipeIn = INVALID_HANDLE_VALUE;
+    }
 
     if (m_readThread) {
         m_readThread->requestInterruption();
@@ -1065,17 +1096,19 @@ bool ConPtyProcess::kill()
 
     m_pid = 0;
     m_ptyHandler = INVALID_HANDLE_VALUE;
-    m_hPipeIn = INVALID_HANDLE_VALUE;
-    m_hPipeOut = INVALID_HANDLE_VALUE;
 
-    CloseHandle(m_shellProcessInformation.hThread);
-    CloseHandle(m_shellProcessInformation.hProcess);
-
-    // Cleanup attribute list
-    if (m_shellStartupInfo.lpAttributeList) {
-        DeleteProcThreadAttributeList(m_shellStartupInfo.lpAttributeList);
-        //HeapFree(GetProcessHeap(), 0, m_shellStartupInfo.lpAttributeList);
+    if (m_shellProcessInformation.hThread) {
+        CloseHandle(m_shellProcessInformation.hThread);
+        m_shellProcessInformation.hThread = nullptr;
     }
+    if (m_shellProcessInformation.hProcess) {
+        CloseHandle(m_shellProcessInformation.hProcess);
+        m_shellProcessInformation.hProcess = nullptr;
+    }
+    m_shellProcessInformation.dwThreadId = 0;
+    m_shellProcessInformation.dwProcessId = 0;
+
+    cleanupStartupInfo();
 
     return true;
 }
