@@ -109,12 +109,13 @@ jobs:
           path: |
             ./output/*.exe
 
-      - name: Upload build asserts
+      - name: Upload build asserts 2
         uses: actions/upload-artifact@v7
         with:
           name: quardCRT_patch_for_msix
           path: |
             ./build_release/out/quardCRT.exe
+            ./InnoSetup/build/libssh2.dll
 
       - name: Run tests
         run: |
