@@ -14,11 +14,7 @@
   <Properties>
     <DisplayName>quardCRT</DisplayName>
     <PublisherDisplayName>PUBLISHER_DISPLAY_NAME_PLACEHOLDER</PublisherDisplayName>
-    <Description>quardCRT is an open source terminal emulation and remote desktop software that
-      supports multiple backend protocols, can be used across platforms without dependencies, and
-      has a completely consistent user experience on windows/linux/mac. It supports traditional
-      terminal software functions such as multi-tab and history management, and supports some unique
-      detailed functions.</Description>
+    <Description>quardCRT is an open source terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.</Description>
     <Logo>Assets\StoreLogo.scale-100.png</Logo>
     <uap10:PackageIntegrity>
       <uap10:Content Enforcement="on" />

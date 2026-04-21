@@ -1,4 +1,4 @@
-Our team uses Qt 6.6 and above for development projects.
+Our team uses Qt 6.9 and above for development projects.
 
 Our team uses QMake instead of CMake.
 
