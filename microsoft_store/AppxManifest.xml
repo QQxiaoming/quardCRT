@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
+  xmlns:desktop7="http://schemas.microsoft.com/appx/manifest/desktop/windows10/7"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap10 desktop7 rescap">
+  <Identity
+    Name="Quard.Qiao.quardCRTBeta"
+    Publisher="PUBLISHER_PLACEHOLDER"
+    Version="VERSION_PLACEHOLDER"
+    ProcessorArchitecture="x64" />
+  <Properties>
+    <DisplayName>quardCRT</DisplayName>
+    <PublisherDisplayName>PUBLISHER_DISPLAY_NAME_PLACEHOLDER</PublisherDisplayName>
+    <Description>quardCRT is an open source terminal emulation and remote desktop software that supports multiple backend protocols, can be used across platforms without dependencies, and has a completely consistent user experience on windows/linux/mac. It supports traditional terminal software functions such as multi-tab and history management, and supports some unique detailed functions.</Description>
+    <Logo>Assets\StoreLogo.scale-100.png</Logo>
+    <uap10:PackageIntegrity>
+      <uap10:Content Enforcement="on" />
+    </uap10:PackageIntegrity>
+  </Properties>
+  <Resources>
+    <Resource Language="ar-sa" />
+    <Resource Language="cs-cz" />
+    <Resource Language="de-de" />
+    <Resource Language="en-us" />
+    <Resource Language="es-es" />
+    <Resource Language="fr-fr" />
+    <Resource Language="ja-jp" />
+    <Resource Language="ko-kr" />
+    <Resource Language="pt-br" />
+    <Resource Language="ru-ru" />
+    <Resource Language="zh-Hans" />
+    <Resource Language="zh-Hant" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0"
+      MaxVersionTested="10.0.22000.1" />
+    <PackageDependency Name="Microsoft.WindowsAppRuntime.1.4" MinVersion="4000.1010.1349.0"
+      Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00.UWPDesktop" MinVersion="14.0.27323.0"
+      Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+  </Dependencies>
+  <Applications>
+    <Application
+      Id="QUARDCRT"
+      Executable="VFS\ProgramFilesX86\quardCRT\quardCRT.exe"
+      EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="quardCRT"
+        Description="quardCRT is a versatile serial port terminal tool"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\QUARDCRT-Square150x150Logo.scale-100.png"
+        Square44x44Logo="Assets\QUARDCRT-Square44x44Logo.scale-100.png">
+        <uap:DefaultTile
+          Square71x71Logo="Assets\QUARDCRT-Square71x71Logo.scale-100.png"
+          Square310x310Logo="Assets\QUARDCRT-Square310x310Logo.scale-100.png"
+          Wide310x150Logo="Assets\QUARDCRT-Wide310x150Logo.scale-100.png">
+        </uap:DefaultTile>
+      </uap:VisualElements>
+      <Extensions>
+        <desktop7:Extension Category="windows.shortcut">
+          <desktop7:Shortcut File="[{Common Programs}]\quardCRT\quardCRT.lnk"
+            Icon="[{Package}]\VFS\ProgramFilesX86\quardCRT\quardCRT.exe" />
+        </desktop7:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+
+</Package>

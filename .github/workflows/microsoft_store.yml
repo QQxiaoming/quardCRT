@@ -102,12 +102,121 @@ jobs:
           python3 ./.github/scripts/get_plugin.py ./.github/scripts/plugin_list.json ./prebuilt_plugins msvc
           ./build_microsoft_store_package.bat
 
-      - name: Upload build asserts
+      - name: Package MSIX
+        shell: pwsh
+        env:
+          MSIX_PUBLISHER: ${{ secrets.MSIX_PUBLISHER }}
+          MSIX_PUBLISHER_DISPLAY_NAME: ${{ secrets.MSIX_PUBLISHER_DISPLAY_NAME }}
+        run: |
+          # Resolve version (4-part for MSIX)
+          $version = (Get-Content "microsoft_store/version.txt").Trim()
+          $msixVersion = "$version"
+
+          # Locate Windows SDK tools
+          $sdkBinPath = "C:\Program Files (x86)\Windows Kits\10\bin"
+          $sdkVersionDir = Get-ChildItem $sdkBinPath -Directory |
+            Where-Object { $_.Name -match '^\d+\.\d+\.\d+\.\d+$' } |
+            Sort-Object Name -Descending | Select-Object -First 1
+          $sdkTools  = Join-Path $sdkBinPath $sdkVersionDir.Name "x64"
+          $makeappx  = Join-Path $sdkTools "makeappx.exe"
+          $makepri   = Join-Path $sdkTools "makepri.exe"
+          Write-Host "SDK tools: $sdkTools"
+
+          # Create staging directory
+          $msixDir = "msix_staging"
+          New-Item -ItemType Directory -Path $msixDir -Force | Out-Null
+
+          # --- Generate Assets using ImageMagick ---
+          $assetsDir = "$msixDir\Assets"
+          New-Item -ItemType Directory -Path $assetsDir -Force | Out-Null
+
+          $icons = [ordered]@{
+            "QUARDCRT-Square150x150Logo.scale-100.png" = "150x150"
+            "QUARDCRT-Square150x150Logo.scale-125.png" = "188x188"
+            "QUARDCRT-Square150x150Logo.scale-150.png" = "225x225"
+            "QUARDCRT-Square150x150Logo.scale-200.png" = "300x300"
+            "QUARDCRT-Square150x150Logo.scale-400.png" = "600x600"
+            "QUARDCRT-Square310x310Logo.scale-100.png" = "310x310"
+            "QUARDCRT-Square310x310Logo.scale-125.png" = "388x388"
+            "QUARDCRT-Square310x310Logo.scale-150.png" = "465x465"
+            "QUARDCRT-Square310x310Logo.scale-200.png" = "620x620"
+            "QUARDCRT-Square310x310Logo.scale-400.png" = "1240x1240"
+            "QUARDCRT-Square44x44Logo.scale-100.png"   = "44x44"
+            "QUARDCRT-Square44x44Logo.scale-125.png"   = "55x55"
+            "QUARDCRT-Square44x44Logo.scale-150.png"   = "66x66"
+            "QUARDCRT-Square44x44Logo.scale-200.png"   = "88x88"
+            "QUARDCRT-Square44x44Logo.scale-400.png"   = "176x176"
+            "QUARDCRT-Square44x44Logo.targetsize-16.png"                   = "16x16"
+            "QUARDCRT-Square44x44Logo.targetsize-16_altform-unplated.png"  = "16x16"
+            "QUARDCRT-Square44x44Logo.targetsize-24.png"                   = "24x24"
+            "QUARDCRT-Square44x44Logo.targetsize-24_altform-unplated.png"  = "24x24"
+            "QUARDCRT-Square44x44Logo.targetsize-256.png"                  = "256x256"
+            "QUARDCRT-Square44x44Logo.targetsize-256_altform-unplated.png" = "256x256"
+            "QUARDCRT-Square44x44Logo.targetsize-32.png"                   = "32x32"
+            "QUARDCRT-Square44x44Logo.targetsize-32_altform-unplated.png"  = "32x32"
+            "QUARDCRT-Square44x44Logo.targetsize-48.png"                   = "48x48"
+            "QUARDCRT-Square44x44Logo.targetsize-48_altform-unplated.png"  = "48x48"
+            "QUARDCRT-Square71x71Logo.scale-100.png"   = "71x71"
+            "QUARDCRT-Square71x71Logo.scale-125.png"   = "89x89"
+            "QUARDCRT-Square71x71Logo.scale-150.png"   = "107x107"
+            "QUARDCRT-Square71x71Logo.scale-200.png"   = "142x142"
+            "QUARDCRT-Square71x71Logo.scale-400.png"   = "284x284"
+            "QUARDCRT-Wide310x150Logo.scale-100.png"   = "310x150"
+            "QUARDCRT-Wide310x150Logo.scale-125.png"   = "388x188"
+            "QUARDCRT-Wide310x150Logo.scale-150.png"   = "465x225"
+            "QUARDCRT-Wide310x150Logo.scale-200.png"   = "620x300"
+            "QUARDCRT-Wide310x150Logo.scale-400.png"   = "1240x600"
+            "StoreLogo.scale-100.png" = "50x50"
+            "StoreLogo.scale-125.png" = "63x63"
+            "StoreLogo.scale-150.png" = "75x75"
+            "StoreLogo.scale-200.png" = "100x100"
+            "StoreLogo.scale-400.png" = "200x200"
+          }
+          foreach ($name in $icons.Keys) {
+            $size = $icons[$name]
+            magick "icons\ico.png" -resize $size "$assetsDir\$name"
+          }
+
+          # --- Copy build output to VFS ---
+          $vfsDir = "$msixDir\VFS\ProgramFilesX86\quardCRT"
+          New-Item -ItemType Directory -Path $vfsDir -Force | Out-Null
+          Copy-Item -Path "package\*" -Destination $vfsDir -Recurse -Force
+
+          # --- Create Start Menu shortcut in VFS ---
+          $shortcutDir = "$msixDir\VFS\Common Programs\quardCRT"
+          New-Item -ItemType Directory -Path $shortcutDir -Force | Out-Null
+          $wshell   = New-Object -ComObject WScript.Shell
+          $shortcut = $wshell.CreateShortcut("$shortcutDir\quardCRT.lnk")
+          $shortcut.TargetPath = "[{ProgramFilesX86}]\quardCRT\quardCRT.exe"
+          $shortcut.Save()
+
+          # --- Generate AppxManifest.xml from template ---
+          $publisher        = if ($env:MSIX_PUBLISHER) { $env:MSIX_PUBLISHER } else { "CN=quardCRT" }
+          $publisherDisplay = if ($env:MSIX_PUBLISHER_DISPLAY_NAME) { $env:MSIX_PUBLISHER_DISPLAY_NAME } else { "quardCRT" }
+          (Get-Content "microsoft_store\AppxManifest.xml") `
+            -replace "VERSION_PLACEHOLDER",              $msixVersion `
+            -replace "PUBLISHER_PLACEHOLDER",            $publisher `
+            -replace "PUBLISHER_DISPLAY_NAME_PLACEHOLDER", $publisherDisplay |
+            Set-Content "$msixDir\AppxManifest.xml"
+
+          # --- Generate Resources.pri ---
+          Push-Location $msixDir
+          & $makepri createconfig /cf priconfig.xml /dq en-US /pv 10.0 /o
+          & $makepri new /cf priconfig.xml /mn AppxManifest.xml /of Resources.pri /pr . /o
+          Remove-Item priconfig.xml -ErrorAction SilentlyContinue
+          Pop-Location
+
+          # --- Create MSIX package ---
+          $packageName = "quardCRT_${msixVersion}_x64.msix"
+          & $makeappx pack /d $msixDir /p $packageName /nv /o
+          Write-Host "Created MSIX package: $packageName"
+
+      - name: Upload MSIX package
         uses: actions/upload-artifact@v7
         with:
-          name: quardCRT_microsoft_store
+          name: quardCRT_msix
           path: |
-            ./package
+            ./quardCRT_*_x64.msix
 
       - name: Upload build asserts 2
         uses: actions/upload-artifact@v7
