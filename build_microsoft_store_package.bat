@@ -26,39 +26,21 @@ lrelease quardCRT.pro
 qmake quardCRT.pro -tp vc CONFIG+=microsoft_store_build
 msbuild quardCRT.vcxproj /p:Configuration=Release /p:Platform=x64 /p:BuildInParallel=false
 :: clean打包目录
-if exist ".\InnoSetup\build" (
-    rmdir /Q /S .\InnoSetup\build
-)
-:: 配置打包信息
-copy /y .\InnoSetup\build_setup.iss .\InnoSetup\build_temp_setup.iss
-.\tools\sed\sed.exe -i "s/#VERSION#/%QUARDCRT_VERSION%/g" .\InnoSetup\build_temp_setup.iss
-.\tools\sed\sed.exe -i "s/#VERSIONINFOVERSION#/%QUARDCRT_VERSION%.000/g" .\InnoSetup\build_temp_setup.iss
-del /f /q /a .\sed*
+mkdir ".\package"
 :: 构建打包目录
-xcopy /y .\build_release\out\quardCRT.exe .\InnoSetup\build\
+xcopy /y .\build_release\out\quardCRT.exe .\package\
 :: 使用windeployqt拷贝依赖dll库到打包目录
-windeployqt --dir .\InnoSetup\build .\InnoSetup\build\quardCRT.exe
-xcopy /y "%Python3_ROOT_DIR%\python311.dll" ".\InnoSetup\build\"
-xcopy /y "%Python3_ROOT_DIR%\Lib" ".\InnoSetup\build\pythonlib\lib" /E /I
-xcopy /y "D:\libssh2\bin\*.dll" ".\InnoSetup\build\"
-xcopy /y .\scripts\Profile.ps1 .\InnoSetup\build\
-xcopy /y .\font\inziu-iosevkaCC-SC-regular.ttf .\InnoSetup\build\
-mkdir ".\InnoSetup\build\plugins"
-mkdir ".\InnoSetup\build\plugins\QuardCRT"
+windeployqt --dir .\package .\package\quardCRT.exe
+xcopy /y "%Python3_ROOT_DIR%\python311.dll" ".\package\"
+xcopy /y "%Python3_ROOT_DIR%\Lib" ".\package\pythonlib\lib" /E /I
+xcopy /y "D:\libssh2\bin\*.dll" ".\package\"
+xcopy /y .\scripts\Profile.ps1 .\package\
+xcopy /y .\font\inziu-iosevkaCC-SC-regular.ttf .\package\
+mkdir ".\package\plugins"
+mkdir ".\package\plugins\QuardCRT"
 :: 判断是否存在prebuilt_plugins目录
 if exist ".\prebuilt_plugins" (
-    xcopy /y .\prebuilt_plugins\*.dll .\InnoSetup\build\plugins\QuardCRT\
+    xcopy /y .\prebuilt_plugins\*.dll .\package\plugins\QuardCRT\
 )
-:: 打包
-echo "wait inno build setup..."
-iscc /q ".\InnoSetup\build_temp_setup.iss"
-del .\InnoSetup\build_temp_setup.iss
-FOR /F "delims=. tokens=1-3" %%x IN ("%QUARDCRT_VERSION%") DO (
-    set "QUARDCRT_MAJARVERSION=%%x"
-    set "QUARDCRT_SUBVERSION=%%y"
-    set "QUARDCRT_REVISION=%%z"
-)
-mkdir ".\output"
-echo F|xcopy /S /Q /Y /F ".\InnoSetup\quardCRT_setup.exe" ".\output\quardCRT_windows_V%QUARDCRT_MAJARVERSION%%QUARDCRT_SUBVERSION%%QUARDCRT_REVISION%_x86_64_msvc_setup.exe"
 echo "build success!"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

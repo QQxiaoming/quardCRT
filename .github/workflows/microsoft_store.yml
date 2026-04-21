@@ -107,17 +107,17 @@ jobs:
         with:
           name: quardCRT_microsoft_store
           path: |
-            ./output/*.exe
+            ./package
 
       - name: Upload build asserts 2
         uses: actions/upload-artifact@v7
         with:
           name: quardCRT_patch_for_msix
           path: |
-            ./build_release/out/quardCRT.exe
-            ./InnoSetup/build/libssh2.dll
+            ./package/quardCRT.exe
+            ./package/libssh2.dll
 
       - name: Run tests
         run: |
-          ./InnoSetup/build/quardCRT.exe --version
+          ./package/quardCRT.exe --version
         
