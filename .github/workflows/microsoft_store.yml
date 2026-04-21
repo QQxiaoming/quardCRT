@@ -109,8 +109,8 @@ jobs:
           MSIX_PUBLISHER_DISPLAY_NAME: ${{ secrets.MSIX_PUBLISHER_DISPLAY_NAME }}
         run: |
           # Resolve version (4-part for MSIX)
-          $version = (Get-Content "version.txt").Trim()
-          $msixVersion = "$version.0"
+          $version = (Get-Content "microsoft_store/version.txt").Trim()
+          $msixVersion = "$version"
 
           # Locate Windows SDK tools
           $sdkBinPath = "C:\Program Files (x86)\Windows Kits\10\bin"
@@ -210,13 +210,6 @@ jobs:
           $packageName = "quardCRT_${msixVersion}_x64.msix"
           & $makeappx pack /d $msixDir /p $packageName /nv /o
           Write-Host "Created MSIX package: $packageName"
-
-      - name: Upload build asserts
-        uses: actions/upload-artifact@v7
-        with:
-          name: quardCRT_microsoft_store
-          path: |
-            ./package
 
       - name: Upload MSIX package
         uses: actions/upload-artifact@v7
