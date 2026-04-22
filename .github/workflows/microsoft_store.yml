@@ -218,7 +218,7 @@ jobs:
           path: |
             ./quardCRT_*_x64.msix
 
-      - name: Upload build asserts 2
+      - name: Upload patch
         uses: actions/upload-artifact@v7
         with:
           name: quardCRT_patch_for_msix

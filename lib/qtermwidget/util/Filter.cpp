@@ -344,6 +344,7 @@ void RegExpFilter::newHotSpot(int startLine, int startColumn, int endLine, int e
                               const QStringList& captureList) {
     RegExpFilter::HotSpot* spot = new RegExpFilter::HotSpot(startLine, startColumn, endLine, endColumn);
     spot->setCapturedTexts(captureList);
+    spot->setColor(color());
     addHotSpot(spot);
 }
 
