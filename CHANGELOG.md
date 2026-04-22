@@ -2,6 +2,14 @@
 
 ## [[Unrelease](https://github.com/QQxiaoming/quardCRT)]
 
+en-US:
+
+- Fix the problem of incorrect color of highlighted text
+
+zh-CN:
+
+- 修复高亮文本颜色错误问题
+
 ## [[V0.6.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.6.0)] - 2026-04-10
 
 en-US:
