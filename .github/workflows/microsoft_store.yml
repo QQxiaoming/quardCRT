@@ -224,7 +224,6 @@ jobs:
           name: quardCRT_patch_for_msix
           path: |
             ./package/quardCRT.exe
-            ./package/libssh2.dll
 
       - name: Run tests
         run: |
