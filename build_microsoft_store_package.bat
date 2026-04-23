@@ -42,5 +42,8 @@ mkdir ".\package\plugins\QuardCRT"
 if exist ".\prebuilt_plugins" (
     xcopy /y .\prebuilt_plugins\*.dll .\package\plugins\QuardCRT\
 )
+if exist ".\package\vc_redist.x64.exe" (
+    del /f /q ".\package\vc_redist.x64.exe"
+)
 echo "build success!"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
