@@ -5254,26 +5254,6 @@ void CentralWidget::appAbout(QWidget *parent)
     uint32_t timestamps = DATE_TIMESTAMPS_TAG.toUInt();
     uint32_t current = QDateTime::currentDateTimeUtc().toSecsSinceEpoch();
     uint32_t days = (current - timestamps) / 86400;
-#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
-    QString distributionInfo;
-    if (MicrosoftStoreApi::isMicrosoftStoreBuild()) {
-        const QString packageFamilyName = MicrosoftStoreApi::getCurrentPackageFamilyName();
-        distributionInfo = QString("<p>") +
-                           tr("Distribution") +
-                           QString("</p><p>&nbsp;") +
-                           tr("Microsoft Store build") +
-                           QString("</p>");
-        if (packageFamilyName.isEmpty()) {
-            distributionInfo += QString("<p>&nbsp;") +
-                                tr("Current process has no package identity. Launch the installed MSIX package to use Microsoft Store integration.") +
-                                QString("</p>");
-        } else {
-            distributionInfo += QString("<p>") +
-                                tr("Package Family Name") +
-                                QString("</p><p>&nbsp;%0</p>").arg(packageFamilyName.toHtmlEscaped());
-        }
-    }
-#endif
     QMessageBox::about(parent, tr("About"),
                            QString("<p>") + 
                            tr("Version") +
@@ -5282,9 +5262,6 @@ void CentralWidget::appAbout(QWidget *parent)
                            QString("</p><p>&nbsp;<a href='https://github.com/QQxiaoming/quardCRT/commit/%0'>%1</a></p><p>").arg(HASH_TAG).arg(GIT_TAG) +
                            tr("Date") +
                            QString("</p><p>&nbsp;%0 (%1 days ago)</p><p>").arg(DATE_TAG).arg(days) +
-#if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
-                           distributionInfo +
-#endif
                            tr("Author") +
                            "</p><p>&nbsp;<a href='mailto:qiaoqm@aliyun.com'>qiaoqm@aliyun.com</a></p><p>" +
                            tr("Website") +
