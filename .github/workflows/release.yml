@@ -112,7 +112,7 @@ jobs:
           done
 
       - name: Download linux artifact
-        uses: dawidd6/action-download-artifact@v20
+        uses: dawidd6/action-download-artifact@v21
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ steps.wait_for_tag_ci.outputs.linux_run_id }}
@@ -121,7 +121,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: Download linux AppImage artifact
-        uses: dawidd6/action-download-artifact@v20
+        uses: dawidd6/action-download-artifact@v21
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ steps.wait_for_tag_ci.outputs.linux_appimage_run_id }}
@@ -130,7 +130,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: Download macOS Intel artifact
-        uses: dawidd6/action-download-artifact@v20
+        uses: dawidd6/action-download-artifact@v21
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ steps.wait_for_tag_ci.outputs.macos_run_id }}
@@ -139,7 +139,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: Download macOS arm64 artifact
-        uses: dawidd6/action-download-artifact@v20
+        uses: dawidd6/action-download-artifact@v21
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ steps.wait_for_tag_ci.outputs.macos_arm64_run_id }}
@@ -148,7 +148,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: Download windows MinGW artifact
-        uses: dawidd6/action-download-artifact@v20
+        uses: dawidd6/action-download-artifact@v21
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ steps.wait_for_tag_ci.outputs.windows_run_id }}
@@ -157,7 +157,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: Download windows MSVC artifact
-        uses: dawidd6/action-download-artifact@v20
+        uses: dawidd6/action-download-artifact@v21
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ steps.wait_for_tag_ci.outputs.windows_msvc_run_id }}
