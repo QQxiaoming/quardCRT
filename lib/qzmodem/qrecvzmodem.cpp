@@ -350,12 +350,18 @@ int QRecvZmodem::rz_process_header(char *name, struct zm_fileinfo *zi) {
 
   if (name_static)
     free(name_static);
+  /* strip path separators to prevent directory traversal */
+  p = strrchr(name, '/');
+  if (!p) p = strrchr(name, '\\');
+  if (p) name = p + 1;
+  if (*name == '\0' || strcmp(name, "..") == 0 || strcmp(name, ".") == 0)
+    name = (char *)"unnamed";
   name_static = (char *)malloc(strlen(name) + 1);
   if (!name_static) {
     qFatal("out of memory");
     //exit(1);
   }
-  strcpy(name_static, name);
+  memcpy(name_static, name, strlen(name) + 1);
   zi->fname = name_static;
 
 #ifdef DEBUGZ
@@ -460,7 +466,7 @@ int QRecvZmodem::rz_process_header(char *name, struct zm_fileinfo *zi) {
           qFatal("out of memory");
           //exit(1);
         }
-        strcpy(name_static, tmpname);
+        memcpy(name_static, tmpname, strlen(tmpname) + 1);
         free(tmpname);
         zi->fname = name_static;
       }
@@ -489,12 +495,12 @@ int QRecvZmodem::rz_process_header(char *name, struct zm_fileinfo *zi) {
   {
     if (pathname)
       free(pathname);
-    pathname = (char *)malloc((PATH_MAX) * 2);
+    pathname = (char *)calloc(PATH_MAX, 2);
     if (!pathname) {
       qFatal("out of memory");
       //exit(1);
     }
-    strcpy(pathname, name_static);
+    snprintf(pathname, PATH_MAX * 2, "%s", name_static);
     /* overwrite the "waiting to receive" line */
     qInfo("Receiving: %s", name_static);
     emit transferring(QString(name_static));
