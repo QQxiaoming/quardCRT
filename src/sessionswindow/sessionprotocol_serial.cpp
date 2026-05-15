@@ -152,11 +152,12 @@ public:
             QSerialPortInfo sinfo(*serialPort);
             QString monitorPortName = sinfo.systemLocation();
 #endif
+            QSerialPort *const activeSerialPort = serialPort;
             QObject::connect(serialMonitor, &QextSerialEnumerator::deviceRemoved, session,
-                    [&, monitorPortName](const QextPortInfo &info) {
+                    [session, activeSerialPort, monitorPortName](const QextPortInfo &info) {
                 if(monitorPortName == info.portName) {
-                    if(serialPort->isOpen()) {
-                        serialPort->close();
+                    if(activeSerialPort->isOpen()) {
+                        activeSerialPort->close();
                         QMessageBox::warning(session->messageParentWidget, session->tr("Serial Error"),
                                              session->getName() + "\n" + session->tr("Serial port %1 has been removed.").arg(info.portName));
                         session->state = SessionsWindow::Error;

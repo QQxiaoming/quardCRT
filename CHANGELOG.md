@@ -5,11 +5,13 @@
 en-US:
 
 - Fix the problem of incorrect color of highlighted text
+- Fix the problem of program crash when the serial port is unplugged
 - Update pre-built plugin [timestamp](https://github.com/QuardCRT-platform/plugin-timestamp) to V0.0.5
 
 zh-CN:
 
 - 修复高亮文本颜色错误问题
+- 修复串口拔出时程序崩溃
 - 更新预构建插件[timestamp](https://github.com/QuardCRT-platform/plugin-timestamp)到V0.0.5版本
 
 ## [[V0.6.0](https://github.com/QQxiaoming/quardCRT/releases/tag/V0.6.0)] - 2026-04-10
