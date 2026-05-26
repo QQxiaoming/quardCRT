@@ -6680,18 +6680,18 @@
       "type": "文本",
       "values": {
         "default": "",
-        "en-us": "putty",
-        "zh-hant": "putty",
-        "zh-hans": "putty",
-        "ar-sa": "putty",
-        "cs-cz": "putty",
-        "de-de": "putty",
-        "es-es": "putty",
-        "fr-fr": "putty",
-        "ja-jp": "putty",
-        "ko-kr": "putty",
-        "pt-br": "putty",
-        "ru-ru": "putty"
+        "en-us": "VNC",
+        "zh-hant": "VNC",
+        "zh-hans": "VNC",
+        "ar-sa": "VNC",
+        "cs-cz": "VNC",
+        "de-de": "VNC",
+        "es-es": "VNC",
+        "fr-fr": "VNC",
+        "ja-jp": "VNC",
+        "ko-kr": "VNC",
+        "pt-br": "VNC",
+        "ru-ru": "VNC"
       }
     },
     "SearchTerm6": {
