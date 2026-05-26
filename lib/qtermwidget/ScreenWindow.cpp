@@ -12,9 +12,8 @@
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- 02110-1301  USA.
+ along with this program; if not, see
+ <https://www.gnu.org/licenses/>.
 */
 #include "ScreenWindow.h"
 #include "Screen.h"
@@ -109,14 +108,14 @@ void ScreenWindow::getSelectionEnd(int &column, int &line) {
 }
 
 void ScreenWindow::setSelectionStart(int column, int line, bool columnMode) {
-    _screen->setSelectionStart(column, qMin(line + currentLine(), endWindowLine()), columnMode);
+    _screen->setSelectionStart( column , line + currentLine() , columnMode);
 
     _bufferNeedsUpdate = true;
     emit selectionChanged();
 }
 
 void ScreenWindow::setSelectionEnd(int column, int line) {
-    _screen->setSelectionEnd(column, qMin(line + currentLine(), endWindowLine()));
+    _screen->setSelectionEnd( column , line + currentLine() );
 
     _bufferNeedsUpdate = true;
     emit selectionChanged();

@@ -15,9 +15,8 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-    02110-1301  USA.
+    along with this program; if not, see
+ <https://www.gnu.org/licenses/>.
 */
 
 #ifndef VT102EMULATION_H
@@ -167,6 +166,9 @@ private:
   void reportAnswerBack();
   void reportCursorPosition();
   void reportTerminalParms(int p);
+  // DECRPM responses to DECRQM queries
+  void reportAnsiMode(int mode, int status);
+  void reportDecMode(int mode, int status);
 
   void onScrollLock();
   void scrollLock(const bool lock);

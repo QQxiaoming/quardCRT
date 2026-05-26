@@ -14,9 +14,8 @@
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- 02110-1301  USA.
+ along with this program; if not, see
+ <https://www.gnu.org/licenses/>.
 */
 #include "ColorScheme.h"
 
@@ -323,7 +322,7 @@ void ColorScheme::readColorEntry(QSettings *s, int index) {
 
     QVariant colorValue = s->value(QLatin1String("Color"));
     QStringView colorStr;
-    int r, g, b;
+    int r = 0; int g = 0; int b = 0;
     bool ok = false;
     // XXX: Undocumented(?) QSettings behavior: values with commas are parsed
     // as QStringList and others QString
