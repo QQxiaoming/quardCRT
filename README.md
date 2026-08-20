@@ -203,10 +203,12 @@ The code of this project references or partially refers to or depends on the fol
 
 ## Star History
 
-<a href="https://star-history.com/#QQxiaoming/quardCRT&Date">
+## Star History
+
+<a href="https://www.star-history.com/?type=date&repos=QQxiaoming%2FquardCRT">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=QQxiaoming/quardCRT&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=QQxiaoming/quardCRT&type=date&theme=dark&legend=top-left&sealed_token=ykbQtpDN3NNA73cbo0-Q_AcqiyeBpdnvSGlSHLL5Rz1CZwNbtjaC178h6RtxmwrciwleDmxK6cjSIP7blHrGb4FRuZQWuHDQV_habdTi2VUt3a06-PGEsA" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=QQxiaoming/quardCRT&type=date&legend=top-left&sealed_token=ykbQtpDN3NNA73cbo0-Q_AcqiyeBpdnvSGlSHLL5Rz1CZwNbtjaC178h6RtxmwrciwleDmxK6cjSIP7blHrGb4FRuZQWuHDQV_habdTi2VUt3a06-PGEsA" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=QQxiaoming/quardCRT&type=date&legend=top-left&sealed_token=ykbQtpDN3NNA73cbo0-Q_AcqiyeBpdnvSGlSHLL5Rz1CZwNbtjaC178h6RtxmwrciwleDmxK6cjSIP7blHrGb4FRuZQWuHDQV_habdTi2VUt3a06-PGEsA" />
  </picture>
 </a>
