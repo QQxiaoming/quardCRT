@@ -1563,6 +1563,22 @@ void TerminalDisplay::paintEvent(QPaintEvent *pe) {
             QRect r = currentBackgroundImage.rect();
             r.moveCenter(cr.center());
             paint.drawPixmap(r.topLeft(), currentBackgroundImage);
+        } else if (_backgroundMode == Fill) { // zoom in/out the image to fill all empty space
+            QRect r = _backgroundImage.rect();
+            qreal wRatio = static_cast<qreal>(cr.width()) / r.width();
+            qreal hRatio = static_cast<qreal>(cr.height()) / r.height();
+            if (wRatio < hRatio)
+            {
+                r.setWidth(qRound(r.width() * hRatio));
+                r.setHeight(cr.height());
+            }
+            else
+            {
+                r.setHeight(qRound(r.height() * wRatio));
+                r.setWidth(cr.width());
+            }
+            r.moveCenter(cr.center());
+            paint.drawPixmap(r, _backgroundImage, _backgroundImage.rect());
         } else if (_backgroundMode == Tile) { // tile the image
             QPixmap scaled = currentBackgroundImage;
             qreal wRatio = static_cast<qreal>(cr.width()) / currentBackgroundImage.width();
@@ -3449,8 +3465,6 @@ void TerminalDisplay::dropEvent(QDropEvent *event) {
     QString dropText;
     if (!urls.isEmpty()) {
         // TODO/FIXME: escape or quote pasted things if necessary...
-        qDebug() << "TerminalDisplay: handling urls. It can be broken. Report any "
-                    "errors, please";
         for (int i = 0; i < urls.count(); i++) {
             // KUrl url = KIO::NetAccess::mostLocalUrl( urls[i] , 0 );
             QUrl url = urls[i];

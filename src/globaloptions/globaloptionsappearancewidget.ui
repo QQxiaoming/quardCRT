@@ -690,6 +690,11 @@
        <string>Tile</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+        <string>Fill</string>
+      </property>
+     </item>
     </widget>
    </item>
    <item>
