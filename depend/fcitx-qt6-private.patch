@@ -1,0 +1,21 @@
+--- a/qt6/CMakeLists.txt
++++ b/qt6/CMakeLists.txt
+@@ -2 +2,4 @@
+-find_package(Qt6Gui ${REQUIRED_QT6_VERSION} REQUIRED Private)
++find_package(Qt6Gui ${REQUIRED_QT6_VERSION} REQUIRED)
++if(Qt6Gui_VERSION VERSION_GREATER_EQUAL 6.10)
++    find_package(Qt6GuiPrivate ${REQUIRED_QT6_VERSION} CONFIG REQUIRED)
++endif()
+--- a/qt6/platforminputcontext/CMakeLists.txt
++++ b/qt6/platforminputcontext/CMakeLists.txt
+@@ -1 +0,0 @@
+-include_directories(${Qt6Gui_PRIVATE_INCLUDE_DIRS})
+@@ -38,7 +37,7 @@
+                           )
+ target_link_libraries(fcitxplatforminputcontextplugin-qt6
+                           Qt6::Core
+-                          Qt6::Gui
++                          Qt6::GuiPrivate
+                           Qt6::DBus
+                           XKBCommon::XKBCommon
+                          )

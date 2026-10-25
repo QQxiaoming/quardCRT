@@ -52,10 +52,29 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           arch: win64_mingw
-          version: '6.9.3'
+          version: '6.12.0'
           modules: 'qtwebsockets qtserialport qtmultimedia'
-          aqtversion: '==3.3.0'
-          tools: 'tools_mingw1310'
+          # Includes support for the Qt 6.11+ Windows repository layout.
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@076e1659807d0b362a3ed684d54c2e9c775eb9c7'
+          py7zrversion: '==1.1.3'
+
+      - name: Install MinGW 15.1.0
+        shell: pwsh
+        run: |
+          # Match the compiler archive used by Qt 6.12's own CI provisioning.
+          $archive = Join-Path $env:RUNNER_TEMP "mingw1510.7z"
+          $destination = Join-Path $env:RUNNER_TEMP "mingw1510"
+          Invoke-WebRequest "https://github.com/niXman/mingw-builds-binaries/releases/download/15.1.0-rt_v12-rev0/x86_64-15.1.0-release-posix-seh-msvcrt-rt_v12-rev0.7z" -OutFile $archive
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash -ne "ba447149a73cab43fdaf3352d1164f2bd5e96bc01ae6564fbaebd62f1b8eb435") {
+            throw "MinGW archive checksum mismatch"
+          }
+          7z x $archive "-o$destination" -y
+          if ($LASTEXITCODE -ne 0) { throw "MinGW extraction failed" }
+          $bin = Join-Path $destination "mingw64/bin"
+          "MINGW_BIN=$bin" >> $env:GITHUB_ENV
+          $bin >> $env:GITHUB_PATH
+          & "$bin/g++.exe" --version
+          if ($LASTEXITCODE -ne 0) { throw "MinGW compiler check failed" }
 
       - name: Install setup python
         uses: actions/setup-python@v7
@@ -113,7 +132,7 @@ jobs:
           git fetch --tags --force
           ./tools/sed/sed.exe -i 's/--long --dirty/--long/g' ./tools/generate_info.ps1
           ./tools/sed/sed.exe -i "s/QT_DIR=C:\/Qt\/Qt6.2.0\/6.2.0\/mingw81_32\/bin/QT_DIR=%QT_ROOT_DIR%\/bin/g" ./build_setup.bat
-          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/mingw810_32\/bin/QT_TOOLS_DIR=%IQTA_TOOLS%\/mingw1310\/bin/g" ./build_setup.bat
+          ./tools/sed/sed.exe -i "s/QT_TOOLS_DIR=C:\/Qt\/Qt6.2.0\/Tools\/mingw810_32\/bin/QT_TOOLS_DIR=%MINGW_BIN%/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/mingw32-make -j8/mingw32-make -j1/g" ./build_setup.bat
           ./tools/sed/sed.exe -i "s/WINPTY_DIR=D:\\quardCRT\\depend\\winpty/WINPTY_DIR=D:\\winpty/g" ./lib/ptyqt/ptyqt.pri
           ./tools/sed/sed.exe -i "s/LIBSSH2_DIR=\/libssh2/LIBSSH2_DIR=D:\\libssh2/g" ./lib/qtssh/qtssh.pri

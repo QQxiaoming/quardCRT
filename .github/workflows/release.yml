@@ -116,7 +116,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ steps.wait_for_tag_ci.outputs.linux_run_id }}
-          name: quardCRT_Ubuntu2204
+          name: quardCRT_Ubuntu2404
           path: dist/linux
           if_no_artifact_found: fail
 
