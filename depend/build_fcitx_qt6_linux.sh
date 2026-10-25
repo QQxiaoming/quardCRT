@@ -9,6 +9,7 @@ set -e
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 tar -xzvf fcitx-qt5-1.2.7.tar.gz
 cd $SHELL_FOLDER/fcitx-qt5-1.2.7
+patch -p1 < "$SHELL_FOLDER/fcitx-qt6-private.patch"
 mkdir build
 cd build
 cmake .. -DENABLE_QT5=OFF -DENABLE_QT6=ON

@@ -1,0 +1,28 @@
+--- a/qt6/CMakeLists.txt
++++ b/qt6/CMakeLists.txt
+@@ -1,5 +1,8 @@
+ find_package(Qt6 ${REQUIRED_QT6_VERSION} CONFIG REQUIRED Core DBus)
+-find_package(Qt6Gui ${REQUIRED_QT6_VERSION} REQUIRED Private)
++find_package(Qt6Gui ${REQUIRED_QT6_VERSION} REQUIRED)
++if(Qt6Gui_VERSION VERSION_GREATER_EQUAL 6.10)
++    find_package(Qt6GuiPrivate ${REQUIRED_QT6_VERSION} CONFIG REQUIRED)
++endif()
+ 
+ add_definitions(-DQT_NO_KEYWORDS)
+ 
+--- a/qt6/platforminputcontext/CMakeLists.txt
++++ b/qt6/platforminputcontext/CMakeLists.txt
+@@ -1,4 +1,3 @@
+-include_directories(${Qt6Gui_PRIVATE_INCLUDE_DIRS})
+ 
+ 
+ set(plugin_SRCS
+@@ -38,7 +37,7 @@
+                           )
+ target_link_libraries(fcitxplatforminputcontextplugin-qt6
+                           Qt6::Core
+-                          Qt6::Gui
++                          Qt6::GuiPrivate
+                           Qt6::DBus
+                           XKBCommon::XKBCommon
+                          )
