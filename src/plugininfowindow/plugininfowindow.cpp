@@ -18,6 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include <QDesktopServices>
+#include "misc.h"
 #include <QUrl>
 
 #include "globalsetting.h"
@@ -37,8 +38,8 @@ PluginInfoWindow::PluginInfoWindow(QWidget *parent)
     ui->lineEditAPIVersion->setReadOnly(true);
     ui->lineEditAPIVersion->setFocusPolicy(Qt::NoFocus);
 
-    ui->comboBoxPluginsPath->addItem(pathShorten(QApplication::applicationDirPath() + "/plugins/QuardCRT"),QApplication::applicationDirPath() + "/plugins/QuardCRT");
-    ui->comboBoxPluginsPath->setItemData(0, QApplication::applicationDirPath() + "/plugins/QuardCRT", Qt::ToolTipRole);
+    ui->comboBoxPluginsPath->addItem(pathShorten(Misc::applicationDirPath() + "/plugins/QuardCRT"),Misc::applicationDirPath() + "/plugins/QuardCRT");
+    ui->comboBoxPluginsPath->setItemData(0, Misc::applicationDirPath() + "/plugins/QuardCRT", Qt::ToolTipRole);
     GlobalSetting settings;
     QString pluginsPath = settings.value("Global/Options/UserPluginsPath", "").toString();
     if(!pluginsPath.isEmpty()) {
@@ -145,8 +146,8 @@ void PluginInfoWindow::showEvent(QShowEvent *event)
         if(ret != -1) {
             if(pluginsPath != ui->comboBoxPluginsPath->itemData(ret, Qt::UserRole).toString()) {
                 ui->comboBoxPluginsPath->clear();
-                ui->comboBoxPluginsPath->addItem(pathShorten(QApplication::applicationDirPath() + "/plugins/QuardCRT"),QApplication::applicationDirPath() + "/plugins/QuardCRT");
-                ui->comboBoxPluginsPath->setItemData(0, QApplication::applicationDirPath() + "/plugins/QuardCRT", Qt::ToolTipRole);
+                ui->comboBoxPluginsPath->addItem(pathShorten(Misc::applicationDirPath() + "/plugins/QuardCRT"),Misc::applicationDirPath() + "/plugins/QuardCRT");
+                ui->comboBoxPluginsPath->setItemData(0, Misc::applicationDirPath() + "/plugins/QuardCRT", Qt::ToolTipRole);
                 ui->comboBoxPluginsPath->addItem(pathShorten(pluginsPath),pluginsPath);
                 ui->comboBoxPluginsPath->setItemData(1, pluginsPath, Qt::ToolTipRole);
                 ui->comboBoxPluginsPath->setCurrentText(pathShorten(pluginsPath));

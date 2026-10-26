@@ -2443,9 +2443,9 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
     if(!disable_plugin) {
         QTimer::singleShot(200, this, [&](){
             QStringList pluginsDirList;
-            QDir defPluginsDir(QCoreApplication::applicationDirPath());
+            QDir defPluginsDir(Misc::applicationDirPath());
             if(!defPluginsDir.cd("plugins")) {
-                defPluginsDir = QDir(QCoreApplication::applicationDirPath()+"/..");
+                defPluginsDir = QDir(Misc::applicationDirPath()+"/..");
                 if(!defPluginsDir.cd("plugins")) {
                     qInfo() << "plugins dir not exist:" << defPluginsDir.absolutePath();
                     goto loadPlugin;
@@ -2466,12 +2466,12 @@ void CentralWidget::menuAndToolBarInit(bool disable_plugin) {
                 }
             }
         #if defined(Q_OS_WIN)
-            qApp->addLibraryPath(QCoreApplication::applicationDirPath());
+            qApp->addLibraryPath(Misc::applicationDirPath());
         #elif defined(Q_OS_MACOS)
-            qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/../Frameworks");
+            qApp->addLibraryPath(Misc::applicationDirPath()+"/../Frameworks");
         #elif defined(Q_OS_LINUX)
-            qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"/lib");
-            qApp->addLibraryPath(QCoreApplication::applicationDirPath()+"../lib");
+            qApp->addLibraryPath(Misc::applicationDirPath()+"/lib");
+            qApp->addLibraryPath(Misc::applicationDirPath()+"../lib");
         #endif
             foreach (QString pluginsDirStr, pluginsDirList) {
                 QDir pluginsDir(pluginsDirStr);

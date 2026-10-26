@@ -18,6 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include <QSplitter>
+#include "misc.h"
 #include <QLabel>
 #include <QStringListModel>
 #include <QFont>
@@ -168,7 +169,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     settings.beginGroup("Global/Options");
     font = QApplication::font();
 #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
-    int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+    int fontId = QFontDatabase::addApplicationFont(Misc::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
 #else
     int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
 #endif
@@ -236,7 +237,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
 #endif
 #if defined(Q_OS_WIN)
-    globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(settings.value("PowerShellProfile", QApplication::applicationDirPath() + "/Profile.ps1").toString());
+    globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(settings.value("PowerShellProfile", Misc::applicationDirPath() + "/Profile.ps1").toString());
 #endif
     QString defaultLocalShell = settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
@@ -335,7 +336,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
         } else {
             font = QApplication::font();
         #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
-            int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+            int fontId = QFontDatabase::addApplicationFont(Misc::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
         #else
             int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
         #endif
@@ -439,7 +440,7 @@ GlobalOptionsWindow::GlobalOptionsWindow(QWidget *parent) :
             }
             globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(profile);
         } else {
-            globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(QApplication::applicationDirPath() + "/Profile.ps1");
+            globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(Misc::applicationDirPath() + "/Profile.ps1");
         }
     });
     connect(globalOptionsAdvancedWidget->ui->pushButtonPowerShellProfile, &QPushButton::clicked, this, [&](){
@@ -772,14 +773,14 @@ bool GlobalOptionsWindow::getEnableCtrlC(void)
 QString GlobalOptionsWindow::getPowerShellProfile(void) 
 {
     GlobalSetting settings;
-    QString profile = settings.value("Global/Options/PowerShellProfile", QApplication::applicationDirPath() + "/Profile.ps1").toString();
+    QString profile = settings.value("Global/Options/PowerShellProfile", Misc::applicationDirPath() + "/Profile.ps1").toString();
     if (!profile.isEmpty()) {
         QFileInfo profileInfo(profile);
         if(!profileInfo.exists() || !profileInfo.isFile()) {
-            globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(QApplication::applicationDirPath() + "/Profile.ps1");
+            globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(Misc::applicationDirPath() + "/Profile.ps1");
         }
     } else {
-        globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(QApplication::applicationDirPath() + "/Profile.ps1");
+        globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(Misc::applicationDirPath() + "/Profile.ps1");
     }
     settings.setValue("Global/Options/PowerShellProfile", globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text());
     return globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->text();
@@ -940,7 +941,7 @@ void GlobalOptionsWindow::buttonBoxRejected(void)
     globalOptionsAdvancedWidget->ui->checkBoxEnableCtrlC->setChecked(settings.value("EnableCtrlC", false).toBool());
 #endif
 #if defined(Q_OS_WIN)
-    globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(settings.value("PowerShellProfile", QApplication::applicationDirPath() + "/Profile.ps1").toString());
+    globalOptionsAdvancedWidget->ui->lineEditPowerShellProfile->setText(settings.value("PowerShellProfile", Misc::applicationDirPath() + "/Profile.ps1").toString());
 #endif
     globalOptionsAdvancedWidget->ui->lineEditDefaultLocalShell->setText(settings.value("DefaultLocalShell",
         #if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)

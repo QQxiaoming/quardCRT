@@ -154,7 +154,7 @@ public:
                         "-File",
                     };
                     if(profile.isEmpty()) {
-                        profile = QString("\"") + QApplication::applicationDirPath() + "/Profile.ps1\"";
+                        profile = QString("\"") + Misc::applicationDirPath() + "/Profile.ps1\"";
                     } else {
                         profile = QString("\"") + profile + "\"";
                     }

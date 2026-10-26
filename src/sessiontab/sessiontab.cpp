@@ -18,6 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include <QMenu>
+#include "misc.h"
 #include <QTabBar>
 #include <QContextMenuEvent>
 #include <QPainter>
@@ -49,7 +50,7 @@ EmptyTabWidget::EmptyTabWidget(QWidget *parent)
     easterEggs->setEnabled(false);
     QFont font = QApplication::font();
 #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
-    int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+    int fontId = QFontDatabase::addApplicationFont(Misc::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
 #else
     int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
 #endif

@@ -22,6 +22,14 @@
 
 #include <QApplication>
 
+namespace Misc {
+
+// Directory of the real executable with symlinks resolved, e.g. when the app
+// is started through /usr/bin/quardCRT -> /opt/quardCRT/quardCRT.
+QString applicationDirPath(void);
+
+}
+
 #if defined(Q_OS_WIN)
 
 namespace MiscWin32 {

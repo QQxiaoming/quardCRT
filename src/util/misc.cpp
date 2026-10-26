@@ -19,6 +19,24 @@
  */
 #include "misc.h"
 
+#include <QFileInfo>
+
+namespace Misc {
+
+QString applicationDirPath(void) {
+    static const QString dirPath = [] {
+        QFileInfo info(QCoreApplication::applicationFilePath());
+        QString canonical = info.canonicalFilePath();
+        if(canonical.isEmpty()) {
+            return QCoreApplication::applicationDirPath();
+        }
+        return QFileInfo(canonical).absolutePath();
+    }();
+    return dirPath;
+}
+
+}
+
 #if defined(Q_OS_WIN)
 #include <windows.h>
 

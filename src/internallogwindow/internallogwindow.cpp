@@ -1,4 +1,5 @@
 #include <QDateTime>
+#include "misc.h"
 #include <QMessageBox>
 #include <QFontDatabase>
 
@@ -15,7 +16,7 @@ InternalLogWindow::InternalLogWindow(QWidget *parent)
 
     QFont font = QApplication::font();
 #if defined(Q_OS_WIN) && defined(Q_CC_MSVC)
-    int fontId = QFontDatabase::addApplicationFont(QApplication::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
+    int fontId = QFontDatabase::addApplicationFont(Misc::applicationDirPath() + "/inziu-iosevkaCC-SC-regular.ttf");
 #else
     int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/font/inziu-iosevkaCC-SC-regular.ttf"));
 #endif

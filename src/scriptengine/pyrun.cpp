@@ -18,6 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 #include "pycore.h"
+#include "misc.h"
 
 #include <QString>
 #include <QStringList>
@@ -37,9 +38,9 @@ PyRun::PyRun(QObject *parent)
     QString pythonHome;
     if(PyRun::overridePythonLibPath.isEmpty()) {
     #if defined(Q_OS_LINUX) || defined(Q_OS_WIN)
-        pythonHome = QApplication::applicationDirPath() + "/pythonlib";
+        pythonHome = Misc::applicationDirPath() + "/pythonlib";
     #elif defined(Q_OS_MACOS)
-        pythonHome = QApplication::applicationDirPath() + "/../Frameworks/pythonlib";
+        pythonHome = Misc::applicationDirPath() + "/../Frameworks/pythonlib";
     #endif
     } else {
         pythonHome = PyRun::overridePythonLibPath;
